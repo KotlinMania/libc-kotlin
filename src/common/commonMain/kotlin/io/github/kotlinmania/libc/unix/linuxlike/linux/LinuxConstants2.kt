@@ -807,6 +807,7 @@ public val NET_DCCP: CInt = 20
 public val NET_IRDA: CInt = 412
 
 // include/linux/sched.h
+
 /**
  * I'm a virtual CPU.
  */

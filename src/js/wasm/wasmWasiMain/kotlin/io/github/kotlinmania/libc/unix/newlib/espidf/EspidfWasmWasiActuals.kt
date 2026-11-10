@@ -15,9 +15,8 @@ public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun gethostname(name: COpaquePointer?, namelen: SsizeT) {
+public actual fun gethostname(name: COpaquePointer?, namelen: SsizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

@@ -1,5 +1,6 @@
 // port-lint: source unix/bsd/netbsdlike/openbsd/x86_64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.x8664
 
 import io.github.kotlinmania.libc.*

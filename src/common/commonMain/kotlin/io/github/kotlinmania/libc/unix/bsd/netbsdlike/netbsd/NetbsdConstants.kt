@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
@@ -303,12 +304,14 @@ public val LOCAL_CREDS: CInt = 0x0004
 // Protocols (RFC 1700)
 // NOTE: These are in addition to the constants defined in src/unix/mod.rs
 // IPPROTO_IP defined in src/unix/mod.rs
+
 /**
  * Hop-by-hop option header
  */
 public val IPPROTO_HOPOPTS: CInt = 0
 
 // IPPROTO_ICMP defined in src/unix/mod.rs
+
 /**
  * group mgmt protocol
  */
@@ -325,6 +328,7 @@ public val IPPROTO_GGP: CInt = 3
 public val IPPROTO_IPIP: CInt = 4
 
 // IPPROTO_TCP defined in src/unix/mod.rs
+
 /**
  * exterior gateway protocol
  */
@@ -336,6 +340,7 @@ public val IPPROTO_EGP: CInt = 8
 public val IPPROTO_PUP: CInt = 12
 
 // IPPROTO_UDP defined in src/unix/mod.rs
+
 /**
  * xns idp
  */
@@ -352,6 +357,7 @@ public val IPPROTO_TP: CInt = 29
 public val IPPROTO_DCCP: CInt = 33
 
 // IPPROTO_IPV6 defined in src/unix/mod.rs
+
 /**
  * IP6 routing header
  */
@@ -393,6 +399,7 @@ public val IPPROTO_MOBILE: CInt = 55
 public val IPPROTO_IPV6_ICMP: CInt = 58
 
 // IPPROTO_ICMPV6 defined in src/unix/mod.rs
+
 /**
  * IP6 no next header
  */

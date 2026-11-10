@@ -70,9 +70,8 @@ public actual fun dirfd(dirp: DIR?): CInt =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun endutxent() {
+public actual fun endutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun fchflags(fd: CInt, flags: CUlong): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -227,13 +226,11 @@ public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
 public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT) {
+public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun pthreadGetnameNp(thread: PthreadT, buffer: COpaquePointer?, length: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -307,9 +304,8 @@ public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
 public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutxent() {
+public actual fun setutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -353,9 +349,8 @@ public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: COpaque
 public actual fun iconvClose(cd: IconvT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
+public actual fun explicitBzero(s: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -363,9 +358,8 @@ public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): C
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sethostid(hostid: CLong) {
+public actual fun sethostid(hostid: CLong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun eui64Aton(a: String?, e: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

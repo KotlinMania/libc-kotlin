@@ -1,5 +1,6 @@
 // port-lint: source hermit.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
@@ -79,7 +80,9 @@ public data class Dirent64(
     }
 }
 
-public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+public data class In6Addr(
+    public var s6Addr: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Addr) return false
@@ -87,14 +90,17 @@ public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.s6Addr.contentHashCode()
-    }
+    override fun hashCode(): Int = this.s6Addr.contentHashCode()
 }
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: Int = 0)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: Int = 0,
+)
 
 public data class Pollfd(
     public var fd: Int = 0,
@@ -205,7 +211,10 @@ public data class Stat(
     public var stCtim: Timespec = Timespec(),
 )
 
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: Int = 0)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: Int = 0,
+)
 
 public val AF_UNSPEC: Int = 0
 

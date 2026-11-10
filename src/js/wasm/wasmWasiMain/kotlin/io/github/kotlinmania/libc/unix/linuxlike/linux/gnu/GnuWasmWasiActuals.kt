@@ -28,9 +28,8 @@ public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePoi
 public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -74,13 +73,11 @@ public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
 public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutxent() {
+public actual fun setutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endutxent() {
+public actual fun endutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getpt(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -130,9 +127,8 @@ public actual fun pwritev64v2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offs
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
+public actual fun explicitBzero(s: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -146,16 +142,14 @@ public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
 public actual fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt) {
+public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun globfree64(pglob: COpaquePointer?) {
+public actual fun globfree64(pglob: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -193,9 +187,8 @@ public actual fun mallinfo(): Mallinfo =
 public actual fun mallinfo2(): Mallinfo2 =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun mallocStats() {
+public actual fun mallocStats(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

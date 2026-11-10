@@ -62,7 +62,7 @@ public fun cpuAllocSize(count: CInt): SizeT {
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+    for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
@@ -100,29 +100,20 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     }
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt {
-    return cpuCountS(8, cpuset)
-}
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if (mhdr!!.msgControllen >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if (mhdr!!.msgControllen >= 8) {
         ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
-}
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next: Cmsghdr? = null
@@ -134,9 +125,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer((COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())).hashCode().toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer((COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())).hashCode().toLong())
 
 public fun makedev(ma: CUint, mi: CUint): DevT {
     val ma1 = ma
@@ -144,49 +133,27 @@ public fun makedev(ma: CUint, mi: CUint): DevT {
     return (ma1 shl 16) or (mi1 and 0xffffu)
 }
 
-public fun major(dev: DevT): CUint {
-    return ((dev shr 16) and 0xffffu)
-}
+public fun major(dev: DevT): CUint = ((dev shr 16) and 0xffffu)
 
-public fun minor(dev: DevT): CUint {
-    return (dev and 0xffffu)
-}
+public fun minor(dev: DevT): CUint = (dev and 0xffffu)
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0xff) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0xff) == 0
 
-public fun wifsignaled(status: CInt): Boolean {
-    return (status and 127) != 127 && (status and 127) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = (status and 127) != 127 && (status and 127) != 0
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 127
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 127
 
-public fun wifcontinued(status: CInt): Boolean {
-    return (status and 65535) == 65535
-}
+public fun wifcontinued(status: CInt): Boolean = (status and 65535) == 65535
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 127
-}
+public fun wtermsig(status: CInt): CInt = status and 127
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return wifsignaled(status) && (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = wifsignaled(status) && (status and 0x80) != 0
 
-public fun cmsgAlign(len: Int): Int {
-    return len + 8 - 1 and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = len + 8 - 1 and (8 - 1).inv()
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 

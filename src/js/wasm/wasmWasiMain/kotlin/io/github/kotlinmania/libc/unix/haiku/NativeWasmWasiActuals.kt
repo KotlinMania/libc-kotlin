@@ -153,9 +153,8 @@ public actual fun suggestThreadPriority(what: UInt, period: Int, jitter: Bigtime
 public actual fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun exitThread(status: StatusT) {
+public actual fun exitThread(status: StatusT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -205,9 +204,8 @@ public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?
 public actual fun realTimeClock(): CUlong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setRealTimeClock(secsSinceJan1st1970: CUlong) {
+public actual fun setRealTimeClock(secsSinceJan1st1970: CUlong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun realTimeClockUsecs(): BigtimeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -221,9 +219,8 @@ public actual fun systemTimeNsecs(): NanotimeT =
 public actual fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun debugger(message: String?) {
+public actual fun debugger(message: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun disableDebugger(state: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -246,9 +243,8 @@ public actual fun isComputerOnFire(): CDouble =
 public actual fun sendSignal(threadID: ThreadId, signal: CUint): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setSignalStack(base: COpaquePointer?, size: SizeT) {
+public actual fun setSignalStack(base: COpaquePointer?, size: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun waitForObjects(infos: COpaquePointer?, numInfos: CInt): SsizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -292,9 +288,8 @@ public actual fun fsCloseAttrDir(dir: DIR?): CInt =
 public actual fun fsReadAttrDir(dir: DIR?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun fsRewindAttrDir(dir: DIR?) {
+public actual fun fsRewindAttrDir(dir: DIR?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -314,9 +309,8 @@ public actual fun fsCloseIndexDir(indexDirectory: DIR?): CInt =
 public actual fun fsReadIndexDir(indexDirectory: DIR?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun fsRewindIndexDir(indexDirectory: DIR?) {
+public actual fun fsRewindIndexDir(indexDirectory: DIR?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun devForPath(path: String?): DevT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -363,9 +357,8 @@ public actual fun getImageSymbol(image: ImageId, name: String?, symbolType: Int,
 public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: COpaquePointer?, nameLength: COpaquePointer?, symbolType: COpaquePointer?, symbolLocation: COpaquePointer?): StatusT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun clearCaches(address: COpaquePointer?, length: SizeT, flags: UInt) {
+public actual fun clearCaches(address: COpaquePointer?, length: SizeT, flags: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getImageInfo(image: ImageId, info: COpaquePointer?, size: SizeT): StatusT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

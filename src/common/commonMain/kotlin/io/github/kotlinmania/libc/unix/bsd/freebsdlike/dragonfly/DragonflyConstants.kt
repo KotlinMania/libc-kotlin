@@ -525,12 +525,14 @@ public val IFF_IDIRECT: CInt = 0x200000
 // Protocols (RFC 1700)
 // NOTE: These are in addition to the constants defined in src/unix/mod.rs
 // IPPROTO_IP defined in src/unix/mod.rs
+
 /**
  * IP6 hop-by-hop options
  */
 public val IPPROTO_HOPOPTS: CInt = 0
 
 // IPPROTO_ICMP defined in src/unix/mod.rs
+
 /**
  * group mgmt protocol
  */
@@ -547,6 +549,7 @@ public val IPPROTO_GGP: CInt = 3
 public val IPPROTO_IPIP: CInt = 4
 
 // IPPROTO_TCP defined in src/unix/mod.rs
+
 /**
  * Stream protocol II.
  */
@@ -598,6 +601,7 @@ public val IPPROTO_XNET: CInt = 15
 public val IPPROTO_CHAOS: CInt = 16
 
 // IPPROTO_UDP defined in src/unix/mod.rs
+
 /**
  * Multiplexing
  */
@@ -714,6 +718,7 @@ public val IPPROTO_TPXX: CInt = 39
 public val IPPROTO_IL: CInt = 40
 
 // IPPROTO_IPV6 defined in src/unix/mod.rs
+
 /**
  * Source Demand Routing
  */
@@ -795,6 +800,7 @@ public val IPPROTO_TLSP: CInt = 56
 public val IPPROTO_SKIP: CInt = 57
 
 // IPPROTO_ICMPV6 defined in src/unix/mod.rs
+
 /**
  * IP6 no next header
  */
@@ -1011,6 +1017,7 @@ public val IPPROTO_GMTP: CInt = 100
 public val IPPROTO_IPCOMP: CInt = 108
 
 // 101-254: Partly Unassigned
+
 /**
  * Protocol Independent Mcast
  */
@@ -1033,6 +1040,7 @@ public val IPPROTO_PFSYNC: CInt = 240
 
 // 255: Reserved
 // BSD Private, local use, namespace incursion, no longer used
+
 /**
  * divert pseudo-protocol
  */

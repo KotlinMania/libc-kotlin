@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64
 
 import io.github.kotlinmania.libc.*
@@ -10,7 +11,9 @@ import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.IpcPerm
 
-public data class SigsetT(public var value: ULongArray = ULongArray(16)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -18,9 +21,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sysinfo(

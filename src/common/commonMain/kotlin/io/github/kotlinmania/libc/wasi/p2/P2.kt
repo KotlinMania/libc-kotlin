@@ -1,5 +1,6 @@
 // port-lint: source wasi/p2.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.wasi.p2
 
 import io.github.kotlinmania.libc.*
@@ -18,7 +19,10 @@ public typealias InAddrT = CUint
 
 public typealias SocklenT = CUint
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(0)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(0),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -34,7 +38,9 @@ public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saDat
     }
 }
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public data class SockaddrIn(
     public var sinFamily: SaFamilyT = 0u,
@@ -42,7 +48,9 @@ public data class SockaddrIn(
     public var sinAddr: InAddr = InAddr(),
 )
 
-public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+public data class In6Addr(
+    public var s6Addr: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Addr) return false
@@ -50,9 +58,7 @@ public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.s6Addr.contentHashCode()
-    }
+    override fun hashCode(): Int = this.s6Addr.contentHashCode()
 }
 
 public data class SockaddrIn6(
@@ -63,7 +69,10 @@ public data class SockaddrIn6(
     public var sin6ScopeId: CUint = 0u,
 )
 
-public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssData: UByteArray = UByteArray(32)) {
+public data class SockaddrStorage(
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssData: UByteArray = UByteArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrStorage) return false
@@ -90,11 +99,20 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: CUint = 0u)
+public data class Ipv6Mreq(
+    public var ipv6mrMultiaddr: In6Addr = In6Addr(),
+    public var ipv6mrInterface: CUint = 0u,
+)
 
-public data class Linger(public var lOnoff: CInt = 0, public var lLinger: CInt = 0)
+public data class Linger(
+    public var lOnoff: CInt = 0,
+    public var lLinger: CInt = 0,
+)
 
 public val SHUT_RD: CInt = 1 shl 0
 

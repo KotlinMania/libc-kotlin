@@ -1,5 +1,6 @@
 // port-lint: source unix/aix/powerpc64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.aix.powerpc64
 
 import io.github.kotlinmania.libc.*
@@ -68,7 +69,9 @@ public class LockDataInstrumented(public val handle: Long = -1L) {
     public val ptr: Long get() = handle
 }
 
-public data class SigsetT(public var ssSet: ULongArray = ULongArray(4)) {
+public data class SigsetT(
+    public var ssSet: ULongArray = ULongArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -76,12 +79,12 @@ public data class SigsetT(public var ssSet: ULongArray = ULongArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.ssSet.contentHashCode()
-    }
+    override fun hashCode(): Int = this.ssSet.contentHashCode()
 }
 
-public data class FdSet(public var fdsBits: LongArray = LongArray(1024)) {
+public data class FdSet(
+    public var fdsBits: LongArray = LongArray(1024),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -89,9 +92,7 @@ public data class FdSet(public var fdsBits: LongArray = LongArray(1024)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Flock(
@@ -159,7 +160,9 @@ public data class Statvfs(
     }
 }
 
-public data class PthreadRwlockT(public var rwWord: LongArray = LongArray(10)) {
+public data class PthreadRwlockT(
+    public var rwWord: LongArray = LongArray(10),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -167,12 +170,12 @@ public data class PthreadRwlockT(public var rwWord: LongArray = LongArray(10)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.rwWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.rwWord.contentHashCode()
 }
 
-public data class PthreadCondT(public var cvWord: LongArray = LongArray(6)) {
+public data class PthreadCondT(
+    public var cvWord: LongArray = LongArray(6),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -180,12 +183,12 @@ public data class PthreadCondT(public var cvWord: LongArray = LongArray(6)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.cvWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.cvWord.contentHashCode()
 }
 
-public data class PthreadMutexT(public var mtWord: LongArray = LongArray(8)) {
+public data class PthreadMutexT(
+    public var mtWord: LongArray = LongArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -193,12 +196,12 @@ public data class PthreadMutexT(public var mtWord: LongArray = LongArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.mtWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.mtWord.contentHashCode()
 }
 
-public data class PthreadOnceT(public var onWord: LongArray = LongArray(9)) {
+public data class PthreadOnceT(
+    public var onWord: LongArray = LongArray(9),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadOnceT) return false
@@ -206,9 +209,7 @@ public data class PthreadOnceT(public var onWord: LongArray = LongArray(9)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.onWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.onWord.contentHashCode()
 }
 
 public class Stat(
@@ -314,7 +315,9 @@ public data class Aiocb(
     }
 }
 
-public data class VmxregT(public var v: UIntArray = UIntArray(4)) {
+public data class VmxregT(
+    public var v: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is VmxregT) return false
@@ -322,9 +325,7 @@ public data class VmxregT(public var v: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.v.contentHashCode()
-    }
+    override fun hashCode(): Int = this.v.contentHashCode()
 }
 
 public data class VmxContextT(
@@ -355,7 +356,9 @@ public data class VmxContextT(
     }
 }
 
-public data class VsxContextT(public var vsrDw1: ULongArray = ULongArray(32)) {
+public data class VsxContextT(
+    public var vsrDw1: ULongArray = ULongArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is VsxContextT) return false
@@ -363,9 +366,7 @@ public data class VsxContextT(public var vsrDw1: ULongArray = ULongArray(32)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.vsrDw1.contentHashCode()
-    }
+    override fun hashCode(): Int = this.vsrDw1.contentHashCode()
 }
 
 public class TmContextT(
@@ -453,7 +454,9 @@ public data class Context64(
     }
 }
 
-public data class McontextT(public var jmpContext: Context64 = Context64())
+public data class McontextT(
+    public var jmpContext: Context64 = Context64(),
+)
 
 public data class ExtctxT(
     public var flags: CUint = 0u,
@@ -575,7 +578,9 @@ public data class Utmpx(
     }
 }
 
-public data class PthreadSpinlockT(public var spWord: LongArray = LongArray(3)) {
+public data class PthreadSpinlockT(
+    public var spWord: LongArray = LongArray(3),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadSpinlockT) return false
@@ -583,12 +588,12 @@ public data class PthreadSpinlockT(public var spWord: LongArray = LongArray(3)) 
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.spWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.spWord.contentHashCode()
 }
 
-public data class PthreadBarrierT(public var brWord: LongArray = LongArray(5)) {
+public data class PthreadBarrierT(
+    public var brWord: LongArray = LongArray(5),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -596,9 +601,7 @@ public data class PthreadBarrierT(public var brWord: LongArray = LongArray(5)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.brWord.contentHashCode()
-    }
+    override fun hashCode(): Int = this.brWord.contentHashCode()
 }
 
 public data class MsqidDs(
@@ -671,7 +674,10 @@ public data class PollfdExt(
     public var data: PollfdExtU = PollfdExtU(),
 )
 
-public data class KernelSimpleLock(public var slock: CLong = 0L, public var slockp: LockDataInstrumented? = null)
+public data class KernelSimpleLock(
+    public var slock: CLong = 0L,
+    public var slockp: LockDataInstrumented? = null,
+)
 
 public data class FileopsT(
     public var foRw: FileopsTFoRwCallback? = null,
@@ -789,9 +795,7 @@ public data class PollfdExtU(
     public var data32: UInt = 0u,
     public var data: ULong = 0uL,
 ) {
-    public fun eq(other: PollfdExtU): Boolean {
-        return this.addr == other.addr && this.data32 == other.data32 && this.data == other.data
-    }
+    public fun eq(other: PollfdExtU): Boolean = this.addr == other.addr && this.data32 == other.data32 && this.data == other.data
 
     public override fun hashCode(): Int {
         var state = 0
@@ -804,10 +808,10 @@ public data class PollfdExtU(
     }
 }
 
-public data class FpregT(public var d: CDouble = 0.0) {
-    public fun eq(other: FpregT): Boolean {
-        return this.d == other.d
-    }
+public data class FpregT(
+    public var d: CDouble = 0.0,
+) {
+    public fun eq(other: FpregT): Boolean = this.d == other.d
 
     public override fun hashCode(): Int {
         var state = 0

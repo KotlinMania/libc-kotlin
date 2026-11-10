@@ -25,26 +25,18 @@ public fun interface CloneCbCallback {
     public operator fun invoke(arg0: COpaquePointer?): CInt
 }
 
-public fun issecureMask(x: CInt): CInt {
-    return 1 shl x
-}
+public fun issecureMask(x: CInt): CInt = 1 shl x
 
-public fun futexOp(op: CInt, oparg: CInt, cmp: CInt, cmparg: CInt): CInt {
-    return ((op and 0xf) shl 28) or ((cmp and 0xf) shl 24) or ((oparg and 0xfff) shl 12) or (cmparg and 0xfff)
-}
+public fun futexOp(op: CInt, oparg: CInt, cmp: CInt, cmparg: CInt): CInt = ((op and 0xf) shl 28) or ((cmp and 0xf) shl 24) or ((oparg and 0xfff) shl 12) or (cmparg and 0xfff)
 
 // linux/cnProc.h
 // These functions are not available on OpenHarmony
 // LFS64 extensions
 //
 // * musl has 64-bit versions only so aliases the LFS64 symbols to the standard ones
-public fun sctpPrIndex(policy: CInt): CInt {
-    return policy shr (4 - 1).toInt()
-}
+public fun sctpPrIndex(policy: CInt): CInt = policy shr (4 - 1).toInt()
 
-public fun sctpPrPolicy(policy: CInt): CInt {
-    return policy and SCTP_PR_SCTP_MASK
-}
+public fun sctpPrPolicy(policy: CInt): CInt = policy and SCTP_PR_SCTP_MASK
 
 public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
     var flags1 = flags
@@ -52,65 +44,35 @@ public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
     flags1 = flags1 or policy
 }
 
-public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return null
-}
+public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? = null
 
-public fun tpacketAlign(x: Int): Int {
-    return (x + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()
-}
+public fun tpacketAlign(x: Int): Int = (x + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()
 
-public fun bpfClass(code: U32): U32 {
-    return code and 0x07u
-}
+public fun bpfClass(code: U32): U32 = code and 0x07u
 
-public fun bpfSize(code: U32): U32 {
-    return code and 0x18u
-}
+public fun bpfSize(code: U32): U32 = code and 0x18u
 
-public fun bpfMode(code: U32): U32 {
-    return code and 0xe0u
-}
+public fun bpfMode(code: U32): U32 = code and 0xe0u
 
-public fun bpfOp(code: U32): U32 {
-    return code and 0xf0u
-}
+public fun bpfOp(code: U32): U32 = code and 0xf0u
 
-public fun bpfSrc(code: U32): U32 {
-    return code and 0x08u
-}
+public fun bpfSrc(code: U32): U32 = code and 0x08u
 
-public fun bpfRval(code: U32): U32 {
-    return code and 0x18u
-}
+public fun bpfRval(code: U32): U32 = code and 0x18u
 
-public fun bpfMiscop(code: U32): U32 {
-    return code and 0xf8u
-}
+public fun bpfMiscop(code: U32): U32 = code and 0xf8u
 
-public fun bpfStmt(code: U16, k: U32): SockFilter {
-    return SockFilter(code = code, jt = 0u, jf = 0u, k = k)
-}
+public fun bpfStmt(code: U16, k: U32): SockFilter = SockFilter(code = code, jt = 0u, jf = 0u, k = k)
 
-public fun bpfJump(code: U16, k: U32, jt: U8, jf: U8): SockFilter {
-    return SockFilter(code = code, jt = jt, jf = jf, k = k)
-}
+public fun bpfJump(code: U16, k: U32, jt: U8, jf: U8): SockFilter = SockFilter(code = code, jt = jt, jf = jf, k = k)
 
-public fun sunLen(s: SockaddrUn): Int {
-    return 0 + strlen(s.sunPath.asByteArray().decodeToString().substringBefore('\u0000')).toInt()
-}
+public fun sunLen(s: SockaddrUn): Int = 0 + strlen(((s.sunPath).asByteArray()).decodeToString().substringBefore('\u0000')).toInt()
 
-public fun sctpPrTtlEnabled(policy: CInt): Boolean {
-    return policy == SCTP_PR_SCTP_TTL
-}
+public fun sctpPrTtlEnabled(policy: CInt): Boolean = policy == SCTP_PR_SCTP_TTL
 
-public fun sctpPrRtxEnabled(policy: CInt): Boolean {
-    return policy == SCTP_PR_SCTP_RTX
-}
+public fun sctpPrRtxEnabled(policy: CInt): Boolean = policy == SCTP_PR_SCTP_RTX
 
-public fun sctpPrPrioEnabled(policy: CInt): Boolean {
-    return policy == SCTP_PR_SCTP_PRIO
-}
+public fun sctpPrPrioEnabled(policy: CInt): Boolean = policy == SCTP_PR_SCTP_PRIO
 
 // Only `getspnamR` is implemented for musl, out of all of the reenterant
 // functions from `shadow.h`.

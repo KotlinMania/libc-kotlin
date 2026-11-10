@@ -35,29 +35,20 @@ public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
 }
 
-public fun cmsgHdrAlign(p: Int): Int {
-    return (p + CMSG_HDR_ALIGNMENT - 1) and (CMSG_HDR_ALIGNMENT - 1).inv()
-}
+public fun cmsgHdrAlign(p: Int): Int = (p + CMSG_HDR_ALIGNMENT - 1) and (CMSG_HDR_ALIGNMENT - 1).inv()
 
-public fun cmsgDataAlign(p: Int): Int {
-    return (p + CMSG_DATA_ALIGNMENT - 1) and (CMSG_DATA_ALIGNMENT - 1).inv()
-}
+public fun cmsgDataAlign(p: Int): Int = (p + CMSG_DATA_ALIGNMENT - 1) and (CMSG_DATA_ALIGNMENT - 1).inv()
 
-public fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? {
-    return COpaquePointer(cmsgDataAlign((((cmsg)?.let { COpaquePointer(it.rawValue + 1.toLong()) })?.rawValue ?: 0L).toInt()).toLong())
-}
+public fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? = COpaquePointer(cmsgDataAlign((((cmsg)?.let { COpaquePointer(it.rawValue + 1.toLong()) })?.rawValue ?: 0L).toInt()).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgDataAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgDataAlign(8).toUInt() + length
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if (((mhdr!!.msgControllen).toInt()) < 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if (((mhdr!!.msgControllen).toInt()) < 8) {
         null
     } else {
         null
     }
-}
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
@@ -72,9 +63,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint {
-    return cmsgHdrAlign(8 + length.toInt()).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = cmsgHdrAlign(8 + length.toInt()).toUInt()
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
@@ -102,49 +91,27 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun sigrtmax(): CInt {
-    return sysconf(SC_SIGRT_MAX).toInt()
-}
+public fun sigrtmax(): CInt = sysconf(SC_SIGRT_MAX).toInt()
 
-public fun sigrtmin(): CInt {
-    return sysconf(SC_SIGRT_MIN).toInt()
-}
+public fun sigrtmin(): CInt = sysconf(SC_SIGRT_MIN).toInt()
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0xFF) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0xFF) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xFF
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xFF
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7F
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7F
 
-public fun wifcontinued(status: CInt): Boolean {
-    return (status and 0xffff) == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = (status and 0xffff) == 0xffff
 
-public fun wstopsig(status: CInt): CInt {
-    return (status and 0xff00) shr 8
-}
+public fun wstopsig(status: CInt): CInt = (status and 0xff00) shr 8
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0xff) > 0) && (status and 0xff00 == 0)
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0xff) > 0) && (status and 0xff00 == 0)
 
-public fun wifstopped(status: CInt): Boolean {
-    return ((status and 0xff) == 0x7f) && ((status and 0xff00) != 0)
-}
+public fun wifstopped(status: CInt): Boolean = ((status and 0xff) == 0x7f) && ((status and 0xff00) != 0)
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
-public fun mrGetType(flags: CUint): CUint {
-    return flags and 0x0000ffffu
-}
+public fun mrGetType(flags: CUint): CUint = flags and 0x0000ffffu
 
 public expect fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt
 
@@ -675,14 +642,8 @@ public expect fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: COpaq
 
 public expect fun lgrpRoot(cookie: LgrpCookieT): LgrpIdT
 
-public fun major(device: DevT): MajorT {
-    return major(NEWDEV, device)
-}
+public fun major(device: DevT): MajorT = major(NEWDEV, device)
 
-public fun minor(device: DevT): MinorT {
-    return minor(NEWDEV, device)
-}
+public fun minor(device: DevT): MinorT = minor(NEWDEV, device)
 
-public fun makedev(maj: MajorT, min: MinorT): DevT {
-    return makedev(NEWDEV, maj, min)
-}
+public fun makedev(maj: MajorT, min: MinorT): DevT = makedev(NEWDEV, maj, min)

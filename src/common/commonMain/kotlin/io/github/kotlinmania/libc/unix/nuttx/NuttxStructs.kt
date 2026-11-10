@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
@@ -63,7 +64,10 @@ public data class Stat(
     }
 }
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -116,7 +120,9 @@ public data class Passwd(
     }
 }
 
-public data class SemT(public var value: IntArray = IntArray(SEM_SIZE)) {
+public data class SemT(
+    public var value: IntArray = IntArray(SEM_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -124,12 +130,12 @@ public data class SemT(public var value: IntArray = IntArray(SEM_SIZE)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class PthreadAttrT(public var value: IntArray = IntArray(PTHREAD_ATTR_SIZE)) {
+public data class PthreadAttrT(
+    public var value: IntArray = IntArray(PTHREAD_ATTR_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -137,12 +143,12 @@ public data class PthreadAttrT(public var value: IntArray = IntArray(PTHREAD_ATT
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class PthreadMutexT(public var value: IntArray = IntArray(PTHREAD_MUTEX_SIZE)) {
+public data class PthreadMutexT(
+    public var value: IntArray = IntArray(PTHREAD_MUTEX_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -150,12 +156,12 @@ public data class PthreadMutexT(public var value: IntArray = IntArray(PTHREAD_MU
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class PthreadCondT(public var value: IntArray = IntArray(PTHREAD_COND_SIZE)) {
+public data class PthreadCondT(
+    public var value: IntArray = IntArray(PTHREAD_COND_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -163,12 +169,12 @@ public data class PthreadCondT(public var value: IntArray = IntArray(PTHREAD_CON
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class PthreadCondattrT(public var value: IntArray = IntArray(PTHREAD_CONDATTR_SIZE)) {
+public data class PthreadCondattrT(
+    public var value: IntArray = IntArray(PTHREAD_CONDATTR_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -176,9 +182,7 @@ public data class PthreadCondattrT(public var value: IntArray = IntArray(PTHREAD
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class DlInfo(
@@ -305,7 +309,9 @@ public data class Addrinfo(
     }
 }
 
-public data class PthreadRwlockT(public var value: IntArray = IntArray(PTHREAD_RWLOCK_SIZE)) {
+public data class PthreadRwlockT(
+    public var value: IntArray = IntArray(PTHREAD_RWLOCK_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -313,9 +319,7 @@ public data class PthreadRwlockT(public var value: IntArray = IntArray(PTHREAD_R
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Statvfs(
@@ -367,7 +371,10 @@ public data class Statvfs(
     }
 }
 
-public data class Dirent(public var dType: UByte = 0u, public var dName: UByteArray = UByteArray(NAME_MAX + 1)) {
+public data class Dirent(
+    public var dType: UByte = 0u,
+    public var dName: UByteArray = UByteArray(NAME_MAX + 1),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Dirent) return false
@@ -383,7 +390,9 @@ public data class Dirent(public var dType: UByte = 0u, public var dName: UByteAr
     }
 }
 
-public data class FdSet(public var value: UIntArray = UIntArray(FDSET_SIZE)) {
+public data class FdSet(
+    public var value: UIntArray = UIntArray(FDSET_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -391,12 +400,12 @@ public data class FdSet(public var value: UIntArray = UIntArray(FDSET_SIZE)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class SigsetT(public var value: UIntArray = UIntArray(SIGSET_SIZE)) {
+public data class SigsetT(
+    public var value: UIntArray = UIntArray(SIGSET_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -404,9 +413,7 @@ public data class SigsetT(public var value: UIntArray = UIntArray(SIGSET_SIZE)) 
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sigaction(
@@ -471,7 +478,9 @@ public data class Termios(
     }
 }
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public data class SockaddrIn(
     public var sinFamily: SaFamilyT = 0u,
@@ -506,7 +515,10 @@ public data class SockaddrIn6(
     public var sin6ScopeId: UInt = 0u,
 )
 
-public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var sunPath: UByteArray = UByteArray(108)) {
+public data class SockaddrUn(
+    public var sunFamily: SaFamilyT = 0u,
+    public var sunPath: UByteArray = UByteArray(108),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrUn) return false
@@ -522,7 +534,10 @@ public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var su
     }
 }
 
-public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssData: UIntArray = UIntArray(SOCKADDR_STORAGE_SIZE)) {
+public data class SockaddrStorage(
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssData: UIntArray = UIntArray(SOCKADDR_STORAGE_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrStorage) return false
@@ -538,6 +553,12 @@ public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public va
     }
 }
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: UInt = 0u)
+public data class Ipv6Mreq(
+    public var ipv6mrMultiaddr: In6Addr = In6Addr(),
+    public var ipv6mrInterface: UInt = 0u,
+)

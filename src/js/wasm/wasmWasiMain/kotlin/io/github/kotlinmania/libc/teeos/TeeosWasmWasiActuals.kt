@@ -24,9 +24,8 @@ public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
 public actual fun alignedAlloc(align: SizeT, len: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun free(p: COpaquePointer?) {
+public actual fun free(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -280,9 +279,8 @@ public actual fun wcrtomb(s: COpaquePointer?, wc: WcharT, st: COpaquePointer?): 
 public actual fun wctob(c: WintT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srandom(seed: CUint) {
+public actual fun srandom(seed: CUint): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun initstate(seed: CUint, state: COpaquePointer?, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -434,9 +432,8 @@ public actual fun imaxabs(a: IntmaxT): IntmaxT =
 public actual fun llabs(a: CLonglong): CLonglong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun qsort(base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
+public actual fun qsort(base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CUlong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

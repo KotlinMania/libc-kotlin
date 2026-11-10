@@ -9,13 +9,11 @@ import io.github.kotlinmania.libc.COpaquePointer
 public actual fun utmpname(file: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutent() {
+public actual fun setutent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getutent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun endutent() {
+public actual fun endutent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}

@@ -48,9 +48,8 @@ public actual fun pwritev2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset:
 public actual fun getauxval(type: CUlong): CUlong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
+public actual fun explicitBzero(s: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -109,13 +108,11 @@ public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
 public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutxent() {
+public actual fun setutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endutxent() {
+public actual fun endutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

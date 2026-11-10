@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
@@ -10,7 +11,9 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -18,18 +21,22 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
-public data class ClockidT(public var value: COpaquePointer? = null) {
+public data class ClockidT(
+    public var value: COpaquePointer? = null,
+) {
     public var field0: COpaquePointer?
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
-public data class FposT(public var data: UByteArray = UByteArray(16)) {
+public data class FposT(
+    public var data: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FposT) return false
@@ -37,9 +44,7 @@ public data class FposT(public var data: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.data.contentHashCode()
-    }
+    override fun hashCode(): Int = this.data.contentHashCode()
 }
 
 public data class Tm(
@@ -57,9 +62,15 @@ public data class Tm(
     public var tmNsec: CInt = 0,
 )
 
-public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
+public data class Timeval(
+    public var tvSec: TimeT = 0L,
+    public var tvUsec: SusecondsT = 0L,
+)
 
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
 public data class Tms(
     public var tmsUtime: ClockT = 0L,
@@ -68,9 +79,15 @@ public data class Tms(
     public var tmsCstime: ClockT = 0L,
 )
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: SizeT = 0uL,
+)
 
 public class Lconv(
     public var decimalPoint: COpaquePointer? = null,
@@ -105,7 +122,10 @@ public data class Pollfd(
     public var revents: CShort = 0,
 )
 
-public data class Rusage(public var ruUtime: Timeval = Timeval(), public var ruStime: Timeval = Timeval())
+public data class Rusage(
+    public var ruUtime: Timeval = Timeval(),
+    public var ruStime: Timeval = Timeval(),
+)
 
 public data class Stat(
     public var stDev: DevT = 0uL,
@@ -165,7 +185,10 @@ public data class Stat(
     }
 }
 
-public data class FdSet(public var nfds: Int = 0, public var fds: IntArray = IntArray(FD_SETSIZE.toInt())) {
+public data class FdSet(
+    public var nfds: Int = 0,
+    public var fds: IntArray = IntArray(FD_SETSIZE.toInt()),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -181,7 +204,9 @@ public data class FdSet(public var nfds: Int = 0, public var fds: IntArray = Int
     }
 }
 
-public data class PthreadAttrT(public var size: LongArray = LongArray(9)) {
+public data class PthreadAttrT(
+    public var size: LongArray = LongArray(9),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -189,18 +214,24 @@ public data class PthreadAttrT(public var size: LongArray = LongArray(9)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadMutexattrT(public var attr: CUint = 0u)
+public data class PthreadMutexattrT(
+    public var attr: CUint = 0u,
+)
 
-public data class PthreadCondattrT(public var attr: CUint = 0u)
+public data class PthreadCondattrT(
+    public var attr: CUint = 0u,
+)
 
-public data class PthreadBarrierattrT(public var attr: CUint = 0u)
+public data class PthreadBarrierattrT(
+    public var attr: CUint = 0u,
+)
 
-public data class PthreadRwlockattrT(public var attr: UIntArray = UIntArray(2)) {
+public data class PthreadRwlockattrT(
+    public var attr: UIntArray = UIntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false
@@ -208,18 +239,24 @@ public data class PthreadRwlockattrT(public var attr: UIntArray = UIntArray(2)) 
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.attr.contentHashCode()
-    }
+    override fun hashCode(): Int = this.attr.contentHashCode()
 }
 
-public data class PthreadCondT(public var size: List<COpaquePointer> = List(12) { COpaquePointer(0L) })
+public data class PthreadCondT(
+    public var size: List<COpaquePointer> = List(12) { COpaquePointer(0L) },
+)
 
-public data class PthreadMutexT(public var size: List<COpaquePointer> = List(6) { COpaquePointer(0L) })
+public data class PthreadMutexT(
+    public var size: List<COpaquePointer> = List(6) { COpaquePointer(0L) },
+)
 
-public data class PthreadRwlockT(public var size: List<COpaquePointer> = List(8) { COpaquePointer(0L) })
+public data class PthreadRwlockT(
+    public var size: List<COpaquePointer> = List(8) { COpaquePointer(0L) },
+)
 
-public data class PthreadBarrierT(public var size: List<COpaquePointer> = List(5) { COpaquePointer(0L) })
+public data class PthreadBarrierT(
+    public var size: List<COpaquePointer> = List(5) { COpaquePointer(0L) },
+)
 
 // Declare dirent outside of s! so that it doesn't implement Copy, Eq, Hash,
 // etc., since it contains a flexible array member with a dynamic size.

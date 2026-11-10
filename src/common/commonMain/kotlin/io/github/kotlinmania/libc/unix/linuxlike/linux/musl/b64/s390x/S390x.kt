@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/linux/musl/b64/s390x.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.s390x
 
 import io.github.kotlinmania.libc.*
@@ -126,9 +127,15 @@ public data class Statfs(
     }
 }
 
-public data class PswT(public var mask: CUlong = 0uL, public var addr: CUlong = 0uL)
+public data class PswT(
+    public var mask: CUlong = 0uL,
+    public var addr: CUlong = 0uL,
+)
 
-public data class FpregsetT(public var fpc: CUint = 0u, public var fprs: List<FpregT> = List(16) { FpregT() })
+public data class FpregsetT(
+    public var fpc: CUint = 0u,
+    public var fprs: List<FpregT> = List(16) { FpregT() },
+)
 
 public data class McontextT(
     public var psw: PswT = PswT(),
@@ -163,7 +170,10 @@ public data class UcontextT(
     public var ucSigmask: SigsetT = SigsetT(),
 )
 
-public data class FpregT(public var d: CDouble = 0.0, public var f: CFloat = 0.0f) {
+public data class FpregT(
+    public var d: CDouble = 0.0,
+    public var f: CFloat = 0.0f,
+) {
     public fun eq(other: FpregT): Boolean {
         error("traits")
     }

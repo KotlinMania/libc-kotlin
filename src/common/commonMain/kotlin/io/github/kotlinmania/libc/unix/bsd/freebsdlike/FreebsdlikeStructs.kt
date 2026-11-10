@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 
 import io.github.kotlinmania.libc.*
@@ -30,9 +31,14 @@ import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
 
 // link.h
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class IpMreqn(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -85,7 +91,9 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
+public data class SigsetT(
+    public var bits: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -93,9 +101,7 @@ public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class SiginfoT(
@@ -147,7 +153,9 @@ public data class Sigaction(
     public var saMask: SigsetT = SigsetT(),
 )
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class DlInfo(
     public var dliFname: COpaquePointer? = null,
@@ -292,9 +300,15 @@ public data class Cmsgcred(
     }
 }
 
-public data class Rtprio(public var type: CUshort = 0u, public var prio: CUshort = 0u)
+public data class Rtprio(
+    public var type: CUshort = 0u,
+    public var prio: CUshort = 0u,
+)
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 public data class Arphdr(
     public var arHrd: UShort = 0u,
@@ -332,7 +346,10 @@ public data class Ntptimeval(
     public var timeState: CInt = 0,
 )
 
-public data class AcceptFilterArg(public var afName: UByteArray = UByteArray(16), public var afArg: UByteArray = UByteArray((256 - 16).toInt())) {
+public data class AcceptFilterArg(
+    public var afName: UByteArray = UByteArray(16),
+    public var afArg: UByteArray = UByteArray((256 - 16).toInt()),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AcceptFilterArg) return false
@@ -356,11 +373,20 @@ public data class PtraceIoDesc(
 )
 
 // bpf.h
-public data class BpfProgram(public var bfLen: CUint = 0u, public var bfInsns: BpfInsn? = null)
+public data class BpfProgram(
+    public var bfLen: CUint = 0u,
+    public var bfInsns: BpfInsn? = null,
+)
 
-public data class BpfStat(public var bsRecv: CUint = 0u, public var bsDrop: CUint = 0u)
+public data class BpfStat(
+    public var bsRecv: CUint = 0u,
+    public var bsDrop: CUint = 0u,
+)
 
-public data class BpfVersion(public var bvMajor: CUshort = 0u, public var bvMinor: CUshort = 0u)
+public data class BpfVersion(
+    public var bvMajor: CUshort = 0u,
+    public var bvMinor: CUshort = 0u,
+)
 
 public data class BpfHdr(
     public var bhTstamp: Timeval = Timeval(),
@@ -376,7 +402,10 @@ public data class BpfInsn(
     public var k: UInt = 0u,
 )
 
-public data class BpfDltlist(public var bflLen: CUint = 0u, public var bflList: CUint? = null)
+public data class BpfDltlist(
+    public var bflLen: CUint = 0u,
+    public var bflList: CUint? = null,
+)
 
 // elf.h
 public data class Elf32Phdr(
@@ -423,7 +452,9 @@ public data class IpcPerm(
     public var key: KeyT = 0L,
 )
 
-public data class Eui64(public var octet: UByteArray = UByteArray(EUI64_LEN)) {
+public data class Eui64(
+    public var octet: UByteArray = UByteArray(EUI64_LEN),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Eui64) return false
@@ -431,9 +462,7 @@ public data class Eui64(public var octet: UByteArray = UByteArray(EUI64_LEN)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.octet.contentHashCode()
-    }
+    override fun hashCode(): Int = this.octet.contentHashCode()
 }
 
 public data class SockaddrStorage(

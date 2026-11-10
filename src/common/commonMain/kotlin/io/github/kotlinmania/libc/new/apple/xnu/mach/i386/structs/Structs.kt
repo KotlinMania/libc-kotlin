@@ -1,5 +1,6 @@
 // port-lint: source new/apple/xnu/mach/i386/_structs.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.apple.xnu.mach.i386.structs
 
 import io.github.kotlinmania.libc.*
@@ -10,7 +11,10 @@ import io.github.kotlinmania.libc.CShort
 //
 // <https://github.com/apple-oss-distributions/xnu/blob/main/osfmk/mach/i386/_structs.h>
 
-public data class DarwinMmstReg(public var mmstReg: UByteArray = UByteArray(10), public var mmstRsrv: UByteArray = UByteArray(6)) {
+public data class DarwinMmstReg(
+    public var mmstReg: UByteArray = UByteArray(10),
+    public var mmstRsrv: UByteArray = UByteArray(6),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is DarwinMmstReg) return false
@@ -26,7 +30,9 @@ public data class DarwinMmstReg(public var mmstReg: UByteArray = UByteArray(10),
     }
 }
 
-public data class DarwinXmmReg(public var xmmReg: UByteArray = UByteArray(16)) {
+public data class DarwinXmmReg(
+    public var xmmReg: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is DarwinXmmReg) return false
@@ -34,9 +40,7 @@ public data class DarwinXmmReg(public var xmmReg: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.xmmReg.contentHashCode()
-    }
+    override fun hashCode(): Int = this.xmmReg.contentHashCode()
 }
 
 public class DarwinX86ThreadState64(

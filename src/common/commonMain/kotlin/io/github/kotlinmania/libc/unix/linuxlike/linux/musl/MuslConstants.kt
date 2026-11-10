@@ -183,11 +183,12 @@ public val SIZEOF_PTHREAD_RWLOCKATTR_T: Int = 8
 public val SIZEOF_PTHREAD_BARRIERATTR_T: Int = 4
 
 // Value was changed in 1.2.4
-public val CPU_SETSIZE: CInt = if (false) {
-    1024
-} else {
-    128
-}
+public val CPU_SETSIZE: CInt =
+    if (false) {
+        1024
+    } else {
+        128
+    }
 
 public val PTRACE_TRACEME: CInt = 0
 

@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
@@ -75,9 +76,14 @@ public class Stat(
     public var stCtim: Timespec = Timespec(),
 )
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public data class Sockaddr(
     public var saLen: UByte = 0u,
@@ -151,7 +157,9 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class FdSet(public var fdsBits: UIntArray = UIntArray(2 * FD_SETSIZE / ULONG_SIZE)) {
+public data class FdSet(
+    public var fdsBits: UIntArray = UIntArray(2 * FD_SETSIZE / ULONG_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -159,9 +167,7 @@ public data class FdSet(public var fdsBits: UIntArray = UIntArray(2 * FD_SETSIZE
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Tm(
@@ -243,7 +249,10 @@ public class Lconv(
     public var reserved: List<COpaquePointer> = List(8) { COpaquePointer(0L) },
 )
 
-public data class InPktinfo(public var ipiAddr: InAddr = InAddr(), public var ipiIfindex: CUint = 0u)
+public data class InPktinfo(
+    public var ipiAddr: InAddr = InAddr(),
+    public var ipiIfindex: CUint = 0u,
+)
 
 public data class Ifaddrs(
     public var ifaNext: Ifaddrs? = null,
@@ -269,7 +278,10 @@ public data class Arphdr(
     public var arOp: UShort = 0u,
 )
 
-public data class Mmsghdr(public var msgHdr: Msghdr = Msghdr(), public var msgLen: CUint = 0u)
+public data class Mmsghdr(
+    public var msgHdr: Msghdr = Msghdr(),
+    public var msgLen: CUint = 0u,
+)
 
 public data class SiginfoT(
     public var siSigno: CInt = 0,
@@ -296,7 +308,10 @@ public data class SiginfoT(
     }
 
     public fun siAddr(): COpaquePointer? {
-        data class SiginfoSiAddr(public var pad: UByteArray = UByteArray(32), public var siAddr: COpaquePointer? = null) {
+        data class SiginfoSiAddr(
+            public var pad: UByteArray = UByteArray(32),
+            public var siAddr: COpaquePointer? = null,
+        ) {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other !is SiginfoSiAddr) return false
@@ -315,7 +330,10 @@ public data class SiginfoT(
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoSiValue(public var pad: UByteArray = UByteArray(32), public var siValue: Sigval = Sigval()) {
+        data class SiginfoSiValue(
+            public var pad: UByteArray = UByteArray(32),
+            public var siValue: Sigval = Sigval(),
+        ) {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other !is SiginfoSiValue) return false
@@ -334,7 +352,10 @@ public data class SiginfoT(
     }
 
     public fun siPid(): PidT {
-        data class SiginfoSiPid(public var pad: UByteArray = UByteArray(16), public var siPid: PidT = 0) {
+        data class SiginfoSiPid(
+            public var pad: UByteArray = UByteArray(16),
+            public var siPid: PidT = 0,
+        ) {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other !is SiginfoSiPid) return false
@@ -353,7 +374,10 @@ public data class SiginfoT(
     }
 
     public fun siUid(): UidT {
-        data class SiginfoSiUid(public var pad: UByteArray = UByteArray(24), public var siUid: UidT = 0u) {
+        data class SiginfoSiUid(
+            public var pad: UByteArray = UByteArray(24),
+            public var siUid: UidT = 0u,
+        ) {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other !is SiginfoSiUid) return false
@@ -372,7 +396,10 @@ public data class SiginfoT(
     }
 
     public fun siStatus(): CInt {
-        data class SiginfoSiStatus(public var pad: UByteArray = UByteArray(28), public var siStatus: CInt = 0) {
+        data class SiginfoSiStatus(
+            public var pad: UByteArray = UByteArray(28),
+            public var siStatus: CInt = 0,
+        ) {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other !is SiginfoSiStatus) return false
@@ -397,9 +424,15 @@ public data class Sigaction(
     public var saMask: SigsetT = SigsetT(),
 )
 
-public data class Sync(public var union: CUint = 0u, public var owner: CUint = 0u)
+public data class Sync(
+    public var union: CUint = 0u,
+    public var owner: CUint = 0u,
+)
 
-public data class Rlimit64(public var rlimCur: Rlim64T = 0uL, public var rlimMax: Rlim64T = 0uL)
+public data class Rlimit64(
+    public var rlimCur: Rlim64T = 0uL,
+    public var rlimMax: Rlim64T = 0uL,
+)
 
 public data class GlobT(
     public var glPathc: SizeT = 0uL,
@@ -427,7 +460,10 @@ public data class Passwd(
     public var pwShell: COpaquePointer? = null,
 )
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
 public data class Sembuf(
     public var semNum: CUshort = 0u,
@@ -611,7 +647,10 @@ public data class Elf64Shdr(
     public var shEntsize: Elf64Xword = 0uL,
 )
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 public data class InotifyEvent(
     public var wd: CInt = 0,
@@ -620,7 +659,10 @@ public data class InotifyEvent(
     public var len: UInt = 0u,
 )
 
-public data class RegmatchT(public var rmSo: RegoffT = 0L, public var rmEo: RegoffT = 0L)
+public data class RegmatchT(
+    public var rmSo: RegoffT = 0L,
+    public var rmEo: RegoffT = 0L,
+)
 
 public data class Msghdr(
     public var msgName: COpaquePointer? = null,
@@ -771,7 +813,10 @@ public class Aiocb(
     public var aioParam: SchedParam = SchedParam(),
 )
 
-public data class PthreadAttrT(public var data1: CLong = 0L, public var data2: UByteArray = UByteArray(96)) {
+public data class PthreadAttrT(
+    public var data1: CLong = 0L,
+    public var data2: UByteArray = UByteArray(96),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -933,7 +978,10 @@ public data class Sockcred(
     }
 }
 
-public data class BpfProgram(public var bfLen: CUint = 0u, public var bfInsns: BpfInsn? = null)
+public data class BpfProgram(
+    public var bfLen: CUint = 0u,
+    public var bfInsns: BpfInsn? = null,
+)
 
 public data class BpfStat(
     public var bsRecv: ULong = 0uL,
@@ -960,7 +1008,10 @@ public data class BpfStat(
     }
 }
 
-public data class BpfVersion(public var bvMajor: CUshort = 0u, public var bvMinor: CUshort = 0u)
+public data class BpfVersion(
+    public var bvMajor: CUshort = 0u,
+    public var bvMinor: CUshort = 0u,
+)
 
 public data class BpfHdr(
     public var bhTstamp: Timeval = Timeval(),
@@ -976,7 +1027,10 @@ public data class BpfInsn(
     public var k: UInt = 0u,
 )
 
-public data class BpfDltlist(public var bflLen: CUint = 0u, public var bflList: CUint? = null)
+public data class BpfDltlist(
+    public var bflLen: CUint = 0u,
+    public var bflList: CUint? = null,
+)
 
 public data class Unpcbid(
     public var unpPid: PidT = 0,
@@ -1114,7 +1168,9 @@ public data class Dirent(
     }
 }
 
-public data class SigsetT(public var value: UIntArray = UIntArray(2)) {
+public data class SigsetT(
+    public var value: UIntArray = UIntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -1122,9 +1178,7 @@ public data class SigsetT(public var value: UIntArray = UIntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class MqAttr(
@@ -1276,9 +1330,7 @@ public data class PthreadBarrierT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.pad.contentHashCode()
-    }
+    override fun hashCode(): Int = this.pad.contentHashCode()
 }
 
 public data class PthreadRwlockT(
@@ -1308,4 +1360,7 @@ public data class PthreadRwlockT(
 // type - however, it changes the size, so using in in any other form than the zero-sized array
 // form would be bogus and it would potentially change the size of the data type. On QNX8, this
 // got fixed and both C and C++ are using the same definition.
-public data class MaxAlignT(public var ll: CLonglong = 0L, public var ld: I128 = I128())
+public data class MaxAlignT(
+    public var ll: CLonglong = 0L,
+    public var ld: I128 = I128(),
+)

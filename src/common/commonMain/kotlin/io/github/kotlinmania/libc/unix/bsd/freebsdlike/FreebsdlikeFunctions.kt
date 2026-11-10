@@ -28,17 +28,11 @@ public fun interface DlIteratePhdrCallbackCallback {
 }
 
 // link.h
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0x13
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0x13
 
-public fun wstopsig(status: CInt): CInt {
-    return status shr 8
-}
+public fun wstopsig(status: CInt): CInt = status shr 8
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 127) == 127
-}
+public fun wifstopped(status: CInt): Boolean = (status and 127) == 127
 
 public expect fun semDestroy(sem: COpaquePointer?): CInt
 

@@ -68,13 +68,11 @@ public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): In
 public actual fun sceAudioInputInitEx(params: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceAudioGetInputLength(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -286,9 +284,8 @@ public actual fun sceGeSetCallback(cb: COpaquePointer?): Int =
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceKernelExitGame() {
+public actual fun sceKernelExitGame(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -329,33 +326,26 @@ public actual fun sceKernelLibcClock(): UInt =
 public actual fun sceKernelLibcGettimeofday(tp: COpaquePointer?, tzp: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceKernelDcacheWritebackAll() {
+public actual fun sceKernelDcacheWritebackAll(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelDcacheWritebackInvalidateAll() {
+public actual fun sceKernelDcacheWritebackInvalidateAll(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt) {
+public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt) {
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
+public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelIcacheInvalidateAll() {
+public actual fun sceKernelIcacheInvalidateAll(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
+public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceKernelUtilsMt19937Init(ctx: COpaquePointer?, seed: UInt): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -405,13 +395,11 @@ public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, da
 public actual fun sceKernelCpuSuspendIntr(): UInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceKernelCpuResumeIntr(flags: UInt) {
+public actual fun sceKernelCpuResumeIntr(flags: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt) {
+public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1346,9 +1334,8 @@ public actual fun sceUmdReplaceProhibit(): Int =
 public actual fun sceMpegInit(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceMpegFinish() {
+public actual fun sceMpegFinish(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1356,9 +1343,8 @@ public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
 public actual fun sceMpegRingbufferConstruct(ringbuffer: COpaquePointer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: COpaquePointer?) {
+public actual fun sceMpegRingbufferDestruct(ringbuffer: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMpegRingbufferAvailableSize(ringbuffer: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1372,9 +1358,8 @@ public actual fun sceMpegQueryMemSize(unk: Int): Int =
 public actual fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: COpaquePointer?, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceMpegDelete(handle: SceMpeg) {
+public actual fun sceMpegDelete(handle: SceMpeg): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1385,9 +1370,8 @@ public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: COpaqueP
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) {
+public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1395,9 +1379,8 @@ public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
 public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) {
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: COpaquePointer?, outSize: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1453,82 +1436,65 @@ public actual fun sceHprmIsRemoteExist(): Int =
 public actual fun sceHprmIsMicrophoneExist(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int) {
+public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int) {
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuDepthFunc(function: DepthFunc) {
+public actual fun sceGuDepthFunc(function: DepthFunc): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDepthMask(mask: Int) {
+public actual fun sceGuDepthMask(mask: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDepthOffset(offset: Int) {
+public actual fun sceGuDepthOffset(offset: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDepthRange(near: Int, far: Int) {
+public actual fun sceGuDepthRange(near: Int, far: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuFog(near: Float, far: Float, color: UInt) {
+public actual fun sceGuFog(near: Float, far: Float, color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuInit() {
+public actual fun sceGuInit(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTerm() {
+public actual fun sceGuTerm(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuBreak(mode: Int) {
+public actual fun sceGuBreak(mode: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuContinue() {
+public actual fun sceGuContinue(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int) {
+public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
+public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
+public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuGetMemory(size: Int): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) {
+public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuFinish(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1536,20 +1502,17 @@ public actual fun sceGuFinish(): Int =
 public actual fun sceGuFinishId(id: UInt): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuCallList(list: COpaquePointer?) {
+public actual fun sceGuCallList(list: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuCallMode(mode: Int) {
+public actual fun sceGuCallMode(mode: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuCheckList(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?) {
+public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuSwapBuffers(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1557,355 +1520,269 @@ public actual fun sceGuSwapBuffers(): COpaquePointer? =
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuEndObject() {
+public actual fun sceGuEndObject(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSetStatus(state: GuState, status: Int) {
+public actual fun sceGuSetStatus(state: GuState, status: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuGetStatus(state: GuState): Boolean =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuSetAllStatus(status: Int) {
+public actual fun sceGuSetAllStatus(status: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceGuGetAllStatus(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceGuEnable(state: GuState) {
+public actual fun sceGuEnable(state: GuState): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDisable(state: GuState) {
+public actual fun sceGuDisable(state: GuState): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3) {
+public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) {
+public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLightColor(light: Int, component: Int, color: UInt) {
+public actual fun sceGuLightColor(light: Int, component: Int, color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLightMode(mode: LightMode) {
+public actual fun sceGuLightMode(mode: LightMode): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent: Float, cutoff: Float) {
+public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent: Float, cutoff: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClear(flags: Int) {
+public actual fun sceGuClear(flags: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClearColor(color: UInt) {
+public actual fun sceGuClearColor(color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClearDepth(depth: UInt) {
+public actual fun sceGuClearDepth(depth: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClearStencil(stencil: UInt) {
+public actual fun sceGuClearStencil(stencil: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuPixelMask(mask: UInt) {
+public actual fun sceGuPixelMask(mask: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuColor(color: UInt) {
+public actual fun sceGuColor(color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) {
+public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuColorMaterial(components: Int) {
+public actual fun sceGuColorMaterial(components: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) {
+public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuAmbient(color: UInt) {
+public actual fun sceGuAmbient(color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuAmbientColor(color: UInt) {
+public actual fun sceGuAmbientColor(color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) {
+public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuMaterial(components: Int, color: UInt) {
+public actual fun sceGuMaterial(components: Int, color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt) {
+public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) {
+public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation) {
+public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSpecular(power: Float) {
+public actual fun sceGuSpecular(power: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuFrontFace(order: FrontFaceDirection) {
+public actual fun sceGuFrontFace(order: FrontFaceDirection): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuLogicalOp(op: LogicalOperation) {
+public actual fun sceGuLogicalOp(op: LogicalOperation): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSetDither(matrix: ScePspIMatrix4) {
+public actual fun sceGuSetDither(matrix: ScePspIMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuShadeModel(mode: ShadingModel) {
+public actual fun sceGuShadeModel(mode: ShadingModel): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) {
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexEnvColor(color: UInt) {
+public actual fun sceGuTexEnvColor(color: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) {
+public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexFlush() {
+public actual fun sceGuTexFlush(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
+public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) {
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
+public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt) {
+public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int) {
+public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexOffset(u: Float, v: Float) {
+public actual fun sceGuTexOffset(u: Float, v: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) {
+public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexScale(u: Float, v: Float) {
+public actual fun sceGuTexScale(u: Float, v: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexSlope(slope: Float) {
+public actual fun sceGuTexSlope(slope: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexSync() {
+public actual fun sceGuTexSync(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
+public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) {
+public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuOffset(x: UInt, y: UInt) {
+public actual fun sceGuOffset(x: UInt, y: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int) {
+public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
+public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt) {
+public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuPatchFrontFace(a0: UInt) {
+public actual fun sceGuPatchFrontFace(a0: UInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
+public actual fun sceGuPatchPrim(prim: PatchPrimitive): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4) {
+public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4) {
+public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuMorphWeight(index: Int, weight: Float) {
+public actual fun sceGuMorphWeight(index: Int, weight: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumFastInverse() {
+public actual fun sceGumFastInverse(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumFullInverse() {
+public actual fun sceGumFullInverse(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumLoadIdentity() {
+public actual fun sceGumLoadIdentity(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumLoadMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumLoadMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumLookAt(eye: ScePspFVector3, center: ScePspFVector3, up: ScePspFVector3) {
+public actual fun sceGumLookAt(eye: ScePspFVector3, center: ScePspFVector3, up: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumMatrixMode(mode: MatrixMode) {
+public actual fun sceGumMatrixMode(mode: MatrixMode): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumMultMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumMultMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
+public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float) {
+public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumPopMatrix() {
+public actual fun sceGumPopMatrix(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumPushMatrix() {
+public actual fun sceGumPushMatrix(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumRotateX(angle: Float) {
+public actual fun sceGumRotateX(angle: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumRotateY(angle: Float) {
+public actual fun sceGumRotateY(angle: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumRotateZ(angle: Float) {
+public actual fun sceGumRotateZ(angle: Float): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumRotateXYZ(v: ScePspFVector3) {
+public actual fun sceGumRotateXYZ(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumRotateZYX(v: ScePspFVector3) {
+public actual fun sceGumRotateZYX(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumScale(v: ScePspFVector3) {
+public actual fun sceGumScale(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumStoreMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumStoreMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumTranslate(v: ScePspFVector3) {
+public actual fun sceGumTranslate(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceGumUpdateMatrix() {
+public actual fun sceGumUpdateMatrix(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceMp3ReserveMp3Handle(args: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -2012,16 +1889,14 @@ public actual fun sceOpenPSIDGetOpenPSID(openpsid: COpaquePointer?): Int =
 public actual fun sceUtilityMsgDialogInitStart(params: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceUtilityMsgDialogShutdownStart() {
+public actual fun sceUtilityMsgDialogShutdownStart(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceUtilityMsgDialogGetStatus(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceUtilityMsgDialogUpdate(n: Int) {
+public actual fun sceUtilityMsgDialogUpdate(n: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceUtilityMsgDialogAbort(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -2053,23 +1928,20 @@ public actual fun sceUtilitySavedataGetStatus(): Int =
 public actual fun sceUtilitySavedataShutdownStart(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceUtilitySavedataUpdate(unknown: Int) {
+public actual fun sceUtilitySavedataUpdate(unknown: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceUtilityGameSharingInitStart(params: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceUtilityGameSharingShutdownStart() {
+public actual fun sceUtilityGameSharingShutdownStart(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceUtilityGameSharingGetStatus(): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceUtilityGameSharingUpdate(n: Int) {
+public actual fun sceUtilityGameSharingUpdate(n: Int): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceUtilityHtmlViewerInitStart(params: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -2155,13 +2027,11 @@ public actual fun sceNetFreeThreadinfo(thid: Int): Int =
 public actual fun sceNetThreadAbort(thid: Int): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?) {
+public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?) {
+public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

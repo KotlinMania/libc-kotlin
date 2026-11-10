@@ -55,9 +55,8 @@ public actual fun mrand48(): CLong =
 public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun lcong48(p: COpaquePointer?) {
+public actual fun lcong48(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -194,9 +193,8 @@ public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
 public actual fun vhangup(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sync() {
+public actual fun sync(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

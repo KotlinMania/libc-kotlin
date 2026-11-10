@@ -45,6 +45,5 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): L
 public actual fun arc4random(): UInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
+public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}

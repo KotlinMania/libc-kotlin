@@ -26,9 +26,7 @@ public fun interface PthreadKeyCreateDtorCallback {
 
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
-public fun cmsgAlign(len: Int): Int {
-    return len + 8 - 1 and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = len + 8 - 1 and (8 - 1).inv()
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next = ((cmsg).hashCode().toLong()).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
@@ -40,25 +38,18 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() > 0) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() > 0) {
         null
     } else {
         null
     }
-}
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
 public expect fun isalnum(c: CInt): CInt
 
@@ -934,41 +925,23 @@ public expect fun vxCpuEnabledGet(): CpusetT
 // Get set of running CPU's in the system
 public expect fun vxCpuConfiguredGet(): CpusetT
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0xFF00) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0xFF00) == 0
 
-public fun wifsignaled(status: CInt): Boolean {
-    return (status and 0xFF00) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = (status and 0xFF00) != 0
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xFF0000) != 0
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xFF0000) != 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return status and 0xFF
-}
+public fun wexitstatus(status: CInt): CInt = status and 0xFF
 
-public fun wifcontinued(status: CInt): CInt {
-    return (status shr 24) and 0xFF
-}
+public fun wifcontinued(status: CInt): CInt = (status shr 24) and 0xFF
 
-public fun wtermsig(status: CInt): CInt {
-    return (status shr 8) and 0xFF
-}
+public fun wtermsig(status: CInt): CInt = (status shr 8) and 0xFF
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 16) and 0xFF
-}
+public fun wstopsig(status: CInt): CInt = (status shr 16) and 0xFF
 
-public fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT {
-    return -1L
-}
+public fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT = -1L
 
-public fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT {
-    return -1L
-}
+public fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT = -1L
 
 public fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt {
     var memptr1 = memptr

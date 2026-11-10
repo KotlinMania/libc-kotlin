@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
@@ -43,15 +44,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -138,7 +140,9 @@ public data class Statvfs(
 )
 
 // internal structure has changed over time
-public data class Sem(public var data: UIntArray = UIntArray(4)) {
+public data class Sem(
+    public var data: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sem) return false
@@ -146,9 +150,7 @@ public data class Sem(public var data: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.data.contentHashCode()
-    }
+    override fun hashCode(): Int = this.data.contentHashCode()
 }
 
 public data class Sembuf(
@@ -193,7 +195,10 @@ public data class StackT(
     public var ssFlags: CInt = 0,
 )
 
-public data class Mmsghdr(public var msgHdr: Msghdr = Msghdr(), public var msgLen: SsizeT = 0L)
+public data class Mmsghdr(
+    public var msgHdr: Msghdr = Msghdr(),
+    public var msgLen: SsizeT = 0L,
+)
 
 public data class Sockcred(
     public var scUid: UidT = 0u,
@@ -282,7 +287,10 @@ public data class PtraceLwpinfo(
     }
 }
 
-public data class PtraceScRet(public var srRetval: LongArray = LongArray(2), public var srError: CInt = 0) {
+public data class PtraceScRet(
+    public var srRetval: LongArray = LongArray(2),
+    public var srError: CInt = 0,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PtraceScRet) return false
@@ -311,7 +319,9 @@ public data class PtraceScRemote(
     public var pscrArgs: RegisterT? = null,
 )
 
-public data class CpusetT(public var bits: LongArray = LongArray(16)) {
+public data class CpusetT(
+    public var bits: LongArray = LongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpusetT) return false
@@ -319,12 +329,12 @@ public data class CpusetT(public var bits: LongArray = LongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
-public data class CapRightsT(public var crRights: ULongArray = ULongArray(2)) {
+public data class CapRightsT(
+    public var crRights: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CapRightsT) return false
@@ -332,9 +342,7 @@ public data class CapRightsT(public var crRights: ULongArray = ULongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.crRights.contentHashCode()
-    }
+    override fun hashCode(): Int = this.crRights.contentHashCode()
 }
 
 public data class Umutex(
@@ -421,9 +429,13 @@ public data class Uuid(
     }
 }
 
-public data class CAnonymousPthreadSpinlock(public var sClock: Umutex = Umutex())
+public data class CAnonymousPthreadSpinlock(
+    public var sClock: Umutex = Umutex(),
+)
 
-public data class CAnonymousPthreadBarrierattr(public var pshared: CInt = 0)
+public data class CAnonymousPthreadBarrierattr(
+    public var pshared: CInt = 0,
+)
 
 public data class CAnonymousPthreadBarrier(
     public var bLock: Umutex = Umutex(),
@@ -460,7 +472,9 @@ public class KinfoVmentry(
     public var kvePath: List<UByteArray> = List(32) { UByteArray(0) },
 )
 
-public data class CAnonymousFilestat(public var stqeNext: Filestat? = null)
+public data class CAnonymousFilestat(
+    public var stqeNext: Filestat? = null,
+)
 
 public data class Filestat(
     public var fsType: CInt = 0,
@@ -476,7 +490,10 @@ public data class Filestat(
     public var fsCapRights: CapRightsT = CapRightsT(),
 )
 
-public data class FilestatList(public var stqhFirst: Filestat? = null, public var stqhLast: COpaquePointer? = null)
+public data class FilestatList(
+    public var stqhFirst: Filestat? = null,
+    public var stqhLast: COpaquePointer? = null,
+)
 
 public data class Procstat(
     public var tpe: CInt = 0,
@@ -488,9 +505,14 @@ public data class Procstat(
     public var core: UintptrT = 0uL,
 )
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
-public data class CAnonymousTimer(public var priv: IntArray = IntArray(3)) {
+public data class CAnonymousTimer(
+    public var priv: IntArray = IntArray(3),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousTimer) return false
@@ -498,9 +520,7 @@ public data class CAnonymousTimer(public var priv: IntArray = IntArray(3)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
 /**
@@ -613,7 +633,9 @@ public data class KvmNlist(
     public var nValue: KvaddrT = 0uL,
 )
 
-public data class CAnonymousSem(public var priv: UintptrT = 0uL)
+public data class CAnonymousSem(
+    public var priv: UintptrT = 0uL,
+)
 
 public data class SemidDs(
     public var semPerm: IpcPerm = IpcPerm(),
@@ -742,9 +764,15 @@ public data class Sockstat(
     }
 }
 
-public data class Shmstat(public var size: ULong = 0uL, public var mode: UShort = 0u)
+public data class Shmstat(
+    public var size: ULong = 0uL,
+    public var mode: UShort = 0u,
+)
 
-public data class SpacectlRange(public var rOffset: OffT = 0L, public var rLen: OffT = 0L)
+public data class SpacectlRange(
+    public var rOffset: OffT = 0L,
+    public var rLen: OffT = 0L,
+)
 
 public data class RusageExt(
     public var ruxRuntime: ULong = 0uL,
@@ -994,7 +1022,10 @@ public data class IfAnnouncemsghdr(
     }
 }
 
-public data class IfreqBuffer(public var length: SizeT = 0uL, public var buffer: COpaquePointer? = null)
+public data class IfreqBuffer(
+    public var length: SizeT = 0uL,
+    public var buffer: COpaquePointer? = null,
+)
 
 public data class Ifaliasreq(
     /**
@@ -1343,7 +1374,10 @@ public data class IfmibIso88023(
     }
 }
 
-public data class CAnonymousPh(public var ph1: ULong = 0uL, public var ph2: ULong = 0uL)
+public data class CAnonymousPh(
+    public var ph1: ULong = 0uL,
+    public var ph2: ULong = 0uL,
+)
 
 public data class Fid(
     public var fidLen: CUshort = 0u,
@@ -1367,9 +1401,15 @@ public data class Fid(
     }
 }
 
-public data class Fhandle(public var fhFsid: FsidT = FsidT(), public var fhFid: Fid = Fid())
+public data class Fhandle(
+    public var fhFsid: FsidT = FsidT(),
+    public var fhFid: Fid = Fid(),
+)
 
-public data class Bintime(public var sec: TimeT = 0L, public var frac: ULong = 0uL)
+public data class Bintime(
+    public var sec: TimeT = 0L,
+    public var frac: ULong = 0uL,
+)
 
 public data class Clockinfo(
     /**
@@ -1391,7 +1431,9 @@ public data class Clockinfo(
     public var profhz: CInt = 0,
 )
 
-public data class CAnonymousStailqEntryDevstat(public var stqeNext: Devstat? = null)
+public data class CAnonymousStailqEntryDevstat(
+    public var stqeNext: Devstat? = null,
+)
 
 public class Devstat(
     /**
@@ -1546,11 +1588,20 @@ public data class Sockcred2(
     }
 }
 
-public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu())
+public data class Ifconf(
+    public var ifcLen: CInt = 0,
+    public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
+)
 
-public data class AuMaskT(public var amSuccess: CUint = 0u, public var amFailure: CUint = 0u)
+public data class AuMaskT(
+    public var amSuccess: CUint = 0u,
+    public var amFailure: CUint = 0u,
+)
 
-public data class AuTidT(public var port: UInt = 0u, public var machine: UInt = 0u)
+public data class AuTidT(
+    public var port: UInt = 0u,
+    public var machine: UInt = 0u,
+)
 
 public data class AuditinfoT(
     public var aiAuid: AuIdT = 0u,
@@ -1559,7 +1610,10 @@ public data class AuditinfoT(
     public var aiAsid: AuAsidT = 0,
 )
 
-public data class TcpFastopen(public var enable: CInt = 0, public var psk: UByteArray = UByteArray(TCP_FASTOPEN_PSK_LEN)) {
+public data class TcpFastopen(
+    public var enable: CInt = 0,
+    public var psk: UByteArray = UByteArray(TCP_FASTOPEN_PSK_LEN),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TcpFastopen) return false
@@ -1575,7 +1629,10 @@ public data class TcpFastopen(public var enable: CInt = 0, public var psk: UByte
     }
 }
 
-public data class TcpFunctionSet(public var functionSetName: UByteArray = UByteArray(TCP_FUNCTION_NAME_LEN_MAX), public var pcbcnt: UInt = 0u) {
+public data class TcpFunctionSet(
+    public var functionSetName: UByteArray = UByteArray(TCP_FUNCTION_NAME_LEN_MAX),
+    public var pcbcnt: UInt = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TcpFunctionSet) return false
@@ -1679,7 +1736,10 @@ public data class ShmLargepageConf(
     }
 }
 
-public data class MemoryType(public var priva: ULongArray = ULongArray(32), public var privb: ULongArray = ULongArray(26)) {
+public data class MemoryType(
+    public var priva: ULongArray = ULongArray(32),
+    public var privb: ULongArray = ULongArray(26),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MemoryType) return false
@@ -1695,7 +1755,9 @@ public data class MemoryType(public var priva: ULongArray = ULongArray(32), publ
     }
 }
 
-public data class MemoryTypeList(public var priv: ULongArray = ULongArray(2)) {
+public data class MemoryTypeList(
+    public var priv: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MemoryTypeList) return false
@@ -1703,12 +1765,13 @@ public data class MemoryTypeList(public var priv: ULongArray = ULongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
-public data class Pidfh(public var priva: List<ULongArray> = List(8) { ULongArray(0) }, public var privb: ULongArray = ULongArray(2)) {
+public data class Pidfh(
+    public var priva: List<ULongArray> = List(8) { ULongArray(0) },
+    public var privb: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Pidfh) return false
@@ -1794,7 +1857,10 @@ public data class SctpSndinfo(
     public var sndAssocId: SctpAssocT = 0u,
 )
 
-public data class SctpPrinfo(public var prPolicy: UShort = 0u, public var prValue: UInt = 0u)
+public data class SctpPrinfo(
+    public var prPolicy: UShort = 0u,
+    public var prValue: UInt = 0u,
+)
 
 public data class SctpDefaultPrinfo(
     public var prPolicy: UShort = 0u,
@@ -1802,7 +1868,9 @@ public data class SctpDefaultPrinfo(
     public var prAssocId: SctpAssocT = 0u,
 )
 
-public data class SctpAuthinfo(public var authKeynumber: UShort = 0u)
+public data class SctpAuthinfo(
+    public var authKeynumber: UShort = 0u,
+)
 
 public data class SctpRcvinfo(
     public var rcvSid: UShort = 0u,
@@ -1823,7 +1891,10 @@ public data class SctpNxtinfo(
     public var nxtAssocId: SctpAssocT = 0u,
 )
 
-public data class SctpRecvvRn(public var recvvRcvinfo: SctpRcvinfo = SctpRcvinfo(), public var recvvNxtinfo: SctpNxtinfo = SctpNxtinfo())
+public data class SctpRecvvRn(
+    public var recvvRcvinfo: SctpRcvinfo = SctpRcvinfo(),
+    public var recvvNxtinfo: SctpNxtinfo = SctpNxtinfo(),
+)
 
 public data class SctpSendvSpa(
     public var sendvFlags: UInt = 0u,
@@ -1988,7 +2059,9 @@ public data class SctpAdaptationEvent(
     public var saiAssocId: SctpAssocT = 0u,
 )
 
-public data class SctpSetadaptation(public var ssbAdaptationInd: UInt = 0u)
+public data class SctpSetadaptation(
+    public var ssbAdaptationInd: UInt = 0u,
+)
 
 public data class SctpPdapiEvent(
     public var pdapiType: UShort = 0u,
@@ -2056,9 +2129,15 @@ public data class Filedesc(
     public var fdHoldleaderswakeup: CInt = 0,
 )
 
-public data class Fdescenttbl(public var fdtNfiles: CInt = 0, public var fdtOfiles: List<COpaquePointer> = List(0) { COpaquePointer(0L) })
+public data class Fdescenttbl(
+    public var fdtNfiles: CInt = 0,
+    public var fdtOfiles: List<COpaquePointer> = List(0) { COpaquePointer(0L) },
+)
 
-public data class Sx(public var lockObject: LockObject = LockObject(), public var sxLock: UintptrT = 0uL)
+public data class Sx(
+    public var lockObject: LockObject = LockObject(),
+    public var sxLock: UintptrT = 0uL,
+)
 
 public data class LockObject(
     public var loName: COpaquePointer? = null,
@@ -2068,7 +2147,10 @@ public data class LockObject(
     public var loWitness: COpaquePointer? = null,
 )
 
-public data class Kqlist(public var tqhFirst: COpaquePointer? = null, public var tqhLast: COpaquePointer? = null)
+public data class Kqlist(
+    public var tqhFirst: COpaquePointer? = null,
+    public var tqhLast: COpaquePointer? = null,
+)
 
 public data class Splice(
     public var spFd: CInt = 0,
@@ -2206,7 +2288,10 @@ public data class MqAttr(
     }
 }
 
-public data class Ptsstat(public var dev: ULong = 0uL, public var devname: UByteArray = UByteArray(SPECNAMELEN + 1)) {
+public data class Ptsstat(
+    public var dev: ULong = 0uL,
+    public var devname: UByteArray = UByteArray(SPECNAMELEN + 1),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ptsstat) return false
@@ -2222,7 +2307,10 @@ public data class Ptsstat(public var dev: ULong = 0uL, public var devname: UByte
     }
 }
 
-public data class Elf32Auxinfo(public var aType: CInt = 0, public var aUn: CAnonymousElf32AuxvUnion = CAnonymousElf32AuxvUnion())
+public data class Elf32Auxinfo(
+    public var aType: CInt = 0,
+    public var aUn: CAnonymousElf32AuxvUnion = CAnonymousElf32AuxvUnion(),
+)
 
 public data class Ifreq(
     /**
@@ -2443,7 +2531,10 @@ public data class SctpChunkhdr(
     public var chunkLength: UShort = 0u,
 )
 
-public data class SctpParamhdr(public var paramType: UShort = 0u, public var paramLength: UShort = 0u)
+public data class SctpParamhdr(
+    public var paramType: UShort = 0u,
+    public var paramLength: UShort = 0u,
+)
 
 public data class SctpGenErrorCause(
     public var code: UShort = 0u,
@@ -2467,7 +2558,10 @@ public data class SctpGenErrorCause(
     }
 }
 
-public data class SctpErrorCause(public var code: UShort = 0u, public var length: UShort = 0u)
+public data class SctpErrorCause(
+    public var code: UShort = 0u,
+    public var length: UShort = 0u,
+)
 
 public data class SctpErrorInvalidStream(
     public var cause: SctpErrorCause = SctpErrorCause(),
@@ -2497,17 +2591,33 @@ public data class SctpErrorMissingParam(
     }
 }
 
-public data class SctpErrorStaleCookie(public var cause: SctpErrorCause = SctpErrorCause(), public var staleTime: UInt = 0u)
+public data class SctpErrorStaleCookie(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+    public var staleTime: UInt = 0u,
+)
 
-public data class SctpErrorOutOfResource(public var cause: SctpErrorCause = SctpErrorCause())
+public data class SctpErrorOutOfResource(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+)
 
-public data class SctpErrorUnresolvAddr(public var cause: SctpErrorCause = SctpErrorCause())
+public data class SctpErrorUnresolvAddr(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+)
 
-public data class SctpErrorUnrecognizedChunk(public var cause: SctpErrorCause = SctpErrorCause(), public var ch: SctpChunkhdr = SctpChunkhdr())
+public data class SctpErrorUnrecognizedChunk(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+    public var ch: SctpChunkhdr = SctpChunkhdr(),
+)
 
-public data class SctpErrorNoUserData(public var cause: SctpErrorCause = SctpErrorCause(), public var tsn: UInt = 0u)
+public data class SctpErrorNoUserData(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+    public var tsn: UInt = 0u,
+)
 
-public data class SctpErrorAuthInvalidHmac(public var cause: SctpErrorCause = SctpErrorCause(), public var hmacId: UShort = 0u)
+public data class SctpErrorAuthInvalidHmac(
+    public var cause: SctpErrorCause = SctpErrorCause(),
+    public var hmacId: UShort = 0u,
+)
 
 public data class KinfoFile(
     public var kfStructsize: CInt = 0,
@@ -2565,14 +2675,15 @@ public data class KinfoFile(
     }
 }
 
-public data class CAnonymousCrPid(public var crUnused: COpaquePointer? = null, public var crPid: PidT = 0) {
+public data class CAnonymousCrPid(
+    public var crUnused: COpaquePointer? = null,
+    public var crPid: PidT = 0,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_cr_pid").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousCrPid): Boolean {
-        return this.crPid == other.crPid
-    }
+    public fun eq(other: CAnonymousCrPid): Boolean = this.crPid == other.crPid
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2613,33 +2724,32 @@ public data class Sigevent(
         return result
     }
 
-    public fun eq(other: Sigevent): Boolean {
-        return this.sigevNotify == other.sigevNotify && this.sigevSigno == other.sigevSigno && this.sigevValue == other.sigevValue && this.sigevNotifyThreadId == other.sigevNotifyThreadId
-    }
+    public fun eq(other: Sigevent): Boolean = this.sigevNotify == other.sigevNotify && this.sigevSigno == other.sigevSigno && this.sigevValue == other.sigevValue && this.sigevNotifyThreadId == other.sigevNotifyThreadId
 }
 
-public data class CAnonymousElf32AuxvUnion(public var aVal: CInt = 0) {
+public data class CAnonymousElf32AuxvUnion(
+    public var aVal: CInt = 0,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_elf32_auxv_union").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousElf32AuxvUnion): Boolean {
-        return this.aVal == other.aVal
-    }
+    public fun eq(other: CAnonymousElf32AuxvUnion): Boolean = this.aVal == other.aVal
 
     public override fun hashCode(): Int {
         error("traits")
     }
 }
 
-public data class CAnonymousIfiEpoch(public var tt: TimeT = 0L, public var ph: ULong = 0uL) {
+public data class CAnonymousIfiEpoch(
+    public var tt: TimeT = 0L,
+    public var ph: ULong = 0uL,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifi_epoch").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfiEpoch): Boolean {
-        return this.tt == other.tt && this.ph == other.ph
-    }
+    public fun eq(other: CAnonymousIfiEpoch): Boolean = this.tt == other.tt && this.ph == other.ph
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2651,14 +2761,15 @@ public data class CAnonymousIfiEpoch(public var tt: TimeT = 0L, public var ph: U
     }
 }
 
-public data class CAnonymousIfiLastchange(public var tv: Timeval = Timeval(), public var ph: CAnonymousPh = CAnonymousPh()) {
+public data class CAnonymousIfiLastchange(
+    public var tv: Timeval = Timeval(),
+    public var ph: CAnonymousPh = CAnonymousPh(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifi_lastchange").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfiLastchange): Boolean {
-        return this.tv == other.tv && this.ph == other.ph
-    }
+    public fun eq(other: CAnonymousIfiLastchange): Boolean = this.tv == other.tv && this.ph == other.ph
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2731,19 +2842,18 @@ public data class CAnonymousIfrIfru(
         DebugStruct(f, "__c_anonymous_ifr_ifru").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfrIfru): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruBuffer == other.ifruBuffer && this.ifruFlags.contentEquals(other.ifruFlags) && this.ifruIndex == other.ifruIndex && this.ifruJid == other.ifruJid && this.ifruMetric == other.ifruMetric && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruCap.contentEquals(other.ifruCap) && this.ifruFib == other.ifruFib && this.ifruVlanPcp == other.ifruVlanPcp
-    }
+    public fun eq(other: CAnonymousIfrIfru): Boolean = this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruBuffer == other.ifruBuffer && this.ifruFlags.contentEquals(other.ifruFlags) && this.ifruIndex == other.ifruIndex && this.ifruJid == other.ifruJid && this.ifruMetric == other.ifruMetric && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruCap.contentEquals(other.ifruCap) && this.ifruFib == other.ifruFib && this.ifruVlanPcp == other.ifruVlanPcp
 }
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: CaddrT = null, public var ifcuReq: Ifreq? = null) {
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: CaddrT = null,
+    public var ifcuReq: Ifreq? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifc_ifcu").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfcIfcu): Boolean {
-        return this.ifcuBuf == other.ifcuBuf && this.ifcuReq == other.ifcuReq
-    }
+    public fun eq(other: CAnonymousIfcIfcu): Boolean = this.ifcuBuf == other.ifcuBuf && this.ifcuReq == other.ifcuReq
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2815,7 +2925,10 @@ public data class Xinpgen(
     }
 }
 
-public data class InAddr4in6(public var ia46Pad32: UIntArray = UIntArray(3), public var ia46Addr4: InAddr = InAddr()) {
+public data class InAddr4in6(
+    public var ia46Pad32: UIntArray = UIntArray(3),
+    public var ia46Addr4: InAddr = InAddr(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is InAddr4in6) return false
@@ -2831,7 +2944,10 @@ public data class InAddr4in6(public var ia46Pad32: UIntArray = UIntArray(3), pub
     }
 }
 
-public data class InDependaddr(public var id46Addr: InAddr4in6 = InAddr4in6(), public var id6Addr: In6Addr = In6Addr()) {
+public data class InDependaddr(
+    public var id46Addr: InAddr4in6 = InAddr4in6(),
+    public var id6Addr: In6Addr = In6Addr(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "in_dependaddr").finishNonExhaustive()
     }

@@ -40,37 +40,21 @@ public fun interface EsetfuncCbCallback {
     public operator fun invoke(arg0: CInt, arg1: COpaquePointer?)
 }
 
-public fun iocparmLen(x: UInt): UInt {
-    return (x shr IOCPARM_SHIFT.toInt()) and IOCPARM_MASK
-}
+public fun iocparmLen(x: UInt): UInt = (x shr IOCPARM_SHIFT.toInt()) and IOCPARM_MASK
 
-public fun iocbasecmd(x: UInt): UInt {
-    return x and ((IOCPARM_MASK shl IOCPARM_SHIFT.toInt()).inv())
-}
+public fun iocbasecmd(x: UInt): UInt = x and ((IOCPARM_MASK shl IOCPARM_SHIFT.toInt()).inv())
 
-public fun iocgroup(x: UInt): UInt {
-    return (x shr IOCGROUP_SHIFT.toInt()) and 0xffu
-}
+public fun iocgroup(x: UInt): UInt = (x shr IOCGROUP_SHIFT.toInt()) and 0xffu
 
-public fun ioc(inout: CUlong, group: CUlong, num: CUlong, len: CUlong): CUlong {
-    return (inout) or (((len) and IOCPARM_MASK.toULong()) shl IOCPARM_SHIFT.toInt()) or ((group) shl IOCGROUP_SHIFT.toInt()) or (num)
-}
+public fun ioc(inout: CUlong, group: CUlong, num: CUlong, len: CUlong): CUlong = (inout) or (((len) and IOCPARM_MASK.toULong()) shl IOCPARM_SHIFT.toInt()) or ((group) shl IOCGROUP_SHIFT.toInt()) or (num)
 
-public fun mapAligned(alignment: CInt): CInt {
-    return alignment shl MAP_ALIGNMENT_SHIFT
-}
+public fun mapAligned(alignment: CInt): CInt = alignment shl MAP_ALIGNMENT_SHIFT
 
-public fun align(p: Int): Int {
-    return (p + ALIGNBYTES) and ALIGNBYTES.inv()
-}
+public fun align(p: Int): Int = (p + ALIGNBYTES) and ALIGNBYTES.inv()
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + align(8).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + align(8).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return align(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = align(8).toUInt() + length
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
@@ -85,46 +69,31 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (align(8) + align(length.toInt())).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (align(8) + align(length.toInt())).toUInt()
 
-public fun dirfd(dirp: DIR?): CInt {
-    return (((dirp as Any?) as CInt?))!!
-}
+public fun dirfd(dirp: DIR?): CInt = (((dirp as Any?) as CInt?))!!
 
 public fun sockcredsize(ngrps: Int): Int {
-    val ngrps1 = if (ngrps > 0) {
-        ngrps - 1
-    } else {
-        0
-    }
+    val ngrps1 =
+        if (ngrps > 0) {
+            ngrps - 1
+        } else {
+            0
+        }
     return 8 + 8 * ngrps1
 }
 
-public fun protMprotect(x: CInt): CInt {
-    return x shl 3
-}
+public fun protMprotect(x: CInt): CInt = x shl 3
 
-public fun protMprotectExtract(x: CInt): CInt {
-    return (x shr 3) and 0x7
-}
+public fun protMprotectExtract(x: CInt): CInt = (x shr 3) and 0x7
 
-public fun wstopsig(status: CInt): CInt {
-    return status shr 8
-}
+public fun wstopsig(status: CInt): CInt = status shr 8
 
-public fun wifsignaled(status: CInt): Boolean {
-    return (status and 127) != 127 && (status and 127) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = (status and 127) != 127 && (status and 127) != 0
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 127) == 127
-}
+public fun wifstopped(status: CInt): Boolean = (status and 127) == 127
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
@@ -136,9 +105,7 @@ public fun makedev(major: CUint, minor: CUint): DevT {
     return dev
 }
 
-public fun major(dev: DevT): CInt {
-    return (((dev.toUInt()) and 0x000fff00u) shr 8).toInt()
-}
+public fun major(dev: DevT): CInt = (((dev.toUInt()) and 0x000fff00u) shr 8).toInt()
 
 public fun minor(dev: DevT): CInt {
     var res = 0u

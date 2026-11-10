@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
@@ -39,15 +40,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -119,7 +121,10 @@ public class Lconv(
     public var intNSignPosn: CChar = 0u,
 )
 
-public data class UfsArgs(public var fspec: COpaquePointer? = null, public var exportInfo: ExportArgs = ExportArgs())
+public data class UfsArgs(
+    public var fspec: COpaquePointer? = null,
+    public var exportInfo: ExportArgs = ExportArgs(),
+)
 
 public data class MfsArgs(
     public var fspec: COpaquePointer? = null,
@@ -179,7 +184,10 @@ public data class NtfsArgs(
     public var flag: CUlong = 0uL,
 )
 
-public data class UdfArgs(public var fspec: COpaquePointer? = null, public var lastblock: UInt = 0u)
+public data class UdfArgs(
+    public var fspec: COpaquePointer? = null,
+    public var lastblock: UInt = 0u,
+)
 
 public data class TmpfsArgs(
     public var taVersion: CInt = 0,
@@ -233,9 +241,14 @@ public data class ExportArgs(
     public var exMasklen: CInt = 0,
 )
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public data class SockaddrIn(
     public var sinLen: UByte = 0u,
@@ -687,7 +700,10 @@ public data class PtraceState(
     public var peTid: PidT = 0,
 )
 
-public data class PtraceThreadState(public var ptsTid: PidT = 0, public var ptsName: UByteArray = UByteArray(PT_PTS_NAMELEN)) {
+public data class PtraceThreadState(
+    public var ptsTid: PidT = 0,
+    public var ptsName: UByteArray = UByteArray(PT_PTS_NAMELEN),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PtraceThreadState) return false
@@ -704,9 +720,15 @@ public data class PtraceThreadState(public var ptsTid: PidT = 0, public var ptsN
 }
 
 // search.h
-public data class Entry(public var key: COpaquePointer? = null, public var data: COpaquePointer? = null)
+public data class Entry(
+    public var key: COpaquePointer? = null,
+    public var data: COpaquePointer? = null,
+)
 
-public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+public data class Ifreq(
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ifreq) return false
@@ -1131,9 +1153,7 @@ public data class MountInfo(
         DebugStruct(f, "mount_info").finishNonExhaustive()
     }
 
-    public fun eq(other: MountInfo): Boolean {
-        return this.align.zip(other.align).all({ (a, b) -> a == b })
-    }
+    public fun eq(other: MountInfo): Boolean = (this.align.zip(other.align)).all({ (a, b) -> a == b })
 }
 
 public data class CAnonymousIfrIfru(
@@ -1151,9 +1171,7 @@ public data class CAnonymousIfrIfru(
         DebugStruct(f, "__c_anonymous_ifr_ifru").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfrIfru): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetric == other.ifruMetric && this.ifruVnetid == other.ifruVnetid && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruIndex == other.ifruIndex
-    }
+    public fun eq(other: CAnonymousIfrIfru): Boolean = this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetric == other.ifruMetric && this.ifruVnetid == other.ifruVnetid && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruIndex == other.ifruIndex
 
     public override fun hashCode(): Int {
         var state = 0

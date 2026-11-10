@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.riscv64
 
 import io.github.kotlinmania.libc.*
@@ -40,15 +41,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -58,7 +60,9 @@ public class DebugStruct(
     }
 }
 
-public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+public data class PthreadAttrT(
+    public var size: ULongArray = ULongArray(7),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -66,9 +70,7 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public class Stat(
@@ -452,7 +454,10 @@ public data class UcontextT(
     public var ucMcontext: McontextT = McontextT(),
 )
 
-public data class McontextT(public var gregs: ULongArray = ULongArray(32), public var fpregs: RiscvMcFpState = RiscvMcFpState()) {
+public data class McontextT(
+    public var gregs: ULongArray = ULongArray(32),
+    public var fpregs: RiscvMcFpState = RiscvMcFpState(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -478,7 +483,10 @@ public data class RiscvMcFpState(
     }
 }
 
-public data class RiscvMcFExtState(public var f: UIntArray = UIntArray(32), public var fcsr: CUint = 0u) {
+public data class RiscvMcFExtState(
+    public var f: UIntArray = UIntArray(32),
+    public var fcsr: CUint = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is RiscvMcFExtState) return false
@@ -494,7 +502,10 @@ public data class RiscvMcFExtState(public var f: UIntArray = UIntArray(32), publ
     }
 }
 
-public data class RiscvMcDExtState(public var f: ULongArray = ULongArray(32), public var fcsr: CUint = 0u) {
+public data class RiscvMcDExtState(
+    public var f: ULongArray = ULongArray(32),
+    public var fcsr: CUint = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is RiscvMcDExtState) return false

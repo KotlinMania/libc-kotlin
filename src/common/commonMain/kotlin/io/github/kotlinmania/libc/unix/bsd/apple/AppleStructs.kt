@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
@@ -45,15 +46,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -63,7 +65,10 @@ public class DebugStruct(
     }
 }
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class IpMreqn(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -126,7 +131,10 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class MachTimebaseInfo(public var numer: UInt = 0u, public var denom: UInt = 0u)
+public data class MachTimebaseInfo(
+    public var numer: UInt = 0u,
+    public var denom: UInt = 0u,
+)
 
 public class Stat(
     public var stDev: DevT = 0,
@@ -237,7 +245,10 @@ public data class FpunchholeT(
     public var fpLength: OffT = 0L,
 )
 
-public data class FtrimactivefileT(public var ftaOffset: OffT = 0L, public var ftaLength: OffT = 0L)
+public data class FtrimactivefileT(
+    public var ftaOffset: OffT = 0L,
+    public var ftaLength: OffT = 0L,
+)
 
 public data class FspecreadT(
     public var fsrFlags: CUint = 0u,
@@ -246,7 +257,10 @@ public data class FspecreadT(
     public var fsrLength: OffT = 0L,
 )
 
-public data class Radvisory(public var raOffset: OffT = 0L, public var raCount: CInt = 0)
+public data class Radvisory(
+    public var raOffset: OffT = 0L,
+    public var raCount: CInt = 0,
+)
 
 public data class Statvfs(
     public var fBsize: CUlong = 0uL,
@@ -619,7 +633,10 @@ public class ProcBsdinfo(
     public var pbiStartTvusec: ULong = 0uL,
 )
 
-public data class ProcTaskallinfo(public var pbsd: ProcBsdinfo = ProcBsdinfo(), public var ptinfo: ProcTaskinfo = ProcTaskinfo())
+public data class ProcTaskallinfo(
+    public var pbsd: ProcBsdinfo = ProcBsdinfo(),
+    public var ptinfo: ProcTaskinfo = ProcTaskinfo(),
+)
 
 public data class XswUsage(
     public var xsuTotal: ULong = 0uL,
@@ -767,7 +784,10 @@ public data class SegmentCommand64(
     }
 }
 
-public data class LoadCommand(public var cmd: UInt = 0u, public var cmdsize: UInt = 0u)
+public data class LoadCommand(
+    public var cmd: UInt = 0u,
+    public var cmdsize: UInt = 0u,
+)
 
 public data class SockaddrDl(
     public var sdlLen: CUchar = 0u,
@@ -853,7 +873,10 @@ public data class InPktinfo(
     public var ipiAddr: InAddr = InAddr(),
 )
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 // sys/ipc.h:
 public data class IpcPerm(
@@ -882,7 +905,9 @@ public data class Arphdr(
     public var arOp: UShort = 0u,
 )
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 // net/ndrv.h
 public data class SockaddrNdrv(
@@ -948,9 +973,13 @@ public data class Ntptimeval(
     public var timeState: CInt = 0,
 )
 
-public data class ThreadStandardPolicy(public var noData: NaturalT = 0u)
+public data class ThreadStandardPolicy(
+    public var noData: NaturalT = 0u,
+)
 
-public data class ThreadExtendedPolicy(public var timeshare: BooleanT = 0)
+public data class ThreadExtendedPolicy(
+    public var timeshare: BooleanT = 0,
+)
 
 public data class ThreadTimeConstraintPolicy(
     public var period: UInt = 0u,
@@ -959,15 +988,25 @@ public data class ThreadTimeConstraintPolicy(
     public var preemptible: BooleanT = 0,
 )
 
-public data class ThreadPrecedencePolicy(public var importance: IntegerT = 0)
+public data class ThreadPrecedencePolicy(
+    public var importance: IntegerT = 0,
+)
 
-public data class ThreadAffinityPolicy(public var affinityTag: IntegerT = 0)
+public data class ThreadAffinityPolicy(
+    public var affinityTag: IntegerT = 0,
+)
 
-public data class ThreadBackgroundPolicy(public var priority: IntegerT = 0)
+public data class ThreadBackgroundPolicy(
+    public var priority: IntegerT = 0,
+)
 
-public data class ThreadLatencyQosPolicy(public var threadLatencyQosTier: ThreadLatencyQosT = 0)
+public data class ThreadLatencyQosPolicy(
+    public var threadLatencyQosTier: ThreadLatencyQosT = 0,
+)
 
-public data class ThreadThroughputQosPolicy(public var threadThroughputQosTier: ThreadThroughputQosT = 0)
+public data class ThreadThroughputQosPolicy(
+    public var threadThroughputQosTier: ThreadThroughputQosT = 0,
+)
 
 // malloc/malloc.h
 public data class MallocStatisticsT(
@@ -985,7 +1024,10 @@ public data class Mstats(
     public var bytesFree: SizeT = 0uL,
 )
 
-public data class VmRangeT(public var address: VmAddressT = 0uL, public var size: VmSizeT = 0uL)
+public data class VmRangeT(
+    public var address: VmAddressT = 0uL,
+    public var size: VmSizeT = 0uL,
+)
 
 public class VinfoStat(
     public var vstDev: UInt = 0u,
@@ -1025,7 +1067,10 @@ public data class VnodeInfoPath(
     public var vipPath: List<UByteArray> = List(32) { UByteArray(0) },
 )
 
-public data class ProcVnodepathinfo(public var pviCdir: VnodeInfoPath = VnodeInfoPath(), public var pviRdir: VnodeInfoPath = VnodeInfoPath())
+public data class ProcVnodepathinfo(
+    public var pviCdir: VnodeInfoPath = VnodeInfoPath(),
+    public var pviRdir: VnodeInfoPath = VnodeInfoPath(),
+)
 
 public data class VmStatistics(
     public var freeCount: NaturalT = 0u,
@@ -1045,7 +1090,10 @@ public data class VmStatistics(
     public var speculativeCount: NaturalT = 0u,
 )
 
-public data class TaskThreadTimesInfo(public var userTime: TimeValueT = TimeValueT(), public var systemTime: TimeValueT = TimeValueT())
+public data class TaskThreadTimesInfo(
+    public var userTime: TimeValueT = TimeValueT(),
+    public var systemTime: TimeValueT = TimeValueT(),
+)
 
 public data class RusageInfoV0(
     public var riUuid: UByteArray = UByteArray(16),
@@ -1205,7 +1253,10 @@ public class RusageInfoV4(
     public var riRunnableTime: ULong = 0uL,
 )
 
-public data class ImageOffset(public var uuid: UuidT = UByteArray(16), public var offset: UInt = 0u) {
+public data class ImageOffset(
+    public var uuid: UuidT = UByteArray(16),
+    public var offset: UInt = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ImageOffset) return false
@@ -1231,9 +1282,15 @@ public data class Attrlist(
     public var forkattr: AttrgroupT = 0u,
 )
 
-public data class AttrreferenceT(public var attrDataoffset: Int = 0, public var attrLength: UInt = 0u)
+public data class AttrreferenceT(
+    public var attrDataoffset: Int = 0,
+    public var attrLength: UInt = 0u,
+)
 
-public data class VolCapabilitiesAttrT(public var capabilities: VolCapabilitiesSetT = UIntArray(4), public var valid: VolCapabilitiesSetT = UIntArray(4)) {
+public data class VolCapabilitiesAttrT(
+    public var capabilities: VolCapabilitiesSetT = UIntArray(4),
+    public var valid: VolCapabilitiesSetT = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is VolCapabilitiesAttrT) return false
@@ -1257,7 +1314,10 @@ public data class AttributeSetT(
     public var forkattr: AttrgroupT = 0u,
 )
 
-public data class VolAttributesAttrT(public var validattr: AttributeSetT = AttributeSetT(), public var nativeattr: AttributeSetT = AttributeSetT())
+public data class VolAttributesAttrT(
+    public var validattr: AttributeSetT = AttributeSetT(),
+    public var nativeattr: AttributeSetT = AttributeSetT(),
+)
 
 public class TcpConnectionInfo(
     public var tcpiState: UByte = 0u,
@@ -1374,7 +1434,9 @@ public class Icmp6Ifstat(
 )
 
 // mach/hostInfo.h
-public data class HostCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX)) {
+public data class HostCpuLoadInfo(
+    public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HostCpuLoadInfo) return false
@@ -1382,9 +1444,7 @@ public data class HostCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.cpuTicks.contentHashCode()
-    }
+    override fun hashCode(): Int = this.cpuTicks.contentHashCode()
 }
 
 // net/ifMib.h
@@ -1511,7 +1571,10 @@ public data class IfsIso88023(
 }
 
 // kernControl.h
-public data class CtlInfo(public var ctlId: UInt = 0u, public var ctlName: UByteArray = UByteArray(MAX_KCTL_NAME)) {
+public data class CtlInfo(
+    public var ctlId: UInt = 0u,
+    public var ctlName: UByteArray = UByteArray(MAX_KCTL_NAME),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CtlInfo) return false
@@ -1528,7 +1591,10 @@ public data class CtlInfo(public var ctlId: UInt = 0u, public var ctlName: UByte
 }
 
 // sys/procInfo.h
-public data class ProcFdinfo(public var procFd: Int = 0, public var procFdtype: UInt = 0u)
+public data class ProcFdinfo(
+    public var procFd: Int = 0,
+    public var procFdtype: UInt = 0u,
+)
 
 public data class Kevent(
     public var ident: UintptrT = 0uL,
@@ -1764,7 +1830,9 @@ public data class Sigevent(
     public var sigevNotifyAttributes: PthreadAttrT? = null,
 )
 
-public data class ProcessorCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX)) {
+public data class ProcessorCpuLoadInfo(
+    public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ProcessorCpuLoadInfo) return false
@@ -1772,9 +1840,7 @@ public data class ProcessorCpuLoadInfo(public var cpuTicks: UIntArray = UIntArra
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.cpuTicks.contentHashCode()
-    }
+    override fun hashCode(): Int = this.cpuTicks.contentHashCode()
 }
 
 public data class ProcessorBasicInfo(
@@ -1785,7 +1851,10 @@ public data class ProcessorBasicInfo(
     public var isMaster: BooleanT = 0,
 )
 
-public data class ProcessorSetBasicInfo(public var processorCount: CInt = 0, public var defaultPolicy: CInt = 0)
+public data class ProcessorSetBasicInfo(
+    public var processorCount: CInt = 0,
+    public var defaultPolicy: CInt = 0,
+)
 
 public data class ProcessorSetLoadInfo(
     public var taskCount: CInt = 0,
@@ -1794,7 +1863,10 @@ public data class ProcessorSetLoadInfo(
     public var machFactor: IntegerT = 0,
 )
 
-public data class TimeValueT(public var seconds: IntegerT = 0, public var microseconds: IntegerT = 0)
+public data class TimeValueT(
+    public var seconds: IntegerT = 0,
+    public var microseconds: IntegerT = 0,
+)
 
 public data class ThreadBasicInfo(
     public var userTime: TimeValueT = TimeValueT(),
@@ -1944,7 +2016,9 @@ public data class Log2phys(
     public var l2pDevoffset: OffT = 0L,
 )
 
-public data class OsUnfairLockS(public var osUnfairLockOpaque: UInt = 0u)
+public data class OsUnfairLockS(
+    public var osUnfairLockOpaque: UInt = 0u,
+)
 
 public data class SockaddrVm(
     public var svmLen: CUchar = 0u,
@@ -1966,7 +2040,10 @@ public data class Ifkpi(
     public var ifkData: CAnonymousIfkData = CAnonymousIfkData(),
 )
 
-public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+public data class Ifreq(
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ifreq) return false
@@ -1982,7 +2059,10 @@ public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toI
     }
 }
 
-public data class In6Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru6 = CAnonymousIfrIfru6()) {
+public data class In6Ifreq(
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifrIfru: CAnonymousIfrIfru6 = CAnonymousIfrIfru6(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Ifreq) return false
@@ -1998,7 +2078,10 @@ public data class In6Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.
     }
 }
 
-public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu()) {
+public data class Ifconf(
+    public var ifcLen: CInt = 0,
+    public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
+) {
     public fun eq(other: Ifconf): Boolean {
         val lenPtr1 = this.ifcLen
         val lenPtr2 = other.ifcLen
@@ -2013,14 +2096,15 @@ public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnony
     }
 }
 
-public data class CAnonymousIfkData(public var ifkPtr: COpaquePointer? = null, public var ifkValue: CInt = 0) {
+public data class CAnonymousIfkData(
+    public var ifkPtr: COpaquePointer? = null,
+    public var ifkValue: CInt = 0,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifk_data").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfkData): Boolean {
-        return this.ifkPtr == other.ifkPtr && this.ifkValue == other.ifkValue
-    }
+    public fun eq(other: CAnonymousIfkData): Boolean = this.ifkPtr == other.ifkPtr && this.ifkValue == other.ifkValue
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2096,19 +2180,18 @@ public data class CAnonymousIfrIfru(
         DebugStruct(f, "__c_anonymous_ifr_ifru").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfrIfru): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetrics == other.ifruMetrics && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruDevmtu == other.ifruDevmtu && this.ifruKpi == other.ifruKpi && this.ifruWakeFlags == other.ifruWakeFlags && this.ifruRouteRefcnt == other.ifruRouteRefcnt && this.ifruCap.zip(other.ifruCap).all({ (a, b) -> a == b }) && this.ifruFunctionalType == other.ifruFunctionalType
-    }
+    public fun eq(other: CAnonymousIfrIfru): Boolean = this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetrics == other.ifruMetrics && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruDevmtu == other.ifruDevmtu && this.ifruKpi == other.ifruKpi && this.ifruWakeFlags == other.ifruWakeFlags && this.ifruRouteRefcnt == other.ifruRouteRefcnt && (this.ifruCap.zip(other.ifruCap)).all({ (a, b) -> a == b }) && this.ifruFunctionalType == other.ifruFunctionalType
 }
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null) {
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: COpaquePointer? = null,
+    public var ifcuReq: Ifreq? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifc_ifcu").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfcIfcu): Boolean {
-        return this.ifcuBuf == other.ifcuBuf && this.ifcuReq == other.ifcuReq
-    }
+    public fun eq(other: CAnonymousIfcIfcu): Boolean = this.ifcuBuf == other.ifcuBuf && this.ifcuReq == other.ifcuReq
 
     public override fun hashCode(): Int {
         var state = 0
@@ -2167,9 +2250,7 @@ public data class CAnonymousIfrIfru6(
         DebugStruct(f, "__c_anonymous_ifr_ifru6").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousIfrIfru6): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruFlags == other.ifruFlags && this.ifruFlags6 == other.ifruFlags6 && this.ifruMetrics == other.ifruMetrics && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruScopeId.zip(other.ifruScopeId).all({ (a, b) -> a == b })
-    }
+    public fun eq(other: CAnonymousIfrIfru6): Boolean = this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruFlags == other.ifruFlags && this.ifruFlags6 == other.ifruFlags6 && this.ifruMetrics == other.ifruMetrics && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && (this.ifruScopeId.zip(other.ifruScopeId)).all({ (a, b) -> a == b })
 }
 
 public data class Semun(
@@ -2181,9 +2262,7 @@ public data class Semun(
         DebugStruct(f, "semun").finishNonExhaustive()
     }
 
-    public fun eq(other: Semun): Boolean {
-        return this.value == other.value
-    }
+    public fun eq(other: Semun): Boolean = this.value == other.value
 
     public override fun hashCode(): Int {
         var state = 0

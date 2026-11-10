@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
@@ -30,7 +31,10 @@ public data class Sigaction(
     public var saRestorer: SigactionSaRestorerCallback? = null,
 )
 
-public data class Rlimit64(public var rlimCur: ULong = 0uL, public var rlimMax: ULong = 0uL)
+public data class Rlimit64(
+    public var rlimCur: ULong = 0uL,
+    public var rlimMax: ULong = 0uL,
+)
 
 public class Stat(
     public var stDev: CUlonglong = 0uL,
@@ -146,9 +150,13 @@ public data class PthreadAttrT(
     public var schedPriority: Int = 0,
 )
 
-public data class PthreadMutexT(public var value: CInt = 0)
+public data class PthreadMutexT(
+    public var value: CInt = 0,
+)
 
-public data class PthreadCondT(public var value: CInt = 0)
+public data class PthreadCondT(
+    public var value: CInt = 0,
+)
 
 public data class PthreadRwlockT(
     public var lock: PthreadMutexT = PthreadMutexT(),
@@ -187,7 +195,9 @@ public data class PthreadRwlockT(
     }
 }
 
-public data class PthreadBarrierT(public var private: IntArray = IntArray(8)) {
+public data class PthreadBarrierT(
+    public var private: IntArray = IntArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -195,12 +205,12 @@ public data class PthreadBarrierT(public var private: IntArray = IntArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
-public data class PthreadSpinlockT(public var private: IntArray = IntArray(2)) {
+public data class PthreadSpinlockT(
+    public var private: IntArray = IntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadSpinlockT) return false
@@ -208,9 +218,7 @@ public data class PthreadSpinlockT(public var private: IntArray = IntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
 public data class Passwd(
@@ -326,7 +334,9 @@ public data class Sysinfo(
     }
 }
 
-public data class Sigset64T(public var bits: ULongArray = ULongArray(2)) {
+public data class Sigset64T(
+    public var bits: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sigset64T) return false
@@ -334,7 +344,5 @@ public data class Sigset64T(public var bits: ULongArray = ULongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }

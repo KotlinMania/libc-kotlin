@@ -1,5 +1,6 @@
 // port-lint: source new/linux_uapi/linux/can.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
@@ -193,9 +194,15 @@ public data class SockaddrCan(
     public var canAddr: CAnonymousSockaddrCanCanAddr = CAnonymousSockaddrCanCanAddr(),
 )
 
-public data class CAnonymousSockaddrCanCanAddr(public var tp: CAnonymousSockaddrCanTp = CAnonymousSockaddrCanTp(), public var j1939: CAnonymousSockaddrCanJ1939 = CAnonymousSockaddrCanJ1939())
+public data class CAnonymousSockaddrCanCanAddr(
+    public var tp: CAnonymousSockaddrCanTp = CAnonymousSockaddrCanTp(),
+    public var j1939: CAnonymousSockaddrCanJ1939 = CAnonymousSockaddrCanJ1939(),
+)
 
-public data class CAnonymousSockaddrCanTp(public var rxId: CanidT = 0u, public var txId: CanidT = 0u)
+public data class CAnonymousSockaddrCanTp(
+    public var rxId: CanidT = 0u,
+    public var txId: CanidT = 0u,
+)
 
 public data class CAnonymousSockaddrCanJ1939(
     public var name: ULong = 0uL,
@@ -203,6 +210,9 @@ public data class CAnonymousSockaddrCanJ1939(
     public var addr: UByte = 0u,
 )
 
-public data class CanFilter(public var canId: CanidT = 0u, public var canMask: CanidT = 0u)
+public data class CanFilter(
+    public var canId: CanidT = 0u,
+    public var canMask: CanidT = 0u,
+)
 
 public val CANFD_MTU: Int = 8

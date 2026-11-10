@@ -47,9 +47,8 @@ public actual fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: C
 public actual fun getaddrinfo(host: String?, serv: String?, hint: COpaquePointer?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freeaddrinfo(p: COpaquePointer?) {
+public actual fun freeaddrinfo(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun gaiStrerror(ecode: CInt): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

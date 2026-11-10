@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
@@ -34,15 +35,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -52,9 +54,14 @@ public class DebugStruct(
     }
 }
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
-public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
+public data class CpuSetT(
+    public var bits: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuSetT) return false
@@ -62,9 +69,7 @@ public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class Sigaction(
@@ -93,7 +98,10 @@ public data class Tm(
     public var tmZone: COpaquePointer? = null,
 )
 
-public data class Bintime(public var sec: TimeT = 0L, public var frac: ULong = 0uL)
+public data class Bintime(
+    public var sec: TimeT = 0L,
+    public var frac: ULong = 0uL,
+)
 
 public data class Passwd(
     public var pwName: COpaquePointer? = null,
@@ -106,7 +114,10 @@ public data class Passwd(
     public var pwShell: COpaquePointer? = null,
 )
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
 public data class Ucred(
     public var pid: PidT = 0,
@@ -155,7 +166,10 @@ public data class DlInfo(
     }
 }
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: UInt = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: UInt = 0u,
+)
 
 public data class SockaddrIn6(
     public var sin6Family: SaFamilyT = 0u,
@@ -246,7 +260,9 @@ public data class Termios(
     }
 }
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class Flock(
     public var lType: CShort = 0,
@@ -264,9 +280,14 @@ public data class Hostent(
     public var hAddrList: COpaquePointer? = null,
 )
 
-public data class Linger(public var lOnoff: CUshort = 0u, public var lLinger: CUshort = 0u)
+public data class Linger(
+    public var lOnoff: CUshort = 0u,
+    public var lLinger: CUshort = 0u,
+)
 
-public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / 8 / 8)) {
+public data class FdSet(
+    public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / 8 / 8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -274,9 +295,7 @@ public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE /
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class UcFpxreg(
@@ -301,7 +320,9 @@ public data class UcFpxreg(
     }
 }
 
-public data class UcXmmreg(public var element: UIntArray = UIntArray(4)) {
+public data class UcXmmreg(
+    public var element: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UcXmmreg) return false
@@ -309,9 +330,7 @@ public data class UcXmmreg(public var element: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.element.contentHashCode()
-    }
+    override fun hashCode(): Int = this.element.contentHashCode()
 }
 
 public data class Fpstate(
@@ -427,7 +446,10 @@ public data class UcontextT(
     public var ucFlags: CUlong = 0uL,
 )
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -489,11 +511,19 @@ public class Stat(
     public var stBirthtimeNsec: CLong = 0L,
 )
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class InPktinfo(public var ipiAddr: InAddr = InAddr(), public var ipiIfindex: UInt = 0u)
+public data class InPktinfo(
+    public var ipiAddr: InAddr = InAddr(),
+    public var ipiIfindex: UInt = 0u,
+)
 
 public data class SockaddrIn(
     public var sinFamily: SaFamilyT = 0u,
@@ -577,7 +607,10 @@ public data class Statfs(
     }
 }
 
-public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var sunPath: UByteArray = UByteArray(108)) {
+public data class SockaddrUn(
+    public var sunFamily: SaFamilyT = 0u,
+    public var sunPath: UByteArray = UByteArray(108),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrUn) return false
@@ -722,7 +755,9 @@ public data class Dirent(
     }
 }
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -730,9 +765,7 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
 public data class CAnonymousIfrIfru(
@@ -807,13 +840,19 @@ public data class Ifreq(
     }
 }
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: CaddrT = null, public var ifcuReq: Ifreq? = null) {
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: CaddrT = null,
+    public var ifcuReq: Ifreq? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifc_ifcu").finishNonExhaustive()
     }
 }
 
-public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu())
+public data class Ifconf(
+    public var ifcLen: CInt = 0,
+    public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
+)
 
 public data class Utmpx(
     public var utType: CShort = 0,

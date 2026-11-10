@@ -176,9 +176,8 @@ public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
 public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun cfmakesane(termios: COpaquePointer?) {
+public actual fun cfmakesane(termios: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun pdfork(fdp: COpaquePointer?, flags: CInt): PidT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -297,9 +296,8 @@ public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaqueP
 public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun rfork(flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -391,9 +389,8 @@ public actual fun flsl(value: CLong): CInt =
 public actual fun flsll(value: CLonglong): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
+public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -416,13 +413,11 @@ public actual fun xallocx(ptr: COpaquePointer?, size: SizeT, extra: SizeT, flags
 public actual fun sallocx(ptr: COpaquePointer?, flags: CInt): SizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun dallocx(ptr: COpaquePointer?, flags: CInt) {
+public actual fun dallocx(ptr: COpaquePointer?, flags: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun sdallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt) {
+public actual fun sdallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun nallocx(size: SizeT, flags: CInt): SizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -469,9 +464,8 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
+public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -497,16 +491,14 @@ public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
 public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sctpFreepaddrs(addrs: COpaquePointer?) {
+public actual fun sctpFreepaddrs(addrs: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sctpFreeladdrs(addrs: COpaquePointer?) {
+public actual fun sctpFreeladdrs(addrs: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -526,9 +518,8 @@ public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun closefrom(lowfd: CInt) {
+public actual fun closefrom(lowfd: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun closeRange(lowfd: CUint, highfd: CUint, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -557,9 +548,8 @@ public actual fun memstatMtlNext(mtp: COpaquePointer?): COpaquePointer? =
 public actual fun memstatMtlFind(list: COpaquePointer?, allocator: CInt, name: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun memstatMtlFree(list: COpaquePointer?) {
+public actual fun memstatMtlFree(list: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun memstatMtlGeterror(list: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -633,9 +623,8 @@ public actual fun kldLoad(name: String?): CInt =
 public actual fun kinfoGetvmmap(pid: PidT, cntp: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) {
+public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -670,43 +659,35 @@ public actual fun procstatOpenSysctl(): COpaquePointer? =
 public actual fun procstatGetfiles(procstat: COpaquePointer?, kp: COpaquePointer?, mmapped: CInt): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun procstatFreefiles(procstat: COpaquePointer?, head: COpaquePointer?) {
+public actual fun procstatFreefiles(procstat: COpaquePointer?, head: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun procstatGetprocs(procstat: COpaquePointer?, what: CInt, arg: CInt, count: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun procstatFreeprocs(procstat: COpaquePointer?, p: COpaquePointer?) {
+public actual fun procstatFreeprocs(procstat: COpaquePointer?, p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun procstatGetvmmap(procstat: COpaquePointer?, kp: COpaquePointer?, count: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun procstatFreevmmap(procstat: COpaquePointer?, vmmap: COpaquePointer?) {
+public actual fun procstatFreevmmap(procstat: COpaquePointer?, vmmap: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun procstatClose(procstat: COpaquePointer?) {
+public actual fun procstatClose(procstat: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun procstatFreeargv(procstat: COpaquePointer?) {
+public actual fun procstatFreeargv(procstat: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun procstatFreeenvv(procstat: COpaquePointer?) {
+public actual fun procstatFreeenvv(procstat: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun procstatFreegroups(procstat: COpaquePointer?, groups: COpaquePointer?) {
+public actual fun procstatFreegroups(procstat: COpaquePointer?, groups: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun procstatFreeptlwpinfo(procstat: COpaquePointer?, pl: COpaquePointer?) {
+public actual fun procstatFreeptlwpinfo(procstat: COpaquePointer?, pl: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun procstatGetargv(procstat: COpaquePointer?, kp: COpaquePointer?, nchr: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

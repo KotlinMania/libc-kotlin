@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
@@ -35,15 +36,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -216,7 +218,10 @@ public data class TpacketRolloverStats(
     public var tpFailed: U64 = 0uL,
 )
 
-public data class TpacketStats(public var tpPackets: CUint = 0u, public var tpDrops: CUint = 0u)
+public data class TpacketStats(
+    public var tpPackets: CUint = 0u,
+    public var tpDrops: CUint = 0u,
+)
 
 public data class TpacketStatsV3(
     public var tpPackets: CUint = 0u,
@@ -267,7 +272,10 @@ public data class Tpacket3Hdr(
     }
 }
 
-public data class TpacketBdTs(public var tsSec: CUint = 0u, public var tsUsec: CUint = 0u)
+public data class TpacketBdTs(
+    public var tsSec: CUint = 0u,
+    public var tsUsec: CUint = 0u,
+)
 
 public data class TpacketHdrV1(
     public var blockStatus: U32 = 0u,
@@ -349,9 +357,15 @@ public data class InputMask(
     public var codesPtr: U64 = 0uL,
 )
 
-public data class FfReplay(public var length: U16 = 0u, public var delay: U16 = 0u)
+public data class FfReplay(
+    public var length: U16 = 0u,
+    public var delay: U16 = 0u,
+)
 
-public data class FfTrigger(public var button: U16 = 0u, public var interval: U16 = 0u)
+public data class FfTrigger(
+    public var button: U16 = 0u,
+    public var interval: U16 = 0u,
+)
 
 public data class FfEnvelope(
     public var attackLength: U16 = 0u,
@@ -360,7 +374,10 @@ public data class FfEnvelope(
     public var fadeLevel: U16 = 0u,
 )
 
-public data class FfConstantEffect(public var level: S16 = 0, public var envelope: FfEnvelope = FfEnvelope())
+public data class FfConstantEffect(
+    public var level: S16 = 0,
+    public var envelope: FfEnvelope = FfEnvelope(),
+)
 
 public data class FfRampEffect(
     public var startLevel: S16 = 0,
@@ -388,7 +405,10 @@ public data class FfPeriodicEffect(
     public var customData: CShort? = null,
 )
 
-public data class FfRumbleEffect(public var strongMagnitude: U16 = 0u, public var weakMagnitude: U16 = 0u)
+public data class FfRumbleEffect(
+    public var strongMagnitude: U16 = 0u,
+    public var weakMagnitude: U16 = 0u,
+)
 
 public data class FfEffect(
     public var type: U16 = 0u,
@@ -435,9 +455,14 @@ public data class UinputFfErase(
     public var effectId: U32 = 0u,
 )
 
-public data class UinputAbsSetup(public var code: U16 = 0u, public var absinfo: InputAbsinfo = InputAbsinfo())
+public data class UinputAbsSetup(
+    public var code: U16 = 0u,
+    public var absinfo: InputAbsinfo = InputAbsinfo(),
+)
 
-public data class CAnonymousKernelFsidT(public var value: IntArray = IntArray(2)) {
+public data class CAnonymousKernelFsidT(
+    public var value: IntArray = IntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousKernelFsidT) return false
@@ -445,9 +470,7 @@ public data class CAnonymousKernelFsidT(public var value: IntArray = IntArray(2)
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class PosixSpawnFileActionsT(
@@ -525,7 +548,10 @@ public data class InotifyEvent(
     public var len: UInt = 0u,
 )
 
-public data class FanotifyResponse(public var fd: CInt = 0, public var response: U32 = 0u)
+public data class FanotifyResponse(
+    public var fd: CInt = 0,
+    public var response: U32 = 0u,
+)
 
 public data class FanotifyEventInfoHeader(
     public var infoType: U8 = 0u,
@@ -810,12 +836,20 @@ public data class SctpNxtinfo(
     public var nxtAssocId: SctpAssocT = 0,
 )
 
-public data class SctpPrinfo(public var prPolicy: U16 = 0u, public var prValue: U32 = 0u)
+public data class SctpPrinfo(
+    public var prPolicy: U16 = 0u,
+    public var prValue: U32 = 0u,
+)
 
-public data class SctpAuthinfo(public var authKeynumber: U16 = 0u)
+public data class SctpAuthinfo(
+    public var authKeynumber: U16 = 0u,
+)
 
 // linux/tls.h
-public data class TlsCryptoInfo(public var version: U16 = 0u, public var cipherType: U16 = 0u)
+public data class TlsCryptoInfo(
+    public var version: U16 = 0u,
+    public var cipherType: U16 = 0u,
+)
 
 public data class Tls12CryptoInfoAesGcm128(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
@@ -1077,7 +1111,9 @@ public data class IwDiscarded(
     public var pubmisc: U32 = 0u,
 )
 
-public data class IwMissed(public var beacon: U32 = 0u)
+public data class IwMissed(
+    public var beacon: U32 = 0u,
+)
 
 public data class IwScanReq(
     public var scanType: U8 = 0u,
@@ -1267,7 +1303,9 @@ public data class EpollParams(
     public var pad: UByte = 0u,
 )
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
+public data class PthreadMutexattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -1275,12 +1313,12 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZ
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCKATTR_T)) {
+public data class PthreadRwlockattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCKATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false
@@ -1288,12 +1326,12 @@ public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray(SI
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
+public data class PthreadCondattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -1301,12 +1339,12 @@ public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZE
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadBarrierattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIERATTR_T)) {
+public data class PthreadBarrierattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIERATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierattrT) return false
@@ -1314,9 +1352,7 @@ public data class PthreadBarrierattrT(public var size: UByteArray = UByteArray(S
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class FanotifyEventMetadata(
@@ -1491,7 +1527,9 @@ public data class XdpStatisticsV1(
     public var txInvalidDescs: U64 = 0uL,
 )
 
-public data class XdpOptions(public var flags: U32 = 0u)
+public data class XdpOptions(
+    public var flags: U32 = 0u,
+)
 
 public data class XdpDesc(
     public var addr: U64 = 0uL,
@@ -1499,9 +1537,14 @@ public data class XdpDesc(
     public var options: U32 = 0u,
 )
 
-public data class XskTxMetadataCompletion(public var txTimestamp: U64 = 0uL)
+public data class XskTxMetadataCompletion(
+    public var txTimestamp: U64 = 0uL,
+)
 
-public data class XskTxMetadataRequest(public var csumStart: U16 = 0u, public var csumOffset: U16 = 0u)
+public data class XskTxMetadataRequest(
+    public var csumStart: U16 = 0u,
+    public var csumOffset: U16 = 0u,
+)
 
 // linux/mount.h
 public data class MountAttr(
@@ -1544,7 +1587,10 @@ public data class DmabufCmsg(
     public var flags: U32 = 0u,
 )
 
-public data class DmabufToken(public var tokenStart: U32 = 0u, public var tokenCount: U32 = 0u)
+public data class DmabufToken(
+    public var tokenStart: U32 = 0u,
+    public var tokenCount: U32 = 0u,
+)
 
 public data class SockaddrAlg(
     public var salgFamily: SaFamilyT = 0u,
@@ -1574,7 +1620,9 @@ public data class SockaddrAlg(
     }
 }
 
-public data class PthreadCondT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T)) {
+public data class PthreadCondT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -1582,12 +1630,12 @@ public data class PthreadCondT(public var size: UByteArray = UByteArray(SIZEOF_P
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadMutexT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T)) {
+public data class PthreadMutexT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -1595,12 +1643,12 @@ public data class PthreadMutexT(public var size: UByteArray = UByteArray(SIZEOF_
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadRwlockT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCK_T)) {
+public data class PthreadRwlockT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCK_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -1608,12 +1656,12 @@ public data class PthreadRwlockT(public var size: UByteArray = UByteArray(SIZEOF
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadBarrierT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIER_T)) {
+public data class PthreadBarrierT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIER_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -1621,9 +1669,7 @@ public data class PthreadBarrierT(public var size: UByteArray = UByteArray(SIZEO
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class UinputSetup(
@@ -1768,7 +1814,10 @@ public data class IwMichaelmicfailure(
  * WARNING: The `PartialEq`, `Eq` and `Hash` implementations of this
  * type are unsound and will be removed in the future.
  */
-public data class AfAlgIv(public var ivlen: UInt = 0u, public var iv: UByteArray = UByteArray(0)) {
+public data class AfAlgIv(
+    public var ivlen: UInt = 0u,
+    public var iv: UByteArray = UByteArray(0),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AfAlgIv) return false
@@ -1783,22 +1832,23 @@ public data class AfAlgIv(public var ivlen: UInt = 0u, public var iv: UByteArray
         return result
     }
 
-    public fun asSlice(): List<UByte> {
-        return emptyList()
-    }
+    public fun asSlice(): List<UByte> = emptyList()
 
-    public fun eq(other: AfAlgIv): Boolean {
-        return this.asSlice() == other.asSlice()
-    }
+    public fun eq(other: AfAlgIv): Boolean = this.asSlice() == other.asSlice()
 }
 
-public data class TpacketReqU(public var req: TpacketReq = TpacketReq(), public var req3: TpacketReq3 = TpacketReq3()) {
+public data class TpacketReqU(
+    public var req: TpacketReq = TpacketReq(),
+    public var req3: TpacketReq3 = TpacketReq3(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "tpacket_req_u").finishNonExhaustive()
     }
 }
 
-public data class TpacketBdHeaderU(public var bh1: TpacketHdrV1 = TpacketHdrV1()) {
+public data class TpacketBdHeaderU(
+    public var bh1: TpacketHdrV1 = TpacketHdrV1(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "tpacket_bd_header_u").finishNonExhaustive()
     }
@@ -1811,7 +1861,10 @@ public data class TpacketBlockDesc(
 )
 
 // linux/netTstamp.h
-public data class SockTxtime(public var clockid: ClockidT = 0, public var flags: U32 = 0u)
+public data class SockTxtime(
+    public var clockid: ClockidT = 0,
+    public var flags: U32 = 0u,
+)
 
 // linux/wireless.h
 public class IwreqData(
@@ -1845,7 +1898,9 @@ public data class IwEvent(
     public var u: IwreqData = IwreqData(),
 )
 
-public data class CAnonymousIwreq(public var ifrnName: UByteArray = UByteArray(IFNAMSIZ.toInt())) {
+public data class CAnonymousIwreq(
+    public var ifrnName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousIwreq) return false
@@ -1853,25 +1908,32 @@ public data class CAnonymousIwreq(public var ifrnName: UByteArray = UByteArray(I
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.ifrnName.contentHashCode()
-    }
+    override fun hashCode(): Int = this.ifrnName.contentHashCode()
 
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_iwreq").finishNonExhaustive()
     }
 }
 
-public data class Iwreq(public var ifrIfrn: CAnonymousIwreq = CAnonymousIwreq(), public var u: IwreqData = IwreqData())
+public data class Iwreq(
+    public var ifrIfrn: CAnonymousIwreq = CAnonymousIwreq(),
+    public var u: IwreqData = IwreqData(),
+)
 
 // linux/ptpClock.h
-public data class CAnonymousPtpPeroutRequest1(public var start: PtpClockTime = PtpClockTime(), public var phase: PtpClockTime = PtpClockTime()) {
+public data class CAnonymousPtpPeroutRequest1(
+    public var start: PtpClockTime = PtpClockTime(),
+    public var phase: PtpClockTime = PtpClockTime(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ptp_perout_request_1").finishNonExhaustive()
     }
 }
 
-public data class CAnonymousPtpPeroutRequest2(public var on: PtpClockTime = PtpClockTime(), public var rsv: UIntArray = UIntArray(4)) {
+public data class CAnonymousPtpPeroutRequest2(
+    public var on: PtpClockTime = PtpClockTime(),
+    public var rsv: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousPtpPeroutRequest2) return false
@@ -1900,9 +1962,15 @@ public data class PtpPeroutRequest(
 )
 
 // linux/ifXdp.h
-public data class XskTxMetadata(public var flags: U64 = 0uL, public var xskTxMetadataUnion: CAnonymousXskTxMetadataUnion = CAnonymousXskTxMetadataUnion())
+public data class XskTxMetadata(
+    public var flags: U64 = 0uL,
+    public var xskTxMetadataUnion: CAnonymousXskTxMetadataUnion = CAnonymousXskTxMetadataUnion(),
+)
 
-public data class CAnonymousXskTxMetadataUnion(public var request: XskTxMetadataRequest = XskTxMetadataRequest(), public var completion: XskTxMetadataCompletion = XskTxMetadataCompletion()) {
+public data class CAnonymousXskTxMetadataUnion(
+    public var request: XskTxMetadataRequest = XskTxMetadataRequest(),
+    public var completion: XskTxMetadataCompletion = XskTxMetadataCompletion(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_xsk_tx_metadata_union").finishNonExhaustive()
     }

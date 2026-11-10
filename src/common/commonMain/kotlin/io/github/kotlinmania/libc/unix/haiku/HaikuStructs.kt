@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
@@ -23,9 +24,14 @@ import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.haiku.b64.TimeT
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class Sockaddr(
     public var saLen: UByte = 0u,
@@ -118,9 +124,7 @@ public data class FdSet(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Tm(
@@ -323,7 +327,9 @@ public data class PthreadRwlockT(
     public var waiters: List<COpaquePointer> = List(2) { COpaquePointer(0L) },
 )
 
-public data class PthreadSpinlockT(public var lock: UInt = 0u)
+public data class PthreadSpinlockT(
+    public var lock: UInt = 0u,
+)
 
 public data class Passwd(
     public var pwName: COpaquePointer? = null,
@@ -467,7 +473,10 @@ public data class RegexT(
     public var bitfield: UByte = 0u,
 )
 
-public data class RegmatchT(public var rmSo: RegoffT = 0, public var rmEo: RegoffT = 0)
+public data class RegmatchT(
+    public var rmSo: RegoffT = 0,
+    public var rmEo: RegoffT = 0,
+)
 
 public data class MsqidDs(
     public var msgPerm: IpcPerm = IpcPerm(),
@@ -495,7 +504,10 @@ public data class Sembuf(
     public var semFlg: CShort = 0,
 )
 
-public data class Entry(public var key: COpaquePointer? = null, public var data: COpaquePointer? = null)
+public data class Entry(
+    public var key: COpaquePointer? = null,
+    public var data: COpaquePointer? = null,
+)
 
 public data class Option(
     public var name: COpaquePointer? = null,

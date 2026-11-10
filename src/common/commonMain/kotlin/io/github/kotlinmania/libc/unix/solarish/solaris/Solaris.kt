@@ -1,5 +1,6 @@
 // port-lint: source unix/solarish/solaris.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.solarish.solaris
 
 import io.github.kotlinmania.libc.*
@@ -153,7 +154,10 @@ public data class ShmidDs(
     }
 }
 
-public data class XrsT(public var xrsId: CUlong = 0uL, public var xrsPtr: COpaquePointer? = null)
+public data class XrsT(
+    public var xrsId: CUlong = 0uL,
+    public var xrsPtr: COpaquePointer? = null,
+)
 
 public data class Utmpx(
     public var utUser: UByteArray = UByteArray(UTMP_USER_LEN),
@@ -201,9 +205,15 @@ public data class Utmpx(
     }
 }
 
-public data class DoorDescTDDataDDesc(public var dDescriptor: CInt = 0, public var dId: DoorIdT = 0uL)
+public data class DoorDescTDDataDDesc(
+    public var dDescriptor: CInt = 0,
+    public var dId: DoorIdT = 0uL,
+)
 
-public data class DoorDescTDData(public var dDesc: DoorDescTDDataDDesc = DoorDescTDDataDDesc(), public var dResv: IntArray = IntArray(5)) {
+public data class DoorDescTDData(
+    public var dDesc: DoorDescTDDataDDesc = DoorDescTDDataDDesc(),
+    public var dResv: IntArray = IntArray(5),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is DoorDescTDData) return false
@@ -219,7 +229,10 @@ public data class DoorDescTDData(public var dDesc: DoorDescTDDataDDesc = DoorDes
     }
 }
 
-public data class DoorDescT(public var dAttributes: DoorAttrT = 0u, public var dData: DoorDescTDData = DoorDescTDData())
+public data class DoorDescT(
+    public var dAttributes: DoorAttrT = 0u,
+    public var dData: DoorDescTDData = DoorDescTDData(),
+)
 
 public data class DoorArgT(
     public var dataPtr: COpaquePointer? = null,

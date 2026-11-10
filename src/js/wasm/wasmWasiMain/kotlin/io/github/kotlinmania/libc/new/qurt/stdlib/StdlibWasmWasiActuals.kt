@@ -26,9 +26,8 @@ public actual fun calloc(nmemb: SizeT, size: SizeT): COpaquePointer? =
 public actual fun realloc(ptr: COpaquePointer?, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun free(ptr: COpaquePointer?) {
+public actual fun free(ptr: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun abort(): Nothing =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -78,13 +77,11 @@ public actual fun strtof(nptr: String?, endptr: COpaquePointer?): CFloat =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srand(seed: CUint) {
+public actual fun srand(seed: CUint): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

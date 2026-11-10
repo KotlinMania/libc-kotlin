@@ -45,53 +45,29 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + darwinAlign32(8).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + darwinAlign32(8).toLong())
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (darwinAlign32(8) + darwinAlign32(length.toInt())).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (darwinAlign32(8) + darwinAlign32(length.toInt())).toUInt()
 
-public fun cmsgLen(length: CUint): CUint {
-    return (darwinAlign32(8) + length.toInt()).toUInt()
-}
+public fun cmsgLen(length: CUint): CUint = (darwinAlign32(8) + length.toInt()).toUInt()
 
-public fun vmMakeTag(id: UByte): UInt {
-    return (id.toUInt()) shl 24u.toInt()
-}
+public fun vmMakeTag(id: UByte): UInt = (id.toUInt()) shl 24u.toInt()
 
-public fun wstopsig(status: CInt): CInt {
-    return status shr 8
-}
+public fun wstopsig(status: CInt): CInt = status shr 8
 
-public fun wstatus(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wstatus(status: CInt): CInt = status and 0x7f
 
-public fun wifcontinued(status: CInt): Boolean {
-    return wstatus(status) == WSTOPPED1 && wstopsig(status) == 0x13
-}
+public fun wifcontinued(status: CInt): Boolean = wstatus(status) == WSTOPPED1 && wstopsig(status) == 0x13
 
-public fun wifsignaled(status: CInt): Boolean {
-    return wstatus(status) != WSTOPPED1 && wstatus(status) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = wstatus(status) != WSTOPPED1 && wstatus(status) != 0
 
-public fun wifstopped(status: CInt): Boolean {
-    return wstatus(status) == WSTOPPED1 && wstopsig(status) != 0x13
-}
+public fun wifstopped(status: CInt): Boolean = wstatus(status) == WSTOPPED1 && wstopsig(status) != 0x13
 
-public fun makedev(major: Int, minor: Int): DevT {
-    return (major shl 24) or minor
-}
+public fun makedev(major: Int, minor: Int): DevT = (major shl 24) or minor
 
-public fun major(dev: DevT): Int {
-    return (dev shr 24) and 0xff
-}
+public fun major(dev: DevT): Int = (dev shr 24) and 0xff
 
-public fun minor(dev: DevT): Int {
-    return dev and 0xffffff
-}
+public fun minor(dev: DevT): Int = dev and 0xffffff
 
 public expect fun setgrent()
 
@@ -630,9 +606,7 @@ public expect fun execvP(file: String?, searchPath: String?, argv: COpaquePointe
 
 public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?)
 
-public fun machTaskSelf(): MachPortT {
-    return MACH_TASK_SELF
-}
+public fun machTaskSelf(): MachPortT = MACH_TASK_SELF
 
 public expect fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt
 

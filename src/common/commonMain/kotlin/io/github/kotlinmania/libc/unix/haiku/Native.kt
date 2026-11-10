@@ -1,5 +1,6 @@
 // port-lint: source unix/haiku/native.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
@@ -559,7 +560,10 @@ public data class SemInfo(
     }
 }
 
-public data class TeamUsageInfo(public var userTime: BigtimeT = 0L, public var kernelTime: BigtimeT = 0L)
+public data class TeamUsageInfo(
+    public var userTime: BigtimeT = 0L,
+    public var kernelTime: BigtimeT = 0L,
+)
 
 public data class ThreadInfo(
     public var thread: ThreadId = 0,
@@ -644,14 +648,25 @@ public data class ObjectWaitInfo(
     public var events: UShort = 0u,
 )
 
-public data class CpuTopologyRootInfo(public var platform: CpuPlatform = 0)
+public data class CpuTopologyRootInfo(
+    public var platform: CpuPlatform = 0,
+)
 
-public data class CpuTopologyPackageInfo(public var vendor: CpuVendor = 0, public var cacheLineSize: UInt = 0u)
+public data class CpuTopologyPackageInfo(
+    public var vendor: CpuVendor = 0,
+    public var cacheLineSize: UInt = 0u,
+)
 
-public data class CpuTopologyCoreInfo(public var model: UInt = 0u, public var defaultFrequency: ULong = 0uL)
+public data class CpuTopologyCoreInfo(
+    public var model: UInt = 0u,
+    public var defaultFrequency: ULong = 0uL,
+)
 
 // kernel/fsAttr.h
-public data class AttrInfo(public var type: UInt = 0u, public var size: OffT = 0L)
+public data class AttrInfo(
+    public var type: UInt = 0u,
+    public var size: OffT = 0L,
+)
 
 // kernel/fsIndex.h
 public data class IndexInfo(
@@ -772,7 +787,10 @@ public data class ImageInfo(
     }
 }
 
-public data class CAnonymousEax0(public var maxEax: UInt = 0u, public var vendorId: UByteArray = UByteArray(12)) {
+public data class CAnonymousEax0(
+    public var maxEax: UInt = 0u,
+    public var vendorId: UByteArray = UByteArray(12),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousEax0) return false
@@ -805,7 +823,10 @@ public data class CAnonymousEax1(
     public var extendedFeatures: UInt = 0u,
 )
 
-public data class CAnonymousEax2(public var callNum: UByte = 0u, public var cacheDescriptors: UByteArray = UByteArray(15)) {
+public data class CAnonymousEax2(
+    public var callNum: UByte = 0u,
+    public var cacheDescriptors: UByteArray = UByteArray(15),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousEax2) return false
@@ -887,9 +908,7 @@ public data class CpuidInfo(
         return result
     }
 
-    public fun eq(other: CpuidInfo): Boolean {
-        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars.contentEquals(other.asChars) || this.regs == other.regs
-    }
+    public fun eq(other: CpuidInfo): Boolean = this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars.contentEquals(other.asChars) || this.regs == other.regs
 }
 
 public data class CAnonymousCpuTopologyInfoData(
@@ -897,9 +916,7 @@ public data class CAnonymousCpuTopologyInfoData(
     public var pkg: CpuTopologyPackageInfo = CpuTopologyPackageInfo(),
     public var core: CpuTopologyCoreInfo = CpuTopologyCoreInfo(),
 ) {
-    public fun eq(other: CAnonymousCpuTopologyInfoData): Boolean {
-        return this.root == other.root || this.pkg == other.pkg || this.core == other.core
-    }
+    public fun eq(other: CAnonymousCpuTopologyInfoData): Boolean = this.root == other.root || this.pkg == other.pkg || this.core == other.core
 
     public override fun hashCode(): Int {
         error("traits")
@@ -1848,63 +1865,33 @@ public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: B
 public expect fun getCpuid(info: COpaquePointer?, eaxRegister: UInt, cpuNum: UInt): StatusT
 
 // The following functions are defined as macros in C/C++
-public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): StatusT {
-    return getCpuInfoEtc(firstCPU, cpuCount, info, 8.toULong())
-}
+public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): StatusT = getCpuInfoEtc(firstCPU, cpuCount, info, 8.toULong())
 
-public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT {
-    return getAreaInfo(id, info, (8).toULong())
-}
+public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT = getAreaInfo(id, info, (8).toULong())
 
-public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextAreaInfo(team, cookie, info, (8).toULong())
-}
+public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT = getNextAreaInfo(team, cookie, info, (8).toULong())
 
-public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT {
-    return getPortInfo(port, buf, 8.toULong())
-}
+public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT = getPortInfo(port, buf, 8.toULong())
 
-public fun getNextPortInfo(port: PortId, cookie: COpaquePointer?, portInfo: COpaquePointer?): StatusT {
-    return getNextPortInfo(port, cookie, portInfo, 8.toULong())
-}
+public fun getNextPortInfo(port: PortId, cookie: COpaquePointer?, portInfo: COpaquePointer?): StatusT = getNextPortInfo(port, cookie, portInfo, 8.toULong())
 
-public fun getPortMessageInfoEtc(port: PortId, info: COpaquePointer?, flags: UInt, timeout: BigtimeT): StatusT {
-    return getPortMessageInfoEtc(port, info, 8.toULong(), flags, timeout)
-}
+public fun getPortMessageInfoEtc(port: PortId, info: COpaquePointer?, flags: UInt, timeout: BigtimeT): StatusT = getPortMessageInfoEtc(port, info, 8.toULong(), flags, timeout)
 
-public fun getSemInfo(id: SemId, info: COpaquePointer?): StatusT {
-    return getSemInfo(id, info, 8.toULong())
-}
+public fun getSemInfo(id: SemId, info: COpaquePointer?): StatusT = getSemInfo(id, info, 8.toULong())
 
-public fun getNextSemInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextSemInfo(team, cookie, info, 8.toULong())
-}
+public fun getNextSemInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT = getNextSemInfo(team, cookie, info, 8.toULong())
 
-public fun getTeamInfo(team: TeamId, info: COpaquePointer?): StatusT {
-    return getTeamInfo(team, info, 8.toULong())
-}
+public fun getTeamInfo(team: TeamId, info: COpaquePointer?): StatusT = getTeamInfo(team, info, 8.toULong())
 
-public fun getNextTeamInfo(cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextTeamInfo(cookie, info, 8.toULong())
-}
+public fun getNextTeamInfo(cookie: COpaquePointer?, info: COpaquePointer?): StatusT = getNextTeamInfo(cookie, info, 8.toULong())
 
-public fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?): StatusT {
-    return getTeamUsageInfo(team, who, info, 8.toULong())
-}
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?): StatusT = getTeamUsageInfo(team, who, info, 8.toULong())
 
-public fun getThreadInfo(id: ThreadId, info: COpaquePointer?): StatusT {
-    return getThreadInfo(id, info, 8.toULong())
-}
+public fun getThreadInfo(id: ThreadId, info: COpaquePointer?): StatusT = getThreadInfo(id, info, 8.toULong())
 
-public fun getNextThreadInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextThreadInfo(team, cookie, info, 8.toULong())
-}
+public fun getNextThreadInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT = getNextThreadInfo(team, cookie, info, 8.toULong())
 
 // kernel/image.h
-public fun getImageInfo(image: ImageId, info: COpaquePointer?): StatusT {
-    return getImageInfo(image, info, 8.toULong())
-}
+public fun getImageInfo(image: ImageId, info: COpaquePointer?): StatusT = getImageInfo(image, info, 8.toULong())
 
-public fun getNextImageInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextImageInfo(team, cookie, info, 8.toULong())
-}
+public fun getNextImageInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT = getNextImageInfo(team, cookie, info, 8.toULong())

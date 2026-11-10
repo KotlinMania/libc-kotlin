@@ -40,13 +40,25 @@ public data class Tm(
 )
 
 // stdlib.h
-public data class QdivT(public var quot: QuadT = 0L, public var rem: QuadT = 0L)
+public data class QdivT(
+    public var quot: QuadT = 0L,
+    public var rem: QuadT = 0L,
+)
 
-public data class LldivT(public var quot: CLonglong = 0L, public var rem: CLonglong = 0L)
+public data class LldivT(
+    public var quot: CLonglong = 0L,
+    public var rem: CLonglong = 0L,
+)
 
-public data class DivT(public var quot: CInt = 0, public var rem: CInt = 0)
+public data class DivT(
+    public var quot: CInt = 0,
+    public var rem: CInt = 0,
+)
 
-public data class LdivT(public var quot: CLong = 0L, public var rem: CLong = 0L)
+public data class LdivT(
+    public var quot: CLong = 0L,
+    public var rem: CLong = 0L,
+)
 
 // locale.h
 public class Lconv(
@@ -76,6 +88,12 @@ public class Lconv(
     public var intNSignPosn: CChar = 0u,
 )
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: SizeT = 0uL,
+)
 
-public data class Timeval(public var tvSec: CLong = 0L, public var tvUsec: CLong = 0L)
+public data class Timeval(
+    public var tvSec: CLong = 0L,
+    public var tvUsec: CLong = 0L,
+)

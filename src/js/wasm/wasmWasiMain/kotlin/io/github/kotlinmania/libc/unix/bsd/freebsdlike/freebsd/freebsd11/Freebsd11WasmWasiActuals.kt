@@ -27,6 +27,5 @@ public actual fun dirname(path: String?): COpaquePointer? =
 public actual fun basename(path: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}

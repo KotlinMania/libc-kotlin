@@ -29,22 +29,14 @@ public fun interface MallocStatsPrintWriteCbCallback {
     public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?)
 }
 
-public fun mapAligned(a: CInt): CInt {
-    return a shl 24
-}
+public fun mapAligned(a: CInt): CInt = a shl 24
 
-public fun align(p: Int): Int {
-    return (p + ALIGNBYTES) and ALIGNBYTES.inv()
-}
+public fun align(p: Int): Int = (p + ALIGNBYTES) and ALIGNBYTES.inv()
 
 // sys/cpuset.h
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + align(8).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + align(8).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return align(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = align(8).toUInt() + length
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
@@ -59,34 +51,25 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (align(8) + align(length.toInt())).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (align(8) + align(length.toInt())).toUInt()
 
-public fun mallocxAlign(lg: CUint): CInt {
-    return ffsl(lg.toLong() - 1L)
-}
+public fun mallocxAlign(lg: CUint): CInt = ffsl(lg.toLong() - 1L)
 
-public fun mallocxTcache(tc: CInt): CInt {
-    return (tc + 2) shl 8
-}
+public fun mallocxTcache(tc: CInt): CInt = (tc + 2) shl 8
 
-public fun mallocxArena(a: CInt): CInt {
-    return (a + 1) shl 20
-}
+public fun mallocxArena(a: CInt): CInt = (a + 1) shl 20
 
 public fun sockcredsize(ngrps: Int): Int {
-    val ngrps1 = if (ngrps > 0) {
-        ngrps - 1
-    } else {
-        0
-    }
+    val ngrps1 =
+        if (ngrps > 0) {
+            ngrps - 1
+        } else {
+            0
+        }
     return 8 + 8 * ngrps1
 }
 
-public fun uname(buf: COpaquePointer?): CInt {
-    return xuname(256, buf)
-}
+public fun uname(buf: COpaquePointer?): CInt = xuname(256, buf)
 
 public fun cpuZero(cpuset: CpusetT) {
     for (idx in cpuset.bits.indices) {
@@ -122,64 +105,43 @@ public fun cpuCount(cpuset: CpusetT): CInt {
     var s: UInt = 0u
     val cpusetSize = 8
     val bitsetSize = 8
-    for (i in cpuset.bits.slice(0 until (cpusetSize / bitsetSize))) {
+    for (i in ((cpuset.bits).slice(0 until (cpusetSize / bitsetSize)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
 public fun sockcred2size(ngrps: Int): Int {
-    val ngrps1 = if (ngrps > 0) {
-        ngrps - 1
-    } else {
-        0
-    }
+    val ngrps1 =
+        if (ngrps > 0) {
+            ngrps - 1
+        } else {
+            0
+        }
     return 8 + 8 * ngrps1
 }
 
-public fun protMax(x: CInt): CInt {
-    return x shl 16
-}
+public fun protMax(x: CInt): CInt = x shl 16
 
-public fun protMaxExtract(x: CInt): CInt {
-    return (x shr 16) and (PROT_READ or PROT_WRITE or PROT_EXEC)
-}
+public fun protMaxExtract(x: CInt): CInt = (x shr 16) and (PROT_READ or PROT_WRITE or PROT_EXEC)
 
-public fun wifsignaled(status: CInt): Boolean {
-    return (status and 127) != 127 && (status and 127) != 0 && status != 0x13
-}
+public fun wifsignaled(status: CInt): Boolean = (status and 127) != 127 && (status and 127) != 0 && status != 0x13
 
-public fun invalidSinfoFlag(x: CInt): Boolean {
-    return (x) and 0xfffffff0.toInt() and (SCTP_EOF or SCTP_ABORT or SCTP_UNORDERED or SCTP_ADDR_OVER or SCTP_SENDALL or SCTP_EOR or SCTP_SACK_IMMEDIATELY).inv() != 0
-}
+public fun invalidSinfoFlag(x: CInt): Boolean = (x) and 0xfffffff0.toInt() and (SCTP_EOF or SCTP_ABORT or SCTP_UNORDERED or SCTP_ADDR_OVER or SCTP_SENDALL or SCTP_EOR or SCTP_SACK_IMMEDIATELY).inv() != 0
 
-public fun prSctpPolicy(x: CInt): CInt {
-    return x and 0x0f
-}
+public fun prSctpPolicy(x: CInt): CInt = x and 0x0f
 
-public fun prSctpEnabled(x: CInt): Boolean {
-    return prSctpPolicy(x) != SCTP_PR_SCTP_NONE && prSctpPolicy(x) != SCTP_PR_SCTP_ALL
-}
+public fun prSctpEnabled(x: CInt): Boolean = prSctpPolicy(x) != SCTP_PR_SCTP_NONE && prSctpPolicy(x) != SCTP_PR_SCTP_ALL
 
-public fun prSctpTtlEnabled(x: CInt): Boolean {
-    return prSctpPolicy(x) == SCTP_PR_SCTP_TTL
-}
+public fun prSctpTtlEnabled(x: CInt): Boolean = prSctpPolicy(x) == SCTP_PR_SCTP_TTL
 
-public fun prSctpBufEnabled(x: CInt): Boolean {
-    return prSctpPolicy(x) == SCTP_PR_SCTP_BUF
-}
+public fun prSctpBufEnabled(x: CInt): Boolean = prSctpPolicy(x) == SCTP_PR_SCTP_BUF
 
-public fun prSctpRtxEnabled(x: CInt): Boolean {
-    return prSctpPolicy(x) == SCTP_PR_SCTP_RTX
-}
+public fun prSctpRtxEnabled(x: CInt): Boolean = prSctpPolicy(x) == SCTP_PR_SCTP_RTX
 
-public fun prSctpInvalidPolicy(x: CInt): Boolean {
-    return prSctpPolicy(x) > SCTP_PR_SCTP_MAX
-}
+public fun prSctpInvalidPolicy(x: CInt): Boolean = prSctpPolicy(x) > SCTP_PR_SCTP_MAX
 
-public fun prSctpValidPolicy(x: CInt): Boolean {
-    return prSctpPolicy(x) <= SCTP_PR_SCTP_MAX
-}
+public fun prSctpValidPolicy(x: CInt): Boolean = prSctpPolicy(x) <= SCTP_PR_SCTP_MAX
 
 public expect fun fhlink(fhp: COpaquePointer?, to: String?): CInt
 

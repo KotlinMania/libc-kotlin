@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
@@ -27,7 +28,10 @@ public data class Msghdr(
     public var msgFlags: CInt = 0,
 )
 
-public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var sunPath: UByteArray = UByteArray(108)) {
+public data class SockaddrUn(
+    public var sunFamily: SaFamilyT = 0u,
+    public var sunPath: UByteArray = UByteArray(108),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrUn) return false

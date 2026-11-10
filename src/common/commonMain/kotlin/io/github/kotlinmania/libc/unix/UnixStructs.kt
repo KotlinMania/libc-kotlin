@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
@@ -19,9 +20,15 @@ public data class Group(
     public var grMem: COpaquePointer? = null,
 )
 
-public data class Utimbuf(public var actime: TimeT = 0L, public var modtime: TimeT = 0L)
+public data class Utimbuf(
+    public var actime: TimeT = 0L,
+    public var modtime: TimeT = 0L,
+)
 
-public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
+public data class Timeval(
+    public var tvSec: TimeT = 0L,
+    public var tvUsec: SusecondsT = 0L,
+)
 
 public data class Timespec(
     public var tvSec: TimeT = 0L,
@@ -29,7 +36,10 @@ public data class Timespec(
     public var pad0: UInt = 0u,
 )
 
-public data class Rlimit(public var rlimCur: RlimT = 0uL, public var rlimMax: RlimT = 0uL)
+public data class Rlimit(
+    public var rlimCur: RlimT = 0uL,
+    public var rlimMax: RlimT = 0uL,
+)
 
 public class Rusage(
     public var ruUtime: Timeval = Timeval(),
@@ -51,7 +61,10 @@ public class Rusage(
     public var reserved: LongArray = LongArray(16),
 )
 
-public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: CInt = 0)
+public data class Ipv6Mreq(
+    public var ipv6mrMultiaddr: In6Addr = In6Addr(),
+    public var ipv6mrInterface: CInt = 0,
+)
 
 public data class Hostent(
     public var hName: COpaquePointer? = null,
@@ -61,7 +74,10 @@ public data class Hostent(
     public var hAddrList: COpaquePointer? = null,
 )
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: SizeT = 0uL,
+)
 
 public data class Pollfd(
     public var fd: CInt = 0,
@@ -76,7 +92,10 @@ public data class Winsize(
     public var wsYpixel: CUshort = 0u,
 )
 
-public data class Linger(public var lOnoff: CInt = 0, public var lLinger: CInt = 0)
+public data class Linger(
+    public var lOnoff: CInt = 0,
+    public var lLinger: CInt = 0,
+)
 
 public data class Sigval(
     // Actually a union of an int and a void*
@@ -84,7 +103,10 @@ public data class Sigval(
 )
 
 // <sys/time.h>
-public data class Itimerval(public var itInterval: Timeval = Timeval(), public var itValue: Timeval = Timeval())
+public data class Itimerval(
+    public var itInterval: Timeval = Timeval(),
+    public var itValue: Timeval = Timeval(),
+)
 
 // <sys/times.h>
 public data class Tms(
@@ -107,7 +129,9 @@ public data class Protoent(
     public var pProto: CInt = 0,
 )
 
-public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+public data class In6Addr(
+    public var s6Addr: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Addr) return false
@@ -115,7 +139,5 @@ public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.s6Addr.contentHashCode()
-    }
+    override fun hashCode(): Int = this.s6Addr.contentHashCode()
 }

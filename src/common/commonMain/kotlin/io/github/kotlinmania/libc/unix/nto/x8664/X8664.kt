@@ -1,5 +1,6 @@
 // port-lint: source unix/nto/x86_64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.nto.x8664
 
 import io.github.kotlinmania.libc.*
@@ -36,7 +37,10 @@ public class X8664CpuRegisters(
     public var rsvd2: UInt = 0u,
 )
 
-public data class McontextT(public var cpu: X8664CpuRegisters = X8664CpuRegisters(), public var fpu: X8664FpuRegisters = X8664FpuRegisters())
+public data class McontextT(
+    public var cpu: X8664CpuRegisters = X8664CpuRegisters(),
+    public var fpu: X8664FpuRegisters = X8664FpuRegisters(),
+)
 
 public data class StackT(
     public var ssSp: COpaquePointer? = null,
@@ -176,7 +180,5 @@ public data class X8664FpuRegisters(
         return result
     }
 
-    public fun eq(other: X8664FpuRegisters): Boolean {
-        return this.fsaveArea == other.fsaveArea || this.fxsaveArea == other.fxsaveArea || this.xsaveArea == other.xsaveArea
-    }
+    public fun eq(other: X8664FpuRegisters): Boolean = this.fsaveArea == other.fsaveArea || this.fxsaveArea == other.fxsaveArea || this.xsaveArea == other.xsaveArea
 }

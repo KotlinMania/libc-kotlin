@@ -1,5 +1,6 @@
 // port-lint: source unix/newlib/generic.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib.generic
 
 import io.github.kotlinmania.libc.*
@@ -18,7 +19,9 @@ import io.github.kotlinmania.libc.unix.newlib.TimeT
 
 // Common types used by most newlib platforms
 
-public data class SigsetT(public var value: UInt = 0u)
+public data class SigsetT(
+    public var value: UInt = 0u,
+)
 
 public class Stat(
     public var stDev: DevT = 0,

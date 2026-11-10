@@ -30,6 +30,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 // * ulibc doesn't have preadv64/pwritev64
 // The statx syscall, available on some libcs.
 // adapted from https://github.com/torvalds/linux/blob/8a696a29c6905594e4abf78eaafcb62165ac61f1/rust/kernel/ioctl.rs
+
 /**
  * Build an ioctl number, analogous to the C macro of the same name.
  */
@@ -44,56 +45,39 @@ public fun ioc(dir: UInt, ty: UInt, nr: UInt, size: Int): Ioctl {
 /**
  * Build an ioctl number for an argumentless ioctl.
  */
-public fun io(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_NONE, ty, nr, 0)
-}
+public fun io(ty: UInt, nr: UInt): Ioctl = ioc(IOC_NONE, ty, nr, 0)
 
 /**
  * Build an ioctl number for an read-only ioctl.
  */
-public fun <T> ior(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_READ, ty, nr, 8)
-}
+public fun <T> ior(ty: UInt, nr: UInt): Ioctl = ioc(IOC_READ, ty, nr, 8)
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
-public fun <T> iow(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_WRITE, ty, nr, 8)
-}
+public fun <T> iow(ty: UInt, nr: UInt): Ioctl = ioc(IOC_WRITE, ty, nr, 8)
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
-public fun <T> iowr(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_READ or IOC_WRITE, ty, nr, 8)
-}
+public fun <T> iowr(ty: UInt, nr: UInt): Ioctl = ioc(IOC_READ or IOC_WRITE, ty, nr, 8)
 
 public expect fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt
 
-public fun cmsgAlign(len: Int): Int {
-    return (len + 8 - 1) and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = (len + 8 - 1) and (8 - 1).inv()
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
-}
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
@@ -121,81 +105,47 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun sigrtmax(): CInt {
-    return libcCurrentSigrtmax()
-}
+public fun sigrtmax(): CInt = libcCurrentSigrtmax()
 
-public fun sigrtmin(): CInt {
-    return libcCurrentSigrtmin()
-}
+public fun sigrtmin(): CInt = libcCurrentSigrtmin()
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 0x7f
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0x7f) + 1).toByte() >= 2.toByte()
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0x7f) + 1).toByte() >= 2.toByte()
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7f
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0x7f) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0x7f) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
-public fun wExitcode(ret: CInt, sig: CInt): CInt {
-    return (ret shl 8) or sig
-}
+public fun wExitcode(ret: CInt, sig: CInt): CInt = (ret shl 8) or sig
 
-public fun wStopcode(sig: CInt): CInt {
-    return (sig shl 8) or 0x7f
-}
+public fun wStopcode(sig: CInt): CInt = (sig shl 8) or 0x7f
 
-public fun qcmd(cmd: CInt, type: CInt): CInt {
-    return (cmd shl 8) or (type and 0x00ff)
-}
+public fun qcmd(cmd: CInt, type: CInt): CInt = (cmd shl 8) or (type and 0x00ff)
 
-public fun ipoptCopied(o: UByte): UByte {
-    return o and IPOPT_COPY
-}
+public fun ipoptCopied(o: UByte): UByte = o and IPOPT_COPY
 
-public fun ipoptClass(o: UByte): UByte {
-    return o and IPOPT_CLASS_MASK
-}
+public fun ipoptClass(o: UByte): UByte = o and IPOPT_CLASS_MASK
 
-public fun ipoptNumber(o: UByte): UByte {
-    return o and IPOPT_NUMBER_MASK
-}
+public fun ipoptNumber(o: UByte): UByte = o and IPOPT_NUMBER_MASK
 
-public fun iptosEcn(x: UByte): UByte {
-    return x and IPTOS_ECN_MASK
-}
+public fun iptosEcn(x: UByte): UByte = x and IPTOS_ECN_MASK
 
-public fun kernelVersion(a: UInt, b: UInt, c: UInt): UInt {
-    return ((a shl 16) + (b shl 8)) + if (c > 255u) {
-        255u
-    } else {
-        c
-    }
-}
+public fun kernelVersion(a: UInt, b: UInt, c: UInt): UInt =
+    ((a shl 16) + (b shl 8)) +
+        if (c > 255u) {
+            255u
+        } else {
+            c
+        }
 
 public expect fun libcCurrentSigrtmax(): CInt
 

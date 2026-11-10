@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.x8664
 
 import io.github.kotlinmania.libc.*
@@ -30,15 +31,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -186,7 +188,9 @@ public data class Sigaction(
     public var saMask: SigsetT = SigsetT(),
 )
 
-public data class SigsetT(public var value: ULongArray = ULongArray(1)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(1),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -194,9 +198,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(1)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class SiginfoT(
@@ -275,7 +277,10 @@ public data class Termios(
     }
 }
 
-public data class SemT(public var size: UByteArray = UByteArray(32), public var align: LongArray = LongArray(0)) {
+public data class SemT(
+    public var size: UByteArray = UByteArray(32),
+    public var align: LongArray = LongArray(0),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false

@@ -16,9 +16,8 @@ public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
 public actual fun getprogname(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setprogname(progname: String?) {
+public actual fun setprogname(progname: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun arc4random(): UInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -26,9 +25,8 @@ public actual fun arc4random(): UInt =
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -48,9 +46,8 @@ public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp
 public actual fun strsep(string: COpaquePointer?, delimiters: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT) {
+public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun slInit(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -58,9 +55,8 @@ public actual fun slInit(): COpaquePointer? =
 public actual fun slAdd(sl: COpaquePointer?, n: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun slFree(sl: COpaquePointer?, i: CInt) {
+public actual fun slFree(sl: COpaquePointer?, i: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun slFind(sl: COpaquePointer?, n: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

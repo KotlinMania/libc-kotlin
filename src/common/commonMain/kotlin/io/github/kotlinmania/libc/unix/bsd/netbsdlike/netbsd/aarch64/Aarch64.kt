@@ -1,5 +1,6 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/aarch64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64
 
 import io.github.kotlinmania.libc.*
@@ -78,9 +79,7 @@ public data class CAnonymousFreg(
         return result
     }
 
-    public fun eq(other: CAnonymousFreg): Boolean {
-        return this.b8.contentEquals(other.b8) || this.h16.contentEquals(other.h16) || this.s32.contentEquals(other.s32) || this.d64.contentEquals(other.d64) || this.q128 == other.q128
-    }
+    public fun eq(other: CAnonymousFreg): Boolean = this.b8.contentEquals(other.b8) || this.h16.contentEquals(other.h16) || this.s32.contentEquals(other.s32) || this.d64.contentEquals(other.d64) || this.q128 == other.q128
 }
 
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 0

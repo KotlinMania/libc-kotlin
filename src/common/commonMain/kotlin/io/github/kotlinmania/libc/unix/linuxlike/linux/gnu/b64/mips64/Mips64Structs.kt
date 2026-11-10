@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.mips64
 
 import io.github.kotlinmania.libc.*
@@ -289,7 +290,9 @@ public data class Statvfs64(
     }
 }
 
-public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+public data class PthreadAttrT(
+    public var size: ULongArray = ULongArray(7),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -297,9 +300,7 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class Sigaction(
@@ -369,7 +370,9 @@ public data class ShmidDs(
     public var unused5: CUlong = 0uL,
 )
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -377,7 +380,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

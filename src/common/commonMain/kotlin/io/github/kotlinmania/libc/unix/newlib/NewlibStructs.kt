@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
@@ -31,9 +32,14 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public class Lconv(
     public var decimalPoint: COpaquePointer? = null,
@@ -111,9 +117,7 @@ public data class FdSet(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Passwd(
@@ -176,9 +180,7 @@ public data class SemT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class DlInfo(
@@ -232,9 +234,7 @@ public data class CpuSetT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class PthreadAttrT(
@@ -289,9 +289,7 @@ public data class PthreadRwlockattrT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class PthreadMutexT(
@@ -305,9 +303,7 @@ public data class PthreadMutexT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class PthreadRwlockT(
@@ -321,9 +317,7 @@ public data class PthreadRwlockT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class PthreadMutexattrT(
@@ -337,9 +331,7 @@ public data class PthreadMutexattrT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class PthreadCondT(
@@ -353,9 +345,7 @@ public data class PthreadCondT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class PthreadCondattrT(
@@ -369,7 +359,5 @@ public data class PthreadCondattrT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }

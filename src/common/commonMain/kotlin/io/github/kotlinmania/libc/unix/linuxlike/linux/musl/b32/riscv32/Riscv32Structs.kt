@@ -96,4 +96,7 @@ public data class MsqidDs(
     public var pad2: CUlong = 0uL,
 )
 
-public data class MaxAlignT(public var priv0: Long = 0L, public var priv1: Double = 0.0)
+public data class MaxAlignT(
+    public var priv0: Long = 0L,
+    public var priv1: Double = 0.0,
+)

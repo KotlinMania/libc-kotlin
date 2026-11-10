@@ -58,7 +58,9 @@ public class Stat64(
     public var unused5: CUint = 0u,
 )
 
-public data class MaxAlignT(public var priv: FloatArray = FloatArray(8)) {
+public data class MaxAlignT(
+    public var priv: FloatArray = FloatArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -66,7 +68,5 @@ public data class MaxAlignT(public var priv: FloatArray = FloatArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

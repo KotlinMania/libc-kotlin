@@ -33,9 +33,8 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun endusershell() {
+public actual fun endusershell(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getpass(prompt: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -46,9 +45,8 @@ public actual fun getusershell(): COpaquePointer? =
 public actual fun issetugid(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setusershell() {
+public actual fun setusershell(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun utimensat(fd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -71,16 +69,14 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srand(seed: CUint) {
+public actual fun srand(seed: CUint): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
+public actual fun freeifaddrs(ifa: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun ppoll(fds: COpaquePointer?, numfds: NfdsT, timeout: COpaquePointer?, sigMask: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -91,13 +87,11 @@ public actual fun getspent(): COpaquePointer? =
 public actual fun getspentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setspent() {
+public actual fun setspent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endspent() {
+public actual fun endspent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getspnam(name: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -213,9 +207,8 @@ public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, optio
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun globfree(pglob: COpaquePointer?) {
+public actual fun globfree(pglob: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -235,9 +228,8 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -320,24 +312,20 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun getpwent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setpwent() {
+public actual fun setpwent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endpwent() {
+public actual fun endpwent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endgrent() {
+public actual fun endgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getgrent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setgrent() {
+public actual fun setgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -369,13 +357,11 @@ public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
 public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutxent() {
+public actual fun setutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endutxent() {
+public actual fun endutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -401,9 +387,8 @@ public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, 
 public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun regfree(preg: COpaquePointer?) {
+public actual fun regfree(preg: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -441,9 +426,8 @@ public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaq
 public actual fun hcreate(nelt: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun hdestroy() {
+public actual fun hdestroy(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -466,16 +450,14 @@ public actual fun mrand48(): CLong =
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srand48(seed: CLong) {
+public actual fun srand48(seed: CLong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun lcong48(p: COpaquePointer?) {
+public actual fun lcong48(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun clearenv(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -483,9 +465,8 @@ public actual fun clearenv(): CInt =
 public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sync() {
+public actual fun sync(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getpagesize(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

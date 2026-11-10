@@ -1587,6 +1587,7 @@ public val IFDR_REASON_MSG: CInt = 1
 public val IFDR_REASON_VENDOR: CInt = 2
 
 // sys/net/ifMib.h
+
 /**
  * non-interface-specific
  */
@@ -1662,12 +1663,14 @@ public val DOT3CHIP_SET_WESTERN_DIGITAL83C790: CInt = 2
 // Protocols (RFC 1700)
 // NOTE: These are in addition to the constants defined in src/unix/mod.rs
 // IPPROTO_IP defined in src/unix/mod.rs
+
 /**
  * IP6 hop-by-hop options
  */
 public val IPPROTO_HOPOPTS: CInt = 0
 
 // IPPROTO_ICMP defined in src/unix/mod.rs
+
 /**
  * group mgmt protocol
  */
@@ -1684,6 +1687,7 @@ public val IPPROTO_GGP: CInt = 3
 public val IPPROTO_IPIP: CInt = 4
 
 // IPPROTO_TCP defined in src/unix/mod.rs
+
 /**
  * Stream protocol II.
  */
@@ -1735,6 +1739,7 @@ public val IPPROTO_XNET: CInt = 15
 public val IPPROTO_CHAOS: CInt = 16
 
 // IPPROTO_UDP defined in src/unix/mod.rs
+
 /**
  * Multiplexing
  */
@@ -1853,6 +1858,7 @@ public val IPPROTO_TPXX: CInt = 39
 public val IPPROTO_IL: CInt = 40
 
 // IPPROTO_IPV6 defined in src/unix/mod.rs
+
 /**
  * Source Demand Routing
  */
@@ -1934,6 +1940,7 @@ public val IPPROTO_TLSP: CInt = 56
 public val IPPROTO_SKIP: CInt = 57
 
 // IPPROTO_ICMPV6 defined in src/unix/mod.rs
+
 /**
  * IP6 no next header
  */
@@ -2175,6 +2182,7 @@ public val IPPROTO_HIP: CInt = 139
 public val IPPROTO_SHIM6: CInt = 140
 
 // 101-254: Partly Unassigned
+
 /**
  * Protocol Independent Mcast
  */
@@ -2202,6 +2210,7 @@ public val IPPROTO_PFSYNC: CInt = 240
 
 // 255: Reserved
 // BSD Private, local use, namespace incursion, no longer used
+
 /**
  * OLD divert pseudo-proto
  */
@@ -2215,6 +2224,7 @@ public val IPPROTO_MAX: CInt = 256
 public val IPPROTO_DONE: CInt = 257
 
 // Only used internally, so can be outside the range of valid IP protocols.
+
 /**
  * divert pseudo-protocol
  */
@@ -3522,6 +3532,7 @@ public val PS_FST_FFLAG_EXEC: CInt = 0x2000
 public val PS_FST_FFLAG_HASLOCK: CInt = 0x4000
 
 // sys/mount.h
+
 /**
  * File identifier.
  * These are unique per filesystem on a single machine.
@@ -3709,6 +3720,7 @@ public val VFCF_DELEGADMIN: CInt = 0x00800000
 public val VFCF_SBDRY: CInt = 0x01000000
 
 // time.h
+
 /**
  * not on dst
  */

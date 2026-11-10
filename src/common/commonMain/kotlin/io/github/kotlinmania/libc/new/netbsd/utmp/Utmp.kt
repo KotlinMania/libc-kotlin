@@ -1,5 +1,6 @@
 // port-lint: source new/netbsd/utmp_.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*

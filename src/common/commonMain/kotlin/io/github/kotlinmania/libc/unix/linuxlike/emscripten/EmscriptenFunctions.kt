@@ -55,9 +55,7 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     return 0u != (cpuset.bits[idx] and (1u shl offset))
 }
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major

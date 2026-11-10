@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
@@ -42,15 +43,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -108,7 +110,9 @@ public data class MqAttr(
     public var mqCurmsgs: CLong = 0L,
 )
 
-public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
+public data class SigsetT(
+    public var bits: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -116,9 +120,7 @@ public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public class Stat(
@@ -283,9 +285,15 @@ public data class PthreadMutexT(
     }
 }
 
-public data class PthreadMutexattrT(public var ptmaMagic: CUint = 0u, public var ptmaPrivate: COpaquePointer? = null)
+public data class PthreadMutexattrT(
+    public var ptmaMagic: CUint = 0u,
+    public var ptmaPrivate: COpaquePointer? = null,
+)
 
-public data class PthreadRwlockattrT(public var ptraMagic: CUint = 0u, public var ptraPrivate: COpaquePointer? = null)
+public data class PthreadRwlockattrT(
+    public var ptraMagic: CUint = 0u,
+    public var ptraPrivate: COpaquePointer? = null,
+)
 
 public data class PthreadCondT(
     public var ptcMagic: CUint = 0u,
@@ -296,7 +304,10 @@ public data class PthreadCondT(
     public var ptcPrivate: COpaquePointer? = null,
 )
 
-public data class PthreadCondattrT(public var ptcaMagic: CUint = 0u, public var ptcaPrivate: COpaquePointer? = null)
+public data class PthreadCondattrT(
+    public var ptcaMagic: CUint = 0u,
+    public var ptcaPrivate: COpaquePointer? = null,
+)
 
 public data class PthreadRwlockT(
     public var ptrMagic: CUint = 0u,
@@ -510,9 +521,15 @@ public data class Elf64Phdr(
     public var pAlign: Elf64Xword = 0uL,
 )
 
-public data class Aux32Info(public var aType: Elf32Word = 0u, public var aV: Elf32Word = 0u)
+public data class Aux32Info(
+    public var aType: Elf32Word = 0u,
+    public var aV: Elf32Word = 0u,
+)
 
-public data class Aux64Info(public var aType: Elf64Word = 0u, public var aV: Elf64Xword = 0uL)
+public data class Aux64Info(
+    public var aType: Elf64Word = 0u,
+    public var aV: Elf64Xword = 0uL,
+)
 
 // link.h
 public data class DlPhdrInfo(
@@ -526,7 +543,10 @@ public data class DlPhdrInfo(
     public var dlpiTlsData: COpaquePointer? = null,
 )
 
-public data class AcceptFilterArg(public var afName: UByteArray = UByteArray(16), public var afArg: UByteArray = UByteArray((256 - 16).toInt())) {
+public data class AcceptFilterArg(
+    public var afName: UByteArray = UByteArray(16),
+    public var afArg: UByteArray = UByteArray((256 - 16).toInt()),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AcceptFilterArg) return false
@@ -542,7 +562,9 @@ public data class AcceptFilterArg(public var afName: UByteArray = UByteArray(16)
     }
 }
 
-public data class KiSigsetT(public var bits: UIntArray = UIntArray(4)) {
+public data class KiSigsetT(
+    public var bits: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is KiSigsetT) return false
@@ -550,9 +572,7 @@ public data class KiSigsetT(public var bits: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public class KinfoProc2 {
@@ -801,7 +821,9 @@ public data class CAnonymousPosixSpawnFaeOpen(
     public var mode: ModeT = 0u,
 )
 
-public data class CAnonymousPosixSpawnFaeDup2(public var newfildes: CInt = 0)
+public data class CAnonymousPosixSpawnFaeDup2(
+    public var newfildes: CInt = 0,
+)
 
 public data class PosixSpawnattrT(
     public var saFlags: CShort = 0,
@@ -824,7 +846,10 @@ public data class PosixSpawnFileActionsT(
     public var fae: PosixSpawnFileActionsEntryT? = null,
 )
 
-public data class PtraceLwpinfo(public var plLwpid: LwpidT = 0, public var plEvent: CInt = 0)
+public data class PtraceLwpinfo(
+    public var plLwpid: LwpidT = 0,
+    public var plEvent: CInt = 0,
+)
 
 public data class PtraceLwpstatus(
     public var plLwpid: LwpidT = 0,
@@ -854,9 +879,14 @@ public data class PtraceLwpstatus(
     }
 }
 
-public data class PtraceSiginfo(public var psiSiginfo: SiginfoT = SiginfoT(), public var psiLwpid: LwpidT = 0)
+public data class PtraceSiginfo(
+    public var psiSiginfo: SiginfoT = SiginfoT(),
+    public var psiLwpid: LwpidT = 0,
+)
 
-public data class PtraceEvent(public var peSetEvent: CInt = 0)
+public data class PtraceEvent(
+    public var peSetEvent: CInt = 0,
+)
 
 public data class Sysctldesc(
     public var descrNum: Int = 0,
@@ -926,7 +956,10 @@ public class TcpInfo(
     public var tcpiPad: UIntArray = UIntArray(26),
 )
 
-public data class InPktinfo(public var ipiAddr: InAddr = InAddr(), public var ipiIfindex: CUint = 0u)
+public data class InPktinfo(
+    public var ipiAddr: InAddr = InAddr(),
+    public var ipiIfindex: CUint = 0u,
+)
 
 public data class Arphdr(
     public var arHrd: UShort = 0u,
@@ -936,9 +969,14 @@ public data class Arphdr(
     public var arOp: UShort = 0u,
 )
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class SockaddrIn(
     public var sinLen: UByte = 0u,
@@ -1033,14 +1071,15 @@ public data class Sigevent(
     public var sigevNotifyAttributes: COpaquePointer? = null,
 )
 
-public data class CAnonymousPosixSpawnFae(public var open: CAnonymousPosixSpawnFaeOpen = CAnonymousPosixSpawnFaeOpen(), public var dup2: CAnonymousPosixSpawnFaeDup2 = CAnonymousPosixSpawnFaeDup2()) {
+public data class CAnonymousPosixSpawnFae(
+    public var open: CAnonymousPosixSpawnFaeOpen = CAnonymousPosixSpawnFaeOpen(),
+    public var dup2: CAnonymousPosixSpawnFaeDup2 = CAnonymousPosixSpawnFaeDup2(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_posix_spawn_fae").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousPosixSpawnFae): Boolean {
-        return this.open == other.open || this.dup2 == other.dup2
-    }
+    public fun eq(other: CAnonymousPosixSpawnFae): Boolean = this.open == other.open || this.dup2 == other.dup2
 
     public override fun hashCode(): Int {
         var state = 0

@@ -114,7 +114,10 @@ public val NLMSG_OVERRUN: CInt = 0x4
 
 public val NLMSG_MIN_TYPE: CInt = 0x10
 
-public data class Nlmsgerr(public var error: CInt = 0, public var msg: Nlmsghdr = Nlmsghdr())
+public data class Nlmsgerr(
+    public var error: CInt = 0,
+    public var msg: Nlmsghdr = Nlmsghdr(),
+)
 
 public val NETLINK_ADD_MEMBERSHIP: CInt = 1
 
@@ -140,7 +143,9 @@ public val NETLINK_EXT_ACK: CInt = 11
 
 public val NETLINK_GET_STRICT_CHK: CInt = 12
 
-public data class NlPktinfo(public var group: UInt = 0u)
+public data class NlPktinfo(
+    public var group: UInt = 0u,
+)
 
 public data class NlMmapReq(
     public var nmBlockSize: CUint = 0u,
@@ -158,7 +163,10 @@ public data class NlMmapHdr(
     public var nmGid: UInt = 0u,
 )
 
-public data class Nlattr(public var nlaLen: UShort = 0u, public var nlaType: UShort = 0u)
+public data class Nlattr(
+    public var nlaLen: UShort = 0u,
+    public var nlaType: UShort = 0u,
+)
 
 public val NLA_F_NESTED: CInt = 1 shl 15
 
@@ -168,6 +176,4 @@ public val NLA_TYPE_MASK: CInt = (NLA_F_NESTED or NLA_F_NET_BYTEORDER).inv()
 
 public val NLA_ALIGNTO: CInt = 4
 
-public fun nlaAlign(len: CInt): CInt {
-    return ((len) + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()
-}
+public fun nlaAlign(len: CInt): CInt = ((len) + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()

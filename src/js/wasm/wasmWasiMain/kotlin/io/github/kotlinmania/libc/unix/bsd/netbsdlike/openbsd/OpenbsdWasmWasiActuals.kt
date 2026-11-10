@@ -77,13 +77,11 @@ public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaqueP
 public actual fun pthreadMainNp(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT) {
+public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -118,9 +116,8 @@ public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freelocale(loc: LocaleT) {
+public actual fun freelocale(loc: LocaleT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -128,17 +125,14 @@ public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
+public actual fun explicitBzero(s: COpaquePointer?, len: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
+public actual fun freezero(ptr: COpaquePointer?, size: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun mallocConceal(size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -146,16 +140,14 @@ public actual fun mallocConceal(size: SizeT): COpaquePointer? =
 public actual fun callocConceal(nmemb: SizeT, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srand48Deterministic(seed: CLong) {
+public actual fun srand48Deterministic(seed: CLong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun seed48Deterministic(xseed: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun lcong48Deterministic(p: COpaquePointer?) {
+public actual fun lcong48Deterministic(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -166,9 +158,8 @@ public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaq
 public actual fun hcreate(nelt: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun hdestroy() {
+public actual fun hdestroy(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

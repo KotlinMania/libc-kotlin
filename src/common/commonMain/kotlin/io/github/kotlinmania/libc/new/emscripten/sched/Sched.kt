@@ -6,7 +6,10 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.unix.linuxlike.emscripten.TimeT
 
-public data class CAnonSchedParamReserved2(public var reserved1: TimeT = 0L, public var reserved2: CLong = 0L)
+public data class CAnonSchedParamReserved2(
+    public var reserved1: TimeT = 0L,
+    public var reserved2: CLong = 0L,
+)
 
 public data class SchedParam(
     public var schedPriority: CInt = 0,

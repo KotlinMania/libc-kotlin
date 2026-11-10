@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.x86
 
 import io.github.kotlinmania.libc.*
@@ -108,7 +109,10 @@ public data class Flock64(
     public var lPid: PidT = 0,
 )
 
-public data class LibcFpreg(public var significand: UShortArray = UShortArray(4), public var exponent: UShort = 0u) {
+public data class LibcFpreg(
+    public var significand: UShortArray = UShortArray(4),
+    public var exponent: UShort = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is LibcFpreg) return false
@@ -568,7 +572,9 @@ public data class UcontextT(
     }
 }
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(6)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(6),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -576,7 +582,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(6)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

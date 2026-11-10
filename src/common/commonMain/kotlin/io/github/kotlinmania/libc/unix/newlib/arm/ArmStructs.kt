@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib.arm
 
 import io.github.kotlinmania.libc.*
@@ -7,7 +8,10 @@ import io.github.kotlinmania.libc.unix.InPortT
 import io.github.kotlinmania.libc.unix.newlib.InAddr
 import io.github.kotlinmania.libc.unix.newlib.SaFamilyT
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -56,7 +60,10 @@ public data class SockaddrIn(
     }
 }
 
-public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssPadding: UByteArray = UByteArray(26)) {
+public data class SockaddrStorage(
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssPadding: UByteArray = UByteArray(26),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrStorage) return false

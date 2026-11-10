@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.mips
 
 import io.github.kotlinmania.libc.*
@@ -55,7 +56,10 @@ public class Stat(
     public var stPadding4: LongArray = LongArray(14),
 )
 
-public data class CAnonymousTimespec32(public var tvSec: CLong = 0L, public var tvNsec: CLong = 0L)
+public data class CAnonymousTimespec32(
+    public var tvSec: CLong = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
 public data class StackT(
     public var ssSp: COpaquePointer? = null,
@@ -213,7 +217,9 @@ public class MsqidDs(
     public var msgCtime: TimeT = 0L,
 )
 
-public data class MaxAlignT(public var priv: FloatArray = FloatArray(4)) {
+public data class MaxAlignT(
+    public var priv: FloatArray = FloatArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -221,7 +227,5 @@ public data class MaxAlignT(public var priv: FloatArray = FloatArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

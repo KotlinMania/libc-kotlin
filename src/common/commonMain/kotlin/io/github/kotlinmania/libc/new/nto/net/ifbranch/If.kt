@@ -1,5 +1,6 @@
 // port-lint: source new/nto/net/if_.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.nto.net.ifbranch
 
 import io.github.kotlinmania.libc.*
@@ -92,4 +93,7 @@ public data class Ifreq(
     }
 }
 
-public data class IfreqBuffer(public var length: SizeT = 0uL, public var buffer: COpaquePointer? = null)
+public data class IfreqBuffer(
+    public var length: SizeT = 0uL,
+    public var buffer: COpaquePointer? = null,
+)

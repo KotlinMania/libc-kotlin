@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib.vita
 
 import io.github.kotlinmania.libc.*
@@ -144,7 +145,9 @@ public data class SockaddrStorage(
     }
 }
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class Stat(
     public var stDev: DevT = 0,

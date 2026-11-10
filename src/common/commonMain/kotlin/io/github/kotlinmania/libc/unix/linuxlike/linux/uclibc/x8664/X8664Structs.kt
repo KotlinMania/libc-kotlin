@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664
 
 import io.github.kotlinmania.libc.*
@@ -61,7 +62,9 @@ public data class PthreadAttrT(
     public var stacksize: SizeT = 0uL,
 )
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class SiginfoT(
     public var siSigno: CInt = 0,
@@ -124,7 +127,10 @@ public data class MsqidDs(
     public var ignored2: CUlong = 0uL,
 )
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -423,9 +429,7 @@ public data class SigsetT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sysinfo(
@@ -497,7 +501,9 @@ public data class GlobT(
     public var unused5: COpaquePointer? = null,
 )
 
-public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
+public data class CpuSetT(
+    public var bits: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuSetT) return false
@@ -505,9 +511,7 @@ public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class FsidT(
@@ -521,13 +525,14 @@ public data class FsidT(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 // Note(1.0): this is actually a union
-public data class SemT(public var size: UByteArray = UByteArray(32), public var align: LongArray = LongArray(0)) {
+public data class SemT(
+    public var size: UByteArray = UByteArray(32),
+    public var align: LongArray = LongArray(0),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false

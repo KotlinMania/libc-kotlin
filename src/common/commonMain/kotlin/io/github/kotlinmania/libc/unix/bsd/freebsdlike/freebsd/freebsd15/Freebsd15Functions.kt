@@ -27,13 +27,9 @@ public fun makedev(major: CUint, minor: CUint): DevT {
     return dev
 }
 
-public fun major(dev: DevT): CInt {
-    return (((dev shr 32) and 0xffffff00uL) or ((dev shr 8) and 0xffuL)).toInt()
-}
+public fun major(dev: DevT): CInt = (((dev shr 32) and 0xffffff00uL) or ((dev shr 8) and 0xffuL)).toInt()
 
-public fun minor(dev: DevT): CInt {
-    return (((dev shr 24) and 0xff00uL) or (dev and 0xffff00ffuL)).toInt()
-}
+public fun minor(dev: DevT): CInt = (((dev shr 24) and 0xff00uL) or (dev and 0xffff00ffuL)).toInt()
 
 public expect fun setgrent()
 

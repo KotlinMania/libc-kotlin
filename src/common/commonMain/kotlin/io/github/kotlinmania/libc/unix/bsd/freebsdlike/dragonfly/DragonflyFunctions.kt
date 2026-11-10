@@ -15,17 +15,11 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
 
-public fun cmsgAlign(n: Int): Int {
-    return (n + (8 - 1)) and (8 - 1).inv()
-}
+public fun cmsgAlign(n: Int): Int = (n + (8 - 1)) and (8 - 1).inv()
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return (cmsgAlign(8) + length.toInt()).toUInt()
-}
+public fun cmsgLen(length: CUint): CUint = (cmsgAlign(8) + length.toInt()).toUInt()
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next = ((cmsg).hashCode().toLong()).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
@@ -37,9 +31,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
 
 public fun cpuZero(cpuset: CpuSetT) {
     for (idx in cpuset.ary.indices) {
@@ -62,9 +54,7 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     return 0uL != cpuset.ary[idx] and (1uL shl offset)
 }
 
-public fun wifsignaled(status: CInt): Boolean {
-    return (status and 127) != 127 && (status and 127) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = (status and 127) != 127 && (status and 127) != 0
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major
@@ -75,13 +65,9 @@ public fun makedev(major: CUint, minor: CUint): DevT {
     return dev
 }
 
-public fun major(dev: DevT): CInt {
-    return ((dev shr 8) and 0xffu).toInt()
-}
+public fun major(dev: DevT): CInt = ((dev shr 8) and 0xffu).toInt()
 
-public fun minor(dev: DevT): CInt {
-    return (dev and 0xffff00ffu).toInt()
-}
+public fun minor(dev: DevT): CInt = (dev and 0xffff00ffu).toInt()
 
 public expect fun errnoLocation(): COpaquePointer?
 

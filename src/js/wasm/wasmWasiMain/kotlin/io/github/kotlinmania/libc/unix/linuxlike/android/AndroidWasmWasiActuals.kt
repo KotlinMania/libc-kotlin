@@ -20,13 +20,11 @@ import io.github.kotlinmania.libc.unix.linuxlike.IdT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 
-public actual fun setgrent() {
+public actual fun setgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endgrent() {
+public actual fun endgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getgrent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -94,9 +92,8 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
 public actual fun schedCpualloc(count: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun schedCpufree(set: COpaquePointer?) {
+public actual fun schedCpufree(set: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun schedCpucount(setsize: SizeT, set: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -116,16 +113,14 @@ public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
 public actual fun utmpname(name: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setutent() {
+public actual fun setutent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getutent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -385,13 +380,11 @@ public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, 
 public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun regfree(preg: COpaquePointer?) {
+public actual fun regfree(preg: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun androidSetAbortMessage(msg: String?) {
+public actual fun androidSetAbortMessage(msg: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun gettid(): PidT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -432,9 +425,8 @@ public actual fun arc4random(): UInt =
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -448,9 +440,8 @@ public actual fun basename(path: String?): COpaquePointer? =
 public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun sync() {
+public actual fun sync(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

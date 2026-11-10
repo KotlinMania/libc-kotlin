@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
@@ -9,11 +10,20 @@ import io.github.kotlinmania.libc.CShort
 
 // Standard C library types
 // Division result types and structures
-public data class DivT(public var quot: CInt = 0, public var rem: CInt = 0)
+public data class DivT(
+    public var quot: CInt = 0,
+    public var rem: CInt = 0,
+)
 
-public data class LdivT(public var quot: CLong = 0L, public var rem: CLong = 0L)
+public data class LdivT(
+    public var quot: CLong = 0L,
+    public var rem: CLong = 0L,
+)
 
-public data class LldivT(public var quot: CLonglong = 0L, public var rem: CLonglong = 0L)
+public data class LldivT(
+    public var quot: CLonglong = 0L,
+    public var rem: CLonglong = 0L,
+)
 
 public data class Stat(
     public var stDev: DevT = 0uL,
@@ -39,13 +49,25 @@ public data class Tm(
     public var tmIsdst: CInt = 0,
 )
 
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
-public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
+public data class Timeval(
+    public var tvSec: TimeT = 0L,
+    public var tvUsec: SusecondsT = 0L,
+)
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
-public data class Dirent(public var dIno: CLong = 0L, public var dName: UByteArray = UByteArray(255)) {
+public data class Dirent(
+    public var dIno: CLong = 0L,
+    public var dName: UByteArray = UByteArray(255),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Dirent) return false
@@ -61,7 +83,10 @@ public data class Dirent(public var dIno: CLong = 0L, public var dName: UByteArr
     }
 }
 
-public data class DIR(public var index: CInt = 0, public var entry: Dirent = Dirent()) {
+public data class DIR(
+    public var index: CInt = 0,
+    public var entry: Dirent = Dirent(),
+) {
     public var handle: Long = -1L
 
     public constructor(handle: Long) : this() {
@@ -105,7 +130,10 @@ public data class Termios(
 }
 
 // Resource limit structures (for compatibility, limited support on QuRT)
-public data class Rlimit(public var rlimCur: RlimT = 0uL, public var rlimMax: RlimT = 0uL)
+public data class Rlimit(
+    public var rlimCur: RlimT = 0uL,
+    public var rlimMax: RlimT = 0uL,
+)
 
 public data class Rusage(
     public var ruUtime: Timeval = Timeval(),

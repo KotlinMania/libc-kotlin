@@ -18,13 +18,9 @@ public fun makedev(major: CUint, minor: CUint): DevT {
     return (major1 shl 8) or minor1
 }
 
-public fun major(dev: DevT): CInt {
-    return ((dev shr 8) and 0xffu).toInt()
-}
+public fun major(dev: DevT): CInt = ((dev shr 8) and 0xffu).toInt()
 
-public fun minor(dev: DevT): CInt {
-    return (dev and 0xffff00ffu).toInt()
-}
+public fun minor(dev: DevT): CInt = (dev and 0xffff00ffu).toInt()
 
 // Return type cInt was removed in FreeBSD 12
 public expect fun setgrent(): CInt

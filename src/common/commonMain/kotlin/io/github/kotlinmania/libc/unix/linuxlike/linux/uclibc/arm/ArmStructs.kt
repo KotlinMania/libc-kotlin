@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.arm
 
 import io.github.kotlinmania.libc.*
@@ -49,7 +50,9 @@ public data class Msghdr(
     public var msgFlags: CInt = 0,
 )
 
-public data class PthreadAttrT(public var size: LongArray = LongArray(9)) {
+public data class PthreadAttrT(
+    public var size: LongArray = LongArray(9),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -57,9 +60,7 @@ public data class PthreadAttrT(public var size: LongArray = LongArray(9)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public class Stat(
@@ -319,7 +320,9 @@ public data class Statvfs64(
     }
 }
 
-public data class SigsetT(public var value: ULongArray = ULongArray(2)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -327,9 +330,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sigaction(
@@ -454,7 +455,9 @@ public data class ShmidDs(
     public var unused5: CUlong = 0uL,
 )
 
-public data class SemT(public var size: UByteArray = UByteArray(32)) {
+public data class SemT(
+    public var size: UByteArray = UByteArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -462,7 +465,5 @@ public data class SemT(public var size: UByteArray = UByteArray(32)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }

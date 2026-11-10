@@ -1,9 +1,12 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64
 
 import io.github.kotlinmania.libc.*
 
-public data class MallocZoneT(public var private: ULongArray = ULongArray(18)) {
+public data class MallocZoneT(
+    public var private: ULongArray = ULongArray(18),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MallocZoneT) return false
@@ -11,9 +14,9 @@ public data class MallocZoneT(public var private: ULongArray = ULongArray(18)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
-public data class MaxAlignT(public var priv: Double = 0.0)
+public data class MaxAlignT(
+    public var priv: Double = 0.0,
+)

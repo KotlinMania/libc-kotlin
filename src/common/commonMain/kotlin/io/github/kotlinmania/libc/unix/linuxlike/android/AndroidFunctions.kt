@@ -80,27 +80,19 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+    for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt {
-    return cpuCountS(8, cpuset)
-}
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
-public fun nlaAlign(len: CInt): CInt {
-    return ((len) + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()
-}
+public fun nlaAlign(len: CInt): CInt = ((len) + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()
 
-public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return null
-}
+public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? = null
 
 public fun makedev(ma: CUint, mi: CUint): DevT {
     val ma1 = ma.toULong()
@@ -108,13 +100,9 @@ public fun makedev(ma: CUint, mi: CUint): DevT {
     return ((ma1 and 0xfffuL) shl 8) or (mi1 and 0xffuL) or ((mi1 and 0xfff00uL) shl 12)
 }
 
-public fun major(dev: DevT): CInt {
-    return ((dev shr 8) and 0xfffuL).toInt()
-}
+public fun major(dev: DevT): CInt = ((dev shr 8) and 0xfffuL).toInt()
 
-public fun minor(dev: DevT): CInt {
-    return ((dev and 0xffuL) or ((dev shr 12) and 0xfff00uL)).toInt()
-}
+public fun minor(dev: DevT): CInt = ((dev and 0xffuL) or ((dev shr 12) and 0xfff00uL)).toInt()
 
 public expect fun setgrent()
 
@@ -385,6 +373,7 @@ public expect fun systemPropertyFindNth(n: CUint): COpaquePointer?
 public expect fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt
 
 // #include <link.h>
+
 /**
  * Only available in API Version 21+
  */

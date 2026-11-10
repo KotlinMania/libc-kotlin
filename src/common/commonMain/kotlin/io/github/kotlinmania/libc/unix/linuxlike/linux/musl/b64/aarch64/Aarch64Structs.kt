@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64
 
 import io.github.kotlinmania.libc.*
@@ -138,7 +139,9 @@ public data class UserFpsimdStruct(
     public var fpcr: UInt = 0u,
 )
 
-public data class MaxAlignT(public var priv: FloatArray = FloatArray(8)) {
+public data class MaxAlignT(
+    public var priv: FloatArray = FloatArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -146,7 +149,5 @@ public data class MaxAlignT(public var priv: FloatArray = FloatArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

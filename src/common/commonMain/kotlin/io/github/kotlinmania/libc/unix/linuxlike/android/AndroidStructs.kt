@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
@@ -36,15 +37,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -63,7 +65,9 @@ public data class StackT(
     public var ssSize: SizeT = 0uL,
 )
 
-public data class FsidT(public var value: IntArray = IntArray(2)) {
+public data class FsidT(
+    public var value: IntArray = IntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FsidT) return false
@@ -71,9 +75,7 @@ public data class FsidT(public var value: IntArray = IntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Termios(
@@ -173,7 +175,9 @@ public data class Flock64(
     public var lPid: KernelPidT = 0,
 )
 
-public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
+public data class CpuSetT(
+    public var bits: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuSetT) return false
@@ -181,12 +185,13 @@ public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
-public data class SemT(public var count: CUint = 0u, public var reserved: IntArray = IntArray(3)) {
+public data class SemT(
+    public var count: CUint = 0u,
+    public var reserved: IntArray = IntArray(3),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -202,7 +207,10 @@ public data class SemT(public var count: CUint = 0u, public var reserved: IntArr
     }
 }
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public data class Statvfs(
     public var fBsize: CUlong = 0uL,
@@ -278,7 +286,10 @@ public class SignalfdSiginfo(
     public var pad: UByteArray = UByteArray(28),
 )
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
 public data class Genlmsghdr(
     public var cmd: UByte = 0u,
@@ -294,9 +305,14 @@ public data class Nlmsghdr(
     public var nlmsgPid: UInt = 0u,
 )
 
-public data class Nlmsgerr(public var error: CInt = 0, public var msg: Nlmsghdr = Nlmsghdr())
+public data class Nlmsgerr(
+    public var error: CInt = 0,
+    public var msg: Nlmsghdr = Nlmsghdr(),
+)
 
-public data class NlPktinfo(public var group: UInt = 0u)
+public data class NlPktinfo(
+    public var group: UInt = 0u,
+)
 
 public data class NlMmapReq(
     public var nmBlockSize: CUint = 0u,
@@ -314,9 +330,15 @@ public data class NlMmapHdr(
     public var nmGid: UInt = 0u,
 )
 
-public data class Nlattr(public var nlaLen: UShort = 0u, public var nlaType: UShort = 0u)
+public data class Nlattr(
+    public var nlaLen: UShort = 0u,
+    public var nlaType: UShort = 0u,
+)
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CInt = 0)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CInt = 0,
+)
 
 public data class InotifyEvent(
     public var wd: CInt = 0,
@@ -342,7 +364,10 @@ public data class RegexT(
     public var reGuts: COpaquePointer? = null,
 )
 
-public data class RegmatchT(public var rmSo: SsizeT = 0L, public var rmEo: SsizeT = 0L)
+public data class RegmatchT(
+    public var rmSo: SsizeT = 0L,
+    public var rmEo: SsizeT = 0L,
+)
 
 public data class SockaddrVm(
     public var svmFamily: SaFamilyT = 0u,
@@ -434,7 +459,10 @@ public data class SeccompData(
     }
 }
 
-public data class SeccompMetadata(public var filterOff: U64 = 0uL, public var flags: U64 = 0uL)
+public data class SeccompMetadata(
+    public var filterOff: U64 = 0uL,
+    public var flags: U64 = 0uL,
+)
 
 public data class PtracePeeksiginfoArgs(
     public var off: U64 = 0uL,
@@ -500,9 +528,15 @@ public data class InputMask(
     public var codesPtr: U64 = 0uL,
 )
 
-public data class FfReplay(public var length: U16 = 0u, public var delay: U16 = 0u)
+public data class FfReplay(
+    public var length: U16 = 0u,
+    public var delay: U16 = 0u,
+)
 
-public data class FfTrigger(public var button: U16 = 0u, public var interval: U16 = 0u)
+public data class FfTrigger(
+    public var button: U16 = 0u,
+    public var interval: U16 = 0u,
+)
 
 public data class FfEnvelope(
     public var attackLength: U16 = 0u,
@@ -511,7 +545,10 @@ public data class FfEnvelope(
     public var fadeLevel: U16 = 0u,
 )
 
-public data class FfConstantEffect(public var level: S16 = 0, public var envelope: FfEnvelope = FfEnvelope())
+public data class FfConstantEffect(
+    public var level: S16 = 0,
+    public var envelope: FfEnvelope = FfEnvelope(),
+)
 
 public data class FfRampEffect(
     public var startLevel: S16 = 0,
@@ -539,7 +576,10 @@ public data class FfPeriodicEffect(
     public var customData: CShort? = null,
 )
 
-public data class FfRumbleEffect(public var strongMagnitude: U16 = 0u, public var weakMagnitude: U16 = 0u)
+public data class FfRumbleEffect(
+    public var strongMagnitude: U16 = 0u,
+    public var weakMagnitude: U16 = 0u,
+)
 
 public data class FfEffect(
     public var type: U16 = 0u,
@@ -587,7 +627,10 @@ public data class UinputFfErase(
     public var effectId: U32 = 0u,
 )
 
-public data class UinputAbsSetup(public var code: U16 = 0u, public var absinfo: InputAbsinfo = InputAbsinfo())
+public data class UinputAbsSetup(
+    public var code: U16 = 0u,
+    public var absinfo: InputAbsinfo = InputAbsinfo(),
+)
 
 public data class Option(
     public var name: COpaquePointer? = null,
@@ -723,29 +766,17 @@ public data class SiginfoT(
         return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoTimer?))!!.siSigval
     }
 
-    public fun sifields(): Sifields {
-        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
-    }
+    public fun sifields(): Sifields = (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
 
-    public fun siPid(): PidT {
-        return this.sifields().sigchld.siPid
-    }
+    public fun siPid(): PidT = this.sifields().sigchld.siPid
 
-    public fun siUid(): UidT {
-        return this.sifields().sigchld.siUid
-    }
+    public fun siUid(): UidT = this.sifields().sigchld.siUid
 
-    public fun siStatus(): CInt {
-        return this.sifields().sigchld.siStatus
-    }
+    public fun siStatus(): CInt = this.sifields().sigchld.siStatus
 
-    public fun siUtime(): CLong {
-        return this.sifields().sigchld.siUtime
-    }
+    public fun siUtime(): CLong = this.sifields().sigchld.siUtime
 
-    public fun siStime(): CLong {
-        return this.sifields().sigchld.siStime
-    }
+    public fun siStime(): CLong = this.sifields().sigchld.siStime
 }
 
 public data class Lastlog(
@@ -926,7 +957,10 @@ public data class PropInfo(
  * WARNING: The `PartialEq`, `Eq` and `Hash` implementations of this
  * type are unsound and will be removed in the future.
  */
-public data class AfAlgIv(public var ivlen: UInt = 0u, public var iv: UByteArray = UByteArray(0)) {
+public data class AfAlgIv(
+    public var ivlen: UInt = 0u,
+    public var iv: UByteArray = UByteArray(0),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AfAlgIv) return false
@@ -941,13 +975,9 @@ public data class AfAlgIv(public var ivlen: UInt = 0u, public var iv: UByteArray
         return result
     }
 
-    public fun asSlice(): List<UByte> {
-        return emptyList()
-    }
+    public fun asSlice(): List<UByte> = emptyList()
 
-    public fun eq(other: AfAlgIv): Boolean {
-        return this.asSlice() == other.asSlice()
-    }
+    public fun eq(other: AfAlgIv): Boolean = this.asSlice() == other.asSlice()
 }
 
 public data class CAnonymousIfrIfru(
@@ -1028,7 +1058,10 @@ public data class Ifreq(
     }
 }
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null) {
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: COpaquePointer? = null,
+    public var ifcuReq: Ifreq? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifc_ifcu").finishNonExhaustive()
     }
@@ -1051,13 +1084,19 @@ public data class SifieldsSigchld(
     public var siStime: CLong = 0L,
 )
 
-public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+public data class Sifields(
+    public var alignPointer: COpaquePointer? = null,
+    public var sigchld: SifieldsSigchld = SifieldsSigchld(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+public data class SiginfoF(
+    public var siginfoBase: IntArray = IntArray(3),
+    public var sifields: Sifields = Sifields(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoF) return false

@@ -1,5 +1,6 @@
 // port-lint: source unix/solarish/x86_64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.solarish.x8664
 
 import io.github.kotlinmania.libc.*
@@ -74,9 +75,14 @@ public data class DlPhdrInfo(
     public var dlpiTlsData: COpaquePointer? = null,
 )
 
-public data class FpregsetT(public var fpRegSet: CAnonymousFpRegSet = CAnonymousFpRegSet())
+public data class FpregsetT(
+    public var fpRegSet: CAnonymousFpRegSet = CAnonymousFpRegSet(),
+)
 
-public data class McontextT(public var gregs: LongArray = LongArray(28), public var fpregs: FpregsetT = FpregsetT()) {
+public data class McontextT(
+    public var gregs: LongArray = LongArray(28),
+    public var fpregs: FpregsetT = FpregsetT(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -105,10 +111,11 @@ public data class UcontextT(
     public var ucLwpid: CUint = 0u,
 )
 
-public data class CAnonymousFpRegSet(public var fpchipState: CAnonymousFpchipState = CAnonymousFpchipState(), public var fFpregs: List<UIntArray> = List(10) { UIntArray(0) }) {
-    public fun eq(other: CAnonymousFpRegSet): Boolean {
-        return this.fpchipState == other.fpchipState || this.fFpregs.zip(other.fFpregs).all({ (a, b) -> a.contentEquals(b) })
-    }
+public data class CAnonymousFpRegSet(
+    public var fpchipState: CAnonymousFpchipState = CAnonymousFpchipState(),
+    public var fFpregs: List<UIntArray> = List(10) { UIntArray(0) },
+) {
+    public fun eq(other: CAnonymousFpRegSet): Boolean = this.fpchipState == other.fpchipState || (this.fFpregs.zip(other.fFpregs)).all({ (a, b) -> a.contentEquals(b) })
 
     public override fun hashCode(): Int {
         var state = 0

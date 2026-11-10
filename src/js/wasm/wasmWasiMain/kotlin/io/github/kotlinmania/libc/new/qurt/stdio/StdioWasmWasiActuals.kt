@@ -94,9 +94,8 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun rewind(stream: FILE?) {
+public actual fun rewind(stream: FILE?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun fgetpos(stream: FILE?, pos: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -104,9 +103,8 @@ public actual fun fgetpos(stream: FILE?, pos: COpaquePointer?): CInt =
 public actual fun fsetpos(stream: FILE?, pos: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun clearerr(stream: FILE?) {
+public actual fun clearerr(stream: FILE?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun feof(stream: FILE?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -114,9 +112,8 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun perror(s: String?) {
+public actual fun perror(s: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun remove(filename: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -133,6 +130,5 @@ public actual fun tmpnam(s: COpaquePointer?): COpaquePointer? =
 public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setbuf(stream: FILE?, buffer: COpaquePointer?) {
+public actual fun setbuf(stream: FILE?, buffer: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}

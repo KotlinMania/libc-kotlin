@@ -73,9 +73,8 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -104,9 +103,8 @@ public actual fun tmpfile(): FILE? =
 public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
+public actual fun setbuf(stream: FILE?, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getchar(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -144,9 +142,8 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun rewind(stream: FILE?) {
+public actual fun rewind(stream: FILE?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -160,13 +157,11 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun clearerr(stream: FILE?) {
+public actual fun clearerr(stream: FILE?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun perror(s: String?) {
+public actual fun perror(s: String?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun atof(s: String?): CDouble =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -207,9 +202,8 @@ public actual fun malloc(size: SizeT): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun free(p: COpaquePointer?) {
+public actual fun free(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun abort(): Nothing =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -430,9 +424,8 @@ public actual fun readdir(dirp: DIR?): COpaquePointer? =
 public actual fun closedir(dirp: DIR?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun rewinddir(dirp: DIR?) {
+public actual fun rewinddir(dirp: DIR?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -845,9 +838,8 @@ public actual fun dlclose(handle: COpaquePointer?): CInt =
 public actual fun getaddrinfo(node: String?, service: String?, hints: COpaquePointer?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freeaddrinfo(res: COpaquePointer?) {
+public actual fun freeaddrinfo(res: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun hstrerror(errcode: CInt): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -888,9 +880,8 @@ public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
 public actual fun gethostname(name: COpaquePointer?, len: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun endservent() {
+public actual fun endservent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -901,9 +892,8 @@ public actual fun getservbyport(port: CInt, proto: String?): COpaquePointer? =
 public actual fun getservent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setservent(stayopen: CInt) {
+public actual fun setservent(stayopen: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getprotobyname(name: String?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -1028,20 +1018,17 @@ public actual fun mkdtemp(template: COpaquePointer?): COpaquePointer? =
 public actual fun tmpnam(ptr: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
+public actual fun openlog(ident: String?, logopt: CInt, facility: CInt): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun closelog() {
+public actual fun closelog(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun setlogmask(maskpri: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun nice(incr: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

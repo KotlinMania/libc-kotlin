@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/linux/gnu/b64/s390x.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x
 
 import io.github.kotlinmania.libc.*
@@ -204,7 +205,9 @@ public class Stat64(
     public var glibcReserved: LongArray = LongArray(3),
 )
 
-public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+public data class PthreadAttrT(
+    public var size: ULongArray = ULongArray(7),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -212,9 +215,7 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class IpcPerm(
@@ -292,7 +293,10 @@ public data class Statvfs(
     }
 }
 
-public data class PswT(public var mask: ULong = 0uL, public var addr: ULong = 0uL)
+public data class PswT(
+    public var mask: ULong = 0uL,
+    public var addr: ULong = 0uL,
+)
 
 public data class FpregsetT(
     public var fpc: UInt = 0u,
@@ -432,10 +436,10 @@ public data class Statvfs64(
 }
 
 // Note(union): This is actually a union.
-public data class FpregT(public var d: CDouble = 0.0) {
-    public fun eq(other: FpregT): Boolean {
-        return this.d == other.d
-    }
+public data class FpregT(
+    public var d: CDouble = 0.0,
+) {
+    public fun eq(other: FpregT): Boolean = this.d == other.d
 
     public override fun hashCode(): Int {
         var state = 0

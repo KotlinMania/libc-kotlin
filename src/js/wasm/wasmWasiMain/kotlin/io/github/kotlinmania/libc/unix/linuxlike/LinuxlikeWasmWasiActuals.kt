@@ -94,9 +94,8 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freelocale(loc: LocaleT) {
+public actual fun freelocale(loc: LocaleT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -155,9 +154,8 @@ public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
+public actual fun freeifaddrs(ifa: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -204,9 +202,8 @@ public actual fun setdomainname(name: String?, len: SizeT): CInt =
 public actual fun ifNameindex(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
+public actual fun ifFreenameindex(ptr: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

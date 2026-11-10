@@ -31,13 +31,12 @@ public fun interface PthreadCreateFCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
 }
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
-}
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
@@ -65,25 +64,15 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 127
-}
+public fun wtermsig(status: CInt): CInt = status and 127
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 127) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 127) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0x00ff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0x00ff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 128) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 128) != 0
 
-public fun qcmd(cmd: CInt, type: CInt): CInt {
-    return (cmd shl 8) or (type and 0x00ff)
-}
+public fun qcmd(cmd: CInt, type: CInt): CInt = (cmd shl 8) or (type and 0x00ff)
 
 public expect fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt
 

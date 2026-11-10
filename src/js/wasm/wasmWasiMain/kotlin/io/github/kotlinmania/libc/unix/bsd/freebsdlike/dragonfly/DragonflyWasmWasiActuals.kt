@@ -18,9 +18,8 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
 public actual fun errnoLocation(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setgrent() {
+public actual fun setgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -37,9 +36,8 @@ public actual fun devnameR(dev: DevT, mode: ModeT, buf: COpaquePointer?, len: Si
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freelocale(loc: LocaleT) {
+public actual fun freelocale(loc: LocaleT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -80,9 +78,8 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePo
 public actual fun schedGetcpu(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -165,9 +162,8 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
 public actual fun reallocf(ptr: COpaquePointer?, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
+public actual fun freezero(ptr: COpaquePointer?, size: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun kvmVmMapEntryFirst(kvm: COpaquePointer?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

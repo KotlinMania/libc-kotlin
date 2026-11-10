@@ -330,19 +330,15 @@ public expect fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong
 
 public expect fun wcstod(s: COpaquePointer?, p: COpaquePointer?): CDouble
 
-public fun errno(): CInt {
-    return (errnoLocation()?.rawValue ?: 0L).toInt()
-}
+public fun errno(): CInt = (errnoLocation()?.rawValue ?: 0L).toInt()
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+    for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt {
-    return cpuCountS(8, cpuset)
-}
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)

@@ -1726,13 +1726,11 @@ public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): In
 public actual fun sceAudioInputInitEx(params: COpaquePointer?): Int =
     if (_pspNapiAvailable) _wasm_libc_psp_sceAudioInputInitEx((params?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceAudioGetInputLength(): Int =
     if (_pspNapiAvailable) _wasm_libc_psp_sceAudioGetInputLength() else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3078,9 +3076,8 @@ public actual fun sceMpegQueryMemSize(unk: Int): Int =
 public actual fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: COpaquePointer?, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegDelete(handle: SceMpeg) {
+public actual fun sceMpegDelete(handle: SceMpeg): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3091,9 +3088,8 @@ public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: COpaqueP
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) {
+public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3101,9 +3097,8 @@ public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
 public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) {
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: COpaquePointer?, outSize: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3175,20 +3170,17 @@ public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointe
     }
 }
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuDisplay(state) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDepthFunc(function: DepthFunc) {
+public actual fun sceGuDepthFunc(function: DepthFunc): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuDepthMask(mask: Int) {
     if (_pspNapiAvailable) {
@@ -3257,24 +3249,20 @@ public actual fun sceGuContinue() {
 public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int) {
+public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
+public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
+public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuGetMemory(size: Int): COpaquePointer? =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuGetMemory(size).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) {
+public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuFinish(): Int =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuFinish() else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3301,9 +3289,8 @@ public actual fun sceGuCallMode(mode: Int) {
 public actual fun sceGuCheckList(): Int =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuCheckList() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?) {
+public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuSwapBuffers(): COpaquePointer? =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuSwapBuffers().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3311,9 +3298,8 @@ public actual fun sceGuSwapBuffers(): COpaquePointer? =
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
     if (_pspNapiAvailable) {
@@ -3331,9 +3317,8 @@ public actual fun sceGuEndObject() {
     }
 }
 
-public actual fun sceGuSetStatus(state: GuState, status: Int) {
+public actual fun sceGuSetStatus(state: GuState, status: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuGetStatus(state: GuState): Boolean =
     throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3349,17 +3334,14 @@ public actual fun sceGuSetAllStatus(status: Int) {
 public actual fun sceGuGetAllStatus(): Int =
     if (_pspNapiAvailable) _wasm_libc_psp_sceGuGetAllStatus() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuEnable(state: GuState) {
+public actual fun sceGuEnable(state: GuState): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuDisable(state: GuState) {
+public actual fun sceGuDisable(state: GuState): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3) {
+public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) {
     if (_pspNapiAvailable) {
@@ -3377,13 +3359,11 @@ public actual fun sceGuLightColor(light: Int, component: Int, color: UInt) {
     }
 }
 
-public actual fun sceGuLightMode(mode: LightMode) {
+public actual fun sceGuLightMode(mode: LightMode): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent: Float, cutoff: Float) {
+public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent: Float, cutoff: Float): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuClear(flags: Int) {
     if (_pspNapiAvailable) {
@@ -3433,9 +3413,8 @@ public actual fun sceGuColor(color: UInt) {
     }
 }
 
-public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) {
+public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuColorMaterial(components: Int) {
     if (_pspNapiAvailable) {
@@ -3445,9 +3424,8 @@ public actual fun sceGuColorMaterial(components: Int) {
     }
 }
 
-public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) {
+public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuAmbient(color: UInt) {
     if (_pspNapiAvailable) {
@@ -3465,9 +3443,8 @@ public actual fun sceGuAmbientColor(color: UInt) {
     }
 }
 
-public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) {
+public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuMaterial(components: Int, color: UInt) {
     if (_pspNapiAvailable) {
@@ -3485,13 +3462,11 @@ public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, 
     }
 }
 
-public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) {
+public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation) {
+public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuSpecular(power: Float) {
     if (_pspNapiAvailable) {
@@ -3501,25 +3476,20 @@ public actual fun sceGuSpecular(power: Float) {
     }
 }
 
-public actual fun sceGuFrontFace(order: FrontFaceDirection) {
+public actual fun sceGuFrontFace(order: FrontFaceDirection): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuLogicalOp(op: LogicalOperation) {
+public actual fun sceGuLogicalOp(op: LogicalOperation): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuSetDither(matrix: ScePspIMatrix4) {
+public actual fun sceGuSetDither(matrix: ScePspIMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuShadeModel(mode: ShadingModel) {
+public actual fun sceGuShadeModel(mode: ShadingModel): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) {
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuTexEnvColor(color: UInt) {
     if (_pspNapiAvailable) {
@@ -3529,9 +3499,8 @@ public actual fun sceGuTexEnvColor(color: UInt) {
     }
 }
 
-public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) {
+public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuTexFlush() {
     if (_pspNapiAvailable) {
@@ -3541,25 +3510,20 @@ public actual fun sceGuTexFlush() {
     }
 }
 
-public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
+public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) {
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
+public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt) {
+public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int) {
+public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuTexOffset(u: Float, v: Float) {
     if (_pspNapiAvailable) {
@@ -3569,9 +3533,8 @@ public actual fun sceGuTexOffset(u: Float, v: Float) {
     }
 }
 
-public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) {
+public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuTexScale(u: Float, v: Float) {
     if (_pspNapiAvailable) {
@@ -3597,9 +3560,8 @@ public actual fun sceGuTexSync() {
     }
 }
 
-public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
+public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
     if (_pspNapiAvailable) {
@@ -3609,9 +3571,8 @@ public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
     }
 }
 
-public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) {
+public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuOffset(x: UInt, y: UInt) {
     if (_pspNapiAvailable) {
@@ -3661,9 +3622,8 @@ public actual fun sceGuPatchFrontFace(a0: UInt) {
     }
 }
 
-public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
+public actual fun sceGuPatchPrim(prim: PatchPrimitive): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
     if (_pspNapiAvailable) {
@@ -3673,13 +3633,11 @@ public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: I
     }
 }
 
-public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4) {
+public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4) {
+public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGuMorphWeight(index: Int, weight: Float) {
     if (_pspNapiAvailable) {
@@ -3689,17 +3647,14 @@ public actual fun sceGuMorphWeight(index: Int, weight: Float) {
     }
 }
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
     if (_pspNapiAvailable) {
@@ -3741,21 +3696,17 @@ public actual fun sceGumLoadIdentity() {
     }
 }
 
-public actual fun sceGumLoadMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumLoadMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumLookAt(eye: ScePspFVector3, center: ScePspFVector3, up: ScePspFVector3) {
+public actual fun sceGumLookAt(eye: ScePspFVector3, center: ScePspFVector3, up: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumMatrixMode(mode: MatrixMode) {
+public actual fun sceGumMatrixMode(mode: MatrixMode): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumMultMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumMultMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
     if (_pspNapiAvailable) {
@@ -3813,25 +3764,20 @@ public actual fun sceGumRotateZ(angle: Float) {
     }
 }
 
-public actual fun sceGumRotateXYZ(v: ScePspFVector3) {
+public actual fun sceGumRotateXYZ(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumRotateZYX(v: ScePspFVector3) {
+public actual fun sceGumRotateZYX(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumScale(v: ScePspFVector3) {
+public actual fun sceGumScale(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumStoreMatrix(m: ScePspFMatrix4) {
+public actual fun sceGumStoreMatrix(m: ScePspFMatrix4): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
-public actual fun sceGumTranslate(v: ScePspFVector3) {
+public actual fun sceGumTranslate(v: ScePspFVector3): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
-}
 
 public actual fun sceGumUpdateMatrix() {
     if (_pspNapiAvailable) {

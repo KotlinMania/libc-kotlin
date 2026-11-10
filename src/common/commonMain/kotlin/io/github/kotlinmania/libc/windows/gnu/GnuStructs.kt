@@ -2,7 +2,9 @@ package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.*
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -10,7 +12,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

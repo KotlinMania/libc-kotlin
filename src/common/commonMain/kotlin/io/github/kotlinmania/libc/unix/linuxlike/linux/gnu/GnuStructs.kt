@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
@@ -39,15 +40,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -112,9 +114,15 @@ public data class Aiocb(
     }
 }
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
-public data class Timeval(public var tvSec: Int = 0, public var tvUsec: Int = 0)
+public data class Timeval(
+    public var tvSec: Int = 0,
+    public var tvUsec: Int = 0,
+)
 
 public data class Glob64T(
     public var glPathc: SizeT = 0uL,
@@ -261,7 +269,10 @@ public data class PtracePeeksiginfoArgs(
     public var nr: S32 = 0,
 )
 
-public data class CAnonymousPtraceSyscallInfoEntry(public var nr: U64 = 0uL, public var args: ULongArray = ULongArray(6)) {
+public data class CAnonymousPtraceSyscallInfoEntry(
+    public var nr: U64 = 0uL,
+    public var args: ULongArray = ULongArray(6),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousPtraceSyscallInfoEntry) return false
@@ -277,7 +288,10 @@ public data class CAnonymousPtraceSyscallInfoEntry(public var nr: U64 = 0uL, pub
     }
 }
 
-public data class CAnonymousPtraceSyscallInfoExit(public var sval: S64 = 0L, public var isError: U8 = 0u)
+public data class CAnonymousPtraceSyscallInfoExit(
+    public var sval: S64 = 0L,
+    public var isError: U8 = 0u,
+)
 
 public data class CAnonymousPtraceSyscallInfoSeccomp(
     public var nr: U64 = 0uL,
@@ -393,7 +407,10 @@ public class TcpInfo(
     public var tcpiTotalRetrans: UInt = 0u,
 )
 
-public data class FanotifyEventInfoPidfd(public var hdr: FanotifyEventInfoHeader = FanotifyEventInfoHeader(), public var pidfd: S32 = 0)
+public data class FanotifyEventInfoPidfd(
+    public var hdr: FanotifyEventInfoHeader = FanotifyEventInfoHeader(),
+    public var pidfd: S32 = 0,
+)
 
 public data class FanotifyEventInfoError(
     public var hdr: FanotifyEventInfoHeader = FanotifyEventInfoHeader(),
@@ -401,7 +418,9 @@ public data class FanotifyEventInfoError(
     public var errorCount: U32 = 0u,
 )
 
-public data class SemT(public var size: UByteArray = UByteArray(32)) {
+public data class SemT(
+    public var size: UByteArray = UByteArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -409,12 +428,13 @@ public data class SemT(public var size: UByteArray = UByteArray(32)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class MbstateT(public var count: CInt = 0, public var wchb: UByteArray = UByteArray(4)) {
+public data class MbstateT(
+    public var count: CInt = 0,
+    public var wchb: UByteArray = UByteArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MbstateT) return false
@@ -430,9 +450,15 @@ public data class MbstateT(public var count: CInt = 0, public var wchb: UByteArr
     }
 }
 
-public data class Fpos64T(public var pos: Off64T = 0L, public var state: MbstateT = MbstateT())
+public data class Fpos64T(
+    public var pos: Off64T = 0L,
+    public var state: MbstateT = MbstateT(),
+)
 
-public data class FposT(public var pos: OffT = 0L, public var state: MbstateT = MbstateT())
+public data class FposT(
+    public var pos: OffT = 0L,
+    public var state: MbstateT = MbstateT(),
+)
 
 // linux x32 compatibility
 // See https://sourceware.org/bugzilla/showBug.cgi?id=16437
@@ -496,13 +522,19 @@ public data class SifieldsSigchld(
     public var siStime: CLong = 0L,
 )
 
-public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+public data class Sifields(
+    public var alignPointer: COpaquePointer? = null,
+    public var sigchld: SifieldsSigchld = SifieldsSigchld(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+public data class SiginfoF(
+    public var siginfoBase: IntArray = IntArray(3),
+    public var sifields: Sifields = Sifields(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoF) return false
@@ -527,9 +559,7 @@ public data class CAnonymousPtraceSyscallInfoData(
         DebugStruct(f, "__c_anonymous_ptrace_syscall_info_data").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousPtraceSyscallInfoData): Boolean {
-        return this.entry == other.entry || this.exit == other.exit || this.seccomp == other.seccomp
-    }
+    public fun eq(other: CAnonymousPtraceSyscallInfoData): Boolean = this.entry == other.entry || this.exit == other.exit || this.seccomp == other.seccomp
 
     public override fun hashCode(): Int {
         var state = 0

@@ -1,5 +1,6 @@
 // port-lint: source new/netbsd/net/if_.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.netbsd.net.ifbranch
 
 import io.github.kotlinmania.libc.*
@@ -104,7 +105,10 @@ public data class IfMsghdr(
     public var ifmData: IfData = IfData(),
 )
 
-public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+public data class Ifreq(
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ifreq) return false
@@ -136,8 +140,17 @@ public data class CAnonymousIfrIfru(
     public var ifruB: CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(),
 )
 
-public data class CAnonymousIfrIfruIfruB(public var bBuflen: UInt = 0u, public var bBuf: COpaquePointer? = null)
+public data class CAnonymousIfrIfruIfruB(
+    public var bBuflen: UInt = 0u,
+    public var bBuf: COpaquePointer? = null,
+)
 
-public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu())
+public data class Ifconf(
+    public var ifcLen: CInt = 0,
+    public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
+)
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null)
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: COpaquePointer? = null,
+    public var ifcuReq: Ifreq? = null,
+)

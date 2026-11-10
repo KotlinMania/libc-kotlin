@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664
 
 import io.github.kotlinmania.libc.*
@@ -50,7 +51,9 @@ public fun interface MallocZoneTClaimedAddressCallback {
     public operator fun invoke(zone: COpaquePointer?, ptr: COpaquePointer?): BooleanT
 }
 
-public data class MallocIntrospectionT(public var private: ULongArray = ULongArray(16)) {
+public data class MallocIntrospectionT(
+    public var private: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MallocIntrospectionT) return false
@@ -58,9 +61,7 @@ public data class MallocIntrospectionT(public var private: ULongArray = ULongArr
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
 public class MallocZoneT(
@@ -84,7 +85,9 @@ public class MallocZoneT(
     public var claimedAddress: MallocZoneTClaimedAddressCallback? = null,
 )
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(2)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -92,7 +95,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

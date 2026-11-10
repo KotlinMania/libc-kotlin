@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.x8664
 
 import io.github.kotlinmania.libc.*
@@ -132,7 +133,10 @@ public data class User(
 // GitHub repo: ifduyue/musl/
 // commit: b4b1e10364c8737a632be61582e05a8d3acf5690
 // file: arch/x8664/bits/signal.h#L80-L84
-public data class McontextT(public var gregs: LongArray = LongArray(23), public var private: ULongArray = ULongArray(9)) {
+public data class McontextT(
+    public var gregs: LongArray = LongArray(23),
+    public var private: ULongArray = ULongArray(9),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -252,7 +256,9 @@ public data class UcontextT(
     }
 }
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -260,7 +266,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

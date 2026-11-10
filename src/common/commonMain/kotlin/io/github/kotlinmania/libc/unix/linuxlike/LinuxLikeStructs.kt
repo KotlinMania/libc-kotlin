@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
@@ -30,9 +31,14 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
 // * musl and Emscripten has 64-bit versions only so aliases the LFS64 symbols to the standard ones
 // * ulibc doesn't have preadv64/pwritev64
 // The statx syscall, available on some libcs.
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class IpMreqn(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -46,7 +52,10 @@ public data class IpMreqSource(
     public var imrSourceaddr: InAddr = InAddr(),
 )
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -142,7 +151,9 @@ public data class SockaddrLl(
     }
 }
 
-public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / ULONG_SIZE)) {
+public data class FdSet(
+    public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / ULONG_SIZE),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -150,9 +161,7 @@ public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE /
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Tm(
@@ -169,7 +178,9 @@ public data class Tm(
     public var tmZone: COpaquePointer? = null,
 )
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class DlInfo(
     public var dliFname: COpaquePointer? = null,
@@ -278,9 +289,15 @@ public data class Arphdr(
     public var arOp: UShort = 0u,
 )
 
-public data class Mmsghdr(public var msgHdr: Msghdr = Msghdr(), public var msgLen: CUint = 0u)
+public data class Mmsghdr(
+    public var msgHdr: Msghdr = Msghdr(),
+    public var msgLen: CUint = 0u,
+)
 
-public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var sunPath: UByteArray = UByteArray(108)) {
+public data class SockaddrUn(
+    public var sunFamily: SaFamilyT = 0u,
+    public var sunPath: UByteArray = UByteArray(108),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrUn) return false
@@ -349,7 +366,10 @@ public data class Utsname(
     }
 }
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
 public data class FileCloneRange(
     public var srcFd: S64 = 0L,
@@ -366,7 +386,10 @@ public data class SockFilter(
     public var k: U32 = 0u,
 )
 
-public data class SockFprog(public var len: CUshort = 0u, public var filter: SockFilter? = null)
+public data class SockFprog(
+    public var len: CUshort = 0u,
+    public var filter: SockFilter? = null,
+)
 
 public class Statx(
     public var stxMask: U32 = 0u,
@@ -417,10 +440,11 @@ public data class StatxTimestamp(
     }
 }
 
-public data class EpollEvent(public var events: UInt = 0u, public var u64: ULong = 0uL) {
-    public fun eq(other: EpollEvent): Boolean {
-        return this.events == other.events && this.u64 == other.u64
-    }
+public data class EpollEvent(
+    public var events: UInt = 0u,
+    public var u64: ULong = 0uL,
+) {
+    public fun eq(other: EpollEvent): Boolean = this.events == other.events && this.u64 == other.u64
 
     public override fun hashCode(): Int {
         var state = 0
@@ -461,7 +485,5 @@ public data class Sigevent(
         return result
     }
 
-    public fun eq(other: Sigevent): Boolean {
-        return this.sigevValue == other.sigevValue && this.sigevSigno == other.sigevSigno && this.sigevNotify == other.sigevNotify && this.sigevNotifyThreadId == other.sigevNotifyThreadId
-    }
+    public fun eq(other: Sigevent): Boolean = this.sigevValue == other.sigevValue && this.sigevSigno == other.sigevSigno && this.sigevNotify == other.sigevNotify && this.sigevNotifyThreadId == other.sigevNotifyThreadId
 }

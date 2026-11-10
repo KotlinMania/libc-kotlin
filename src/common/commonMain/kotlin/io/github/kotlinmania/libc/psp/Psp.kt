@@ -1,5 +1,6 @@
 // port-lint: source psp.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
@@ -1336,34 +1337,54 @@ public enum class HttpAuthType(public val value: UInt) {
     Digest(1u),
 }
 
-public data class SceUid(public var value: Int = 0) {
+public data class SceUid(
+    public var value: Int = 0,
+) {
     public var field0: Int
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
-public data class SceMpeg(public var value: COpaquePointer? = null) {
+public data class SceMpeg(
+    public var value: COpaquePointer? = null,
+) {
     public var field0: COpaquePointer?
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
-public data class SceMpegStream(public var value: COpaquePointer? = null) {
+public data class SceMpegStream(
+    public var value: COpaquePointer? = null,
+) {
     public var field0: COpaquePointer?
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
-public data class Mp3Handle(public var value: Int = 0) {
+public data class Mp3Handle(
+    public var value: Int = 0,
+) {
     public var field0: Int
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
-public data class RegHandle(public var value: UInt = 0u) {
+public data class RegHandle(
+    public var value: UInt = 0u,
+) {
     public var field0: UInt
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 }
 
 public data class Sockaddr(
@@ -1388,7 +1409,9 @@ public data class Sockaddr(
     }
 }
 
-public data class InAddr(public var sAddr: UInt = 0u)
+public data class InAddr(
+    public var sAddr: UInt = 0u,
+)
 
 public data class AudioInputParams(
     public var unknown1: Int = 0,
@@ -1445,7 +1468,9 @@ public data class SceCtrlLatch(
     public var uiRelease: UInt = 0u,
 )
 
-public data class GeStack(public var stack: UIntArray = UIntArray(8)) {
+public data class GeStack(
+    public var stack: UIntArray = UIntArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is GeStack) return false
@@ -1453,9 +1478,7 @@ public data class GeStack(public var stack: UIntArray = UIntArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.stack.contentHashCode()
-    }
+    override fun hashCode(): Int = this.stack.contentHashCode()
 }
 
 public data class GeCallbackData(
@@ -1472,7 +1495,9 @@ public data class GeListArgs(
     public var stacks: GeStack? = null,
 )
 
-public data class GeBreakParam(public var buf: UIntArray = UIntArray(4)) {
+public data class GeBreakParam(
+    public var buf: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is GeBreakParam) return false
@@ -1480,9 +1505,7 @@ public data class GeBreakParam(public var buf: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.buf.contentHashCode()
-    }
+    override fun hashCode(): Int = this.buf.contentHashCode()
 }
 
 public data class SceKernelLoadExecParam(
@@ -1492,9 +1515,15 @@ public data class SceKernelLoadExecParam(
     public var key: COpaquePointer? = null,
 )
 
-public data class Timeval(public var tvSec: Int = 0, public var tvUsec: Int = 0)
+public data class Timeval(
+    public var tvSec: Int = 0,
+    public var tvUsec: Int = 0,
+)
 
-public data class Timezone(public var tzMinutesWest: Int = 0, public var tzDstTime: Int = 0)
+public data class Timezone(
+    public var tzMinutesWest: Int = 0,
+    public var tzDstTime: Int = 0,
+)
 
 public data class IntrHandlerOptionParam(
     public var size: Int = 0,
@@ -1635,9 +1664,15 @@ public class DebugProfilerRegs(
     public var localBus: UInt = 0u,
 )
 
-public data class SceKernelSysClock(public var low: UInt = 0u, public var hi: UInt = 0u)
+public data class SceKernelSysClock(
+    public var low: UInt = 0u,
+    public var hi: UInt = 0u,
+)
 
-public data class SceKernelThreadOptParam(public var size: Int = 0, public var stackMpid: SceUid = SceUid())
+public data class SceKernelThreadOptParam(
+    public var size: Int = 0,
+    public var stackMpid: SceUid = SceUid(),
+)
 
 public class SceKernelThreadInfo(
     public var size: Int = 0,
@@ -1673,7 +1708,9 @@ public data class SceKernelThreadRunStatus(
     public var releaseCount: UInt = 0u,
 )
 
-public data class SceKernelSemaOptParam(public var size: Int = 0)
+public data class SceKernelSemaOptParam(
+    public var size: Int = 0,
+)
 
 public data class SceKernelSemaInfo(
     public var size: Int = 0,
@@ -1740,9 +1777,13 @@ public data class SceKernelEventFlagInfo(
     }
 }
 
-public data class SceKernelEventFlagOptParam(public var size: Int = 0)
+public data class SceKernelEventFlagOptParam(
+    public var size: Int = 0,
+)
 
-public data class SceKernelMbxOptParam(public var size: Int = 0)
+public data class SceKernelMbxOptParam(
+    public var size: Int = 0,
+)
 
 public data class SceKernelMbxInfo(
     public var size: Int = 0,
@@ -1893,7 +1934,9 @@ public data class SceKernelMppInfo(
     }
 }
 
-public data class SceKernelVplOptParam(public var size: Int = 0)
+public data class SceKernelVplOptParam(
+    public var size: Int = 0,
+)
 
 public data class SceKernelVplInfo(
     public var size: Int = 0,
@@ -1926,7 +1969,9 @@ public data class SceKernelVplInfo(
     }
 }
 
-public data class SceKernelFplOptParam(public var size: Int = 0)
+public data class SceKernelFplOptParam(
+    public var size: Int = 0,
+)
 
 public data class SceKernelFplInfo(
     public var size: Int = 0,
@@ -1962,7 +2007,9 @@ public data class SceKernelFplInfo(
     }
 }
 
-public data class SceKernelVTimerOptParam(public var size: Int = 0)
+public data class SceKernelVTimerOptParam(
+    public var size: Int = 0,
+)
 
 public data class SceKernelCallbackInfo(
     public var size: Int = 0,
@@ -2138,7 +2185,10 @@ public data class SceIoStat(
     }
 }
 
-public data class UmdInfo(public var size: UInt = 0u, public var type: UmdType = UmdType.entries.first())
+public data class UmdInfo(
+    public var size: UInt = 0u,
+    public var type: UmdType = UmdType.entries.first(),
+)
 
 public data class SceMpegRingbuffer(
     public var packets: Int = 0,
@@ -2163,7 +2213,10 @@ public data class SceMpegAu(
     public var auSize: UInt = 0u,
 )
 
-public data class SceMpegAvcMode(public var unk0: Int = 0, public var pixelFormat: DisplayPixelFormat = DisplayPixelFormat.entries.first())
+public data class SceMpegAvcMode(
+    public var unk0: Int = 0,
+    public var pixelFormat: DisplayPixelFormat = DisplayPixelFormat.entries.first(),
+)
 
 public data class SceMpegLLI(
     public var src: COpaquePointer? = null,
@@ -2248,11 +2301,20 @@ public data class ScePspL64Rect(
     public var h: ULong = 0uL,
 )
 
-public data class ScePspSVector2(public var x: Short = 0, public var y: Short = 0)
+public data class ScePspSVector2(
+    public var x: Short = 0,
+    public var y: Short = 0,
+)
 
-public data class ScePspIVector2(public var x: Int = 0, public var y: Int = 0)
+public data class ScePspIVector2(
+    public var x: Int = 0,
+    public var y: Int = 0,
+)
 
-public data class ScePspL64Vector2(public var x: ULong = 0uL, public var y: ULong = 0uL)
+public data class ScePspL64Vector2(
+    public var x: ULong = 0uL,
+    public var y: ULong = 0uL,
+)
 
 public data class ScePspSVector3(
     public var x: Short = 0,
@@ -2293,7 +2355,10 @@ public data class ScePspL64Vector4(
     public var w: ULong = 0uL,
 )
 
-public data class ScePspIMatrix2(public var x: ScePspIVector2 = ScePspIVector2(), public var y: ScePspIVector2 = ScePspIVector2())
+public data class ScePspIMatrix2(
+    public var x: ScePspIVector2 = ScePspIVector2(),
+    public var y: ScePspIVector2 = ScePspIVector2(),
+)
 
 public data class ScePspIMatrix3(
     public var x: ScePspIVector3 = ScePspIVector3(),
@@ -2326,7 +2391,9 @@ public data class SceMp3InitArg(
     public var pcmBufSize: Int = 0,
 )
 
-public data class OpenPSID(public var data: UByteArray = UByteArray(16)) {
+public data class OpenPSID(
+    public var data: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is OpenPSID) return false
@@ -2334,9 +2401,7 @@ public data class OpenPSID(public var data: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.data.contentHashCode()
-    }
+    override fun hashCode(): Int = this.data.contentHashCode()
 }
 
 public data class UtilityDialogCommon(
@@ -2379,7 +2444,10 @@ public data class UtilityDialogCommon(
     }
 }
 
-public data class UtilityNetconfAdhoc(public var name: UByteArray = UByteArray(8), public var timeout: UInt = 0u) {
+public data class UtilityNetconfAdhoc(
+    public var name: UByteArray = UByteArray(8),
+    public var timeout: UInt = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UtilityNetconfAdhoc) return false
@@ -2411,7 +2479,10 @@ public data class UtilitySavedataFileData(
     public var unknown: Int = 0,
 )
 
-public data class UtilitySavedataListSaveNewData(public var icon0: UtilitySavedataFileData = UtilitySavedataFileData(), public var title: COpaquePointer? = null)
+public data class UtilitySavedataListSaveNewData(
+    public var icon0: UtilitySavedataFileData = UtilitySavedataFileData(),
+    public var title: COpaquePointer? = null,
+)
 
 public data class UtilityGameSharingParams(
     public var base: UtilityDialogCommon = UtilityDialogCommon(),
@@ -2573,7 +2644,10 @@ public data class SceNetAdhocctlScanInfo(
     }
 }
 
-public data class SceNetAdhocctlGameModeInfo(public var count: Int = 0, public var macs: List<UByteArray> = List(16) { UByteArray(0) })
+public data class SceNetAdhocctlGameModeInfo(
+    public var count: Int = 0,
+    public var macs: List<UByteArray> = List(16) { UByteArray(0) },
+)
 
 public data class SceNetAdhocPtpStat(
     public var next: SceNetAdhocPtpStat? = null,
@@ -2649,7 +2723,9 @@ public data class AdhocPoolStat(
     public var freesize: Int = 0,
 )
 
-public data class GeContext(public var context: UIntArray = UIntArray(512)) {
+public data class GeContext(
+    public var context: UIntArray = UIntArray(512),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is GeContext) return false
@@ -2657,9 +2733,7 @@ public data class GeContext(public var context: UIntArray = UIntArray(512)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.context.contentHashCode()
-    }
+    override fun hashCode(): Int = this.context.contentHashCode()
 }
 
 public data class SceKernelUtilsSha1Context(
@@ -2690,7 +2764,10 @@ public data class SceKernelUtilsSha1Context(
     }
 }
 
-public data class SceKernelUtilsMt19937Context(public var count: UInt = 0u, public var state: UIntArray = UIntArray(624)) {
+public data class SceKernelUtilsMt19937Context(
+    public var count: UInt = 0u,
+    public var state: UIntArray = UIntArray(624),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SceKernelUtilsMt19937Context) return false
@@ -2789,9 +2866,15 @@ public data class ScePspFVector4Unaligned(
     public var w: Float = 0.0f,
 )
 
-public data class ScePspFVector2(public var x: Float = 0.0f, public var y: Float = 0.0f)
+public data class ScePspFVector2(
+    public var x: Float = 0.0f,
+    public var y: Float = 0.0f,
+)
 
-public data class ScePspFMatrix2(public var x: ScePspFVector2 = ScePspFVector2(), public var y: ScePspFVector2 = ScePspFVector2())
+public data class ScePspFMatrix2(
+    public var x: ScePspFVector2 = ScePspFVector2(),
+    public var y: ScePspFVector2 = ScePspFVector2(),
+)
 
 public data class ScePspFMatrix3(
     public var x: ScePspFVector3 = ScePspFVector3(),
@@ -2983,7 +3066,10 @@ public data class UtilityMsgDialogParams(
     }
 }
 
-public data class UtilityNetData(public var asUint: UInt = 0u, public var asString: UByteArray = UByteArray(128)) {
+public data class UtilityNetData(
+    public var asUint: UInt = 0u,
+    public var asString: UByteArray = UByteArray(128),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UtilityNetData) return false

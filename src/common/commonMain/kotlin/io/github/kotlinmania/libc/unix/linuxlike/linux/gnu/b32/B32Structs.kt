@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
@@ -93,7 +94,9 @@ public data class Statvfs(
     }
 }
 
-public data class PthreadAttrT(public var size: UIntArray = UIntArray(9)) {
+public data class PthreadAttrT(
+    public var size: UIntArray = UIntArray(9),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -101,12 +104,12 @@ public data class PthreadAttrT(public var size: UIntArray = UIntArray(9)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class SigsetT(public var value: ULongArray = ULongArray(32)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -114,9 +117,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(32)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sysinfo(

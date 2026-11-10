@@ -16,9 +16,8 @@ public actual fun malloc(size: SizeT): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun free(p: COpaquePointer?) {
+public actual fun free(p: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

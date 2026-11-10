@@ -989,6 +989,7 @@ public val OS_SYNC_WAKE_BY_ADDRESS_NONE: OsSyncWakeByAddressFlagsT = 0x00000000u
 public val OS_SYNC_WAKE_BY_ADDRESS_SHARED: OsSyncWakeByAddressFlagsT = 0x00000001u
 
 // <proc.h>
+
 /**
  * Process being created by fork.
  */
@@ -1026,6 +1027,7 @@ public val VMADDR_CID_HOST: CUint = 2u
 public val VMADDR_PORT_ANY: CUint = 0xFFFFFFFFu
 
 // bsd/net/ifMib.h
+
 /**
  * Non-interface-specific
  */

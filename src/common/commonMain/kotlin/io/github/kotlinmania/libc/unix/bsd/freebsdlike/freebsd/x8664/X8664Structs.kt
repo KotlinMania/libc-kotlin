@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x8664
 
 import io.github.kotlinmania.libc.*
@@ -15,15 +16,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -213,14 +215,17 @@ public data class CAnonymousElf64AuxvUnion(
     }
 
     // Note(msrv): suggested method was added in 1.85
-    public fun eq(other: CAnonymousElf64AuxvUnion): Boolean {
-        return this.aVal == other.aVal || this.aPtr == other.aPtr || this.aFcn == other.aFcn
-    }
+    public fun eq(other: CAnonymousElf64AuxvUnion): Boolean = this.aVal == other.aVal || this.aPtr == other.aPtr || this.aFcn == other.aFcn
 }
 
-public data class Elf64Auxinfo(public var aType: CLong = 0L, public var aUn: CAnonymousElf64AuxvUnion = CAnonymousElf64AuxvUnion())
+public data class Elf64Auxinfo(
+    public var aType: CLong = 0L,
+    public var aUn: CAnonymousElf64AuxvUnion = CAnonymousElf64AuxvUnion(),
+)
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -228,7 +233,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

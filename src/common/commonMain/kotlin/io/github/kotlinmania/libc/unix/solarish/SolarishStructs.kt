@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
@@ -33,15 +34,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -51,9 +53,14 @@ public class DebugStruct(
     }
 }
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class IpMreqSource(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -71,7 +78,10 @@ public data class IpcPerm(
     public var key: KeyT = 0,
 )
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -127,7 +137,10 @@ public data class InPktinfo(
     public var ipiAddr: InAddr = InAddr(),
 )
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 public data class Passwd(
     public var pwName: COpaquePointer? = null,
@@ -151,7 +164,10 @@ public data class Ifaddrs(
     public var ifaData: COpaquePointer? = null,
 )
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
 public data class Tm(
     public var tmSec: CInt = 0,
@@ -181,7 +197,9 @@ public data class Cmsghdr(
     public var cmsgType: CInt = 0,
 )
 
-public data class PthreadAttrT(public var pthreadAttrp: COpaquePointer? = null)
+public data class PthreadAttrT(
+    public var pthreadAttrp: COpaquePointer? = null,
+)
 
 public data class PthreadMutexT(
     public var pthreadMutexFlag1: UShort = 0u,
@@ -193,7 +211,9 @@ public data class PthreadMutexT(
     public var pthreadMutexData: ULong = 0uL,
 )
 
-public data class PthreadMutexattrT(public var pthreadMutexattrp: COpaquePointer? = null)
+public data class PthreadMutexattrT(
+    public var pthreadMutexattrp: COpaquePointer? = null,
+)
 
 public data class PthreadCondT(
     public var pthreadCondFlag: UByteArray = UByteArray(4),
@@ -220,7 +240,9 @@ public data class PthreadCondT(
     }
 }
 
-public data class PthreadCondattrT(public var pthreadCondattrp: COpaquePointer? = null)
+public data class PthreadCondattrT(
+    public var pthreadCondattrp: COpaquePointer? = null,
+)
 
 public data class PthreadRwlockT(
     public var pthreadRwlockReaders: Int = 0,
@@ -231,7 +253,9 @@ public data class PthreadRwlockT(
     public var pthreadRwlockWritercv: PthreadCondT = PthreadCondT(),
 )
 
-public data class PthreadRwlockattrT(public var pthreadRwlockattrp: COpaquePointer? = null)
+public data class PthreadRwlockattrT(
+    public var pthreadRwlockattrp: COpaquePointer? = null,
+)
 
 public data class Dirent(
     public var dIno: InoT = 0uL,
@@ -286,7 +310,9 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
+public data class SigsetT(
+    public var bits: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -294,9 +320,7 @@ public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class Sigaction(
@@ -370,7 +394,10 @@ public data class SendfilevecT(
     public var sfvLen: SizeT = 0uL,
 )
 
-public data class SchedParam(public var schedPriority: CInt = 0, public var schedPad: IntArray = IntArray(8)) {
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+    public var schedPad: IntArray = IntArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SchedParam) return false
@@ -530,7 +557,10 @@ public data class Flock(
     }
 }
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
 public data class MqAttr(
     public var mqFlags: CLong = 0L,
@@ -568,11 +598,20 @@ public data class PortEvent(
     public var portevUser: COpaquePointer? = null,
 )
 
-public data class PortNotify(public var portnfyPort: CInt = 0, public var portnfyUser: COpaquePointer? = null)
+public data class PortNotify(
+    public var portnfyPort: CInt = 0,
+    public var portnfyUser: COpaquePointer? = null,
+)
 
-public data class AioResultT(public var aioReturn: SsizeT = 0L, public var aioErrno: CInt = 0)
+public data class AioResultT(
+    public var aioReturn: SsizeT = 0L,
+    public var aioErrno: CInt = 0,
+)
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public data class Utmp(
     public var utUser: UByteArray = UByteArray(8),
@@ -682,7 +721,10 @@ public data class Option(
     public var value: CInt = 0,
 )
 
-public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var sunPath: UByteArray = UByteArray(108)) {
+public data class SockaddrUn(
+    public var sunFamily: SaFamilyT = 0u,
+    public var sunPath: UByteArray = UByteArray(108),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrUn) return false
@@ -726,7 +768,9 @@ public data class Utsname(
     }
 }
 
-public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64)) {
+public data class FdSet(
+    public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -734,9 +778,7 @@ public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 6
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class SockaddrStorage(
@@ -842,8 +884,8 @@ public data class SiginfoT(
      * It is not yet exhausitive for the OS-defined types, and defaults to assuming the
      * entire data pad area is "valid" for otherwise unrecognized signal numbers.
      */
-    public fun dataFieldCount(): Int {
-        return when (this.siSigno) {
+    public fun dataFieldCount(): Int =
+        when (this.siSigno) {
             SIGSEGV, SIGBUS, SIGILL, SIGTRAP, SIGFPE -> {
                 8 / 8
             }
@@ -851,22 +893,18 @@ public data class SiginfoT(
             SIGHUP, SIGINT, SIGQUIT, SIGABRT, SIGSYS, SIGPIPE, SIGALRM, SIGTERM, SIGUSR1, SIGUSR2, SIGPWR, SIGWINCH, SIGURG -> 8 / 8
             else -> SIGINFO_DATA_SIZE
         }
-    }
 
-    public fun eq(other: SiginfoT): Boolean {
-        return if (this.siSigno == other.siSigno && this.siCode == other.siCode && this.siErrno == other.siErrno) {
+    public fun eq(other: SiginfoT): Boolean =
+        if (this.siSigno == other.siSigno && this.siCode == other.siCode && this.siErrno == other.siErrno) {
             // Note(solarish): The `siPad` field in the 64-bit version of the struct is ignored
             // (for now) when doing comparisons.
             val fieldCount = this.dataFieldCount()
-            this.dataPad.slice(0 until fieldCount).zip(other.dataPad.slice(0 until fieldCount)).all({ (a, b) -> a == b })
+            (((this.dataPad).slice(0 until fieldCount)).zip(((other.dataPad).slice(0 until fieldCount)))).all({ (a, b) -> a == b })
         } else {
             false
         }
-    }
 
-    public inline fun <reified T> sidata(): T {
-        return ((((((this.dataPad) as Any?) as CInt?) as Any?) as T?))!!
-    }
+    public inline fun <reified T> sidata(): T = ((((((this.dataPad) as Any?) as CInt?) as Any?) as T?))!!
 
     public fun siAddr(): COpaquePointer? {
         val sifault: SiginfoFault = this.sidata()
@@ -915,17 +953,13 @@ public data class Pad128T(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.l.contentHashCode()
-    }
+    override fun hashCode(): Int = this.l.contentHashCode()
 
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "pad128_t").finishNonExhaustive()
     }
 
-    public fun eq(other: Pad128T): Boolean {
-        return this.l.contentEquals(other.l)
-    }
+    public fun eq(other: Pad128T): Boolean = this.l.contentEquals(other.l)
 }
 
 public data class Upad128T(
@@ -939,17 +973,13 @@ public data class Upad128T(
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.l.contentHashCode()
-    }
+    override fun hashCode(): Int = this.l.contentHashCode()
 
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "upad128_t").finishNonExhaustive()
     }
 
-    public fun eq(other: Upad128T): Boolean {
-        return this.l.contentEquals(other.l)
-    }
+    public fun eq(other: Upad128T): Boolean = this.l.contentEquals(other.l)
 }
 
 public data class SiginfoFault(

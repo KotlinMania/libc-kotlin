@@ -1,5 +1,6 @@
 // port-lint: source unix/nto/aarch64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.nto.aarch64
 
 import io.github.kotlinmania.libc.*
@@ -11,7 +12,10 @@ public typealias WcharT = UInt
 
 public typealias TimeT = Long
 
-public data class Aarch64QregT(public var qlo: ULong = 0uL, public var qhi: ULong = 0uL)
+public data class Aarch64QregT(
+    public var qlo: ULong = 0uL,
+    public var qhi: ULong = 0uL,
+)
 
 public data class Aarch64FpuRegisters(
     public var reg: List<Aarch64QregT> = List(32) { Aarch64QregT() },
@@ -41,7 +45,10 @@ public data class Aarch64CpuRegisters(
     }
 }
 
-public data class McontextT(public var cpu: Aarch64CpuRegisters = Aarch64CpuRegisters(), public var fpu: Aarch64FpuRegisters = Aarch64FpuRegisters())
+public data class McontextT(
+    public var cpu: Aarch64CpuRegisters = Aarch64CpuRegisters(),
+    public var fpu: Aarch64FpuRegisters = Aarch64FpuRegisters(),
+)
 
 public data class StackT(
     public var ssSp: COpaquePointer? = null,

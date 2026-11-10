@@ -37,9 +37,15 @@ public typealias TimeT = CLong
 
 public typealias ClockidT = CInt
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: SizeT = 0uL,
+)
 
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
 public val PROT_READ: Int = 1
 

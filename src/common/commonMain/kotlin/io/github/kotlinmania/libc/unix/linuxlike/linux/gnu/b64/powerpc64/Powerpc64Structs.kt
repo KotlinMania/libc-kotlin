@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.powerpc64
 
 import io.github.kotlinmania.libc.*
@@ -294,7 +295,9 @@ public data class Statvfs64(
     }
 }
 
-public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+public data class PthreadAttrT(
+    public var size: ULongArray = ULongArray(7),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -302,9 +305,7 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public data class IpcPerm(
@@ -381,7 +382,9 @@ public data class CloneArgs(
     public var cgroup: CUlonglong = 0uL,
 )
 
-public data class MaxAlignT(public var priv: LongArray = LongArray(4)) {
+public data class MaxAlignT(
+    public var priv: LongArray = LongArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -389,9 +392,7 @@ public data class MaxAlignT(public var priv: LongArray = LongArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
 public data class UcontextT(
@@ -522,7 +523,10 @@ public data class VrregsetT(
     }
 }
 
-public data class VscrT(public var vscrWord: CUint = 0u, public var pad: UIntArray = UIntArray(3)) {
+public data class VscrT(
+    public var vscrWord: CUint = 0u,
+    public var pad: UIntArray = UIntArray(3),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is VscrT) return false

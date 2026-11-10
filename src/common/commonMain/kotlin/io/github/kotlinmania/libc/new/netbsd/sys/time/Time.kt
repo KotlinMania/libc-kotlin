@@ -8,7 +8,10 @@ import io.github.kotlinmania.libc.new.qurt.Timespec
 //
 // <https://github.com/NetBSD/src/blob/trunk/sys/sys/time.h>
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
 public val CLOCK_THREAD_CPUTIME_ID: ClockidT = 0x20000000
 

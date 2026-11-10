@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/linux_l4re_shared.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
@@ -133,9 +134,14 @@ public data class Spwd(
     public var spFlag: CUlong = 0uL,
 )
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
-public data class FsidT(public var value: IntArray = IntArray(2)) {
+public data class FsidT(
+    public var value: IntArray = IntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FsidT) return false
@@ -143,9 +149,7 @@ public data class FsidT(public var value: IntArray = IntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class PacketMreq(
@@ -173,7 +177,9 @@ public data class PacketMreq(
     }
 }
 
-public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
+public data class CpuSetT(
+    public var bits: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuSetT) return false
@@ -181,9 +187,7 @@ public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }
 
 public data class Sembuf(
@@ -385,9 +389,15 @@ public data class Elf64Shdr(
     public var shEntsize: Elf64Xword = 0uL,
 )
 
-public data class CAnonymousElf32Rel(public var rOffset: Elf32Addr = 0u, public var rInfo: Elf32Word = 0u)
+public data class CAnonymousElf32Rel(
+    public var rOffset: Elf32Addr = 0u,
+    public var rInfo: Elf32Word = 0u,
+)
 
-public data class CAnonymousElf64Rel(public var rOffset: Elf64Addr = 0uL, public var rInfo: Elf64Xword = 0uL)
+public data class CAnonymousElf64Rel(
+    public var rOffset: Elf64Addr = 0uL,
+    public var rInfo: Elf64Xword = 0uL,
+)
 
 public data class Ucred(
     public var pid: PidT = 0,
@@ -404,7 +414,10 @@ public data class Mntent(
     public var mntPassno: CInt = 0,
 )
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 public data class ArpdRequest(
     public var req: CUshort = 0u,
@@ -437,7 +450,10 @@ public data class ArpdRequest(
     }
 }
 
-public data class RegmatchT(public var rmSo: RegoffT = 0L, public var rmEo: RegoffT = 0L)
+public data class RegmatchT(
+    public var rmSo: RegoffT = 0L,
+    public var rmEo: RegoffT = 0L,
+)
 
 public data class Option(
     public var name: COpaquePointer? = null,
@@ -446,7 +462,10 @@ public data class Option(
     public var value: CInt = 0,
 )
 
-public data class Rlimit64(public var rlimCur: Rlim64T = 0uL, public var rlimMax: Rlim64T = 0uL)
+public data class Rlimit64(
+    public var rlimCur: Rlim64T = 0uL,
+    public var rlimMax: Rlim64T = 0uL,
+)
 
 public data class CAnonymousIfruMap(
     public var memStart: CUlong = 0uL,
@@ -599,7 +618,10 @@ public data class Ifreq(
     }
 }
 
-public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null)
+public data class CAnonymousIfcIfcu(
+    public var ifcuBuf: COpaquePointer? = null,
+    public var ifcuReq: Ifreq? = null,
+)
 
 /**
  * Structure used in SIOCGIFCONF request.  Used to retrieve interface configuration for
@@ -1651,11 +1673,12 @@ public val IPC_RMID: CInt = 0
 
 public val IPC_SET: CInt = 1
 
-public val IPC_STAT: CInt = if (false) {
-    0x102
-} else {
-    2
-}
+public val IPC_STAT: CInt =
+    if (false) {
+        0x102
+    } else {
+        2
+    }
 
 public val IPC_INFO: CInt = 3
 
@@ -2533,63 +2556,37 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+    for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt {
-    return cpuCountS(8, cpuset)
-}
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
-public fun iptosTos(tos: UByte): UByte {
-    return tos and IPTOS_TOS_MASK
-}
+public fun iptosTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
 
-public fun iptosPrec(tos: UByte): UByte {
-    return tos and IPTOS_PREC_MASK
-}
+public fun iptosPrec(tos: UByte): UByte = tos and IPTOS_PREC_MASK
 
-public fun rtTos(tos: UByte): UByte {
-    return tos and IPTOS_TOS_MASK
-}
+public fun rtTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
 
-public fun rtAddrclass(flags: UInt): UInt {
-    return flags shr 23
-}
+public fun rtAddrclass(flags: UInt): UInt = flags shr 23
 
-public fun rtLocaladdr(flags: UInt): Boolean {
-    return (flags and RTF_ADDRCLASSMASK) == (RTF_LOCAL or RTF_INTERFACE)
-}
+public fun rtLocaladdr(flags: UInt): Boolean = (flags and RTF_ADDRCLASSMASK) == (RTF_LOCAL or RTF_INTERFACE)
 
-public fun elf32RSym(value: Elf32Word): Elf32Word {
-    return value shr 8
-}
+public fun elf32RSym(value: Elf32Word): Elf32Word = value shr 8
 
-public fun elf32RType(value: Elf32Word): Elf32Word {
-    return value and 0xffu
-}
+public fun elf32RType(value: Elf32Word): Elf32Word = value and 0xffu
 
-public fun elf32RInfo(sym: Elf32Word, t: Elf32Word): Elf32Word {
-    return sym shl (8u + t).toInt() and 0xffu
-}
+public fun elf32RInfo(sym: Elf32Word, t: Elf32Word): Elf32Word = sym shl (8u + t).toInt() and 0xffu
 
-public fun elf64RSym(value: Elf64Xword): Elf64Xword {
-    return value shr 32
-}
+public fun elf64RSym(value: Elf64Xword): Elf64Xword = value shr 32
 
-public fun elf64RType(value: Elf64Xword): Elf64Xword {
-    return value and 0xffffffffuL
-}
+public fun elf64RType(value: Elf64Xword): Elf64Xword = value and 0xffffffffuL
 
-public fun elf64RInfo(sym: Elf64Xword, t: Elf64Xword): Elf64Xword {
-    return sym shl (32uL + t).toInt()
-}
+public fun elf64RInfo(sym: Elf64Xword, t: Elf64Xword): Elf64Xword = sym shl (32uL + t).toInt()
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()

@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.x86
 
 import io.github.kotlinmania.libc.*
@@ -52,9 +53,14 @@ public class Stat(
     public var pad2: UInt = 0u,
 )
 
-public data class CAnonymousTimespec32(public var tvSec: CLong = 0L, public var tvNsec: CLong = 0L)
+public data class CAnonymousTimespec32(
+    public var tvSec: CLong = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
-public data class McontextT(public var private: UIntArray = UIntArray(22)) {
+public data class McontextT(
+    public var private: UIntArray = UIntArray(22),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -62,9 +68,7 @@ public data class McontextT(public var private: UIntArray = UIntArray(22)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
 public data class StackT(
@@ -215,7 +219,9 @@ public data class UcontextT(
     }
 }
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(3)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(3),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -223,7 +229,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(3)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

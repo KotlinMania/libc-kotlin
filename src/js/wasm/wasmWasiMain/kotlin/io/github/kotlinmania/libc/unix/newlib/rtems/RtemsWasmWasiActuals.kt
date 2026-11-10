@@ -27,9 +27,8 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: SizeT) {
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: SizeT): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun setgroups(ngroups: CInt, grouplist: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

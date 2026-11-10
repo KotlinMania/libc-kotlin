@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.*
@@ -40,7 +41,10 @@ public data class Kevent(
     public var udata: COpaquePointer? = null,
 )
 
-public data class ExitStatus(public var eTermination: UShort = 0u, public var eExit: UShort = 0u)
+public data class ExitStatus(
+    public var eTermination: UShort = 0u,
+    public var eExit: UShort = 0u,
+)
 
 public data class Aiocb(
     public var aioFildes: CInt = 0,
@@ -253,7 +257,9 @@ public data class StackT(
     public var ssFlags: CInt = 0,
 )
 
-public data class CpumaskT(public var ary: ULongArray = ULongArray(4)) {
+public data class CpumaskT(
+    public var ary: ULongArray = ULongArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpumaskT) return false
@@ -261,9 +267,7 @@ public data class CpumaskT(public var ary: ULongArray = ULongArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.ary.contentHashCode()
-    }
+    override fun hashCode(): Int = this.ary.contentHashCode()
 }
 
 public data class ShmidDs(
@@ -414,7 +418,9 @@ public class KinfoProc(
     public var kpSpare: IntArray = IntArray(2),
 )
 
-public data class CAnonymousVmMap(public var priv: ULongArray = ULongArray(36)) {
+public data class CAnonymousVmMap(
+    public var priv: ULongArray = ULongArray(36),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousVmMap) return false
@@ -422,9 +428,7 @@ public data class CAnonymousVmMap(public var priv: ULongArray = ULongArray(36)) 
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }
 
 public data class VmMapEntry(
@@ -513,9 +517,15 @@ public class Vmspace(
     public var vmRefcnt: CUint = 0u,
 )
 
-public data class CpuctlMsrArgsT(public var msr: CInt = 0, public var data: ULong = 0uL)
+public data class CpuctlMsrArgsT(
+    public var msr: CInt = 0,
+    public var data: ULong = 0uL,
+)
 
-public data class CpuctlCpuidArgsT(public var level: CInt = 0, public var data: UIntArray = UIntArray(4)) {
+public data class CpuctlCpuidArgsT(
+    public var level: CInt = 0,
+    public var data: UIntArray = UIntArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuctlCpuidArgsT) return false
@@ -553,7 +563,10 @@ public data class CpuctlCpuidCountArgsT(
     }
 }
 
-public data class CpuctlUpdateArgsT(public var data: COpaquePointer? = null, public var size: SizeT = 0uL)
+public data class CpuctlUpdateArgsT(
+    public var data: COpaquePointer? = null,
+    public var size: SizeT = 0uL,
+)
 
 public data class Utmpx(
     public var utName: UByteArray = UByteArray(32),

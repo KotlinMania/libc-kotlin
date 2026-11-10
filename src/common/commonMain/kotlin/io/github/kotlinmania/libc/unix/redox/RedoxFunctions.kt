@@ -14,17 +14,11 @@ public fun interface PthreadCreateStartCallback {
 }
 
 // intentionally not public, only used for fdSet
-public fun cmsgAlign(len: SizeT): SizeT {
-    return (len + 8uL - 1uL) and (8uL - 1uL).inv()
-}
+public fun cmsgAlign(len: SizeT): SizeT = (len + 8uL - 1uL) and (8uL - 1uL).inv()
 
-public fun cmsgLen(length: CUint): CUint {
-    return (cmsgAlign(8uL) + (length.toInt()).toULong()).toUInt()
-}
+public fun cmsgLen(length: CUint): CUint = (cmsgAlign(8uL) + (length.toInt()).toULong()).toUInt()
 
-public fun cmsgSpace(len: CUint): CUint {
-    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
-}
+public fun cmsgSpace(len: CUint): CUint = (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
@@ -52,37 +46,21 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 0x7f
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0x7f) + 1).toByte() >= 2.toByte()
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0x7f) + 1).toByte() >= 2.toByte()
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7f
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0x7f) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0x7f) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()

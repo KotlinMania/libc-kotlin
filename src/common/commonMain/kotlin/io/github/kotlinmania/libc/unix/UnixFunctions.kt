@@ -722,21 +722,13 @@ public expect fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: 
 
 public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt
 
-public fun htonl(hostlong: UInt): UInt {
-    return ((((hostlong) shl 24)) or (((hostlong) and 0x0000FF00u) shl 8) or (((hostlong) shr 8) and 0x0000FF00u) or ((hostlong) shr 24))
-}
+public fun htonl(hostlong: UInt): UInt = ((((hostlong) shl 24)) or (((hostlong) and 0x0000FF00u) shl 8) or (((hostlong) shr 8) and 0x0000FF00u) or ((hostlong) shr 24))
 
-public fun htons(hostshort: UShort): UShort {
-    return (((((hostshort).toUInt() and 0xFFu) shl 8) or (((hostshort).toUInt() shr 8) and 0xFFu)).toUShort())
-}
+public fun htons(hostshort: UShort): UShort = (((((hostshort).toUInt() and 0xFFu) shl 8) or (((hostshort).toUInt() shr 8) and 0xFFu)).toUShort())
 
-public fun ntohl(netlong: UInt): UInt {
-    return ((((netlong) shl 24)) or (((netlong) and 0x0000FF00u) shl 8) or (((netlong) shr 8) and 0x0000FF00u) or ((netlong) shr 24))
-}
+public fun ntohl(netlong: UInt): UInt = ((((netlong) shl 24)) or (((netlong) and 0x0000FF00u) shl 8) or (((netlong) shr 8) and 0x0000FF00u) or ((netlong) shr 24))
 
-public fun ntohs(netshort: UShort): UShort {
-    return (((((netshort).toUInt() and 0xFFu) shl 8) or (((netshort).toUInt() shr 8) and 0xFFu)).toUShort())
-}
+public fun ntohs(netshort: UShort): UShort = (((((netshort).toUInt() and 0xFFu) shl 8) or (((netshort).toUInt() shr 8) and 0xFFu)).toUShort())
 
 public expect fun adjtime(delta: COpaquePointer?, olddelta: COpaquePointer?): CInt
 
@@ -763,6 +755,7 @@ public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg var
 public expect fun fdopendir(fd: CInt): DIR?
 
 // Note(docs): `<>` breaks line length limit.
+
 /**
  * The 64-bit libc on Solaris and illumos only has readdirR. If a
  * 32-bit Solaris or illumos target is ever created, it should use

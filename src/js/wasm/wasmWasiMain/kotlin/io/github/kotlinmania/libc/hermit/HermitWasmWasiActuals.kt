@@ -14,9 +14,8 @@ public actual fun allocZeroed(size: ULong, align: ULong): COpaquePointer? =
 public actual fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) {
+public actual fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun exit(status: Int): Nothing =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -90,9 +89,8 @@ public actual fun getdents64(fd: Int, dirp: COpaquePointer?, count: ULong): Long
 public actual fun getaddrinfo(nodename: String?, servname: String?, hints: COpaquePointer?, res: COpaquePointer?): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun freeaddrinfo(ai: COpaquePointer?) {
+public actual fun freeaddrinfo(ai: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

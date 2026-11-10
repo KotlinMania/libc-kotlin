@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/android/b32/arm.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32.arm
 
 import io.github.kotlinmania.libc.*
@@ -87,10 +88,11 @@ public data class UcontextT(
     }
 }
 
-public data class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(), public var ucSigmask64: Sigset64T = Sigset64T()) {
-    public fun eq(other: CAnonymousUcSigmask): Boolean {
-        return this.ucSigmask == other.ucSigmask
-    }
+public data class CAnonymousUcSigmask(
+    public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(),
+    public var ucSigmask64: Sigset64T = Sigset64T(),
+) {
+    public fun eq(other: CAnonymousUcSigmask): Boolean = this.ucSigmask == other.ucSigmask
 
     public override fun hashCode(): Int {
         var state = 0
@@ -897,6 +899,4 @@ public val NGREG: CInt = 18
 // From NDK's asm/auxvec.h
 public val AT_SYSINFO_EHDR: CUlong = 33uL
 
-public fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt {
-    return syscall(SYS_ACCEPT4, fd.toLong(), ((addr).hashCode().toLong()), ((len).hashCode().toLong()), flg.toLong()).toInt()
-}
+public fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt = syscall(SYS_ACCEPT4, fd.toLong(), ((addr).hashCode().toLong()), ((len).hashCode().toLong()), flg.toLong()).toInt()

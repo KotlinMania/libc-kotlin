@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
@@ -70,7 +71,9 @@ public data class Ifaddrs(
     public var ifaAddrflags: CUint = 0u,
 )
 
-public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64)) {
+public data class FdSet(
+    public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -78,9 +81,7 @@ public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 6
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fdsBits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fdsBits.contentHashCode()
 }
 
 public data class Msghdr(
@@ -99,7 +100,9 @@ public data class Cmsghdr(
     public var cmsgType: CInt = 0,
 )
 
-public data class FsidT(public var fsidVal: IntArray = IntArray(2)) {
+public data class FsidT(
+    public var fsidVal: IntArray = IntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FsidT) return false
@@ -107,12 +110,13 @@ public data class FsidT(public var fsidVal: IntArray = IntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.fsidVal.contentHashCode()
-    }
+    override fun hashCode(): Int = this.fsidVal.contentHashCode()
 }
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
 public data class RegexT(
     public var reMagic: CInt = 0,
@@ -121,7 +125,10 @@ public data class RegexT(
     public var reG: COpaquePointer? = null,
 )
 
-public data class RegmatchT(public var rmSo: RegoffT = 0L, public var rmEo: RegoffT = 0L)
+public data class RegmatchT(
+    public var rmSo: RegoffT = 0L,
+    public var rmEo: RegoffT = 0L,
+)
 
 public data class Option(
     public var name: COpaquePointer? = null,

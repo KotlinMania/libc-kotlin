@@ -79,38 +79,20 @@ public val BPF_TAX: UShort = 0x00u
 
 public val BPF_TXA: UShort = 0x80u
 
-public fun bpfClass(code: UInt): UInt {
-    return code and 0x07u
-}
+public fun bpfClass(code: UInt): UInt = code and 0x07u
 
-public fun bpfSize(code: UInt): UInt {
-    return code and 0x18u
-}
+public fun bpfSize(code: UInt): UInt = code and 0x18u
 
-public fun bpfMode(code: UInt): UInt {
-    return code and 0xe0u
-}
+public fun bpfMode(code: UInt): UInt = code and 0xe0u
 
-public fun bpfOp(code: UInt): UInt {
-    return code and 0xf0u
-}
+public fun bpfOp(code: UInt): UInt = code and 0xf0u
 
-public fun bpfSrc(code: UInt): UInt {
-    return code and 0x08u
-}
+public fun bpfSrc(code: UInt): UInt = code and 0x08u
 
-public fun bpfRval(code: UInt): UInt {
-    return code and 0x18u
-}
+public fun bpfRval(code: UInt): UInt = code and 0x18u
 
-public fun bpfMiscop(code: UInt): UInt {
-    return code and 0xf8u
-}
+public fun bpfMiscop(code: UInt): UInt = code and 0xf8u
 
-public fun bpfStmt(code: UShort, k: UInt): BpfInsn {
-    return BpfInsn(code = code, jt = 0u, jf = 0u, k = k)
-}
+public fun bpfStmt(code: UShort, k: UInt): BpfInsn = BpfInsn(code = code, jt = 0u, jf = 0u, k = k)
 
-public fun bpfJump(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn {
-    return BpfInsn(code = code, jt = jt, jf = jf, k = k)
-}
+public fun bpfJump(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn = BpfInsn(code = code, jt = jt, jf = jf, k = k)

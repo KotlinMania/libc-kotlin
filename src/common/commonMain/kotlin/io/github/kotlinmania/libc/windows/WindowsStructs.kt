@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
@@ -24,7 +25,10 @@ public data class Stat(
 )
 
 // note that this is called utimbuf64 in Windows
-public data class Utimbuf(public var actime: Time64T = 0L, public var modtime: Time64T = 0L)
+public data class Utimbuf(
+    public var actime: Time64T = 0L,
+    public var modtime: Time64T = 0L,
+)
 
 public data class Tm(
     public var tmSec: CInt = 0,
@@ -38,11 +42,20 @@ public data class Tm(
     public var tmIsdst: CInt = 0,
 )
 
-public data class Timeval(public var tvSec: CLong = 0L, public var tvUsec: CLong = 0L)
+public data class Timeval(
+    public var tvSec: CLong = 0L,
+    public var tvUsec: CLong = 0L,
+)
 
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
-public data class Sockaddr(public var saFamily: CUshort = 0u, public var saData: UByteArray = UByteArray(14)) {
+public data class Sockaddr(
+    public var saFamily: CUshort = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false

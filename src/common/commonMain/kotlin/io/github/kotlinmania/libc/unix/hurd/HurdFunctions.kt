@@ -32,31 +32,22 @@ public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
 }
 
-public fun cmsgAlign(len: Int): Int {
-    return (len + 8 - 1) and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = (len + 8 - 1) and (8 - 1).inv()
 
 // structs
 // functions
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
-}
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (((cmsg!!.cmsgLen).toInt()) < 8) {
@@ -105,27 +96,19 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+    for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt {
-    return cpuCountS(8, cpuset)
-}
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
-public fun iptosTos(tos: UByte): UByte {
-    return tos and IPTOS_TOS_MASK
-}
+public fun iptosTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
 
-public fun iptosPrec(tos: UByte): UByte {
-    return tos and IPTOS_PREC_MASK
-}
+public fun iptosPrec(tos: UByte): UByte = tos and IPTOS_PREC_MASK
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
@@ -876,78 +859,40 @@ public fun makedev(major: CUint, minor: CUint): DevT {
     return dev
 }
 
-public fun major(dev: DevT): CUint {
-    return ((dev shr 8) and 0xffuL).toUInt()
-}
+public fun major(dev: DevT): CUint = ((dev shr 8) and 0xffuL).toUInt()
 
-public fun minor(dev: DevT): CUint {
-    return (dev and 0xffff00ffuL).toUInt()
-}
+public fun minor(dev: DevT): CUint = (dev and 0xffff00ffuL).toUInt()
 
-public fun sigrtmax(): CInt {
-    return libcCurrentSigrtmax()
-}
+public fun sigrtmax(): CInt = libcCurrentSigrtmax()
 
-public fun sigrtmin(): CInt {
-    return libcCurrentSigrtmin()
-}
+public fun sigrtmin(): CInt = libcCurrentSigrtmin()
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 0x7f
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0x7f) + 1).toByte() >= 2.toByte()
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0x7f) + 1).toByte() >= 2.toByte()
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7f
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0x7f) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0x7f) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
-public fun wExitcode(ret: CInt, sig: CInt): CInt {
-    return (ret shl 8) or sig
-}
+public fun wExitcode(ret: CInt, sig: CInt): CInt = (ret shl 8) or sig
 
-public fun wStopcode(sig: CInt): CInt {
-    return (sig shl 8) or 0x7f
-}
+public fun wStopcode(sig: CInt): CInt = (sig shl 8) or 0x7f
 
-public fun qcmd(cmd: CInt, type: CInt): CInt {
-    return (cmd shl 8) or (type and 0x00ff)
-}
+public fun qcmd(cmd: CInt, type: CInt): CInt = (cmd shl 8) or (type and 0x00ff)
 
-public fun ipoptCopied(o: UByte): UByte {
-    return o and IPOPT_COPY
-}
+public fun ipoptCopied(o: UByte): UByte = o and IPOPT_COPY
 
-public fun ipoptClass(o: UByte): UByte {
-    return o and IPOPT_CLASS_MASK
-}
+public fun ipoptClass(o: UByte): UByte = o and IPOPT_CLASS_MASK
 
-public fun ipoptNumber(o: UByte): UByte {
-    return o and IPOPT_NUMBER_MASK
-}
+public fun ipoptNumber(o: UByte): UByte = o and IPOPT_NUMBER_MASK
 
-public fun iptosEcn(x: UByte): UByte {
-    return x and IPTOS_ECN_MASK
-}
+public fun iptosEcn(x: UByte): UByte = x and IPTOS_ECN_MASK

@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.*
@@ -31,15 +32,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -399,7 +401,10 @@ public data class Rtentry(
     }
 }
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public class TcpInfo(
     public var tcpiState: UByte = 0u,
@@ -439,9 +444,14 @@ public class TcpInfo(
     public var tcpiTotalRetrans: UInt = 0u,
 )
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
-public data class PthreadFastlock(public var status: CLong = 0L, public var spinlock: CInt = 0)
+public data class PthreadFastlock(
+    public var status: CLong = 0L,
+    public var spinlock: CInt = 0,
+)
 
 public data class PthreadCondT(
     public var cLock: PthreadFastlock = PthreadFastlock(),
@@ -468,7 +478,9 @@ public data class PthreadCondT(
     }
 }
 
-public data class PthreadCondattrT(public var dummy: CInt = 0)
+public data class PthreadCondattrT(
+    public var dummy: CInt = 0,
+)
 
 public data class PthreadMutexT(
     public var mReserved: CInt = 0,
@@ -478,7 +490,9 @@ public data class PthreadMutexT(
     public var mLock: PthreadFastlock = PthreadFastlock(),
 )
 
-public data class PthreadMutexattrT(public var mutexkind: CInt = 0)
+public data class PthreadMutexattrT(
+    public var mutexkind: CInt = 0,
+)
 
 public data class PthreadRwlockT(
     public var rwLock: PthreadFastlock = PthreadFastlock(),
@@ -490,7 +504,10 @@ public data class PthreadRwlockT(
     public var rwPshared: CInt = 0,
 )
 
-public data class PthreadRwlockattrT(public var lockkind: CInt = 0, public var pshared: CInt = 0)
+public data class PthreadRwlockattrT(
+    public var lockkind: CInt = 0,
+    public var pshared: CInt = 0,
+)
 
 public data class PthreadBarrierT(
     public var baLock: PthreadFastlock = PthreadFastlock(),
@@ -499,7 +516,9 @@ public data class PthreadBarrierT(
     public var baWaiting: PthreadDescr = null,
 )
 
-public data class PthreadBarrierattrT(public var pshared: CInt = 0)
+public data class PthreadBarrierattrT(
+    public var pshared: CInt = 0,
+)
 
 public data class SifieldsSigchld(
     public var siPid: PidT = 0,
@@ -509,13 +528,19 @@ public data class SifieldsSigchld(
     public var siStime: CLong = 0L,
 )
 
-public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+public data class Sifields(
+    public var alignPointer: COpaquePointer? = null,
+    public var sigchld: SifieldsSigchld = SifieldsSigchld(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+public data class SiginfoF(
+    public var siginfoBase: IntArray = IntArray(3),
+    public var sifields: Sifields = Sifields(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoF) return false

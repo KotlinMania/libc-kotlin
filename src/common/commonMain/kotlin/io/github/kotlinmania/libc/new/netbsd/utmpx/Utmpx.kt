@@ -1,5 +1,6 @@
 // port-lint: source new/netbsd/utmpx_.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
@@ -51,11 +52,12 @@ public val SIGNATURE: UShort = 10u
 public val DOWN_TIME: UShort = 11u
 
 // Expression based on the comment in NetBSD source.
-public val UTX_PADSIZE: Int = if (true) {
-    36
-} else {
-    40
-}
+public val UTX_PADSIZE: Int =
+    if (true) {
+        36
+    } else {
+        40
+    }
 
 public data class Utmpx(
     public var utName: UByteArray = UByteArray(UTX_USERSIZE),
@@ -104,7 +106,10 @@ public data class Utmpx(
     }
 }
 
-public data class ExitStatus(public var eTermination: UShort = 0u, public var eExit: UShort = 0u)
+public data class ExitStatus(
+    public var eTermination: UShort = 0u,
+    public var eExit: UShort = 0u,
+)
 
 public data class Lastlogx(
     public var llTv: Timeval = Timeval(),

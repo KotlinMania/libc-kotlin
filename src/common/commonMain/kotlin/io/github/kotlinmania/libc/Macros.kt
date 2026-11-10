@@ -68,10 +68,10 @@ private const val OFFSET_OF_TEMPLATE: String = "{val \$ty {\$field: unused, ..};
 
 internal fun cfgIf(meta: String = "", it: String = "", it2: String = "", iMet: String = "", iIt: String = "", eMet: String = "", eIt: String = "", not: String = "", m: String = "", rest: String = "", clause: String = ""): String =
     when {
-        clause == "elseBranch" && meta.isNotEmpty() && it.isNotEmpty() && it2.isNotEmpty() -> CFG_IF_TEMPLATE.replace("\$meta", meta).replace("\$it", it).replace("\$it2", it2)
-        clause == "ifBranch #" && iMet.isNotEmpty() && iIt.isNotEmpty() && eMet.isNotEmpty() && eIt.isNotEmpty() -> CFG_IF_TEMPLATE_1.replace("\$iMet", iMet).replace("\$iIt", iIt).replace("\$eMet", eMet).replace("\$eIt", eIt)
+        clause == "elseBranch" && meta.isNotEmpty() && it.isNotEmpty() && it2.isNotEmpty() -> arrayOf("\$meta" to meta, "\$it" to it, "\$it2" to it2).fold(CFG_IF_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "ifBranch #" && iMet.isNotEmpty() && iIt.isNotEmpty() && eMet.isNotEmpty() && eIt.isNotEmpty() -> arrayOf("\$iMet" to iMet, "\$iIt" to iIt, "\$eMet" to eMet, "\$eIt" to eIt).fold(CFG_IF_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         clause == "@ items" && not.isNotEmpty() -> ""
-        clause == "@ items" && not.isNotEmpty() && m.isNotEmpty() && it.isNotEmpty() && rest.isNotEmpty() -> CFG_IF_TEMPLATE_3.replace("\$not", not).replace("\$m", m).replace("\$it", it).replace("\$rest", rest)
+        clause == "@ items" && not.isNotEmpty() && m.isNotEmpty() && it.isNotEmpty() && rest.isNotEmpty() -> arrayOf("\$not" to not, "\$m" to m, "\$it" to it, "\$rest" to rest).fold(CFG_IF_TEMPLATE_3) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         clause == "@ apply" && m.isNotEmpty() && it.isNotEmpty() -> CFG_IF_TEMPLATE_4.replace("\$it", it)
         else -> ""
     }
@@ -95,9 +95,9 @@ internal fun prelude(): String =
 
 internal fun s(attr: String = "", pub: String = "", t: String = "", i: String = "", field: String = "", clause: String = ""): String =
     when {
-        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_TEMPLATE.replace("\$pub", pub).replace("\$t", t).replace("\$i", i).replace("\$field", field)
+        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         clause == "it union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_TEMPLATE_1
-        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_TEMPLATE_2.replace("\$pub", pub).replace("\$i", i).replace("\$field", field)
+        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 
@@ -111,9 +111,9 @@ internal fun s(attr: String = "", pub: String = "", t: String = "", i: String = 
 
 internal fun sParen(attr: String = "", pub: String = "", i: String = "", field: String = ""): String =
     if (attr.isEmpty()) {
-        S_PAREN_TEMPLATE.replace("\$pub", pub).replace("\$i", i).replace("\$field", field)
+        arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_PAREN_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     } else {
-        S_PAREN_TEMPLATE.replace("\$pub", pub).replace("\$i", i).replace("\$field", field)
+        arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_PAREN_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     }
 
 /**
@@ -127,9 +127,9 @@ internal fun sParen(attr: String = "", pub: String = "", i: String = "", field: 
 
 internal fun sNoExtraTraits(attr: String = "", pub: String = "", t: String = "", i: String = "", field: String = "", clause: String = ""): String =
     when {
-        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_NO_EXTRA_TRAITS_TEMPLATE.replace("\$pub", pub).replace("\$t", t).replace("\$i", i).replace("\$field", field)
-        clause == "it union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_NO_EXTRA_TRAITS_TEMPLATE_1.replace("\$pub", pub).replace("\$i", i).replace("\$field", field)
-        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_NO_EXTRA_TRAITS_TEMPLATE_2.replace("\$pub", pub).replace("\$i", i).replace("\$field", field)
+        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "it union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 
@@ -156,9 +156,9 @@ internal fun externTy(attr: String = "", i: String = ""): String =
 
 internal fun e(attr: String = "", i: String = "", field: String = ""): String =
     if (attr.isEmpty()) {
-        E_TEMPLATE.replace("\$i", i).replace("\$field", field)
+        arrayOf("\$i" to i, "\$field" to field).fold(E_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     } else {
-        E_TEMPLATE.replace("\$i", i).replace("\$field", field)
+        arrayOf("\$i" to i, "\$field" to field).fold(E_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     }
 
 /**
@@ -175,11 +175,11 @@ internal fun e(attr: String = "", i: String = "", field: String = ""): String =
 
 internal fun cEnum(repr: String = "", tyName: String = "", anon: String = "", vis: String = "", variant: String = "", value: String = "", tyNameArg: String = "", idx: String = "", defaultVal: String = "", tail: String = "", clause: String = ""): String =
     when {
-        repr.isNotEmpty() && tyName.isNotEmpty() && anon.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> C_ENUM_TEMPLATE.replace("\$tyName", tyName).replace("\$anon", anon).replace("\$vis", vis).replace("\$variant", variant).replace("\$value", value)
-        clause == "@ single public sealed class" && repr.isNotEmpty() && tyName.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> C_ENUM_TEMPLATE_1.replace("\$repr", repr).replace("\$tyName", tyName).replace("\$vis", vis).replace("\$variant", variant).replace("\$value", value)
-        clause == "@ single public sealed class @anon" && repr.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> C_ENUM_TEMPLATE_2.replace("\$repr", repr).replace("\$vis", vis).replace("\$variant", variant).replace("\$value", value)
+        repr.isNotEmpty() && tyName.isNotEmpty() && anon.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$anon" to anon, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@ single public sealed class" && repr.isNotEmpty() && tyName.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$tyName" to tyName, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@ single public sealed class @anon" && repr.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         clause == "@ variant ty default variants" && tyNameArg.isNotEmpty() && idx.isNotEmpty() -> ""
-        clause == "@ variant ty default variants" && tyName.isNotEmpty() && defaultVal.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() && tail.isNotEmpty() -> C_ENUM_TEMPLATE_4.replace("\$tyName", tyName).replace("\$defaultVal", defaultVal).replace("\$vis", vis).replace("\$variant", variant).replace("\$value", value).replace("\$tail", tail)
+        clause == "@ variant ty default variants" && tyName.isNotEmpty() && defaultVal.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() && tail.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$defaultVal" to defaultVal, "\$vis" to vis, "\$variant" to variant, "\$value" to value, "\$tail" to tail).fold(C_ENUM_TEMPLATE_4) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         clause == "@ ty" && repr.isNotEmpty() -> C_ENUM_TEMPLATE_5.replace("\$repr", repr)
         clause == "@ ty" -> C_ENUM_TEMPLATE_6
         else -> ""
@@ -191,9 +191,9 @@ internal fun cEnum(repr: String = "", tyName: String = "", anon: String = "", vi
 
 internal fun f(attr: String = "", i: String = "", constI: String = "", arg: String = "", argty: String = "", ret: String = "", body: String = ""): String =
     if (attr.isEmpty()) {
-        F_TEMPLATE.replace("\$i", i).replace("\$constI", constI).replace("\$arg", arg).replace("\$argty", argty).replace("\$ret", ret).replace("\$body", body)
+        arrayOf("\$i" to i, "\$constI" to constI, "\$arg" to arg, "\$argty" to argty, "\$ret" to ret, "\$body" to body).fold(F_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     } else {
-        F_TEMPLATE.replace("\$i", i).replace("\$constI", constI).replace("\$arg", arg).replace("\$argty", argty).replace("\$ret", ret).replace("\$body", body)
+        arrayOf("\$i" to i, "\$constI" to constI, "\$arg" to arg, "\$argty" to argty, "\$ret" to ret, "\$body" to body).fold(F_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     }
 
 /**
@@ -202,17 +202,17 @@ internal fun f(attr: String = "", i: String = "", constI: String = "", arg: Stri
 
 internal fun safeF(attr: String = "", i: String = "", constI: String = "", arg: String = "", argty: String = "", ret: String = "", body: String = ""): String =
     if (attr.isEmpty()) {
-        SAFE_F_TEMPLATE.replace("\$i", i).replace("\$constI", constI).replace("\$arg", arg).replace("\$argty", argty).replace("\$ret", ret).replace("\$body", body)
+        arrayOf("\$i" to i, "\$constI" to constI, "\$arg" to arg, "\$argty" to argty, "\$ret" to ret, "\$body" to body).fold(SAFE_F_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     } else {
-        SAFE_F_TEMPLATE.replace("\$i", i).replace("\$constI", constI).replace("\$arg", arg).replace("\$argty", argty).replace("\$ret", ret).replace("\$body", body)
+        arrayOf("\$i" to i, "\$constI" to constI, "\$arg" to arg, "\$argty" to argty, "\$ret" to ret, "\$body" to body).fold(SAFE_F_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
     }
 
 internal fun deprecatedMach(id: String = "", ty: String = "", expr: String = "", clause: String = ""): String =
     when {
-        clause == "public const =" && id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> DEPRECATED_MACH_TEMPLATE.replace("\$id", id).replace("\$ty", ty).replace("\$expr", expr)
-        id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> DEPRECATED_MACH_TEMPLATE_1.replace("\$id", id).replace("\$ty", ty).replace("\$expr", expr)
-        clause == "public type =" && id.isNotEmpty() && ty.isNotEmpty() -> DEPRECATED_MACH_TEMPLATE_2.replace("\$id", id).replace("\$ty", ty)
-        id.isNotEmpty() && ty.isNotEmpty() -> DEPRECATED_MACH_TEMPLATE_3.replace("\$id", id).replace("\$ty", ty)
+        clause == "public const =" && id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty, "\$expr" to expr).fold(DEPRECATED_MACH_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty, "\$expr" to expr).fold(DEPRECATED_MACH_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "public type =" && id.isNotEmpty() && ty.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty).fold(DEPRECATED_MACH_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        id.isNotEmpty() && ty.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty).fold(DEPRECATED_MACH_TEMPLATE_3) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 
@@ -221,4 +221,4 @@ internal fun deprecatedMach(id: String = "", ty: String = "", expr: String = "",
  */
 
 internal fun offsetOf(ty: String = "", field: String = ""): String =
-    OFFSET_OF_TEMPLATE.replace("\$ty", ty).replace("\$field", field)
+    arrayOf("\$ty" to ty, "\$field" to field).fold(OFFSET_OF_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }

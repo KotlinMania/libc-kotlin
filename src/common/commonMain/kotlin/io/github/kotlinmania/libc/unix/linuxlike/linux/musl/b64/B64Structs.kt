@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64
 
 import io.github.kotlinmania.libc.*
@@ -18,7 +19,9 @@ public data class StackT(
     public var ssSize: SizeT = 0uL,
 )
 
-public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+public data class PthreadAttrT(
+    public var size: ULongArray = ULongArray(7),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -26,12 +29,12 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class SigsetT(public var value: ULongArray = ULongArray(16)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -39,9 +42,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class ShmidDs(
@@ -71,7 +72,9 @@ public data class MsqidDs(
     public var pad2: CUlong = 0uL,
 )
 
-public data class SemT(public var value: IntArray = IntArray(8)) {
+public data class SemT(
+    public var value: IntArray = IntArray(8),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -79,7 +82,5 @@ public data class SemT(public var value: IntArray = IntArray(8)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }

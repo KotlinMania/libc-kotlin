@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32.x86
 
 import io.github.kotlinmania.libc.*
@@ -13,15 +14,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -31,7 +33,10 @@ public class DebugStruct(
     }
 }
 
-public data class LibcFpreg(public var significand: UShortArray = UShortArray(4), public var exponent: UShort = 0u) {
+public data class LibcFpreg(
+    public var significand: UShortArray = UShortArray(4),
+    public var exponent: UShort = 0u,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is LibcFpreg) return false
@@ -100,14 +105,15 @@ public data class UcontextT(
     public var fpregsMem: LibcFpstate = LibcFpstate(),
 )
 
-public data class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(), public var ucSigmask64: Sigset64T = Sigset64T()) {
+public data class CAnonymousUcSigmask(
+    public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(),
+    public var ucSigmask64: Sigset64T = Sigset64T(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_uc_sigmask").finishNonExhaustive()
     }
 
-    public fun eq(other: CAnonymousUcSigmask): Boolean {
-        return this.ucSigmask == other.ucSigmask
-    }
+    public fun eq(other: CAnonymousUcSigmask): Boolean = this.ucSigmask == other.ucSigmask
 
     public override fun hashCode(): Int {
         var state = 0
@@ -116,7 +122,9 @@ public data class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskW
     }
 }
 
-public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(2)) {
+public data class MaxAlignT(
+    public var priv: DoubleArray = DoubleArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -124,7 +132,5 @@ public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

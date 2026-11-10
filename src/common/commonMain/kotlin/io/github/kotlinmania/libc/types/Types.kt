@@ -9,14 +9,19 @@ import io.github.kotlinmania.libc.CInt
 // This is restricted to `Copy` types since that's a loose indicator that zeros is actually
 // a valid bitpattern. There is no technical reason this is required, though, so it could be
 // lifted in the future if it becomes a problem.
+
 /**
  * A transparent wrapper over `MaybeUninit<T>` to represent uninitialized padding
  * while providing `Default`.
  */
-internal class Padding<T>(public var value: T? = null) {
+internal class Padding<T>(
+    public var value: T? = null,
+) {
     public var field0: T?
         get() = value
-        set(v) { value = v }
+        set(v) {
+            value = v
+        }
 
     public fun fmt(f: StringBuilder) {
         // Taken frmo `MaybeUninit`s debug implementation
@@ -36,9 +41,7 @@ internal class Padding<T>(public var value: T? = null) {
     /**
      * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
      */
-    public fun eq(other: Padding<T>): Boolean {
-        return true
-    }
+    public fun eq(other: Padding<T>): Boolean = true
 
     /**
      * Mark that `Padding` implements `Eq` so that it can be used in types that implement it.
@@ -47,6 +50,7 @@ internal class Padding<T>(public var value: T? = null) {
     public companion object {
         // Note: Change this into zeroed() and use MaybeUninit::zeroed()
         // when we depend on rustc 1.75.0.
+
         /**
          * Const constructor for uninitialized padding in const contexts.
          */

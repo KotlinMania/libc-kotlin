@@ -373,7 +373,9 @@ public data class Flock(
     }
 }
 
-public data class MaxAlignT(public var priv: FloatArray = FloatArray(4)) {
+public data class MaxAlignT(
+    public var priv: FloatArray = FloatArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -381,7 +383,5 @@ public data class MaxAlignT(public var priv: FloatArray = FloatArray(4)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

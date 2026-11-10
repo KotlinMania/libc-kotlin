@@ -7,7 +7,10 @@ import io.github.kotlinmania.libc.new.linuxuapi.linux.can.CanidT
 
 // Header: `linux / can / bcm.h`
 
-public data class BcmTimeval(public var tvSec: CLong = 0L, public var tvUsec: CLong = 0L)
+public data class BcmTimeval(
+    public var tvSec: CLong = 0L,
+    public var tvUsec: CLong = 0L,
+)
 
 public data class BcmMsgHead(
     public var opcode: UInt = 0u,

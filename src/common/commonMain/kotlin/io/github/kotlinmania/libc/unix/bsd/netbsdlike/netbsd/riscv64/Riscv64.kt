@@ -1,5 +1,6 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/riscv64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.riscv64
 
 import io.github.kotlinmania.libc.*
@@ -16,10 +17,11 @@ public typealias GregsetT = ULongArray
 
 public typealias FregsetT = List<Fpreg>
 
-public data class Fpreg(public var uU64: ULong = 0uL, public var uD: CDouble = 0.0) {
-    public fun eq(other: Fpreg): Boolean {
-        return this.uU64 == other.uU64 || this.uD == other.uD
-    }
+public data class Fpreg(
+    public var uU64: ULong = 0uL,
+    public var uD: CDouble = 0.0,
+) {
+    public fun eq(other: Fpreg): Boolean = this.uU64 == other.uU64 || this.uD == other.uD
 
     public override fun hashCode(): Int {
         var state = 0

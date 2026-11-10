@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
@@ -25,15 +26,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -128,10 +130,16 @@ public data class PthreadRwlockT(
 }
 
 // bStructTimeval.h
-public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
+public data class Timeval(
+    public var tvSec: TimeT = 0L,
+    public var tvUsec: SusecondsT = 0L,
+)
 
 // socket.h
-public data class Linger(public var lOnoff: CInt = 0, public var lLinger: CInt = 0)
+public data class Linger(
+    public var lOnoff: CInt = 0,
+    public var lLinger: CInt = 0,
+)
 
 public data class Sockaddr(
     public var saLen: CUchar = 0u,
@@ -155,7 +163,10 @@ public data class Sockaddr(
     }
 }
 
-public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
+public data class Iovec(
+    public var iovBase: COpaquePointer? = null,
+    public var iovLen: SizeT = 0uL,
+)
 
 public data class Msghdr(
     public var msgName: COpaquePointer? = null,
@@ -181,7 +192,10 @@ public data class Pollfd(
 )
 
 // resource.h
-public data class Rlimit(public var rlimCur: RlimT = 0uL, public var rlimMax: RlimT = 0uL)
+public data class Rlimit(
+    public var rlimCur: RlimT = 0uL,
+    public var rlimMax: RlimT = 0uL,
+)
 
 // stat.h
 public class Stat(
@@ -209,7 +223,10 @@ public class Stat(
 )
 
 // bStructTimespec.h
-public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
 // bStructSchedParam.h
 public data class SchedParam(
@@ -335,15 +352,25 @@ public data class Tms(
 )
 
 // utime.h
-public data class Utimbuf(public var actime: TimeT = 0L, public var modtime: TimeT = 0L)
+public data class Utimbuf(
+    public var actime: TimeT = 0L,
+    public var modtime: TimeT = 0L,
+)
 
 // in.h
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 // in.h
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
-public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+public data class In6Addr(
+    public var s6Addr: UByteArray = UByteArray(16),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Addr) return false
@@ -351,13 +378,14 @@ public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.s6Addr.contentHashCode()
-    }
+    override fun hashCode(): Int = this.s6Addr.contentHashCode()
 }
 
 // in6.h
-public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: CUint = 0u)
+public data class Ipv6Mreq(
+    public var ipv6mrMultiaddr: In6Addr = In6Addr(),
+    public var ipv6mrInterface: CUint = 0u,
+)
 
 // netdb.h
 public data class Addrinfo(
@@ -710,55 +738,61 @@ public data class SockaddrStorage(
     }
 }
 
-public data class SaUT(public var saHandler: SaUTSaHandlerCallback? = null, public var saSigaction: SaUTSaSigactionCallback? = null) {
+public data class SaUT(
+    public var saHandler: SaUTSaHandlerCallback? = null,
+    public var saSigaction: SaUTSaSigactionCallback? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sa_u_t").finishNonExhaustive()
     }
 
-    public fun eq(other: SaUT): Boolean {
-        return run {
-            val h1 = when (val matchVal = this.saHandler) {
-                null -> 0
-                else -> {
-                    val handler = matchVal
-                    ((handler).hashCode().toLong()).toInt()
+    public fun eq(other: SaUT): Boolean =
+        run {
+            val h1 =
+                when (val matchVal = this.saHandler) {
+                    null -> 0
+                    else -> {
+                        val handler = matchVal
+                        ((handler).hashCode().toLong()).toInt()
+                    }
                 }
-            }
-            val h2 = when (val matchVal1 = other.saHandler) {
-                null -> 0
-                else -> {
-                    val handler1 = matchVal1
-                    ((handler1).hashCode().toLong()).toInt()
+            val h2 =
+                when (val matchVal1 = other.saHandler) {
+                    null -> 0
+                    else -> {
+                        val handler1 = matchVal1
+                        ((handler1).hashCode().toLong()).toInt()
+                    }
                 }
-            }
             h1 == h2
         }
-    }
 
     public override fun hashCode(): Int {
         var state = 0
         run {
-            val h = when (val matchVal = this.saHandler) {
-                null -> 0
-                else -> {
-                    val handler = matchVal
-                    ((handler).hashCode().toLong()).toInt()
+            val h =
+                when (val matchVal = this.saHandler) {
+                    null -> 0
+                    else -> {
+                        val handler = matchVal
+                        ((handler).hashCode().toLong()).toInt()
+                    }
                 }
-            }
             state = 31 * state + (h).hashCode()
         }
         return state
     }
 }
 
-public data class Sigval(public var sivalInt: CInt = 0, public var sivalPtr: COpaquePointer? = null) {
+public data class Sigval(
+    public var sivalInt: CInt = 0,
+    public var sivalPtr: COpaquePointer? = null,
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sigval").finishNonExhaustive()
     }
 
-    public fun eq(other: Sigval): Boolean {
-        return ((this.sivalPtr)?.rawValue ?: 0L).toInt() == ((other.sivalPtr)?.rawValue ?: 0L).toInt()
-    }
+    public fun eq(other: Sigval): Boolean = ((this.sivalPtr)?.rawValue ?: 0L).toInt() == ((other.sivalPtr)?.rawValue ?: 0L).toInt()
 
     public override fun hashCode(): Int {
         var state = 0

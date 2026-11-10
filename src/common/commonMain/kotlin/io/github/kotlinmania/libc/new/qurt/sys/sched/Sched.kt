@@ -18,7 +18,10 @@ public val SCHED_SPORADIC: CInt = 2
 
 public val SCHED_OTHER: CInt = 3
 
-public data class SchedParam(public var unsupportedBranch: COpaquePointer? = null, public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var unsupportedBranch: COpaquePointer? = null,
+    public var schedPriority: CInt = 0,
+)
 
 public expect fun schedYield(): CInt
 

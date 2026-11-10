@@ -15,37 +15,21 @@ public fun interface PthreadCreateFCallback {
 }
 
 // Horizon OS works doesn't or can't hold any of this information
-public fun wifstopped(status: CInt): Boolean {
-    return false
-}
+public fun wifstopped(status: CInt): Boolean = false
 
-public fun wstopsig(status: CInt): CInt {
-    return 0
-}
+public fun wstopsig(status: CInt): CInt = 0
 
-public fun wifcontinued(status: CInt): Boolean {
-    return true
-}
+public fun wifcontinued(status: CInt): Boolean = true
 
-public fun wifsignaled(status: CInt): Boolean {
-    return false
-}
+public fun wifsignaled(status: CInt): Boolean = false
 
-public fun wtermsig(status: CInt): CInt {
-    return 0
-}
+public fun wtermsig(status: CInt): CInt = 0
 
-public fun wifexited(status: CInt): Boolean {
-    return true
-}
+public fun wifexited(status: CInt): Boolean = true
 
-public fun wexitstatus(status: CInt): CInt {
-    return 0
-}
+public fun wexitstatus(status: CInt): CInt = 0
 
-public fun wcoredump(status: CInt): Boolean {
-    return false
-}
+public fun wcoredump(status: CInt): Boolean = false
 
 public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 

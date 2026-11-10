@@ -1,5 +1,6 @@
 // port-lint: source fuchsia/x86_64.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.fuchsia.x8664
 
 import io.github.kotlinmania.libc.*
@@ -72,7 +73,9 @@ public class Stat64(
     public var reserved: LongArray = LongArray(3),
 )
 
-public data class McontextT(public var private: ULongArray = ULongArray(32)) {
+public data class McontextT(
+    public var private: ULongArray = ULongArray(32),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -80,9 +83,7 @@ public data class McontextT(public var private: ULongArray = ULongArray(32)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
 public data class IpcPerm(

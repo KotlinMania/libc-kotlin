@@ -77,26 +77,14 @@ public fun SiginfoT.siValue(): Sigval {
     return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoSiValue?))!!.siValue
 }
 
-public fun SiginfoT.sifields(): Sifields {
-    return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
-}
+public fun SiginfoT.sifields(): Sifields = (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
 
-public fun SiginfoT.siPid(): PidT {
-    return this.sifields().sigchld.siPid
-}
+public fun SiginfoT.siPid(): PidT = this.sifields().sigchld.siPid
 
-public fun SiginfoT.siUid(): UidT {
-    return this.sifields().sigchld.siUid
-}
+public fun SiginfoT.siUid(): UidT = this.sifields().sigchld.siUid
 
-public fun SiginfoT.siStatus(): CInt {
-    return this.sifields().sigchld.siStatus
-}
+public fun SiginfoT.siStatus(): CInt = this.sifields().sigchld.siStatus
 
-public fun SiginfoT.siUtime(): CLong {
-    return this.sifields().sigchld.siUtime
-}
+public fun SiginfoT.siUtime(): CLong = this.sifields().sigchld.siUtime
 
-public fun SiginfoT.siStime(): CLong {
-    return this.sifields().sigchld.siStime
-}
+public fun SiginfoT.siStime(): CLong = this.sifields().sigchld.siStime

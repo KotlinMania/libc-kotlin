@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
@@ -41,15 +42,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -67,13 +69,19 @@ public data class SifieldsSigchld(
     public var siStime: CLong = 0L,
 )
 
-public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+public data class Sifields(
+    public var alignPointer: COpaquePointer? = null,
+    public var sigchld: SifieldsSigchld = SifieldsSigchld(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+public data class SiginfoF(
+    public var siginfoBase: IntArray = IntArray(3),
+    public var sifields: Sifields = Sifields(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoF) return false
@@ -214,29 +222,17 @@ public data class SiginfoT(
         return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoSiValue?))!!.siValue
     }
 
-    public fun sifields(): Sifields {
-        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
-    }
+    public fun sifields(): Sifields = (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
 
-    public fun siPid(): PidT {
-        return this.sifields().sigchld.siPid
-    }
+    public fun siPid(): PidT = this.sifields().sigchld.siPid
 
-    public fun siUid(): UidT {
-        return this.sifields().sigchld.siUid
-    }
+    public fun siUid(): UidT = this.sifields().sigchld.siUid
 
-    public fun siStatus(): CInt {
-        return this.sifields().sigchld.siStatus
-    }
+    public fun siStatus(): CInt = this.sifields().sigchld.siStatus
 
-    public fun siUtime(): CLong {
-        return this.sifields().sigchld.siUtime
-    }
+    public fun siUtime(): CLong = this.sifields().sigchld.siUtime
 
-    public fun siStime(): CLong {
-        return this.sifields().sigchld.siStime
-    }
+    public fun siStime(): CLong = this.sifields().sigchld.siStime
 }
 
 public data class Statvfs(
@@ -456,7 +452,10 @@ public data class Rtentry(
     }
 }
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public data class Elf64Chdr(
     public var chType: Elf64Word = 0u,

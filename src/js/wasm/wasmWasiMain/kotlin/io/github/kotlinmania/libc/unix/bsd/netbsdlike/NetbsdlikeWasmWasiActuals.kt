@@ -18,9 +18,8 @@ import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.IdtypeT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
 
-public actual fun setgrent() {
+public actual fun setgrent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

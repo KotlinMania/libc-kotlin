@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
@@ -35,7 +36,10 @@ public data class Pollfd(
     public var revents: CInt = 0,
 )
 
-public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(26)) {
+public data class Sockaddr(
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(26),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sockaddr) return false
@@ -51,7 +55,10 @@ public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saDat
     }
 }
 
-public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssPadding: UByteArray = UByteArray(26)) {
+public data class SockaddrStorage(
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssPadding: UByteArray = UByteArray(26),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrStorage) return false
@@ -122,7 +129,9 @@ public data class SockaddrUn(
     }
 }
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class Stat(
     public var stDev: DevT = 0,

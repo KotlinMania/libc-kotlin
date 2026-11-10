@@ -37,9 +37,8 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun srand(seed: CUint) {
+public actual fun srand(seed: CUint): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun bind(fd: CInt, addr: COpaquePointer?, len: SocklenT): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

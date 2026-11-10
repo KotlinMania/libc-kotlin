@@ -4,7 +4,10 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
 
-public data class Timeval32(public var tvSec: Int = 0, public var tvUsec: Int = 0)
+public data class Timeval32(
+    public var tvSec: Int = 0,
+    public var tvUsec: Int = 0,
+)
 
 public class IfData(
     public var ifiType: CUchar = 0u,

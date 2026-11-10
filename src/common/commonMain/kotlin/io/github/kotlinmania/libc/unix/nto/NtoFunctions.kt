@@ -26,13 +26,9 @@ public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
 }
 
-public fun cmsgAlign(len: Int): Int {
-    return len + 8 - 1 and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = len + 8 - 1 and (8 - 1).inv()
 
-public fun align(p: Int, b: Int): Int {
-    return (p + b - 1) and (b - 1).inv()
-}
+public fun align(p: Int, b: Int): Int = (p + b - 1) and (b - 1).inv()
 
 // intentionally not public, only used for fdSet
 // QNX Network Stack Versioning:
@@ -44,13 +40,12 @@ public fun align(p: Int, b: Int): Int {
 // The `else` block targets the modern `io - sock` stack.
 // - targetEnv = "nto71Iosock": QNX 7.1 with the optional new stack
 // - targetEnv = "nto80": QNX 8.0
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         null
     } else {
         null
     }
-}
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val msg = cmsgAlign((cmsg!!.cmsgLen).toInt())
@@ -62,17 +57,11 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
@@ -100,9 +89,7 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun dextraFirst(d: Dirent?): DirentExtra? {
-    return null
-}
+public fun dextraFirst(d: Dirent?): DirentExtra? = null
 
 public fun dextraValid(x: DirentExtra?, d: Dirent?): Boolean {
     val sz = ((x).hashCode().toLong()).toInt() - ((d).hashCode().toLong()).toInt() + 8
@@ -114,66 +101,41 @@ public fun dextraValid(x: DirentExtra?, d: Dirent?): Boolean {
     }
 }
 
-public fun dextraNext(x: DirentExtra?): DirentExtra? {
-    return null
-}
+public fun dextraNext(x: DirentExtra?): DirentExtra? = null
 
 public fun sockcredsize(ngrps: Int): Int {
-    val ngrps1 = if (ngrps > 0) {
-        ngrps - 1
-    } else {
-        0
-    }
+    val ngrps1 =
+        if (ngrps > 0) {
+            ngrps - 1
+        } else {
+            0
+        }
     return 8 + 8 * ngrps1
 }
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 0x7f
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0x7f) + 1).toByte() >= 2.toByte()
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0x7f) + 1).toByte() >= 2.toByte()
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7f
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0x7f) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0x7f) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
-public fun iptosEcn(x: UByte): UByte {
-    return x and IPTOS_ECN_MASK
-}
+public fun iptosEcn(x: UByte): UByte = x and IPTOS_ECN_MASK
 
-public fun makedev(major: CUint, minor: CUint): DevT {
-    return ((major shl 10) or (minor))
-}
+public fun makedev(major: CUint, minor: CUint): DevT = ((major shl 10) or (minor))
 
-public fun major(dev: DevT): CUint {
-    return ((dev) shr 10) and 0x3fu
-}
+public fun major(dev: DevT): CUint = ((dev) shr 10) and 0x3fu
 
-public fun minor(dev: DevT): CUint {
-    return (dev) and 0x3ffu
-}
+public fun minor(dev: DevT): CUint = (dev) and 0x3ffu
 
 public expect fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt
 

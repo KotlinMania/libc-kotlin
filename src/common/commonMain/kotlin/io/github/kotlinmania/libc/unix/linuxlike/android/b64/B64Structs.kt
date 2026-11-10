@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64
 
 import io.github.kotlinmania.libc.*
@@ -19,7 +20,9 @@ public fun interface SigactionSaRestorerCallback {
     public operator fun invoke()
 }
 
-public data class SigsetT(public var value: ULongArray = ULongArray(1)) {
+public data class SigsetT(
+    public var value: ULongArray = ULongArray(1),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -27,9 +30,7 @@ public data class SigsetT(public var value: ULongArray = ULongArray(1)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
 public data class Sigaction(
@@ -39,7 +40,10 @@ public data class Sigaction(
     public var saRestorer: SigactionSaRestorerCallback? = null,
 )
 
-public data class Rlimit64(public var rlimCur: CUlonglong = 0uL, public var rlimMax: CUlonglong = 0uL)
+public data class Rlimit64(
+    public var rlimCur: CUlonglong = 0uL,
+    public var rlimMax: CUlonglong = 0uL,
+)
 
 public data class PthreadAttrT(
     public var flags: UInt = 0u,
@@ -287,7 +291,9 @@ public data class Statvfs64(
     }
 }
 
-public data class PthreadBarrierT(public var private: LongArray = LongArray(4)) {
+public data class PthreadBarrierT(
+    public var private: LongArray = LongArray(4),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -295,14 +301,17 @@ public data class PthreadBarrierT(public var private: LongArray = LongArray(4)) 
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.private.contentHashCode()
-    }
+    override fun hashCode(): Int = this.private.contentHashCode()
 }
 
-public data class PthreadSpinlockT(public var private: Long = 0L)
+public data class PthreadSpinlockT(
+    public var private: Long = 0L,
+)
 
-public data class PthreadMutexT(public var value: CInt = 0, public var reserved: UByteArray = UByteArray(36)) {
+public data class PthreadMutexT(
+    public var value: CInt = 0,
+    public var reserved: UByteArray = UByteArray(36),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -318,7 +327,10 @@ public data class PthreadMutexT(public var value: CInt = 0, public var reserved:
     }
 }
 
-public data class PthreadCondT(public var value: CInt = 0, public var reserved: UByteArray = UByteArray(44)) {
+public data class PthreadCondT(
+    public var value: CInt = 0,
+    public var reserved: UByteArray = UByteArray(44),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -365,7 +377,9 @@ public data class PthreadRwlockT(
     }
 }
 
-public data class Sigset64T(public var bits: ULongArray = ULongArray(1)) {
+public data class Sigset64T(
+    public var bits: ULongArray = ULongArray(1),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Sigset64T) return false
@@ -373,7 +387,5 @@ public data class Sigset64T(public var bits: ULongArray = ULongArray(1)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.bits.contentHashCode()
-    }
+    override fun hashCode(): Int = this.bits.contentHashCode()
 }

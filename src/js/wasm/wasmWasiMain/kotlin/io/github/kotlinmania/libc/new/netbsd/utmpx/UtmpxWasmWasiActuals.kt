@@ -7,13 +7,11 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.UidT
 
-public actual fun setutxent() {
+public actual fun setutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun endutxent() {
+public actual fun endutxent(): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun getutxent(): COpaquePointer? =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
@@ -36,13 +34,11 @@ public actual fun getlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): C
 public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
-public actual fun getutmp(ux: COpaquePointer?, u: COpaquePointer?) {
+public actual fun getutmp(ux: COpaquePointer?, u: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
-public actual fun getutmpx(u: COpaquePointer?, ux: COpaquePointer?) {
+public actual fun getutmpx(u: COpaquePointer?, ux: COpaquePointer?): Unit =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
-}
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

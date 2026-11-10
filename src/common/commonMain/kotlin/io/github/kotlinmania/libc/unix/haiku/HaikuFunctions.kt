@@ -35,29 +35,20 @@ public fun interface LsearchComparCallback {
     public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
 }
 
-public fun cmsgAlign(len: Int): Int {
-    return len + 8 - 1 and (8 - 1).inv()
-}
+public fun cmsgAlign(len: Int): Int = len + 8 - 1 and (8 - 1).inv()
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         null
     } else {
         null
     }
-}
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 
-public fun cmsgSpace(length: CUint): CUint {
-    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
-}
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 
-public fun cmsgLen(length: CUint): CUint {
-    return cmsgAlign(8).toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
@@ -98,37 +89,21 @@ public fun fdZero(set: FdSet?) {
     }
 }
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0xff.inv()) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0xff.inv()) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return status and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = status and 0xff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status shr 8) and 0xff) != 0
-}
+public fun wifsignaled(status: CInt): Boolean = ((status shr 8) and 0xff) != 0
 
-public fun wtermsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wtermsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifstopped(status: CInt): Boolean {
-    return ((status shr 16) and 0xff) != 0
-}
+public fun wifstopped(status: CInt): Boolean = ((status shr 16) and 0xff) != 0
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 16) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 16) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x10000) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x10000) != 0
 
-public fun wifcontinued(status: CInt): Boolean {
-    return (status and 0x20000) != 0
-}
+public fun wifcontinued(status: CInt): Boolean = (status and 0x20000) != 0
 
 public expect fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt
 

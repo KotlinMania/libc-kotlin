@@ -122,7 +122,10 @@ public val SA_SIGINFO: CInt = 1
 public typealias SighandlerT = SizeT
 
 // Signal structures based on QuRT SDK headers
-public data class Sigval(public var sivalInt: CInt = 0, public var sivalPtr: COpaquePointer? = null)
+public data class Sigval(
+    public var sivalInt: CInt = 0,
+    public var sivalPtr: COpaquePointer? = null,
+)
 
 public data class Sigevent(
     public var sigevNotify: CInt = 0,

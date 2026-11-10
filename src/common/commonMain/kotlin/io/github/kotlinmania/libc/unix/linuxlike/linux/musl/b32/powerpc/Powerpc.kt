@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/linux/musl/b32/powerpc.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.powerpc
 
 import io.github.kotlinmania.libc.*
@@ -97,7 +98,10 @@ public class Stat(
     public var pad2: UInt = 0u,
 )
 
-public data class CAnonymousTimespec32(public var tvSec: CLong = 0L, public var tvNsec: CLong = 0L)
+public data class CAnonymousTimespec32(
+    public var tvSec: CLong = 0L,
+    public var tvNsec: CLong = 0L,
+)
 
 public data class StackT(
     public var ssSp: COpaquePointer? = null,

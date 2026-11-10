@@ -308,7 +308,9 @@ public data class StackT(
     public var ssSize: SizeT = 0uL,
 )
 
-public data class MaxAlignT(public var priv: LongArray = LongArray(2)) {
+public data class MaxAlignT(
+    public var priv: LongArray = LongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is MaxAlignT) return false
@@ -316,7 +318,5 @@ public data class MaxAlignT(public var priv: LongArray = LongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.priv.contentHashCode()
-    }
+    override fun hashCode(): Int = this.priv.contentHashCode()
 }

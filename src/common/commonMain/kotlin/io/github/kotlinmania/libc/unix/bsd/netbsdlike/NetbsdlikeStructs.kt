@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
@@ -15,7 +16,9 @@ import io.github.kotlinmania.libc.unix.bsd.NCCS
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
 
-public data class SchedParam(public var schedPriority: CInt = 0)
+public data class SchedParam(
+    public var schedPriority: CInt = 0,
+)
 
 public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,
@@ -29,7 +32,10 @@ public data class StackT(
     public var ssFlags: CInt = 0,
 )
 
-public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
+public data class In6Pktinfo(
+    public var ipi6Addr: In6Addr = In6Addr(),
+    public var ipi6Ifindex: CUint = 0u,
+)
 
 public data class Termios(
     public var cIflag: TcflagT = 0u,
@@ -80,4 +86,7 @@ public data class PtraceIoDesc(
     public var piodLen: SizeT = 0uL,
 )
 
-public data class Mmsghdr(public var msgHdr: Msghdr = Msghdr(), public var msgLen: CUint = 0u)
+public data class Mmsghdr(
+    public var msgHdr: Msghdr = Msghdr(),
+    public var msgLen: CUint = 0u,
+)

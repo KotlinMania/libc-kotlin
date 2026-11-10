@@ -87,79 +87,49 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
-public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits.contentEquals(set2.bits)
-}
+public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
 
-public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    return if (((cmsg!!.cmsgLen).toULong()) < 8uL) {
+public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+    if (((cmsg!!.cmsgLen).toULong()) < 8uL) {
         null
     } else if ((cmsgNext(cmsg))?.let { COpaquePointer(it.rawValue + 8.toLong()) } >= mhdrEnd(mhdr)) {
         null
     } else {
         ((cmsgNext(cmsg) as Any?) as Cmsghdr?)
     }
-}
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toULong() >= 8uL) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toULong() >= 8uL) {
         ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
-}
 
-public fun cmsgAlign(len: SizeT): SizeT {
-    return (len + 8uL - 1uL) and (8uL - 1uL).inv()
-}
+public fun cmsgAlign(len: SizeT): SizeT = (len + 8uL - 1uL) and (8uL - 1uL).inv()
 
-public fun cmsgSpace(len: CUint): CUint {
-    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
-}
+public fun cmsgSpace(len: CUint): CUint = (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
 
-public fun cmsgLen(len: CUint): CUint {
-    return (cmsgAlign(8uL) + len.toULong()).toUInt()
-}
+public fun cmsgLen(len: CUint): CUint = (cmsgAlign(8uL) + len.toULong()).toUInt()
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and 0xff) == 0x7f
-}
+public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f
 
-public fun wstopsig(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wstopsig(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wifcontinued(status: CInt): Boolean {
-    return status == 0xffff
-}
+public fun wifcontinued(status: CInt): Boolean = status == 0xffff
 
-public fun wifsignaled(status: CInt): Boolean {
-    return ((status and 0x7f) + 1).toByte() >= 2.toByte()
-}
+public fun wifsignaled(status: CInt): Boolean = ((status and 0x7f) + 1).toByte() >= 2.toByte()
 
-public fun wtermsig(status: CInt): CInt {
-    return status and 0x7f
-}
+public fun wtermsig(status: CInt): CInt = status and 0x7f
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0x7f) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0x7f) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return (status shr 8) and 0xff
-}
+public fun wexitstatus(status: CInt): CInt = (status shr 8) and 0xff
 
-public fun wcoredump(status: CInt): Boolean {
-    return (status and 0x80) != 0
-}
+public fun wcoredump(status: CInt): Boolean = (status and 0x80) != 0
 
-public fun qcmd(cmd: CInt, type: CInt): CInt {
-    return (cmd shl 8) or (type and 0x00ff)
-}
+public fun qcmd(cmd: CInt, type: CInt): CInt = (cmd shl 8) or (type and 0x00ff)
 
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
@@ -186,17 +156,11 @@ public fun minor(dev: DevT): CUint {
     return minor.toUInt()
 }
 
-public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
-    return (((cmsg!!.cmsgLen).toULong() + 8uL - 1uL) and (8uL - 1uL).inv()).toLong()
-}
+public fun cmsgLen(cmsg: Cmsghdr?): SsizeT = (((cmsg!!.cmsgLen).toULong() + 8uL - 1uL) and (8uL - 1uL).inv()).toLong()
 
-public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return (COpaquePointer((cmsg).hashCode().toLong() + cmsgLen(cmsg)))
-}
+public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? = (COpaquePointer((cmsg).hashCode().toLong() + cmsgLen(cmsg)))
 
-public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {
-    return (mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + (mhdr.msgControllen.toInt()).toLong()) }
-}
+public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? = (mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + (mhdr.msgControllen.toInt()).toLong()) }
 
 public expect fun isalnum(c: CInt): CInt
 

@@ -39,16 +39,15 @@ public fun interface LfindComparCallback {
     public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
 }
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
+    if ((mhdr!!.msgControllen).toInt() >= 8) {
         null
     } else {
         null
     }
-}
 
-public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    return if ((cmsg == null)) {
+public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+    if ((cmsg == null)) {
         cmsgFirsthdr(mhdr)
     } else {
         if ((((cmsg).hashCode().toLong()).toInt() + cmsg.cmsgLen.toInt() + 8) > (((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt())) {
@@ -58,19 +57,12 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
             null
         }
     }
-}
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (8).toLong())
-}
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (8).toLong())
 
-public fun cmsgLen(length: CUint): CUint {
-    return 8.toUInt() + length
-}
+public fun cmsgLen(length: CUint): CUint = 8.toUInt() + length
 
-public fun cmsgSpace(length: CUint): CUint {
-    return 8.toUInt() + length
-}
+public fun cmsgSpace(length: CUint): CUint = 8.toUInt() + length
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
@@ -98,49 +90,36 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     return (set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 
-public fun wifstopped(status: CInt): Boolean {
-    return (status and W_STOPPED) != 0
-}
+public fun wifstopped(status: CInt): Boolean = (status and W_STOPPED) != 0
 
-public fun wstopsig(status: CInt): CInt {
-    return if (wifstopped(status)) {
+public fun wstopsig(status: CInt): CInt =
+    if (wifstopped(status)) {
         (((status.toUInt()) shr 8) and 0xffu).toInt()
     } else {
         -1
     }
-}
 
-public fun wifexited(status: CInt): Boolean {
-    return (status and 0xFF) == 0
-}
+public fun wifexited(status: CInt): Boolean = (status and 0xFF) == 0
 
-public fun wexitstatus(status: CInt): CInt {
-    return if (wifexited(status)) {
+public fun wexitstatus(status: CInt): CInt =
+    if (wifexited(status)) {
         (((status.toUInt()) shr 8) and 0xffu).toInt()
     } else {
         -1
     }
-}
 
-public fun wifsignaled(status: CInt): Boolean {
-    return !wifexited(status) && !wifstopped(status)
-}
+public fun wifsignaled(status: CInt): Boolean = !wifexited(status) && !wifstopped(status)
 
-public fun wtermsig(status: CInt): CInt {
-    return if (wifsignaled(status)) {
+public fun wtermsig(status: CInt): CInt =
+    if (wifsignaled(status)) {
         (((status.toUInt()) shr 16) and 0xffu).toInt()
     } else {
         -1
     }
-}
 
-public fun wifcontinued(status: CInt): Boolean {
-    return (status and WCONTINUED) != 0
-}
+public fun wifcontinued(status: CInt): Boolean = (status and WCONTINUED) != 0
 
-public fun wcoredump(status: CInt): Boolean {
-    return false
-}
+public fun wcoredump(status: CInt): Boolean = false
 
 public fun major(dev: DevT): CUint {
     val x = dev shr 16

@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
@@ -39,15 +40,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -57,7 +59,9 @@ public class DebugStruct(
     }
 }
 
-public data class FsidT(public var value: UIntArray = UIntArray(2)) {
+public data class FsidT(
+    public var value: UIntArray = UIntArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FsidT) return false
@@ -65,12 +69,12 @@ public data class FsidT(public var value: UIntArray = UIntArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class Fsid64T(public var value: ULongArray = ULongArray(2)) {
+public data class Fsid64T(
+    public var value: ULongArray = ULongArray(2),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Fsid64T) return false
@@ -78,14 +82,18 @@ public data class Fsid64T(public var value: ULongArray = ULongArray(2)) {
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.value.contentHashCode()
-    }
+    override fun hashCode(): Int = this.value.contentHashCode()
 }
 
-public data class Timezone(public var tzMinuteswest: CInt = 0, public var tzDsttime: CInt = 0)
+public data class Timezone(
+    public var tzMinuteswest: CInt = 0,
+    public var tzDsttime: CInt = 0,
+)
 
-public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
+public data class IpMreq(
+    public var imrMultiaddr: InAddr = InAddr(),
+    public var imrInterface: InAddr = InAddr(),
+)
 
 public data class Dirent(
     public var dOffset: CUlong = 0uL,
@@ -271,7 +279,9 @@ public data class Addrinfo(
     public var aiEflags: CInt = 0,
 )
 
-public data class InAddr(public var sAddr: InAddrT = 0u)
+public data class InAddr(
+    public var sAddr: InAddrT = 0u,
+)
 
 public data class IpMreqSource(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -425,7 +435,10 @@ public data class SockaddrUn(
     }
 }
 
-public data class StTimespec(public var tvSec: TimeT = 0L, public var tvNsec: CInt = 0)
+public data class StTimespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CInt = 0,
+)
 
 public class Statfs64(
     public var fVersion: CInt = 0,
@@ -506,7 +519,10 @@ public data class Sigevent(
     public var sigevNotifyAttributes: COpaquePointer? = null,
 )
 
-public data class Osigevent(public var sevtValue: COpaquePointer? = null, public var sevtSigno: SignalT = 0)
+public data class Osigevent(
+    public var sevtValue: COpaquePointer? = null,
+    public var sevtSigno: SignalT = 0,
+)
 
 public data class PollCtl(
     public var cmd: CShort = 0,
@@ -526,7 +542,10 @@ public data class SfParms(
     public var bytesSent: Uint64T = 0uL,
 )
 
-public data class Mmsghdr(public var msgHdr: Msghdr = Msghdr(), public var msgLen: CUint = 0u)
+public data class Mmsghdr(
+    public var msgHdr: Msghdr = Msghdr(),
+    public var msgLen: CUint = 0u,
+)
 
 public data class SchedParam(
     public var schedPriority: CInt = 0,
@@ -605,7 +624,10 @@ public data class Mallinfo(
     public var keepcost: CInt = 0,
 )
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public data class Utmp(
     public var utUser: UByteArray = UByteArray(256),
@@ -653,7 +675,10 @@ public data class Utmp(
     }
 }
 
-public data class RegmatchT(public var rmSo: RegoffT = 0L, public var rmEo: RegoffT = 0L)
+public data class RegmatchT(
+    public var rmSo: RegoffT = 0L,
+    public var rmEo: RegoffT = 0L,
+)
 
 public data class RegexT(
     public var reNsub: SizeT = 0uL,
@@ -701,7 +726,10 @@ public data class RegexT(
     }
 }
 
-public data class Rlimit64(public var rlimCur: Rlim64T = 0uL, public var rlimMax: Rlim64T = 0uL)
+public data class Rlimit64(
+    public var rlimCur: Rlim64T = 0uL,
+    public var rlimMax: Rlim64T = 0uL,
+)
 
 public data class ShmidDs(
     public var shmPerm: IpcPerm = IpcPerm(),
@@ -764,7 +792,10 @@ public data class IpcPerm(
     public var key: KeyT = 0,
 )
 
-public data class Entry(public var key: COpaquePointer? = null, public var data: COpaquePointer? = null)
+public data class Entry(
+    public var key: COpaquePointer? = null,
+    public var data: COpaquePointer? = null,
+)
 
 public data class MqAttr(
     public var mqFlags: CLong = 0L,
@@ -779,9 +810,15 @@ public data class Sembuf(
     public var semFlg: CShort = 0,
 )
 
-public data class IfNameindex(public var ifIndex: CUint = 0u, public var ifName: COpaquePointer? = null)
+public data class IfNameindex(
+    public var ifIndex: CUint = 0u,
+    public var ifName: COpaquePointer? = null,
+)
 
-public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
+public data class Itimerspec(
+    public var itInterval: Timespec = Timespec(),
+    public var itValue: Timespec = Timespec(),
+)
 
 public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,
@@ -830,9 +867,7 @@ public data class PollCtlExtU(
         DebugStruct(f, "__poll_ctl_ext_u").finishNonExhaustive()
     }
 
-    public fun eq(other: PollCtlExtU): Boolean {
-        return this.addr == other.addr && this.data32 == other.data32 && this.data == other.data
-    }
+    public fun eq(other: PollCtlExtU): Boolean = this.addr == other.addr && this.data32 == other.data32 && this.data == other.data
 
     public override fun hashCode(): Int {
         var state = 0

@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
@@ -27,15 +28,16 @@ public class DebugStruct(
 ) {
     private val fields: MutableList<String> = mutableListOf()
 
-    public fun field(name: String, value: Any?): DebugStruct = apply {
-        fields.add("$name: $value")
-    }
+    public fun field(name: String, value: Any?): DebugStruct =
+        apply {
+            fields.add("$name: $value")
+        }
 
     public fun finish() {
         if (fields.isEmpty()) {
             out.append(name)
         } else {
-            out.append(name).append(" { ").append(fields.joinToString(", ")).append(" }")
+            out.append("$name { ${fields.joinToString(", ")} }")
         }
     }
 
@@ -164,7 +166,10 @@ public data class Rtentry(
     }
 }
 
-public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+public data class ExitStatus(
+    public var eTermination: CShort = 0,
+    public var eExit: CShort = 0,
+)
 
 public data class PtracePeeksiginfoArgs(
     public var off: U64 = 0uL,
@@ -172,7 +177,9 @@ public data class PtracePeeksiginfoArgs(
     public var nr: S32 = 0,
 )
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
+public data class PthreadMutexattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -180,12 +187,12 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZ
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
+public data class PthreadCondattrT(
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -193,9 +200,7 @@ public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZE
         return true
     }
 
-    override fun hashCode(): Int {
-        return this.size.contentHashCode()
-    }
+    override fun hashCode(): Int = this.size.contentHashCode()
 }
 
 public class TcpInfo(
@@ -244,13 +249,19 @@ public data class SifieldsSigchld(
     public var siStime: CLong = 0L,
 )
 
-public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+public data class Sifields(
+    public var alignPointer: COpaquePointer? = null,
+    public var sigchld: SifieldsSigchld = SifieldsSigchld(),
+) {
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+public data class SiginfoF(
+    public var siginfoBase: IntArray = IntArray(3),
+    public var sifields: Sifields = Sifields(),
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoF) return false

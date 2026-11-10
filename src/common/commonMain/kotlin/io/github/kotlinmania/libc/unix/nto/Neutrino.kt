@@ -1,5 +1,6 @@
 // port-lint: source unix/nto/neutrino.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
@@ -42,7 +43,10 @@ public fun interface InterruptAttachHandlerCallback {
 
 public typealias NtoJobT = SyncT
 
-public data class SyspageEntryInfo(public var entryOff: UShort = 0u, public var entrySize: UShort = 0u)
+public data class SyspageEntryInfo(
+    public var entryOff: UShort = 0u,
+    public var entrySize: UShort = 0u,
+)
 
 public data class SyspageArrayInfo(
     public var entryOff: UShort = 0u,
@@ -50,7 +54,9 @@ public data class SyspageArrayInfo(
     public var elementSize: UShort = 0u,
 )
 
-public data class Intrspin(public var value: CUint = 0u)
+public data class Intrspin(
+    public var value: CUint = 0u,
+)
 
 public data class IovT(
     public var iovBase: COpaquePointer? = null,
@@ -58,7 +64,10 @@ public data class IovT(
     public var iovLen: SizeT = 0uL,
 )
 
-public data class Itimer(public var nsec: ULong = 0uL, public var intervalNsec: ULong = 0uL)
+public data class Itimer(
+    public var nsec: ULong = 0uL,
+    public var intervalNsec: ULong = 0uL,
+)
 
 public data class MsgInfo64(
     public var nd: UInt = 0u,
@@ -203,7 +212,10 @@ public data class NtoChannelConfig(
 // reserves: Padding<[cUint; 3]>,
 // pub sendq: [crate::_asyncmsg_put_header; 1], // flexarray
 // }
-public data class CAnonymousStructEv(public var event: Sigevent = Sigevent(), public var coid: CInt = 0)
+public data class CAnonymousStructEv(
+    public var event: Sigevent = Sigevent(),
+    public var coid: CInt = 0,
+)
 
 public data class ChannelConnectAttr(
     // union
@@ -216,7 +228,10 @@ public data class SighandlerInfo(
     public var context: COpaquePointer? = null,
 )
 
-public data class CAnonymousStructTime(public var length: CUint = 0u, public var scale: CUint = 0u)
+public data class CAnonymousStructTime(
+    public var length: CUint = 0u,
+    public var scale: CUint = 0u,
+)
 
 public data class IdleHook(
     public var hookSize: CUint = 0u,
@@ -233,7 +248,10 @@ public data class IdleHook(
     public var blockStackSize: CUint = 0u,
 )
 
-public data class Clockadjust(public var tickCount: UInt = 0u, public var tickNsecInc: Int = 0)
+public data class Clockadjust(
+    public var tickCount: UInt = 0u,
+    public var tickNsecInc: Int = 0,
+)
 
 public class QtimeEntry(
     public var cyclesPerSec: ULong = 0uL,
@@ -298,7 +316,10 @@ public data class TimerInfo(
     public var event: Sigevent = Sigevent(),
 )
 
-public data class Clockperiod(public var nsec: UInt = 0u, public var fract: Int = 0)
+public data class Clockperiod(
+    public var nsec: UInt = 0u,
+    public var fract: Int = 0,
+)
 
 public class SyspageEntry(
     public var size: UShort = 0u,

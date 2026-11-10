@@ -1,5 +1,6 @@
 // port-lint: source unix/solarish/illumos.rs
 @file:OptIn(ExperimentalUnsignedTypes::class)
+
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
 import io.github.kotlinmania.libc.*
@@ -152,7 +153,10 @@ public data class FilInfo(
     }
 }
 
-public data class EpollEvent(public var events: UInt = 0u, public var u64: ULong = 0uL)
+public data class EpollEvent(
+    public var events: UInt = 0u,
+    public var u64: ULong = 0uL,
+)
 
 public data class Utmpx(
     public var utUser: UByteArray = UByteArray(UTX_USERSIZE),
