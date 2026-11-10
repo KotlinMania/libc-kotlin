@@ -98,7 +98,7 @@ public data class UcontextT(
     public var ucSigmask: SigsetT = SigsetT(),
     public var ucStack: StackT = StackT(),
     public var ucMcontext: McontextT = McontextT(),
-    public var ucBrandData: List<COpaquePointer?> = List(3) { null },
+    public var ucBrandData: List<COpaquePointer> = List(3) { COpaquePointer() },
     public var ucXsave: CLong = 0L,
     public var ucFiller: CLong = 0L,
     public var ucXrs: XrsT = XrsT(),

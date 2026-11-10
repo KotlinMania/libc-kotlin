@@ -32,7 +32,7 @@ public fun interface PthreadCreateStartRoutineCallback {
 }
 
 public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+    public operator fun invoke(epath: COpaquePointer?, errnum: CInt): CInt
 }
 
 public fun interface LfindComparCallback {

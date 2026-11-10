@@ -1002,11 +1002,11 @@ public data class Ifreq(
 }
 
 public data class LocaleStruct(
-    public var locales: List<LocaleData?> = List(13) { null },
+    public var locales: List<LocaleData> = List(13) { LocaleData() },
     public var ctypeB: CUshort? = null,
     public var ctypeTolower: CInt? = null,
     public var ctypeToupper: CInt? = null,
-    public var names: List<COpaquePointer?> = List(13) { null },
+    public var names: List<COpaquePointer> = List(13) { COpaquePointer() },
 )
 
 public data class Utsname(

@@ -545,7 +545,7 @@ public class KinfoProc {
      */
     public var kiPd: COpaquePointer? = null
 
-    public var kiSpareptrs: List<COpaquePointer?> = List(KI_NSPARE_PTR) { null }
+    public var kiSpareptrs: List<COpaquePointer> = List(KI_NSPARE_PTR) { COpaquePointer() }
 
     public var kiSparelongs: LongArray = LongArray(KI_NSPARE_LONG)
 

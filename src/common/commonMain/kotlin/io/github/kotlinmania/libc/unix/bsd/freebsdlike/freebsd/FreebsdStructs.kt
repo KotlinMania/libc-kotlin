@@ -2056,7 +2056,7 @@ public data class Filedesc(
     public var fdHoldleaderswakeup: CInt = 0,
 )
 
-public data class Fdescenttbl(public var fdtNfiles: CInt = 0, public var fdtOfiles: List<COpaquePointer?> = List(0) { null })
+public data class Fdescenttbl(public var fdtNfiles: CInt = 0, public var fdtOfiles: List<COpaquePointer> = List(0) { COpaquePointer() })
 
 public data class Sx(public var lockObject: LockObject = LockObject(), public var sxLock: UintptrT = 0uL)
 

@@ -44,7 +44,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.RegoffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
 
 public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+    public operator fun invoke(epath: COpaquePointer?, errnum: CInt): CInt
 }
 
 public fun interface DlIteratePhdrCallbackCallback {

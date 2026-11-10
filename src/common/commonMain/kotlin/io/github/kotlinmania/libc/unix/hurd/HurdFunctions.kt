@@ -25,7 +25,7 @@ public fun interface QsortRComparCallback {
 }
 
 public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+    public operator fun invoke(epath: COpaquePointer?, errnum: CInt): CInt
 }
 
 public fun interface DlIteratePhdrCallbackCallback {

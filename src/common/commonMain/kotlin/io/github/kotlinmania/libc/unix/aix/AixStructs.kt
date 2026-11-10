@@ -662,11 +662,11 @@ public data class RegexT(
     public var reErroff: SizeT = 0uL,
     public var reLen: SizeT = 0uL,
     public var reUcoll: UIntArray = UIntArray(2),
-    public var reLsub: List<COpaquePointer?> = List(24) { null },
-    public var reEsub: List<COpaquePointer?> = List(24) { null },
+    public var reLsub: List<COpaquePointer> = List(24) { COpaquePointer() },
+    public var reEsub: List<COpaquePointer> = List(24) { COpaquePointer() },
     public var reMap: COpaquePointer? = null,
     public var maxsub: CInt = 0,
-    public var unused: List<COpaquePointer?> = List(34) { null },
+    public var unused: List<COpaquePointer> = List(34) { COpaquePointer() },
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

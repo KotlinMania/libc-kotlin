@@ -69,7 +69,7 @@ public data class Aiocb(
     public var aioReqprio: CInt = 0,
     public var aioSigevent: Sigevent = Sigevent(),
     public var state: CInt = 0,
-    public var errno: CInt = 0,
+    public var errnum: CInt = 0,
     public var retval: SsizeT = 0L,
 )
 

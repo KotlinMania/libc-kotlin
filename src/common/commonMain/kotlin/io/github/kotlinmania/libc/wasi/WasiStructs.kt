@@ -213,13 +213,13 @@ public data class PthreadRwlockattrT(public var attr: UIntArray = UIntArray(2)) 
     }
 }
 
-public data class PthreadCondT(public var size: List<COpaquePointer?> = List(12) { null })
+public data class PthreadCondT(public var size: List<COpaquePointer> = List(12) { COpaquePointer() })
 
-public data class PthreadMutexT(public var size: List<COpaquePointer?> = List(6) { null })
+public data class PthreadMutexT(public var size: List<COpaquePointer> = List(6) { COpaquePointer() })
 
-public data class PthreadRwlockT(public var size: List<COpaquePointer?> = List(8) { null })
+public data class PthreadRwlockT(public var size: List<COpaquePointer> = List(8) { COpaquePointer() })
 
-public data class PthreadBarrierT(public var size: List<COpaquePointer?> = List(5) { null })
+public data class PthreadBarrierT(public var size: List<COpaquePointer> = List(5) { COpaquePointer() })
 
 // Declare dirent outside of s! so that it doesn't implement Copy, Eq, Hash,
 // etc., since it contains a flexible array member with a dynamic size.

@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
 
 public fun interface Glob64ErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+    public operator fun invoke(epath: COpaquePointer?, errnum: CInt): CInt
 }
 
 public expect fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt

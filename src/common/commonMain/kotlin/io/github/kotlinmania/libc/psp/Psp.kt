@@ -557,7 +557,7 @@ public enum class Interrupt(public val value: UInt) {
     Mscm1(60u),
     Mscm2(61u),
     Thread1(65u),
-    Interrupt(66u),
+    InterruptVariant(66u),
 }
 
 public enum class SubInterrupt(public val value: UInt) {
