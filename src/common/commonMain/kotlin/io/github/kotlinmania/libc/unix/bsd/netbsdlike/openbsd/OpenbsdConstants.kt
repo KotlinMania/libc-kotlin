@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -1488,7 +1489,7 @@ public val LC_LAST: CInt = 7
 
 public val LC_ALL_MASK: CInt = (1 shl LC_LAST) - 2
 
-public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
+public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
 
 // sys/reboot.h
 public val RB_ASKNAME: CInt = 0x00001

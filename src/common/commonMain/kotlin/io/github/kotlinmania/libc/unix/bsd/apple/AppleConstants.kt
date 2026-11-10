@@ -639,7 +639,7 @@ public val VM_MEMORY_APPLICATION_SPECIFIC_1: CInt = 240
 
 public val VM_MEMORY_APPLICATION_SPECIFIC_16: CInt = 255
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 

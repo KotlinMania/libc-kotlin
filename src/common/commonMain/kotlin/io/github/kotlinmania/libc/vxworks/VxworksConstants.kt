@@ -1232,7 +1232,7 @@ public val MS_ASYNC: CInt = 0x0002
 
 public val MS_INVALIDATE: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 // sys/ttycom.h
 public val TIOCGWINSZ: CInt = 0x1740087468L.toInt()

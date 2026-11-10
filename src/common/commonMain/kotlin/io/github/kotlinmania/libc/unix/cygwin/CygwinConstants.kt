@@ -852,7 +852,7 @@ public val LC_TIME_MASK: CInt = 1 shl 5
 
 public val LC_MESSAGES_MASK: CInt = 1 shl 6
 
-public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
+public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
 
 public val SEM_FAILED: COpaquePointer? = null
 
@@ -1220,7 +1220,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_NORESERVE: CInt = 0x4000
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 

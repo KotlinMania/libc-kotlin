@@ -273,7 +273,7 @@ public val YESEXPR: NlItem = 61
 public val NOEXPR: NlItem = 62
 
 // locale.h
-public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
+public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
 
 public val LC_COLLATE: CInt = 0
 
@@ -1712,7 +1712,7 @@ public val MAP_ANON: CInt = 0x10
 
 public val MAP_ANONYMOUS: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MAP_TYPE: CInt = 0xf0
 

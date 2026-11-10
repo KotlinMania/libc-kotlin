@@ -54,7 +54,7 @@ public val STDERR_FILENO: CInt = 2
 
 public val AT_PAGESZ: CUlong = 6uL
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public expect fun calloc(nobj: SizeT, size: SizeT): COpaquePointer?
 

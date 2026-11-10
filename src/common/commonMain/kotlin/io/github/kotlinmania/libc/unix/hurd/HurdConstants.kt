@@ -3018,7 +3018,7 @@ public val MAP_32BIT: CInt = 4096
 
 public val MAP_EXCL: CInt = 16384
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MADV_NORMAL: CInt = 0
 

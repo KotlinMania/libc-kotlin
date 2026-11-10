@@ -120,7 +120,7 @@ public val MAP_PRIVATE: CInt = 2
 
 public val MAP_FIXED: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 

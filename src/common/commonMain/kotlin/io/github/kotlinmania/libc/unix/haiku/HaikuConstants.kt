@@ -343,7 +343,7 @@ public val MAP_NORESERVE: CInt = 0x10
 
 public val MAP_ANON: CInt = MAP_ANONYMOUS
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 0x01
 

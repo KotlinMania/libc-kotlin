@@ -624,7 +624,7 @@ public val MAP_TEXT: CInt = 0x400
 
 public val MAP_INITDATA: CInt = 0x800
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 
