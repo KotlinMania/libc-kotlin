@@ -191,10 +191,6 @@ public data class SiginfoT(
         return result
     }
 
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
     public fun siValue(): Sigval {
         data class SiginfoTimer(
             public var siSigno: CInt = 0,
@@ -207,18 +203,6 @@ public data class SiginfoT(
             public var siValue: Sigval = Sigval(),
         )
         return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoTimer?)!!.siValue
-    }
-
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
-    public fun siStatus(): CInt {
-        return this.siStatus
     }
 }
 

@@ -139,26 +139,6 @@ public data class SiginfoT(
         result = 31 * result + this.pad2.contentHashCode()
         return result
     }
-
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
-    public fun siValue(): Sigval {
-        return this.siValue
-    }
-
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
-    public fun siStatus(): CInt {
-        return this.siStatus
-    }
 }
 
 public data class Sigaction(

@@ -873,18 +873,6 @@ public data class SiginfoT(
         return result
     }
 
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
-    public fun siCode(): CInt {
-        return this.siCode
-    }
-
-    public fun siErrno(): CInt {
-        return this.siErrno
-    }
-
     public fun siPid(): PidT {
         data class SiginfoTimer(
             public var siSigno: CInt = 0,

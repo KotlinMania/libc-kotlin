@@ -344,27 +344,7 @@ public data class SiginfoT(
     public var siStatus: CInt = 0,
     public var siBand: CLong = 0L,
     public var siValue: Sigval = Sigval(),
-) {
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
-    public fun siValue(): Sigval {
-        return this.siValue
-    }
-
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
-    public fun siStatus(): CInt {
-        return this.siStatus
-    }
-}
+)
 
 public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: SyscallSlongT = 0L)
 

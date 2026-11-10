@@ -264,27 +264,7 @@ public data class SiginfoT(
     public var siAddr: COpaquePointer? = null,
     public var siUid: UidT = 0u,
     public var siPid: PidT = 0,
-) {
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
-    public fun siValue(): Sigval {
-        return this.siValue
-    }
-
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
-    public fun siStatus(): CInt {
-        return this.siStatus
-    }
-}
+)
 
 // pthread.h (krnl)
 // bPthreadMutexattrT.h (usr)

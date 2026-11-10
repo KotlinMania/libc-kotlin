@@ -365,23 +365,7 @@ public data class SiginfoT(
     public var siStatus: CInt = 0,
     public var siBand: CLong = 0L,
     public var sigval: COpaquePointer? = null,
-) {
-    public fun siAddr(): COpaquePointer? {
-        return this.siAddr
-    }
-
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
-    public fun siStatus(): CInt {
-        return this.siStatus
-    }
-}
+)
 
 public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,

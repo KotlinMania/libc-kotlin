@@ -678,14 +678,6 @@ public data class SiginfoT(
         return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoSigchld?))!!.siStatus
     }
 
-    public fun siPid(): PidT {
-        return this.siPid
-    }
-
-    public fun siUid(): UidT {
-        return this.siUid
-    }
-
     public fun siValue(): Sigval {
         data class SiginfoSiValue(
             public var siSigno: CInt = 0,
