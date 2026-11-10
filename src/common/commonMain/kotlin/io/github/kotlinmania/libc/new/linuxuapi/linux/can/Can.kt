@@ -57,7 +57,7 @@ public data class CanFrame(
     public var pad: UByte = 0u,
     public var res0: UByte = 0u,
     public var len8Dlc: UByte = 0u,
-    public var data: UByteArray = UByteArray((CAN_MAX_DLEN).toInt()),
+    public var data: UByteArray = UByteArray(CAN_MAX_DLEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -94,7 +94,7 @@ public data class CanfdFrame(
     public var flags: UByte = 0u,
     public var res0: UByte = 0u,
     public var res1: UByte = 0u,
-    public var data: UByteArray = UByteArray((CANFD_MAX_DLEN).toInt()),
+    public var data: UByteArray = UByteArray(CANFD_MAX_DLEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -129,7 +129,7 @@ public data class CanxlFrame(
     public var sdt: UByte = 0u,
     public var len: UShort = 0u,
     public var af: UInt = 0u,
-    public var data: UByteArray = UByteArray((CANXL_MAX_DLEN).toInt()),
+    public var data: UByteArray = UByteArray(CANXL_MAX_DLEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

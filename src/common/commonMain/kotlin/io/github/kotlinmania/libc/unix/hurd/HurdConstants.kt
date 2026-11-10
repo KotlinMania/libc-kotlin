@@ -1560,7 +1560,7 @@ public val CBRK: UByte = 0u.toUByte()
 // dlfcn.h
 public val RTLD_DEFAULT: COpaquePointer? = null
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L).toLong())
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
 public val RTLD_LAZY: CInt = 1
 

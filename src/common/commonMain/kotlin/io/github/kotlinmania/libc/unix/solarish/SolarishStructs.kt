@@ -410,7 +410,7 @@ public class Stat(
     public var stCtimeNsec: CLong = 0L,
     public var stBlksize: BlksizeT = 0,
     public var stBlocks: BlkcntT = 0L,
-    public var stFstype: UByteArray = UByteArray(ST_FSTYPSZ.toInt()),
+    public var stFstype: UByteArray = UByteArray(ST_FSTYPSZ),
 )
 
 public data class Termios(
@@ -652,8 +652,8 @@ public data class LgrpAffinityArgsT(
 
 public data class ProcessorInfoT(
     public var piState: CInt = 0,
-    public var piProcessorType: UByteArray = UByteArray(PI_TYPELEN.toInt()),
-    public var piFputypes: UByteArray = UByteArray(PI_FPUTYPE.toInt()),
+    public var piProcessorType: UByteArray = UByteArray(PI_TYPELEN),
+    public var piFputypes: UByteArray = UByteArray(PI_FPUTYPE),
     public var piClock: CInt = 0,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -726,7 +726,7 @@ public data class Utsname(
     }
 }
 
-public data class FdSet(public var fdsBits: LongArray = LongArray((FD_SETSIZE.toInt() / 64).toInt())) {
+public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -812,7 +812,7 @@ public data class SiginfoT(
     public var siCode: CInt = 0,
     public var siErrno: CInt = 0,
     public var siPad: CInt = 0,
-    public var dataPad: IntArray = IntArray((SIGINFO_DATA_SIZE).toInt()),
+    public var dataPad: IntArray = IntArray(SIGINFO_DATA_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -864,7 +864,7 @@ public data class SiginfoT(
         }
     }
 
-    public fun <T> sidata(): T {
+    public inline fun <reified T> sidata(): T {
         return ((((((this.dataPad) as Any?) as CInt?) as Any?) as T?))!!
     }
 
@@ -924,7 +924,7 @@ public data class Pad128T(
     }
 
     public fun eq(other: Pad128T): Boolean {
-        return this.l == other.l
+        return this.l.contentEquals(other.l)
     }
 }
 
@@ -948,7 +948,7 @@ public data class Upad128T(
     }
 
     public fun eq(other: Upad128T): Boolean {
-        return this.l == other.l
+        return this.l.contentEquals(other.l)
     }
 }
 

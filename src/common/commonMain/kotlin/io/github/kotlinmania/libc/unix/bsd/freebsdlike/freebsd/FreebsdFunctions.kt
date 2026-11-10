@@ -39,7 +39,7 @@ public fun align(p: Int): Int {
 
 // sys/cpuset.h
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (align(8)).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + align(8).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -50,8 +50,8 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
         return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + align((cmsg!!.cmsgLen).toInt()) + align(8)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg).hashCode().toLong()).toInt() + align(cmsg.cmsgLen.toInt()) + align(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next > max) {
         null
     } else {
@@ -68,11 +68,11 @@ public fun mallocxAlign(lg: CUint): CInt {
 }
 
 public fun mallocxTcache(tc: CInt): CInt {
-    return (tc + 2) shl 8.toInt()
+    return (tc + 2) shl 8
 }
 
 public fun mallocxArena(a: CInt): CInt {
-    return (a + 1) shl 20.toInt()
+    return (a + 1) shl 20
 }
 
 public fun sockcredsize(ngrps: Int): Int {
@@ -103,19 +103,19 @@ public fun cpuFill(cpuset: CpusetT) {
 public fun cpuSet(cpu: Int, cpuset: CpusetT) {
     val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1L shl offset.toInt())
+    cpuset.bits[idx] = cpuset.bits[idx] or (1L shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpusetT) {
     val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1L shl offset.toInt()).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1L shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpusetT): Boolean {
     val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    return 0L != cpuset.bits[idx] and (1L shl offset.toInt())
+    return 0L != cpuset.bits[idx] and (1L shl offset)
 }
 
 public fun cpuCount(cpuset: CpusetT): CInt {

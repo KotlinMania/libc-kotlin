@@ -25,10 +25,10 @@ import io.github.kotlinmania.libc.unix.unlockpt
 
 public fun cfmakeraw(termios: Termios?) {
     termios!!.cIflag = termios!!.cIflag and (IMAXBEL or IGNBRK or BRKINT or PARMRK or ISTRIP or INLCR or IGNCR or ICRNL or IXON).inv()
-    termios!!.cOflag = termios!!.cOflag and OPOST.inv()
-    termios!!.cLflag = termios!!.cLflag and (ECHO or ECHONL or ICANON or ISIG or IEXTEN).inv()
-    termios!!.cCflag = termios!!.cCflag and (CSIZE or PARENB).inv()
-    termios!!.cCflag = termios!!.cCflag or CS8
+    termios.cOflag = termios.cOflag and OPOST.inv()
+    termios.cLflag = termios.cLflag and (ECHO or ECHONL or ICANON or ISIG or IEXTEN).inv()
+    termios.cCflag = termios.cCflag and (CSIZE or PARENB).inv()
+    termios.cCflag = termios.cCflag or CS8
     // By default, most software expects a pending read to block until at
     // least one byte becomes available.  As per termio(7I), this requires
     // setting the MIN and TIME parameters appropriately.
@@ -42,15 +42,15 @@ public fun cfmakeraw(termios: Termios?) {
     //
     // Other platforms with a distinct MIN slot like Linux and FreeBSD appear
     // to default to a MIN value of 1, so we'll force that value here:
-    termios!!.cCc[VMIN] = 1u
-    termios!!.cCc[VTIME] = 0u
+    termios.cCc[VMIN] = 1u
+    termios.cCc[VTIME] = 0u
 }
 
 public fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt {
     // Neither of these functions on illumos or Solaris actually ever
     // return an error
-    cfsetispeed(((termios)?.let { COpaquePointer(it.hashCode().toLong()) }), speed)
-    cfsetospeed(((termios)?.let { COpaquePointer(it.hashCode().toLong()) }), speed)
+    cfsetispeed(COpaquePointer((termios).hashCode().toLong()), speed)
+    cfsetospeed(COpaquePointer((termios).hashCode().toLong()), speed)
     return 0
 }
 
@@ -62,7 +62,7 @@ public fun bail(fdm: CInt, fds: CInt): CInt {
     if (fdm >= 0) {
         close(fdm)
     }
-    run { errno(); e }
+    errno()
     return -1
 }
 
@@ -88,27 +88,27 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
     }
     // Open the subordinate device without setting it as the controlling
     // terminal for this process:
-    val fds = open(((subordpath)?.toString()), O_RDWR or O_NOCTTY)
+    val fds = open(((subordpath).toString()), O_RDWR or O_NOCTTY)
     if (fds < 0) {
         return bail(fdm, -1)
     }
     // Check if the STREAMS modules are already pushed:
-    val setup = ioctl(fds, I_FIND, ((LDTERM)?.hashCode()?.toLong() ?: 0L))
+    val setup = ioctl(fds, I_FIND, ((LDTERM).hashCode().toLong()))
     if (setup < 0) {
         return bail(fdm, fds)
     } else if (setup == 0) {
         // The line discipline is not present, so push the appropriate STREAMS
         // modules for the subordinate device:
-        if (ioctl(fds, I_PUSH, ((PTEM)?.hashCode()?.toLong() ?: 0L)) < 0 || ioctl(fds, I_PUSH, ((LDTERM)?.hashCode()?.toLong() ?: 0L)) < 0) {
+        if (ioctl(fds, I_PUSH, ((PTEM).hashCode().toLong())) < 0 || ioctl(fds, I_PUSH, ((LDTERM).hashCode().toLong())) < 0) {
             return bail(fdm, fds)
         }
     }
     // If provided, set the terminal parameters:
-    if (!(termp == null) && tcsetattr(fds, TCSAFLUSH, ((termp)?.let { COpaquePointer(it.hashCode().toLong()) })) != 0) {
+    if (!(termp == null) && tcsetattr(fds, TCSAFLUSH, COpaquePointer((termp).hashCode().toLong())) != 0) {
         return bail(fdm, fds)
     }
     // If provided, set the window size:
-    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp)?.hashCode()?.toLong() ?: 0L)) < 0) {
+    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp).hashCode().toLong())) < 0) {
         return bail(fdm, fds)
     }
     // If the caller wants the name of the subordinate device, copy it out.
@@ -117,7 +117,7 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
     // upper bound on the copy length for this pointer.  Nobody should pass
     // anything but NULL here, preferring instead to use ptsname(3C) directly.
     if (!(name == null)) {
-        strcpy(name, ((subordpath)?.toString()))
+        strcpy(name, ((subordpath).toString()))
     }
     amain = fdm
     asubord = fds
@@ -145,7 +145,7 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
     // terminal.  This will fail (with ENOTTY) if we are not the leader in
     // our own session, so we call setsid() first.  Finally, arrange for
     // the pseudo-terminal to occupy the standard I/O descriptors.
-    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, ((0)?.hashCode()?.toLong() ?: 0L)) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
+    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, 0L) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
         // At this stage there are no particularly good ways to handle failure.
         // Exit as abruptly as possible, using _exit() to avoid messing with any
         // state still shared with the parent process.
@@ -162,27 +162,27 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
 public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
     var result = result
     val oldErrno = (errno()?.rawValue ?: 0L).toInt()
-    run { errno(); 0 }
-    result = nativeGetpwentR(((pwd)?.let { COpaquePointer(it.hashCode().toLong()) }), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
-    val ret = if ((result!! == null)) {
+    errno()
+    result = nativeGetpwentR(COpaquePointer((pwd).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    val ret = if ((result == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {
         0
     }
-    run { errno(); oldErrno }
+    errno()
     return ret
 }
 
 public fun getgrentR(grp: Group?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
     var result = result
     val oldErrno = (errno()?.rawValue ?: 0L).toInt()
-    run { errno(); 0 }
-    result = nativeGetgrentR(((grp)?.let { COpaquePointer(it.hashCode().toLong()) }), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
-    val ret = if ((result!! == null)) {
+    errno()
+    result = nativeGetgrentR(COpaquePointer((grp).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    val ret = if ((result == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {
         0
     }
-    run { errno(); oldErrno }
+    errno()
     return ret
 }

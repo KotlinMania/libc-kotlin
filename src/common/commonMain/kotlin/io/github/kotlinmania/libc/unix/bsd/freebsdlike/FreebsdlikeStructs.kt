@@ -287,7 +287,7 @@ public data class Cmsgcred(
     public var cmcredEuid: UidT = 0u,
     public var cmcredGid: GidT = 0u,
     public var cmcredNgroups: CShort = 0,
-    public var cmcredGroups: UShortArray = UShortArray((CMGROUP_MAX).toInt()),
+    public var cmcredGroups: UShortArray = UShortArray(CMGROUP_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -443,7 +443,7 @@ public data class IpcPerm(
     public var key: KeyT = 0L,
 )
 
-public data class Eui64(public var octet: UByteArray = UByteArray((EUI64_LEN).toInt())) {
+public data class Eui64(public var octet: UByteArray = UByteArray(EUI64_LEN)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Eui64) return false

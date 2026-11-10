@@ -1774,9 +1774,9 @@ public val ST_NOEXEC: CUlong = 0x02uL
 
 public val ST_NOATIME: CUlong = 0x20uL
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-3L).toLong())
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-3L))
 
-public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-2L).toLong())
+public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-2L))
 
 public val RTLD_NODELETE: CInt = 0x1000
 

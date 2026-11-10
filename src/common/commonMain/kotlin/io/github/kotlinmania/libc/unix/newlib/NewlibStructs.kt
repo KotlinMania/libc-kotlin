@@ -102,7 +102,7 @@ public data class StackT(
 
 public data class FdSet(
     // Unverified
-    public var fdsBits: ULongArray = ULongArray((FD_SETSIZE.toInt() / ULONG_SIZE).toInt()),
+    public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / ULONG_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -239,7 +239,7 @@ public data class CpuSetT(
 
 public data class PthreadAttrT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_ATTR_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_ATTR_T),
     public var isInitialized: Int = 0,
     public var stackaddr: COpaquePointer? = null,
     public var stacksize: Int = 0,
@@ -280,7 +280,7 @@ public data class PthreadAttrT(
 
 public data class PthreadRwlockattrT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCKATTR_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCKATTR_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

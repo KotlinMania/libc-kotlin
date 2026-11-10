@@ -13,8 +13,8 @@ public fun interface QsortRComparCallback {
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
-    val major1 = major.toUInt()
-    val minor1 = minor.toUInt()
+    val major1 = major
+    val minor1 = minor
     return (major1 shl 8) or minor1
 }
 

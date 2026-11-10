@@ -31,21 +31,21 @@ public data class Fpreg(public var uU64: ULong = 0uL, public var uD: CDouble = 0
 }
 
 public data class McontextT(
-    public var gregs: GregsetT = ULongArray((NGREG).toInt()),
-    public var fregs: FregsetT = List((NFREG).toInt()) { Fpreg() },
+    public var gregs: GregsetT = ULongArray(NGREG),
+    public var fregs: FregsetT = List(NFREG) { Fpreg() },
     public var spare: ULongArray = ULongArray(7),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
-        if (this.gregs != other.gregs) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
         if (this.fregs != other.fregs) return false
         if (!this.spare.contentEquals(other.spare)) return false
         return true
     }
 
     override fun hashCode(): Int {
-        var result = this.gregs.hashCode()
+        var result = this.gregs.contentHashCode()
         result = 31 * result + this.fregs.hashCode()
         result = 31 * result + this.spare.contentHashCode()
         return result

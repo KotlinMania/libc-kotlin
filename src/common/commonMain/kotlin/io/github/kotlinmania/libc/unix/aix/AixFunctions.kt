@@ -51,7 +51,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     return if ((cmsg == null)) {
         cmsgFirsthdr(mhdr)
     } else {
-        if ((((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + 8) > (((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt())) {
+        if ((((cmsg).hashCode().toLong()).toInt() + cmsg.cmsgLen.toInt() + 8) > (((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt())) {
             null
         } else {
             // AIX does not have any alignment/padding for ancillary data, so we don't need _CMSG_ALIGN here.
@@ -61,7 +61,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (8.toInt()).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (8).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -74,27 +74,27 @@ public fun cmsgSpace(length: CUint): CUint {
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0L
+        (set.fdsBits)[idx] = 0L
     }
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     return (set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 

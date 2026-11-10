@@ -70,7 +70,7 @@ public data class Ifaddrs(
     public var ifaAddrflags: CUint = 0u,
 )
 
-public data class FdSet(public var fdsBits: LongArray = LongArray((FD_SETSIZE.toInt() / 64).toInt())) {
+public data class FdSet(public var fdsBits: LongArray = LongArray(FD_SETSIZE / 64)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false

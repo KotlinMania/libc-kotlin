@@ -677,11 +677,11 @@ public val PTHREAD_MUTEX_ROBUST: CInt = 0
 
 public val PTHREAD_MUTEX_STALLED: CInt = 1
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(bytes = UByteArray((PTHREAD_MUTEX_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(bytes = UByteArray(PTHREAD_MUTEX_SIZE) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(bytes = UByteArray((PTHREAD_COND_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(bytes = UByteArray(PTHREAD_COND_SIZE) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(bytes = UByteArray((PTHREAD_RWLOCK_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(bytes = UByteArray(PTHREAD_RWLOCK_SIZE) { 0u.toUByte() })
 
 public val PTHREAD_STACK_MIN: SizeT = 4096uL
 

@@ -18,27 +18,27 @@ public fun interface PthreadAtforkPrepareCallback {
 // supports multicast
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     return (set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1uL shl (fd1 % bits))
     return
 }
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0uL
+        (set.fdsBits)[idx] = 0uL
     }
 }
 

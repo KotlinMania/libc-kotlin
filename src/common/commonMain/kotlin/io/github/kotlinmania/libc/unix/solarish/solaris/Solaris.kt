@@ -157,9 +157,9 @@ public data class ShmidDs(
 public data class XrsT(public var xrsId: CUlong = 0uL, public var xrsPtr: COpaquePointer? = null)
 
 public data class Utmpx(
-    public var utUser: UByteArray = UByteArray((UTMP_USER_LEN).toInt()),
-    public var utId: UByteArray = UByteArray((UTMP_ID_LEN).toInt()),
-    public var utLine: UByteArray = UByteArray((UTMP_LINE_LEN).toInt()),
+    public var utUser: UByteArray = UByteArray(UTMP_USER_LEN),
+    public var utId: UByteArray = UByteArray(UTMP_ID_LEN),
+    public var utLine: UByteArray = UByteArray(UTMP_LINE_LEN),
     public var utPid: PidT = 0,
     public var utType: CShort = 0,
     public var utExit: ExitStatus = ExitStatus(),

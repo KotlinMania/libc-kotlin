@@ -360,7 +360,7 @@ public class KinfoLwp(
     public var klSigmask: SigsetT = SigsetT(),
     public var klWchan: UintptrT = 0uL,
     public var klWmesg: UByteArray = UByteArray(9),
-    public var klComm: UByteArray = UByteArray((MAXCOMLEN + 1).toInt()),
+    public var klComm: UByteArray = UByteArray(MAXCOMLEN + 1),
 )
 
 public class KinfoProc(
@@ -376,10 +376,10 @@ public class KinfoProc(
     public var kpSigcatch: SigsetT = SigsetT(),
     public var kpSigflag: CInt = 0,
     public var kpStart: Timeval = Timeval(),
-    public var kpComm: UByteArray = UByteArray((MAXCOMLEN + 1).toInt()),
+    public var kpComm: UByteArray = UByteArray(MAXCOMLEN + 1),
     public var kpUid: UidT = 0u,
     public var kpNgroups: CShort = 0,
-    public var kpGroups: UShortArray = UShortArray((NGROUPS).toInt()),
+    public var kpGroups: UShortArray = UShortArray(NGROUPS),
     public var kpRuid: UidT = 0u,
     public var kpSvuid: UidT = 0u,
     public var kpRgid: GidT = 0u,
@@ -606,8 +606,8 @@ public data class Utmpx(
 
 public data class Lastlogx(
     public var llTv: Timeval = Timeval(),
-    public var llLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
-    public var llHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var llLine: UByteArray = UByteArray(UTX_LINESIZE),
+    public var llHost: UByteArray = UByteArray(UTX_HOSTSIZE),
     public var llSs: SockaddrStorage = SockaddrStorage(),
 ) {
     override fun equals(other: Any?): Boolean {

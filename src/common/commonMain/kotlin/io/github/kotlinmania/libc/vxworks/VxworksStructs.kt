@@ -60,7 +60,7 @@ public data class PthreadCondT(
     public var condRefCount: CInt = 0,
     public var condMutex: PthreadMutexT? = null,
     public var condAttr: PthreadCondattrT = PthreadCondattrT(),
-    public var condSemName: UByteArray = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()),
+    public var condSemName: UByteArray = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -102,7 +102,7 @@ public data class PthreadRwlockT(
     public var rwlockValid: CInt = 0,
     public var rwlockInitted: CInt = 0,
     public var rwlockAttr: PthreadRwlockattrT = PthreadRwlockattrT(),
-    public var rwlockSemName: UByteArray = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()),
+    public var rwlockSemName: UByteArray = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -306,7 +306,7 @@ public data class PthreadMutexT(
     public var mutexCondRefCount: CInt = 0,
     public var mutexSavPriority: CInt = 0,
     public var mutexAttr: PthreadMutexattrT = PthreadMutexattrT(),
-    public var mutexSemName: UByteArray = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()),
+    public var mutexSemName: UByteArray = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -618,7 +618,7 @@ public data class Utsname(
 // dirent.h
 public data class Dirent(
     public var dIno: InoT = 0uL,
-    public var dName: UByteArray = UByteArray((PARM_NAME_MAX.toInt() + 1).toInt()),
+    public var dName: UByteArray = UByteArray(PARM_NAME_MAX + 1),
     public var dType: CUchar = 0u,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -667,7 +667,7 @@ public data class RtpDesc(
     public var entrAddr: COpaquePointer? = null,
     public var initTaskId: TaskId = 0,
     public var parentId: RtpId = 0,
-    public var pathName: UByteArray = UByteArray((VX_RTP_NAME_LENGTH.toInt() + 1).toInt()),
+    public var pathName: UByteArray = UByteArray(VX_RTP_NAME_LENGTH + 1),
     public var taskCnt: CInt = 0,
     public var textStart: COpaquePointer? = null,
     public var textEnd: COpaquePointer? = null,
@@ -705,9 +705,9 @@ public data class RtpDesc(
 public data class SockaddrStorage(
     public var ssLen: CUchar = 0u,
     public var ssFamily: SaFamilyT = 0u,
-    public var ssPad1: UByteArray = UByteArray((SS_PAD1SIZE).toInt()),
+    public var ssPad1: UByteArray = UByteArray(SS_PAD1SIZE),
     public var ssAlign: Int = 0,
-    public var ssPad2: UByteArray = UByteArray((SS_PAD2SIZE).toInt()),
+    public var ssPad2: UByteArray = UByteArray(SS_PAD2SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -738,17 +738,17 @@ public data class SaUT(public var saHandler: SaUTSaHandlerCallback? = null, publ
     public fun eq(other: SaUT): Boolean {
         return run {
             val h1 = when (val matchVal = this.saHandler) {
-                null -> 0.toInt()
+                null -> 0
                 else -> {
                     val handler = matchVal
-                    ((handler)?.hashCode()?.toLong() ?: 0L).toInt()
+                    ((handler).hashCode().toLong()).toInt()
                 }
             }
             val h2 = when (val matchVal1 = other.saHandler) {
-                null -> 0.toInt()
+                null -> 0
                 else -> {
                     val handler1 = matchVal1
-                    ((handler1)?.hashCode()?.toLong() ?: 0L).toInt()
+                    ((handler1).hashCode().toLong()).toInt()
                 }
             }
             h1 == h2
@@ -759,10 +759,10 @@ public data class SaUT(public var saHandler: SaUTSaHandlerCallback? = null, publ
         var state = 0
         run {
             val h = when (val matchVal = this.saHandler) {
-                null -> 0.toInt()
+                null -> 0
                 else -> {
                     val handler = matchVal
-                    ((handler)?.hashCode()?.toLong() ?: 0L).toInt()
+                    ((handler).hashCode().toLong()).toInt()
                 }
             }
             state = 31 * state + (h).hashCode()

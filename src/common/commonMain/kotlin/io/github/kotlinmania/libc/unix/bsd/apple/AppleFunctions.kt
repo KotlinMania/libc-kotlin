@@ -35,9 +35,9 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
         return cmsgFirsthdr(mhdr)
     }
-    val cmsgLen = (cmsg!!.cmsgLen).toInt()
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + darwinAlign32(cmsgLen)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val cmsgLen = cmsg.cmsgLen.toInt()
+    val next = ((cmsg).hashCode().toLong()).toInt() + darwinAlign32(cmsgLen)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next + darwinAlign32(8) > max) {
         null
     } else {
@@ -46,7 +46,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (darwinAlign32(8)).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + darwinAlign32(8).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {

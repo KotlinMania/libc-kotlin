@@ -20,7 +20,7 @@ public fun cmsgAlign(n: Int): Int {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8)).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -28,8 +28,8 @@ public fun cmsgLen(length: CUint): CUint {
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg).hashCode().toLong()).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next <= max) {
         null
     } else {
@@ -49,19 +49,17 @@ public fun cpuZero(cpuset: CpuSetT) {
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    cpuset.ary[idx] = cpuset.ary[idx] or (1uL shl offset.toInt())
-    Unit
+    cpuset.ary[idx] = cpuset.ary[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    cpuset.ary[idx] = cpuset.ary[idx] and (1uL shl offset.toInt()).inv()
-    Unit
+    cpuset.ary[idx] = cpuset.ary[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    return 0uL != cpuset.ary[idx] and (1uL shl offset.toInt())
+    return 0uL != cpuset.ary[idx] and (1uL shl offset)
 }
 
 public fun wifsignaled(status: CInt): Boolean {
@@ -69,8 +67,8 @@ public fun wifsignaled(status: CInt): Boolean {
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
-    val major1 = major.toUInt()
-    val minor1 = minor.toUInt()
+    val major1 = major
+    val minor1 = minor
     var dev = 0u
     dev = dev or (major1 shl 8)
     dev = dev or minor1

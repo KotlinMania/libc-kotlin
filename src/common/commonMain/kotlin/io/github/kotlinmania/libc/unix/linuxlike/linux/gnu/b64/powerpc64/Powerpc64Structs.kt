@@ -461,10 +461,10 @@ public data class McontextT(
     public var handler: CUlong = 0uL,
     public var oldmask: CUlong = 0uL,
     public var regs: PtRegs? = null,
-    public var gpRegs: GregsetT = ULongArray((NGREG).toInt()),
-    public var fpRegs: FpregsetT = ULongArray((NFPREG).toInt()),
+    public var gpRegs: GregsetT = ULongArray(NGREG),
+    public var fpRegs: FpregsetT = ULongArray(NFPREG),
     public var vRegs: VrregsetT? = null,
-    public var vmxReserve: LongArray = LongArray((NVRREG + NVRREG + 1).toInt()),
+    public var vmxReserve: LongArray = LongArray(NVRREG + NVRREG + 1),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -475,8 +475,8 @@ public data class McontextT(
         if (this.handler != other.handler) return false
         if (this.oldmask != other.oldmask) return false
         if (this.regs != other.regs) return false
-        if (this.gpRegs != other.gpRegs) return false
-        if (this.fpRegs != other.fpRegs) return false
+        if (!this.gpRegs.contentEquals(other.gpRegs)) return false
+        if (!this.fpRegs.contentEquals(other.fpRegs)) return false
         if (this.vRegs != other.vRegs) return false
         if (!this.vmxReserve.contentEquals(other.vmxReserve)) return false
         return true
@@ -489,8 +489,8 @@ public data class McontextT(
         result = 31 * result + this.handler.hashCode()
         result = 31 * result + this.oldmask.hashCode()
         result = 31 * result + this.regs.hashCode()
-        result = 31 * result + this.gpRegs.hashCode()
-        result = 31 * result + this.fpRegs.hashCode()
+        result = 31 * result + this.gpRegs.contentHashCode()
+        result = 31 * result + this.fpRegs.contentHashCode()
         result = 31 * result + this.vRegs.hashCode()
         result = 31 * result + this.vmxReserve.contentHashCode()
         return result

@@ -1000,7 +1000,7 @@ public val SIG_DFL: SighandlerT = 0.toULong()
 
 public val SIG_IGN: SighandlerT = 1.toULong()
 
-public val SIG_ERR: SighandlerT = ((-1).toInt()).toULong()
+public val SIG_ERR: SighandlerT = (-1).toULong()
 
 public val SIGHUP: CInt = 1
 
@@ -1130,15 +1130,15 @@ public val WCONTINUED: CInt = 0x04
 
 public val PTHREAD_MUTEXATTR_INITIALIZER: PthreadMutexattrT = PthreadMutexattrT(mutexAttrStatus = PTHREAD_INITIALIZED_OBJ, mutexAttrProtocol = PTHREAD_PRIO_NONE, mutexAttrPrioceiling = 0, mutexAttrType = PTHREAD_MUTEX_DEFAULT, mutexAttrPshared = 1)
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
 public val PTHREAD_CONDATTR_INITIALIZER: PthreadCondattrT = PthreadCondattrT(condAttrStatus = 0xf70990ef.toInt(), condAttrPshared = 1, condAttrClockId = CLOCK_REALTIME)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
 public val PTHREAD_RWLOCKATTR_INITIALIZER: PthreadRwlockattrT = PthreadRwlockattrT(rwlockAttrStatus = PTHREAD_INITIALIZED_OBJ, rwlockAttrPshared = 1, rwlockAttrMaxReaders = 0u, rwlockAttrConformOpt = 1u)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
 public val SEEK_SET: CInt = 0
 

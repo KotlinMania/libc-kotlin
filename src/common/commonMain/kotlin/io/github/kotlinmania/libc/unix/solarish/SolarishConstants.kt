@@ -1997,9 +1997,9 @@ public val ACCOUNTING: CShort = 9
 
 public val DOWN_TIME: CShort = 10
 
-public val TIOC1: CInt = ('T'.code.toInt()) shl 8
+public val TIOC1: CInt = ('T'.code) shl 8
 
-public val T_IOC: CInt = ('t'.code.toInt()) shl 8
+public val T_IOC: CInt = ('t'.code) shl 8
 
 public val TCGETA: CInt = TIOC1 or 1
 

@@ -421,7 +421,7 @@ public data class Uucred(
     public var crUid: UidT = 0u,
     public var crGid: GidT = 0u,
     public var crNgroups: CShort = 0,
-    public var crGroups: UShortArray = UShortArray(NGROUPS_MAX.toInt()),
+    public var crGroups: UShortArray = UShortArray(NGROUPS_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -618,7 +618,7 @@ public class KinfoProc2 {
 
     public var pRgid: UInt = 0u
 
-    public var pGroups: UIntArray = UIntArray(KI_NGROUPS.toInt())
+    public var pGroups: UIntArray = UIntArray(KI_NGROUPS)
 
     public var pNgroups: Short = 0
 
@@ -674,13 +674,13 @@ public class KinfoProc2 {
 
     public var pAcflag: UShort = 0u
 
-    public var pComm: UByteArray = UByteArray(KI_MAXCOMLEN.toInt())
+    public var pComm: UByteArray = UByteArray(KI_MAXCOMLEN)
 
-    public var pWmesg: UByteArray = UByteArray(KI_WMESGLEN.toInt())
+    public var pWmesg: UByteArray = UByteArray(KI_WMESGLEN)
 
     public var pWchan: ULong = 0uL
 
-    public var pLogin: UByteArray = UByteArray(KI_MAXLOGNAME.toInt())
+    public var pLogin: UByteArray = UByteArray(KI_MAXLOGNAME)
 
     public var pVmRssize: Int = 0
 
@@ -750,7 +750,7 @@ public class KinfoProc2 {
 
     public var pSvgid: UInt = 0u
 
-    public var pEname: UByteArray = UByteArray(KI_MAXEMULLEN.toInt())
+    public var pEname: UByteArray = UByteArray(KI_MAXEMULLEN)
 
     public var pVmVsize: Long = 0L
 
@@ -773,7 +773,7 @@ public class KinfoLwp(
     public var lStat: Byte = 0,
     public var lPad1: Byte = 0,
     public var lPad2: Int = 0,
-    public var lWmesg: UByteArray = UByteArray(KI_WMESGLEN.toInt()),
+    public var lWmesg: UByteArray = UByteArray(KI_WMESGLEN),
     public var lWchan: ULong = 0uL,
     public var lCpuid: ULong = 0uL,
     public var lRtimeSec: UInt = 0u,
@@ -781,7 +781,7 @@ public class KinfoLwp(
     public var lCpticks: UInt = 0u,
     public var lPctcpu: UInt = 0u,
     public var lPid: UInt = 0u,
-    public var lName: UByteArray = UByteArray(KI_LNAMELEN.toInt()),
+    public var lName: UByteArray = UByteArray(KI_LNAMELEN),
 )
 
 public class KinfoVmentry(

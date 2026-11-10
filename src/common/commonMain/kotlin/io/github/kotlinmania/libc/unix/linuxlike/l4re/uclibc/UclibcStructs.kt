@@ -446,7 +446,7 @@ public data class PthreadFastlock(public var status: CLong = 0L, public var spin
 public data class PthreadCondT(
     public var cLock: PthreadFastlock = PthreadFastlock(),
     public var cWaiting: PthreadDescr = null,
-    public var padding: UByteArray = UByteArray((PTHREAD_COND_PADDING_SIZE).toInt()),
+    public var padding: UByteArray = UByteArray(PTHREAD_COND_PADDING_SIZE),
     public var align: PthreadCondAlignT = 0L,
 ) {
     override fun equals(other: Any?): Boolean {

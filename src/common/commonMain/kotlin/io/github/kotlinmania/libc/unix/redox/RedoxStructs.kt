@@ -24,12 +24,12 @@ public fun interface SigactionSaRestorerCallback {
 
 // intentionally not public, only used for fdSet
 public data class Utsname(
-    public var sysname: UByteArray = UByteArray((UTSLENGTH).toInt()),
-    public var nodename: UByteArray = UByteArray((UTSLENGTH).toInt()),
-    public var release: UByteArray = UByteArray((UTSLENGTH).toInt()),
-    public var version: UByteArray = UByteArray((UTSLENGTH).toInt()),
-    public var machine: UByteArray = UByteArray((UTSLENGTH).toInt()),
-    public var domainname: UByteArray = UByteArray((UTSLENGTH).toInt()),
+    public var sysname: UByteArray = UByteArray(UTSLENGTH),
+    public var nodename: UByteArray = UByteArray(UTSLENGTH),
+    public var release: UByteArray = UByteArray(UTSLENGTH),
+    public var version: UByteArray = UByteArray(UTSLENGTH),
+    public var machine: UByteArray = UByteArray(UTSLENGTH),
+    public var domainname: UByteArray = UByteArray(UTSLENGTH),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -100,7 +100,7 @@ public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var su
 
 public data class SockaddrStorage(
     public var ssFamily: SaFamilyT = 0u,
-    public var ssPadding: UByteArray = UByteArray((128 - 8 - 8).toInt()),
+    public var ssPadding: UByteArray = UByteArray(128 - 8 - 8),
     public var ssAlign: CUlong = 0uL,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -144,7 +144,7 @@ public data class EpollEvent(
     public var pad: ULong = 0uL,
 )
 
-public data class FdSet(public var fdsBits: ULongArray = ULongArray((FD_SETSIZE.toInt() / ULONG_SIZE).toInt())) {
+public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE.toInt() / ULONG_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -383,7 +383,7 @@ public data class Ucred(
     public var gid: GidT = 0,
 )
 
-public data class PthreadAttrT(public var bytes: UByteArray = UByteArray((PTHREAD_ATTR_SIZE).toInt())) {
+public data class PthreadAttrT(public var bytes: UByteArray = UByteArray(PTHREAD_ATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -396,7 +396,7 @@ public data class PthreadAttrT(public var bytes: UByteArray = UByteArray((PTHREA
     }
 }
 
-public data class PthreadBarrierT(public var bytes: UByteArray = UByteArray((PTHREAD_BARRIER_SIZE).toInt())) {
+public data class PthreadBarrierT(public var bytes: UByteArray = UByteArray(PTHREAD_BARRIER_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -409,7 +409,7 @@ public data class PthreadBarrierT(public var bytes: UByteArray = UByteArray((PTH
     }
 }
 
-public data class PthreadBarrierattrT(public var bytes: UByteArray = UByteArray((PTHREAD_BARRIERATTR_SIZE).toInt())) {
+public data class PthreadBarrierattrT(public var bytes: UByteArray = UByteArray(PTHREAD_BARRIERATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierattrT) return false
@@ -422,7 +422,7 @@ public data class PthreadBarrierattrT(public var bytes: UByteArray = UByteArray(
     }
 }
 
-public data class PthreadMutexT(public var bytes: UByteArray = UByteArray((PTHREAD_MUTEX_SIZE).toInt())) {
+public data class PthreadMutexT(public var bytes: UByteArray = UByteArray(PTHREAD_MUTEX_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -435,7 +435,7 @@ public data class PthreadMutexT(public var bytes: UByteArray = UByteArray((PTHRE
     }
 }
 
-public data class PthreadRwlockT(public var bytes: UByteArray = UByteArray((PTHREAD_RWLOCK_SIZE).toInt())) {
+public data class PthreadRwlockT(public var bytes: UByteArray = UByteArray(PTHREAD_RWLOCK_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -448,7 +448,7 @@ public data class PthreadRwlockT(public var bytes: UByteArray = UByteArray((PTHR
     }
 }
 
-public data class PthreadMutexattrT(public var bytes: UByteArray = UByteArray((PTHREAD_MUTEXATTR_SIZE).toInt())) {
+public data class PthreadMutexattrT(public var bytes: UByteArray = UByteArray(PTHREAD_MUTEXATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -461,7 +461,7 @@ public data class PthreadMutexattrT(public var bytes: UByteArray = UByteArray((P
     }
 }
 
-public data class PthreadRwlockattrT(public var bytes: UByteArray = UByteArray((PTHREAD_RWLOCKATTR_SIZE).toInt())) {
+public data class PthreadRwlockattrT(public var bytes: UByteArray = UByteArray(PTHREAD_RWLOCKATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false
@@ -474,7 +474,7 @@ public data class PthreadRwlockattrT(public var bytes: UByteArray = UByteArray((
     }
 }
 
-public data class PthreadCondT(public var bytes: UByteArray = UByteArray((PTHREAD_COND_SIZE).toInt())) {
+public data class PthreadCondT(public var bytes: UByteArray = UByteArray(PTHREAD_COND_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -487,7 +487,7 @@ public data class PthreadCondT(public var bytes: UByteArray = UByteArray((PTHREA
     }
 }
 
-public data class PthreadCondattrT(public var bytes: UByteArray = UByteArray((PTHREAD_CONDATTR_SIZE).toInt())) {
+public data class PthreadCondattrT(public var bytes: UByteArray = UByteArray(PTHREAD_CONDATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -500,7 +500,7 @@ public data class PthreadCondattrT(public var bytes: UByteArray = UByteArray((PT
     }
 }
 
-public data class PthreadOnceT(public var bytes: UByteArray = UByteArray((PTHREAD_ONCE_SIZE).toInt())) {
+public data class PthreadOnceT(public var bytes: UByteArray = UByteArray(PTHREAD_ONCE_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadOnceT) return false
@@ -513,7 +513,7 @@ public data class PthreadOnceT(public var bytes: UByteArray = UByteArray((PTHREA
     }
 }
 
-public data class PthreadSpinlockT(public var bytes: UByteArray = UByteArray((PTHREAD_SPINLOCK_SIZE).toInt())) {
+public data class PthreadSpinlockT(public var bytes: UByteArray = UByteArray(PTHREAD_SPINLOCK_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadSpinlockT) return false

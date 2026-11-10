@@ -445,10 +445,10 @@ public data class Timespec(
 public data class Utmpx(
     public var utType: CShort = 0,
     public var utPid: PidT = 0,
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
     public var utId: UByteArray = UByteArray(4),
-    public var utUser: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utExit: ExitStatus = ExitStatus(),
     public var utSession: CLong = 0L,
     public var utTv: Timeval = Timeval(),

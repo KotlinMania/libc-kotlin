@@ -1030,12 +1030,12 @@ public data class LocaleStruct(
 )
 
 public data class Utsname(
-    public var sysname: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
-    public var nodename: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
-    public var release: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
-    public var version: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
-    public var machine: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
-    public var domainname: UByteArray = UByteArray((UTSNAME_LENGTH).toInt()),
+    public var sysname: UByteArray = UByteArray(UTSNAME_LENGTH),
+    public var nodename: UByteArray = UByteArray(UTSNAME_LENGTH),
+    public var release: UByteArray = UByteArray(UTSNAME_LENGTH),
+    public var version: UByteArray = UByteArray(UTSNAME_LENGTH),
+    public var machine: UByteArray = UByteArray(UTSNAME_LENGTH),
+    public var domainname: UByteArray = UByteArray(UTSNAME_LENGTH),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1243,10 +1243,10 @@ public data class Option(
 public data class Utmpx(
     public var utType: CShort = 0,
     public var utPid: PidT = 0,
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
     public var utId: UByteArray = UByteArray(4),
-    public var utUser: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utExit: ExitStatus = ExitStatus(),
     public var utSession: Int = 0,
     public var utTv: Timeval = Timeval(),

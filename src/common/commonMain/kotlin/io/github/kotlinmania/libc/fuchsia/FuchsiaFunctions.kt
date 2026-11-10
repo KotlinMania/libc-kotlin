@@ -36,20 +36,20 @@ public fun interface DlIteratePhdrCallbackCallback {
 // intentionally not public, only used for fdSet
 // END_PUB_CONST
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
@@ -57,7 +57,7 @@ public fun fdSet(fd: CInt, set: FdSet?) {
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0uL
+        (set.fdsBits)[idx] = 0uL
     }
 }
 
@@ -71,36 +71,34 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
-    Unit
+    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
-    Unit
+    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
+    return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits == set2.bits
+    return set1.bits.contentEquals(set2.bits)
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
+    return COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    return if (((cmsg!!.cmsgLen).toULong()) < 8uL.toULong()) {
+    return if (((cmsg!!.cmsgLen).toULong()) < 8uL) {
         null
-    } else if ((cmsgNext(cmsg))?.let { COpaquePointer(it.rawValue + (8).toLong()) } >= mhdrEnd(mhdr)) {
+    } else if ((cmsgNext(cmsg))?.let { COpaquePointer(it.rawValue + 8.toLong()) } >= mhdrEnd(mhdr)) {
         null
     } else {
         ((cmsgNext(cmsg) as Any?) as Cmsghdr?)
@@ -108,8 +106,8 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toULong() >= 8uL.toULong()) {
-        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
+    return if ((mhdr!!.msgControllen).toULong() >= 8uL) {
+        ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
@@ -120,11 +118,11 @@ public fun cmsgAlign(len: SizeT): SizeT {
 }
 
 public fun cmsgSpace(len: CUint): CUint {
-    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL.toULong())).toUInt()
+    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
 }
 
 public fun cmsgLen(len: CUint): CUint {
-    return (cmsgAlign(8uL.toULong()) + len.toULong()).toUInt()
+    return (cmsgAlign(8uL) + len.toULong()).toUInt()
 }
 
 public fun wifstopped(status: CInt): Boolean {
@@ -193,11 +191,11 @@ public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) })
+    return (COpaquePointer((cmsg).hashCode().toLong() + cmsgLen(cmsg).toLong()))
 }
 
 public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {
-    return (mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + ((mhdr!!.msgControllen).toInt()).toLong()) }
+    return (mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + (mhdr.msgControllen.toInt()).toLong()) }
 }
 
 public expect fun isalnum(c: CInt): CInt

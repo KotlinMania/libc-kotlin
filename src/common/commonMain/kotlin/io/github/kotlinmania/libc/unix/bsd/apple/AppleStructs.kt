@@ -622,7 +622,7 @@ public class ProcBsdinfo(
     public var pbiSvuid: UidT = 0u,
     public var pbiSvgid: GidT = 0u,
     public var rfu1: UInt = 0u,
-    public var pbiComm: UByteArray = UByteArray((MAXCOMLEN).toInt()),
+    public var pbiComm: UByteArray = UByteArray(MAXCOMLEN),
     public var pbiName: UByteArray = UByteArray(32),
     // MAXCOMLEN * 2, but macro isn't happy...
     public var pbiNfiles: UInt = 0u,
@@ -1221,7 +1221,21 @@ public class RusageInfoV4(
     public var riRunnableTime: ULong = 0uL,
 )
 
-public data class ImageOffset(public var uuid: UuidT = UByteArray(16), public var offset: UInt = 0u)
+public data class ImageOffset(public var uuid: UuidT = UByteArray(16), public var offset: UInt = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ImageOffset) return false
+        if (!this.uuid.contentEquals(other.uuid)) return false
+        if (this.offset != other.offset) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.uuid.contentHashCode()
+        result = 31 * result + this.offset.hashCode()
+        return result
+    }
+}
 
 public data class Attrlist(
     public var bitmapcount: CUshort = 0u,
@@ -1235,7 +1249,21 @@ public data class Attrlist(
 
 public data class AttrreferenceT(public var attrDataoffset: Int = 0, public var attrLength: UInt = 0u)
 
-public data class VolCapabilitiesAttrT(public var capabilities: VolCapabilitiesSetT = UIntArray(4), public var valid: VolCapabilitiesSetT = UIntArray(4))
+public data class VolCapabilitiesAttrT(public var capabilities: VolCapabilitiesSetT = UIntArray(4), public var valid: VolCapabilitiesSetT = UIntArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is VolCapabilitiesAttrT) return false
+        if (!this.capabilities.contentEquals(other.capabilities)) return false
+        if (!this.valid.contentEquals(other.valid)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.capabilities.contentHashCode()
+        result = 31 * result + this.valid.contentHashCode()
+        return result
+    }
+}
 
 public data class AttributeSetT(
     public var commonattr: AttrgroupT = 0u,
@@ -1362,7 +1390,7 @@ public class Icmp6Ifstat(
 )
 
 // mach/hostInfo.h
-public data class HostCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX.toInt())) {
+public data class HostCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HostCpuLoadInfo) return false
@@ -1499,7 +1527,7 @@ public data class IfsIso88023(
 }
 
 // kernControl.h
-public data class CtlInfo(public var ctlId: UInt = 0u, public var ctlName: UByteArray = UByteArray((MAX_KCTL_NAME).toInt())) {
+public data class CtlInfo(public var ctlId: UInt = 0u, public var ctlName: UByteArray = UByteArray(MAX_KCTL_NAME)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CtlInfo) return false
@@ -1592,7 +1620,7 @@ public data class ProcThreadinfo(
     public var pthCurpri: Int = 0,
     public var pthPriority: Int = 0,
     public var pthMaxpriority: Int = 0,
-    public var pthName: UByteArray = UByteArray((MAXTHREADNAMESIZE).toInt()),
+    public var pthName: UByteArray = UByteArray(MAXTHREADNAMESIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1707,13 +1735,13 @@ public data class SockaddrStorage(
 }
 
 public data class Utmpx(
-    public var utUser: UByteArray = UByteArray((UTX_USERSIZE).toInt()),
-    public var utId: UByteArray = UByteArray((UTX_IDSIZE).toInt()),
-    public var utLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UTX_USERSIZE),
+    public var utId: UByteArray = UByteArray(UTX_IDSIZE),
+    public var utLine: UByteArray = UByteArray(UTX_LINESIZE),
     public var utPid: PidT = 0,
     public var utType: CShort = 0,
     public var utTv: Timeval = Timeval(),
-    public var utHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var utHost: UByteArray = UByteArray(UTX_HOSTSIZE),
     public var utPad: UIntArray = UIntArray(16),
 ) {
     override fun equals(other: Any?): Boolean {
@@ -1752,7 +1780,7 @@ public data class Sigevent(
     public var sigevNotifyAttributes: PthreadAttrT? = null,
 )
 
-public data class ProcessorCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX.toInt())) {
+public data class ProcessorCpuLoadInfo(public var cpuTicks: UIntArray = UIntArray(CPU_STATE_MAX)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ProcessorCpuLoadInfo) return false
@@ -1812,7 +1840,7 @@ public data class ThreadExtendedInfo(
     public var pthCurpri: Int = 0,
     public var pthPriority: Int = 0,
     public var pthMaxpriority: Int = 0,
-    public var pthName: UByteArray = UByteArray((MAXTHREADNAMESIZE).toInt()),
+    public var pthName: UByteArray = UByteArray(MAXTHREADNAMESIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

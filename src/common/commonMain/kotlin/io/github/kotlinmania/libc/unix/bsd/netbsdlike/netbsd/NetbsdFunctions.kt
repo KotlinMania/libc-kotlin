@@ -65,7 +65,7 @@ public fun align(p: Int): Int {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (align(8)).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + align(8).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -76,8 +76,8 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
         return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + align((cmsg!!.cmsgLen).toInt()) + align(8)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg).hashCode().toLong()).toInt() + align(cmsg.cmsgLen.toInt()) + align(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next > max) {
         null
     } else {

@@ -1789,7 +1789,7 @@ public val ST_NOATIME: CUlong = 1024uL
 
 public val ST_NODIRATIME: CUlong = 2048uL
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L).toLong())
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
 public val RTLD_DEFAULT: COpaquePointer? = null
 
@@ -1801,15 +1801,15 @@ public val TCP_MD5SIG: CInt = 14
 
 public val SIZEOF_PTHREAD_MUTEX_T: Int = 40
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray(SIZEOF_PTHREAD_MUTEX_T) { 0u.toUByte() })
 
 public val SIZEOF_PTHREAD_COND_T: Int = 48
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray(SIZEOF_PTHREAD_COND_T) { 0u.toUByte() })
 
 public val SIZEOF_PTHREAD_RWLOCK_T: Int = 56
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray(SIZEOF_PTHREAD_RWLOCK_T) { 0u.toUByte() })
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 

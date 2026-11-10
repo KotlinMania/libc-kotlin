@@ -22,7 +22,7 @@ public data class Stat(
     public var stCtim: Timespec = Timespec(),
     public var stBlksize: BlksizeT = 0,
     public var stBlocks: Long = 0L,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -87,7 +87,7 @@ public data class Passwd(
     public var pwGecos: COpaquePointer? = null,
     public var pwDir: COpaquePointer? = null,
     public var pwShell: COpaquePointer? = null,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -116,7 +116,7 @@ public data class Passwd(
     }
 }
 
-public data class SemT(public var value: IntArray = IntArray((SEM_SIZE).toInt())) {
+public data class SemT(public var value: IntArray = IntArray(SEM_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false
@@ -129,7 +129,7 @@ public data class SemT(public var value: IntArray = IntArray((SEM_SIZE).toInt())
     }
 }
 
-public data class PthreadAttrT(public var value: IntArray = IntArray((PTHREAD_ATTR_SIZE).toInt())) {
+public data class PthreadAttrT(public var value: IntArray = IntArray(PTHREAD_ATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -142,7 +142,7 @@ public data class PthreadAttrT(public var value: IntArray = IntArray((PTHREAD_AT
     }
 }
 
-public data class PthreadMutexT(public var value: IntArray = IntArray((PTHREAD_MUTEX_SIZE).toInt())) {
+public data class PthreadMutexT(public var value: IntArray = IntArray(PTHREAD_MUTEX_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -155,7 +155,7 @@ public data class PthreadMutexT(public var value: IntArray = IntArray((PTHREAD_M
     }
 }
 
-public data class PthreadCondT(public var value: IntArray = IntArray((PTHREAD_COND_SIZE).toInt())) {
+public data class PthreadCondT(public var value: IntArray = IntArray(PTHREAD_COND_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -168,7 +168,7 @@ public data class PthreadCondT(public var value: IntArray = IntArray((PTHREAD_CO
     }
 }
 
-public data class PthreadCondattrT(public var value: IntArray = IntArray((PTHREAD_CONDATTR_SIZE).toInt())) {
+public data class PthreadCondattrT(public var value: IntArray = IntArray(PTHREAD_CONDATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -213,7 +213,7 @@ public class Lconv(
     public var intPCsPrecedes: Byte = 0,
     public var intPSepBySpace: Byte = 0,
     public var intPSignPosn: Byte = 0,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 )
 
 public data class Tm(
@@ -228,7 +228,7 @@ public data class Tm(
     public var tmIsdst: Int = 0,
     public var tmGmtoff: Int = 0,
     public var tmZone: COpaquePointer? = null,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -274,7 +274,7 @@ public data class Addrinfo(
     public var aiAddr: Sockaddr? = null,
     public var aiCanonname: COpaquePointer? = null,
     public var aiNext: Addrinfo? = null,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -305,7 +305,7 @@ public data class Addrinfo(
     }
 }
 
-public data class PthreadRwlockT(public var value: IntArray = IntArray((PTHREAD_RWLOCK_SIZE).toInt())) {
+public data class PthreadRwlockT(public var value: IntArray = IntArray(PTHREAD_RWLOCK_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -330,7 +330,7 @@ public data class Statvfs(
     public var fFsid: Int = 0,
     public var fFlag: Int = 0,
     public var fNamemax: Int = 0,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -367,7 +367,7 @@ public data class Statvfs(
     }
 }
 
-public data class Dirent(public var dType: UByte = 0u, public var dName: UByteArray = UByteArray((NAME_MAX + 1).toInt())) {
+public data class Dirent(public var dType: UByte = 0u, public var dName: UByteArray = UByteArray(NAME_MAX + 1)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Dirent) return false
@@ -383,7 +383,7 @@ public data class Dirent(public var dType: UByte = 0u, public var dName: UByteAr
     }
 }
 
-public data class FdSet(public var value: UIntArray = UIntArray((FDSET_SIZE).toInt())) {
+public data class FdSet(public var value: UIntArray = UIntArray(FDSET_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -396,7 +396,7 @@ public data class FdSet(public var value: UIntArray = UIntArray((FDSET_SIZE).toI
     }
 }
 
-public data class SigsetT(public var value: UIntArray = UIntArray((SIGSET_SIZE).toInt())) {
+public data class SigsetT(public var value: UIntArray = UIntArray(SIGSET_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SigsetT) return false
@@ -414,7 +414,7 @@ public data class Sigaction(
     public var saMask: SigsetT = SigsetT(),
     public var saFlags: Int = 0,
     public var saUser: Int = 0,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -444,7 +444,7 @@ public data class Termios(
     public var cLflag: TcflagT = 0u,
     public var cCc: UByteArray = UByteArray(12),
     public var cSpeed: SpeedT = 0uL,
-    public var reserved: IntArray = IntArray((DEFAULT_RESERVED_SIZE).toInt()),
+    public var reserved: IntArray = IntArray(DEFAULT_RESERVED_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -522,7 +522,7 @@ public data class SockaddrUn(public var sunFamily: SaFamilyT = 0u, public var su
     }
 }
 
-public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssData: UIntArray = UIntArray((SOCKADDR_STORAGE_SIZE).toInt())) {
+public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssData: UIntArray = UIntArray(SOCKADDR_STORAGE_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SockaddrStorage) return false

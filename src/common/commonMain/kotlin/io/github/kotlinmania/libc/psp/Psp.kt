@@ -561,12 +561,12 @@ public enum class Interrupt(public val value: UInt) {
 }
 
 public enum class SubInterrupt(public val value: UInt) {
-    Gpio(Interrupt.Gpio.value.toUInt()),
-    Ata(Interrupt.Ata.value.toUInt()),
-    Umd(Interrupt.Umd.value.toUInt()),
-    Dmacplus(Interrupt.Dmacplus.value.toUInt()),
-    Ge(Interrupt.Ge.value.toUInt()),
-    Display(Interrupt.Vblank.value.toUInt()),
+    Gpio(Interrupt.Gpio.value),
+    Ata(Interrupt.Ata.value),
+    Umd(Interrupt.Umd.value),
+    Dmacplus(Interrupt.Dmacplus.value),
+    Ge(Interrupt.Ge.value),
+    Display(Interrupt.Vblank.value),
 }
 
 public enum class SceKernelIdListType(public val value: UInt) {

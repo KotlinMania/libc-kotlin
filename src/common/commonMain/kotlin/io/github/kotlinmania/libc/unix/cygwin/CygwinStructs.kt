@@ -131,7 +131,7 @@ public data class Cmsghdr(
 )
 
 public data class DlInfo(
-    public var dliFname: UByteArray = UByteArray(PATH_MAX.toInt()),
+    public var dliFname: UByteArray = UByteArray(PATH_MAX),
     public var dliFbase: COpaquePointer? = null,
     public var dliSname: COpaquePointer? = null,
     public var dliSaddr: COpaquePointer? = null,
@@ -215,7 +215,7 @@ public data class Termios(
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
     public var cLine: CChar = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
     public var cIspeed: SpeedT = 0u,
     public var cOspeed: SpeedT = 0u,
 ) {
@@ -266,7 +266,7 @@ public data class Hostent(
 
 public data class Linger(public var lOnoff: CUshort = 0u, public var lLinger: CUshort = 0u)
 
-public data class FdSet(public var fdsBits: ULongArray = ULongArray((FD_SETSIZE / 8 / 8).toInt())) {
+public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / 8 / 8)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -826,11 +826,11 @@ public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnony
 public data class Utmpx(
     public var utType: CShort = 0,
     public var utPid: PidT = 0,
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var utId: UByteArray = UByteArray((UT_IDLEN).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var utId: UByteArray = UByteArray(UT_IDLEN),
     public var utTime: TimeT = 0L,
-    public var utUser: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utAddr: CLong = 0L,
     public var utTv: Timeval = Timeval(),
 ) {

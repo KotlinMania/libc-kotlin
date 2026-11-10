@@ -1084,7 +1084,7 @@ public val NFSMNT_ACDIRMAX: CInt = 0x0800
 public val CPUSTATES: CInt = 4
 
 // semaphore.h
-public val SEM_FAILED: CInt? = (-1).toInt()
+public val SEM_FAILED: CInt? = -1
 
 // spawn.h
 // DIFF(main): changed to `cShort` in f62eb023ab

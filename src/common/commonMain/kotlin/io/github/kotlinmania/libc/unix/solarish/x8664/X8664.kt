@@ -81,13 +81,13 @@ public data class McontextT(public var gregs: LongArray = LongArray(28), public 
         if (this === other) return true
         if (other !is McontextT) return false
         if (!this.gregs.contentEquals(other.gregs)) return false
-        if (this.fpregs != other.fpregs) return false
+        if (!this.fpregs.contentEquals(other.fpregs)) return false
         return true
     }
 
     override fun hashCode(): Int {
         var result = this.gregs.contentHashCode()
-        result = 31 * result + this.fpregs.hashCode()
+        result = 31 * result + this.fpregs.contentHashCode()
         return result
     }
 }

@@ -44,7 +44,7 @@ public fun cmsgDataAlign(p: Int): Int {
 }
 
 public fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? {
-    return COpaquePointer(cmsgDataAlign((((cmsg)?.let { COpaquePointer(it.rawValue + (1).toLong()) })?.rawValue ?: 0L).toInt()).toLong())
+    return COpaquePointer(cmsgDataAlign((((cmsg)?.let { COpaquePointer(it.rawValue + 1.toLong()) })?.rawValue ?: 0L).toInt()).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -63,8 +63,8 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
         return cmsgFirsthdr(mhdr)
     }
-    val next = cmsgHdrAlign(((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + 8)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = cmsgHdrAlign(((cmsg).hashCode().toLong()).toInt() + cmsg.cmsgLen.toInt() + 8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next > max) {
         null
     } else {
@@ -73,32 +73,32 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return cmsgHdrAlign(8.toInt() + length.toInt()).toUInt()
+    return cmsgHdrAlign(8 + length.toInt()).toUInt()
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     return (set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0L
+        (set.fdsBits)[idx] = 0L
     }
 }
 

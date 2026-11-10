@@ -62,10 +62,10 @@ public val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(sig = PTHREAD_RWLOCK_SIG_INIT, opaque = UByteArray((PTHREAD_RWLOCK_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(sig = PTHREAD_RWLOCK_SIG_INIT, opaque = UByteArray(PTHREAD_RWLOCK_SIZE) { 0u.toUByte() })
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(sig = PTHREAD_MUTEX_SIG_INIT, opaque = UByteArray((PTHREAD_MUTEX_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(sig = PTHREAD_MUTEX_SIG_INIT, opaque = UByteArray(PTHREAD_MUTEX_SIZE) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(sig = PTHREAD_COND_SIG_INIT, opaque = UByteArray((PTHREAD_COND_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(sig = PTHREAD_COND_SIG_INIT, opaque = UByteArray(PTHREAD_COND_SIZE) { 0u.toUByte() })
 
-public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = UByteArray((PTHREAD_ONCE_SIZE).toInt()) { 0u.toUByte() })
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = UByteArray(PTHREAD_ONCE_SIZE) { 0u.toUByte() })

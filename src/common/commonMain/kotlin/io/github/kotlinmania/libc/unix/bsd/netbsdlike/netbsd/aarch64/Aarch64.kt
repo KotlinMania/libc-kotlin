@@ -79,7 +79,7 @@ public data class CAnonymousFreg(
     }
 
     public fun eq(other: CAnonymousFreg): Boolean {
-        return this.b8 == other.b8 || this.h16 == other.h16 || this.s32 == other.s32 || this.d64 == other.d64 || this.q128 == other.q128
+        return this.b8.contentEquals(other.b8) || this.h16.contentEquals(other.h16) || this.s32.contentEquals(other.s32) || this.d64.contentEquals(other.d64) || this.q128 == other.q128
     }
 }
 

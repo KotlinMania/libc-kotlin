@@ -21,8 +21,8 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
         return null
     }
     val next: Cmsghdr? = null
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() >= max) {
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
+    return if ((((COpaquePointer((next).hashCode().toLong() + 1.toLong())))?.rawValue ?: 0L).toInt() >= max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)
@@ -39,31 +39,29 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1u shl offset.toInt())
-    Unit
+    cpuset.bits[idx] = cpuset.bits[idx] or (1u shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1u shl offset.toInt()).inv()
-    Unit
+    cpuset.bits[idx] = cpuset.bits[idx] and (1u shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0u != (cpuset.bits[idx] and (1u shl offset.toInt()))
+    return 0u != (cpuset.bits[idx] and (1u shl offset))
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits == set2.bits
+    return set1.bits.contentEquals(set2.bits)
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
-    val major1 = major.toUInt()
-    val minor1 = minor.toUInt()
+    val major1 = major
+    val minor1 = minor
     var dev = 0u
     dev = dev or ((major1 and 0xfffff000u) shl 31 shl 1)
     dev = dev or ((major1 and 0x00000fffu) shl 8)
@@ -79,7 +77,7 @@ public fun major(dev: DevT): CUint {
     var major = 0u
     major = major or ((dev shr 31 shr 1) and 0xfffff000u)
     major = major or ((dev shr 8) and 0x00000fffu)
-    return major.toUInt()
+    return major
 }
 
 public fun minor(dev: DevT): CUint {
@@ -89,7 +87,7 @@ public fun minor(dev: DevT): CUint {
     var minor = 0u
     minor = minor or ((dev shr 12) and 0xffffff00u)
     minor = minor or (dev and 0x000000ffu)
-    return minor.toUInt()
+    return minor
 }
 
 public expect fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt

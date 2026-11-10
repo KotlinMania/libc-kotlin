@@ -406,7 +406,7 @@ public val B_CPU_VENDOR_FUJITSU: CpuVendor = B_CPU_VENDOR_SUN + 1
 // kernel/OS.h
 public data class AreaInfo(
     public var area: AreaId = 0,
-    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var name: UByteArray = UByteArray(B_OS_NAME_LENGTH),
     public var size: Int = 0,
     public var lock: UInt = 0u,
     public var protection: UInt = 0u,
@@ -453,7 +453,7 @@ public data class AreaInfo(
 public data class PortInfo(
     public var port: PortId = 0,
     public var team: TeamId = 0,
-    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var name: UByteArray = UByteArray(B_OS_NAME_LENGTH),
     public var capacity: Int = 0,
     public var queueCount: Int = 0,
     public var totalCount: Int = 0,
@@ -534,7 +534,7 @@ public data class TeamInfo(
 public data class SemInfo(
     public var sem: SemId = 0,
     public var team: TeamId = 0,
-    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var name: UByteArray = UByteArray(B_OS_NAME_LENGTH),
     public var count: Int = 0,
     public var latestHolder: ThreadId = 0,
 ) {
@@ -564,7 +564,7 @@ public data class TeamUsageInfo(public var userTime: BigtimeT = 0L, public var k
 public data class ThreadInfo(
     public var thread: ThreadId = 0,
     public var team: TeamId = 0,
-    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var name: UByteArray = UByteArray(B_OS_NAME_LENGTH),
     public var state: ThreadState = 0,
     public var priority: Int = 0,
     public var sem: SemId = 0,
@@ -631,9 +631,9 @@ public class SystemInfo(
     public var usedThreads: UInt = 0u,
     public var maxTeams: UInt = 0u,
     public var usedTeams: UInt = 0u,
-    public var kernelName: UByteArray = UByteArray((B_FILE_NAME_LENGTH).toInt()),
-    public var kernelBuildDate: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
-    public var kernelBuildTime: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var kernelName: UByteArray = UByteArray(B_FILE_NAME_LENGTH),
+    public var kernelBuildDate: UByteArray = UByteArray(B_OS_NAME_LENGTH),
+    public var kernelBuildTime: UByteArray = UByteArray(B_OS_NAME_LENGTH),
     public var kernelVersion: Long = 0L,
     public var abi: UInt = 0u,
 )
@@ -675,8 +675,8 @@ public data class FsInfo(
     public var totalNodes: OffT = 0L,
     public var freeNodes: OffT = 0L,
     public var deviceName: UByteArray = UByteArray(128),
-    public var volumeName: UByteArray = UByteArray((B_FILE_NAME_LENGTH).toInt()),
-    public var fshName: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var volumeName: UByteArray = UByteArray(B_FILE_NAME_LENGTH),
+    public var fshName: UByteArray = UByteArray(B_OS_NAME_LENGTH),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -888,7 +888,7 @@ public data class CpuidInfo(
     }
 
     public fun eq(other: CpuidInfo): Boolean {
-        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars == other.asChars || this.regs == other.regs
+        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars.contentEquals(other.asChars) || this.regs == other.regs
     }
 }
 
@@ -1855,11 +1855,11 @@ public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): St
 }
 
 public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT {
-    return getAreaInfo(id, info, (8.toInt()).toULong())
+    return getAreaInfo(id, info, (8).toULong())
 }
 
 public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextAreaInfo(team, cookie, info, (8.toInt()).toULong())
+    return getNextAreaInfo(team, cookie, info, (8).toULong())
 }
 
 public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT {

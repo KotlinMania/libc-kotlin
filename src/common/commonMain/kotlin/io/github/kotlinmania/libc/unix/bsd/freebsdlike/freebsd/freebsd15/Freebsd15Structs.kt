@@ -662,7 +662,7 @@ public data class Vnstat(
     public var vnMntdir: COpaquePointer? = null,
     public var vnType: CInt = 0,
     public var vnMode: UShort = 0u,
-    public var vnDevname: UByteArray = UByteArray((SPECNAMELEN.toInt() + 1).toInt()),
+    public var vnDevname: UByteArray = UByteArray(SPECNAMELEN.toInt() + 1),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

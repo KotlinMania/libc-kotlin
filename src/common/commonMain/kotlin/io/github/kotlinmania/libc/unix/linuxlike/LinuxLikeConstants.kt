@@ -1819,7 +1819,7 @@ public val TUN_PKT_STRIP: CInt = 0x0001
 public val TUN_FLT_ALLMULTI: CInt = 0x0001
 
 // Ioctl operation codes
-public val T_TYPE: UInt = 84u.toUInt()
+public val T_TYPE: UInt = 84u
 
 public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u)
 

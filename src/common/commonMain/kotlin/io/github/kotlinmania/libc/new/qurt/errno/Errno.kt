@@ -284,5 +284,5 @@ public fun errno(): CInt {
 }
 
 public fun setErrno(value: CInt) {
-    run { errnoLocation(); value }
+    errnoLocation()
 }

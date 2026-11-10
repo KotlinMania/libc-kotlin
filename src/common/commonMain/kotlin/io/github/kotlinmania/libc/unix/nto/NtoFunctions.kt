@@ -54,8 +54,8 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val msg = cmsgAlign((cmsg!!.cmsgLen).toInt())
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + msg + cmsgAlign(8)
-    return if (next > ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()) {
+    val next = ((cmsg).hashCode().toLong()).toInt() + msg + cmsgAlign(8)
+    return if (next > ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()) {
         null
     } else {
         null
@@ -63,7 +63,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8)).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -75,20 +75,20 @@ public fun cmsgSpace(length: CUint): CUint {
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     return (set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size))) != 0u
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1u shl (fd1 % size))
     return
@@ -96,18 +96,18 @@ public fun fdSet(fd: CInt, set: FdSet?) {
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0u
+        (set.fdsBits)[idx] = 0u
     }
 }
 
 public fun dextraFirst(d: Dirent?): DirentExtra? {
     val f = ((((d)!!.dName) as Any?) as COpaquePointer?)
-    val s = ((d)?.hashCode()?.toLong() ?: 0L).toInt()
+    val s = ((d).hashCode().toLong()).toInt()
     return null
 }
 
 public fun dextraValid(x: DirentExtra?, d: Dirent?): Boolean {
-    val sz = ((x)?.hashCode()?.toLong() ?: 0L).toInt() - ((d)?.hashCode()?.toLong() ?: 0L).toInt() + 8
+    val sz = ((x).hashCode().toLong()).toInt() - ((d).hashCode().toLong()).toInt() + 8
     val rsz = (d!!.dReclen).toInt()
     return if (sz > rsz || sz + (x!!.dDatalen).toInt() > rsz) {
         false
@@ -166,15 +166,15 @@ public fun iptosEcn(x: UByte): UByte {
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
-    return ((major shl 10) or (minor)).toUInt()
+    return ((major shl 10) or (minor))
 }
 
 public fun major(dev: DevT): CUint {
-    return ((dev.toUInt()) shr 10) and 0x3fu
+    return ((dev) shr 10) and 0x3fu
 }
 
 public fun minor(dev: DevT): CUint {
-    return (dev.toUInt()) and 0x3ffu
+    return (dev) and 0x3ffu
 }
 
 public expect fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt

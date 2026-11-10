@@ -1594,7 +1594,7 @@ public val ST_NOATIME: CUlong = 1024uL
 
 public val ST_NODIRATIME: CUlong = 2048uL
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L).toLong())
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
 public val RTLD_DEFAULT: COpaquePointer? = null
 
@@ -2479,20 +2479,20 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
         return null
     }
     // Note(msrv): `.wrappingByteAdd()` stabilized in 1.75
-    val nextCmsg = ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) })?.let { COpaquePointer(it.rawValue + (cmsgAlign((cmsg!!.cmsgLen).toInt())).toLong()) } as Any?) as Cmsghdr?)
+    val nextCmsg = ((COpaquePointer((COpaquePointer((cmsg).hashCode().toLong())).rawValue + cmsgAlign(cmsg.cmsgLen.toInt()).toLong()) as Any?) as Cmsghdr?)
     // In case the addition wrapped. `nextAddr> maxAddr`
     // would otherwise not work as intended.
-    if ((((nextCmsg)?.hashCode()?.toLong() ?: 0L).toInt()) < (((cmsg)?.hashCode()?.toLong() ?: 0L).toInt())) {
+    if ((((nextCmsg).hashCode().toLong()).toInt()) < (((cmsg).hashCode().toLong()).toInt())) {
         return null
     }
-    var maxAddr = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    var maxAddr = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     if (false) {
         // musl and some of its descendants do `>= maxAddr`
         // comparisons in the if statement below.
         // https://www.openwall.com/lists/musl/2025/12/27/1
         maxAddr -= 1
     }
-    return if (((nextCmsg)?.hashCode()?.toLong() ?: 0L).toInt() + 8 > maxAddr) {
+    return if (((nextCmsg).hashCode().toLong()).toInt() + 8 > maxAddr) {
         null
     } else {
         ((nextCmsg as Any?) as Cmsghdr?)
@@ -2502,7 +2502,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 public fun cpuAllocSize(count: CInt): SizeT {
     val dummy: CpuSetT? = null
     val sizeInBits = 8 * 8
-    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL).toULong()
+    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
@@ -2515,20 +2515,20 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
+    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
+    return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
@@ -2545,7 +2545,7 @@ public fun cpuCount(cpuset: CpuSetT): CInt {
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits == set2.bits
+    return set1.bits.contentEquals(set2.bits)
 }
 
 public fun iptosTos(tos: UByte): UByte {

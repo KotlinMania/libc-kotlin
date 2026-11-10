@@ -522,7 +522,7 @@ public class KinfoProc {
 
     public var pRgid: UInt = 0u
 
-    public var pGroups: UIntArray = UIntArray(KI_NGROUPS.toInt())
+    public var pGroups: UIntArray = UIntArray(KI_NGROUPS)
 
     public var pNgroups: Short = 0
 
@@ -578,13 +578,13 @@ public class KinfoProc {
 
     public var pSpare: UShort = 0u
 
-    public var pComm: UByteArray = UByteArray(KI_MAXCOMLEN.toInt())
+    public var pComm: UByteArray = UByteArray(KI_MAXCOMLEN)
 
-    public var pWmesg: UByteArray = UByteArray(KI_WMESGLEN.toInt())
+    public var pWmesg: UByteArray = UByteArray(KI_WMESGLEN)
 
     public var pWchan: ULong = 0uL
 
-    public var pLogin: UByteArray = UByteArray(KI_MAXLOGNAME.toInt())
+    public var pLogin: UByteArray = UByteArray(KI_MAXLOGNAME)
 
     public var pVmRssize: Int = 0
 
@@ -648,7 +648,7 @@ public class KinfoProc {
 
     public var pSvgid: UInt = 0u
 
-    public var pEmul: UByteArray = UByteArray(KI_EMULNAMELEN.toInt())
+    public var pEmul: UByteArray = UByteArray(KI_EMULNAMELEN)
 
     public var pRlimRssCur: ULong = 0uL
 
@@ -662,7 +662,7 @@ public class KinfoProc {
 
     public var pPledge: ULong = 0uL
 
-    public var pName: UByteArray = UByteArray(KI_MAXCOMLEN.toInt())
+    public var pName: UByteArray = UByteArray(KI_MAXCOMLEN)
 }
 
 public data class KinfoVmentry(
@@ -687,7 +687,7 @@ public data class PtraceState(
     public var peTid: PidT = 0,
 )
 
-public data class PtraceThreadState(public var ptsTid: PidT = 0, public var ptsName: UByteArray = UByteArray(PT_PTS_NAMELEN.toInt())) {
+public data class PtraceThreadState(public var ptsTid: PidT = 0, public var ptsName: UByteArray = UByteArray(PT_PTS_NAMELEN)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PtraceThreadState) return false
@@ -1033,8 +1033,8 @@ public data class SiginfoT(
 
 public data class Lastlog(
     public var llTime: TimeT = 0L,
-    public var llLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var llHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var llLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var llHost: UByteArray = UByteArray(UT_HOSTSIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1054,9 +1054,9 @@ public data class Lastlog(
 }
 
 public data class Utmp(
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var utName: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var utName: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utTime: TimeT = 0L,
 ) {
     override fun equals(other: Any?): Boolean {

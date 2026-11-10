@@ -2539,7 +2539,7 @@ public val HWTSTAMP_FILTER_NTP_ALL: CUint = 15u
 public val PTP_MAX_SAMPLES: CUint = 25u
 
 // Maximum allowed offset measurement samples.
-public val PTP_CLK_MAGIC: UInt = 61u.toUInt()
+public val PTP_CLK_MAGIC: UInt = 61u
 
 public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u)
 

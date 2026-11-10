@@ -31,8 +31,8 @@ public fun cmsgAlign(len: Int): Int {
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg).hashCode().toLong()).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
     return if (next <= max) {
         null
     } else {
@@ -49,7 +49,7 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
+    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8)).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
@@ -981,7 +981,7 @@ public fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CI
         // posixMemalign should not set errno
         val e = errnoGet()
         val temp = memalign(align, size)
-        errnoSet(e.toInt())
+        errnoSet(e)
         if ((temp == null)) {
             ENOMEM
         } else {

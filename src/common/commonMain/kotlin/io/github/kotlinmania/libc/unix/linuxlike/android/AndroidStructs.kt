@@ -750,8 +750,8 @@ public data class SiginfoT(
 
 public data class Lastlog(
     public var llTime: TimeT = 0L,
-    public var llLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var llHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var llLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var llHost: UByteArray = UByteArray(UT_HOSTSIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -773,10 +773,10 @@ public data class Lastlog(
 public data class Utmp(
     public var utType: CShort = 0,
     public var utPid: PidT = 0,
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
     public var utId: UByteArray = UByteArray(4),
-    public var utUser: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utExit: ExitStatus = ExitStatus(),
     public var utSession: CLong = 0L,
     public var utTv: Timeval = Timeval(),
@@ -846,7 +846,7 @@ public data class SockaddrAlg(
 
 public data class UinputSetup(
     public var id: InputId = InputId(),
-    public var name: UByteArray = UByteArray((UINPUT_MAX_NAME_SIZE).toInt()),
+    public var name: UByteArray = UByteArray(UINPUT_MAX_NAME_SIZE),
     public var ffEffectsMax: U32 = 0u,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -867,13 +867,13 @@ public data class UinputSetup(
 }
 
 public data class UinputUserDev(
-    public var name: UByteArray = UByteArray((UINPUT_MAX_NAME_SIZE).toInt()),
+    public var name: UByteArray = UByteArray(UINPUT_MAX_NAME_SIZE),
     public var id: InputId = InputId(),
     public var ffEffectsMax: U32 = 0u,
-    public var absmax: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absmin: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absfuzz: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absflat: IntArray = IntArray((ABS_CNT).toInt()),
+    public var absmax: IntArray = IntArray(ABS_CNT),
+    public var absmin: IntArray = IntArray(ABS_CNT),
+    public var absfuzz: IntArray = IntArray(ABS_CNT),
+    public var absflat: IntArray = IntArray(ABS_CNT),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -77,14 +77,14 @@ public fun cmsgAlign(len: Int): Int {
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() >= 8) {
-        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
+        ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
+    return COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
 }
 
 public fun cmsgSpace(length: CUint): CUint {
@@ -96,20 +96,20 @@ public fun cmsgLen(length: CUint): CUint {
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
@@ -117,7 +117,7 @@ public fun fdSet(fd: CInt, set: FdSet?) {
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0uL
+        (set.fdsBits)[idx] = 0uL
     }
 }
 

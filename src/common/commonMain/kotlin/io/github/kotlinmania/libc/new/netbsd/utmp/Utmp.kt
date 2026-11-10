@@ -19,8 +19,8 @@ public val UT_HOSTSIZE: Int = 16
 
 public data class Lastlog(
     public var llTime: TimeT = 0L,
-    public var llLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var llHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var llLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var llHost: UByteArray = UByteArray(UT_HOSTSIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -40,9 +40,9 @@ public data class Lastlog(
 }
 
 public data class Utmp(
-    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
-    public var utName: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utLine: UByteArray = UByteArray(UT_LINESIZE),
+    public var utName: UByteArray = UByteArray(UT_NAMESIZE),
+    public var utHost: UByteArray = UByteArray(UT_HOSTSIZE),
     public var utTime: TimeT = 0L,
 ) {
     override fun equals(other: Any?): Boolean {

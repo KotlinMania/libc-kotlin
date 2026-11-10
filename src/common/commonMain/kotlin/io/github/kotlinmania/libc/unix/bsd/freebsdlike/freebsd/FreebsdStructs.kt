@@ -246,7 +246,7 @@ public data class PtraceLwpinfo(
     public var plSigmask: SigsetT = SigsetT(),
     public var plSiglist: SigsetT = SigsetT(),
     public var plSiginfo: SiginfoT = SiginfoT(),
-    public var plTdname: UByteArray = UByteArray((MAXCOMLEN.toInt() + 1).toInt()),
+    public var plTdname: UByteArray = UByteArray(MAXCOMLEN.toInt() + 1),
     public var plChildPid: PidT = 0,
     public var plSyscallCode: CUint = 0u,
     public var plSyscallNarg: CUint = 0u,
@@ -396,7 +396,7 @@ public data class Uuid(
     public var timeHiAndVersion: UShort = 0u,
     public var clockSeqHiAndReserved: UByte = 0u,
     public var clockSeqLow: UByte = 0u,
-    public var node: UByteArray = UByteArray((UUID_NODE_LEN).toInt()),
+    public var node: UByteArray = UByteArray(UUID_NODE_LEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1419,11 +1419,11 @@ public class Devstat(
      * Devstat device number.
      */
     public var deviceNumber: UInt = 0u,
-    public var deviceName: UByteArray = UByteArray(DEVSTAT_NAME_LEN.toInt()),
+    public var deviceName: UByteArray = UByteArray(DEVSTAT_NAME_LEN),
     public var unitNumber: CInt = 0,
-    public var bytes: ULongArray = ULongArray(DEVSTAT_N_TRANS_FLAGS.toInt()),
-    public var operations: ULongArray = ULongArray(DEVSTAT_N_TRANS_FLAGS.toInt()),
-    public var duration: List<Bintime> = List(DEVSTAT_N_TRANS_FLAGS.toInt()) { Bintime() },
+    public var bytes: ULongArray = ULongArray(DEVSTAT_N_TRANS_FLAGS),
+    public var operations: ULongArray = ULongArray(DEVSTAT_N_TRANS_FLAGS),
+    public var duration: List<Bintime> = List(DEVSTAT_N_TRANS_FLAGS) { Bintime() },
     public var busyTime: Bintime = Bintime(),
     /**
      * Time the device was created.
@@ -1473,7 +1473,7 @@ public data class DevstatMatchTable(
 
 public data class DeviceSelection(
     public var deviceNumber: UInt = 0u,
-    public var deviceName: UByteArray = UByteArray(DEVSTAT_NAME_LEN.toInt()),
+    public var deviceName: UByteArray = UByteArray(DEVSTAT_NAME_LEN),
     public var unitNumber: CInt = 0,
     public var selected: CInt = 0,
     public var bytes: ULong = 0uL,
@@ -2206,7 +2206,7 @@ public data class MqAttr(
     }
 }
 
-public data class Ptsstat(public var dev: ULong = 0uL, public var devname: UByteArray = UByteArray((SPECNAMELEN.toInt() + 1).toInt())) {
+public data class Ptsstat(public var dev: ULong = 0uL, public var devname: UByteArray = UByteArray(SPECNAMELEN + 1)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ptsstat) return false
@@ -2354,7 +2354,7 @@ public data class Ifstat(
      * if name, e.g. "en0"
      */
     public var ifsName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
-    public var ascii: UByteArray = UByteArray((IFSTATMAX.toInt() + 1).toInt()),
+    public var ascii: UByteArray = UByteArray(IFSTATMAX.toInt() + 1),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2734,7 +2734,7 @@ public data class CAnonymousIfrIfru(
     }
 
     public fun eq(other: CAnonymousIfrIfru): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruBuffer == other.ifruBuffer && this.ifruFlags == other.ifruFlags && this.ifruIndex == other.ifruIndex && this.ifruJid == other.ifruJid && this.ifruMetric == other.ifruMetric && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruCap == other.ifruCap && this.ifruFib == other.ifruFib && this.ifruVlanPcp == other.ifruVlanPcp
+        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruBuffer == other.ifruBuffer && this.ifruFlags.contentEquals(other.ifruFlags) && this.ifruIndex == other.ifruIndex && this.ifruJid == other.ifruJid && this.ifruMetric == other.ifruMetric && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruCap.contentEquals(other.ifruCap) && this.ifruFib == other.ifruFib && this.ifruVlanPcp == other.ifruVlanPcp
     }
 }
 

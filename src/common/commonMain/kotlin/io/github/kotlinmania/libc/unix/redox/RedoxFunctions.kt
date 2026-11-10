@@ -19,28 +19,28 @@ public fun cmsgAlign(len: SizeT): SizeT {
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (cmsgAlign(8uL.toULong()) + (length.toInt()).toULong()).toUInt()
+    return (cmsgAlign(8uL) + (length.toInt()).toULong()).toUInt()
 }
 
 public fun cmsgSpace(len: CUint): CUint {
-    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL.toULong())).toUInt()
+    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
@@ -48,7 +48,7 @@ public fun fdSet(fd: CInt, set: FdSet?) {
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0uL
+        (set.fdsBits)[idx] = 0uL
     }
 }
 

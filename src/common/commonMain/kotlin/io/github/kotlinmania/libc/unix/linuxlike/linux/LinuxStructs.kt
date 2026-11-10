@@ -819,10 +819,10 @@ public data class TlsCryptoInfo(public var version: U16 = 0u, public var cipherT
 
 public data class Tls12CryptoInfoAesGcm128(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_128_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_128_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_128_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_128_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_128_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_128_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -847,10 +847,10 @@ public data class Tls12CryptoInfoAesGcm128(
 
 public data class Tls12CryptoInfoAesGcm256(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_256_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_256_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_256_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_256_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_256_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_256_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -875,10 +875,10 @@ public data class Tls12CryptoInfoAesGcm256(
 
 public data class Tls12CryptoInfoAesCcm128(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_AES_CCM_128_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_AES_CCM_128_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_AES_CCM_128_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_AES_CCM_128_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_AES_CCM_128_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_AES_CCM_128_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -903,10 +903,10 @@ public data class Tls12CryptoInfoAesCcm128(
 
 public data class Tls12CryptoInfoChacha20Poly1305(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -931,10 +931,10 @@ public data class Tls12CryptoInfoChacha20Poly1305(
 
 public data class Tls12CryptoInfoSm4Gcm(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_SM4_GCM_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_SM4_GCM_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_SM4_GCM_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_SM4_GCM_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_SM4_GCM_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_SM4_GCM_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -959,10 +959,10 @@ public data class Tls12CryptoInfoSm4Gcm(
 
 public data class Tls12CryptoInfoSm4Ccm(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_SM4_CCM_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_SM4_CCM_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_SM4_CCM_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_SM4_CCM_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_SM4_CCM_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_SM4_CCM_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -987,10 +987,10 @@ public data class Tls12CryptoInfoSm4Ccm(
 
 public data class Tls12CryptoInfoAriaGcm128(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_128_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_128_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_128_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_128_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_128_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_128_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1015,10 +1015,10 @@ public data class Tls12CryptoInfoAriaGcm128(
 
 public data class Tls12CryptoInfoAriaGcm256(
     public var info: TlsCryptoInfo = TlsCryptoInfo(),
-    public var iv: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_256_IV_SIZE).toInt()),
-    public var key: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_256_KEY_SIZE).toInt()),
-    public var salt: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_256_SALT_SIZE).toInt()),
-    public var recSeq: UByteArray = UByteArray((TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE).toInt()),
+    public var iv: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_256_IV_SIZE),
+    public var key: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_256_KEY_SIZE),
+    public var salt: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_256_SALT_SIZE),
+    public var recSeq: UByteArray = UByteArray(TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1085,10 +1085,10 @@ public data class IwScanReq(
     public var numChannels: U8 = 0u,
     public var flags: U8 = 0u,
     public var bssid: Sockaddr = Sockaddr(),
-    public var essid: UByteArray = UByteArray((IW_ESSID_MAX_SIZE).toInt()),
+    public var essid: UByteArray = UByteArray(IW_ESSID_MAX_SIZE),
     public var minChannelTime: U32 = 0u,
     public var maxChannelTime: U32 = 0u,
-    public var channelList: List<IwFreq> = List((IW_MAX_FREQUENCIES).toInt()) { IwFreq() },
+    public var channelList: List<IwFreq> = List(IW_MAX_FREQUENCIES) { IwFreq() },
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1121,8 +1121,8 @@ public data class IwScanReq(
 
 public data class IwEncodeExt(
     public var extFlags: U32 = 0u,
-    public var txSeq: UByteArray = UByteArray((IW_ENCODE_SEQ_MAX_SIZE).toInt()),
-    public var rxSeq: UByteArray = UByteArray((IW_ENCODE_SEQ_MAX_SIZE).toInt()),
+    public var txSeq: UByteArray = UByteArray(IW_ENCODE_SEQ_MAX_SIZE),
+    public var rxSeq: UByteArray = UByteArray(IW_ENCODE_SEQ_MAX_SIZE),
     public var addr: Sockaddr = Sockaddr(),
     public var alg: U16 = 0u,
     public var keyLen: U16 = 0u,
@@ -1156,7 +1156,7 @@ public data class IwEncodeExt(
 public data class IwPmksa(
     public var cmd: U32 = 0u,
     public var bssid: Sockaddr = Sockaddr(),
-    public var pmkid: UByteArray = UByteArray((IW_PMKID_LEN).toInt()),
+    public var pmkid: UByteArray = UByteArray(IW_PMKID_LEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1200,7 +1200,7 @@ public class IwRange(
     public var maxQual: IwQuality = IwQuality(),
     public var avgQual: IwQuality = IwQuality(),
     public var numBitrates: U8 = 0u,
-    public var bitrate: IntArray = IntArray((IW_MAX_BITRATES).toInt()),
+    public var bitrate: IntArray = IntArray(IW_MAX_BITRATES),
     public var minRts: S32 = 0,
     public var maxRts: S32 = 0,
     public var minFrag: S32 = 0,
@@ -1212,13 +1212,13 @@ public class IwRange(
     public var pmpFlags: U16 = 0u,
     public var pmtFlags: U16 = 0u,
     public var pmCapa: U16 = 0u,
-    public var encodingSize: UShortArray = UShortArray((IW_MAX_ENCODING_SIZES).toInt()),
+    public var encodingSize: UShortArray = UShortArray(IW_MAX_ENCODING_SIZES),
     public var numEncodingSizes: U8 = 0u,
     public var maxEncodingTokens: U8 = 0u,
     public var encodingLoginIndex: U8 = 0u,
     public var txpowerCapa: U16 = 0u,
     public var numTxpower: U8 = 0u,
-    public var txpower: IntArray = IntArray((IW_MAX_TXPOWER).toInt()),
+    public var txpower: IntArray = IntArray(IW_MAX_TXPOWER),
     public var weVersionCompiled: U8 = 0u,
     public var weVersionSource: U8 = 0u,
     public var retryCapa: U16 = 0u,
@@ -1230,7 +1230,7 @@ public class IwRange(
     public var maxRTime: S32 = 0,
     public var numChannels: U16 = 0u,
     public var numFrequency: U8 = 0u,
-    public var freq: List<IwFreq> = List((IW_MAX_FREQUENCIES).toInt()) { IwFreq() },
+    public var freq: List<IwFreq> = List(IW_MAX_FREQUENCIES) { IwFreq() },
     public var encCapa: U32 = 0u,
 )
 
@@ -1628,7 +1628,7 @@ public data class PthreadBarrierT(public var size: UByteArray = UByteArray((SIZE
 
 public data class UinputSetup(
     public var id: InputId = InputId(),
-    public var name: UByteArray = UByteArray((UINPUT_MAX_NAME_SIZE).toInt()),
+    public var name: UByteArray = UByteArray(UINPUT_MAX_NAME_SIZE),
     public var ffEffectsMax: U32 = 0u,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -1649,13 +1649,13 @@ public data class UinputSetup(
 }
 
 public data class UinputUserDev(
-    public var name: UByteArray = UByteArray((UINPUT_MAX_NAME_SIZE).toInt()),
+    public var name: UByteArray = UByteArray(UINPUT_MAX_NAME_SIZE),
     public var id: InputId = InputId(),
     public var ffEffectsMax: U32 = 0u,
-    public var absmax: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absmin: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absfuzz: IntArray = IntArray((ABS_CNT).toInt()),
-    public var absflat: IntArray = IntArray((ABS_CNT).toInt()),
+    public var absmax: IntArray = IntArray(ABS_CNT),
+    public var absmin: IntArray = IntArray(ABS_CNT),
+    public var absfuzz: IntArray = IntArray(ABS_CNT),
+    public var absflat: IntArray = IntArray(ABS_CNT),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1745,7 +1745,7 @@ public data class IwMlme(
 public data class IwMichaelmicfailure(
     public var flags: U32 = 0u,
     public var srcAddr: Sockaddr = Sockaddr(),
-    public var tsc: UByteArray = UByteArray((IW_ENCODE_SEQ_MAX_SIZE).toInt()),
+    public var tsc: UByteArray = UByteArray(IW_ENCODE_SEQ_MAX_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -33,7 +33,7 @@ public fun interface PthreadCreateFCallback {
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() >= 8) {
-        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
+        ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
@@ -41,27 +41,27 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     return (set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
-    val fd1 = fd.toInt()
+    val fd1 = fd
     set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0L
+        (set.fdsBits)[idx] = 0L
     }
 }
 

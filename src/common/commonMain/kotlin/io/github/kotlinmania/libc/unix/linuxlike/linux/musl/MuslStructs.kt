@@ -103,7 +103,7 @@ public data class Aiocb(
     public var aioOffset: OffT = 0L,
     public var next: COpaquePointer? = null,
     public var prev: COpaquePointer? = null,
-    public var dummy4: UByteArray = UByteArray((32 - 2 * 8).toInt()),
+    public var dummy4: UByteArray = UByteArray(32 - 2 * 8),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

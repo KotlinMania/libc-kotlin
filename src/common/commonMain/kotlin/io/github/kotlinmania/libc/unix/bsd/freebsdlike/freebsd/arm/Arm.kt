@@ -32,7 +32,7 @@ public data class McontextT(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
-        if (this.gregs != other.gregs) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
         if (this.mcVfpSize != other.mcVfpSize) return false
         if (this.mcVfpPtr != other.mcVfpPtr) return false
         if (!this.mcSpare.contentEquals(other.mcSpare)) return false
@@ -40,7 +40,7 @@ public data class McontextT(
     }
 
     override fun hashCode(): Int {
-        var result = this.gregs.hashCode()
+        var result = this.gregs.contentHashCode()
         result = 31 * result + this.mcVfpSize.hashCode()
         result = 31 * result + this.mcVfpPtr.hashCode()
         result = 31 * result + this.mcSpare.contentHashCode()

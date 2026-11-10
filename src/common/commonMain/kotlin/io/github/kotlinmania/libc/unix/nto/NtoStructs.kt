@@ -151,7 +151,7 @@ public data class Addrinfo(
     public var aiNext: Addrinfo? = null,
 )
 
-public data class FdSet(public var fdsBits: UIntArray = UIntArray((2 * FD_SETSIZE.toInt() / ULONG_SIZE).toInt())) {
+public data class FdSet(public var fdsBits: UIntArray = UIntArray(2 * FD_SETSIZE / ULONG_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -1049,11 +1049,11 @@ public data class SockaddrStorage(
 }
 
 public data class Utsname(
-    public var sysname: UByteArray = UByteArray((SYSNAME_SIZE).toInt()),
-    public var nodename: UByteArray = UByteArray((SYSNAME_SIZE).toInt()),
-    public var release: UByteArray = UByteArray((SYSNAME_SIZE).toInt()),
-    public var version: UByteArray = UByteArray((SYSNAME_SIZE).toInt()),
-    public var machine: UByteArray = UByteArray((SYSNAME_SIZE).toInt()),
+    public var sysname: UByteArray = UByteArray(SYSNAME_SIZE),
+    public var nodename: UByteArray = UByteArray(SYSNAME_SIZE),
+    public var release: UByteArray = UByteArray(SYSNAME_SIZE),
+    public var version: UByteArray = UByteArray(SYSNAME_SIZE),
+    public var machine: UByteArray = UByteArray(SYSNAME_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

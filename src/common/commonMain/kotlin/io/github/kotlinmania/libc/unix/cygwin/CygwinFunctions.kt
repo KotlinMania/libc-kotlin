@@ -32,33 +32,33 @@ public fun interface PthreadCreateFCallback {
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val fd1 = fd.toInt()
+    val fd1 = fd
     val size = 8 * 8
     set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
 }
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0uL
+        (set.fdsBits)[idx] = 0uL
     }
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
     val dummy: CpuSetT = CpuSetT(bits = ULongArray(16) { 0uL })
     val sizeInBits = 8 * 8
-    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL).toULong()
+    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
@@ -80,7 +80,7 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     if (cpu < sizeInBits) {
         val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-        cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
+        cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
     }
 }
 
@@ -88,7 +88,7 @@ public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     if (cpu < sizeInBits) {
         val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-        cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
+        cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
     }
 }
 
@@ -96,7 +96,7 @@ public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     return if (cpu < sizeInBits) {
         val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-        0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
+        0uL != (cpuset.bits[idx] and (1uL shl offset))
     } else {
         false
     }
@@ -107,7 +107,7 @@ public fun cpuCount(cpuset: CpuSetT): CInt {
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
-    return set1.bits == set2.bits
+    return set1.bits.contentEquals(set2.bits)
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -119,8 +119,8 @@ public fun cmsgSpace(length: CUint): CUint {
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= 8) {
-        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
+    return if (mhdr!!.msgControllen >= 8) {
+        ((mhdr.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
@@ -128,8 +128,8 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next: Cmsghdr? = null
-    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((next)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign(8).toInt() > max) {
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen
+    return if (((next).hashCode().toLong()).toInt() + cmsgAlign(8) > max) {
         null
     } else {
         next
@@ -137,21 +137,21 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) })?.let { COpaquePointer(it.hashCode().toLong()) }
+    return COpaquePointer((COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())).hashCode().toLong())
 }
 
 public fun makedev(ma: CUint, mi: CUint): DevT {
-    val ma1 = ma.toUInt()
-    val mi1 = mi.toUInt()
+    val ma1 = ma
+    val mi1 = mi
     return (ma1 shl 16) or (mi1 and 0xffffu)
 }
 
 public fun major(dev: DevT): CUint {
-    return ((dev shr 16) and 0xffffu).toUInt()
+    return ((dev shr 16) and 0xffffu)
 }
 
 public fun minor(dev: DevT): CUint {
-    return (dev and 0xffffu).toUInt()
+    return (dev and 0xffffu)
 }
 
 public fun wifexited(status: CInt): Boolean {

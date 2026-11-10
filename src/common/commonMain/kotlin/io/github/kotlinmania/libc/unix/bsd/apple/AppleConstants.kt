@@ -3354,7 +3354,7 @@ public val PRIO_DARWIN_BG: CInt = 0x1000
 
 public val PRIO_DARWIN_NONUI: CInt = 0x1001
 
-public val SEM_FAILED: CInt? = (-1).toInt()
+public val SEM_FAILED: CInt? = -1
 
 public val AI_PASSIVE: CInt = 0x00000001
 

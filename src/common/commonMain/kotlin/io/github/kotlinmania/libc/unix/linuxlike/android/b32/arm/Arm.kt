@@ -898,5 +898,5 @@ public val NGREG: CInt = 18
 public val AT_SYSINFO_EHDR: CUlong = 33uL
 
 public fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt {
-    return syscall(SYS_ACCEPT4, fd.toLong(), ((addr)?.hashCode()?.toLong() ?: 0L), ((len)?.hashCode()?.toLong() ?: 0L), flg.toLong()).toInt()
+    return syscall(SYS_ACCEPT4, fd.toLong(), ((addr).hashCode().toLong()), ((len).hashCode().toLong()), flg.toLong()).toInt()
 }

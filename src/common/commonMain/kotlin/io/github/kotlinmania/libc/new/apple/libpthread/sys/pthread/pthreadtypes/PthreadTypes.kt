@@ -32,7 +32,7 @@ public val PTHREAD_RWLOCK_SIZE: Int = 192
 
 public val PTHREAD_RWLOCKATTR_SIZE: Int = 16
 
-public data class PthreadAttrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_ATTR_SIZE).toInt())) {
+public data class PthreadAttrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_ATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadAttrT) return false
@@ -48,7 +48,7 @@ public data class PthreadAttrT(internal var sig: CLong = 0L, internal var opaque
     }
 }
 
-public data class PthreadCondT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_COND_SIZE).toInt())) {
+public data class PthreadCondT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_COND_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -64,7 +64,7 @@ public data class PthreadCondT(internal var sig: CLong = 0L, internal var opaque
     }
 }
 
-public data class PthreadCondattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_CONDATTR_SIZE).toInt())) {
+public data class PthreadCondattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_CONDATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -80,7 +80,7 @@ public data class PthreadCondattrT(internal var sig: CLong = 0L, internal var op
     }
 }
 
-public data class PthreadMutexT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_MUTEX_SIZE).toInt())) {
+public data class PthreadMutexT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_MUTEX_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -96,7 +96,7 @@ public data class PthreadMutexT(internal var sig: CLong = 0L, internal var opaqu
     }
 }
 
-public data class PthreadMutexattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_MUTEXATTR_SIZE).toInt())) {
+public data class PthreadMutexattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_MUTEXATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -112,7 +112,7 @@ public data class PthreadMutexattrT(internal var sig: CLong = 0L, internal var o
     }
 }
 
-public data class PthreadOnceT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_ONCE_SIZE).toInt())) {
+public data class PthreadOnceT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_ONCE_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadOnceT) return false
@@ -128,7 +128,7 @@ public data class PthreadOnceT(internal var sig: CLong = 0L, internal var opaque
     }
 }
 
-public data class PthreadRwlockT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_RWLOCK_SIZE).toInt())) {
+public data class PthreadRwlockT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_RWLOCK_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -144,7 +144,7 @@ public data class PthreadRwlockT(internal var sig: CLong = 0L, internal var opaq
     }
 }
 
-public data class PthreadRwlockattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray((PTHREAD_RWLOCKATTR_SIZE).toInt())) {
+public data class PthreadRwlockattrT(internal var sig: CLong = 0L, internal var opaque: UByteArray = UByteArray(PTHREAD_RWLOCKATTR_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false

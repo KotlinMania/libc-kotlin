@@ -155,17 +155,17 @@ public data class FilInfo(
 public data class EpollEvent(public var events: UInt = 0u, public var u64: ULong = 0uL)
 
 public data class Utmpx(
-    public var utUser: UByteArray = UByteArray((UTX_USERSIZE).toInt()),
-    public var utId: UByteArray = UByteArray((UTX_IDSIZE).toInt()),
-    public var utLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
+    public var utUser: UByteArray = UByteArray(UTX_USERSIZE),
+    public var utId: UByteArray = UByteArray(UTX_IDSIZE),
+    public var utLine: UByteArray = UByteArray(UTX_LINESIZE),
     public var utPid: PidT = 0,
     public var utType: CShort = 0,
     public var utExit: ExitStatus = ExitStatus(),
     public var utTv: Timeval = Timeval(),
     public var utSession: CInt = 0,
-    public var utPad: IntArray = IntArray((UTX_PADSIZE).toInt()),
+    public var utPad: IntArray = IntArray(UTX_PADSIZE),
     public var utSyslen: CShort = 0,
-    public var utHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var utHost: UByteArray = UByteArray(UTX_HOSTSIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

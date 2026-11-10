@@ -14,7 +14,7 @@ public data class ClongDouble(public var value: U128 = U128()) {
         set(v) { value = v }
 }
 
-public data class PthreadCondT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_COND_T).toInt())) {
+public data class PthreadCondT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -27,7 +27,7 @@ public data class PthreadCondT(public var size: UByteArray = UByteArray((SIZEOF_
     }
 }
 
-public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt())) {
+public data class PthreadMutexT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -40,7 +40,7 @@ public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF
     }
 }
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt())) {
+public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -53,7 +53,7 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SI
     }
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt())) {
+public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -79,7 +79,7 @@ public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
     }
 }
 
-public data class CpuSetT(public var bits: ULongArray = ULongArray((128 / 8).toInt())) {
+public data class CpuSetT(public var bits: ULongArray = ULongArray(128 / 8)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CpuSetT) return false
@@ -112,7 +112,7 @@ public data class Tm(
 
 public data class MbstateT(public var opaque1: CUint = 0u, public var opaque2: CUint = 0u)
 
-public data class SemT(public var value: IntArray = IntArray((4 * 8 / 8).toInt())) {
+public data class SemT(public var value: IntArray = IntArray(4 * 8 / 8)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SemT) return false

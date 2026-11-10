@@ -165,6 +165,6 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 
 
 public val PTHREAD_COND_PADDING_SIZE: Int = 48 - 8 - 8 - 8
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cLock = LOCK_INITIALIZER, cWaiting = null, padding = UByteArray((PTHREAD_COND_PADDING_SIZE).toInt()) { 0u.toUByte() }, align = 0L)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cLock = LOCK_INITIALIZER, cWaiting = null, padding = UByteArray(PTHREAD_COND_PADDING_SIZE) { 0u.toUByte() }, align = 0L)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = LOCK_INITIALIZER, rwReaders = 0, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)

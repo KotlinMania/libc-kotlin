@@ -40,7 +40,7 @@ public class Statvfs(
     public var fOwner: UidT = 0u,
     // This type is updated in a future version
     public var fSpare: UIntArray = UIntArray(4),
-    public var fFstypename: UByteArray = UByteArray((VFS_NAMELEN).toInt()),
-    public var fMntonname: UByteArray = UByteArray((VFS_MNAMELEN).toInt()),
-    public var fMntfromname: UByteArray = UByteArray((VFS_MNAMELEN).toInt()),
+    public var fFstypename: UByteArray = UByteArray(VFS_NAMELEN),
+    public var fMntonname: UByteArray = UByteArray(VFS_MNAMELEN),
+    public var fMntfromname: UByteArray = UByteArray(VFS_MNAMELEN),
 )

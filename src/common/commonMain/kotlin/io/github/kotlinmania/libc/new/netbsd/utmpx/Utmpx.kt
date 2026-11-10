@@ -58,10 +58,10 @@ public val UTX_PADSIZE: Int = if (true) {
 }
 
 public data class Utmpx(
-    public var utName: UByteArray = UByteArray((UTX_USERSIZE).toInt()),
-    public var utId: UByteArray = UByteArray((UTX_IDSIZE).toInt()),
-    public var utLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
-    public var utHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var utName: UByteArray = UByteArray(UTX_USERSIZE),
+    public var utId: UByteArray = UByteArray(UTX_IDSIZE),
+    public var utLine: UByteArray = UByteArray(UTX_LINESIZE),
+    public var utHost: UByteArray = UByteArray(UTX_HOSTSIZE),
     public var utSession: UShort = 0u,
     public var utType: UShort = 0u,
     public var utPid: PidT = 0,
@@ -69,7 +69,7 @@ public data class Utmpx(
     // Note(netbsd): when anonymous struct are supported
     public var utSs: SockaddrStorage = SockaddrStorage(),
     public var utTv: Timeval = Timeval(),
-    public var utPad: UByteArray = UByteArray((UTX_PADSIZE).toInt()),
+    public var utPad: UByteArray = UByteArray(UTX_PADSIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -108,8 +108,8 @@ public data class ExitStatus(public var eTermination: UShort = 0u, public var eE
 
 public data class Lastlogx(
     public var llTv: Timeval = Timeval(),
-    public var llLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
-    public var llHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var llLine: UByteArray = UByteArray(UTX_LINESIZE),
+    public var llHost: UByteArray = UByteArray(UTX_HOSTSIZE),
     public var llSs: SockaddrStorage = SockaddrStorage(),
 ) {
     override fun equals(other: Any?): Boolean {
