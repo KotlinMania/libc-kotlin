@@ -142,7 +142,7 @@ public data class McontextT(
         if (this.psw != other.psw) return false
         if (!this.gregs.contentEquals(other.gregs)) return false
         if (!this.aregs.contentEquals(other.aregs)) return false
-        if (!this.fpregs.contentEquals(other.fpregs)) return false
+        if (this.fpregs != other.fpregs) return false
         return true
     }
 
@@ -150,7 +150,7 @@ public data class McontextT(
         var result = this.psw.hashCode()
         result = 31 * result + this.gregs.contentHashCode()
         result = 31 * result + this.aregs.contentHashCode()
-        result = 31 * result + this.fpregs.contentHashCode()
+        result = 31 * result + this.fpregs.hashCode()
         return result
     }
 }
