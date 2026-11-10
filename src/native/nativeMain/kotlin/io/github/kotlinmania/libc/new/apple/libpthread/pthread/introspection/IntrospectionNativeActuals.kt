@@ -12,7 +12,7 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT =
-    null
+    PthreadIntrospectionHookT { _, _, _, _ ->  }
 
 public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.apple.libpthread.pthread.introspection.cinterop.libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(thread.toLong().toCPointer<ByteVar>(), key, value?.value?.toCPointer<ByteVar>())
