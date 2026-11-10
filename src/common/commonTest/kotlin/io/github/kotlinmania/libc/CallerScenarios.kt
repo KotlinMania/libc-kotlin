@@ -20,15 +20,15 @@ import kotlin.test.assertNotNull
  * FFI paths those callers depend on.
  */
 internal fun verifyCallerMemory() {
-    val source = assertNotNull(malloc(64uL))
+    var source = assertNotNull(malloc(64uL))
     val destination = assertNotNull(calloc(64uL, 1uL))
     try {
         assertEquals(source, assertNotNull(memset(source, 0xAB, 64uL)))
         assertNotEquals(0, memcmp(source, destination, 64uL))
         assertEquals(destination, assertNotNull(memcpy(destination, source, 64uL)))
         assertEquals(0, memcmp(source, destination, 64uL))
-        val resized = assertNotNull(realloc(source, 128uL))
-        assertEquals(0, memcmp(resized, destination, 64uL))
+        source = assertNotNull(realloc(source, 128uL))
+        assertEquals(0, memcmp(source, destination, 64uL))
     } finally {
         free(source)
         free(destination)

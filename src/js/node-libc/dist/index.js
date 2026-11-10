@@ -1,12 +1,20 @@
-try {
-    module.exports = require('./build/Release/libc_native.node');
-} catch (err) {
+const candidates = [
+    './build/Release/libc_native.node',
+    './build/Release/c_native.node',
+    './build/Debug/libc_native.node',
+    './build/Debug/c_native.node',
+];
+let loaded = null;
+let lastErr = null;
+for (const candidate of candidates) {
     try {
-        module.exports = require('./build/Debug/libc_native.node');
-    } catch (err2) {
-        throw new Error(
-            'Could not load libc_native addon. ' +
-            'Original error: ' + err.message + ' | Debug error: ' + err2.message
-        );
+        loaded = require(candidate);
+        break;
+    } catch (err) {
+        lastErr = err;
     }
 }
+if (!loaded) {
+    throw new Error('Could not load libc_native addon: ' + (lastErr ? lastErr.message : 'not found'));
+}
+module.exports = loaded;
