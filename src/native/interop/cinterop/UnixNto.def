@@ -3,4 +3,3 @@ headers = unix_nto_wrapper.h
 headerFilter = unix_nto_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_nto_wrapper.a
-linkerOpts = -lsocket

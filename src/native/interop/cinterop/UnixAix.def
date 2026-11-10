@@ -3,4 +3,3 @@ headers = unix_aix_wrapper.h
 headerFilter = unix_aix_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_aix_wrapper.a
-linkerOpts = -lthread -lpthread -liconv

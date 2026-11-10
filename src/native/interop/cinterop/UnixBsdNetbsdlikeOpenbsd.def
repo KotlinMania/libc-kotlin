@@ -3,4 +3,3 @@ headers = unix_bsd_netbsdlike_openbsd_wrapper.h
 headerFilter = unix_bsd_netbsdlike_openbsd_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_bsd_netbsdlike_openbsd_wrapper.a
-linkerOpts = -lexecinfo

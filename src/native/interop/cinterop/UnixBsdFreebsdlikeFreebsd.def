@@ -3,4 +3,3 @@ headers = unix_bsd_freebsdlike_freebsd_wrapper.h
 headerFilter = unix_bsd_freebsdlike_freebsd_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_bsd_freebsdlike_freebsd_wrapper.a
-linkerOpts = -lmemstat -lkvm -lutil -lprocstat -lrt -ldevstat

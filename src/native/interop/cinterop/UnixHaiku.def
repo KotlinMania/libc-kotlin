@@ -3,4 +3,3 @@ headers = unix_haiku_wrapper.h
 headerFilter = unix_haiku_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_haiku_wrapper.a
-linkerOpts = -lgnu

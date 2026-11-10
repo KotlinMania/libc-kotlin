@@ -3,4 +3,3 @@ headers = fuchsia_wrapper.h
 headerFilter = fuchsia_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = fuchsia_wrapper.a
-linkerOpts = -lfdio

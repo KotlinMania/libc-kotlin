@@ -3,4 +3,3 @@ headers = unix_solarish_wrapper.h
 headerFilter = unix_solarish_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_solarish_wrapper.a
-linkerOpts = -lsendfile -llgrp
