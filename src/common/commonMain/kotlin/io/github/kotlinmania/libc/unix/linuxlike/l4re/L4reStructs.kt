@@ -12,7 +12,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
  */
 public data class L4SchedCpuSetT(
     // from the L4Re docs
-
     /**
      * Combination of granularity and offset.
      *

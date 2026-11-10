@@ -34,10 +34,14 @@ public typealias SemT = COpaquePointer?
 
 public typealias KeyT = CLong
 
-public class Timezone(public val handle: Long = -1L) {
+public class Timezone(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class Sem(public val handle: Long = -1L) {
+public class Sem(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

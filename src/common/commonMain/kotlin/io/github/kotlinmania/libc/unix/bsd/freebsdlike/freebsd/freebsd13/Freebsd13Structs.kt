@@ -135,28 +135,24 @@ public class KinfoProc {
     public var kiArgs: Pargs? = null
 
     // This is normally "struct proc".
-
     /**
      * Address of proc.
      */
     public var kiPaddr: COpaquePointer? = null
 
     // This is normally "struct user".
-
     /**
      * Kernel virtual address of u-area.
      */
     public var kiAddr: COpaquePointer? = null
 
     // This is normally "struct vnode".
-
     /**
      * Pointer to trace file.
      */
     public var kiTracep: COpaquePointer? = null
 
     // This is normally "struct vnode".
-
     /**
      * Pointer to executable file.
      */
@@ -168,7 +164,6 @@ public class KinfoProc {
     public var kiFd: Filedesc? = null
 
     // This is normally "struct vmspace".
-
     /**
      * Pointer to kernel vmspace struct.
      */
@@ -390,7 +385,6 @@ public class KinfoProc {
     public var kiNice: Byte = 0
 
     // signed char
-
     /**
      * Process lock (prevent swap) count.
      */
@@ -457,7 +451,6 @@ public class KinfoProc {
     public var kiSparestrings: List<UByteArray> = List(2) { UByteArray(0) }
 
     // little Note to allow PartialEq
-
     /**
      * Spare room for growth.
      */
@@ -529,7 +522,6 @@ public class KinfoProc {
     public var kiRusageCh: Rusage = Rusage()
 
     // This is normally "struct pcb".
-
     /**
      * Kernel virtual addr of pcb.
      */
@@ -549,7 +541,6 @@ public class KinfoProc {
     public var kiTdaddr: COpaquePointer? = null
 
     // This is normally "struct pwddesc".
-
     /**
      * Pointer to process paths info.
      */

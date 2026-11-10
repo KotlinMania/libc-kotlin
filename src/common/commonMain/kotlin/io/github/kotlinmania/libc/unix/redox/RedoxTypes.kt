@@ -66,6 +66,8 @@ public typealias UidT = CInt
 public typealias GidT = CInt
 
 // intentionally not public, only used for fdSet
-public class Timezone(public val handle: Long = -1L) {
+public class Timezone(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

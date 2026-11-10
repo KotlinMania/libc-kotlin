@@ -24,7 +24,7 @@ private object NewAppleLibpthreadPthreadIntrospectionJniBridge {
 }
 
 public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT =
-    PthreadIntrospectionHookT { _, _, _, _ ->  }
+    PthreadIntrospectionHookT { _, _, _, _ -> }
 
 public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt =
     NewAppleLibpthreadPthreadIntrospectionJniBridge.libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(thread.toLong(), key.toLong(), (value?.value ?: 0L))

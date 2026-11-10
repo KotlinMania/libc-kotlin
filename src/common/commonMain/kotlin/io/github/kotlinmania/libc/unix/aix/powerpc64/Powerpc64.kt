@@ -65,7 +65,9 @@ public fun interface FileopsTFoFstatCallback {
 }
 
 // Define lockDataInstrumented as an empty enum
-public class LockDataInstrumented(public val handle: Long = -1L) {
+public class LockDataInstrumented(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 

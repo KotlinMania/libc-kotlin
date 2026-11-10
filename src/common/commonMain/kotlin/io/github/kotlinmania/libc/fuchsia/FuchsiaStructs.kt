@@ -1424,7 +1424,7 @@ public data class Sigevent(
     public var sigevValue: Sigval = Sigval(),
     public var sigevSigno: CInt = 0,
     public var sigevNotify: CInt = 0,
-    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback = SigeventSigevNotifyFunctionCallback { _ ->  },
+    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback = SigeventSigevNotifyFunctionCallback { _ -> },
     public var sigevNotifyAttributes: PthreadAttrT? = null,
     public var pad: UByteArray = UByteArray((56 - 3 * 8).toInt()),
 ) {

@@ -34,9 +34,7 @@ internal class Padding<T>(
     /**
      * Do nothing when hashing to ignore the existence of padding fields.
      */
-    public override fun hashCode(): Int {
-        return 0
-    }
+    public override fun hashCode(): Int = 0
 
     /**
      * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
@@ -50,7 +48,6 @@ internal class Padding<T>(
     public companion object {
         // Note: Change this into zeroed() and use MaybeUninit::zeroed()
         // when we depend on rustc 1.75.0.
-
         /**
          * Const constructor for uninitialized padding in const contexts.
          */

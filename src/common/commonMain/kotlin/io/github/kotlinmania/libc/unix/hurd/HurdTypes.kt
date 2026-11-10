@@ -289,10 +289,14 @@ public typealias IconvT = COpaquePointer?
 
 // structs
 // functions
-public class Fpos64T(public val handle: Long = -1L) {
+public class Fpos64T(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class Timezone(public val handle: Long = -1L) {
+public class Timezone(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

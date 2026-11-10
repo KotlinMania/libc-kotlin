@@ -23,7 +23,7 @@ private external fun _wasm_libc_new_apple_libpthread_pthread_introspection_pthre
 private external fun _wasm_libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(p0: String, p1: String): String
 
 public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT =
-    if (_newAppleLibpthreadPthreadIntrospectionNapiAvailable) PthreadIntrospectionHookT { _, _, _, _ ->  } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (_newAppleLibpthreadPthreadIntrospectionNapiAvailable) PthreadIntrospectionHookT { _, _, _, _ -> } else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt =
     if (_newAppleLibpthreadPthreadIntrospectionNapiAvailable) _wasm_libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(thread.toLong().toString(), key.toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

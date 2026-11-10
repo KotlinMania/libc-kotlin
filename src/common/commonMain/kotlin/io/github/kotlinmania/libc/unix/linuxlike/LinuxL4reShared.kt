@@ -96,7 +96,9 @@ public typealias Elf64Rela = CAnonymousElf64Rela
 
 public typealias IconvT = COpaquePointer?
 
-public class Fpos64T(public val handle: Long = -1L) {
+public class Fpos64T(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 

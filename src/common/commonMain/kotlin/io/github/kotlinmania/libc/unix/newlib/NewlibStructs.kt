@@ -95,7 +95,7 @@ public data class Statvfs(
 )
 
 public data class Sigaction(
-    public var saHandler: SigactionSaHandlerCallback = SigactionSaHandlerCallback { _ ->  },
+    public var saHandler: SigactionSaHandlerCallback = SigactionSaHandlerCallback { _ -> },
     public var saMask: SigsetT = SigsetT(),
     public var saFlags: CInt = 0,
 )

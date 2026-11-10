@@ -59,7 +59,9 @@ public enum class FaeAction(public val value: UInt) {
     FAE_CLOSE(2u),
 }
 
-public class Cpuset(public val handle: Long = -1L) {
+public class Cpuset(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 

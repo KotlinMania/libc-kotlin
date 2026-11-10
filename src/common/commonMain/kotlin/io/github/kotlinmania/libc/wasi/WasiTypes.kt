@@ -69,14 +69,20 @@ public typealias PthreadKeyT = CUint
 
 public typealias PthreadSpinlockT = CInt
 
-public class FILE(public val handle: Long = -1L) {
+public class FILE(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class DIR(public val handle: Long = -1L) {
+public class DIR(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class LocaleStruct(public val handle: Long = -1L) {
+public class LocaleStruct(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

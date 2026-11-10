@@ -138,6 +138,8 @@ public typealias NlItem = CInt
 // The `else` block targets the modern `io - sock` stack.
 // - targetEnv = "nto71Iosock": QNX 7.1 with the optional new stack
 // - targetEnv = "nto80": QNX 8.0
-public class Timezone(public val handle: Long = -1L) {
+public class Timezone(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

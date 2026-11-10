@@ -515,7 +515,7 @@ public data class Sigevent(
     public var sigevValue: Sigval = Sigval(),
     public var sigevSigno: CInt = 0,
     public var sigevNotify: CInt = 0,
-    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback = SigeventSigevNotifyFunctionCallback { _ ->  },
+    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback = SigeventSigevNotifyFunctionCallback { _ -> },
     public var sigevNotifyAttributes: COpaquePointer? = null,
 )
 

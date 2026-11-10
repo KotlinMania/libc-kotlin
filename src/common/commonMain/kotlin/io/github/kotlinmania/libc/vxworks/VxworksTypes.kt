@@ -12,7 +12,9 @@ import io.github.kotlinmania.libc.CUshort
 
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
-public class DIR(public val handle: Long = -1L) {
+public class DIR(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
@@ -144,7 +146,9 @@ public typealias SaFamilyT = CUchar
 // mqueue.h
 public typealias MqdT = CInt
 
-public class VxSemaphore(public val handle: Long = -1L) {
+public class VxSemaphore(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
@@ -159,10 +163,14 @@ public enum class Nfsstat(public val value: UInt) {
     NFSERR_JUKEBOX(10008u),
 }
 
-public class FILE(public val handle: Long = -1L) {
+public class FILE(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class FposT(public val handle: Long = -1L) {
+public class FposT(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }

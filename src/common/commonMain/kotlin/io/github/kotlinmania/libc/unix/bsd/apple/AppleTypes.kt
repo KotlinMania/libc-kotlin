@@ -296,7 +296,9 @@ public typealias VolCapabilitiesSetT = UIntArray
 
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
 
-public class Timezone(public val handle: Long = -1L) {
+public class Timezone(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 

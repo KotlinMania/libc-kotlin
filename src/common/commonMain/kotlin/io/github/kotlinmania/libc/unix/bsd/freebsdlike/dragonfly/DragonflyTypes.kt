@@ -74,7 +74,9 @@ public typealias VmMapEntryT = COpaquePointer?
 
 public typealias Pmap = CAnonymousPmap
 
-public class Sem(public val handle: Long = -1L) {
+public class Sem(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 

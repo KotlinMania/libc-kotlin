@@ -33,16 +33,22 @@ public typealias UidT = CUshort
 
 public typealias GidT = CUshort
 
-public class DIR(public val handle: Long = -1L) {
+public class DIR(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
 public typealias LocaleT = COpaquePointer?
 
-public class FposT(public val handle: Long = -1L) {
+public class FposT(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
 
-public class FILE(public val handle: Long = -1L) {
+public class FILE(
+    public val handle: Long = -1L,
+) {
     public val ptr: Long get() = handle
 }
