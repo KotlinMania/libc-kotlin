@@ -16,4 +16,6 @@ class CallerApiTest {
     @Test fun callerSysconfReportsPageSize() = verifyCallerSysconf()
 
     @Test fun callerSocketpairCreatesPair() = verifyCallerSockets()
+
+    @Test fun hostAppleDarwinJniSyscallsWorkWhenOnDarwin() = verifyHostAppleDarwinIfPresent()
 }

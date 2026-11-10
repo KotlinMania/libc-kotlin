@@ -34,6 +34,11 @@ int64_t libc_unix_linuxlike_android_b32_timegm64(void* tm) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timegm64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timegm");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

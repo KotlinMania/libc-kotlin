@@ -31,4 +31,8 @@ class CallerApiTest {
     @Test fun callerSocketpairCreatesPair() {
         if (testIsBrowser()) assertFailsWith<UnsupportedOperationException> { verifyCallerSockets() } else verifyCallerSockets()
     }
+
+    @Test fun hostAppleDarwinNapiSyscallsWorkWhenOnDarwin() {
+        if (testIsBrowser()) assertFailsWith<UnsupportedOperationException> { verifyHostAppleDarwinIfPresent() } else verifyHostAppleDarwinIfPresent()
+    }
 }

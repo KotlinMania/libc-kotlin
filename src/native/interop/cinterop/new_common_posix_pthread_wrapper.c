@@ -379,7 +379,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierInit(void* barrier, void* at
         return km_fn_ptr(barrier, attr, count);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierWait(void* barrier) {
@@ -547,7 +547,7 @@ int32_t libc_new_common_posix_pthread_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCondattrGetclock(void* attr, void* clock_id) {

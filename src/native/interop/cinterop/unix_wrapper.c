@@ -6639,6 +6639,13 @@ void* libc_unix_openMemstream(void* ptr, void* sizeloc) {
 }
 
 int32_t libc_unix_atexit(void* cb) {
+    if (cb == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)cb);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6664,6 +6671,7 @@ int32_t libc_unix_atexit(void* cb) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 int32_t libc_unix_cfmakeraw(void* termios) {

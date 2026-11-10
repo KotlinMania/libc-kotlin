@@ -7207,6 +7207,13 @@ void* libc_unix_bsd_apple_iconvOpen(const char* tocode, const char* fromcode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7235,6 +7242,13 @@ uint64_t libc_unix_bsd_apple_iconv(void* cd, void* inbuf, void* inbytesleft, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7263,6 +7277,13 @@ int32_t libc_unix_bsd_apple_iconvClose(void* cd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_close");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

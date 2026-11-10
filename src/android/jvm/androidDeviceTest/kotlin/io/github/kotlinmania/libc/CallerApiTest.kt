@@ -29,4 +29,6 @@ class CallerApiTest {
         )
 
     @Test fun callerSocketpairCreatesPair() = verifyCallerSockets()
+
+    @Test fun bionicAarJniSyscallsMacrosAndAliasesWork() = verifyAndroidBionicFfi()
 }
