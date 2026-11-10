@@ -59,8 +59,10 @@ struct LibcExportTests {
     func testParityIoctl() {
         typealias NetBSDLike = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.netbsdlike
         typealias NetBSD = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-        #expect(NetBSD.ioc(inout: NetBSDLike.IOC_OUT, group: 0x66, num: 1, len: 4) == 0x40046601)
-        #expect(NetBSD.ioc(inout: NetBSDLike.IOC_INOUT, group: 0x66, num: 1, len: 16) == 0xc0106601)
+        let outIoc = NetBSD.ioc(`inout`: NetBSDLike.IOC_OUT, group: 0x66, num: 1, len: 4)
+        let inOutIoc = NetBSD.ioc(`inout`: NetBSDLike.IOC_INOUT, group: 0x66, num: 1, len: 16)
+        #expect(outIoc == 0x40046601)
+        #expect(inOutIoc == 0xc0106601)
     }
 
     @Test("Card Mach port matches the kernel through Swift export")
