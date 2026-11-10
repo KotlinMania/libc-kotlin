@@ -65,11 +65,11 @@ public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return 8 + length
+    return 8.toUInt() + length
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return 8 + length
+    return 8.toUInt() + length
 }
 
 public fun fdZero(set: FdSet?) {

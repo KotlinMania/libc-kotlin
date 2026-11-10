@@ -187,7 +187,7 @@ public fun minor(dev: DevT): CUint {
 }
 
 public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
-    return (((cmsg!!.cmsgLen).toULong() + 8uL - 1uL) and ((8uL - 1uL).inv()).toULong()).toLong()
+    return (((cmsg!!.cmsgLen).toULong() + 8uL - 1uL) and (8uL - 1uL).inv()).toLong()
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
