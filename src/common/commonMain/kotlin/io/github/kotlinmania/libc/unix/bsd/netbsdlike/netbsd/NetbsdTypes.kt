@@ -53,7 +53,9 @@ public typealias Elf64Xword = ULong
 
 public typealias IconvT = COpaquePointer?
 
-public enum class FaeAction(public val value: UInt) {
+public enum class FaeAction(
+    public val value: UInt,
+) {
     FAE_OPEN(0u),
     FAE_DUP2(1u),
     FAE_CLOSE(2u),

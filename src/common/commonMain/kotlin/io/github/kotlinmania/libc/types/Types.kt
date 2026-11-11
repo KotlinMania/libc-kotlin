@@ -48,6 +48,7 @@ internal class Padding<T>(
     public companion object {
         // Note: Change this into zeroed() and use MaybeUninit::zeroed()
         // when we depend on rustc 1.75.0.
+
         /**
          * Const constructor for uninitialized padding in const contexts.
          */

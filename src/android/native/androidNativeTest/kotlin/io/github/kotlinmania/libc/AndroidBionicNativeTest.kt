@@ -4,11 +4,11 @@ package io.github.kotlinmania.libc
 
 import io.github.kotlinmania.libc.unix.cinterop.libc_unix_atexit
 import io.github.kotlinmania.libc.unix.dlsym
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.toCPointer
 
 class AndroidBionicNativeTest {
     @Test

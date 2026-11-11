@@ -117,7 +117,9 @@ public typealias PosixSpawnFileActionsT = COpaquePointer?
 
 public typealias IconvT = COpaquePointer?
 
-public enum class UioRw(public val value: UInt) {
+public enum class UioRw(
+    public val value: UInt,
+) {
     UIO_READ(0u),
     UIO_WRITE(((0u) + 1u)),
     UIO_READ_NO_MOVE(((0u) + 2u)),
@@ -125,7 +127,9 @@ public enum class UioRw(public val value: UInt) {
     UIO_PWRITE(((0u) + 4u)),
 }
 
-public enum class Action(public val value: UInt) {
+public enum class Action(
+    public val value: UInt,
+) {
     FIND(0u),
     ENTER(((0u) + 1u)),
 }

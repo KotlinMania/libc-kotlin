@@ -11,391 +11,517 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_acquireSem
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_acquireSemEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_areaFor
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_clearCaches
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_cloneArea
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_closePort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createArea
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createPort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createSem
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_debugger
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deleteArea
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deletePort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deleteSem
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_devForPath
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_disableDebugger
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_estimateMaxSchedulingLatency
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_exitThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findArea
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findDirectory
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPath
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathForPath
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathForPathEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPaths
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathsEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseIndexDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseQuery
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCreateIndex
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsFopenAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsFopenAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsLopenAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsMountVolume
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenIndexDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenLiveQuery
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenQuery
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadIndexDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadQuery
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRemoveAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRemoveIndex
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRewindAttrDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRewindIndexDir
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatDev
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatIndex
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsUnmountVolume
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsWriteAttr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getAreaInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuInfoEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuTopologyInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuid
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getImageInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getImageSymbol
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextAreaInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextImageInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextPortInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextSemInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextTeamInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextThreadInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNthImageSymbol
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPathForDirent
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPortInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPortMessageInfoEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPthreadThreadId
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSchedulerMode
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSemCount
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSemInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSystemInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getTeamInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getTeamUsageInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getThreadInfo
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_hasData
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_isComputerOn
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_isComputerOnFire
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_killTeam
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_killThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_loadAddOn
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_loadImage
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_nextDev
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_onExitThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portBufferSize
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portBufferSizeEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portCount
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_readPort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_readPortEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_realTimeClock
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_realTimeClockUsecs
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_receiveData
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_releaseSem
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_releaseSemEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_renameThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_resizeArea
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_resumeThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_sendData
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_sendSignal
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setAlarm
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setAreaProtection
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setPortOwner
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setRealTimeClock
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSchedulerMode
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSemOwner
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSignalStack
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setThreadPriority
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snooze
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snoozeEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snoozeUntil
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_spawnThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_suggestThreadPriority
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_suspendThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_switchSem
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_switchSemEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_systemTime
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_systemTimeNsecs
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_unloadAddOn
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForObjects
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForObjectsEtc
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForThread
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_writePort
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_writePortEtc
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createArea(name, startAddress?.value?.toCPointer<ByteVar>(), addressSpec, size, lock, protection)
+    libc_unix_haiku_native_createArea(name, startAddress?.value?.toCPointer<ByteVar>(), addressSpec, size, lock, protection)
 
 public actual fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_cloneArea(name, destAddress?.value?.toCPointer<ByteVar>(), addressSpec, protection, source)
+    libc_unix_haiku_native_cloneArea(name, destAddress?.value?.toCPointer<ByteVar>(), addressSpec, protection, source)
 
 public actual fun findArea(name: String?): AreaId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findArea(name)
+    libc_unix_haiku_native_findArea(name)
 
 public actual fun areaFor(address: COpaquePointer?): AreaId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_areaFor(address?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_areaFor(address?.value?.toCPointer<ByteVar>())
 
 public actual fun deleteArea(id: AreaId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deleteArea(id)
+    libc_unix_haiku_native_deleteArea(id)
 
 public actual fun resizeArea(id: AreaId, newSize: ULong): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_resizeArea(id, newSize)
+    libc_unix_haiku_native_resizeArea(id, newSize)
 
 public actual fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setAreaProtection(id, newProtection)
+    libc_unix_haiku_native_setAreaProtection(id, newProtection)
 
 public actual fun getAreaInfo(id: AreaId, areaInfo: COpaquePointer?, size: ULong): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getAreaInfo(id, areaInfo?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getAreaInfo(id, areaInfo?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, areaInfo: COpaquePointer?, size: ULong): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextAreaInfo(team, cookie?.value?.toCPointer<ByteVar>(), areaInfo?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getNextAreaInfo(team, cookie?.value?.toCPointer<ByteVar>(), areaInfo?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun createPort(capacity: Int, name: String?): PortId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createPort(capacity, name)
+    libc_unix_haiku_native_createPort(capacity, name)
 
 public actual fun findPort(name: String?): PortId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPort(name)
+    libc_unix_haiku_native_findPort(name)
 
 public actual fun readPort(port: PortId, code: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_readPort(port, code?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_readPort(port, code?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun readPortEtc(port: PortId, code: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_readPortEtc(port, code?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize, flags, timeout)
+    libc_unix_haiku_native_readPortEtc(port, code?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize, flags, timeout)
 
 public actual fun writePort(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_writePort(port, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_writePort(port, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun writePortEtc(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_writePortEtc(port, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize, flags, timeout)
+    libc_unix_haiku_native_writePortEtc(port, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize, flags, timeout)
 
 public actual fun closePort(port: PortId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_closePort(port)
+    libc_unix_haiku_native_closePort(port)
 
 public actual fun deletePort(port: PortId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deletePort(port)
+    libc_unix_haiku_native_deletePort(port)
 
 public actual fun portBufferSize(port: PortId): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portBufferSize(port)
+    libc_unix_haiku_native_portBufferSize(port)
 
 public actual fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portBufferSizeEtc(port, flags, timeout)
+    libc_unix_haiku_native_portBufferSizeEtc(port, flags, timeout)
 
 public actual fun portCount(port: PortId): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_portCount(port)
+    libc_unix_haiku_native_portCount(port)
 
 public actual fun setPortOwner(port: PortId, team: TeamId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setPortOwner(port, team)
+    libc_unix_haiku_native_setPortOwner(port, team)
 
 public actual fun getPortInfo(port: PortId, buf: COpaquePointer?, portInfoSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPortInfo(port, buf?.value?.toCPointer<ByteVar>(), portInfoSize)
+    libc_unix_haiku_native_getPortInfo(port, buf?.value?.toCPointer<ByteVar>(), portInfoSize)
 
 public actual fun getNextPortInfo(port: PortId, cookie: COpaquePointer?, portInfo: COpaquePointer?, portInfoSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextPortInfo(port, cookie?.value?.toCPointer<ByteVar>(), portInfo?.value?.toCPointer<ByteVar>(), portInfoSize)
+    libc_unix_haiku_native_getNextPortInfo(port, cookie?.value?.toCPointer<ByteVar>(), portInfo?.value?.toCPointer<ByteVar>(), portInfoSize)
 
 public actual fun getPortMessageInfoEtc(port: PortId, info: COpaquePointer?, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPortMessageInfoEtc(port, info?.value?.toCPointer<ByteVar>(), infoSize, flags, timeout)
+    libc_unix_haiku_native_getPortMessageInfoEtc(port, info?.value?.toCPointer<ByteVar>(), infoSize, flags, timeout)
 
 public actual fun createSem(count: Int, name: String?): SemId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_createSem(count, name)
+    libc_unix_haiku_native_createSem(count, name)
 
 public actual fun deleteSem(id: SemId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_deleteSem(id)
+    libc_unix_haiku_native_deleteSem(id)
 
 public actual fun acquireSem(id: SemId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_acquireSem(id)
+    libc_unix_haiku_native_acquireSem(id)
 
 public actual fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_acquireSemEtc(id, count, flags, timeout)
+    libc_unix_haiku_native_acquireSemEtc(id, count, flags, timeout)
 
 public actual fun releaseSem(id: SemId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_releaseSem(id)
+    libc_unix_haiku_native_releaseSem(id)
 
 public actual fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_releaseSemEtc(id, count, flags)
+    libc_unix_haiku_native_releaseSemEtc(id, count, flags)
 
 public actual fun switchSem(semToBeReleased: SemId, id: SemId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_switchSem(semToBeReleased, id)
+    libc_unix_haiku_native_switchSem(semToBeReleased, id)
 
 public actual fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_switchSemEtc(semToBeReleased, id, count, flags, timeout)
+    libc_unix_haiku_native_switchSemEtc(semToBeReleased, id, count, flags, timeout)
 
 public actual fun getSemCount(id: SemId, threadCount: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSemCount(id, threadCount?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_getSemCount(id, threadCount?.value?.toCPointer<ByteVar>())
 
 public actual fun setSemOwner(id: SemId, team: TeamId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSemOwner(id, team)
+    libc_unix_haiku_native_setSemOwner(id, team)
 
 public actual fun getSemInfo(id: SemId, info: COpaquePointer?, infoSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSemInfo(id, info?.value?.toCPointer<ByteVar>(), infoSize)
+    libc_unix_haiku_native_getSemInfo(id, info?.value?.toCPointer<ByteVar>(), infoSize)
 
 public actual fun getNextSemInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?, infoSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextSemInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), infoSize)
+    libc_unix_haiku_native_getNextSemInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), infoSize)
 
 public actual fun killTeam(team: TeamId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_killTeam(team)
+    libc_unix_haiku_native_killTeam(team)
 
 public actual fun getTeamInfo(team: TeamId, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getTeamInfo(team, info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getTeamInfo(team, info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getNextTeamInfo(cookie: COpaquePointer?, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextTeamInfo(cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getNextTeamInfo(cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_spawnThread(0L.toCPointer<ByteVar>(), name, priority, data?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_spawnThread(0L.toCPointer<ByteVar>(), name, priority, data?.value?.toCPointer<ByteVar>())
 
 public actual fun killThread(thread: ThreadId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_killThread(thread)
+    libc_unix_haiku_native_killThread(thread)
 
 public actual fun resumeThread(thread: ThreadId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_resumeThread(thread)
+    libc_unix_haiku_native_resumeThread(thread)
 
 public actual fun suspendThread(thread: ThreadId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_suspendThread(thread)
+    libc_unix_haiku_native_suspendThread(thread)
 
 public actual fun renameThread(thread: ThreadId, newName: String?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_renameThread(thread, newName)
+    libc_unix_haiku_native_renameThread(thread, newName)
 
 public actual fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setThreadPriority(thread, newPriority)
+    libc_unix_haiku_native_setThreadPriority(thread, newPriority)
 
 public actual fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_suggestThreadPriority(what, period, jitter, length)
+    libc_unix_haiku_native_suggestThreadPriority(what, period, jitter, length)
 
 public actual fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_estimateMaxSchedulingLatency(th)
+    libc_unix_haiku_native_estimateMaxSchedulingLatency(th)
 
 public actual fun exitThread(status: StatusT) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_exitThread(status)
+    libc_unix_haiku_native_exitThread(status)
 }
 
 public actual fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForThread(thread, returnValue?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_waitForThread(thread, returnValue?.value?.toCPointer<ByteVar>())
 
 public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_onExitThread(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_onExitThread(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun findThread(name: String?): ThreadId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findThread(name)
+    libc_unix_haiku_native_findThread(name)
 
 public actual fun getSchedulerMode(): Int =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSchedulerMode()
+    libc_unix_haiku_native_getSchedulerMode()
 
 public actual fun setSchedulerMode(mode: Int): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSchedulerMode(mode)
+    libc_unix_haiku_native_setSchedulerMode(mode)
 
 public actual fun sendData(thread: ThreadId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_sendData(thread, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_sendData(thread, code, buffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun receiveData(sender: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT): Int =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_receiveData(sender?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_receiveData(sender?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun hasData(thread: ThreadId): Boolean =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_hasData(thread)
+    libc_unix_haiku_native_hasData(thread)
 
 public actual fun snooze(amount: BigtimeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snooze(amount)
+    libc_unix_haiku_native_snooze(amount)
 
 public actual fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snoozeEtc(amount, timeBase, flags)
+    libc_unix_haiku_native_snoozeEtc(amount, timeBase, flags)
 
 public actual fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_snoozeUntil(time, timeBase)
+    libc_unix_haiku_native_snoozeUntil(time, timeBase)
 
 public actual fun getThreadInfo(id: ThreadId, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getThreadInfo(id, info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getThreadInfo(id, info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getNextThreadInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextThreadInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getNextThreadInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getPthreadThreadId(thread: PthreadT): ThreadId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPthreadThreadId(thread.toLong().toCPointer<ByteVar>())
+    libc_unix_haiku_native_getPthreadThreadId(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getTeamUsageInfo(team, who, info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getTeamUsageInfo(team, who, info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun realTimeClock(): CUlong =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_realTimeClock()
+    libc_unix_haiku_native_realTimeClock()
 
 public actual fun setRealTimeClock(secsSinceJan1st1970: CUlong) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setRealTimeClock(secsSinceJan1st1970)
+    libc_unix_haiku_native_setRealTimeClock(secsSinceJan1st1970)
 }
 
 public actual fun realTimeClockUsecs(): BigtimeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_realTimeClockUsecs()
+    libc_unix_haiku_native_realTimeClockUsecs()
 
 public actual fun systemTime(): BigtimeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_systemTime()
+    libc_unix_haiku_native_systemTime()
 
 public actual fun systemTimeNsecs(): NanotimeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_systemTimeNsecs()
+    libc_unix_haiku_native_systemTimeNsecs()
 
 public actual fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setAlarm(whenBranch, flags)
+    libc_unix_haiku_native_setAlarm(whenBranch, flags)
 
 public actual fun debugger(message: String?) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_debugger(message)
+    libc_unix_haiku_native_debugger(message)
 }
 
 public actual fun disableDebugger(state: CInt): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_disableDebugger(state)
+    libc_unix_haiku_native_disableDebugger(state)
 
 public actual fun getSystemInfo(info: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getSystemInfo(info?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_getSystemInfo(info?.value?.toCPointer<ByteVar>())
 
 public actual fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuInfoEtc(firstCPU, cpuCount, info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getCpuInfoEtc(firstCPU, cpuCount, info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getCpuTopologyInfo(topologyInfos: COpaquePointer?, topologyInfoCount: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuTopologyInfo(topologyInfos?.value?.toCPointer<ByteVar>(), topologyInfoCount?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_getCpuTopologyInfo(topologyInfos?.value?.toCPointer<ByteVar>(), topologyInfoCount?.value?.toCPointer<ByteVar>())
 
 public actual fun isComputerOn(): Int =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_isComputerOn()
+    libc_unix_haiku_native_isComputerOn()
 
 public actual fun isComputerOnFire(): CDouble =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_isComputerOnFire()
+    libc_unix_haiku_native_isComputerOnFire()
 
 public actual fun sendSignal(threadID: ThreadId, signal: CUint): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_sendSignal(threadID, signal)
+    libc_unix_haiku_native_sendSignal(threadID, signal)
 
 public actual fun setSignalStack(base: COpaquePointer?, size: SizeT) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_setSignalStack(base?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_setSignalStack(base?.value?.toCPointer<ByteVar>(), size)
 }
 
 public actual fun waitForObjects(infos: COpaquePointer?, numInfos: CInt): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForObjects(infos?.value?.toCPointer<ByteVar>(), numInfos)
+    libc_unix_haiku_native_waitForObjects(infos?.value?.toCPointer<ByteVar>(), numInfos)
 
 public actual fun waitForObjectsEtc(infos: COpaquePointer?, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForObjectsEtc(infos?.value?.toCPointer<ByteVar>(), numInfos, flags, timeout)
+    libc_unix_haiku_native_waitForObjectsEtc(infos?.value?.toCPointer<ByteVar>(), numInfos, flags, timeout)
 
 public actual fun fsReadAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, readBytes: SizeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadAttr(fd, attribute, type, pos, buffer?.value?.toCPointer<ByteVar>(), readBytes)
+    libc_unix_haiku_native_fsReadAttr(fd, attribute, type, pos, buffer?.value?.toCPointer<ByteVar>(), readBytes)
 
 public actual fun fsWriteAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, writeBytes: SizeT): SsizeT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsWriteAttr(fd, attribute, type, pos, buffer?.value?.toCPointer<ByteVar>(), writeBytes)
+    libc_unix_haiku_native_fsWriteAttr(fd, attribute, type, pos, buffer?.value?.toCPointer<ByteVar>(), writeBytes)
 
 public actual fun fsRemoveAttr(fd: CInt, attribute: String?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRemoveAttr(fd, attribute)
+    libc_unix_haiku_native_fsRemoveAttr(fd, attribute)
 
 public actual fun fsStatAttr(fd: CInt, attribute: String?, attrInfo: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatAttr(fd, attribute, attrInfo?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsStatAttr(fd, attribute, attrInfo?.value?.toCPointer<ByteVar>())
 
 public actual fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: CInt): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenAttr(path, attribute, type, openMode)
+    libc_unix_haiku_native_fsOpenAttr(path, attribute, type, openMode)
 
 public actual fun fsFopenAttr(fd: CInt, attribute: String?, type: UInt, openMode: CInt): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsFopenAttr(fd, attribute, type, openMode)
+    libc_unix_haiku_native_fsFopenAttr(fd, attribute, type, openMode)
 
 public actual fun fsCloseAttr(fd: CInt): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseAttr(fd)
+    libc_unix_haiku_native_fsCloseAttr(fd)
 
 public actual fun fsOpenAttrDir(path: String?): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenAttrDir(path)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsOpenAttrDir(path)?.let { DIR(it.toLong()) }
 
 public actual fun fsLopenAttrDir(path: String?): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsLopenAttrDir(path)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsLopenAttrDir(path)?.let { DIR(it.toLong()) }
 
 public actual fun fsFopenAttrDir(fd: CInt): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsFopenAttrDir(fd)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsFopenAttrDir(fd)?.let { DIR(it.toLong()) }
 
 public actual fun fsCloseAttrDir(dir: DIR?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseAttrDir(dir?.handle?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsCloseAttrDir(dir?.handle?.toCPointer<ByteVar>())
 
 public actual fun fsReadAttrDir(dir: DIR?): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadAttrDir(dir?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    libc_unix_haiku_native_fsReadAttrDir(dir?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fsRewindAttrDir(dir: DIR?) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRewindAttrDir(dir?.handle?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsRewindAttrDir(dir?.handle?.toCPointer<ByteVar>())
 }
 
 public actual fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCreateIndex(device, name, type, flags)
+    libc_unix_haiku_native_fsCreateIndex(device, name, type, flags)
 
 public actual fun fsRemoveIndex(device: DevT, name: String?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRemoveIndex(device, name)
+    libc_unix_haiku_native_fsRemoveIndex(device, name)
 
 public actual fun fsStatIndex(device: DevT, name: String?, indexInfo: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatIndex(device, name, indexInfo?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsStatIndex(device, name, indexInfo?.value?.toCPointer<ByteVar>())
 
 public actual fun fsOpenIndexDir(device: DevT): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenIndexDir(device)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsOpenIndexDir(device)?.let { DIR(it.toLong()) }
 
 public actual fun fsCloseIndexDir(indexDirectory: DIR?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsCloseIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())
 
 public actual fun fsReadIndexDir(indexDirectory: DIR?): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    libc_unix_haiku_native_fsReadIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fsRewindIndexDir(indexDirectory: DIR?) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsRewindIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsRewindIndexDir(indexDirectory?.handle?.toCPointer<ByteVar>())
 }
 
 public actual fun devForPath(path: String?): DevT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_devForPath(path)
+    libc_unix_haiku_native_devForPath(path)
 
 public actual fun nextDev(pos: COpaquePointer?): DevT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_nextDev(pos?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_nextDev(pos?.value?.toCPointer<ByteVar>())
 
 public actual fun fsStatDev(dev: DevT, info: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsStatDev(dev, info?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsStatDev(dev, info?.value?.toCPointer<ByteVar>())
 
 public actual fun fsOpenQuery(device: DevT, query: String?, flags: UInt): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenQuery(device, query, flags)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsOpenQuery(device, query, flags)?.let { DIR(it.toLong()) }
 
 public actual fun fsOpenLiveQuery(device: DevT, query: String?, flags: UInt, port: PortId, token: Int): DIR? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsOpenLiveQuery(device, query, flags, port, token)?.let { DIR(it.toLong()) }
+    libc_unix_haiku_native_fsOpenLiveQuery(device, query, flags, port, token)?.let { DIR(it.toLong()) }
 
 public actual fun fsCloseQuery(d: DIR?): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsCloseQuery(d?.handle?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_fsCloseQuery(d?.handle?.toCPointer<ByteVar>())
 
 public actual fun fsReadQuery(d: DIR?): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsReadQuery(d?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    libc_unix_haiku_native_fsReadQuery(d?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getPathForDirent(dent: COpaquePointer?, buf: COpaquePointer?, len: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getPathForDirent(dent?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), len)
+    libc_unix_haiku_native_getPathForDirent(dent?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), len)
 
 public actual fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsMountVolume(where, device, filesystem, flags, parameters)
+    libc_unix_haiku_native_fsMountVolume(where, device, filesystem, flags, parameters)
 
 public actual fun fsUnmountVolume(path: String?, flags: UInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_fsUnmountVolume(path, flags)
+    libc_unix_haiku_native_fsUnmountVolume(path, flags)
 
 public actual fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_loadImage(argc, argv?.value?.toCPointer<ByteVar>(), environ?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_loadImage(argc, argv?.value?.toCPointer<ByteVar>(), environ?.value?.toCPointer<ByteVar>())
 
 public actual fun loadAddOn(path: String?): ImageId =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_loadAddOn(path)
+    libc_unix_haiku_native_loadAddOn(path)
 
 public actual fun unloadAddOn(image: ImageId): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_unloadAddOn(image)
+    libc_unix_haiku_native_unloadAddOn(image)
 
 public actual fun getImageSymbol(image: ImageId, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getImageSymbol(image, name, symbolType, symbolLocation?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_getImageSymbol(image, name, symbolType, symbolLocation?.value?.toCPointer<ByteVar>())
 
 public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: COpaquePointer?, nameLength: COpaquePointer?, symbolType: COpaquePointer?, symbolLocation: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNthImageSymbol(image, n, nameBuffer?.value?.toCPointer<ByteVar>(), nameLength?.value?.toCPointer<ByteVar>(), symbolType?.value?.toCPointer<ByteVar>(), symbolLocation?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_getNthImageSymbol(image, n, nameBuffer?.value?.toCPointer<ByteVar>(), nameLength?.value?.toCPointer<ByteVar>(), symbolType?.value?.toCPointer<ByteVar>(), symbolLocation?.value?.toCPointer<ByteVar>())
 
 public actual fun clearCaches(address: COpaquePointer?, length: SizeT, flags: UInt) {
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_clearCaches(address?.value?.toCPointer<ByteVar>(), length, flags)
+    libc_unix_haiku_native_clearCaches(address?.value?.toCPointer<ByteVar>(), length, flags)
 }
 
 public actual fun getImageInfo(image: ImageId, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getImageInfo(image, info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getImageInfo(image, info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun getNextImageInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?, size: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getNextImageInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
+    libc_unix_haiku_native_getNextImageInfo(team, cookie?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun findPath(codePointer: COpaquePointer?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: COpaquePointer?, bufferSize: ULong): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPath(codePointer?.value?.toCPointer<ByteVar>(), baseDirectory, subPath, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_findPath(codePointer?.value?.toCPointer<ByteVar>(), baseDirectory, subPath, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathEtc(codePointer?.value?.toCPointer<ByteVar>(), dependency, architecture, baseDirectory, subPath, flags, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_findPathEtc(codePointer?.value?.toCPointer<ByteVar>(), dependency, architecture, baseDirectory, subPath, flags, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun findPathForPath(path: String?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathForPath(path, baseDirectory, subPath, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_findPathForPath(path, baseDirectory, subPath, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathForPathEtc(path, dependency, architecture, baseDirectory, subPath, flags, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
+    libc_unix_haiku_native_findPathForPathEtc(path, dependency, architecture, baseDirectory, subPath, flags, pathBuffer?.value?.toCPointer<ByteVar>(), bufferSize)
 
 public actual fun findPaths(baseDirectory: PathBaseDirectory, subPath: String?, paths: COpaquePointer?, pathCount: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPaths(baseDirectory, subPath, paths?.value?.toCPointer<ByteVar>(), pathCount?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_findPaths(baseDirectory, subPath, paths?.value?.toCPointer<ByteVar>(), pathCount?.value?.toCPointer<ByteVar>())
 
 public actual fun findPathsEtc(architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: COpaquePointer?): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findPathsEtc(architecture, baseDirectory, subPath, flags, paths?.value?.toCPointer<ByteVar>(), pathCount?.value?.toCPointer<ByteVar>())
+    libc_unix_haiku_native_findPathsEtc(architecture, baseDirectory, subPath, flags, paths?.value?.toCPointer<ByteVar>(), pathCount?.value?.toCPointer<ByteVar>())
 
 public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: COpaquePointer?, length: Int): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_findDirectory(which, volume, createIt, pathString?.value?.toCPointer<ByteVar>(), length)
+    libc_unix_haiku_native_findDirectory(which, volume, createIt, pathString?.value?.toCPointer<ByteVar>(), length)
 
 public actual fun getCpuid(info: COpaquePointer?, eaxRegister: UInt, cpuNum: UInt): StatusT =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_getCpuid(info?.value?.toCPointer<ByteVar>(), eaxRegister, cpuNum)
+    libc_unix_haiku_native_getCpuid(info?.value?.toCPointer<ByteVar>(), eaxRegister, cpuNum)

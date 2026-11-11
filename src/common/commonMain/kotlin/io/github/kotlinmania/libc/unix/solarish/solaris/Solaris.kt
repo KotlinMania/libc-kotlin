@@ -41,7 +41,9 @@ public typealias DoorIdT = CUlonglong
 
 public typealias LgrpAffinityT = CUint
 
-public enum class LgrpRsrcT(public val value: UInt) {
+public enum class LgrpRsrcT(
+    public val value: UInt,
+) {
     LGRP_RSRC_CPU(0u),
     LGRP_RSRC_MEM(1u),
     LGRP_RSRC_TYPES(2u),

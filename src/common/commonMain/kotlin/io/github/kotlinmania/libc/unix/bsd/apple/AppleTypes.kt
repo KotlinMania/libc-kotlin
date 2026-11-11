@@ -302,7 +302,9 @@ public class Timezone(
     public val ptr: Long get() = handle
 }
 
-public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
+public enum class SysdirSearchPathDirectoryT(
+    public val value: UInt,
+) {
     SYSDIR_DIRECTORY_APPLICATION(1u),
     SYSDIR_DIRECTORY_DEMO_APPLICATION(2u),
     SYSDIR_DIRECTORY_DEVELOPER_APPLICATION(3u),
@@ -329,7 +331,9 @@ public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
     SYSDIR_DIRECTORY_ALL_LIBRARIES(101u),
 }
 
-public enum class SysdirSearchPathDomainMaskT(public val value: UInt) {
+public enum class SysdirSearchPathDomainMaskT(
+    public val value: UInt,
+) {
     SYSDIR_DOMAIN_MASK_USER((1u shl 0)),
     SYSDIR_DOMAIN_MASK_LOCAL((1u shl 1)),
     SYSDIR_DOMAIN_MASK_NETWORK((1u shl 2)),

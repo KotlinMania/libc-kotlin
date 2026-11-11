@@ -64,7 +64,9 @@ public typealias EventfdT = ULong
 // LFS64 extensions
 //
 // * musl has 64-bit versions only so aliases the LFS64 symbols to the standard ones
-public enum class TpacketVersions(public val value: UInt) {
+public enum class TpacketVersions(
+    public val value: UInt,
+) {
     TPACKET_V1(0u),
     TPACKET_V2(1u),
     TPACKET_V3(2u),

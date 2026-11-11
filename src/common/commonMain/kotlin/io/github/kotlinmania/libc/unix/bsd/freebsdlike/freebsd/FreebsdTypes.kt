@@ -82,35 +82,45 @@ public typealias SctpAssocT = UInt
 
 public typealias EventfdT = ULong
 
-public enum class DevstatSupportFlags(public val value: UInt) {
+public enum class DevstatSupportFlags(
+    public val value: UInt,
+) {
     DEVSTAT_ALL_SUPPORTED(0x00u),
     DEVSTAT_NO_BLOCKSIZE(0x01u),
     DEVSTAT_NO_ORDERED_TAGS(0x02u),
     DEVSTAT_BS_UNAVAILABLE(0x04u),
 }
 
-public enum class DevstatTransFlags(public val value: UInt) {
+public enum class DevstatTransFlags(
+    public val value: UInt,
+) {
     DEVSTAT_NO_DATA(0x00u),
     DEVSTAT_READ(0x01u),
     DEVSTAT_WRITE(0x02u),
     DEVSTAT_FREE(0x03u),
 }
 
-public enum class DevstatTagType(public val value: UInt) {
+public enum class DevstatTagType(
+    public val value: UInt,
+) {
     DEVSTAT_TAG_SIMPLE(0x00u),
     DEVSTAT_TAG_HEAD(0x01u),
     DEVSTAT_TAG_ORDERED(0x02u),
     DEVSTAT_TAG_NONE(0x03u),
 }
 
-public enum class DevstatMatchFlags(public val value: UInt) {
+public enum class DevstatMatchFlags(
+    public val value: UInt,
+) {
     DEVSTAT_MATCH_NONE(0x00u),
     DEVSTAT_MATCH_TYPE(0x01u),
     DEVSTAT_MATCH_IF(0x02u),
     DEVSTAT_MATCH_PASS(0x04u),
 }
 
-public enum class DevstatPriority(public val value: UInt) {
+public enum class DevstatPriority(
+    public val value: UInt,
+) {
     DEVSTAT_PRIORITY_MIN(0x000u),
     DEVSTAT_PRIORITY_OTHER(0x020u),
     DEVSTAT_PRIORITY_PASS(0x030u),
@@ -123,7 +133,9 @@ public enum class DevstatPriority(public val value: UInt) {
     DEVSTAT_PRIORITY_MAX(0xfffu),
 }
 
-public enum class DevstatTypeFlags(public val value: UInt) {
+public enum class DevstatTypeFlags(
+    public val value: UInt,
+) {
     DEVSTAT_TYPE_DIRECT(0x000u),
     DEVSTAT_TYPE_SEQUENTIAL(0x001u),
     DEVSTAT_TYPE_PRINTER(0x002u),
@@ -147,7 +159,9 @@ public enum class DevstatTypeFlags(public val value: UInt) {
     DEVSTAT_TYPE_PASS(0x100u),
 }
 
-public enum class DevstatMetric(public val value: UInt) {
+public enum class DevstatMetric(
+    public val value: UInt,
+) {
     DSM_NONE(0u),
     DSM_TOTAL_BYTES(1u),
     DSM_TOTAL_BYTES_READ(2u),
@@ -196,14 +210,18 @@ public enum class DevstatMetric(public val value: UInt) {
     DSM_MAX(45u),
 }
 
-public enum class DevstatSelectMode(public val value: UInt) {
+public enum class DevstatSelectMode(
+    public val value: UInt,
+) {
     DS_SELECT_ADD(0u),
     DS_SELECT_ONLY(1u),
     DS_SELECT_REMOVE(2u),
     DS_SELECT_ADDONLY(3u),
 }
 
-public enum class Dot3Vendors(public val value: UInt) {
+public enum class Dot3Vendors(
+    public val value: UInt,
+) {
     Dot3VendorAmd(1u),
     Dot3VendorIntel(2u),
     Dot3VendorNational(4u),

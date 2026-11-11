@@ -184,28 +184,38 @@ public typealias HttpPasswordCB = HttpPasswordCBFn?
 
 public typealias SocklenT = UInt
 
-public enum class AudioFormat(public val value: UInt) {
+public enum class AudioFormat(
+    public val value: UInt,
+) {
     Stereo(0u),
     Mono(0x10u),
 }
 
-public enum class DisplayMode(public val value: UInt) {
+public enum class DisplayMode(
+    public val value: UInt,
+) {
     Lcd(0u),
 }
 
-public enum class DisplayPixelFormat(public val value: UInt) {
+public enum class DisplayPixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
     Psm8888(3u),
 }
 
-public enum class DisplaySetBufSync(public val value: UInt) {
+public enum class DisplaySetBufSync(
+    public val value: UInt,
+) {
     Immediate(0u),
     NextFrame(1u),
 }
 
-public enum class AudioOutputFrequency(public val value: Int) {
+public enum class AudioOutputFrequency(
+    public val value: Int,
+) {
     Khz48(48000),
     Khz441(44100),
     Khz32(32000),
@@ -217,18 +227,24 @@ public enum class AudioOutputFrequency(public val value: Int) {
     Khz8(8000),
 }
 
-public enum class AudioInputFrequency(public val value: Int) {
+public enum class AudioInputFrequency(
+    public val value: Int,
+) {
     Khz441(44100),
     Khz2205(22050),
     Khz11025(11025),
 }
 
-public enum class CtrlMode(public val value: UInt) {
+public enum class CtrlMode(
+    public val value: UInt,
+) {
     Digital(0u),
     Analog(((0u) + 1u)),
 }
 
-public enum class GeMatrixType(public val value: Int) {
+public enum class GeMatrixType(
+    public val value: Int,
+) {
     Bone0(0),
     Bone1(((0) + 1)),
     Bone2(((0) + 2)),
@@ -243,7 +259,9 @@ public enum class GeMatrixType(public val value: Int) {
     TexGen(((0) + 11)),
 }
 
-public enum class GeListState(public val value: Int) {
+public enum class GeListState(
+    public val value: Int,
+) {
     Done(0),
     Queued(((0) + 1)),
     DrawingDone(((0) + 2)),
@@ -251,7 +269,9 @@ public enum class GeListState(public val value: Int) {
     CancelDone(((0) + 4)),
 }
 
-public enum class GeCommand(public val value: UByte) {
+public enum class GeCommand(
+    public val value: UByte,
+) {
     Nop(0u),
     Vaddr(0x1u),
     Iaddr(0x2u),
@@ -510,7 +530,9 @@ public enum class GeCommand(public val value: UByte) {
     NopFF(0xffu),
 }
 
-public enum class SceSysMemPartitionId(public val value: Int) {
+public enum class SceSysMemPartitionId(
+    public val value: Int,
+) {
     SceKernelUnknownPartition(0),
     SceKernelPrimaryKernelPartition(1),
     SceKernelPrimaryUserPartition(2),
@@ -526,13 +548,17 @@ public enum class SceSysMemPartitionId(public val value: Int) {
     SceKernelExtendedKernelPartition(12),
 }
 
-public enum class SceSysMemBlockTypes(public val value: Int) {
+public enum class SceSysMemBlockTypes(
+    public val value: Int,
+) {
     Low(0),
     High(((0) + 1)),
     Addr(((0) + 2)),
 }
 
-public enum class Interrupt(public val value: UInt) {
+public enum class Interrupt(
+    public val value: UInt,
+) {
     Gpio(4u),
     Ata(5u),
     Umd(6u),
@@ -561,7 +587,9 @@ public enum class Interrupt(public val value: UInt) {
     InterruptVariant(66u),
 }
 
-public enum class SubInterrupt(public val value: UInt) {
+public enum class SubInterrupt(
+    public val value: UInt,
+) {
     Gpio(Interrupt.Gpio.value),
     Ata(Interrupt.Ata.value),
     Umd(Interrupt.Umd.value),
@@ -570,7 +598,9 @@ public enum class SubInterrupt(public val value: UInt) {
     Display(Interrupt.Vblank.value),
 }
 
-public enum class SceKernelIdListType(public val value: UInt) {
+public enum class SceKernelIdListType(
+    public val value: UInt,
+) {
     Thread(1u),
     Semaphore(2u),
     EventFlag(3u),
@@ -588,7 +618,9 @@ public enum class SceKernelIdListType(public val value: UInt) {
     DormantThread(67u),
 }
 
-public enum class UsbCamResolution(public val value: Int) {
+public enum class UsbCamResolution(
+    public val value: Int,
+) {
     Px160120(0),
     Px176144(1),
     Px320240(2),
@@ -600,7 +632,9 @@ public enum class UsbCamResolution(public val value: Int) {
     Px360272(8),
 }
 
-public enum class UsbCamResolutionEx(public val value: Int) {
+public enum class UsbCamResolutionEx(
+    public val value: Int,
+) {
     Px160120(0),
     Px176144(1),
     Px320240(2),
@@ -612,14 +646,18 @@ public enum class UsbCamResolutionEx(public val value: Int) {
     Px1280960(8),
 }
 
-public enum class UsbCamDelay(public val value: Int) {
+public enum class UsbCamDelay(
+    public val value: Int,
+) {
     NoDelay(0),
     Delay10Sec(1),
     Delay20Sec(2),
     Delay30Sec(3),
 }
 
-public enum class UsbCamFrameRate(public val value: Int) {
+public enum class UsbCamFrameRate(
+    public val value: Int,
+) {
     Fps375(0),
     Fps5(1),
     Fps75(2),
@@ -630,14 +668,18 @@ public enum class UsbCamFrameRate(public val value: Int) {
     Fps60(7),
 }
 
-public enum class UsbCamWb(public val value: Int) {
+public enum class UsbCamWb(
+    public val value: Int,
+) {
     Auto(0),
     Daylight(1),
     Fluorescent(2),
     Incadescent(3),
 }
 
-public enum class UsbCamEffectMode(public val value: Int) {
+public enum class UsbCamEffectMode(
+    public val value: Int,
+) {
     Normal(0),
     Negative(1),
     Blackwhite(2),
@@ -647,7 +689,9 @@ public enum class UsbCamEffectMode(public val value: Int) {
     Green(6),
 }
 
-public enum class UsbCamEvLevel(public val value: Int) {
+public enum class UsbCamEvLevel(
+    public val value: Int,
+) {
     Pos20(0),
     Pos17(1),
     Pos15(2),
@@ -667,7 +711,9 @@ public enum class UsbCamEvLevel(public val value: Int) {
     Neg20(((8) + 8)),
 }
 
-public enum class RtcCheckValidError(public val value: Int) {
+public enum class RtcCheckValidError(
+    public val value: Int,
+) {
     InvalidYear(-1),
     InvalidMonth(-2),
     InvalidDay(-3),
@@ -677,30 +723,40 @@ public enum class RtcCheckValidError(public val value: Int) {
     InvalidMicroseconds(-7),
 }
 
-public enum class PowerTick(public val value: UInt) {
+public enum class PowerTick(
+    public val value: UInt,
+) {
     All(0u),
     Suspend(1u),
     Display(6u),
 }
 
-public enum class IoAssignPerms(public val value: UInt) {
+public enum class IoAssignPerms(
+    public val value: UInt,
+) {
     RdWr(0u),
     RdOnly(1u),
 }
 
-public enum class IoWhence(public val value: UInt) {
+public enum class IoWhence(
+    public val value: UInt,
+) {
     Set(0u),
     Cur(1u),
     End(2u),
 }
 
-public enum class UmdType(public val value: UInt) {
+public enum class UmdType(
+    public val value: UInt,
+) {
     Game(0x10u),
     Video(0x20u),
     Audio(0x40u),
 }
 
-public enum class GuPrimitive(public val value: UInt) {
+public enum class GuPrimitive(
+    public val value: UInt,
+) {
     Points(0u),
     Lines(1u),
     LineStrip(2u),
@@ -710,13 +766,17 @@ public enum class GuPrimitive(public val value: UInt) {
     Sprites(6u),
 }
 
-public enum class PatchPrimitive(public val value: UInt) {
+public enum class PatchPrimitive(
+    public val value: UInt,
+) {
     Points(0u),
     LineStrip(2u),
     TriangleStrip(4u),
 }
 
-public enum class GuState(public val value: UInt) {
+public enum class GuState(
+    public val value: UInt,
+) {
     AlphaTest(0u),
     DepthTest(1u),
     ScissorTest(2u),
@@ -741,14 +801,18 @@ public enum class GuState(public val value: UInt) {
     Fragment2X(21u),
 }
 
-public enum class MatrixMode(public val value: UInt) {
+public enum class MatrixMode(
+    public val value: UInt,
+) {
     Projection(0u),
     View(1u),
     Model(2u),
     Texture(3u),
 }
 
-public enum class TexturePixelFormat(public val value: UInt) {
+public enum class TexturePixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
@@ -762,19 +826,25 @@ public enum class TexturePixelFormat(public val value: UInt) {
     PsmDxt5(10u),
 }
 
-public enum class SplineMode(public val value: UInt) {
+public enum class SplineMode(
+    public val value: UInt,
+) {
     FillFill(0u),
     OpenFill(1u),
     FillOpen(2u),
     OpenOpen(3u),
 }
 
-public enum class ShadingModel(public val value: UInt) {
+public enum class ShadingModel(
+    public val value: UInt,
+) {
     Flat(0u),
     Smooth(1u),
 }
 
-public enum class LogicalOperation(public val value: UInt) {
+public enum class LogicalOperation(
+    public val value: UInt,
+) {
     Clear(0u),
     And(1u),
     AndReverse(2u),
@@ -793,7 +863,9 @@ public enum class LogicalOperation(public val value: UInt) {
     Set(15u),
 }
 
-public enum class TextureFilter(public val value: UInt) {
+public enum class TextureFilter(
+    public val value: UInt,
+) {
     Nearest(0u),
     Linear(1u),
     NearestMipmapNearest(4u),
@@ -802,36 +874,48 @@ public enum class TextureFilter(public val value: UInt) {
     LinearMipmapLinear(7u),
 }
 
-public enum class TextureMapMode(public val value: UInt) {
+public enum class TextureMapMode(
+    public val value: UInt,
+) {
     TextureCoords(0u),
     TextureMatrix(1u),
     EnvironmentMap(2u),
 }
 
-public enum class TextureLevelMode(public val value: UInt) {
+public enum class TextureLevelMode(
+    public val value: UInt,
+) {
     Auto(0u),
     Const(1u),
     Slope(2u),
 }
 
-public enum class TextureProjectionMapMode(public val value: UInt) {
+public enum class TextureProjectionMapMode(
+    public val value: UInt,
+) {
     Position(0u),
     Uv(1u),
     NormalizedNormal(2u),
     Normal(3u),
 }
 
-public enum class GuTexWrapMode(public val value: UInt) {
+public enum class GuTexWrapMode(
+    public val value: UInt,
+) {
     Repeat(0u),
     Clamp(1u),
 }
 
-public enum class FrontFaceDirection(public val value: UInt) {
+public enum class FrontFaceDirection(
+    public val value: UInt,
+) {
     Clockwise(0u),
     CounterClockwise(1u),
 }
 
-public enum class AlphaFunc(public val value: UInt) {
+public enum class AlphaFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(((0u) + 1u)),
     Equal(((0u) + 2u)),
@@ -842,7 +926,9 @@ public enum class AlphaFunc(public val value: UInt) {
     GreaterOrEqual(((0u) + 7u)),
 }
 
-public enum class StencilFunc(public val value: UInt) {
+public enum class StencilFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(((0u) + 1u)),
     Equal(((0u) + 2u)),
@@ -853,14 +939,18 @@ public enum class StencilFunc(public val value: UInt) {
     GreaterOrEqual(((0u) + 7u)),
 }
 
-public enum class ColorFunc(public val value: UInt) {
+public enum class ColorFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(((0u) + 1u)),
     Equal(((0u) + 2u)),
     NotEqual(((0u) + 3u)),
 }
 
-public enum class DepthFunc(public val value: UInt) {
+public enum class DepthFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(((0u) + 1u)),
     Equal(((0u) + 2u)),
@@ -871,7 +961,9 @@ public enum class DepthFunc(public val value: UInt) {
     GreaterOrEqual(((0u) + 7u)),
 }
 
-public enum class TextureEffect(public val value: UInt) {
+public enum class TextureEffect(
+    public val value: UInt,
+) {
     Modulate(0u),
     Decal(1u),
     Blend(2u),
@@ -879,12 +971,16 @@ public enum class TextureEffect(public val value: UInt) {
     Add(4u),
 }
 
-public enum class TextureColorComponent(public val value: UInt) {
+public enum class TextureColorComponent(
+    public val value: UInt,
+) {
     Rgb(0u),
     Rgba(1u),
 }
 
-public enum class MipmapLevel(public val value: UInt) {
+public enum class MipmapLevel(
+    public val value: UInt,
+) {
     None(0u),
     Level1(((0u) + 1u)),
     Level2(((0u) + 2u)),
@@ -895,7 +991,9 @@ public enum class MipmapLevel(public val value: UInt) {
     Level7(((0u) + 7u)),
 }
 
-public enum class BlendOp(public val value: UInt) {
+public enum class BlendOp(
+    public val value: UInt,
+) {
     Add(0u),
     Subtract(1u),
     ReverseSubtract(2u),
@@ -904,7 +1002,9 @@ public enum class BlendOp(public val value: UInt) {
     Abs(5u),
 }
 
-public enum class BlendSrc(public val value: UInt) {
+public enum class BlendSrc(
+    public val value: UInt,
+) {
     SrcColor(0u),
     OneMinusSrcColor(1u),
     SrcAlpha(2u),
@@ -912,7 +1012,9 @@ public enum class BlendSrc(public val value: UInt) {
     Fix(10u),
 }
 
-public enum class BlendDst(public val value: UInt) {
+public enum class BlendDst(
+    public val value: UInt,
+) {
     DstColor(0u),
     OneMinusDstColor(1u),
     DstAlpha(4u),
@@ -920,7 +1022,9 @@ public enum class BlendDst(public val value: UInt) {
     Fix(10u),
 }
 
-public enum class StencilOperation(public val value: UInt) {
+public enum class StencilOperation(
+    public val value: UInt,
+) {
     Keep(0u),
     Zero(1u),
     Replace(2u),
@@ -929,29 +1033,39 @@ public enum class StencilOperation(public val value: UInt) {
     Decr(5u),
 }
 
-public enum class LightMode(public val value: UInt) {
+public enum class LightMode(
+    public val value: UInt,
+) {
     SingleColor(0u),
     SeparateSpecularColor(1u),
 }
 
-public enum class LightType(public val value: UInt) {
+public enum class LightType(
+    public val value: UInt,
+) {
     Directional(0u),
     Pointlight(1u),
     Spotlight(2u),
 }
 
-public enum class GuContextType(public val value: UInt) {
+public enum class GuContextType(
+    public val value: UInt,
+) {
     Direct(0u),
     Call(1u),
     Send(2u),
 }
 
-public enum class GuQueueMode(public val value: UInt) {
+public enum class GuQueueMode(
+    public val value: UInt,
+) {
     Tail(0u),
     Head(1u),
 }
 
-public enum class GuSyncMode(public val value: UInt) {
+public enum class GuSyncMode(
+    public val value: UInt,
+) {
     Finish(0u),
     Signal(1u),
     Done(2u),
@@ -959,53 +1073,71 @@ public enum class GuSyncMode(public val value: UInt) {
     Send(4u),
 }
 
-public enum class GuSyncBehavior(public val value: UInt) {
+public enum class GuSyncBehavior(
+    public val value: UInt,
+) {
     Wait(0u),
     NoWait(1u),
 }
 
-public enum class GuCallbackId(public val value: UInt) {
+public enum class GuCallbackId(
+    public val value: UInt,
+) {
     Signal(1u),
     Finish(4u),
 }
 
-public enum class SignalBehavior(public val value: UInt) {
+public enum class SignalBehavior(
+    public val value: UInt,
+) {
     Suspend(1u),
     Continue(2u),
 }
 
-public enum class ClutPixelFormat(public val value: UInt) {
+public enum class ClutPixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
     Psm8888(3u),
 }
 
-public enum class KeyType(public val value: UInt) {
+public enum class KeyType(
+    public val value: UInt,
+) {
     Directory(1u),
     Integer(2u),
     String(3u),
     Bytes(4u),
 }
 
-public enum class UtilityMsgDialogMode(public val value: UInt) {
+public enum class UtilityMsgDialogMode(
+    public val value: UInt,
+) {
     Error(0u),
     Text(1u),
 }
 
-public enum class UtilityMsgDialogPressed(public val value: UInt) {
+public enum class UtilityMsgDialogPressed(
+    public val value: UInt,
+) {
     Unknown1(0u),
     Yes(1u),
     No(2u),
     Back(3u),
 }
 
-public enum class UtilityDialogButtonAccept(public val value: UInt) {
+public enum class UtilityDialogButtonAccept(
+    public val value: UInt,
+) {
     Circle(0u),
     Cross(1u),
 }
 
-public enum class SceUtilityOskInputLanguage(public val value: UInt) {
+public enum class SceUtilityOskInputLanguage(
+    public val value: UInt,
+) {
     Default(0u),
     Japanese(1u),
     English(2u),
@@ -1019,7 +1151,9 @@ public enum class SceUtilityOskInputLanguage(public val value: UInt) {
     Korean(10u),
 }
 
-public enum class SceUtilityOskInputType(public val value: UInt) {
+public enum class SceUtilityOskInputType(
+    public val value: UInt,
+) {
     All(0u),
     LatinDigit(1u),
     LatinSymbol(2u),
@@ -1039,7 +1173,9 @@ public enum class SceUtilityOskInputType(public val value: UInt) {
     Url(0x80000u),
 }
 
-public enum class SceUtilityOskState(public val value: UInt) {
+public enum class SceUtilityOskState(
+    public val value: UInt,
+) {
     None(0u),
     Initializing(1u),
     Initialized(2u),
@@ -1048,13 +1184,17 @@ public enum class SceUtilityOskState(public val value: UInt) {
     Finished(5u),
 }
 
-public enum class SceUtilityOskResult(public val value: UInt) {
+public enum class SceUtilityOskResult(
+    public val value: UInt,
+) {
     Unchanged(0u),
     Cancelled(1u),
     Changed(2u),
 }
 
-public enum class SystemParamLanguage(public val value: UInt) {
+public enum class SystemParamLanguage(
+    public val value: UInt,
+) {
     Japanese(0u),
     English(1u),
     French(2u),
@@ -1069,7 +1209,9 @@ public enum class SystemParamLanguage(public val value: UInt) {
     ChineseSimplified(11u),
 }
 
-public enum class SystemParamId(public val value: UInt) {
+public enum class SystemParamId(
+    public val value: UInt,
+) {
     StringNickname(1u),
     AdhocChannel(((1u) + 1u)),
     WlanPowerSave(((1u) + 2u)),
@@ -1081,35 +1223,47 @@ public enum class SystemParamId(public val value: UInt) {
     Unknown(((1u) + 8u)),
 }
 
-public enum class SystemParamAdhocChannel(public val value: UInt) {
+public enum class SystemParamAdhocChannel(
+    public val value: UInt,
+) {
     ChannelAutomatic(0u),
     Channel1(1u),
     Channel6(6u),
     Channel11(11u),
 }
 
-public enum class SystemParamWlanPowerSaveState(public val value: UInt) {
+public enum class SystemParamWlanPowerSaveState(
+    public val value: UInt,
+) {
     Off(0u),
     On(1u),
 }
 
-public enum class SystemParamDateFormat(public val value: UInt) {
+public enum class SystemParamDateFormat(
+    public val value: UInt,
+) {
     YYYYMMDD(0u),
     MMDDYYYY(1u),
     DDMMYYYY(2u),
 }
 
-public enum class SystemParamTimeFormat(public val value: UInt) {
+public enum class SystemParamTimeFormat(
+    public val value: UInt,
+) {
     Hour24(0u),
     Hour12(1u),
 }
 
-public enum class SystemParamDaylightSavings(public val value: UInt) {
+public enum class SystemParamDaylightSavings(
+    public val value: UInt,
+) {
     Std(0u),
     Dst(1u),
 }
 
-public enum class AvModule(public val value: UInt) {
+public enum class AvModule(
+    public val value: UInt,
+) {
     AvCodec(0u),
     SasCore(1u),
     Atrac3Plus(2u),
@@ -1120,7 +1274,9 @@ public enum class AvModule(public val value: UInt) {
     G729(7u),
 }
 
-public enum class Module(public val value: UInt) {
+public enum class Module(
+    public val value: UInt,
+) {
     NetCommon(0x100u),
     NetAdhoc(((0x100u) + 1u)),
     NetInet(((0x100u) + 2u)),
@@ -1146,7 +1302,9 @@ public enum class Module(public val value: UInt) {
     Irda(0x600u),
 }
 
-public enum class NetModule(public val value: UInt) {
+public enum class NetModule(
+    public val value: UInt,
+) {
     NetCommon(1u),
     NetAdhoc(((1u) + 1u)),
     NetInet(((1u) + 2u)),
@@ -1155,7 +1313,9 @@ public enum class NetModule(public val value: UInt) {
     NetSsl(((1u) + 5u)),
 }
 
-public enum class UsbModule(public val value: UInt) {
+public enum class UsbModule(
+    public val value: UInt,
+) {
     UsbPspCm(1u),
     UsbAcc(((1u) + 1u)),
     UsbMic(((1u) + 2u)),
@@ -1163,7 +1323,9 @@ public enum class UsbModule(public val value: UInt) {
     UsbGps(((1u) + 4u)),
 }
 
-public enum class NetParam(public val value: UInt) {
+public enum class NetParam(
+    public val value: UInt,
+) {
     Name(0u),
     Ssid(1u),
     Secure(2u),
@@ -1184,13 +1346,17 @@ public enum class NetParam(public val value: UInt) {
     Unknown2(17u),
 }
 
-public enum class UtilityNetconfAction(public val value: UInt) {
+public enum class UtilityNetconfAction(
+    public val value: UInt,
+) {
     ConnectAP(0u),
     DisplayStatus(1u),
     ConnectAdhoc(2u),
 }
 
-public enum class UtilitySavedataMode(public val value: UInt) {
+public enum class UtilitySavedataMode(
+    public val value: UInt,
+) {
     AutoLoad(0u),
     AutoSave(1u),
     Load(2u),
@@ -1201,7 +1367,9 @@ public enum class UtilitySavedataMode(public val value: UInt) {
     Delete(7u),
 }
 
-public enum class UtilitySavedataFocus(public val value: UInt) {
+public enum class UtilitySavedataFocus(
+    public val value: UInt,
+) {
     Unknown1(0u),
     FirstList(1u),
     LastList(2u),
@@ -1213,54 +1381,72 @@ public enum class UtilitySavedataFocus(public val value: UInt) {
     LastEmpty(8u),
 }
 
-public enum class UtilityGameSharingMode(public val value: UInt) {
+public enum class UtilityGameSharingMode(
+    public val value: UInt,
+) {
     Single(1u),
     Multiple(((1u) + 1u)),
 }
 
-public enum class UtilityGameSharingDataType(public val value: UInt) {
+public enum class UtilityGameSharingDataType(
+    public val value: UInt,
+) {
     File(1u),
     Memory(((1u) + 1u)),
 }
 
-public enum class UtilityHtmlViewerInterfaceMode(public val value: UInt) {
+public enum class UtilityHtmlViewerInterfaceMode(
+    public val value: UInt,
+) {
     Full(0u),
     Limited(1u),
     None(2u),
 }
 
-public enum class UtilityHtmlViewerCookieMode(public val value: UInt) {
+public enum class UtilityHtmlViewerCookieMode(
+    public val value: UInt,
+) {
     Disabled(0u),
     Enabled(((0u) + 1u)),
     Confirm(((0u) + 2u)),
     Default(((0u) + 3u)),
 }
 
-public enum class UtilityHtmlViewerTextSize(public val value: UInt) {
+public enum class UtilityHtmlViewerTextSize(
+    public val value: UInt,
+) {
     Large(0u),
     Normal(1u),
     Small(2u),
 }
 
-public enum class UtilityHtmlViewerDisplayMode(public val value: UInt) {
+public enum class UtilityHtmlViewerDisplayMode(
+    public val value: UInt,
+) {
     Normal(0u),
     Fit(1u),
     SmartFit(2u),
 }
 
-public enum class UtilityHtmlViewerConnectMode(public val value: UInt) {
+public enum class UtilityHtmlViewerConnectMode(
+    public val value: UInt,
+) {
     Last(0u),
     ManualOnce(1u),
     ManualAll(2u),
 }
 
-public enum class UtilityHtmlViewerDisconnectMode(public val value: UInt) {
+public enum class UtilityHtmlViewerDisconnectMode(
+    public val value: UInt,
+) {
     Enable(0u),
     Disable(1u),
     Confirm(2u),
 }
 
-public enum class ScePspnetAdhocPtpState(public val value: UInt) {
+public enum class ScePspnetAdhocPtpState(
+    public val value: UInt,
+) {
     Closed(0u),
     Listen(1u),
     SynSent(2u),
@@ -1268,13 +1454,17 @@ public enum class ScePspnetAdhocPtpState(public val value: UInt) {
     Established(4u),
 }
 
-public enum class AdhocMatchingMode(public val value: UInt) {
+public enum class AdhocMatchingMode(
+    public val value: UInt,
+) {
     Host(1u),
     Client(((1u) + 1u)),
     Ptp(((1u) + 2u)),
 }
 
-public enum class ApctlState(public val value: UInt) {
+public enum class ApctlState(
+    public val value: UInt,
+) {
     Disconnected(0u),
     Scanning(1u),
     Joining(2u),
@@ -1284,7 +1474,9 @@ public enum class ApctlState(public val value: UInt) {
     KeyExchange(6u),
 }
 
-public enum class ApctlEvent(public val value: UInt) {
+public enum class ApctlEvent(
+    public val value: UInt,
+) {
     ConnectRequest(0u),
     ScanRequest(1u),
     ScanComplete(2u),
@@ -1298,7 +1490,9 @@ public enum class ApctlEvent(public val value: UInt) {
     Reconnect(10u),
 }
 
-public enum class ApctlInfo(public val value: UInt) {
+public enum class ApctlInfo(
+    public val value: UInt,
+) {
     ProfileName(0u),
     Bssid(1u),
     Ssid(2u),
@@ -1320,19 +1514,25 @@ public enum class ApctlInfo(public val value: UInt) {
     Wifisp(18u),
 }
 
-public enum class ApctlInfoSecurityType(public val value: UInt) {
+public enum class ApctlInfoSecurityType(
+    public val value: UInt,
+) {
     None(0u),
     Wep(1u),
     Wpa(2u),
 }
 
-public enum class HttpMethod(public val value: UInt) {
+public enum class HttpMethod(
+    public val value: UInt,
+) {
     Get(0u),
     Post(1u),
     Head(2u),
 }
 
-public enum class HttpAuthType(public val value: UInt) {
+public enum class HttpAuthType(
+    public val value: UInt,
+) {
     Basic(0u),
     Digest(1u),
 }

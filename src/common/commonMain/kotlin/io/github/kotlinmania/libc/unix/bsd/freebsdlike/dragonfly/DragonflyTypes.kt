@@ -80,13 +80,17 @@ public class Sem(
     public val ptr: Long get() = handle
 }
 
-public enum class Lwpstat(public val value: UInt) {
+public enum class Lwpstat(
+    public val value: UInt,
+) {
     LSRUN(1u),
     LSSTOP(2u),
     LSSLEEP(3u),
 }
 
-public enum class Procstat(public val value: UInt) {
+public enum class Procstat(
+    public val value: UInt,
+) {
     SIDL(1u),
     SACTIVE(2u),
     SSTOP(3u),

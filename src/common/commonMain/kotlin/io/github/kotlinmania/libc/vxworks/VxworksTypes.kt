@@ -152,7 +152,9 @@ public class VxSemaphore(
     public val ptr: Long get() = handle
 }
 
-public enum class Nfsstat(public val value: UInt) {
+public enum class Nfsstat(
+    public val value: UInt,
+) {
     NFSERR_REMOTE(71u),
     NFSERR_WFLUSH(99u),
     NFSERR_BADHANDLE(10001u),
