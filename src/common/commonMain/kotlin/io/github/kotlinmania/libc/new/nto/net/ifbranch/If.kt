@@ -4,7 +4,6 @@
 package io.github.kotlinmania.libc.new.nto.net.ifbranch
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
@@ -12,7 +11,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.unix.IFNAMSIZ
 import io.github.kotlinmania.libc.unix.nto.Sockaddr
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -29,12 +27,12 @@ public class CAnonymousIfrIfru internal constructor(
     public var ifruMtu: CInt,
     public var ifruPhys: CInt,
     public var ifruMedia: CInt,
-    ifruDataCtorArg: MutPtr<CChar>,
+    ifruDataCtorArg: MutPtr,
     public var ifruCap: IntArray,
     public var ifruFib: CUint,
     public var ifruVlanPcp: CUchar,
 ) {
-    public var ifruData: MutPtr<CChar> = ifruDataCtorArg
+    public var ifruData: MutPtr = ifruDataCtorArg
         internal set
 
     public constructor() : this(
@@ -77,7 +75,7 @@ public class CAnonymousIfrIfru internal constructor(
 
     public operator fun component11(): CInt = this.ifruMedia
 
-    public operator fun component12(): MutPtr<CChar> = this.ifruData
+    public operator fun component12(): MutPtr = this.ifruData
 
     public operator fun component13(): IntArray = this.ifruCap
 
@@ -85,7 +83,7 @@ public class CAnonymousIfrIfru internal constructor(
 
     public operator fun component15(): CUchar = this.ifruVlanPcp
 
-    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, ifruBuffer: IfreqBuffer = this.ifruBuffer, ifruFlags: ShortArray = this.ifruFlags, ifruIndex: CShort = this.ifruIndex, ifruJid: CInt = this.ifruJid, ifruMetric: CInt = this.ifruMetric, ifruMtu: CInt = this.ifruMtu, ifruPhys: CInt = this.ifruPhys, ifruMedia: CInt = this.ifruMedia, ifruData: MutPtr<CChar> = this.ifruData, ifruCap: IntArray = this.ifruCap, ifruFib: CUint = this.ifruFib, ifruVlanPcp: CUchar = this.ifruVlanPcp): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, ifruBuffer = ifruBuffer, ifruFlags = ifruFlags, ifruIndex = ifruIndex, ifruJid = ifruJid, ifruMetric = ifruMetric, ifruMtu = ifruMtu, ifruPhys = ifruPhys, ifruMedia = ifruMedia, ifruDataCtorArg = ifruData, ifruCap = ifruCap, ifruFib = ifruFib, ifruVlanPcp = ifruVlanPcp)
+    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, ifruBuffer: IfreqBuffer = this.ifruBuffer, ifruFlags: ShortArray = this.ifruFlags, ifruIndex: CShort = this.ifruIndex, ifruJid: CInt = this.ifruJid, ifruMetric: CInt = this.ifruMetric, ifruMtu: CInt = this.ifruMtu, ifruPhys: CInt = this.ifruPhys, ifruMedia: CInt = this.ifruMedia, ifruData: MutPtr = this.ifruData, ifruCap: IntArray = this.ifruCap, ifruFib: CUint = this.ifruFib, ifruVlanPcp: CUchar = this.ifruVlanPcp): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, ifruBuffer = ifruBuffer, ifruFlags = ifruFlags, ifruIndex = ifruIndex, ifruJid = ifruJid, ifruMetric = ifruMetric, ifruMtu = ifruMtu, ifruPhys = ifruPhys, ifruMedia = ifruMedia, ifruDataCtorArg = ifruData, ifruCap = ifruCap, ifruFib = ifruFib, ifruVlanPcp = ifruVlanPcp)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -140,7 +138,7 @@ public class CAnonymousIfrIfru internal constructor(
             ifruMtu: CInt = 0,
             ifruPhys: CInt = 0,
             ifruMedia: CInt = 0,
-            ifruData: MutPtr<CChar> = MutPtr(0L),
+            ifruData: MutPtr = MutPtr(0L),
             ifruCap: IntArray = IntArray(2),
             ifruFib: CUint = 0u,
             ifruVlanPcp: CUchar = 0u,
@@ -189,9 +187,9 @@ public data class Ifreq(
 
 public class IfreqBuffer internal constructor(
     public var length: SizeT,
-    bufferCtorArg: MutPtr<CVoid>,
+    bufferCtorArg: MutPtr,
 ) {
-    public var buffer: MutPtr<CVoid> = bufferCtorArg
+    public var buffer: MutPtr = bufferCtorArg
         internal set
 
     public constructor() : this(
@@ -201,9 +199,9 @@ public class IfreqBuffer internal constructor(
 
     public operator fun component1(): SizeT = this.length
 
-    public operator fun component2(): MutPtr<CVoid> = this.buffer
+    public operator fun component2(): MutPtr = this.buffer
 
-    public fun copy(length: SizeT = this.length, buffer: MutPtr<CVoid> = this.buffer): IfreqBuffer = IfreqBuffer(length = length, bufferCtorArg = buffer)
+    public fun copy(length: SizeT = this.length, buffer: MutPtr = this.buffer): IfreqBuffer = IfreqBuffer(length = length, bufferCtorArg = buffer)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -229,21 +227,21 @@ public class IfreqBuffer internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: IfreqBuffer) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.length)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.buffer)
                 }
             }
 
         public operator fun invoke(
             length: SizeT = 0uL,
-            buffer: MutPtr<CVoid> = MutPtr(0L),
+            buffer: MutPtr = MutPtr(0L),
         ): IfreqBuffer =
             IfreqBuffer(
                 length = length,

@@ -4,7 +4,6 @@
 package io.github.kotlinmania.libc.unix.solarish.x8664
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
@@ -15,7 +14,6 @@ import io.github.kotlinmania.libc.unix.solarish.SigsetT
 import io.github.kotlinmania.libc.unix.solarish.StackT
 import io.github.kotlinmania.libc.unix.solarish.Upad128T
 import io.github.kotlinmania.libc.unix.solarish.solaris.XrsT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -100,21 +98,21 @@ public data class CAnonymousElf64Phdr(
 
 public class DlPhdrInfo internal constructor(
     public var dlpiAddr: Elf64Addr,
-    dlpiNameCtorArg: ConstPtr<CChar>,
-    dlpiPhdrCtorArg: ConstPtr<Elf64Phdr>,
+    dlpiNameCtorArg: ConstPtr,
+    dlpiPhdrCtorArg: ConstPtr,
     public var dlpiPhnum: Elf64Half,
     public var dlpiAdds: CUlonglong,
     public var dlpiSubs: CUlonglong,
     public var dlpiTlsModid: CUlong,
-    dlpiTlsDataCtorArg: MutPtr<CVoid>,
+    dlpiTlsDataCtorArg: MutPtr,
 ) {
-    public var dlpiName: ConstPtr<CChar> = dlpiNameCtorArg
+    public var dlpiName: ConstPtr = dlpiNameCtorArg
         internal set
 
-    public var dlpiPhdr: ConstPtr<Elf64Phdr> = dlpiPhdrCtorArg
+    public var dlpiPhdr: ConstPtr = dlpiPhdrCtorArg
         internal set
 
-    public var dlpiTlsData: MutPtr<CVoid> = dlpiTlsDataCtorArg
+    public var dlpiTlsData: MutPtr = dlpiTlsDataCtorArg
         internal set
 
     public constructor() : this(
@@ -130,9 +128,9 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component1(): Elf64Addr = this.dlpiAddr
 
-    public operator fun component2(): ConstPtr<CChar> = this.dlpiName
+    public operator fun component2(): ConstPtr = this.dlpiName
 
-    public operator fun component3(): ConstPtr<Elf64Phdr> = this.dlpiPhdr
+    public operator fun component3(): ConstPtr = this.dlpiPhdr
 
     public operator fun component4(): Elf64Half = this.dlpiPhnum
 
@@ -142,9 +140,9 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component7(): CUlong = this.dlpiTlsModid
 
-    public operator fun component8(): MutPtr<CVoid> = this.dlpiTlsData
+    public operator fun component8(): MutPtr = this.dlpiTlsData
 
-    public fun copy(dlpiAddr: Elf64Addr = this.dlpiAddr, dlpiName: ConstPtr<CChar> = this.dlpiName, dlpiPhdr: ConstPtr<Elf64Phdr> = this.dlpiPhdr, dlpiPhnum: Elf64Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs, dlpiTlsModid: CUlong = this.dlpiTlsModid, dlpiTlsData: MutPtr<CVoid> = this.dlpiTlsData): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs, dlpiTlsModid = dlpiTlsModid, dlpiTlsDataCtorArg = dlpiTlsData)
+    public fun copy(dlpiAddr: Elf64Addr = this.dlpiAddr, dlpiName: ConstPtr = this.dlpiName, dlpiPhdr: ConstPtr = this.dlpiPhdr, dlpiPhnum: Elf64Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs, dlpiTlsModid: CUlong = this.dlpiTlsModid, dlpiTlsData: MutPtr = this.dlpiTlsData): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs, dlpiTlsModid = dlpiTlsModid, dlpiTlsDataCtorArg = dlpiTlsData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -182,11 +180,11 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<Elf64Phdr>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 24L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
@@ -194,18 +192,18 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                     )
                 override fun writeNative(addr: Long, value: DlPhdrInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.dlpiAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 8L, value.dlpiName)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<Elf64Phdr>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.dlpiPhdr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 24L, value.dlpiPhnum)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.dlpiAdds)
@@ -213,20 +211,20 @@ public class DlPhdrInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.dlpiTlsModid)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.dlpiTlsData)
                 }
             }
 
         public operator fun invoke(
             dlpiAddr: Elf64Addr = 0uL,
-            dlpiName: ConstPtr<CChar> = ConstPtr(0L),
-            dlpiPhdr: ConstPtr<Elf64Phdr> = ConstPtr(0L),
+            dlpiName: ConstPtr = ConstPtr(0L),
+            dlpiPhdr: ConstPtr = ConstPtr(0L),
             dlpiPhnum: Elf64Half = 0u,
             dlpiAdds: CUlonglong = 0uL,
             dlpiSubs: CUlonglong = 0uL,
             dlpiTlsModid: CUlong = 0uL,
-            dlpiTlsData: MutPtr<CVoid> = MutPtr(0L),
+            dlpiTlsData: MutPtr = MutPtr(0L),
         ): DlPhdrInfo =
             DlPhdrInfo(
                 dlpiAddr = dlpiAddr,
@@ -266,23 +264,23 @@ public data class McontextT(
 
 public class UcontextT internal constructor(
     public var ucFlags: CUlong,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucSigmask: SigsetT,
     public var ucStack: StackT,
     ucMcontextCtorArg: McontextT,
-    ucBrandDataCtorArg: List<MutPtr<CVoid>>,
+    ucBrandDataCtorArg: List<MutPtr>,
     public var ucXsave: CLong,
     public var ucFiller: CLong,
     public var ucXrs: XrsT,
     public var ucLwpid: CUint,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
         internal set
 
-    public var ucBrandData: List<MutPtr<CVoid>> = ucBrandDataCtorArg
+    public var ucBrandData: List<MutPtr> = ucBrandDataCtorArg
         internal set
 
     public constructor() : this(
@@ -300,7 +298,7 @@ public class UcontextT internal constructor(
 
     public operator fun component1(): CUlong = this.ucFlags
 
-    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component2(): MutPtr = this.ucLink
 
     public operator fun component3(): SigsetT = this.ucSigmask
 
@@ -308,7 +306,7 @@ public class UcontextT internal constructor(
 
     public operator fun component5(): McontextT = this.ucMcontext
 
-    public operator fun component6(): List<MutPtr<CVoid>> = this.ucBrandData
+    public operator fun component6(): List<MutPtr> = this.ucBrandData
 
     public operator fun component7(): CLong = this.ucXsave
 
@@ -318,7 +316,7 @@ public class UcontextT internal constructor(
 
     public operator fun component10(): CUint = this.ucLwpid
 
-    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucBrandData: List<MutPtr<CVoid>> = this.ucBrandData, ucXsave: CLong = this.ucXsave, ucFiller: CLong = this.ucFiller, ucXrs: XrsT = this.ucXrs, ucLwpid: CUint = this.ucLwpid): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucBrandDataCtorArg = ucBrandData, ucXsave = ucXsave, ucFiller = ucFiller, ucXrs = ucXrs, ucLwpid = ucLwpid)
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucBrandData: List<MutPtr> = this.ucBrandData, ucXsave: CLong = this.ucXsave, ucFiller: CLong = this.ucFiller, ucXrs: XrsT = this.ucXrs, ucLwpid: CUint = this.ucLwpid): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucBrandDataCtorArg = ucBrandData, ucXsave = ucXsave, ucFiller = ucFiller, ucXrs = ucXrs, ucLwpid = ucLwpid)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -353,11 +351,11 @@ public class UcontextT internal constructor(
     public companion object {
         public operator fun invoke(
             ucFlags: CUlong = 0uL,
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucSigmask: SigsetT = SigsetT(),
             ucStack: StackT = StackT(),
             ucMcontext: McontextT = McontextT(),
-            ucBrandData: List<MutPtr<CVoid>> = List(3) { MutPtr(0L) },
+            ucBrandData: List<MutPtr> = List(3) { MutPtr(0L) },
             ucXsave: CLong = 0L,
             ucFiller: CLong = 0L,
             ucXrs: XrsT = XrsT(),

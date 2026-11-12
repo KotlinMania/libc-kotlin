@@ -2,9 +2,7 @@
 package io.github.kotlinmania.libc.new.qurt.dlfcn
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -25,16 +23,16 @@ public val RTLD_LOCAL: CInt = 0x200
 public val DL_LAZY: CInt = RTLD_LAZY
 
 // Special handles
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1).toLong())
+public val RTLD_NEXT: MutPtr = MutPtr((-1).toLong())
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-2).toLong())
+public val RTLD_DEFAULT: MutPtr = MutPtr((-2).toLong())
 
-public val RTLD_SELF: MutPtr<CVoid> = MutPtr<CVoid>((-3).toLong())
+public val RTLD_SELF: MutPtr = MutPtr((-3).toLong())
 
-public expect fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid>
+public expect fun dlopen(filename: ConstPtr, flag: CInt): MutPtr
 
-public expect fun dlclose(handle: MutPtr<CVoid>): CInt
+public expect fun dlclose(handle: MutPtr): CInt
 
-public expect fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid>
+public expect fun dlsym(handle: MutPtr, symbol: ConstPtr): MutPtr
 
-public expect fun dlerror(): MutPtr<CChar>
+public expect fun dlerror(): MutPtr

@@ -30,7 +30,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ShmattT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -730,11 +729,11 @@ public data class SiginfoT(
 }
 
 public class StackT internal constructor(
-    ssSpCtorArg: MutPtr<CVoid>,
+    ssSpCtorArg: MutPtr,
     public var ssFlags: CInt,
     public var ssSize: SizeT,
 ) {
-    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+    public var ssSp: MutPtr = ssSpCtorArg
         internal set
 
     public constructor() : this(
@@ -743,13 +742,13 @@ public class StackT internal constructor(
         ssSize = 0uL,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+    public operator fun component1(): MutPtr = this.ssSp
 
     public operator fun component2(): CInt = this.ssFlags
 
     public operator fun component3(): SizeT = this.ssSize
 
-    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
+    public fun copy(ssSp: MutPtr = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -776,7 +775,7 @@ public class StackT internal constructor(
                     StackT(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
@@ -784,7 +783,7 @@ public class StackT internal constructor(
                 override fun writeNative(addr: Long, value: StackT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.ssSp)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.ssFlags)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.ssSize)
@@ -792,7 +791,7 @@ public class StackT internal constructor(
             }
 
         public operator fun invoke(
-            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssSp: MutPtr = MutPtr(0L),
             ssFlags: CInt = 0,
             ssSize: SizeT = 0uL,
         ): StackT =
@@ -889,12 +888,12 @@ public data class MaxAlignT(
 
 public class UcontextT internal constructor(
     public var ucFlags: CUlong,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucStack: StackT,
     public var ucSigmask: SigsetT,
     ucMcontextCtorArg: McontextT,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
@@ -910,7 +909,7 @@ public class UcontextT internal constructor(
 
     public operator fun component1(): CUlong = this.ucFlags
 
-    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component2(): MutPtr = this.ucLink
 
     public operator fun component3(): StackT = this.ucStack
 
@@ -918,7 +917,7 @@ public class UcontextT internal constructor(
 
     public operator fun component5(): McontextT = this.ucMcontext
 
-    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucSigmask: SigsetT = this.ucSigmask, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucSigmask = ucSigmask, ucMcontextCtorArg = ucMcontext)
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr = this.ucLink, ucStack: StackT = this.ucStack, ucSigmask: SigsetT = this.ucSigmask, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucSigmask = ucSigmask, ucMcontextCtorArg = ucMcontext)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -943,7 +942,7 @@ public class UcontextT internal constructor(
     public companion object {
         public operator fun invoke(
             ucFlags: CUlong = 0uL,
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucStack: StackT = StackT(),
             ucSigmask: SigsetT = SigsetT(),
             ucMcontext: McontextT = McontextT(),
@@ -1061,16 +1060,16 @@ public class McontextT internal constructor(
     public var pad0: CInt,
     public var handler: CUlong,
     public var oldmask: CUlong,
-    regsCtorArg: MutPtr<PtRegs>,
+    regsCtorArg: MutPtr,
     public var gpRegs: GregsetT,
     public var fpRegs: FpregsetT,
-    vRegsCtorArg: MutPtr<VrregsetT>,
+    vRegsCtorArg: MutPtr,
     public var vmxReserve: LongArray,
 ) {
-    public var regs: MutPtr<PtRegs> = regsCtorArg
+    public var regs: MutPtr = regsCtorArg
         internal set
 
-    public var vRegs: MutPtr<VrregsetT> = vRegsCtorArg
+    public var vRegs: MutPtr = vRegsCtorArg
         internal set
 
     public constructor() : this(
@@ -1096,17 +1095,17 @@ public class McontextT internal constructor(
 
     public operator fun component5(): CUlong = this.oldmask
 
-    public operator fun component6(): MutPtr<PtRegs> = this.regs
+    public operator fun component6(): MutPtr = this.regs
 
     public operator fun component7(): GregsetT = this.gpRegs
 
     public operator fun component8(): FpregsetT = this.fpRegs
 
-    public operator fun component9(): MutPtr<VrregsetT> = this.vRegs
+    public operator fun component9(): MutPtr = this.vRegs
 
     public operator fun component10(): LongArray = this.vmxReserve
 
-    public fun copy(glibcReserved: ULongArray = this.glibcReserved, signal: CInt = this.signal, pad0: CInt = this.pad0, handler: CUlong = this.handler, oldmask: CUlong = this.oldmask, regs: MutPtr<PtRegs> = this.regs, gpRegs: GregsetT = this.gpRegs, fpRegs: FpregsetT = this.fpRegs, vRegs: MutPtr<VrregsetT> = this.vRegs, vmxReserve: LongArray = this.vmxReserve): McontextT = McontextT(glibcReserved = glibcReserved, signal = signal, pad0 = pad0, handler = handler, oldmask = oldmask, regsCtorArg = regs, gpRegs = gpRegs, fpRegs = fpRegs, vRegsCtorArg = vRegs, vmxReserve = vmxReserve)
+    public fun copy(glibcReserved: ULongArray = this.glibcReserved, signal: CInt = this.signal, pad0: CInt = this.pad0, handler: CUlong = this.handler, oldmask: CUlong = this.oldmask, regs: MutPtr = this.regs, gpRegs: GregsetT = this.gpRegs, fpRegs: FpregsetT = this.fpRegs, vRegs: MutPtr = this.vRegs, vmxReserve: LongArray = this.vmxReserve): McontextT = McontextT(glibcReserved = glibcReserved, signal = signal, pad0 = pad0, handler = handler, oldmask = oldmask, regsCtorArg = regs, gpRegs = gpRegs, fpRegs = fpRegs, vRegsCtorArg = vRegs, vmxReserve = vmxReserve)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1166,7 +1165,7 @@ public class McontextT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<PtRegs>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -1178,7 +1177,7 @@ public class McontextT internal constructor(
                         ).readNative(addr + off7).toULongArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<VrregsetT>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + off8),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -1196,7 +1195,7 @@ public class McontextT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.oldmask)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<PtRegs>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.regs)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -1208,7 +1207,7 @@ public class McontextT internal constructor(
                     ).writeNative(addr + off7, value.fpRegs.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<VrregsetT>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + off8, value.vRegs)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -1223,10 +1222,10 @@ public class McontextT internal constructor(
             pad0: CInt = 0,
             handler: CUlong = 0uL,
             oldmask: CUlong = 0uL,
-            regs: MutPtr<PtRegs> = MutPtr(0L),
+            regs: MutPtr = MutPtr(0L),
             gpRegs: GregsetT = ULongArray(NGREG),
             fpRegs: FpregsetT = ULongArray(NFPREG),
-            vRegs: MutPtr<VrregsetT> = MutPtr(0L),
+            vRegs: MutPtr = MutPtr(0L),
             vmxReserve: LongArray = LongArray(NVRREG + NVRREG + 1),
         ): McontextT =
             McontextT(

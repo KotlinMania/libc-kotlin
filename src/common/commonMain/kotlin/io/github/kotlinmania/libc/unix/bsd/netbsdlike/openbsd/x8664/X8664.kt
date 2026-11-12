@@ -41,12 +41,12 @@ public class Sigcontext internal constructor(
     public var scRflags: CLong,
     public var scRsp: CLong,
     public var scSs: CLong,
-    scFpstateCtorArg: MutPtr<Fxsave64>,
+    scFpstateCtorArg: MutPtr,
     public var scUnused: CInt,
     public var scMask: CInt,
     public var scCookie: CLong,
 ) {
-    public var scFpstate: MutPtr<Fxsave64> = scFpstateCtorArg
+    public var scFpstate: MutPtr = scFpstateCtorArg
         internal set
 
     public constructor() : this(
@@ -117,7 +117,7 @@ public class Sigcontext internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 200L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Fxsave64>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 208L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 216L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 220L),
@@ -152,7 +152,7 @@ public class Sigcontext internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 200L, value.scSs)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Fxsave64>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 208L, value.scFpstate)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 216L, value.scUnused)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 220L, value.scMask)
@@ -187,7 +187,7 @@ public class Sigcontext internal constructor(
             scRflags: CLong = 0L,
             scRsp: CLong = 0L,
             scSs: CLong = 0L,
-            scFpstate: MutPtr<Fxsave64> = MutPtr(0L),
+            scFpstate: MutPtr = MutPtr(0L),
             scUnused: CInt = 0,
             scMask: CInt = 0,
             scCookie: CLong = 0L,

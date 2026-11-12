@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -16,7 +15,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 // <https://github.com/apple-oss-distributions/libpthread/blob/main/include/pthread/introspection.h>
 
 public fun interface FnCallback {
-    public operator fun invoke(event: CUint, thread: PthreadT, addr: MutPtr<CVoid>, size: SizeT)
+    public operator fun invoke(event: CUint, thread: PthreadT, addr: MutPtr, size: SizeT)
 }
 
 public val PTHREAD_INTROSPECTION_THREAD_CREATE: CUint = 1u
@@ -28,12 +27,12 @@ public val PTHREAD_INTROSPECTION_THREAD_TERMINATE: CUint = PTHREAD_INTROSPECTION
 public val PTHREAD_INTROSPECTION_THREAD_DESTROY: CUint = PTHREAD_INTROSPECTION_THREAD_TERMINATE + 1u
 
 public fun interface PthreadIntrospectionHookT {
-    public operator fun invoke(event: CUint, thread: PthreadT, addr: MutPtr<CVoid>, size: SizeT)
+    public operator fun invoke(event: CUint, thread: PthreadT, addr: MutPtr, size: SizeT)
 }
 
 // Available from Big Sur
 public expect fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT
 
-public expect fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: ConstPtr<CVoid>): CInt
+public expect fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: ConstPtr): CInt
 
-public expect fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): MutPtr<CVoid>
+public expect fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): MutPtr

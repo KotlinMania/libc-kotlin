@@ -3,15 +3,12 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -450,16 +447,16 @@ private object UnixHaikuNativeJniBridge {
     external fun libcUnixHaikuNativeGetCpuid(info: Long, eaxRegister: Int, cpuNum: Int): Int
 }
 
-public actual fun createArea(name: ConstPtr<CChar>, startAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId =
+public actual fun createArea(name: ConstPtr, startAddress: MutPtr, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeCreateArea(name.rawAddress, startAddress.rawAddress, addressSpec.toInt(), size.toLong(), lock.toInt(), protection.toInt())
 
-public actual fun cloneArea(name: ConstPtr<CChar>, destAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, protection: UInt, source: AreaId): AreaId =
+public actual fun cloneArea(name: ConstPtr, destAddress: MutPtr, addressSpec: UInt, protection: UInt, source: AreaId): AreaId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeCloneArea(name.rawAddress, destAddress.rawAddress, addressSpec.toInt(), protection.toInt(), source)
 
-public actual fun findArea(name: ConstPtr<CChar>): AreaId =
+public actual fun findArea(name: ConstPtr): AreaId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindArea(name.rawAddress)
 
-public actual fun areaFor(address: MutPtr<CVoid>): AreaId =
+public actual fun areaFor(address: MutPtr): AreaId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeAreaFor(address.rawAddress)
 
 public actual fun deleteArea(id: AreaId): StatusT =
@@ -471,28 +468,28 @@ public actual fun resizeArea(id: AreaId, newSize: ULong): StatusT =
 public actual fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetAreaProtection(id, newProtection.toInt())
 
-public actual fun getAreaInfo(id: AreaId, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT =
+public actual fun getAreaInfo(id: AreaId, areaInfo: MutPtr, size: ULong): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetAreaInfo(id, areaInfo.rawAddress, size.toLong())
 
-public actual fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT =
+public actual fun getNextAreaInfo(team: TeamId, cookie: MutPtr, areaInfo: MutPtr, size: ULong): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextAreaInfo(team, cookie.rawAddress, areaInfo.rawAddress, size.toLong())
 
-public actual fun createPort(capacity: Int, name: ConstPtr<CChar>): PortId =
+public actual fun createPort(capacity: Int, name: ConstPtr): PortId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeCreatePort(capacity, name.rawAddress)
 
-public actual fun findPort(name: ConstPtr<CChar>): PortId =
+public actual fun findPort(name: ConstPtr): PortId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPort(name.rawAddress)
 
-public actual fun readPort(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT): SsizeT =
+public actual fun readPort(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeReadPort(port, code.rawAddress, buffer.rawAddress, bufferSize.toLong())
 
-public actual fun readPortEtc(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT =
+public actual fun readPortEtc(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeReadPortEtc(port, code.rawAddress, buffer.rawAddress, bufferSize.toLong(), flags.toInt(), timeout)
 
-public actual fun writePort(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT =
+public actual fun writePort(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeWritePort(port, code, buffer.rawAddress, bufferSize.toLong())
 
-public actual fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
+public actual fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeWritePortEtc(port, code, buffer.rawAddress, bufferSize.toLong(), flags.toInt(), timeout)
 
 public actual fun closePort(port: PortId): StatusT =
@@ -513,16 +510,16 @@ public actual fun portCount(port: PortId): SsizeT =
 public actual fun setPortOwner(port: PortId, team: TeamId): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetPortOwner(port, team)
 
-public actual fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT =
+public actual fun getPortInfo(port: PortId, buf: MutPtr, portInfoSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetPortInfo(port, buf.rawAddress, portInfoSize.toLong())
 
-public actual fun getNextPortInfo(port: PortId, cookie: MutPtr<Int>, portInfo: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT =
+public actual fun getNextPortInfo(port: PortId, cookie: MutPtr, portInfo: MutPtr, portInfoSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextPortInfo(port, cookie.rawAddress, portInfo.rawAddress, portInfoSize.toLong())
 
-public actual fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
+public actual fun getPortMessageInfoEtc(port: PortId, info: MutPtr, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetPortMessageInfoEtc(port, info.rawAddress, infoSize.toLong(), flags.toInt(), timeout)
 
-public actual fun createSem(count: Int, name: ConstPtr<CChar>): SemId =
+public actual fun createSem(count: Int, name: ConstPtr): SemId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeCreateSem(count, name.rawAddress)
 
 public actual fun deleteSem(id: SemId): StatusT =
@@ -546,28 +543,28 @@ public actual fun switchSem(semToBeReleased: SemId, id: SemId): StatusT =
 public actual fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSwitchSemEtc(semToBeReleased, id, count, flags.toInt(), timeout)
 
-public actual fun getSemCount(id: SemId, threadCount: MutPtr<Int>): StatusT =
+public actual fun getSemCount(id: SemId, threadCount: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetSemCount(id, threadCount.rawAddress)
 
 public actual fun setSemOwner(id: SemId, team: TeamId): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetSemOwner(id, team)
 
-public actual fun getSemInfo(id: SemId, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT =
+public actual fun getSemInfo(id: SemId, info: MutPtr, infoSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetSemInfo(id, info.rawAddress, infoSize.toLong())
 
-public actual fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT =
+public actual fun getNextSemInfo(team: TeamId, cookie: MutPtr, info: MutPtr, infoSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextSemInfo(team, cookie.rawAddress, info.rawAddress, infoSize.toLong())
 
 public actual fun killTeam(team: TeamId): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeKillTeam(team)
 
-public actual fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>, size: SizeT): StatusT =
+public actual fun getTeamInfo(team: TeamId, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetTeamInfo(team, info.rawAddress, size.toLong())
 
-public actual fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>, size: SizeT): StatusT =
+public actual fun getNextTeamInfo(cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextTeamInfo(cookie.rawAddress, info.rawAddress, size.toLong())
 
-public actual fun spawnThread(func: ThreadFunc, name: ConstPtr<CChar>, priority: Int, data: MutPtr<CVoid>): ThreadId =
+public actual fun spawnThread(func: ThreadFunc, name: ConstPtr, priority: Int, data: MutPtr): ThreadId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSpawnThread(0L, name.rawAddress, priority, data.rawAddress)
 
 public actual fun killThread(thread: ThreadId): StatusT =
@@ -579,7 +576,7 @@ public actual fun resumeThread(thread: ThreadId): StatusT =
 public actual fun suspendThread(thread: ThreadId): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSuspendThread(thread)
 
-public actual fun renameThread(thread: ThreadId, newName: ConstPtr<CChar>): StatusT =
+public actual fun renameThread(thread: ThreadId, newName: ConstPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeRenameThread(thread, newName.rawAddress)
 
 public actual fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT =
@@ -595,13 +592,13 @@ public actual fun exitThread(status: StatusT) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeExitThread(status)
 }
 
-public actual fun waitForThread(thread: ThreadId, returnValue: MutPtr<StatusT>): StatusT =
+public actual fun waitForThread(thread: ThreadId, returnValue: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeWaitForThread(thread, returnValue.rawAddress)
 
-public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr<CVoid>): StatusT =
+public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeOnExitThread(0L, data.rawAddress)
 
-public actual fun findThread(name: ConstPtr<CChar>): ThreadId =
+public actual fun findThread(name: ConstPtr): ThreadId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindThread(name.rawAddress)
 
 public actual fun getSchedulerMode(): Int =
@@ -610,10 +607,10 @@ public actual fun getSchedulerMode(): Int =
 public actual fun setSchedulerMode(mode: Int): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetSchedulerMode(mode)
 
-public actual fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT =
+public actual fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSendData(thread, code, buffer.rawAddress, bufferSize.toLong())
 
-public actual fun receiveData(sender: MutPtr<ThreadId>, buffer: MutPtr<CVoid>, bufferSize: SizeT): Int =
+public actual fun receiveData(sender: MutPtr, buffer: MutPtr, bufferSize: SizeT): Int =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeReceiveData(sender.rawAddress, buffer.rawAddress, bufferSize.toLong())
 
 public actual fun hasData(thread: ThreadId): Boolean =
@@ -628,16 +625,16 @@ public actual fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): Stat
 public actual fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSnoozeUntil(time, timeBase)
 
-public actual fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>, size: SizeT): StatusT =
+public actual fun getThreadInfo(id: ThreadId, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetThreadInfo(id, info.rawAddress, size.toLong())
 
-public actual fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>, size: SizeT): StatusT =
+public actual fun getNextThreadInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextThreadInfo(team, cookie.rawAddress, info.rawAddress, size.toLong())
 
 public actual fun getPthreadThreadId(thread: PthreadT): ThreadId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetPthreadThreadId(thread.toLong())
 
-public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr<TeamUsageInfo>, size: SizeT): StatusT =
+public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetTeamUsageInfo(team, who, info.rawAddress, size.toLong())
 
 public actual fun realTimeClock(): CUlong =
@@ -659,20 +656,20 @@ public actual fun systemTimeNsecs(): NanotimeT =
 public actual fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetAlarm(whenBranch, flags.toInt())
 
-public actual fun debugger(message: ConstPtr<CChar>) {
+public actual fun debugger(message: ConstPtr) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeDebugger(message.rawAddress)
 }
 
 public actual fun disableDebugger(state: CInt): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeDisableDebugger(state)
 
-public actual fun getSystemInfo(info: MutPtr<SystemInfo>): StatusT =
+public actual fun getSystemInfo(info: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetSystemInfo(info.rawAddress)
 
-public actual fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr<CpuInfo>, size: SizeT): StatusT =
+public actual fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetCpuInfoEtc(firstCPU.toInt(), cpuCount.toInt(), info.rawAddress, size.toLong())
 
-public actual fun getCpuTopologyInfo(topologyInfos: MutPtr<CpuTopologyNodeInfo>, topologyInfoCount: MutPtr<UInt>): StatusT =
+public actual fun getCpuTopologyInfo(topologyInfos: MutPtr, topologyInfoCount: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetCpuTopologyInfo(topologyInfos.rawAddress, topologyInfoCount.rawAddress)
 
 public actual fun isComputerOn(): Int =
@@ -684,153 +681,153 @@ public actual fun isComputerOnFire(): CDouble =
 public actual fun sendSignal(threadID: ThreadId, signal: CUint): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSendSignal(threadID, signal.toInt())
 
-public actual fun setSignalStack(base: MutPtr<CVoid>, size: SizeT) {
+public actual fun setSignalStack(base: MutPtr, size: SizeT) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeSetSignalStack(base.rawAddress, size.toLong())
 }
 
-public actual fun waitForObjects(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt): SsizeT =
+public actual fun waitForObjects(infos: MutPtr, numInfos: CInt): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeWaitForObjects(infos.rawAddress, numInfos)
 
-public actual fun waitForObjectsEtc(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT =
+public actual fun waitForObjectsEtc(infos: MutPtr, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeWaitForObjectsEtc(infos.rawAddress, numInfos, flags.toInt(), timeout)
 
-public actual fun fsReadAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: MutPtr<CVoid>, readBytes: SizeT): SsizeT =
+public actual fun fsReadAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: MutPtr, readBytes: SizeT): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsReadAttr(fd, attribute.rawAddress, type.toInt(), pos, buffer.rawAddress, readBytes.toLong())
 
-public actual fun fsWriteAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: ConstPtr<CVoid>, writeBytes: SizeT): SsizeT =
+public actual fun fsWriteAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: ConstPtr, writeBytes: SizeT): SsizeT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsWriteAttr(fd, attribute.rawAddress, type.toInt(), pos, buffer.rawAddress, writeBytes.toLong())
 
-public actual fun fsRemoveAttr(fd: CInt, attribute: ConstPtr<CChar>): CInt =
+public actual fun fsRemoveAttr(fd: CInt, attribute: ConstPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsRemoveAttr(fd, attribute.rawAddress)
 
-public actual fun fsStatAttr(fd: CInt, attribute: ConstPtr<CChar>, attrInfo: MutPtr<AttrInfo>): CInt =
+public actual fun fsStatAttr(fd: CInt, attribute: ConstPtr, attrInfo: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsStatAttr(fd, attribute.rawAddress, attrInfo.rawAddress)
 
-public actual fun fsOpenAttr(path: ConstPtr<CChar>, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt =
+public actual fun fsOpenAttr(path: ConstPtr, attribute: ConstPtr, type: UInt, openMode: CInt): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsOpenAttr(path.rawAddress, attribute.rawAddress, type.toInt(), openMode)
 
-public actual fun fsFopenAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt =
+public actual fun fsFopenAttr(fd: CInt, attribute: ConstPtr, type: UInt, openMode: CInt): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsFopenAttr(fd, attribute.rawAddress, type.toInt(), openMode)
 
 public actual fun fsCloseAttr(fd: CInt): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsCloseAttr(fd)
 
-public actual fun fsOpenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun fsOpenAttrDir(path: ConstPtr): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsOpenAttrDir(path.rawAddress))
 
-public actual fun fsLopenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun fsLopenAttrDir(path: ConstPtr): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsLopenAttrDir(path.rawAddress))
 
-public actual fun fsFopenAttrDir(fd: CInt): MutPtr<DIR> =
+public actual fun fsFopenAttrDir(fd: CInt): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsFopenAttrDir(fd))
 
-public actual fun fsCloseAttrDir(dir: MutPtr<DIR>): CInt =
+public actual fun fsCloseAttrDir(dir: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsCloseAttrDir(dir.rawAddress)
 
-public actual fun fsReadAttrDir(dir: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadAttrDir(dir: MutPtr): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsReadAttrDir(dir.rawAddress))
 
-public actual fun fsRewindAttrDir(dir: MutPtr<DIR>) {
+public actual fun fsRewindAttrDir(dir: MutPtr) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsRewindAttrDir(dir.rawAddress)
 }
 
-public actual fun fsCreateIndex(device: DevT, name: ConstPtr<CChar>, type: UInt, flags: UInt): CInt =
+public actual fun fsCreateIndex(device: DevT, name: ConstPtr, type: UInt, flags: UInt): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsCreateIndex(device, name.rawAddress, type.toInt(), flags.toInt())
 
-public actual fun fsRemoveIndex(device: DevT, name: ConstPtr<CChar>): CInt =
+public actual fun fsRemoveIndex(device: DevT, name: ConstPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsRemoveIndex(device, name.rawAddress)
 
-public actual fun fsStatIndex(device: DevT, name: ConstPtr<CChar>, indexInfo: MutPtr<IndexInfo>): CInt =
+public actual fun fsStatIndex(device: DevT, name: ConstPtr, indexInfo: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsStatIndex(device, name.rawAddress, indexInfo.rawAddress)
 
-public actual fun fsOpenIndexDir(device: DevT): MutPtr<DIR> =
+public actual fun fsOpenIndexDir(device: DevT): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsOpenIndexDir(device))
 
-public actual fun fsCloseIndexDir(indexDirectory: MutPtr<DIR>): CInt =
+public actual fun fsCloseIndexDir(indexDirectory: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsCloseIndexDir(indexDirectory.rawAddress)
 
-public actual fun fsReadIndexDir(indexDirectory: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadIndexDir(indexDirectory: MutPtr): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsReadIndexDir(indexDirectory.rawAddress))
 
-public actual fun fsRewindIndexDir(indexDirectory: MutPtr<DIR>) {
+public actual fun fsRewindIndexDir(indexDirectory: MutPtr) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsRewindIndexDir(indexDirectory.rawAddress)
 }
 
-public actual fun devForPath(path: ConstPtr<CChar>): DevT =
+public actual fun devForPath(path: ConstPtr): DevT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeDevForPath(path.rawAddress)
 
-public actual fun nextDev(pos: MutPtr<Int>): DevT =
+public actual fun nextDev(pos: MutPtr): DevT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeNextDev(pos.rawAddress)
 
-public actual fun fsStatDev(dev: DevT, info: MutPtr<FsInfo>): CInt =
+public actual fun fsStatDev(dev: DevT, info: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsStatDev(dev, info.rawAddress)
 
-public actual fun fsOpenQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt): MutPtr<DIR> =
+public actual fun fsOpenQuery(device: DevT, query: ConstPtr, flags: UInt): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsOpenQuery(device, query.rawAddress, flags.toInt()))
 
-public actual fun fsOpenLiveQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt, port: PortId, token: Int): MutPtr<DIR> =
+public actual fun fsOpenLiveQuery(device: DevT, query: ConstPtr, flags: UInt, port: PortId, token: Int): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsOpenLiveQuery(device, query.rawAddress, flags.toInt(), port, token))
 
-public actual fun fsCloseQuery(d: MutPtr<DIR>): CInt =
+public actual fun fsCloseQuery(d: MutPtr): CInt =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsCloseQuery(d.rawAddress)
 
-public actual fun fsReadQuery(d: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadQuery(d: MutPtr): MutPtr =
     MutPtr(UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsReadQuery(d.rawAddress))
 
-public actual fun getPathForDirent(dent: MutPtr<Dirent>, buf: MutPtr<CChar>, len: SizeT): StatusT =
+public actual fun getPathForDirent(dent: MutPtr, buf: MutPtr, len: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetPathForDirent(dent.rawAddress, buf.rawAddress, len.toLong())
 
-public actual fun fsMountVolume(where: ConstPtr<CChar>, device: ConstPtr<CChar>, filesystem: ConstPtr<CChar>, flags: UInt, parameters: ConstPtr<CChar>): DevT =
+public actual fun fsMountVolume(where: ConstPtr, device: ConstPtr, filesystem: ConstPtr, flags: UInt, parameters: ConstPtr): DevT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsMountVolume(where.rawAddress, device.rawAddress, filesystem.rawAddress, flags.toInt(), parameters.rawAddress)
 
-public actual fun fsUnmountVolume(path: ConstPtr<CChar>, flags: UInt): StatusT =
+public actual fun fsUnmountVolume(path: ConstPtr, flags: UInt): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFsUnmountVolume(path.rawAddress, flags.toInt())
 
-public actual fun loadImage(argc: Int, argv: MutPtr<ConstPtr<CChar>>, environ: MutPtr<ConstPtr<CChar>>): ThreadId =
+public actual fun loadImage(argc: Int, argv: MutPtr, environ: MutPtr): ThreadId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeLoadImage(argc, argv.rawAddress, environ.rawAddress)
 
-public actual fun loadAddOn(path: ConstPtr<CChar>): ImageId =
+public actual fun loadAddOn(path: ConstPtr): ImageId =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeLoadAddOn(path.rawAddress)
 
 public actual fun unloadAddOn(image: ImageId): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeUnloadAddOn(image)
 
-public actual fun getImageSymbol(image: ImageId, name: ConstPtr<CChar>, symbolType: Int, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT =
+public actual fun getImageSymbol(image: ImageId, name: ConstPtr, symbolType: Int, symbolLocation: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetImageSymbol(image, name.rawAddress, symbolType, symbolLocation.rawAddress)
 
-public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr<CChar>, nameLength: MutPtr<Int>, symbolType: MutPtr<Int>, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT =
+public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr, nameLength: MutPtr, symbolType: MutPtr, symbolLocation: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNthImageSymbol(image, n, nameBuffer.rawAddress, nameLength.rawAddress, symbolType.rawAddress, symbolLocation.rawAddress)
 
-public actual fun clearCaches(address: MutPtr<CVoid>, length: SizeT, flags: UInt) {
+public actual fun clearCaches(address: MutPtr, length: SizeT, flags: UInt) {
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeClearCaches(address.rawAddress, length.toLong(), flags.toInt())
 }
 
-public actual fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>, size: SizeT): StatusT =
+public actual fun getImageInfo(image: ImageId, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetImageInfo(image, info.rawAddress, size.toLong())
 
-public actual fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>, size: SizeT): StatusT =
+public actual fun getNextImageInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetNextImageInfo(team, cookie.rawAddress, info.rawAddress, size.toLong())
 
-public actual fun findPath(codePointer: ConstPtr<CVoid>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: ULong): StatusT =
+public actual fun findPath(codePointer: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: ULong): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPath(codePointer.rawAddress, baseDirectory, subPath.rawAddress, pathBuffer.rawAddress, bufferSize.toLong())
 
-public actual fun findPathEtc(codePointer: ConstPtr<CVoid>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathEtc(codePointer: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPathEtc(codePointer.rawAddress, dependency.rawAddress, architecture.rawAddress, baseDirectory, subPath.rawAddress, flags.toInt(), pathBuffer.rawAddress, bufferSize.toLong())
 
-public actual fun findPathForPath(path: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathForPath(path: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPathForPath(path.rawAddress, baseDirectory, subPath.rawAddress, pathBuffer.rawAddress, bufferSize.toLong())
 
-public actual fun findPathForPathEtc(path: ConstPtr<CChar>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathForPathEtc(path: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPathForPathEtc(path.rawAddress, dependency.rawAddress, architecture.rawAddress, baseDirectory, subPath.rawAddress, flags.toInt(), pathBuffer.rawAddress, bufferSize.toLong())
 
-public actual fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT =
+public actual fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr, paths: MutPtr, pathCount: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPaths(baseDirectory, subPath.rawAddress, paths.rawAddress, pathCount.rawAddress)
 
-public actual fun findPathsEtc(architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT =
+public actual fun findPathsEtc(architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, paths: MutPtr, pathCount: MutPtr): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindPathsEtc(architecture.rawAddress, baseDirectory, subPath.rawAddress, flags.toInt(), paths.rawAddress, pathCount.rawAddress)
 
-public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr<CChar>, length: Int): StatusT =
+public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr, length: Int): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeFindDirectory(which, volume, createIt, pathString.rawAddress, length)
 
-public actual fun getCpuid(info: MutPtr<CpuidInfo>, eaxRegister: UInt, cpuNum: UInt): StatusT =
+public actual fun getCpuid(info: MutPtr, eaxRegister: UInt, cpuNum: UInt): StatusT =
     UnixHaikuNativeJniBridge.libcUnixHaikuNativeGetCpuid(info.rawAddress, eaxRegister.toInt(), cpuNum.toInt())

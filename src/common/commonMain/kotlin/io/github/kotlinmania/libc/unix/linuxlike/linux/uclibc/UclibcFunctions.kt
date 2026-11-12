@@ -1,67 +1,54 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
-import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
-import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadRwlockattrT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.SiginfoT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.Termios
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public expect fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt
+public expect fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt
 
-public expect fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt
+public expect fun pthreadRwlockattrGetkindNp(attr: ConstPtr, value: MutPtr): CInt
 
-public expect fun pthreadRwlockattrSetkindNp(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt
+public expect fun pthreadRwlockattrSetkindNp(attr: MutPtr, value: CInt): CInt
 
 public expect fun ptrace(request: CUint, vararg variadicArgs: Long): CLong
 
-public expect fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt
+public expect fun sendmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt): CInt
 
-public expect fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt
+public expect fun recvmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt, timeout: MutPtr): CInt
 
-public expect fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt
+public expect fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt
 
-public expect fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT
+public expect fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT
 
-public expect fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt
+public expect fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt
 
-public expect fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT
+public expect fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: Off64T): SsizeT
 
-public expect fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT
+public expect fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: Off64T): SsizeT
 
 public expect fun sethostid(hostid: CLong): CInt
 
-public expect fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr<CChar>): CInt
+public expect fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr): CInt
 
-public expect fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr<Rlimit64>): CInt
+public expect fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr): CInt
 
-public expect fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr<Rlimit64>): CInt
+public expect fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr): CInt
 
-public expect fun getrlimit(resource: RlimitResourceT, rlim: MutPtr<Rlimit>): CInt
+public expect fun getrlimit(resource: RlimitResourceT, rlim: MutPtr): CInt
 
-public expect fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): CInt
+public expect fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr): CInt
 
 public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt
 
@@ -69,7 +56,7 @@ public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
 
 public expect fun getauxval(type: CUlong): CUlong
 
-public fun SiginfoT.siAddr(): MutPtr<CVoid> {
+public fun SiginfoT.siAddr(): MutPtr {
     val sz = maxOf(64L, SiginfoT.typeLayout().sizeBytes)
     val scratch =
         io.github.kotlinmania.rustlang.core.intrinsics
@@ -77,7 +64,7 @@ public fun SiginfoT.siAddr(): MutPtr<CVoid> {
     SiginfoT.typeLayout().writeNative(scratch, this)
     val out =
         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-            .mutPtrLayout<CVoid>(64)
+            .mutPtrLayout(64)
             .readNative(scratch + 16L)
     io.github.kotlinmania.rustlang.core.intrinsics
         .kmDealloc(scratch, sz, 8L)
@@ -106,7 +93,7 @@ public fun SiginfoT.sifields(): Sifields {
         Sifields(
             alignPointerCtorArg =
                 io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                    .mutPtrLayout<CVoid>(64)
+                    .mutPtrLayout(64)
                     .readNative(scratch + 16L),
             sigchld = SifieldsSigchld.typeLayout().readNative(scratch + 16L),
         )

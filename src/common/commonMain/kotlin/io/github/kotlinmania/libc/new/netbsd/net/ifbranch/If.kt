@@ -13,7 +13,6 @@ import io.github.kotlinmania.libc.new.qurt.Timespec
 import io.github.kotlinmania.libc.unix.IFNAMSIZ
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
 import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -138,11 +137,11 @@ public class CAnonymousIfrIfru internal constructor(
     public var ifruMtu: CInt,
     public var ifruDlt: CInt,
     public var ifruValue: CUint,
-    ifruDataCtorArg: MutPtr<CVoid>,
+    ifruDataCtorArg: MutPtr,
     // buf and buflen are deprecated but they contribute to union size
     public var ifruB: CAnonymousIfrIfruIfruB,
 ) {
-    public var ifruData: MutPtr<CVoid> = ifruDataCtorArg
+    public var ifruData: MutPtr = ifruDataCtorArg
         internal set
 
     public constructor() : this(
@@ -180,11 +179,11 @@ public class CAnonymousIfrIfru internal constructor(
 
     public operator fun component10(): CUint = this.ifruValue
 
-    public operator fun component11(): MutPtr<CVoid> = this.ifruData
+    public operator fun component11(): MutPtr = this.ifruData
 
     public operator fun component12(): CAnonymousIfrIfruIfruB = this.ifruB
 
-    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, space: SockaddrStorage = this.space, ifruFlags: CShort = this.ifruFlags, ifruAddrflags: CInt = this.ifruAddrflags, ifruMetrics: CInt = this.ifruMetrics, ifruMtu: CInt = this.ifruMtu, ifruDlt: CInt = this.ifruDlt, ifruValue: CUint = this.ifruValue, ifruData: MutPtr<CVoid> = this.ifruData, ifruB: CAnonymousIfrIfruIfruB = this.ifruB): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, space = space, ifruFlags = ifruFlags, ifruAddrflags = ifruAddrflags, ifruMetrics = ifruMetrics, ifruMtu = ifruMtu, ifruDlt = ifruDlt, ifruValue = ifruValue, ifruDataCtorArg = ifruData, ifruB = ifruB)
+    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, space: SockaddrStorage = this.space, ifruFlags: CShort = this.ifruFlags, ifruAddrflags: CInt = this.ifruAddrflags, ifruMetrics: CInt = this.ifruMetrics, ifruMtu: CInt = this.ifruMtu, ifruDlt: CInt = this.ifruDlt, ifruValue: CUint = this.ifruValue, ifruData: MutPtr = this.ifruData, ifruB: CAnonymousIfrIfruIfruB = this.ifruB): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, space = space, ifruFlags = ifruFlags, ifruAddrflags = ifruAddrflags, ifruMetrics = ifruMetrics, ifruMtu = ifruMtu, ifruDlt = ifruDlt, ifruValue = ifruValue, ifruDataCtorArg = ifruData, ifruB = ifruB)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -232,7 +231,7 @@ public class CAnonymousIfrIfru internal constructor(
             ifruMtu: CInt = 0,
             ifruDlt: CInt = 0,
             ifruValue: CUint = 0u,
-            ifruData: MutPtr<CVoid> = MutPtr(0L),
+            ifruData: MutPtr = MutPtr(0L),
             ifruB: CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(),
         ): CAnonymousIfrIfru =
             CAnonymousIfrIfru(
@@ -254,9 +253,9 @@ public class CAnonymousIfrIfru internal constructor(
 
 public class CAnonymousIfrIfruIfruB internal constructor(
     public var bBuflen: UInt,
-    bBufCtorArg: MutPtr<CVoid>,
+    bBufCtorArg: MutPtr,
 ) {
-    public var bBuf: MutPtr<CVoid> = bBufCtorArg
+    public var bBuf: MutPtr = bBufCtorArg
         internal set
 
     public constructor() : this(
@@ -266,9 +265,9 @@ public class CAnonymousIfrIfruIfruB internal constructor(
 
     public operator fun component1(): UInt = this.bBuflen
 
-    public operator fun component2(): MutPtr<CVoid> = this.bBuf
+    public operator fun component2(): MutPtr = this.bBuf
 
-    public fun copy(bBuflen: UInt = this.bBuflen, bBuf: MutPtr<CVoid> = this.bBuf): CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(bBuflen = bBuflen, bBufCtorArg = bBuf)
+    public fun copy(bBuflen: UInt = this.bBuflen, bBuf: MutPtr = this.bBuf): CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(bBuflen = bBuflen, bBufCtorArg = bBuf)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -294,21 +293,21 @@ public class CAnonymousIfrIfruIfruB internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: CAnonymousIfrIfruIfruB) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.bBuflen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.bBuf)
                 }
             }
 
         public operator fun invoke(
             bBuflen: UInt = 0u,
-            bBuf: MutPtr<CVoid> = MutPtr(0L),
+            bBuf: MutPtr = MutPtr(0L),
         ): CAnonymousIfrIfruIfruB =
             CAnonymousIfrIfruIfruB(
                 bBuflen = bBuflen,
@@ -323,13 +322,13 @@ public data class Ifconf(
 )
 
 public class CAnonymousIfcIfcu internal constructor(
-    ifcuBufCtorArg: MutPtr<CVoid>,
-    ifcuReqCtorArg: MutPtr<Ifreq>,
+    ifcuBufCtorArg: MutPtr,
+    ifcuReqCtorArg: MutPtr,
 ) {
-    public var ifcuBuf: MutPtr<CVoid> = ifcuBufCtorArg
+    public var ifcuBuf: MutPtr = ifcuBufCtorArg
         internal set
 
-    public var ifcuReq: MutPtr<Ifreq> = ifcuReqCtorArg
+    public var ifcuReq: MutPtr = ifcuReqCtorArg
         internal set
 
     public constructor() : this(
@@ -337,11 +336,11 @@ public class CAnonymousIfcIfcu internal constructor(
         ifcuReqCtorArg = MutPtr(0L),
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.ifcuBuf
+    public operator fun component1(): MutPtr = this.ifcuBuf
 
-    public operator fun component2(): MutPtr<Ifreq> = this.ifcuReq
+    public operator fun component2(): MutPtr = this.ifcuReq
 
-    public fun copy(ifcuBuf: MutPtr<CVoid> = this.ifcuBuf, ifcuReq: MutPtr<Ifreq> = this.ifcuReq): CAnonymousIfcIfcu = CAnonymousIfcIfcu(ifcuBufCtorArg = ifcuBuf, ifcuReqCtorArg = ifcuReq)
+    public fun copy(ifcuBuf: MutPtr = this.ifcuBuf, ifcuReq: MutPtr = this.ifcuReq): CAnonymousIfcIfcu = CAnonymousIfcIfcu(ifcuBufCtorArg = ifcuBuf, ifcuReqCtorArg = ifcuReq)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -359,8 +358,8 @@ public class CAnonymousIfcIfcu internal constructor(
 
     public companion object {
         public operator fun invoke(
-            ifcuBuf: MutPtr<CVoid> = MutPtr(0L),
-            ifcuReq: MutPtr<Ifreq> = MutPtr(0L),
+            ifcuBuf: MutPtr = MutPtr(0L),
+            ifcuReq: MutPtr = MutPtr(0L),
         ): CAnonymousIfcIfcu =
             CAnonymousIfcIfcu(
                 ifcuBufCtorArg = ifcuBuf,

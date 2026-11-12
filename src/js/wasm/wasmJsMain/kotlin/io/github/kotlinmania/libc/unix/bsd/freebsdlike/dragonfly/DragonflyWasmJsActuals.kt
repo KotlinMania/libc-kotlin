@@ -3,23 +3,16 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SiginfoT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -181,7 +174,7 @@ private external fun wasmLibcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst(p0: S
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext(p0, p1, p2)")
 private external fun wasmLibcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext(p0: String, p1: String, p2: String): String
 
-public actual fun errnoLocation(): MutPtr<CInt> =
+public actual fun errnoLocation(): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyErrnoLocation().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgrent() {
@@ -192,19 +185,19 @@ public actual fun setgrent() {
     }
 }
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyMprotect(addr.rawAddress.toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setutxdb(type: CUint, file: MutPtr<CChar>): CInt =
+public actual fun setutxdb(type: CUint, file: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflySetutxdb(type.toInt(), file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioWaitcomplete(iocbp: MutPtr<MutPtr<Aiocb>>, timeout: MutPtr<Timespec>): CInt =
+public actual fun aioWaitcomplete(iocbp: MutPtr, timeout: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioWaitcomplete(iocbp.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun devnameR(dev: DevT, mode: ModeT, buf: MutPtr<CChar>, len: SizeT): MutPtr<CChar> =
+public actual fun devnameR(dev: DevT, mode: ModeT, buf: MutPtr, len: SizeT): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyDevnameR(dev.toInt(), mode.toInt(), buf.rawAddress.toString(), len.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyWaitid(idtype.toInt(), id.toString(), infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
@@ -215,46 +208,46 @@ public actual fun freelocale(loc: LocaleT) {
     }
 }
 
-public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: MutPtr<Rtprio>): CInt =
+public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyLwpRtprio(function, pid, lwpid, rtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+public actual fun statfs(path: ConstPtr, buf: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyStatfs(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+public actual fun fstatfs(fd: CInt, buf: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyFstatfs(fd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+public actual fun memmem(haystack: ConstPtr, haystacklen: SizeT, needle: ConstPtr, needlelen: SizeT): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyMemmem(haystack.rawAddress.toString(), haystacklen.toString(), needle.rawAddress.toString(), needlelen.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: MutPtr, pshared: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyPthreadSpinInit(lock.rawAddress.toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinDestroy(lock: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyPthreadSpinDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinLock(lock: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyPthreadSpinLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinTrylock(lock: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyPthreadSpinTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinUnlock(lock: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyPthreadSpinUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, mask: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, mask: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflySchedGetaffinity(pid, cpusetsize.toString(), mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflySchedSetaffinity(pid, cpusetsize.toString(), mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetcpu(): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflySchedGetcpu() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+public actual fun setproctitle(fmt: ConstPtr, vararg variadicArgs: Long) {
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) {
         wasmLibcUnixBsdFreebsdlikeDragonflySetproctitle(fmt.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
     } else {
@@ -265,85 +258,85 @@ public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyShmget(key.toString(), size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr, shmflg: CInt): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyShmat(shmid, shmaddr.rawAddress.toString(), shmflg).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+public actual fun shmdt(shmaddr: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyShmdt(shmaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyShmctl(shmid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyProcctl(idtype.toInt(), id.toString(), cmd, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun updwtmpx(file: ConstPtr<CChar>, ut: ConstPtr<Utmpx>): CInt =
+public actual fun updwtmpx(file: ConstPtr, ut: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUpdwtmpx(file.rawAddress.toString(), ut.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): MutPtr<Lastlogx> =
+public actual fun getlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyGetlastlogx(fname.rawAddress.toString(), uid.toInt(), ll.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun updlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): CInt =
+public actual fun updlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUpdlastlogx(fname.rawAddress.toString(), uid.toInt(), ll.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxuser(name: ConstPtr<CChar>): Utmpx =
+public actual fun getutxuser(name: ConstPtr): Utmpx =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpxname(file: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUtmpxname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflySysCheckpoint(tpe, fd, pid, retval) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umtxSleep(ptr: ConstPtr<CInt>, value: CInt, timeout: CInt): CInt =
+public actual fun umtxSleep(ptr: ConstPtr, value: CInt, timeout: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUmtxSleep(ptr.rawAddress.toString(), value, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umtxWakeup(ptr: ConstPtr<CInt>, count: CInt): CInt =
+public actual fun umtxWakeup(ptr: ConstPtr, count: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyUmtxWakeup(ptr.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyDirname(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyBasename(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, flags: CInt): CInt =
+public actual fun getmntinfo(mntbufp: MutPtr, flags: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyGetmntinfo(mntbufp.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getmntvinfo(mntbufp: MutPtr<MutPtr<Statfs>>, mntvbufp: MutPtr<MutPtr<Statvfs>>, flags: CInt): CInt =
+public actual fun getmntvinfo(mntbufp: MutPtr, mntvbufp: MutPtr, flags: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyGetmntvinfo(mntbufp.rawAddress.toString(), mntvbufp.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun closefrom(lowfd: CInt): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyClosefrom(lowfd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioCancel(fd, aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+public actual fun aioError(aiocbp: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioError(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioFsync(op, aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioRead(aiocbp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioRead(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+public actual fun aioReturn(aiocbp: MutPtr): SsizeT =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioReturn(aiocbp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+public actual fun aioSuspend(aiocbList: ConstPtr, nitems: CInt, timeout: ConstPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioSuspend(aiocbList.rawAddress.toString(), nitems, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioWrite(aiocbp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyAioWrite(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr, nitems: CInt, sevp: MutPtr): CInt =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) wasmLibcUnixBsdFreebsdlikeDragonflyLioListio(mode, aiocbList.rawAddress.toString(), nitems, sevp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun reallocf(ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun reallocf(ptr: MutPtr, size: SizeT): MutPtr =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyReallocf(ptr.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freezero(ptr: MutPtr<CVoid>, size: SizeT) {
+public actual fun freezero(ptr: MutPtr, size: SizeT) {
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) {
         wasmLibcUnixBsdFreebsdlikeDragonflyFreezero(ptr.rawAddress.toString(), size.toString())
     } else {
@@ -351,8 +344,8 @@ public actual fun freezero(ptr: MutPtr<CVoid>, size: SizeT) {
     }
 }
 
-public actual fun kvmVmMapEntryFirst(kvm: MutPtr<KvmT>, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
+public actual fun kvmVmMapEntryFirst(kvm: MutPtr, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst(kvm.rawAddress.toString(), map.rawAddress.toString(), entry.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun kvmVmMapEntryNext(kvm: MutPtr<KvmT>, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT =
+public actual fun kvmVmMapEntryNext(kvm: MutPtr, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT =
     if (unixBsdFreebsdlikeDragonflyNapiAvailable) MutPtr(wasmLibcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext(kvm.rawAddress.toString(), map.rawAddress.toString(), entry.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1672,16 +1670,16 @@ public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: Audi
 public actual fun sceAudioChRelease(channel: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioChRelease(channel) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutput(channel, vol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutputBlocking(channel, vol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutputPanned(channel, leftVol, rightVol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutputPannedBlocking(channel, leftVol, rightVol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAudioGetChannelRestLen(channel: Int): Int =
@@ -1708,7 +1706,7 @@ public actual fun sceAudioOutput2Release(): Int =
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutput2ChangeLength(sampleCount) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioOutput2OutputBlocking(vol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAudioOutput2GetRestSample(): Int =
@@ -1720,18 +1718,18 @@ public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFreque
 public actual fun sceAudioSRCChRelease(): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioSRCChRelease() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioSRCOutputBlocking(vol, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioInputInit(unknown1, gain, unknown2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
+public actual fun sceAudioInputInitEx(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioInputInitEx(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAudioGetInputLength(): Int =
     if (pspNapiAvailable) wasmLibcPspSceAudioGetInputLength() else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -1745,22 +1743,22 @@ public actual fun sceAudioPollInputEnd(): Int =
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetAtracID(uiCodecType.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
+public actual fun sceAtracSetDataAndGetID(buf: MutPtr, bufsize: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracSetDataAndGetID(buf.rawAddress.toString(), bufsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr, outN: MutPtr, outEnd: MutPtr, outRemainFrame: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracDecodeData(atracId, outSamples.rawAddress.toString(), outN.rawAddress.toString(), outEnd.rawAddress.toString(), outRemainFrame.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetRemainFrame(atracId, outRemainFrame.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int =
+public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr, availableBytes: MutPtr, readOffset: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetStreamDataInfo(atracId, writePointer.rawAddress.toString(), availableBytes.rawAddress.toString(), readOffset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
+public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetBitrate(atracId, outBitrate.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
@@ -1769,94 +1767,94 @@ public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracReleaseAtracID(atracId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
+public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetNextSample(atracId, outN.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int =
+public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetMaxSample(atracId, outMax.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int =
+public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetBufferInfoForReseting(atracId, uiSample.toInt(), pbufferInfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int =
+public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetChannel(atracId, puiChannel.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int =
+public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetInternalErrorInfo(atracId, piResult.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int =
+public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr, puiLoopStatus: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetLoopStatus(atracId, piLoopNum.rawAddress.toString(), puiLoopStatus.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int =
+public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetNextDecodePosition(atracId, puiSamplePosition.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int =
+public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr, puiDataByte: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetSecondBufferInfo(atracId, puiPosition.rawAddress.toString(), puiDataByte.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int =
+public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr, piLoopStartSample: MutPtr, piLoopEndSample: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracGetSoundSample(atracId, piEndSample.rawAddress.toString(), piLoopStartSample.rawAddress.toString(), piLoopEndSample.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr, uiBufferByte: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracSetData(atracId, pucBufferAddr.rawAddress.toString(), uiBufferByte.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracSetHalfwayBuffer(atracId, pucBufferAddr.rawAddress.toString(), uiReadByte.toInt(), uiBufferByte.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracSetHalfwayBufferAndGetID(pucBufferAddr.rawAddress.toString(), uiReadByte.toInt(), uiBufferByte.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int =
+public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr, uiSecondBufferByte: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceAtracSetSecondBuffer(atracId, pucSecondBufferAddr.rawAddress.toString(), uiSecondBufferByte.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlSetSamplingCycle(cycle) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlGetSamplingCycle(pcycle.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceCtrlSetSamplingMode(mode: CtrlMode): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingMode(pmode: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlGetSamplingMode(pmode.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferPositive(padData: MutPtr, count: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlPeekBufferPositive(padData.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferNegative(padData: MutPtr, count: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlPeekBufferNegative(padData.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferPositive(padData: MutPtr, count: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlReadBufferPositive(padData.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferNegative(padData: MutPtr, count: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlReadBufferNegative(padData.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlPeekLatch(latchData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlPeekLatch(latchData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlReadLatch(latchData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlReadLatch(latchData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
+public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr, idleback: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceCtrlGetIdleCancelThreshold(idlereset.rawAddress.toString(), idleback.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int =
+public actual fun sceDisplayGetMode(pmode: MutPtr, pwidth: MutPtr, pheight: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceDisplayGetMode(pmode.rawAddress.toString(), pwidth.rawAddress.toString(), pheight.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int =
+public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr, bufferWidth: MutPtr, pixelFormat: MutPtr, sync: DisplaySetBufSync): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceDisplayGetVcount(): UInt =
@@ -1892,7 +1890,7 @@ public actual fun sceDisplayIsVblank(): Int =
 public actual fun sceGeEdramGetSize(): UInt =
     if (pspNapiAvailable) wasmLibcPspSceGeEdramGetSize().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
+public actual fun sceGeEdramGetAddr(): MutPtr =
     if (pspNapiAvailable) MutPtr(wasmLibcPspSceGeEdramGetAddr().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
@@ -1901,28 +1899,28 @@ public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
 public actual fun sceGeGetCmd(cmd: Int): UInt =
     if (pspNapiAvailable) wasmLibcPspSceGeGetCmd(cmd).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int =
+public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int =
+public actual fun sceGeGetStack(stackId: Int, stack: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeGetStack(stackId, stack.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeSaveContext(context: MutPtr<GeContext>): Int =
+public actual fun sceGeSaveContext(context: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeSaveContext(context.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int =
+public actual fun sceGeRestoreContext(context: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeRestoreContext(context.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueue(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeListEnQueue(list.rawAddress.toString(), stall.rawAddress.toString(), cbid, arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueueHead(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeListEnQueueHead(list.rawAddress.toString(), stall.rawAddress.toString(), cbid, arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGeListDeQueue(qid: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeListDeQueue(qid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
+public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeListUpdateStallAddr(qid, stall.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
@@ -1931,13 +1929,13 @@ public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
+public actual fun sceGeBreak(mode: Int, pParam: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeBreak(mode, pParam.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGeContinue(): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeContinue() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
+public actual fun sceGeSetCallback(cb: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceGeSetCallback(cb.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
@@ -1954,13 +1952,13 @@ public actual fun sceKernelExitGame() {
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int =
+public actual fun sceKernelLoadExec(file: ConstPtr, param: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelLoadExec(file.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid> =
+public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelFreePartitionMemory(blockid: SceUid): Int =
@@ -1981,13 +1979,13 @@ public actual fun sceKernelSetCompiledSdkVersion(version: UInt): Int =
 public actual fun sceKernelGetCompiledSdkVersion(): UInt =
     if (pspNapiAvailable) wasmLibcPspSceKernelGetCompiledSdkVersion().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLibcTime(t: MutPtr<Int>): Int =
+public actual fun sceKernelLibcTime(t: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelLibcTime(t.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelLibcClock(): UInt =
     if (pspNapiAvailable) wasmLibcPspSceKernelLibcClock().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int =
+public actual fun sceKernelLibcGettimeofday(tp: MutPtr, tzp: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelLibcGettimeofday(tp.rawAddress.toString(), tzp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDcacheWritebackAll() {
@@ -2006,7 +2004,7 @@ public actual fun sceKernelDcacheWritebackInvalidateAll() {
     }
 }
 
-public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheWritebackRange(p: ConstPtr, size: UInt) {
     if (pspNapiAvailable) {
         wasmLibcPspSceKernelDcacheWritebackRange(p.rawAddress.toString(), size.toInt())
     } else {
@@ -2014,7 +2012,7 @@ public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt) 
     }
 }
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr, size: UInt) {
     if (pspNapiAvailable) {
         wasmLibcPspSceKernelDcacheWritebackInvalidateRange(p.rawAddress.toString(), size.toInt())
     } else {
@@ -2022,7 +2020,7 @@ public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, si
     }
 }
 
-public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr, size: UInt) {
     if (pspNapiAvailable) {
         wasmLibcPspSceKernelDcacheInvalidateRange(p.rawAddress.toString(), size.toInt())
     } else {
@@ -2038,7 +2036,7 @@ public actual fun sceKernelIcacheInvalidateAll() {
     }
 }
 
-public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr, size: UInt) {
     if (pspNapiAvailable) {
         wasmLibcPspSceKernelIcacheInvalidateRange(p.rawAddress.toString(), size.toInt())
     } else {
@@ -2046,37 +2044,37 @@ public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt)
     }
 }
 
-public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int =
+public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr, seed: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMt19937Init(ctx.rawAddress.toString(), seed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt =
+public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr): UInt =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMt19937UInt(ctx.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMd5Digest(data.rawAddress.toString(), size.toInt(), digest.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int =
+public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMd5BlockInit(ctx.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMd5BlockUpdate(ctx.rawAddress.toString(), data.rawAddress.toString(), size.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsMd5BlockResult(ctx.rawAddress.toString(), digest.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsSha1Digest(data.rawAddress.toString(), size.toInt(), digest.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int =
+public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsSha1BlockInit(ctx.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsSha1BlockUpdate(ctx.rawAddress.toString(), data.rawAddress.toString(), size.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUtilsSha1BlockResult(ctx.rawAddress.toString(), digest.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int =
+public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr, arg: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelRegisterSubIntrHandler(intNo, no, handler.rawAddress.toString(), arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int =
@@ -2088,7 +2086,7 @@ public actual fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int =
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelDisableSubIntr(intNo, no) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
+public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelCpuSuspendIntr(): UInt =
@@ -2116,43 +2114,43 @@ public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
 public actual fun sceKernelIsCpuIntrEnable(): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelIsCpuIntrEnable() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModule(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleMs(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelUnloadModule(modId: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int =
+public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelSelfStopUnloadModule(unknown, argSize.toString(), argp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelStopUnloadSelfModule(argSize.toString(), argp.rawAddress.toString(), status.rawAddress.toString(), option.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int =
+public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetModuleIdList(readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelGetModuleIdList(readBuf.rawAddress.toString(), readBufSize, idCount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelVolatileMemLock(unk, ptr.rawAddress.toString(), size.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelVolatileMemTryLock(unk, ptr.rawAddress.toString(), size.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
@@ -2170,13 +2168,13 @@ public actual fun sceKernelStderr(): SceUid =
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid =
+public actual fun sceKernelCreateThread(name: ConstPtr, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int =
+public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelExitThread(status: Int): Int =
@@ -2215,10 +2213,10 @@ public actual fun sceKernelSuspendThread(thid: SceUid): Int =
 public actual fun sceKernelResumeThread(thid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDelayThread(delay: UInt): Int =
@@ -2227,10 +2225,10 @@ public actual fun sceKernelDelayThread(delay: UInt): Int =
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelDelayThreadCB(delay.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThread(delay: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelDelaySysClockThread(delay.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelDelaySysClockThreadCB(delay.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int =
@@ -2260,13 +2258,13 @@ public actual fun sceKernelCheckThreadStack(): Int =
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int =
+public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int =
+public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid =
+public actual fun sceKernelCreateSema(name: ConstPtr, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
@@ -2275,19 +2273,19 @@ public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
 public actual fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelPollSema(semaId: SceUid, signal: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int =
+public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid =
+public actual fun sceKernelCreateEventFlag(name: ConstPtr, attr: Int, bits: Int, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
@@ -2296,61 +2294,61 @@ public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
 public actual fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int =
+public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteEventFlag(evId: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int =
+public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid =
+public actual fun sceKernelCreateMbx(name: ConstPtr, attr: UInt, option: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int =
+public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int =
+public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetSysClockAlarm(clock: MutPtr, handler: MutPtr, common: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int =
+public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateCallback(name: ConstPtr, func: SceKernelCallbackFunction, arg: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int =
+public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteCallback(cb: SceUid): Int =
@@ -2368,103 +2366,103 @@ public actual fun sceKernelGetCallbackCount(cb: SceUid): Int =
 public actual fun sceKernelCheckCallback(): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelCheckCallback() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int =
+public actual fun sceKernelReferSystemStatus(status: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelReferSystemStatus(status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateMsgPipe(name: ConstPtr, part: Int, attr: Int, unk1: MutPtr, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int =
+public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr, recv: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int =
+public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid =
+public actual fun sceKernelCreateVpl(name: ConstPtr, part: Int, attr: Int, size: UInt, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int =
+public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int =
+public actual fun sceKernelCreateFpl(name: ConstPtr, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelCreateFpl(name.rawAddress.toString(), part, attr, size.toInt(), blocks.toInt(), opt.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteFpl(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int =
+public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int =
+public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelUSec2SysClock(usec.toInt(), clock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
     if (pspNapiAvailable) wasmLibcPspSceKernelUSec2SysClockWide(usec.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USec(clock: MutPtr, low: MutPtr, high: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelSysClock2USec(clock.rawAddress.toString(), low.rawAddress.toString(), high.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr, high: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelSysClock2USecWide(clock.toString(), low.rawAddress.toString(), high.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetSystemTime(time: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceKernelGetSystemTime(time.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelGetSystemTimeWide(): Long =
@@ -2473,25 +2471,25 @@ public actual fun sceKernelGetSystemTimeWide(): Long =
 public actual fun sceKernelGetSystemTimeLow(): UInt =
     if (pspNapiAvailable) wasmLibcPspSceKernelGetSystemTimeLow().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid =
+public actual fun sceKernelCreateVTimer(name: ConstPtr, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelGetVTimerBaseWide(uid: SceUid): Long =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelGetVTimerTimeWide(uid: SceUid): Long =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long =
@@ -2503,37 +2501,37 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr, handler: SceKernelVTimerHandler, common: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int =
+public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int =
+public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferThreadProfiler(): MutPtr =
     if (pspNapiAvailable) MutPtr(wasmLibcPspSceKernelReferThreadProfiler().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferGlobalProfiler(): MutPtr =
     if (pspNapiAvailable) MutPtr(wasmLibcPspSceKernelReferGlobalProfiler().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStart(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbStart(driverName.rawAddress.toString(), size, args.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStop(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbStop(driverName.rawAddress.toString(), size, args.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUsbActivate(pid: UInt): Int =
@@ -2545,19 +2543,19 @@ public actual fun sceUsbDeactivate(pid: UInt): Int =
 public actual fun sceUsbGetState(): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbGetState() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
+public actual fun sceUsbGetDrvState(driverName: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbGetDrvState(driverName.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int =
+public actual fun sceUsbCamSetupStill(param: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamSetupStill(param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int =
+public actual fun sceUsbCamSetupStillEx(param: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamSetupStillEx(param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInputBlocking(buf: MutPtr, size: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamStillInputBlocking(buf.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInput(buf: MutPtr, size: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamStillInput(buf.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUsbCamStillWaitInputEnd(): Int =
@@ -2572,10 +2570,10 @@ public actual fun sceUsbCamStillCancelInput(): Int =
 public actual fun sceUsbCamStillGetInputLength(): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamStillGetInputLength() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideo(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamSetupVideo(param.rawAddress.toString(), workArea.rawAddress.toString(), workAreaSize) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideoEx(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamSetupVideoEx(param.rawAddress.toString(), workArea.rawAddress.toString(), workAreaSize) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUsbCamStartVideo(): Int =
@@ -2584,10 +2582,10 @@ public actual fun sceUsbCamStartVideo(): Int =
 public actual fun sceUsbCamStopVideo(): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamStopVideo() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr, size: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamReadVideoFrameBlocking(buf.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrame(buf: MutPtr, size: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamReadVideoFrame(buf.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUsbCamWaitReadVideoFrameEnd(): Int =
@@ -2623,28 +2621,28 @@ public actual fun sceUsbCamSetReverseMode(reverseFlags: Int): Int =
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamSetZoom(zoom) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSaturation(saturation: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetSaturation(saturation.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetBrightness(brightness: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetBrightness(brightness.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetContrast(contrast: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetContrast(contrast.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSharpness(sharpness: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetSharpness(sharpness.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int =
+public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetImageEffectMode(effectMode.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int =
+public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetEvLevel(exposureLevel.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetReverseMode(reverseFlags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetZoom(zoom: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUsbCamGetZoom(zoom.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUsbCamAutoImageReverseSW(on: Int): Int =
@@ -2758,7 +2756,7 @@ public actual fun sceWlanDevIsPowerOn(): Int =
 public actual fun sceWlanGetSwitchState(): Int =
     if (pspNapiAvailable) wasmLibcPspSceWlanGetSwitchState() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
+public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceWlanGetEtherAddr(etherAddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceWlanDevAttach(): Int =
@@ -2770,19 +2768,19 @@ public actual fun sceWlanDevDetach(): Int =
 public actual fun sceRtcGetTickResolution(): UInt =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetTickResolution().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetCurrentTick(tick: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetCurrentTick(tick.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int =
+public actual fun sceRtcGetCurrentClock(tm: MutPtr, tz: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetCurrentClock(tm.rawAddress.toString(), tz) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int =
+public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetCurrentClockLocalTime(tm.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr, tickLocal: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcConvertUtcToLocalTime(tickUtc.rawAddress.toString(), tickLocal.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr, tickUtc: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcConvertLocalTimeToUTC(tickLocal.rawAddress.toString(), tickUtc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceRtcIsLeapYear(year: Int): Int =
@@ -2794,91 +2792,91 @@ public actual fun sceRtcGetDaysInMonth(year: Int, month: Int): Int =
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetDayOfWeek(year, month, day) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
+public actual fun sceRtcCheckValid(date: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcCheckValid(date.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int =
+public actual fun sceRtcSetTick(date: MutPtr, tick: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcSetTick(date.rawAddress.toString(), tick.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTick(date: ConstPtr, tick: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetTick(date.rawAddress.toString(), tick.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int =
+public actual fun sceRtcCompareTick(tick1: ConstPtr, tick2: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcCompareTick(tick1.rawAddress.toString(), tick2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int =
+public actual fun sceRtcTickAddTicks(destTick: MutPtr, srcTick: ConstPtr, numTicks: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddTicks(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numTicks.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int =
+public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr, srcTick: ConstPtr, numMs: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddMicroseconds(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numMs.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int =
+public actual fun sceRtcTickAddSeconds(destTick: MutPtr, srcTick: ConstPtr, numSeconds: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddSeconds(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numSeconds.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int =
+public actual fun sceRtcTickAddMinutes(destTick: MutPtr, srcTick: ConstPtr, numMinutes: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddMinutes(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numMinutes.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int =
+public actual fun sceRtcTickAddHours(destTick: MutPtr, srcTick: ConstPtr, numHours: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddHours(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numHours.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int =
+public actual fun sceRtcTickAddDays(destTick: MutPtr, srcTick: ConstPtr, numDays: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddDays(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numDays.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int =
+public actual fun sceRtcTickAddWeeks(destTick: MutPtr, srcTick: ConstPtr, numWeeks: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddWeeks(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numWeeks.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int =
+public actual fun sceRtcTickAddMonths(destTick: MutPtr, srcTick: ConstPtr, numMonths: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddMonths(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numMonths.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int =
+public actual fun sceRtcTickAddYears(destTick: MutPtr, srcTick: ConstPtr, numYears: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcTickAddYears(destTick.rawAddress.toString(), srcTick.rawAddress.toString(), numYears.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int =
+public actual fun sceRtcSetTimeT(date: MutPtr, time: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcSetTimeT(date.rawAddress.toString(), time.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int =
+public actual fun sceRtcGetTimeT(date: ConstPtr, time: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetTimeT(date.rawAddress.toString(), time.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int =
+public actual fun sceRtcSetTime64T(date: MutPtr, time: ULong): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcSetTime64T(date.rawAddress.toString(), time.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTime64T(date: ConstPtr, time: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetTime64T(date.rawAddress.toString(), time.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcSetDosTime(date: MutPtr, dosTime: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcSetDosTime(date.rawAddress.toString(), dosTime.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcGetDosTime(date: MutPtr, dosTime: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetDosTime(date.rawAddress.toString(), dosTime.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcSetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcSetWin32FileTime(date.rawAddress.toString(), time.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcGetWin32FileTime(date.rawAddress.toString(), time.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseDateTime(destTick: MutPtr, dateString: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcParseDateTime(destTick.rawAddress.toString(), dateString.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcFormatRFC3339(pszDateTime.rawAddress.toString(), pUtc.rawAddress.toString(), timeZoneMinutes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcFormatRFC3339LocalTime(pszDateTime.rawAddress.toString(), pUtc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseRFC3339(pUtc: MutPtr, pszDateTime: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcParseRFC3339(pUtc.rawAddress.toString(), pszDateTime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcFormatRFC2822(pszDateTime.rawAddress.toString(), pUtc.rawAddress.toString(), timeZoneMinutes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRtcFormatRFC2822LocalTime(pszDateTime.rawAddress.toString(), pUtc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpen(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpenAsync(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceIoClose(fd: SceUid): Int =
@@ -2887,16 +2885,16 @@ public actual fun sceIoClose(fd: SceUid): Int =
 public actual fun sceIoCloseAsync(fd: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoRead(fd: SceUid, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceIoWrite(fd: SceUid, data: ConstPtr, size: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr, size: UInt): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long =
@@ -2911,64 +2909,64 @@ public actual fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int =
 public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoRemove(file: ConstPtr<UByte>): Int =
+public actual fun sceIoRemove(file: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoRemove(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int =
+public actual fun sceIoMkdir(dir: ConstPtr, mode: IoPermissions): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoMkdir(dir.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoRmdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoRmdir(path: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoChdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoChdir(path: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoChdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int =
+public actual fun sceIoRename(oldname: ConstPtr, newname: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoRename(oldname.rawAddress.toString(), newname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid =
+public actual fun sceIoDopen(dirname: ConstPtr): SceUid =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int =
+public actual fun sceIoDread(fd: SceUid, dir: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceIoDclose(fd: SceUid): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoDevctl(dev: ConstPtr, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoDevctl(dev.rawAddress.toString(), cmd.toInt(), indata.rawAddress.toString(), inlen, outdata.rawAddress.toString(), outlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int =
+public actual fun sceIoAssign(dev1: ConstPtr, dev2: ConstPtr, dev3: ConstPtr, mode: IoAssignPerms, unk1: MutPtr, unk2: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoUnassign(dev: ConstPtr<UByte>): Int =
+public actual fun sceIoUnassign(dev: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoUnassign(dev.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int =
+public actual fun sceIoGetstat(file: ConstPtr, stat: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoGetstat(file.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int =
+public actual fun sceIoChstat(file: ConstPtr, stat: MutPtr, bits: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoChstat(file.rawAddress.toString(), stat.rawAddress.toString(), bits) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int =
+public actual fun sceIoSync(device: ConstPtr, unk: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceIoSync(device.rawAddress.toString(), unk.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int =
+public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceIoCancel(fd: SceUid): Int =
@@ -2980,7 +2978,7 @@ public actual fun sceIoGetDevType(fd: SceUid): Int =
 public actual fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int =
+public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceJpegInitMJpeg(): Int =
@@ -2995,19 +2993,19 @@ public actual fun sceJpegCreateMJpeg(width: Int, height: Int): Int =
 public actual fun sceJpegDeleteMJpeg(): Int =
     if (pspNapiAvailable) wasmLibcPspSceJpegDeleteMJpeg() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
+public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr, size: ULong, rgba: MutPtr, unk: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceJpegDecodeMJpeg(jpegBuf.rawAddress.toString(), size.toString(), rgba.rawAddress.toString(), unk.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUmdCheckMedium(): Int =
     if (pspNapiAvailable) wasmLibcPspSceUmdCheckMedium() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
+public actual fun sceUmdGetDiscInfo(info: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUmdGetDiscInfo(info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdActivate(unit: Int, drive: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUmdActivate(unit, drive.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUmdDeactivate(unit, drive.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUmdWaitDriveStat(state: Int): Int =
@@ -3054,10 +3052,10 @@ public actual fun sceMpegFinish() {
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegRingbufferQueryMemSize(packets) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
+public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr, packets: Int, data: MutPtr, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegRingbufferConstruct(ringbuffer.rawAddress.toString(), packets, data.rawAddress.toString(), size, 0L.toString(), cbParam.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>) {
+public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceMpegRingbufferDestruct(ringbuffer.rawAddress.toString())
     } else {
@@ -3065,24 +3063,24 @@ public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer
     }
 }
 
-public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int =
+public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegRingbufferAvailableSize(ringbuffer.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int =
+public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr, numPackets: Int, available: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegRingbufferPut(ringbuffer.rawAddress.toString(), numPackets, available) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegQueryMemSize(unk) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
+public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr, size: Int, ringbuffer: MutPtr, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMpegDelete(handle: SceMpeg): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr, offset: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamSize(buffer: MutPtr, size: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegQueryStreamSize(buffer.rawAddress.toString(), size.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
@@ -3093,54 +3091,54 @@ public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream):
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid> =
+public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int =
+public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr, outSize: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int =
+public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr, au: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int =
+public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int =
+public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr, iframeWidth: Int, buffer: MutPtr, init: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr, status: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int =
+public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int =
+public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr, buffer: MutPtr, init: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int =
+public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr, buffer: MutPtr, type: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegBaseYCrCbCopyVme(yuvBuffer.rawAddress.toString(), buffer.rawAddress.toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMpegBaseCscInit(width: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegBaseCscInit(width) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
+public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr, rgbBuffer2: MutPtr, width: Int, yCrCbBuffer: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegBaseCscVme(rgbBuffer.rawAddress.toString(), rgbBuffer2.rawAddress.toString(), width, yCrCbBuffer.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int =
+public actual fun sceMpegbaseBea18f91(lli: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMpegbaseBea18f91(lli.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int =
+public actual fun sceHprmPeekCurrentKey(key: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHprmPeekCurrentKey(key.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmPeekLatch(latch: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHprmPeekLatch(latch.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmReadLatch(latch: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHprmReadLatch(latch.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHprmIsHeadphoneExist(): Int =
@@ -3152,7 +3150,7 @@ public actual fun sceHprmIsRemoteExist(): Int =
 public actual fun sceHprmIsMicrophoneExist(): Int =
     if (pspNapiAvailable) wasmLibcPspSceHprmIsMicrophoneExist() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int) {
+public actual fun sceGuDepthBuffer(zbp: MutPtr, zbw: Int) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuDepthBuffer(zbp.rawAddress.toString(), zbw)
     } else {
@@ -3160,7 +3158,7 @@ public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int) {
     }
 }
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int) {
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr, dispbw: Int) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuDispBuffer(width, height, dispbp.rawAddress.toString(), dispbw)
     } else {
@@ -3168,9 +3166,9 @@ public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>
     }
 }
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
     if (pspNapiAvailable) wasmLibcPspSceGuDisplay(state) else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3250,10 +3248,10 @@ public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float): Unit = thr
 
 public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuGetMemory(size: Int): MutPtr<CVoid> =
+public actual fun sceGuGetMemory(size: Int): MutPtr =
     if (pspNapiAvailable) MutPtr(wasmLibcPspSceGuGetMemory(size).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuStart(contextType: GuContextType, list: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGuFinish(): Int =
     if (pspNapiAvailable) wasmLibcPspSceGuFinish() else throw UnsupportedOperationException("Native FFI addon is not available")
@@ -3261,7 +3259,7 @@ public actual fun sceGuFinish(): Int =
 public actual fun sceGuFinishId(id: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceGuFinishId(id.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuCallList(list: ConstPtr<CVoid>) {
+public actual fun sceGuCallList(list: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuCallList(list.rawAddress.toString())
     } else {
@@ -3280,17 +3278,17 @@ public actual fun sceGuCallMode(mode: Int) {
 public actual fun sceGuCheckList(): Int =
     if (pspNapiAvailable) wasmLibcPspSceGuCheckList() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr, context: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuSwapBuffers(): MutPtr<CVoid> =
+public actual fun sceGuSwapBuffers(): MutPtr =
     if (pspNapiAvailable) MutPtr(wasmLibcPspSceGuSwapBuffers().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuBeginObject(vtype, count, indices.rawAddress.toString(), vertices.rawAddress.toString())
     } else {
@@ -3462,7 +3460,7 @@ public actual fun sceGuSetDither(matrix: ScePspIMatrix4): Unit = throw Unsupport
 
 public actual fun sceGuShadeModel(mode: ShadingModel): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr, dx: Int, dy: Int, destw: Int, dest: MutPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGuTexEnvColor(color: UInt) {
     if (pspNapiAvailable) {
@@ -3484,7 +3482,7 @@ public actual fun sceGuTexFlush() {
 
 public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
@@ -3528,7 +3526,7 @@ public actual fun sceGuTexSync() {
 
 public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>) {
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuClutLoad(numBlocks, cbp.rawAddress.toString())
     } else {
@@ -3562,7 +3560,7 @@ public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
     }
 }
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuDrawBezier(vType, uCount, vCount, indices.rawAddress.toString(), vertices.rawAddress.toString())
     } else {
@@ -3588,7 +3586,7 @@ public actual fun sceGuPatchFrontFace(a0: UInt) {
 
 public actual fun sceGuPatchPrim(prim: PatchPrimitive): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress.toString(), vertices.rawAddress.toString())
     } else {
@@ -3608,13 +3606,13 @@ public actual fun sceGuMorphWeight(index: Int, weight: Float) {
     }
 }
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGumDrawBezier(vType, uCount, vCount, indices.rawAddress.toString(), vertices.rawAddress.toString())
     } else {
@@ -3622,7 +3620,7 @@ public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices
     }
 }
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress.toString(), vertices.rawAddress.toString())
     } else {
@@ -3736,7 +3734,7 @@ public actual fun sceGumUpdateMatrix() {
     }
 }
 
-public actual fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int =
+public actual fun sceMp3ReserveMp3Handle(args: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceMp3ReserveMp3Handle(args.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
@@ -3751,10 +3749,10 @@ public actual fun sceMp3TermResource(): Int =
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int =
+public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int =
+public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr, toWrite: MutPtr, srcPos: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int =
@@ -3787,7 +3785,7 @@ public actual fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int =
 public actual fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenRegistry(reg: MutPtr, mode: Int, handle: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRegOpenRegistry(reg.rawAddress.toString(), mode, handle.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
@@ -3796,10 +3794,10 @@ public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
 public actual fun sceRegCloseRegistry(handle: RegHandle): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr, mode: Int, dirHandle: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int =
+public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
@@ -3808,37 +3806,37 @@ public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
 public actual fun sceRegFlushCategory(dirHandle: RegHandle): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr, keyHandle: MutPtr, type: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr, type: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr, buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr, buf: ConstPtr, size: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int =
+public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int =
+public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr, num: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int =
+public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr, type: Int, size: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceRegRemoveRegistry(key: MutPtr<Key>): Int =
+public actual fun sceRegRemoveRegistry(key: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceRegRemoveRegistry(key.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int =
+public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceOpenPSIDGetOpenPSID(openpsid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int =
+public actual fun sceUtilityMsgDialogInitStart(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityMsgDialogInitStart(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityMsgDialogShutdownStart() {
@@ -3863,7 +3861,7 @@ public actual fun sceUtilityMsgDialogUpdate(n: Int) {
 public actual fun sceUtilityMsgDialogAbort(): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityMsgDialogAbort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
+public actual fun sceUtilityNetconfInitStart(data: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityNetconfInitStart(data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityNetconfShutdownStart(): Int =
@@ -3878,10 +3876,10 @@ public actual fun sceUtilityNetconfGetStatus(): Int =
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityCheckNetParam(id) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
+public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int =
+public actual fun sceUtilitySavedataInitStart(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilitySavedataInitStart(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilitySavedataGetStatus(): Int =
@@ -3898,7 +3896,7 @@ public actual fun sceUtilitySavedataUpdate(unknown: Int) {
     }
 }
 
-public actual fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int =
+public actual fun sceUtilityGameSharingInitStart(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityGameSharingInitStart(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityGameSharingShutdownStart() {
@@ -3920,7 +3918,7 @@ public actual fun sceUtilityGameSharingUpdate(n: Int) {
     }
 }
 
-public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int =
+public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityHtmlViewerInitStart(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityHtmlViewerShutdownStart(): Int =
@@ -3935,16 +3933,16 @@ public actual fun sceUtilityHtmlViewerGetStatus(): Int =
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int =
+public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int =
+public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int =
+public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr, len: Int): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int =
+public actual fun sceUtilityOskInitStart(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityOskInitStart(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityOskShutdownStart(): Int =
@@ -3983,7 +3981,7 @@ public actual fun sceUtilityUnloadModule(module: Module): Int =
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceUtilityCreateNetParam(conf) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
+public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceUtilityCopyNetParam(src: Int, dest: Int): Int =
@@ -4004,7 +4002,7 @@ public actual fun sceNetFreeThreadinfo(thid: Int): Int =
 public actual fun sceNetThreadAbort(thid: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetThreadAbort(thid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>) {
+public actual fun sceNetEtherStrton(name: MutPtr, mac: MutPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceNetEtherStrton(name.rawAddress.toString(), mac.rawAddress.toString())
     } else {
@@ -4012,7 +4010,7 @@ public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>) {
     }
 }
 
-public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>) {
+public actual fun sceNetEtherNtostr(mac: MutPtr, name: MutPtr) {
     if (pspNapiAvailable) {
         wasmLibcPspSceNetEtherNtostr(mac.rawAddress.toString(), name.rawAddress.toString())
     } else {
@@ -4020,73 +4018,73 @@ public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>) {
     }
 }
 
-public actual fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int =
+public actual fun sceNetGetLocalEtherAddr(mac: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetGetLocalEtherAddr(mac.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int =
+public actual fun sceNetGetMallocStat(stat: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetGetMallocStat(stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlInit(stacksize, priority, adhocId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocctlTerm(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlTerm() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlConnect(name: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlConnect(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocctlDisconnect(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlDisconnect() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
+public actual fun sceNetAdhocctlGetState(event: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetState(event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlCreate(name: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlCreate(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int =
+public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlJoin(scaninfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetAdhocId(id.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int =
+public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr, unknown: Int, num: Int, macs: MutPtr, timeout: UInt, unknown2: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlCreateEnterGameMode(name.rawAddress.toString(), unknown, num, macs.rawAddress.toString(), timeout.toInt(), unknown2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int =
+public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr, hostmac: MutPtr, timeout: UInt, unknown: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlJoinEnterGameMode(name.rawAddress.toString(), hostmac.rawAddress.toString(), timeout.toInt(), unknown) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int =
+public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetGameModeInfo(gamemodeinfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocctlExitGameMode(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlExitGameMode() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetPeerList(length: MutPtr, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetPeerList(length.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int =
+public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr, size: Int, peerinfo: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetPeerInfo(mac.rawAddress.toString(), size, peerinfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocctlScan(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlScan() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetScanInfo(length.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlAddHandler(0L.toString(), unknown.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlDelHandler(id) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr, nickname: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetNameByAddr(mac.rawAddress.toString(), nickname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr, length: MutPtr, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetAddrByName(nickname.rawAddress.toString(), length.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int =
+public actual fun sceNetAdhocctlGetParameter(params: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocctlGetParameter(params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocInit(): Int =
@@ -4095,25 +4093,25 @@ public actual fun sceNetAdhocInit(): Int =
 public actual fun sceNetAdhocTerm(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocTerm() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
+public actual fun sceNetAdhocPdpCreate(mac: MutPtr, port: UShort, bufSize: UInt, unk1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPdpCreate(mac.rawAddress.toString(), port.toInt(), bufSize.toInt(), unk1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPdpDelete(id, unk1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr, port: UShort, data: MutPtr, len: UInt, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPdpSend(id, destMacAddr.rawAddress.toString(), port.toInt(), data.rawAddress.toString(), len.toInt(), timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr, port: MutPtr, data: MutPtr, dataLength: MutPtr, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPdpRecv(id, srcMacAddr.rawAddress.toString(), port.rawAddress.toString(), data.rawAddress.toString(), dataLength.rawAddress.toString(), timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int =
+public actual fun sceNetAdhocGetPdpStat(size: MutPtr, stat: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocGetPdpStat(size.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr, size: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocGameModeCreateMaster(data.rawAddress.toString(), size) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr, data: MutPtr, size: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocGameModeCreateReplica(mac.rawAddress.toString(), data.rawAddress.toString(), size) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocGameModeUpdateMaster(): Int =
@@ -4128,22 +4126,22 @@ public actual fun sceNetAdhocGameModeDeleteMaster(): Int =
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocGameModeDeleteReplica(id) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr, srcport: UShort, destmac: MutPtr, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpOpen(srcmac.rawAddress.toString(), srcport.toInt(), destmac.rawAddress.toString(), destport.toInt(), bufSize.toInt(), delay.toInt(), count, unk1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpListen(srcmac: MutPtr, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpListen(srcmac.rawAddress.toString(), srcport.toInt(), bufSize.toInt(), delay.toInt(), count, queue, unk1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr, port: MutPtr, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpAccept(id, mac.rawAddress.toString(), port.rawAddress.toString(), timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpSend(id, data.rawAddress.toString(), dataSize.rawAddress.toString(), timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpRecv(id, data.rawAddress.toString(), dataSize.rawAddress.toString(), timeout.toInt(), nonblock) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int =
@@ -4152,7 +4150,7 @@ public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): In
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocPtpClose(id, unk1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
+public actual fun sceNetAdhocGetPtpStat(size: MutPtr, stat: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocGetPtpStat(size.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
@@ -4167,40 +4165,40 @@ public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: I
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingDelete(matchingId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingStop(matchingId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingSelectTarget(matchingId, mac.rawAddress.toString(), optLen, optData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingCancelTarget(matchingId, mac.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingCancelTargetWithOpt(matchingId, mac.rawAddress.toString(), optLen, optData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr, dataLen: Int, data: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingSendData(matchingId, mac.rawAddress.toString(), dataLen, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingAbortSendData(matchingId, mac.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingSetHelloOpt(matchingId, optLen, optData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr, optData: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingGetHelloOpt(matchingId, optLen.rawAddress.toString(), optData.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr, buf: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingGetMembers(matchingId, length.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingGetPoolMaxAlloc() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
+public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetAdhocMatchingGetPoolStat(poolstat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
@@ -4209,10 +4207,10 @@ public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
 public actual fun sceNetApctlTerm(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetApctlTerm() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
+public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int =
+public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetApctlAddHandler(0L.toString(), parg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
@@ -4224,7 +4222,7 @@ public actual fun sceNetApctlConnect(connIndex: Int): Int =
 public actual fun sceNetApctlDisconnect(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetApctlDisconnect() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
+public actual fun sceNetApctlGetState(pstate: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetApctlGetState(pstate.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetInetInit(): Int =
@@ -4233,34 +4231,34 @@ public actual fun sceNetInetInit(): Int =
 public actual fun sceNetInetTerm(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetTerm() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetAccept(s: Int, addr: MutPtr, addrLen: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetAccept(s, addr.rawAddress.toString(), addrLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr, addrLen: SocklenT): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetBind(s, myAddr.rawAddress.toString(), addrLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr, addrLen: SocklenT): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetConnect(s, servAddr.rawAddress.toString(), addrLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr, optlEn: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetGetsockopt(s, level, optName, optVal.rawAddress.toString(), optlEn.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetListen(s, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetRecv(s: Int, buf: MutPtr, len: ULong, flags: Int): ULong =
     if (pspNapiAvailable) wasmLibcPspSceNetInetRecv(s, buf.rawAddress.toString(), len.toString(), flags).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong =
+public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr, flags: ULong, arg1: Int, from: MutPtr, fromLen: MutPtr): ULong =
     if (pspNapiAvailable) wasmLibcPspSceNetInetRecvfrom(s, buf.rawAddress.toString(), flags.toString(), arg1, from.rawAddress.toString(), fromLen.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetSend(s: Int, buf: ConstPtr, len: ULong, flags: Int): ULong =
     if (pspNapiAvailable) wasmLibcPspSceNetInetSend(s, buf.rawAddress.toString(), len.toString(), flags).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong =
+public actual fun sceNetInetSendto(s: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, toLen: SocklenT): ULong =
     if (pspNapiAvailable) wasmLibcPspSceNetInetSendto(s, buf.rawAddress.toString(), len.toString(), flags, to.rawAddress.toString(), toLen.toInt()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int =
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr, optLen: SocklenT): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetInetSetsockopt(s, level, optName, optVal.rawAddress.toString(), optLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
@@ -4281,10 +4279,10 @@ public actual fun sceSslInit(unknown1: Int): Int =
 public actual fun sceSslEnd(): Int =
     if (pspNapiAvailable) wasmLibcPspSceSslEnd() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryMax(memory: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceSslGetUsedMemoryMax(memory.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceSslGetUsedMemoryCurrent(memory.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpInit(unknown1: UInt): Int =
@@ -4293,43 +4291,43 @@ public actual fun sceHttpInit(unknown1: UInt): Int =
 public actual fun sceHttpEnd(): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpEnd() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
+public actual fun sceHttpCreateTemplate(agent: MutPtr, unknown1: Int, unknown2: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpCreateTemplate(agent.rawAddress.toString(), unknown1, unknown2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpDeleteTemplate(templateid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
+public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr, unknown1: MutPtr, port: UShort, unknown2: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpCreateConnection(templateid, host.rawAddress.toString(), unknown1.rawAddress.toString(), port.toInt(), unknown2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr, unknown1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpCreateConnectionWithURL(templateid, url.rawAddress.toString(), unknown1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpDeleteConnection(connectionId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr, contentLength: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr, contentLength: ULong): Int =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpDeleteRequest(requestId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpSendRequest(requestId, data.rawAddress.toString(), dataSize.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpAbortRequest(requestId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpReadData(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpReadData(requestId, data.rawAddress.toString(), dataSize.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int =
+public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpGetContentLength(requestId, contentLength.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int =
+public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpGetStatusCode(requestId, statusCode.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int =
@@ -4371,10 +4369,10 @@ public actual fun sceHttpSaveSystemCookie(): Int =
 public actual fun sceHttpLoadSystemCookie(): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpLoadSystemCookie() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr, value: MutPtr, unknown1: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpAddExtraHeader(id, name.rawAddress.toString(), value.rawAddress.toString(), unknown1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
+public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpDeleteHeader(id, name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int =
@@ -4401,13 +4399,13 @@ public actual fun sceHttpEnableCache(id: Int): Int =
 public actual fun sceHttpEndCache(): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpEndCache() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
+public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr, headerSize: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpGetAllHeader(request, header.rawAddress.toString(), headerSize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int =
+public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpGetNetworkErrno(request, errNum.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int =
+public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr, mode: MutPtr, proxyHost: MutPtr, len: ULong, proxyPort: MutPtr): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpGetProxy(id, activateFlag.rawAddress.toString(), mode.rawAddress.toString(), proxyHost.rawAddress.toString(), len.toString(), proxyPort.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
@@ -4416,7 +4414,7 @@ public actual fun sceHttpInitCache(maxSize: ULong): Int =
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpSetAuthInfoCB(id, 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int =
+public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr, newProxyPort: UShort): Int =
     if (pspNapiAvailable) wasmLibcPspSceHttpSetProxy(id, activateFlag, mode, newProxyHost.rawAddress.toString(), newProxyPort.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
@@ -4428,16 +4426,16 @@ public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeF
 public actual fun sceNetResolverInit(): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetResolverInit() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
+public actual fun sceNetResolverCreate(rid: MutPtr, buf: MutPtr, bufLength: UInt): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetResolverCreate(rid.rawAddress.toString(), buf.rawAddress.toString(), bufLength.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetResolverDelete(rid: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetResolverDelete(rid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr, addr: MutPtr, timeout: UInt, retry: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetResolverStartNtoA(rid, hostname.rawAddress.toString(), addr.rawAddress.toString(), timeout.toInt(), retry) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr, hostname: MutPtr, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
     if (pspNapiAvailable) wasmLibcPspSceNetResolverStartAtoN(rid, addr.rawAddress.toString(), hostname.rawAddress.toString(), hostnameLen.toInt(), timeout.toInt(), retry) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sceNetResolverStop(rid: Int): Int =

@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUchar
@@ -32,7 +31,7 @@ public typealias ClockT = CUlong
 
 public typealias DaddrT = CLong
 
-public typealias CaddrT = MutPtr<CChar>
+public typealias CaddrT = MutPtr
 
 public typealias SbintimeT = CLonglong
 

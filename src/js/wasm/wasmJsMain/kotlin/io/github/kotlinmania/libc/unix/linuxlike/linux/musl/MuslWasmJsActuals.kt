@@ -3,24 +3,16 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.Tm
-import io.github.kotlinmania.libc.unix.linuxlike.linux.PosixSpawnFileActionsT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -137,16 +129,16 @@ private external fun wasmLibcUnixLinuxlikeLinuxMuslPthreadTryjoinNp(p0: String, 
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMuslPthreadTimedjoinNp(p0, p1, p2)")
 private external fun wasmLibcUnixLinuxlikeLinuxMuslPthreadTimedjoinNp(p0: String, p1: String, p2: String): Int
 
-public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+public actual fun getrlimit(resource: CInt, rlim: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslGetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslSetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr, oldLimit: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPrlimit(pid, resource, newLimit.rawAddress.toString(), oldLimit.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
@@ -158,19 +150,19 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslSetpriority(which, who.toInt(), prio) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: CUlonglong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: CUlonglong, dirfd: CInt, path: ConstPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslFanotifyMark(fd, flags.toInt(), mask.toString(), dirfd, path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+public actual fun preadv2(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPreadv2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+public actual fun pwritev2(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPwritev2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getauxval(type: CUlong): CUlong =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslGetauxval(type.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+public actual fun explicitBzero(s: MutPtr, len: SizeT) {
     if (unixLinuxlikeLinuxMuslNapiAvailable) {
         wasmLibcUnixLinuxlikeLinuxMuslExplicitBzero(s.rawAddress.toString(), len.toString())
     } else {
@@ -178,61 +170,61 @@ public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
     }
 }
 
-public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun reallocarray(ptr: MutPtr, nmemb: SizeT, size: SizeT): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslReallocarray(ptr.rawAddress.toString(), nmemb.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun adjtimex(buf: MutPtr<Timex>): CInt =
+public actual fun adjtimex(buf: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslAdjtimex(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockAdjtime(clkId: ClockidT, buf: MutPtr<Timex>): CInt =
+public actual fun clockAdjtime(clkId: ClockidT, buf: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslClockAdjtime(clkId, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctermid(s: MutPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslCtermid(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun memfdCreate(name: ConstPtr, flags: CUint): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslMemfdCreate(name.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CUint): CInt =
+public actual fun mlock2(addr: ConstPtr, len: SizeT, flags: CUint): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslMlock2(addr.rawAddress.toString(), len.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+public actual fun mallocUsableSize(ptr: MutPtr): SizeT =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslMallocUsableSize(ptr.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun euidaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun euidaccess(pathname: ConstPtr, mode: CInt): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslEuidaccess(pathname.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun eaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun eaccess(pathname: ConstPtr, mode: CInt): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslEaccess(pathname.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asctimeR(tm: ConstPtr<Tm>, buf: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun asctimeR(tm: ConstPtr, buf: MutPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslAsctimeR(tm.rawAddress.toString(), buf.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslDirname(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslBasename(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+public actual fun getrandom(buf: MutPtr, buflen: SizeT, flags: CUint): SsizeT =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslGetrandom(buf.rawAddress.toString(), buflen.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr, path: ConstPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddchdirNp(actions.rawAddress.toString(), path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr, fd: CInt): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddfchdirNp(actions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxent(): MutPtr<Utmpx> =
+public actual fun getutxent(): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslGetutxent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxid(ut: ConstPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslGetutxid(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxline(ut: ConstPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslGetutxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun pututxline(ut: ConstPtr): MutPtr =
     if (unixLinuxlikeLinuxMuslNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxMuslPututxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutxent() {
@@ -251,11 +243,11 @@ public actual fun endutxent() {
     }
 }
 
-public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpxname(file: ConstPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslUtmpxname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadTryjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadTryjoinNp(thread: PthreadT, retval: MutPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPthreadTryjoinNp(thread.rawAddress.toString(), retval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr, abstime: ConstPtr): CInt =
     if (unixLinuxlikeLinuxMuslNapiAvailable) wasmLibcUnixLinuxlikeLinuxMuslPthreadTimedjoinNp(thread.rawAddress.toString(), retval.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

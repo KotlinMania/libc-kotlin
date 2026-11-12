@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.stdlib
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -42,23 +41,22 @@ import io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libcNewQurtStdlibStrt
 import io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libcNewQurtStdlibStrtoul
 import io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libcNewQurtStdlibStrtoull
 import io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libcNewQurtStdlibUnsetenv
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(libcNewQurtStdlibMalloc(size)?.toLong() ?: 0L)
 
-public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr =
     MutPtr(libcNewQurtStdlibCalloc(nmemb, size)?.toLong() ?: 0L)
 
-public actual fun realloc(ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(ptr: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcNewQurtStdlibRealloc(ptr.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun free(ptr: MutPtr<CVoid>) {
+public actual fun free(ptr: MutPtr) {
     libcNewQurtStdlibFree(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
@@ -75,40 +73,40 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(function: AtexitFunctionCallback): CInt =
     libcNewQurtStdlibAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun getenv(name: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(name: ConstPtr): MutPtr =
     MutPtr(libcNewQurtStdlibGetenv(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(name: ConstPtr, value: ConstPtr, overwrite: CInt): CInt =
     libcNewQurtStdlibSetenv(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), overwrite)
 
-public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(name: ConstPtr): CInt =
     libcNewQurtStdlibUnsetenv(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(nptr: ConstPtr<CChar>): CInt =
+public actual fun atoi(nptr: ConstPtr): CInt =
     libcNewQurtStdlibAtoi(nptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(nptr: ConstPtr<CChar>): CLong =
+public actual fun atol(nptr: ConstPtr): CLong =
     libcNewQurtStdlibAtol(nptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(nptr: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(nptr: ConstPtr): CLonglong =
     libcNewQurtStdlibAtoll(nptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtol(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLong =
     libcNewQurtStdlibStrtol(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoul(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlong =
     libcNewQurtStdlibStrtoul(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoll(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLonglong =
     libcNewQurtStdlibStrtoll(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoull(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlonglong =
     libcNewQurtStdlibStrtoull(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtod(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(nptr: ConstPtr, endptr: MutPtr): CDouble =
     libcNewQurtStdlibStrtod(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(nptr: ConstPtr, endptr: MutPtr): CFloat =
     libcNewQurtStdlibStrtof(nptr.rawAddress.toCPointer<ByteVar>(), endptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun rand(): CInt =
@@ -118,11 +116,11 @@ public actual fun srand(seed: CUint) {
     libcNewQurtStdlibSrand(seed)
 }
 
-public actual fun qsort(base: MutPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+public actual fun qsort(base: MutPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
     libcNewQurtStdlibQsort(base.rawAddress.toCPointer<ByteVar>(), nmemb, size, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr<CVoid> =
+public actual fun bsearch(key: ConstPtr, base: ConstPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr =
     MutPtr(libcNewQurtStdlibBsearch(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nmemb, size, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun abs(j: CInt): CInt =

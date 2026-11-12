@@ -3,35 +3,19 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Pollfd
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
-import io.github.kotlinmania.libc.unix.bsd.Sockaddr
-import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.IdtypeT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PosixSpawnFileActionsT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PosixSpawnattrT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadCondattrT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadMutexT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadSpinlockT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.ShmidDs
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SiginfoT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -336,55 +320,55 @@ public actual fun setgrent() {
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSetgrent()
 }
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSemDestroy(sem.rawAddress)
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSemInit(sem.rawAddress, pshared, value.toInt())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeDaemon(nochdir, noclose)
 
-public actual fun accept4(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt =
+public actual fun accept4(s: CInt, addr: MutPtr, addrlen: MutPtr, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeAccept4(s, addr.rawAddress, addrlen.rawAddress, flags)
 
-public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt =
+public actual fun mincore(addr: MutPtr, len: SizeT, vec: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMincore(addr.rawAddress, len.toLong(), vec.rawAddress)
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeClockSettime(clkId, tp.rawAddress)
 
-public actual fun errno(): MutPtr<CInt> =
+public actual fun errno(): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeErrno())
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMemrchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+public actual fun mkostemp(template: MutPtr, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMkostemp(template.rawAddress, flags)
 
-public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: MutPtr, suffixlen: CInt, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMkostemps(template.rawAddress, suffixlen, flags)
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeFutimens(fd, times.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
 public actual fun fdatasync(fd: CInt): CInt =
@@ -399,151 +383,151 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSetpriority(which, who.toInt(), prio)
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSemGetvalue(sem.rawAddress, sval.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSethostname(name.rawAddress, len.toLong())
 
-public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(lock: MutPtr, abstime: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadMutexTimedlock(lock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: MutPtr, pshared: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinDestroy(lock: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinLock(lock: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinTrylock(lock: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinUnlock(lock: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSpinUnlock(lock.rawAddress)
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadSetschedparam(native.toLong(), policy, param.rawAddress)
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr, param: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePthreadGetschedparam(native.toLong(), policy.rawAddress, param.rawAddress)
 
-public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+public actual fun pipe2(fds: MutPtr, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePipe2(fds.rawAddress, flags)
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, ts: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, nfds: NfdsT, ts: ConstPtr, sigmask: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePpoll(fds.rawAddress, nfds.toInt(), ts.rawAddress, sigmask.rawAddress)
 
-public actual fun getgrouplist(name: ConstPtr<CChar>, basegid: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(name: ConstPtr, basegid: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeGetgrouplist(name.rawAddress, basegid.toShort(), groups.rawAddress, ngroups.rawAddress)
 
-public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+public actual fun initgroups(name: ConstPtr, basegid: GidT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeInitgroups(name.rawAddress, basegid.toShort())
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun getdomainname(name: MutPtr, len: SizeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeGetdomainname(name.rawAddress, len.toLong())
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun setdomainname(name: ConstPtr, len: SizeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSetdomainname(name.rawAddress, len.toLong())
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeUname(buf.rawAddress)
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeShmget(key, size.toLong(), shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr, shmflg: CInt): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeShmat(shmid, shmaddr.rawAddress, shmflg))
 
-public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+public actual fun shmdt(shmaddr: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeShmdt(shmaddr.rawAddress)
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeShmctl(shmid, cmd, buf.rawAddress)
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeExecvpe(file.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeWaitid(idtype, id.toInt(), infop.rawAddress, options)
 
-public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawn(pid: MutPtr, path: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawnp(pid: MutPtr, file: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrInit(attr: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrDestroy(attr: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr, default: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr, default: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr, default: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr, default: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+public actual fun posixSpawnattrGetflags(attr: ConstPtr, flags: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: MutPtr, flags: CShort): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr, flags: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetpgroup(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr, flags: PidT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetpgroup(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr, flags: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetschedpolicy(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetschedpolicy(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr, param: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr, param: ConstPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnattrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsInit(actions: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnFileActionsInit(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnFileActionsDestroy(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr, fd: CInt, path: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnFileActionsAddopen(actions.rawAddress, fd, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr, fd: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnFileActionsAddclose(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr, fd: CInt, newfd: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikePosixSpawnFileActionsAdddup2(actions.rawAddress, fd, newfd)
 
-public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun reallocarray(ptr: MutPtr, nmemb: SizeT, size: SizeT): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
 public actual fun gethostid(): CLong =
@@ -552,22 +536,22 @@ public actual fun gethostid(): CLong =
 public actual fun sethostid(hostid: CLong): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSethostid(hostid)
 
-public actual fun ftok(path: ConstPtr<CChar>, id: CInt): KeyT =
+public actual fun ftok(path: ConstPtr, id: CInt): KeyT =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeFtok(path.rawAddress, id)
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeDirname(path.rawAddress))
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     MutPtr(UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeBasename(path.rawAddress))
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun sendmmsg(sockfd: CInt, mmsg: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+public actual fun sendmmsg(sockfd: CInt, mmsg: MutPtr, vlen: CUint, flags: CInt): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeSendmmsg(sockfd, mmsg.rawAddress, vlen.toInt(), flags)
 
-public actual fun recvmmsg(sockfd: CInt, mmsg: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+public actual fun recvmmsg(sockfd: CInt, mmsg: MutPtr, vlen: CUint, flags: CInt, timeout: MutPtr): CInt =
     UnixBsdNetbsdlikeJniBridge.libcUnixBsdNetbsdlikeRecvmmsg(sockfd, mmsg.rawAddress, vlen.toInt(), flags, timeout.rawAddress)
 
 public actual fun closefrom(lowfd: CInt): CInt =

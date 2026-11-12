@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.fcntl
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.ModeT
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -22,10 +21,10 @@ private external fun wasmLibcNewQurtFcntlCreat(p0: String, p1: Int): Int
 @JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcNewQurtFcntlFcntl(p0, p1, p2, p3, p4, p5, p6)")
 private external fun wasmLibcNewQurtFcntlFcntl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-public actual fun open(pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(pathname: ConstPtr, flags: CInt, vararg variadicArgs: Long): CInt =
     if (newQurtFcntlNapiAvailable) wasmLibcNewQurtFcntlOpen(pathname.rawAddress.toString(), flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun creat(pathname: ConstPtr, mode: ModeT): CInt =
     if (newQurtFcntlNapiAvailable) wasmLibcNewQurtFcntlCreat(pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =

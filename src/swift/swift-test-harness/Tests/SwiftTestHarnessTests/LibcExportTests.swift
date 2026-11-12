@@ -24,7 +24,7 @@ struct LibcExportTests {
         #expect(Unix.memcmp(cx: source.castConst(), ct: destination.castConst(), n: 64) != 0)
         let outputDirectory = ProcessInfo.processInfo.environment["LIBC_SWIFT_TEST_OUTPUT_ROOT"] ?? "../../../build"
         let path = "\(outputDirectory)/swift-io-\(UUID().uuidString).bin"
-        let pathCStr = AllocFfi.CString.Companion.shared.new(text: path).unwrap()
+        let pathCStr = AllocFfi.CString.Companion.shared.fromStringUnchecked(text: path)
         defer {
             pathCStr.deallocate()
         }

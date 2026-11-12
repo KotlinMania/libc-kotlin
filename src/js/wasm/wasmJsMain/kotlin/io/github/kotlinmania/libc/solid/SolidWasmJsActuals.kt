@@ -3,17 +3,13 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.solid.aarch64.WcharT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -916,7 +912,7 @@ private external fun wasmLibcSolidMemalign(p0: String, p1: String): String
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcSolidLseek(p0, p1, p2)")
 private external fun wasmLibcSolidLseek(p0: Int, p1: String, p2: Int): String
 
-public actual var OPTARG: MutPtr<CChar>
+public actual var OPTARG: MutPtr
     get() = if (solidNapiAvailable) MutPtr(wasmLibcSolidGetOPTARG().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
     set(value) {
         if (solidNapiAvailable) {
@@ -966,7 +962,7 @@ public actual var OPTRESET: CInt
         }
     }
 
-public actual var SUBOPTARG: MutPtr<CChar>
+public actual var SUBOPTARG: MutPtr
     get() = if (solidNapiAvailable) MutPtr(wasmLibcSolidGetSUBOPTARG().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
     set(value) {
         if (solidNapiAvailable) {
@@ -1018,10 +1014,10 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidToupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getStdioFile(fileno: CInt): MutPtr<FILE> =
+public actual fun getStdioFile(fileno: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGetStdioFile(fileno).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clearerr(arg1: MutPtr<FILE>) {
+public actual fun clearerr(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidClearerr(arg1.rawAddress.toString())
     } else {
@@ -1029,61 +1025,61 @@ public actual fun clearerr(arg1: MutPtr<FILE>) {
     }
 }
 
-public actual fun fclose(arg1: MutPtr<FILE>): CInt =
+public actual fun fclose(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFclose(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun feof(arg1: MutPtr<FILE>): CInt =
+public actual fun feof(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFeof(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(arg1: MutPtr<FILE>): CInt =
+public actual fun ferror(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFerror(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(arg1: MutPtr<FILE>): CInt =
+public actual fun fflush(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFflush(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(arg1: MutPtr<FILE>): CInt =
+public actual fun fgetc(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFgetc(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgets(arg1: MutPtr<CChar>, arg2: CInt, arg3: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(arg1: MutPtr, arg2: CInt, arg3: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidFgets(arg1.rawAddress.toString(), arg2, arg3.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidFopen(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidFprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun fputc(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFputc(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(arg1: ConstPtr<CChar>, arg2: MutPtr<FILE>): CInt =
+public actual fun fputs(arg1: ConstPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFputs(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+public actual fun fread(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: MutPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidFread(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), arg4.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(arg1: ConstPtr, arg2: ConstPtr, arg3: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidFreopen(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidFscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseek(arg1: MutPtr<FILE>, arg2: CLong, arg3: CInt): CInt =
+public actual fun fseek(arg1: MutPtr, arg2: CLong, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidFseek(arg1.rawAddress.toString(), arg2.toString(), arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(arg1: MutPtr<FILE>): CLong =
+public actual fun ftell(arg1: MutPtr): CLong =
     if (solidNapiAvailable) wasmLibcSolidFtell(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+public actual fun fwrite(arg1: ConstPtr, arg2: SizeT, arg3: SizeT, arg4: MutPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidFwrite(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), arg4.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getc(arg1: MutPtr<FILE>): CInt =
+public actual fun getc(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetc(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getchar(): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetchar() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(arg1: ConstPtr<CChar>) {
+public actual fun perror(arg1: ConstPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidPerror(arg1.rawAddress.toString())
     } else {
@@ -1091,22 +1087,22 @@ public actual fun perror(arg1: ConstPtr<CChar>) {
     }
 }
 
-public actual fun printf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidPrintf(arg1.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putc(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutc(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putchar(arg1: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutchar(arg1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(arg1: ConstPtr<CChar>): CInt =
+public actual fun puts(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidPuts(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remove(arg1: ConstPtr<CChar>): CInt =
+public actual fun remove(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidRemove(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(arg1: MutPtr<FILE>) {
+public actual fun rewind(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidRewind(arg1.rawAddress.toString())
     } else {
@@ -1114,10 +1110,10 @@ public actual fun rewind(arg1: MutPtr<FILE>) {
     }
 }
 
-public actual fun scanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidScanf(arg1.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>) {
+public actual fun setbuf(arg1: MutPtr, arg2: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidSetbuf(arg1.rawAddress.toString(), arg2.rawAddress.toString())
     } else {
@@ -1125,106 +1121,106 @@ public actual fun setbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>) {
     }
 }
 
-public actual fun setvbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>, arg3: CInt, arg4: SizeT): CInt =
+public actual fun setvbuf(arg1: MutPtr, arg2: MutPtr, arg3: CInt, arg4: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidSetvbuf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(arg1: ConstPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidTmpfile().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun ungetc(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidUngetc(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vfprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVfprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun vprintf(arg1: ConstPtr, arg2: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gets(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun gets(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGets(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpnam(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidTmpnam(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVsprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun rename(arg1: ConstPtr, arg2: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidRename(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun asiprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidAsiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fiprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidFiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fiscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidFiscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun iprintf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun iprintf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidIprintf(arg1.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun iscanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun iscanf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidIscanf(arg1.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun siprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun siprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun siscanf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun siscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSiscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sniprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSniprintf(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vasiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vasiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVasiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vfiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVfiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vfiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfiscanf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVfiscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun viprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun viprintf(arg1: ConstPtr, arg2: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidViprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun viscanf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun viscanf(arg1: ConstPtr, arg2: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidViscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsiprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVsiprintf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsiscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsiscanf(arg1: ConstPtr, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVsiscanf(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+public actual fun vsniprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVsniprintf(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), arg4.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr, arg3: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVdiprintf(arg1, arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun diprintf(arg1: CInt, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun diprintf(arg1: CInt, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidDiprintf(arg1, arg2.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetpos(arg1: MutPtr<FILE>, arg2: MutPtr<FposT>): CInt =
+public actual fun fgetpos(arg1: MutPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFgetpos(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(arg1: MutPtr<FILE>, arg2: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(arg1: MutPtr, arg2: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFsetpos(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopen(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(arg1: CInt, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidFdopen(arg1, arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fileno(arg1: MutPtr<FILE>): CInt =
+public actual fun fileno(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFileno(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun flockfile(arg1: MutPtr<FILE>) {
+public actual fun flockfile(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidFlockfile(arg1.rawAddress.toString())
     } else {
@@ -1232,10 +1228,10 @@ public actual fun flockfile(arg1: MutPtr<FILE>) {
     }
 }
 
-public actual fun ftrylockfile(arg1: MutPtr<FILE>): CInt =
+public actual fun ftrylockfile(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFtrylockfile(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun funlockfile(arg1: MutPtr<FILE>) {
+public actual fun funlockfile(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidFunlockfile(arg1.rawAddress.toString())
     } else {
@@ -1243,64 +1239,64 @@ public actual fun funlockfile(arg1: MutPtr<FILE>) {
     }
 }
 
-public actual fun getcUnlocked(arg1: MutPtr<FILE>): CInt =
+public actual fun getcUnlocked(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetcUnlocked(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getcharUnlocked(): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetcharUnlocked() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutcUnlocked(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putcharUnlocked(arg1: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutcharUnlocked(arg1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidSnprintf(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsnprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+public actual fun vsnprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: VaList): CInt =
     if (solidNapiAvailable) wasmLibcSolidVsnprintf(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), arg4.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getw(arg1: MutPtr<FILE>): CInt =
+public actual fun getw(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetw(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putw(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putw(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutw(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tempnam(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun tempnam(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidTempnam(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+public actual fun fseeko(stream: MutPtr, offset: OffT, whence: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidFseeko(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftello(stream: MutPtr<FILE>): OffT =
+public actual fun ftello(stream: MutPtr): OffT =
     if (solidNapiAvailable) wasmLibcSolidFtello(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atof(arg1: ConstPtr<CChar>): Double =
+public actual fun atof(arg1: ConstPtr): Double =
     if (solidNapiAvailable) wasmLibcSolidAtof(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+public actual fun strtod(arg1: ConstPtr, arg2: MutPtr): Double =
     if (solidNapiAvailable) wasmLibcSolidStrtod(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun drand48(): Double =
     if (solidNapiAvailable) wasmLibcSolidDrand48() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun erand48(arg1: MutPtr<CUshort>): Double =
+public actual fun erand48(arg1: MutPtr): Double =
     if (solidNapiAvailable) wasmLibcSolidErand48(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Float =
+public actual fun strtof(arg1: ConstPtr, arg2: MutPtr): Float =
     if (solidNapiAvailable) wasmLibcSolidStrtof(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtold(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+public actual fun strtold(arg1: ConstPtr, arg2: MutPtr): Double =
     if (solidNapiAvailable) wasmLibcSolidStrtold(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtodL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+public actual fun strtodL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Double =
     if (solidNapiAvailable) wasmLibcSolidStrtodL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtofL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Float =
+public actual fun strtofL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Float =
     if (solidNapiAvailable) wasmLibcSolidStrtofL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toLong().toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoldL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+public actual fun strtoldL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Double =
     if (solidNapiAvailable) wasmLibcSolidStrtoldL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun exit(arg1: CInt): Nothing {
@@ -1327,31 +1323,31 @@ public actual fun abs(arg1: CInt): CInt =
 public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
     if (solidNapiAvailable) wasmLibcSolidAtexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(arg1: ConstPtr<CChar>): CInt =
+public actual fun atoi(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidAtoi(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(arg1: ConstPtr<CChar>): CLong =
+public actual fun atol(arg1: ConstPtr): CLong =
     if (solidNapiAvailable) wasmLibcSolidAtol(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun itoa(arg1: CInt, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun itoa(arg1: CInt, arg2: MutPtr, arg3: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidItoa(arg1, arg2.rawAddress.toString(), arg3).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ltoa(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun ltoa(arg1: CLong, arg2: MutPtr, arg3: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidLtoa(arg1.toString(), arg2.rawAddress.toString(), arg3).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ultoa(arg1: CUlong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun ultoa(arg1: CUlong, arg2: MutPtr, arg3: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidUltoa(arg1.toString(), arg2.rawAddress.toString(), arg3).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bsearch(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr<CVoid> =
+public actual fun bsearch(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidBsearch(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toString(), 0L.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidCalloc(arg1.toString(), arg2.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun div(arg1: CInt, arg2: CInt): DivT =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(arg1: MutPtr<CVoid>) {
+public actual fun free(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidFree(arg1.rawAddress.toString())
     } else {
@@ -1359,7 +1355,7 @@ public actual fun free(arg1: MutPtr<CVoid>) {
     }
 }
 
-public actual fun getenv(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGetenv(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(arg1: CLong): CLong =
@@ -1368,10 +1364,10 @@ public actual fun labs(arg1: CLong): CLong =
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(arg1: SizeT): MutPtr<CVoid> =
+public actual fun malloc(arg1: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMalloc(arg1.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+public actual fun qsort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
     if (solidNapiAvailable) {
         wasmLibcSolidQsort(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), 0L.toString())
     } else {
@@ -1382,7 +1378,7 @@ public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: Bse
 public actual fun rand(): CInt =
     if (solidNapiAvailable) wasmLibcSolidRand() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(arg1: MutPtr<CVoid>, arg2: SizeT): MutPtr<CVoid> =
+public actual fun realloc(arg1: MutPtr, arg2: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidRealloc(arg1.rawAddress.toString(), arg2.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand(arg1: CUint) {
@@ -1393,34 +1389,34 @@ public actual fun srand(arg1: CUint) {
     }
 }
 
-public actual fun strtol(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLong =
+public actual fun strtol(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CLong =
     if (solidNapiAvailable) wasmLibcSolidStrtol(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlong =
+public actual fun strtoul(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CUlong =
     if (solidNapiAvailable) wasmLibcSolidStrtoul(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mblen(arg1: ConstPtr<CChar>, arg2: SizeT): CInt =
+public actual fun mblen(arg1: ConstPtr, arg2: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMblen(arg1.rawAddress.toString(), arg2.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mbstowcs(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun mbstowcs(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidMbstowcs(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wctomb(arg1: MutPtr<CChar>, arg2: WcharT): CInt =
+public actual fun wctomb(arg1: MutPtr, arg2: WcharT): CInt =
     if (solidNapiAvailable) wasmLibcSolidWctomb(arg1.rawAddress.toString(), arg2.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mbtowc(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun mbtowc(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMbtowc(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstombs(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT): SizeT =
+public actual fun wcstombs(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidWcstombs(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun randR(arg1: MutPtr<CUint>): CInt =
+public actual fun randR(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidRandR(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun jrand48(arg1: MutPtr<CUshort>): CLong =
+public actual fun jrand48(arg1: MutPtr): CLong =
     if (solidNapiAvailable) wasmLibcSolidJrand48(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lcong48(arg1: MutPtr<CUshort>) {
+public actual fun lcong48(arg1: MutPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidLcong48(arg1.rawAddress.toString())
     } else {
@@ -1434,10 +1430,10 @@ public actual fun lrand48(): CLong =
 public actual fun mrand48(): CLong =
     if (solidNapiAvailable) wasmLibcSolidMrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nrand48(arg1: MutPtr<CUshort>): CLong =
+public actual fun nrand48(arg1: MutPtr): CLong =
     if (solidNapiAvailable) wasmLibcSolidNrand48(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seed48(arg1: MutPtr<CUshort>): MutPtr<CUshort> =
+public actual fun seed48(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidSeed48(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand48(arg1: CLong) {
@@ -1448,22 +1444,22 @@ public actual fun srand48(arg1: CLong) {
     }
 }
 
-public actual fun putenv(arg1: MutPtr<CChar>): CInt =
+public actual fun putenv(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidPutenv(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun a64l(arg1: ConstPtr<CChar>): CLong =
+public actual fun a64l(arg1: ConstPtr): CLong =
     if (solidNapiAvailable) wasmLibcSolidA64l(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun l64a(arg1: CLong): MutPtr<CChar> =
+public actual fun l64a(arg1: CLong): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidL64a(arg1.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun random(): CLong =
     if (solidNapiAvailable) wasmLibcSolidRandom().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setstate(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun setstate(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidSetstate(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initstate(arg1: CUint, arg2: MutPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun initstate(arg1: CUint, arg2: MutPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidInitstate(arg1.toInt(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srandom(arg1: CUint) {
@@ -1474,22 +1470,22 @@ public actual fun srandom(arg1: CUint) {
     }
 }
 
-public actual fun mkostemp(arg1: MutPtr<CChar>, arg2: CInt): CInt =
+public actual fun mkostemp(arg1: MutPtr, arg2: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidMkostemp(arg1.rawAddress.toString(), arg2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemps(arg1: MutPtr<CChar>, arg2: CInt, arg3: CInt): CInt =
+public actual fun mkostemps(arg1: MutPtr, arg2: CInt, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidMkostemps(arg1.rawAddress.toString(), arg2, arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdtemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mkdtemp(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMkdtemp(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemp(arg1: MutPtr<CChar>): CInt =
+public actual fun mkstemp(arg1: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidMkstemp(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mktemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mktemp(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMktemp(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(arg1: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(arg1: ConstPtr): CLonglong =
     if (solidNapiAvailable) wasmLibcSolidAtoll(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun llabs(arg1: CLonglong): CLonglong =
@@ -1498,13 +1494,13 @@ public actual fun llabs(arg1: CLonglong): CLonglong =
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLonglong =
+public actual fun strtoll(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CLonglong =
     if (solidNapiAvailable) wasmLibcSolidStrtoll(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlonglong =
+public actual fun strtoull(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CUlonglong =
     if (solidNapiAvailable) wasmLibcSolidStrtoull(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidAlignedAlloc(arg1.toString(), arg2.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
@@ -1518,37 +1514,37 @@ public actual fun quickExit(arg1: CInt) {
     }
 }
 
-public actual fun setenv(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CInt): CInt =
+public actual fun setenv(arg1: ConstPtr, arg2: ConstPtr, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidSetenv(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unsetenv(arg1: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidUnsetenv(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun humanizeNumber(arg1: MutPtr<CChar>, arg2: SizeT, arg3: Long, arg4: ConstPtr<CChar>, arg5: CInt, arg6: CInt): CInt =
+public actual fun humanizeNumber(arg1: MutPtr, arg2: SizeT, arg3: Long, arg4: ConstPtr, arg5: CInt, arg6: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidHumanizeNumber(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), arg4.rawAddress.toString(), arg5, arg6) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dehumanizeNumber(arg1: ConstPtr<CChar>, arg2: MutPtr<Long>): CInt =
+public actual fun dehumanizeNumber(arg1: ConstPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidDehumanizeNumber(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getenvR(arg1: ConstPtr<CChar>, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+public actual fun getenvR(arg1: ConstPtr, arg2: MutPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetenvR(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun heapsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun heapsort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     if (solidNapiAvailable) wasmLibcSolidHeapsort(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mergesort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun mergesort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     if (solidNapiAvailable) wasmLibcSolidMergesort(arg1.rawAddress.toString(), arg2.toString(), arg3.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun radixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+public actual fun radixsort(arg1: MutPtr, arg2: CInt, arg3: ConstPtr, arg4: CUint): CInt =
     if (solidNapiAvailable) wasmLibcSolidRadixsort(arg1.rawAddress.toString(), arg2, arg3.rawAddress.toString(), arg4.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sradixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+public actual fun sradixsort(arg1: MutPtr, arg2: CInt, arg3: ConstPtr, arg4: CUint): CInt =
     if (solidNapiAvailable) wasmLibcSolidSradixsort(arg1.rawAddress.toString(), arg2, arg3.rawAddress.toString(), arg4.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprogname(): ConstPtr<CChar> =
+public actual fun getprogname(): ConstPtr =
     if (solidNapiAvailable) ConstPtr(wasmLibcSolidGetprogname().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setprogname(arg1: ConstPtr<CChar>) {
+public actual fun setprogname(arg1: ConstPtr) {
     if (solidNapiAvailable) {
         wasmLibcSolidSetprogname(arg1.rawAddress.toString())
     } else {
@@ -1559,190 +1555,190 @@ public actual fun setprogname(arg1: ConstPtr<CChar>) {
 public actual fun qabs(arg1: QuadT): QuadT =
     if (solidNapiAvailable) wasmLibcSolidQabs(arg1.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): QuadT =
+public actual fun strtoq(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): QuadT =
     if (solidNapiAvailable) wasmLibcSolidStrtoq(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtouq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): UQuadT =
+public actual fun strtouq(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): UQuadT =
     if (solidNapiAvailable) wasmLibcSolidStrtouq(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsuftoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong): CLonglong =
+public actual fun strsuftoll(arg1: ConstPtr, arg2: ConstPtr, arg3: CLonglong, arg4: CLonglong): CLonglong =
     if (solidNapiAvailable) wasmLibcSolidStrsuftoll(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsuftollx(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr<CChar>, arg6: SizeT): CLonglong =
+public actual fun strsuftollx(arg1: ConstPtr, arg2: ConstPtr, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr, arg6: SizeT): CLonglong =
     if (solidNapiAvailable) wasmLibcSolidStrsuftollx(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toString(), arg5.rawAddress.toString(), arg6.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun l64aR(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): CInt =
+public actual fun l64aR(arg1: CLong, arg2: MutPtr, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidL64aR(arg1.toString(), arg2.rawAddress.toString(), arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun qdiv(arg1: QuadT, arg2: QuadT): QdivT =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtolL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLong =
+public actual fun strtolL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CLong =
     if (solidNapiAvailable) wasmLibcSolidStrtolL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoulL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlong =
+public actual fun strtoulL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CUlong =
     if (solidNapiAvailable) wasmLibcSolidStrtoulL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtollL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLonglong =
+public actual fun strtollL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CLonglong =
     if (solidNapiAvailable) wasmLibcSolidStrtollL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoullL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlonglong =
+public actual fun strtoullL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CUlonglong =
     if (solidNapiAvailable) wasmLibcSolidStrtoullL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): QuadT =
+public actual fun strtoqL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): QuadT =
     if (solidNapiAvailable) wasmLibcSolidStrtoqL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtouqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): UQuadT =
+public actual fun strtouqL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): UQuadT =
     if (solidNapiAvailable) wasmLibcSolidStrtouqL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mbCurMaxL(arg1: LocaleT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidMbCurMaxL(arg1.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mblenL(arg1: ConstPtr<CChar>, arg2: SizeT, arg3: LocaleT): CInt =
+public actual fun mblenL(arg1: ConstPtr, arg2: SizeT, arg3: LocaleT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMblenL(arg1.rawAddress.toString(), arg2.toString(), arg3.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mbstowcsL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun mbstowcsL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidMbstowcsL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wctombL(arg1: MutPtr<CChar>, arg2: WcharT, arg3: LocaleT): CInt =
+public actual fun wctombL(arg1: MutPtr, arg2: WcharT, arg3: LocaleT): CInt =
     if (solidNapiAvailable) wasmLibcSolidWctombL(arg1.rawAddress.toString(), arg2.toInt(), arg3.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mbtowcL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): CInt =
+public actual fun mbtowcL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMbtowcL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstombsL(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun wcstombsL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidWcstombsL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memchr(arg1: ConstPtr, arg2: CInt, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemchr(arg1.rawAddress.toString(), arg2, arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun memcmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMemcmp(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemcpy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memmove(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemmove(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memset(arg1: MutPtr, arg2: CInt, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemset(arg1.rawAddress.toString(), arg2, arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrcat(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun strchr(arg1: ConstPtr, arg2: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrchr(arg1.rawAddress.toString(), arg2).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcmp(arg1: ConstPtr, arg2: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrcmp(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcoll(arg1: ConstPtr, arg2: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrcoll(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrcpy(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(arg1: ConstPtr, arg2: ConstPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrcspn(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(arg1: CInt): MutPtr<CChar> =
+public actual fun strerror(arg1: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrerror(arg1).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(arg1: ConstPtr<CChar>): SizeT =
+public actual fun strlen(arg1: ConstPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrlen(arg1.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun strncat(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrncat(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strncmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrncmp(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun strncpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrncpy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrpbrk(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun strrchr(arg1: ConstPtr, arg2: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrrchr(arg1.rawAddress.toString(), arg2).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+public actual fun strspn(arg1: ConstPtr, arg2: ConstPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrspn(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrstr(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrtok(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtokR(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<MutPtr<CChar>>): MutPtr<CChar> =
+public actual fun strtokR(arg1: MutPtr, arg2: ConstPtr, arg3: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrtokR(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(arg1: CInt, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strerrorR(arg1: CInt, arg2: MutPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrerrorR(arg1, arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strxfrm(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrxfrm(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memccpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: CInt, arg4: SizeT): MutPtr<CVoid> =
+public actual fun memccpy(arg1: MutPtr, arg2: ConstPtr, arg3: CInt, arg4: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemccpy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3, arg4.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strdup(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrdup(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stpcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun stpcpy(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStpcpy(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stpncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun stpncpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStpncpy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(arg1: ConstPtr<CChar>, arg2: SizeT): SizeT =
+public actual fun strnlen(arg1: ConstPtr, arg2: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrnlen(arg1.rawAddress.toString(), arg2.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmem(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: ConstPtr<CVoid>, arg4: SizeT): MutPtr<CVoid> =
+public actual fun memmem(arg1: ConstPtr, arg2: SizeT, arg3: ConstPtr, arg4: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemmem(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), arg4.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasestr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcasestr(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrcasestr(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strlcat(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrlcat(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strlcpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrlcpy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strsep(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrsep(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stresep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun stresep(arg1: MutPtr, arg2: ConstPtr, arg3: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStresep(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strndup(arg1: ConstPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+public actual fun strndup(arg1: ConstPtr, arg2: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrndup(arg1.rawAddress.toString(), arg2.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(arg1: ConstPtr, arg2: CInt, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemrchr(arg1.rawAddress.toString(), arg2, arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun explicitMemset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun explicitMemset(arg1: MutPtr, arg2: CInt, arg3: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidExplicitMemset(arg1.rawAddress.toString(), arg2, arg3.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun consttimeMemequal(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun consttimeMemequal(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidConsttimeMemequal(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcollL(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: LocaleT): CInt =
+public actual fun strcollL(arg1: ConstPtr, arg2: ConstPtr, arg3: LocaleT): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrcollL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrmL(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun strxfrmL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrxfrmL(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString(), arg4.toLong().toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr<CChar> =
+public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidStrerrorL(arg1, arg2.toLong().toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun bcmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidBcmp(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bcopy(arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>, arg3: SizeT) {
+public actual fun bcopy(arg1: ConstPtr, arg2: MutPtr, arg3: SizeT) {
     if (solidNapiAvailable) {
         wasmLibcSolidBcopy(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString())
     } else {
@@ -1750,7 +1746,7 @@ public actual fun bcopy(arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>, arg3: SizeT)
     }
 }
 
-public actual fun bzero(arg1: MutPtr<CVoid>, arg2: SizeT) {
+public actual fun bzero(arg1: MutPtr, arg2: SizeT) {
     if (solidNapiAvailable) {
         wasmLibcSolidBzero(arg1.rawAddress.toString(), arg2.toString())
     } else {
@@ -1776,13 +1772,13 @@ public actual fun popcount32(arg1: UInt): CUint =
 public actual fun popcount64(arg1: ULong): CUint =
     if (solidNapiAvailable) wasmLibcSolidPopcount64(arg1.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rindex(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun rindex(arg1: ConstPtr, arg2: CInt): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidRindex(arg1.rawAddress.toString(), arg2).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(arg1: ConstPtr, arg2: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrcasecmp(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strncasecmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidStrncasecmp(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
@@ -1791,79 +1787,79 @@ public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
 public actual fun raise(arg1: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidRaise(arg1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asctime(arg1: ConstPtr<Tm>): MutPtr<CChar> =
+public actual fun asctime(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidAsctime(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clock(): ClockT =
     if (solidNapiAvailable) wasmLibcSolidClock().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctime(arg1: ConstPtr<TimeT>): MutPtr<CChar> =
+public actual fun ctime(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidCtime(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun difftime(arg1: TimeT, arg2: TimeT): Double =
     if (solidNapiAvailable) wasmLibcSolidDifftime(arg1.toString(), arg2.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun gmtime(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGmtime(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun localtime(arg1: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidLocaltime(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(arg1: MutPtr<TimeT>): TimeT =
+public actual fun time(arg1: MutPtr): TimeT =
     if (solidNapiAvailable) wasmLibcSolidTime(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mktime(arg1: MutPtr<Tm>): TimeT =
+public actual fun mktime(arg1: MutPtr): TimeT =
     if (solidNapiAvailable) wasmLibcSolidMktime(arg1.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+public actual fun strftime(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: ConstPtr): SizeT =
     if (solidNapiAvailable) wasmLibcSolidStrftime(arg1.rawAddress.toString(), arg2.toString(), arg3.rawAddress.toString(), arg4.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utime(arg1: ConstPtr<CChar>, arg2: MutPtr<TimeT>): CInt =
+public actual fun utime(arg1: ConstPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidUtime(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asctimeR(arg1: ConstPtr<Tm>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun asctimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidAsctimeR(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidCtimeR(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun gmtimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGmtimeR(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun localtimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidLocaltimeR(arg1.rawAddress.toString(), arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+public actual fun stat(arg1: ConstPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidStat(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+public actual fun lstat(arg1: ConstPtr, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidLstat(arg1.rawAddress.toString(), arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(arg1: CInt, arg2: MutPtr<Stat>): CInt =
+public actual fun fstat(arg1: CInt, arg2: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidFstat(arg1, arg2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chmod(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+public actual fun chmod(arg1: ConstPtr, arg2: ModeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidChmod(arg1.rawAddress.toString(), arg2.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+public actual fun mkdir(arg1: ConstPtr, arg2: ModeT): CInt =
     if (solidNapiAvailable) wasmLibcSolidMkdir(arg1.rawAddress.toString(), arg2.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(arg1: ConstPtr<CChar>, arg2: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(arg1: ConstPtr, arg2: CInt, vararg variadicArgs: Long): CInt =
     if (solidNapiAvailable) wasmLibcSolidOpen(arg1.rawAddress.toString(), arg2, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+public actual fun creat(arg1: ConstPtr, arg2: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidCreat(arg1.rawAddress.toString(), arg2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(arg1: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidClose(arg1) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(arg1: CInt, arg2: MutPtr<CVoid>, arg3: CInt): CInt =
+public actual fun read(arg1: CInt, arg2: MutPtr, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidRead(arg1, arg2.rawAddress.toString(), arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(arg1: CInt, arg2: ConstPtr<CVoid>, arg3: CInt): CInt =
+public actual fun write(arg1: CInt, arg2: ConstPtr, arg3: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidWrite(arg1, arg2.rawAddress.toString(), arg3) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(arg1: ConstPtr<CChar>): CInt =
+public actual fun unlink(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidUnlink(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tell(arg1: CInt): CLong =
@@ -1875,25 +1871,25 @@ public actual fun dup(arg1: CInt): CInt =
 public actual fun dup2(arg1: CInt, arg2: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidDup2(arg1, arg2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun access(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+public actual fun access(arg1: ConstPtr, arg2: CInt): CInt =
     if (solidNapiAvailable) wasmLibcSolidAccess(arg1.rawAddress.toString(), arg2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(arg1: ConstPtr<CChar>): CInt =
+public actual fun rmdir(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidRmdir(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chdir(arg1: ConstPtr<CChar>): CInt =
+public actual fun chdir(arg1: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidChdir(arg1.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getwd(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun getwd(arg1: MutPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGetwd(arg1.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(arg1: MutPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+public actual fun getcwd(arg1: MutPtr, arg2: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidGetcwd(arg1.rawAddress.toString(), arg2.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getopt(arg1: CInt, arg2: MutPtr<MutPtr<CChar>>, arg3: ConstPtr<CChar>): CInt =
+public actual fun getopt(arg1: CInt, arg2: MutPtr, arg3: ConstPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetopt(arg1, arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsubopt(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<MutPtr<CChar>>, arg3: MutPtr<MutPtr<CChar>>): CInt =
+public actual fun getsubopt(arg1: MutPtr, arg2: ConstPtr, arg3: MutPtr): CInt =
     if (solidNapiAvailable) wasmLibcSolidGetsubopt(arg1.rawAddress.toString(), arg2.rawAddress.toString(), arg3.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
@@ -1908,10 +1904,10 @@ public actual fun sleep(arg1: CUint): CUint =
 public actual fun usleep(arg1: UsecondsT): CInt =
     if (solidNapiAvailable) wasmLibcSolidUsleep(arg1.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localeconv(): MutPtr<Lconv> =
+public actual fun localeconv(): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidLocaleconv().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(arg1: CInt, arg2: ConstPtr): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidSetlocale(arg1, arg2.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
@@ -1925,19 +1921,19 @@ public actual fun freelocale(arg1: LocaleT) {
     }
 }
 
-public actual fun localeconvL(arg1: LocaleT): MutPtr<Lconv> =
+public actual fun localeconvL(arg1: LocaleT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidLocaleconvL(arg1.toLong().toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun newlocale(arg1: CInt, arg2: ConstPtr<CChar>, arg3: LocaleT): LocaleT =
+public actual fun newlocale(arg1: CInt, arg2: ConstPtr, arg3: LocaleT): LocaleT =
     if (solidNapiAvailable) wasmLibcSolidNewlocale(arg1, arg2.rawAddress.toString(), arg3.toLong().toString()).toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidNlLanginfo(item.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidNlLanginfoL(item.toString(), locale.toLong().toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     if (solidNapiAvailable) MutPtr(wasmLibcSolidMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =

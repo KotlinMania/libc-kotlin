@@ -23,7 +23,6 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IpcPerm
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SigsetT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.VmSizeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.COMMLEN
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Filedesc
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.FixptT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.KI_EMULNAMELEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.KI_NGROUPS
@@ -34,13 +33,11 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.LOGINCLASSLEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.LOGNAMELEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.LwpidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MAXCOMLEN
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Pargs
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Priority
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SegszT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TDNAMLEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.WMESGLEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -51,9 +48,9 @@ public class Kevent internal constructor(
     public var flags: CUshort,
     public var fflags: CUint,
     public var data: IntptrT,
-    udataCtorArg: MutPtr<CVoid>,
+    udataCtorArg: MutPtr,
 ) {
-    public var udata: MutPtr<CVoid> = udataCtorArg
+    public var udata: MutPtr = udataCtorArg
         internal set
 
     public constructor() : this(
@@ -75,9 +72,9 @@ public class Kevent internal constructor(
 
     public operator fun component5(): IntptrT = this.data
 
-    public operator fun component6(): MutPtr<CVoid> = this.udata
+    public operator fun component6(): MutPtr = this.udata
 
-    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: IntptrT = this.data, udata: MutPtr<CVoid> = this.udata): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata)
+    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: IntptrT = this.data, udata: MutPtr = this.udata): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -115,7 +112,7 @@ public class Kevent internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: Kevent) {
@@ -126,7 +123,7 @@ public class Kevent internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 16L, value.data)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.udata)
                 }
             }
@@ -137,7 +134,7 @@ public class Kevent internal constructor(
             flags: CUshort = 0u,
             fflags: CUint = 0u,
             data: IntptrT = 0L,
-            udata: MutPtr<CVoid> = MutPtr(0L),
+            udata: MutPtr = MutPtr(0L),
         ): Kevent =
             Kevent(
                 ident = ident,
@@ -177,7 +174,7 @@ public class KinfoProc {
     /**
      * Address of command arguments.
      */
-    public var kiArgs: MutPtr<Pargs> = MutPtr(0L)
+    public var kiArgs: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct proc".
@@ -185,7 +182,7 @@ public class KinfoProc {
     /**
      * Address of proc.
      */
-    public var kiPaddr: MutPtr<CVoid> = MutPtr(0L)
+    public var kiPaddr: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct user".
@@ -193,7 +190,7 @@ public class KinfoProc {
     /**
      * Kernel virtual address of u-area.
      */
-    public var kiAddr: MutPtr<CVoid> = MutPtr(0L)
+    public var kiAddr: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct vnode".
@@ -201,7 +198,7 @@ public class KinfoProc {
     /**
      * Pointer to trace file.
      */
-    public var kiTracep: MutPtr<CVoid> = MutPtr(0L)
+    public var kiTracep: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct vnode".
@@ -209,13 +206,13 @@ public class KinfoProc {
     /**
      * Pointer to executable file.
      */
-    public var kiTextvp: MutPtr<CVoid> = MutPtr(0L)
+    public var kiTextvp: MutPtr = MutPtr(0L)
         internal set
 
     /**
      * Pointer to open file info.
      */
-    public var kiFd: MutPtr<Filedesc> = MutPtr(0L)
+    public var kiFd: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct vmspace".
@@ -223,13 +220,13 @@ public class KinfoProc {
     /**
      * Pointer to kernel vmspace struct.
      */
-    public var kiVmspace: MutPtr<CVoid> = MutPtr(0L)
+    public var kiVmspace: MutPtr = MutPtr(0L)
         internal set
 
     /**
      * Sleep address.
      */
-    public var kiWchan: MutPtr<CVoid> = MutPtr(0L)
+    public var kiWchan: MutPtr = MutPtr(0L)
         internal set
 
     /**
@@ -581,26 +578,26 @@ public class KinfoProc {
     /**
      * Kernel virtual addr of pcb.
      */
-    public var kiPcb: MutPtr<CVoid> = MutPtr(0L)
+    public var kiPcb: MutPtr = MutPtr(0L)
         internal set
 
     /**
      * Kernel virtual addr of stack.
      */
-    public var kiKstack: MutPtr<CVoid> = MutPtr(0L)
+    public var kiKstack: MutPtr = MutPtr(0L)
         internal set
 
     /**
      * User convenience pointer.
      */
-    public var kiUdata: MutPtr<CVoid> = MutPtr(0L)
+    public var kiUdata: MutPtr = MutPtr(0L)
         internal set
 
     // This is normally "struct thread".
-    public var kiTdaddr: MutPtr<CVoid> = MutPtr(0L)
+    public var kiTdaddr: MutPtr = MutPtr(0L)
         internal set
 
-    public var kiSpareptrs: List<MutPtr<CVoid>> = List(KI_NSPARE_PTR) { MutPtr(0L) }
+    public var kiSpareptrs: List<MutPtr> = List(KI_NSPARE_PTR) { MutPtr(0L) }
         internal set
 
     public var kiSparelongs: LongArray = LongArray(KI_NSPARE_LONG)
@@ -704,14 +701,14 @@ public class Statfs(
 public class Vnstat internal constructor(
     public var vnFileid: ULong,
     public var vnSize: ULong,
-    vnMntdirCtorArg: MutPtr<CChar>,
+    vnMntdirCtorArg: MutPtr,
     public var vnDev: UInt,
     public var vnFsid: UInt,
     public var vnType: CInt,
     public var vnMode: UShort,
     public var vnDevname: UByteArray,
 ) {
-    public var vnMntdir: MutPtr<CChar> = vnMntdirCtorArg
+    public var vnMntdir: MutPtr = vnMntdirCtorArg
         internal set
 
     public constructor() : this(
@@ -729,7 +726,7 @@ public class Vnstat internal constructor(
 
     public operator fun component2(): ULong = this.vnSize
 
-    public operator fun component3(): MutPtr<CChar> = this.vnMntdir
+    public operator fun component3(): MutPtr = this.vnMntdir
 
     public operator fun component4(): UInt = this.vnDev
 
@@ -741,7 +738,7 @@ public class Vnstat internal constructor(
 
     public operator fun component8(): UByteArray = this.vnDevname
 
-    public fun copy(vnFileid: ULong = this.vnFileid, vnSize: ULong = this.vnSize, vnMntdir: MutPtr<CChar> = this.vnMntdir, vnDev: UInt = this.vnDev, vnFsid: UInt = this.vnFsid, vnType: CInt = this.vnType, vnMode: UShort = this.vnMode, vnDevname: UByteArray = this.vnDevname): Vnstat = Vnstat(vnFileid = vnFileid, vnSize = vnSize, vnMntdirCtorArg = vnMntdir, vnDev = vnDev, vnFsid = vnFsid, vnType = vnType, vnMode = vnMode, vnDevname = vnDevname)
+    public fun copy(vnFileid: ULong = this.vnFileid, vnSize: ULong = this.vnSize, vnMntdir: MutPtr = this.vnMntdir, vnDev: UInt = this.vnDev, vnFsid: UInt = this.vnFsid, vnType: CInt = this.vnType, vnMode: UShort = this.vnMode, vnDevname: UByteArray = this.vnDevname): Vnstat = Vnstat(vnFileid = vnFileid, vnSize = vnSize, vnMntdirCtorArg = vnMntdir, vnDev = vnDev, vnFsid = vnFsid, vnType = vnType, vnMode = vnMode, vnDevname = vnDevname)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -782,7 +779,7 @@ public class Vnstat internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
@@ -798,7 +795,7 @@ public class Vnstat internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.vnSize)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.vnMntdir)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.vnDev)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.vnFsid)
@@ -814,7 +811,7 @@ public class Vnstat internal constructor(
         public operator fun invoke(
             vnFileid: ULong = 0uL,
             vnSize: ULong = 0uL,
-            vnMntdir: MutPtr<CChar> = MutPtr(0L),
+            vnMntdir: MutPtr = MutPtr(0L),
             vnDev: UInt = 0u,
             vnFsid: UInt = 0u,
             vnType: CInt = 0,

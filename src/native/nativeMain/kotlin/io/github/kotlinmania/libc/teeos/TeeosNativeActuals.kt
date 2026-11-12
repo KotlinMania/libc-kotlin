@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -154,197 +153,196 @@ import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcslen
 import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcstod
 import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWctob
 import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWmemchr
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     MutPtr(libcTeeosCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(libcTeeosMalloc(size)?.toLong() ?: 0L)
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcTeeosRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun alignedAlloc(align: SizeT, len: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(align: SizeT, len: SizeT): MutPtr =
     MutPtr(libcTeeosAlignedAlloc(align, len)?.toLong() ?: 0L)
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     libcTeeosFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+public actual fun posixMemalign(memptr: MutPtr, align: SizeT, size: SizeT): CInt =
     libcTeeosPosixMemalign(memptr.rawAddress.toCPointer<ByteVar>(), align, size)
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(libcTeeosMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     MutPtr(libcTeeosWmemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     libcTeeosMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcTeeosMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcTeeosMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(libcTeeosMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun pthreadSelf(): PthreadT =
     (libcTeeosPthreadSelf()?.toLong() ?: 0L).toULong()
 
-public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr): CInt =
     libcTeeosPthreadJoin(native.toLong().toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+public actual fun pthreadExit(value: MutPtr): Nothing {
     libcTeeosPthreadExit(value.rawAddress.toCPointer<ByteVar>())
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrInit(attr: MutPtr): CInt =
     libcTeeosPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrDestroy(attr: MutPtr): CInt =
     libcTeeosPthreadAttrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     libcTeeosPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+public actual fun pthreadAttrSetstacksize(attr: MutPtr, stackSize: SizeT): CInt =
     libcTeeosPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stackSize)
 
-public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr, size: MutPtr): CInt =
     libcTeeosPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSettee(attr: MutPtr<PthreadAttrT>, ca: CInt, taskId: CInt, shadow: CInt): CInt =
+public actual fun pthreadAttrSettee(attr: MutPtr, ca: CInt, taskId: CInt, shadow: CInt): CInt =
     libcTeeosPthreadAttrSettee(attr.rawAddress.toCPointer<ByteVar>(), ca, taskId, shadow)
 
 public actual fun schedYield(): CInt =
     libcTeeosSchedYield()
 
-public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: MutPtr, dtor: PthreadKeyCreateDtorCallback?): CInt =
     libcTeeosPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     libcTeeosPthreadKeyDelete(key)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr =
     MutPtr(libcTeeosPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt =
     libcTeeosPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexDestroy(lock: MutPtr): CInt =
     libcTeeosPthreadMutexDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexInit(lock: MutPtr, attr: ConstPtr): CInt =
     libcTeeosPthreadMutexInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexLock(lock: MutPtr): CInt =
     libcTeeosPthreadMutexLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexTrylock(lock: MutPtr): CInt =
     libcTeeosPthreadMutexTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexUnlock(lock: MutPtr): CInt =
     libcTeeosPthreadMutexUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrDestroy(attr: MutPtr): CInt =
     libcTeeosPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrInit(attr: MutPtr): CInt =
     libcTeeosPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+public actual fun pthreadMutexattrSettype(attr: MutPtr, type: CInt): CInt =
     libcTeeosPthreadMutexattrSettype(attr.rawAddress.toCPointer<ByteVar>(), type)
 
-public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr, pshared: CInt): CInt =
     libcTeeosPthreadMutexattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondBroadcast(cond: MutPtr): CInt =
     libcTeeosPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondDestroy(cond: MutPtr): CInt =
     libcTeeosPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt =
     libcTeeosPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondSignal(cond: MutPtr): CInt =
     libcTeeosPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadCondWait(cond: MutPtr, lock: MutPtr): CInt =
     libcTeeosPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwait(cond: MutPtr, lock: MutPtr, abstime: ConstPtr): CInt =
     libcTeeosPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr, robustness: CInt): CInt =
     libcTeeosPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     libcTeeosPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: MutPtr, pshared: CInt): CInt =
     libcTeeosPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinDestroy(lock: MutPtr): CInt =
     libcTeeosPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinLock(lock: MutPtr): CInt =
     libcTeeosPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinTrylock(lock: MutPtr): CInt =
     libcTeeosPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinUnlock(lock: MutPtr): CInt =
     libcTeeosPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
     libcTeeosPthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
 
-public actual fun pthreadOnce(pot: MutPtr<PthreadOnceT>, f: OnceFn?): CInt =
+public actual fun pthreadOnce(pot: MutPtr, f: OnceFn?): CInt =
     libcTeeosPthreadOnce(pot.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt =
     libcTeeosPthreadEqual(p1.toLong().toCPointer<ByteVar>(), p2.toLong().toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetprotocol(a: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+public actual fun pthreadMutexattrSetprotocol(a: MutPtr, protocol: CInt): CInt =
     libcTeeosPthreadMutexattrSetprotocol(a.rawAddress.toCPointer<ByteVar>(), protocol)
 
-public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stack: MutPtr<CVoid>, size: SizeT): CInt =
+public actual fun pthreadAttrSetstack(attr: MutPtr, stack: MutPtr, size: SizeT): CInt =
     libcTeeosPthreadAttrSetstack(attr.rawAddress.toCPointer<ByteVar>(), stack.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: ConstPtr<CpuSetT>): CInt =
+public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: ConstPtr): CInt =
     libcTeeosPthreadSetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: MutPtr<CpuSetT>): CInt =
+public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: MutPtr): CInt =
     libcTeeosPthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun printf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(fmt: ConstPtr, vararg variadicArgs: Long): CInt =
     libcTeeosPrintf(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(fmt: ConstPtr, vararg variadicArgs: Long): CInt =
     libcTeeosScanf(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(s: MutPtr, n: SizeT, fmt: ConstPtr, vararg variadicArgs: Long): CInt =
     libcTeeosSnprintf(s.rawAddress.toCPointer<ByteVar>(), n, fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(s: MutPtr, fmt: ConstPtr, vararg variadicArgs: Long): CInt =
     libcTeeosSprintf(s.rawAddress.toCPointer<ByteVar>(), fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vsnprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vsnprintf(s: MutPtr, n: SizeT, fmt: ConstPtr, ap: VaList): CInt =
     libcTeeosVsnprintf(s.rawAddress.toCPointer<ByteVar>(), n, fmt.rawAddress.toCPointer<ByteVar>(), ap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vsprintf(s: MutPtr, fmt: ConstPtr, ap: VaList): CInt =
     libcTeeosVsprintf(s.rawAddress.toCPointer<ByteVar>(), fmt.rawAddress.toCPointer<ByteVar>(), ap.rawAddress.toCPointer<ByteVar>())
 
 public actual fun abort(): Nothing {
@@ -352,82 +350,82 @@ public actual fun abort(): Nothing {
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     libcTeeosSchedGetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     libcTeeosSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sysconf(name: CInt): CLong =
     libcTeeosSysconf(name)
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     MutPtr(libcTeeosMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     libcTeeosMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun errnoLocation(): MutPtr<CInt> =
+public actual fun errnoLocation(): MutPtr =
     MutPtr(libcTeeosErrnoLocation()?.toLong() ?: 0L)
 
-public actual fun strerror(e: CInt): MutPtr<CChar> =
+public actual fun strerror(e: CInt): MutPtr =
     MutPtr(libcTeeosStrerror(e)?.toLong() ?: 0L)
 
-public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr): CInt =
     libcTeeosClockGettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpid(): PidT =
     libcTeeosGetpid()
 
-public actual fun gettimeofday(tv: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tv: MutPtr, tz: MutPtr): CInt =
     libcTeeosGettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(restrict: MutPtr<CChar>, sz: SizeT, restrict_2: ConstPtr<CChar>, restrict_3: ConstPtr<Tm>): SizeT =
+public actual fun strftime(restrict: MutPtr, sz: SizeT, restrict_2: ConstPtr, restrict_3: ConstPtr): SizeT =
     libcTeeosStrftime(restrict.rawAddress.toCPointer<ByteVar>(), sz, restrict_2.rawAddress.toCPointer<ByteVar>(), restrict_3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun time(t: MutPtr<TimeT>): TimeT =
+public actual fun time(t: MutPtr): TimeT =
     libcTeeosTime(t.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     libcTeeosSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     libcTeeosSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, valp: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, valp: MutPtr): CInt =
     libcTeeosSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), valp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     libcTeeosSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun semOpen(name: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, flags: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(libcTeeosSemOpen(name.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun semPost(sem: MutPtr<SemT>): CInt =
+public actual fun semPost(sem: MutPtr): CInt =
     libcTeeosSemPost(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     libcTeeosSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semWait(sem: MutPtr<SemT>): CInt =
+public actual fun semWait(sem: MutPtr): CInt =
     libcTeeosSemWait(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setlocale(cat: CInt, name: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(cat: CInt, name: ConstPtr): MutPtr =
     MutPtr(libcTeeosSetlocale(cat, name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcoll(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+public actual fun strcoll(l: ConstPtr, r: ConstPtr): CInt =
     libcTeeosStrcoll(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     libcTeeosStrxfrm(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strtod(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, p: MutPtr): CDouble =
     libcTeeosStrtod(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mbrtowc(wc: MutPtr<WcharT>, src: ConstPtr<CChar>, n: SizeT, st: MutPtr<MbstateT>): SizeT =
+public actual fun mbrtowc(wc: MutPtr, src: ConstPtr, n: SizeT, st: MutPtr): SizeT =
     libcTeeosMbrtowc(wc.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n, st.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wcrtomb(s: MutPtr<CChar>, wc: WcharT, st: MutPtr<MbstateT>): SizeT =
+public actual fun wcrtomb(s: MutPtr, wc: WcharT, st: MutPtr): SizeT =
     libcTeeosWcrtomb(s.rawAddress.toCPointer<ByteVar>(), wc, st.rawAddress.toCPointer<ByteVar>())
 
 public actual fun wctob(c: WintT): CInt =
@@ -437,46 +435,46 @@ public actual fun srandom(seed: CUint) {
     libcTeeosSrandom(seed)
 }
 
-public actual fun initstate(seed: CUint, state: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun initstate(seed: CUint, state: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcTeeosInitstate(seed, state.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun setstate(state: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun setstate(state: MutPtr): MutPtr =
     MutPtr(libcTeeosSetstate(state.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun random(): CLong =
     libcTeeosRandom()
 
-public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(s: ConstPtr, c: CInt): MutPtr =
     MutPtr(libcTeeosStrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     libcTeeosStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+public actual fun strcmp(l: ConstPtr, r: ConstPtr): CInt =
     libcTeeosStrcmp(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dest: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(libcTeeosStrcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(l: ConstPtr, r: ConstPtr, n: SizeT): CInt =
     libcTeeosStrncmp(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcTeeosStrncpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, n: SizeT): SizeT =
     libcTeeosStrnlen(cs.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(s: ConstPtr, c: CInt): MutPtr =
     MutPtr(libcTeeosStrrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strstr(h: ConstPtr<CChar>, n: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(h: ConstPtr, n: ConstPtr): MutPtr =
     MutPtr(libcTeeosStrstr(h.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun wcschr(s: ConstPtr<WcharT>, c: WcharT): MutPtr<WcharT> =
+public actual fun wcschr(s: ConstPtr, c: WcharT): MutPtr =
     MutPtr(libcTeeosWcschr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun wcslen(s: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(s: ConstPtr): SizeT =
     libcTeeosWcslen(s.rawAddress.toCPointer<ByteVar>())
 
 public actual fun isalpha(c: CInt): CInt =
@@ -536,7 +534,7 @@ public actual fun fabs(x: CDouble): CDouble =
 public actual fun floor(x: CDouble): CDouble =
     libcTeeosFloor(x)
 
-public actual fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble =
+public actual fun frexp(x: CDouble, e: MutPtr): CDouble =
     libcTeeosFrexp(x, e.rawAddress.toCPointer<ByteVar>())
 
 public actual fun log(x: CDouble): CDouble =
@@ -560,25 +558,25 @@ public actual fun sqrt(x: CDouble): CDouble =
 public actual fun abs(x: CInt): CInt =
     libcTeeosAbs(x)
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     libcTeeosAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     libcTeeosAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     libcTeeosAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     libcTeeosAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc): MutPtr<CVoid> =
+public actual fun bsearch(key: ConstPtr, base: ConstPtr, nel: SizeT, width: SizeT, cmp: Cmpfunc): MutPtr =
     MutPtr(libcTeeosBsearch(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun div(num: CInt, den: CInt): DivT =
     DivT()
 
-public actual fun ecvt(x: CDouble, n: CInt, dp: MutPtr<CInt>, sign: MutPtr<CInt>): MutPtr<CChar> =
+public actual fun ecvt(x: CDouble, n: CInt, dp: MutPtr, sign: MutPtr): MutPtr =
     MutPtr(libcTeeosEcvt(x, n, dp.rawAddress.toCPointer<ByteVar>(), sign.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun imaxabs(a: IntmaxT): IntmaxT =
@@ -587,15 +585,15 @@ public actual fun imaxabs(a: IntmaxT): IntmaxT =
 public actual fun llabs(a: CLonglong): CLonglong =
     libcTeeosLlabs(a)
 
-public actual fun qsort(base: MutPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
+public actual fun qsort(base: MutPtr, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
     libcTeeosQsort(base.rawAddress.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun strtoul(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, p: MutPtr, base: CInt): CUlong =
     libcTeeosStrtoul(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtol(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, p: MutPtr, base: CInt): CLong =
     libcTeeosStrtol(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun wcstod(s: ConstPtr<WcharT>, p: MutPtr<MutPtr<WcharT>>): CDouble =
+public actual fun wcstod(s: ConstPtr, p: MutPtr): CDouble =
     libcTeeosWcstod(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>())

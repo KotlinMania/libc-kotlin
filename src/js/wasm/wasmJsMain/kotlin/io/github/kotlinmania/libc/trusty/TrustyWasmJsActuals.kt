@@ -3,10 +3,8 @@
 package io.github.kotlinmania.libc.trusty
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -60,16 +58,16 @@ private external fun wasmLibcTrustyClockGettime(p0: Int, p1: String): Int
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTrustyNanosleep(p0, p1)")
 private external fun wasmLibcTrustyNanosleep(p0: String, p1: String): Int
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     if (trustyNapiAvailable) MutPtr(wasmLibcTrustyCalloc(nobj.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     if (trustyNapiAvailable) MutPtr(wasmLibcTrustyMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     if (trustyNapiAvailable) MutPtr(wasmLibcTrustyRealloc(p.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     if (trustyNapiAvailable) {
         wasmLibcTrustyFree(p.rawAddress.toString())
     } else {
@@ -77,35 +75,35 @@ public actual fun free(p: MutPtr<CVoid>) {
     }
 }
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     if (trustyNapiAvailable) MutPtr(wasmLibcTrustyMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+public actual fun posixMemalign(memptr: MutPtr, align: SizeT, size: SizeT): CInt =
     if (trustyNapiAvailable) wasmLibcTrustyPosixMemalign(memptr.rawAddress.toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     if (trustyNapiAvailable) wasmLibcTrustyWrite(fd, buf.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (trustyNapiAvailable) wasmLibcTrustyWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
     if (trustyNapiAvailable) wasmLibcTrustyClose(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     if (trustyNapiAvailable) wasmLibcTrustyStrlen(cs.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getauxval(type: CUlong): CUlong =
     if (trustyNapiAvailable) wasmLibcTrustyGetauxval(type.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     if (trustyNapiAvailable) MutPtr(wasmLibcTrustyMmap(addr.rawAddress.toString(), len.toString(), prot, flags, fd, offset.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     if (trustyNapiAvailable) wasmLibcTrustyMunmap(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     if (trustyNapiAvailable) wasmLibcTrustyClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun nanosleep(rqtp: ConstPtr, rmtp: MutPtr): CInt =
     if (trustyNapiAvailable) wasmLibcTrustyNanosleep(rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

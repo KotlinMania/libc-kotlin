@@ -76,15 +76,15 @@ private object UnixLinuxlikeLinuxGnuB32X86JniBridge {
     external fun libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(uocp: Long, ucp: Long): Int
 }
 
-public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+public actual fun getcontext(ucp: MutPtr): CInt =
     UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Getcontext(ucp.rawAddress)
 
-public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+public actual fun setcontext(ucp: ConstPtr): CInt =
     UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Setcontext(ucp.rawAddress)
 
-public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: MutPtr, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
     UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Makecontext(ucp.rawAddress, 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+public actual fun swapcontext(uocp: MutPtr, ucp: ConstPtr): CInt =
     UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(uocp.rawAddress, ucp.rawAddress)

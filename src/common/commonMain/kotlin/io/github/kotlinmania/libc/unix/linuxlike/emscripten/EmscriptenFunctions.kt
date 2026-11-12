@@ -1,26 +1,15 @@
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
@@ -28,17 +17,17 @@ import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: ConstPtr<CChar>, errnum: CInt): CInt
+    public operator fun invoke(epath: ConstPtr, errnum: CInt): CInt
 }
 
-public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> {
+public fun cmsgNxthdr(mhdr: ConstPtr, cmsg: ConstPtr): MutPtr {
     if ((((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt()) < sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) {
-        return MutPtr<Cmsghdr>(0L)
+        return MutPtr(0L)
     }
-    val next = MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
+    val next = MutPtr((cmsg.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
     val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
-    return if ((MutPtr<CVoid>((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() >= max) {
-        MutPtr<Cmsghdr>(0L)
+    return if ((MutPtr((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() >= max) {
+        MutPtr(0L)
     } else {
         next
     }
@@ -103,11 +92,11 @@ public fun minor(dev: DevT): CUint {
     return minor
 }
 
-public expect fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt
+public expect fun getrlimit(resource: CInt, rlim: MutPtr): CInt
 
-public expect fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt
+public expect fun setrlimit(resource: CInt, rlim: ConstPtr): CInt
 
-public expect fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt
+public expect fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt
 
 public expect fun abs(i: CInt): CInt
 
@@ -117,65 +106,65 @@ public expect fun rand(): CInt
 
 public expect fun srand(seed: CUint)
 
-public expect fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt
+public expect fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt
 
 public expect fun setpwent()
 
 public expect fun endpwent()
 
-public expect fun getpwent(): MutPtr<Passwd>
+public expect fun getpwent(): MutPtr
 
-public expect fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt
+public expect fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt
 
-public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt
 
-public expect fun errnoLocation(): MutPtr<CInt>
+public expect fun errnoLocation(): MutPtr
 
 public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt
 
-public expect fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
 public expect fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt
 
-public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar>
+public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr
 
-public expect fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt
+public expect fun accept4(fd: CInt, addr: MutPtr, len: MutPtr, flg: CInt): CInt
 
-public expect fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt
+public expect fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt
 
-public expect fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt
+public expect fun getloadavg(loadavg: MutPtr, nelem: CInt): CInt
 
-public expect fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt
+public expect fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt
 
-public expect fun mremap(addr: MutPtr<CVoid>, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): MutPtr<CVoid>
+public expect fun mremap(addr: MutPtr, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): MutPtr
 
-public expect fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt
+public expect fun glob(pattern: ConstPtr, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr): CInt
 
-public expect fun globfree(pglob: MutPtr<GlobT>)
+public expect fun globfree(pglob: MutPtr)
 
-public expect fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt
+public expect fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt
 
-public expect fun shmUnlink(name: ConstPtr<CChar>): CInt
+public expect fun shmUnlink(name: ConstPtr): CInt
 
-public expect fun seekdir(dirp: MutPtr<DIR>, loc: CLong)
+public expect fun seekdir(dirp: MutPtr, loc: CLong)
 
-public expect fun telldir(dirp: MutPtr<DIR>): CLong
+public expect fun telldir(dirp: MutPtr): CLong
 
-public expect fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt
+public expect fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt
 
-public expect fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt
+public expect fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt
 
-public expect fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT
+public expect fun recvfrom(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT
 
-public expect fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt
+public expect fun mkstemps(template: MutPtr, suffixlen: CInt): CInt
 
-public expect fun nlLanginfo(item: NlItem): MutPtr<CChar>
+public expect fun nlLanginfo(item: NlItem): MutPtr
 
-public expect fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint): CInt
+public expect fun sendmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CUint): CInt
 
-public expect fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint, timeout: MutPtr<Timespec>): CInt
+public expect fun recvmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CUint, timeout: MutPtr): CInt
 
 public expect fun sync()
 
@@ -185,13 +174,13 @@ public expect fun getpriority(which: CInt, who: IdT): CInt
 
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
 
-public expect fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt
+public expect fun getentropy(buf: MutPtr, buflen: SizeT): CInt
 
 // grp.h
-public expect fun getgrgid(gid: GidT): MutPtr<Group>
+public expect fun getgrgid(gid: GidT): MutPtr
 
-public expect fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group>
+public expect fun getgrnam(name: ConstPtr): MutPtr
 
-public expect fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt
+public expect fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt
 
-public expect fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt
+public expect fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt

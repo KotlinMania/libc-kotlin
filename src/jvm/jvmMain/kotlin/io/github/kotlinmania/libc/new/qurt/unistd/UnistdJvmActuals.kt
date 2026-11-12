@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.unistd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
@@ -11,7 +10,6 @@ import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -108,7 +106,7 @@ private object NewQurtUnistdJniBridge {
     external fun libcNewQurtUnistdSysconf(name: Int): Long
 }
 
-public actual fun access(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun access(pathname: ConstPtr, mode: CInt): CInt =
     NewQurtUnistdJniBridge.libcNewQurtUnistdAccess(pathname.rawAddress, mode)
 
 public actual fun close(fd: CInt): CInt =
@@ -117,22 +115,22 @@ public actual fun close(fd: CInt): CInt =
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     NewQurtUnistdJniBridge.libcNewQurtUnistdLseek(fd, offset, whence)
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     NewQurtUnistdJniBridge.libcNewQurtUnistdRead(fd, buf.rawAddress, count.toLong())
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     NewQurtUnistdJniBridge.libcNewQurtUnistdWrite(fd, buf.rawAddress, count.toLong())
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     NewQurtUnistdJniBridge.libcNewQurtUnistdFtruncate(fd, length)
 
-public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
+public actual fun unlink(pathname: ConstPtr): CInt =
     NewQurtUnistdJniBridge.libcNewQurtUnistdUnlink(pathname.rawAddress)
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     MutPtr(NewQurtUnistdJniBridge.libcNewQurtUnistdGetcwd(buf.rawAddress, size.toLong()))
 
-public actual fun rmdir(pathname: ConstPtr<CChar>): CInt =
+public actual fun rmdir(pathname: ConstPtr): CInt =
     NewQurtUnistdJniBridge.libcNewQurtUnistdRmdir(pathname.rawAddress)
 
 public actual fun getpid(): PidT =

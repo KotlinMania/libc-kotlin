@@ -265,13 +265,13 @@ public data class IpcPerm(
 
 public class UcontextT internal constructor(
     public var ucFlags: CUlong,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucStack: StackT,
     ucMcontextCtorArg: McontextT,
     public var ucSigmask: SigsetT,
     public var private: UByteArray,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
@@ -288,7 +288,7 @@ public class UcontextT internal constructor(
 
     public operator fun component1(): CUlong = this.ucFlags
 
-    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component2(): MutPtr = this.ucLink
 
     public operator fun component3(): StackT = this.ucStack
 
@@ -298,7 +298,7 @@ public class UcontextT internal constructor(
 
     public operator fun component6(): UByteArray = this.private
 
-    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private)
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -325,7 +325,7 @@ public class UcontextT internal constructor(
     public companion object {
         public operator fun invoke(
             ucFlags: CUlong = 0uL,
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucStack: StackT = StackT(),
             ucMcontext: McontextT = McontextT(),
             ucSigmask: SigsetT = SigsetT(),

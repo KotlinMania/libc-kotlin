@@ -19,7 +19,7 @@ public typealias DevT = Int
 
 public typealias FsblkcntT = ULong
 
-public typealias LocaleT = MutPtr<Byte>
+public typealias LocaleT = MutPtr
 
 public typealias ModeT = UInt
 

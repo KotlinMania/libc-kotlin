@@ -3,9 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.sys.stat
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.qurt.Stat
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -20,8 +18,8 @@ private external fun wasmLibcNewQurtSysStatStat(p0: String, p1: String): Int
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcNewQurtSysStatFstat(p0, p1)")
 private external fun wasmLibcNewQurtSysStatFstat(p0: Int, p1: String): Int
 
-public actual fun stat(pathname: ConstPtr<CChar>, statbuf: MutPtr<Stat>): CInt =
+public actual fun stat(pathname: ConstPtr, statbuf: MutPtr): CInt =
     if (newQurtSysStatNapiAvailable) wasmLibcNewQurtSysStatStat(pathname.rawAddress.toString(), statbuf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fd: CInt, statbuf: MutPtr<Stat>): CInt =
+public actual fun fstat(fd: CInt, statbuf: MutPtr): CInt =
     if (newQurtSysStatNapiAvailable) wasmLibcNewQurtSysStatFstat(fd, statbuf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

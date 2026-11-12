@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -16,8 +15,8 @@ private val newAppleLibpthreadPthreadIntrospectionNapiAddon: dynamic =
 public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT =
     if (newAppleLibpthreadPthreadIntrospectionNapiAddon != null) PthreadIntrospectionHookT { _, _, _, _ -> } else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: ConstPtr): CInt =
     if (newAppleLibpthreadPthreadIntrospectionNapiAddon != null) (newAppleLibpthreadPthreadIntrospectionNapiAddon.libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(thread.toLong().toString(), key.toString(), value.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): MutPtr =
     if (newAppleLibpthreadPthreadIntrospectionNapiAddon != null) MutPtr((newAppleLibpthreadPthreadIntrospectionNapiAddon.libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(thread.toLong().toString(), key.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

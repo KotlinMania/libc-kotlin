@@ -5,11 +5,8 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.PidT
-import io.github.kotlinmania.libc.new.qurt.PthreadAttrT
 import io.github.kotlinmania.libc.new.qurt.SigsetT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.Timespec
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -26,7 +23,7 @@ public fun interface SigactionSaHandlerCallback {
 }
 
 public fun interface SigactionSaSigactionCallback {
-    public operator fun invoke(arg0: CInt, arg1: MutPtr<SiginfoT>, arg2: MutPtr<CVoid>)
+    public operator fun invoke(arg0: CInt, arg1: MutPtr, arg2: MutPtr)
 }
 
 // Standard signal numbers
@@ -129,9 +126,9 @@ public typealias SighandlerT = SizeT
 // Signal structures based on QuRT SDK headers
 public class Sigval internal constructor(
     public var sivalInt: CInt,
-    sivalPtrCtorArg: MutPtr<CVoid>,
+    sivalPtrCtorArg: MutPtr,
 ) {
-    public var sivalPtr: MutPtr<CVoid> = sivalPtrCtorArg
+    public var sivalPtr: MutPtr = sivalPtrCtorArg
         internal set
 
     public constructor() : this(
@@ -141,9 +138,9 @@ public class Sigval internal constructor(
 
     public operator fun component1(): CInt = this.sivalInt
 
-    public operator fun component2(): MutPtr<CVoid> = this.sivalPtr
+    public operator fun component2(): MutPtr = this.sivalPtr
 
-    public fun copy(sivalInt: CInt = this.sivalInt, sivalPtr: MutPtr<CVoid> = this.sivalPtr): Sigval = Sigval(sivalInt = sivalInt, sivalPtrCtorArg = sivalPtr)
+    public fun copy(sivalInt: CInt = this.sivalInt, sivalPtr: MutPtr = this.sivalPtr): Sigval = Sigval(sivalInt = sivalInt, sivalPtrCtorArg = sivalPtr)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -169,21 +166,21 @@ public class Sigval internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: Sigval) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.sivalInt)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.sivalPtr)
                 }
             }
 
         public operator fun invoke(
             sivalInt: CInt = 0,
-            sivalPtr: MutPtr<CVoid> = MutPtr(0L),
+            sivalPtr: MutPtr = MutPtr(0L),
         ): Sigval =
             Sigval(
                 sivalInt = sivalInt,
@@ -197,9 +194,9 @@ public class Sigevent internal constructor(
     public var sigevSigno: CInt,
     public var sigevValue: Sigval,
     public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback?,
-    sigevNotifyAttributesCtorArg: MutPtr<PthreadAttrT>,
+    sigevNotifyAttributesCtorArg: MutPtr,
 ) {
-    public var sigevNotifyAttributes: MutPtr<PthreadAttrT> = sigevNotifyAttributesCtorArg
+    public var sigevNotifyAttributes: MutPtr = sigevNotifyAttributesCtorArg
         internal set
 
     public constructor() : this(
@@ -218,9 +215,9 @@ public class Sigevent internal constructor(
 
     public operator fun component4(): SigeventSigevNotifyFunctionCallback? = this.sigevNotifyFunction
 
-    public operator fun component5(): MutPtr<PthreadAttrT> = this.sigevNotifyAttributes
+    public operator fun component5(): MutPtr = this.sigevNotifyAttributes
 
-    public fun copy(sigevNotify: CInt = this.sigevNotify, sigevSigno: CInt = this.sigevSigno, sigevValue: Sigval = this.sigevValue, sigevNotifyFunction: SigeventSigevNotifyFunctionCallback? = this.sigevNotifyFunction, sigevNotifyAttributes: MutPtr<PthreadAttrT> = this.sigevNotifyAttributes): Sigevent = Sigevent(sigevNotify = sigevNotify, sigevSigno = sigevSigno, sigevValue = sigevValue, sigevNotifyFunction = sigevNotifyFunction, sigevNotifyAttributesCtorArg = sigevNotifyAttributes)
+    public fun copy(sigevNotify: CInt = this.sigevNotify, sigevSigno: CInt = this.sigevSigno, sigevValue: Sigval = this.sigevValue, sigevNotifyFunction: SigeventSigevNotifyFunctionCallback? = this.sigevNotifyFunction, sigevNotifyAttributes: MutPtr = this.sigevNotifyAttributes): Sigevent = Sigevent(sigevNotify = sigevNotify, sigevSigno = sigevSigno, sigevValue = sigevValue, sigevNotifyFunction = sigevNotifyFunction, sigevNotifyAttributesCtorArg = sigevNotifyAttributes)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -248,7 +245,7 @@ public class Sigevent internal constructor(
             sigevSigno: CInt = 0,
             sigevValue: Sigval = Sigval(),
             sigevNotifyFunction: SigeventSigevNotifyFunctionCallback? = null,
-            sigevNotifyAttributes: MutPtr<PthreadAttrT> = MutPtr(0L),
+            sigevNotifyAttributes: MutPtr = MutPtr(0L),
         ): Sigevent =
             Sigevent(
                 sigevNotify = sigevNotify,
@@ -303,25 +300,25 @@ public expect fun alarm(seconds: CUint): CUint
 public expect fun pause(): CInt
 
 // Signal mask functions
-public expect fun sigemptyset(set: MutPtr<SigsetT>): CInt
+public expect fun sigemptyset(set: MutPtr): CInt
 
-public expect fun sigfillset(set: MutPtr<SigsetT>): CInt
+public expect fun sigfillset(set: MutPtr): CInt
 
-public expect fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt
+public expect fun sigaddset(set: MutPtr, signum: CInt): CInt
 
-public expect fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt
+public expect fun sigdelset(set: MutPtr, signum: CInt): CInt
 
-public expect fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt
+public expect fun sigismember(set: ConstPtr, signum: CInt): CInt
 
-public expect fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
+public expect fun sigprocmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt
 
-public expect fun sigpending(set: MutPtr<SigsetT>): CInt
+public expect fun sigpending(set: MutPtr): CInt
 
-public expect fun sigsuspend(mask: ConstPtr<SigsetT>): CInt
+public expect fun sigsuspend(mask: ConstPtr): CInt
 
 // QuRT-specific signal functions
-public expect fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt
+public expect fun sigwait(set: ConstPtr, sig: MutPtr): CInt
 
-public expect fun sigaction(sig: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt
+public expect fun sigaction(sig: CInt, act: ConstPtr, oact: MutPtr): CInt
 
-public expect fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt
+public expect fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt

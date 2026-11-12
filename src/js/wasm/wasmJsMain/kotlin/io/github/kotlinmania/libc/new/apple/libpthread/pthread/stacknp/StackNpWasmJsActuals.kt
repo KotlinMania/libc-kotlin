@@ -14,5 +14,5 @@ private val newAppleLibpthreadPthreadStacknpStackNpNapiAvailable: Boolean = init
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(p0, p1)")
 private external fun wasmLibcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(p0: String, p1: String): String
 
-public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr<UintptrT>): UintptrT =
+public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr): UintptrT =
     if (newAppleLibpthreadPthreadStacknpStackNpNapiAvailable) wasmLibcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(frameAddr.toString(), returnAddr.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")

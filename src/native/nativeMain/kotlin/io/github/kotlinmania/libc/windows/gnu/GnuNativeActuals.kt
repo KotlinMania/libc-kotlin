@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.windows.gnu
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.windows.SizeT
 import io.github.kotlinmania.libc.windows.WcharT
@@ -15,11 +14,11 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(s1: ConstPtr, s2: ConstPtr): CInt =
     libcWindowsGnuStrcasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncasecmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     libcWindowsGnuStrncasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     MutPtr(libcWindowsGnuWmemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)

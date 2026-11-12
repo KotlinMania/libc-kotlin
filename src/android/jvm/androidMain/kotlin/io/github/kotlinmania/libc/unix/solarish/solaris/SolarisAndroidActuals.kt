@@ -3,16 +3,11 @@
 package io.github.kotlinmania.libc.unix.solarish.solaris
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.Winsize
-import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
-import io.github.kotlinmania.libc.unix.solarish.Termios
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -52,32 +47,32 @@ private object UnixSolarishSolarisJniBridge {
     external fun libcUnixSolarishSolarisForkpty(amain: Long, name: Long, termp: Long, winp: Long): Int
 }
 
-public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisFexecve(fd, argv.rawAddress, envp.rawAddress)
 
-public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt =
+public actual fun mincore(addr: MutPtr, len: SizeT, vec: MutPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisMincore(addr.rawAddress, len.toLong(), vec.rawAddress)
 
-public actual fun doorCall(d: CInt, params: MutPtr<DoorArgT>): CInt =
+public actual fun doorCall(d: CInt, params: MutPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisDoorCall(d, params.rawAddress)
 
-public actual fun doorReturn(dataPtr: MutPtr<CChar>, dataSize: SizeT, descPtr: MutPtr<DoorDescT>, numDesc: CUint): CInt =
+public actual fun doorReturn(dataPtr: MutPtr, dataSize: SizeT, descPtr: MutPtr, numDesc: CUint): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisDoorReturn(dataPtr.rawAddress, dataSize.toLong(), descPtr.rawAddress, numDesc.toInt())
 
-public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr<CVoid>, attributes: DoorAttrT): CInt =
+public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr, attributes: DoorAttrT): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisDoorCreate(0L, cookie.rawAddress, attributes.toInt())
 
-public actual fun fattach(fildes: CInt, path: ConstPtr<CChar>): CInt =
+public actual fun fattach(fildes: CInt, path: ConstPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisFattach(fildes, path.rawAddress)
 
-public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisPthreadGetattrNp(thread.toLong(), attr.rawAddress)
 
-public actual fun euidaccess(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun euidaccess(path: ConstPtr, amode: CInt): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisEuidaccess(path.rawAddress, amode)
 
-public actual fun openpty(amain: MutPtr<CInt>, asubord: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+public actual fun openpty(amain: MutPtr, asubord: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisOpenpty(amain.rawAddress, asubord.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun forkpty(amain: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+public actual fun forkpty(amain: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT =
     UnixSolarishSolarisJniBridge.libcUnixSolarishSolarisForkpty(amain.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)

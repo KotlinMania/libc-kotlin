@@ -3,11 +3,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -31,13 +28,13 @@ private external fun wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaff
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(p0, p1, p2)")
 private external fun wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(p0: String, p1: String, p2: String): Int
 
-public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+public actual fun sysctl(name: MutPtr, namelen: CInt, oldp: MutPtr, oldlenp: MutPtr, newp: MutPtr, newlen: SizeT): CInt =
     if (unixLinuxlikeLinuxUclibcMipsMips32NapiAvailable) wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl(name.rawAddress.toString(), namelen, oldp.rawAddress.toString(), oldlenp.rawAddress.toString(), newp.rawAddress.toString(), newlen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun glob64(pattern: ConstPtr<CChar>, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: MutPtr<Glob64T>): CInt =
+public actual fun glob64(pattern: ConstPtr, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: MutPtr): CInt =
     if (unixLinuxlikeLinuxUclibcMipsMips32NapiAvailable) wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32Glob64(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree64(pglob: MutPtr<Glob64T>) {
+public actual fun globfree64(pglob: MutPtr) {
     if (unixLinuxlikeLinuxUclibcMipsMips32NapiAvailable) {
         wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64(pglob.rawAddress.toString())
     } else {
@@ -45,8 +42,8 @@ public actual fun globfree64(pglob: MutPtr<Glob64T>) {
     }
 }
 
-public actual fun pthreadAttrGetaffinityNp(attr: ConstPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun pthreadAttrGetaffinityNp(attr: ConstPtr, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     if (unixLinuxlikeLinuxUclibcMipsMips32NapiAvailable) wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     if (unixLinuxlikeLinuxUclibcMipsMips32NapiAvailable) wasmLibcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

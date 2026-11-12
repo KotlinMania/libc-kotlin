@@ -3,18 +3,15 @@
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.InPortT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.FD_SETSIZE
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -77,34 +74,34 @@ public data class SockaddrIn6(
 )
 
 public class Passwd internal constructor(
-    pwNameCtorArg: MutPtr<CChar>,
-    pwPasswdCtorArg: MutPtr<CChar>,
+    pwNameCtorArg: MutPtr,
+    pwPasswdCtorArg: MutPtr,
     public var pwUid: UidT,
     public var pwGid: GidT,
     public var pwChange: TimeT,
-    pwClassCtorArg: MutPtr<CChar>,
-    pwGecosCtorArg: MutPtr<CChar>,
-    pwDirCtorArg: MutPtr<CChar>,
-    pwShellCtorArg: MutPtr<CChar>,
+    pwClassCtorArg: MutPtr,
+    pwGecosCtorArg: MutPtr,
+    pwDirCtorArg: MutPtr,
+    pwShellCtorArg: MutPtr,
     public var pwExpire: TimeT,
     public var pwFields: CInt,
 ) {
-    public var pwName: MutPtr<CChar> = pwNameCtorArg
+    public var pwName: MutPtr = pwNameCtorArg
         internal set
 
-    public var pwPasswd: MutPtr<CChar> = pwPasswdCtorArg
+    public var pwPasswd: MutPtr = pwPasswdCtorArg
         internal set
 
-    public var pwClass: MutPtr<CChar> = pwClassCtorArg
+    public var pwClass: MutPtr = pwClassCtorArg
         internal set
 
-    public var pwGecos: MutPtr<CChar> = pwGecosCtorArg
+    public var pwGecos: MutPtr = pwGecosCtorArg
         internal set
 
-    public var pwDir: MutPtr<CChar> = pwDirCtorArg
+    public var pwDir: MutPtr = pwDirCtorArg
         internal set
 
-    public var pwShell: MutPtr<CChar> = pwShellCtorArg
+    public var pwShell: MutPtr = pwShellCtorArg
         internal set
 
     public constructor() : this(
@@ -121,9 +118,9 @@ public class Passwd internal constructor(
         pwFields = 0,
     )
 
-    public operator fun component1(): MutPtr<CChar> = this.pwName
+    public operator fun component1(): MutPtr = this.pwName
 
-    public operator fun component2(): MutPtr<CChar> = this.pwPasswd
+    public operator fun component2(): MutPtr = this.pwPasswd
 
     public operator fun component3(): UidT = this.pwUid
 
@@ -131,19 +128,19 @@ public class Passwd internal constructor(
 
     public operator fun component5(): TimeT = this.pwChange
 
-    public operator fun component6(): MutPtr<CChar> = this.pwClass
+    public operator fun component6(): MutPtr = this.pwClass
 
-    public operator fun component7(): MutPtr<CChar> = this.pwGecos
+    public operator fun component7(): MutPtr = this.pwGecos
 
-    public operator fun component8(): MutPtr<CChar> = this.pwDir
+    public operator fun component8(): MutPtr = this.pwDir
 
-    public operator fun component9(): MutPtr<CChar> = this.pwShell
+    public operator fun component9(): MutPtr = this.pwShell
 
     public operator fun component10(): TimeT = this.pwExpire
 
     public operator fun component11(): CInt = this.pwFields
 
-    public fun copy(pwName: MutPtr<CChar> = this.pwName, pwPasswd: MutPtr<CChar> = this.pwPasswd, pwUid: UidT = this.pwUid, pwGid: GidT = this.pwGid, pwChange: TimeT = this.pwChange, pwClass: MutPtr<CChar> = this.pwClass, pwGecos: MutPtr<CChar> = this.pwGecos, pwDir: MutPtr<CChar> = this.pwDir, pwShell: MutPtr<CChar> = this.pwShell, pwExpire: TimeT = this.pwExpire, pwFields: CInt = this.pwFields): Passwd = Passwd(pwNameCtorArg = pwName, pwPasswdCtorArg = pwPasswd, pwUid = pwUid, pwGid = pwGid, pwChange = pwChange, pwClassCtorArg = pwClass, pwGecosCtorArg = pwGecos, pwDirCtorArg = pwDir, pwShellCtorArg = pwShell, pwExpire = pwExpire, pwFields = pwFields)
+    public fun copy(pwName: MutPtr = this.pwName, pwPasswd: MutPtr = this.pwPasswd, pwUid: UidT = this.pwUid, pwGid: GidT = this.pwGid, pwChange: TimeT = this.pwChange, pwClass: MutPtr = this.pwClass, pwGecos: MutPtr = this.pwGecos, pwDir: MutPtr = this.pwDir, pwShell: MutPtr = this.pwShell, pwExpire: TimeT = this.pwExpire, pwFields: CInt = this.pwFields): Passwd = Passwd(pwNameCtorArg = pwName, pwPasswdCtorArg = pwPasswd, pwUid = pwUid, pwGid = pwGid, pwChange = pwChange, pwClassCtorArg = pwClass, pwGecosCtorArg = pwGecos, pwDirCtorArg = pwDir, pwShellCtorArg = pwShell, pwExpire = pwExpire, pwFields = pwFields)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -186,30 +183,30 @@ public class Passwd internal constructor(
                     Passwd(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 18L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 40L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 64L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 72L),
@@ -217,30 +214,30 @@ public class Passwd internal constructor(
                 override fun writeNative(addr: Long, value: Passwd) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.pwName)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.pwPasswd)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 16L, value.pwUid)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 18L, value.pwGid)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 24L, value.pwChange)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.pwClass)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 40L, value.pwGecos)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 48L, value.pwDir)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.pwShell)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 64L, value.pwExpire)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 72L, value.pwFields)
@@ -248,15 +245,15 @@ public class Passwd internal constructor(
             }
 
         public operator fun invoke(
-            pwName: MutPtr<CChar> = MutPtr(0L),
-            pwPasswd: MutPtr<CChar> = MutPtr(0L),
+            pwName: MutPtr = MutPtr(0L),
+            pwPasswd: MutPtr = MutPtr(0L),
             pwUid: UidT = 0u,
             pwGid: GidT = 0u,
             pwChange: TimeT = 0L,
-            pwClass: MutPtr<CChar> = MutPtr(0L),
-            pwGecos: MutPtr<CChar> = MutPtr(0L),
-            pwDir: MutPtr<CChar> = MutPtr(0L),
-            pwShell: MutPtr<CChar> = MutPtr(0L),
+            pwClass: MutPtr = MutPtr(0L),
+            pwGecos: MutPtr = MutPtr(0L),
+            pwDir: MutPtr = MutPtr(0L),
+            pwShell: MutPtr = MutPtr(0L),
             pwExpire: TimeT = 0L,
             pwFields: CInt = 0,
         ): Passwd =
@@ -277,31 +274,31 @@ public class Passwd internal constructor(
 }
 
 public class Ifaddrs internal constructor(
-    ifaNextCtorArg: MutPtr<Ifaddrs>,
-    ifaNameCtorArg: MutPtr<CChar>,
+    ifaNextCtorArg: MutPtr,
+    ifaNameCtorArg: MutPtr,
     public var ifaFlags: CUint,
-    ifaAddrCtorArg: MutPtr<Sockaddr>,
-    ifaNetmaskCtorArg: MutPtr<Sockaddr>,
-    ifaDstaddrCtorArg: MutPtr<Sockaddr>,
-    ifaDataCtorArg: MutPtr<CVoid>,
+    ifaAddrCtorArg: MutPtr,
+    ifaNetmaskCtorArg: MutPtr,
+    ifaDstaddrCtorArg: MutPtr,
+    ifaDataCtorArg: MutPtr,
     public var ifaAddrflags: CUint,
 ) {
-    public var ifaNext: MutPtr<Ifaddrs> = ifaNextCtorArg
+    public var ifaNext: MutPtr = ifaNextCtorArg
         internal set
 
-    public var ifaName: MutPtr<CChar> = ifaNameCtorArg
+    public var ifaName: MutPtr = ifaNameCtorArg
         internal set
 
-    public var ifaAddr: MutPtr<Sockaddr> = ifaAddrCtorArg
+    public var ifaAddr: MutPtr = ifaAddrCtorArg
         internal set
 
-    public var ifaNetmask: MutPtr<Sockaddr> = ifaNetmaskCtorArg
+    public var ifaNetmask: MutPtr = ifaNetmaskCtorArg
         internal set
 
-    public var ifaDstaddr: MutPtr<Sockaddr> = ifaDstaddrCtorArg
+    public var ifaDstaddr: MutPtr = ifaDstaddrCtorArg
         internal set
 
-    public var ifaData: MutPtr<CVoid> = ifaDataCtorArg
+    public var ifaData: MutPtr = ifaDataCtorArg
         internal set
 
     public constructor() : this(
@@ -315,23 +312,23 @@ public class Ifaddrs internal constructor(
         ifaAddrflags = 0u,
     )
 
-    public operator fun component1(): MutPtr<Ifaddrs> = this.ifaNext
+    public operator fun component1(): MutPtr = this.ifaNext
 
-    public operator fun component2(): MutPtr<CChar> = this.ifaName
+    public operator fun component2(): MutPtr = this.ifaName
 
     public operator fun component3(): CUint = this.ifaFlags
 
-    public operator fun component4(): MutPtr<Sockaddr> = this.ifaAddr
+    public operator fun component4(): MutPtr = this.ifaAddr
 
-    public operator fun component5(): MutPtr<Sockaddr> = this.ifaNetmask
+    public operator fun component5(): MutPtr = this.ifaNetmask
 
-    public operator fun component6(): MutPtr<Sockaddr> = this.ifaDstaddr
+    public operator fun component6(): MutPtr = this.ifaDstaddr
 
-    public operator fun component7(): MutPtr<CVoid> = this.ifaData
+    public operator fun component7(): MutPtr = this.ifaData
 
     public operator fun component8(): CUint = this.ifaAddrflags
 
-    public fun copy(ifaNext: MutPtr<Ifaddrs> = this.ifaNext, ifaName: MutPtr<CChar> = this.ifaName, ifaFlags: CUint = this.ifaFlags, ifaAddr: MutPtr<Sockaddr> = this.ifaAddr, ifaNetmask: MutPtr<Sockaddr> = this.ifaNetmask, ifaDstaddr: MutPtr<Sockaddr> = this.ifaDstaddr, ifaData: MutPtr<CVoid> = this.ifaData, ifaAddrflags: CUint = this.ifaAddrflags): Ifaddrs = Ifaddrs(ifaNextCtorArg = ifaNext, ifaNameCtorArg = ifaName, ifaFlags = ifaFlags, ifaAddrCtorArg = ifaAddr, ifaNetmaskCtorArg = ifaNetmask, ifaDstaddrCtorArg = ifaDstaddr, ifaDataCtorArg = ifaData, ifaAddrflags = ifaAddrflags)
+    public fun copy(ifaNext: MutPtr = this.ifaNext, ifaName: MutPtr = this.ifaName, ifaFlags: CUint = this.ifaFlags, ifaAddr: MutPtr = this.ifaAddr, ifaNetmask: MutPtr = this.ifaNetmask, ifaDstaddr: MutPtr = this.ifaDstaddr, ifaData: MutPtr = this.ifaData, ifaAddrflags: CUint = this.ifaAddrflags): Ifaddrs = Ifaddrs(ifaNextCtorArg = ifaNext, ifaNameCtorArg = ifaName, ifaFlags = ifaFlags, ifaAddrCtorArg = ifaAddr, ifaNetmaskCtorArg = ifaNetmask, ifaDstaddrCtorArg = ifaDstaddr, ifaDataCtorArg = ifaData, ifaAddrflags = ifaAddrflags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -368,69 +365,69 @@ public class Ifaddrs internal constructor(
                     Ifaddrs(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Ifaddrs>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Sockaddr>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Sockaddr>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Sockaddr>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 40L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 48L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 56L),
                     )
                 override fun writeNative(addr: Long, value: Ifaddrs) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Ifaddrs>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.ifaNext)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.ifaName)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.ifaFlags)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Sockaddr>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.ifaAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Sockaddr>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.ifaNetmask)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Sockaddr>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 40L, value.ifaDstaddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 48L, value.ifaData)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 56L, value.ifaAddrflags)
                 }
             }
 
         public operator fun invoke(
-            ifaNext: MutPtr<Ifaddrs> = MutPtr(0L),
-            ifaName: MutPtr<CChar> = MutPtr(0L),
+            ifaNext: MutPtr = MutPtr(0L),
+            ifaName: MutPtr = MutPtr(0L),
             ifaFlags: CUint = 0u,
-            ifaAddr: MutPtr<Sockaddr> = MutPtr(0L),
-            ifaNetmask: MutPtr<Sockaddr> = MutPtr(0L),
-            ifaDstaddr: MutPtr<Sockaddr> = MutPtr(0L),
-            ifaData: MutPtr<CVoid> = MutPtr(0L),
+            ifaAddr: MutPtr = MutPtr(0L),
+            ifaNetmask: MutPtr = MutPtr(0L),
+            ifaDstaddr: MutPtr = MutPtr(0L),
+            ifaData: MutPtr = MutPtr(0L),
             ifaAddrflags: CUint = 0u,
         ): Ifaddrs =
             Ifaddrs(
@@ -483,21 +480,21 @@ public data class FdSet(
 }
 
 public class Msghdr internal constructor(
-    msgNameCtorArg: MutPtr<CVoid>,
+    msgNameCtorArg: MutPtr,
     public var msgNamelen: SocklenT,
-    msgIovCtorArg: MutPtr<Iovec>,
+    msgIovCtorArg: MutPtr,
     public var msgIovlen: CInt,
-    msgControlCtorArg: MutPtr<CVoid>,
+    msgControlCtorArg: MutPtr,
     public var msgControllen: SocklenT,
     public var msgFlags: CInt,
 ) {
-    public var msgName: MutPtr<CVoid> = msgNameCtorArg
+    public var msgName: MutPtr = msgNameCtorArg
         internal set
 
-    public var msgIov: MutPtr<Iovec> = msgIovCtorArg
+    public var msgIov: MutPtr = msgIovCtorArg
         internal set
 
-    public var msgControl: MutPtr<CVoid> = msgControlCtorArg
+    public var msgControl: MutPtr = msgControlCtorArg
         internal set
 
     public constructor() : this(
@@ -510,21 +507,21 @@ public class Msghdr internal constructor(
         msgFlags = 0,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.msgName
+    public operator fun component1(): MutPtr = this.msgName
 
     public operator fun component2(): SocklenT = this.msgNamelen
 
-    public operator fun component3(): MutPtr<Iovec> = this.msgIov
+    public operator fun component3(): MutPtr = this.msgIov
 
     public operator fun component4(): CInt = this.msgIovlen
 
-    public operator fun component5(): MutPtr<CVoid> = this.msgControl
+    public operator fun component5(): MutPtr = this.msgControl
 
     public operator fun component6(): SocklenT = this.msgControllen
 
     public operator fun component7(): CInt = this.msgFlags
 
-    public fun copy(msgName: MutPtr<CVoid> = this.msgName, msgNamelen: SocklenT = this.msgNamelen, msgIov: MutPtr<Iovec> = this.msgIov, msgIovlen: CInt = this.msgIovlen, msgControl: MutPtr<CVoid> = this.msgControl, msgControllen: SocklenT = this.msgControllen, msgFlags: CInt = this.msgFlags): Msghdr = Msghdr(msgNameCtorArg = msgName, msgNamelen = msgNamelen, msgIovCtorArg = msgIov, msgIovlen = msgIovlen, msgControlCtorArg = msgControl, msgControllen = msgControllen, msgFlags = msgFlags)
+    public fun copy(msgName: MutPtr = this.msgName, msgNamelen: SocklenT = this.msgNamelen, msgIov: MutPtr = this.msgIov, msgIovlen: CInt = this.msgIovlen, msgControl: MutPtr = this.msgControl, msgControllen: SocklenT = this.msgControllen, msgFlags: CInt = this.msgFlags): Msghdr = Msghdr(msgNameCtorArg = msgName, msgNamelen = msgNamelen, msgIovCtorArg = msgIov, msgIovlen = msgIovlen, msgControlCtorArg = msgControl, msgControllen = msgControllen, msgFlags = msgFlags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -559,17 +556,17 @@ public class Msghdr internal constructor(
                     Msghdr(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Iovec>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 40L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 44L),
@@ -577,17 +574,17 @@ public class Msghdr internal constructor(
                 override fun writeNative(addr: Long, value: Msghdr) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.msgName)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.msgNamelen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Iovec>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.msgIov)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.msgIovlen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.msgControl)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 40L, value.msgControllen)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 44L, value.msgFlags)
@@ -595,11 +592,11 @@ public class Msghdr internal constructor(
             }
 
         public operator fun invoke(
-            msgName: MutPtr<CVoid> = MutPtr(0L),
+            msgName: MutPtr = MutPtr(0L),
             msgNamelen: SocklenT = 0u,
-            msgIov: MutPtr<Iovec> = MutPtr(0L),
+            msgIov: MutPtr = MutPtr(0L),
             msgIovlen: CInt = 0,
-            msgControl: MutPtr<CVoid> = MutPtr(0L),
+            msgControl: MutPtr = MutPtr(0L),
             msgControllen: SocklenT = 0u,
             msgFlags: CInt = 0,
         ): Msghdr =
@@ -676,9 +673,9 @@ public data class FsidT(
 
 public class IfNameindex internal constructor(
     public var ifIndex: CUint,
-    ifNameCtorArg: MutPtr<CChar>,
+    ifNameCtorArg: MutPtr,
 ) {
-    public var ifName: MutPtr<CChar> = ifNameCtorArg
+    public var ifName: MutPtr = ifNameCtorArg
         internal set
 
     public constructor() : this(
@@ -688,9 +685,9 @@ public class IfNameindex internal constructor(
 
     public operator fun component1(): CUint = this.ifIndex
 
-    public operator fun component2(): MutPtr<CChar> = this.ifName
+    public operator fun component2(): MutPtr = this.ifName
 
-    public fun copy(ifIndex: CUint = this.ifIndex, ifName: MutPtr<CChar> = this.ifName): IfNameindex = IfNameindex(ifIndex = ifIndex, ifNameCtorArg = ifName)
+    public fun copy(ifIndex: CUint = this.ifIndex, ifName: MutPtr = this.ifName): IfNameindex = IfNameindex(ifIndex = ifIndex, ifNameCtorArg = ifName)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -716,21 +713,21 @@ public class IfNameindex internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: IfNameindex) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.ifIndex)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.ifName)
                 }
             }
 
         public operator fun invoke(
             ifIndex: CUint = 0u,
-            ifName: MutPtr<CChar> = MutPtr(0L),
+            ifName: MutPtr = MutPtr(0L),
         ): IfNameindex =
             IfNameindex(
                 ifIndex = ifIndex,
@@ -742,13 +739,13 @@ public class IfNameindex internal constructor(
 public class RegexT internal constructor(
     public var reMagic: CInt,
     public var reNsub: SizeT,
-    reEndpCtorArg: ConstPtr<CChar>,
-    reGCtorArg: MutPtr<CVoid>,
+    reEndpCtorArg: ConstPtr,
+    reGCtorArg: MutPtr,
 ) {
-    public var reEndp: ConstPtr<CChar> = reEndpCtorArg
+    public var reEndp: ConstPtr = reEndpCtorArg
         internal set
 
-    public var reG: MutPtr<CVoid> = reGCtorArg
+    public var reG: MutPtr = reGCtorArg
         internal set
 
     public constructor() : this(
@@ -762,11 +759,11 @@ public class RegexT internal constructor(
 
     public operator fun component2(): SizeT = this.reNsub
 
-    public operator fun component3(): ConstPtr<CChar> = this.reEndp
+    public operator fun component3(): ConstPtr = this.reEndp
 
-    public operator fun component4(): MutPtr<CVoid> = this.reG
+    public operator fun component4(): MutPtr = this.reG
 
-    public fun copy(reMagic: CInt = this.reMagic, reNsub: SizeT = this.reNsub, reEndp: ConstPtr<CChar> = this.reEndp, reG: MutPtr<CVoid> = this.reG): RegexT = RegexT(reMagic = reMagic, reNsub = reNsub, reEndpCtorArg = reEndp, reGCtorArg = reG)
+    public fun copy(reMagic: CInt = this.reMagic, reNsub: SizeT = this.reNsub, reEndp: ConstPtr = this.reEndp, reG: MutPtr = this.reG): RegexT = RegexT(reMagic = reMagic, reNsub = reNsub, reEndpCtorArg = reEndp, reGCtorArg = reG)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -797,11 +794,11 @@ public class RegexT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: RegexT) {
@@ -809,11 +806,11 @@ public class RegexT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.reNsub)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.reEndp)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.reG)
                 }
             }
@@ -821,8 +818,8 @@ public class RegexT internal constructor(
         public operator fun invoke(
             reMagic: CInt = 0,
             reNsub: SizeT = 0uL,
-            reEndp: ConstPtr<CChar> = ConstPtr(0L),
-            reG: MutPtr<CVoid> = MutPtr(0L),
+            reEndp: ConstPtr = ConstPtr(0L),
+            reG: MutPtr = MutPtr(0L),
         ): RegexT =
             RegexT(
                 reMagic = reMagic,
@@ -856,15 +853,15 @@ public data class RegmatchT(
 }
 
 public class Option internal constructor(
-    nameCtorArg: ConstPtr<CChar>,
+    nameCtorArg: ConstPtr,
     public var hasArg: CInt,
-    flagCtorArg: MutPtr<CInt>,
+    flagCtorArg: MutPtr,
     public var value: CInt,
 ) {
-    public var name: ConstPtr<CChar> = nameCtorArg
+    public var name: ConstPtr = nameCtorArg
         internal set
 
-    public var flag: MutPtr<CInt> = flagCtorArg
+    public var flag: MutPtr = flagCtorArg
         internal set
 
     public constructor() : this(
@@ -874,15 +871,15 @@ public class Option internal constructor(
         value = 0,
     )
 
-    public operator fun component1(): ConstPtr<CChar> = this.name
+    public operator fun component1(): ConstPtr = this.name
 
     public operator fun component2(): CInt = this.hasArg
 
-    public operator fun component3(): MutPtr<CInt> = this.flag
+    public operator fun component3(): MutPtr = this.flag
 
     public operator fun component4(): CInt = this.value
 
-    public fun copy(name: ConstPtr<CChar> = this.name, hasArg: CInt = this.hasArg, flag: MutPtr<CInt> = this.flag, value: CInt = this.value): Option = Option(nameCtorArg = name, hasArg = hasArg, flagCtorArg = flag, value = value)
+    public fun copy(name: ConstPtr = this.name, hasArg: CInt = this.hasArg, flag: MutPtr = this.flag, value: CInt = this.value): Option = Option(nameCtorArg = name, hasArg = hasArg, flagCtorArg = flag, value = value)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -911,33 +908,33 @@ public class Option internal constructor(
                     Option(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CInt>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: Option) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr, value.name)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.hasArg)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CInt>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.flag)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.value)
                 }
             }
 
         public operator fun invoke(
-            name: ConstPtr<CChar> = ConstPtr(0L),
+            name: ConstPtr = ConstPtr(0L),
             hasArg: CInt = 0,
-            flag: MutPtr<CInt> = MutPtr(0L),
+            flag: MutPtr = MutPtr(0L),
             value: CInt = 0,
         ): Option =
             Option(

@@ -2,11 +2,9 @@
 package io.github.kotlinmania.libc.trusty
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -43,10 +41,10 @@ public typealias TimeT = CLong
 public typealias ClockidT = CInt
 
 public class Iovec internal constructor(
-    iovBaseCtorArg: MutPtr<CVoid>,
+    iovBaseCtorArg: MutPtr,
     public var iovLen: SizeT,
 ) {
-    public var iovBase: MutPtr<CVoid> = iovBaseCtorArg
+    public var iovBase: MutPtr = iovBaseCtorArg
         internal set
 
     public constructor() : this(
@@ -54,11 +52,11 @@ public class Iovec internal constructor(
         iovLen = 0uL,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.iovBase
+    public operator fun component1(): MutPtr = this.iovBase
 
     public operator fun component2(): SizeT = this.iovLen
 
-    public fun copy(iovBase: MutPtr<CVoid> = this.iovBase, iovLen: SizeT = this.iovLen): Iovec = Iovec(iovBaseCtorArg = iovBase, iovLen = iovLen)
+    public fun copy(iovBase: MutPtr = this.iovBase, iovLen: SizeT = this.iovLen): Iovec = Iovec(iovBaseCtorArg = iovBase, iovLen = iovLen)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -83,21 +81,21 @@ public class Iovec internal constructor(
                     Iovec(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: Iovec) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.iovBase)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.iovLen)
                 }
             }
 
         public operator fun invoke(
-            iovBase: MutPtr<CVoid> = MutPtr(0L),
+            iovBase: MutPtr = MutPtr(0L),
             iovLen: SizeT = 0uL,
         ): Iovec =
             Iovec(
@@ -142,34 +140,34 @@ public val STDERR_FILENO: CInt = 2
 
 public val AT_PAGESZ: CUlong = 6uL
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
-public expect fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid>
+public expect fun calloc(nobj: SizeT, size: SizeT): MutPtr
 
-public expect fun malloc(size: SizeT): MutPtr<CVoid>
+public expect fun malloc(size: SizeT): MutPtr
 
-public expect fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid>
+public expect fun realloc(p: MutPtr, size: SizeT): MutPtr
 
-public expect fun free(p: MutPtr<CVoid>)
+public expect fun free(p: MutPtr)
 
-public expect fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid>
+public expect fun memalign(align: SizeT, size: SizeT): MutPtr
 
-public expect fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt
+public expect fun posixMemalign(memptr: MutPtr, align: SizeT, size: SizeT): CInt
 
-public expect fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT
+public expect fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT
 
-public expect fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT
+public expect fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT
 
 public expect fun close(fd: CInt): CInt
 
-public expect fun strlen(cs: ConstPtr<CChar>): SizeT
+public expect fun strlen(cs: ConstPtr): SizeT
 
 public expect fun getauxval(type: CUlong): CUlong
 
-public expect fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid>
+public expect fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr
 
-public expect fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt
+public expect fun munmap(addr: MutPtr, len: SizeT): CInt
 
-public expect fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt
+public expect fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt
 
-public expect fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt
+public expect fun nanosleep(rqtp: ConstPtr, rmtp: MutPtr): CInt

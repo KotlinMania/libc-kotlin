@@ -1,63 +1,46 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.netbsd.sys.statvfs.Statvfs
-import io.github.kotlinmania.libc.new.netbsd.sys.time.Itimerspec
 import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.DevT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
-import io.github.kotlinmania.libc.new.netbsd.utmp.Utmp
-import io.github.kotlinmania.libc.new.netbsd.utmpx.Utmpx
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Pollfd
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UintmaxT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
 import io.github.kotlinmania.libc.unix.bsd.Msghdr
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
-import io.github.kotlinmania.libc.unix.bsd.Passwd
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
-import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
 import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IOCPARM_MASK
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.ALIGNBYTES
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: MutPtr<DlPhdrInfo>, size: ULong, data: MutPtr<CVoid>): CInt
+    public operator fun invoke(info: MutPtr, size: ULong, data: MutPtr): CInt
 }
 
 public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: ConstPtr<CVoid>, arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>): CInt
+    public operator fun invoke(arg0: ConstPtr, arg1: ConstPtr, arg2: MutPtr): CInt
 }
 
 public fun interface EsetfuncCbCallback {
-    public operator fun invoke(arg0: CInt, arg1: ConstPtr<CChar>)
+    public operator fun invoke(arg0: CInt, arg1: ConstPtr)
 }
 
 public fun iocparmLen(x: UInt): UInt = (x shr IOCPARM_SHIFT.toInt()) and IOCPARM_MASK
@@ -72,26 +55,26 @@ public fun mapAligned(alignment: CInt): CInt = alignment shl MAP_ALIGNMENT_SHIFT
 
 public fun align(p: Int): Int = (p + ALIGNBYTES) and ALIGNBYTES.inv()
 
-public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
+public fun cmsgData(cmsg: ConstPtr): MutPtr = MutPtr(((MutPtr(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
 
 public fun cmsgLen(length: CUint): CUint = align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())).toUInt() + length
 
-public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> {
+public fun cmsgNxthdr(mhdr: ConstPtr, cmsg: ConstPtr): MutPtr {
     if (((cmsg).rawAddress == 0L)) {
         return cmsgFirsthdr(mhdr)
     }
     val next = cmsg.rawAddress.toInt() + align(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt()) + align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))
     val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
     return if (next > max) {
-        MutPtr<Cmsghdr>(0L)
+        MutPtr(0L)
     } else {
-        MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + align(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
+        MutPtr((cmsg.rawAddress.toInt() + align(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint = (align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) + align(length.toInt())).toUInt()
 
-public fun dirfd(dirp: MutPtr<DIR>): CInt = (PrimitiveLayouts.I32).readNative(((ConstPtr<CInt>(dirp.rawAddress, dirp.rawMeta))).rawAddress)
+public fun dirfd(dirp: MutPtr): CInt = (PrimitiveLayouts.I32).readNative(((ConstPtr(dirp.rawAddress, dirp.rawMeta))).rawAddress)
 
 public fun sockcredsize(ngrps: Int): Int {
     val ngrps1 =
@@ -134,137 +117,137 @@ public fun minor(dev: DevT): CInt {
     return res.toInt()
 }
 
-public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt
+public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt
 
-public expect fun reallocarr(ptr: MutPtr<CVoid>, number: SizeT, size: SizeT): CInt
+public expect fun reallocarr(ptr: MutPtr, number: SizeT, size: SizeT): CInt
 
-public expect fun chflags(path: ConstPtr<CChar>, flags: CUlong): CInt
+public expect fun chflags(path: ConstPtr, flags: CUlong): CInt
 
 public expect fun fchflags(fd: CInt, flags: CUlong): CInt
 
-public expect fun lchflags(path: ConstPtr<CChar>, flags: CUlong): CInt
+public expect fun lchflags(path: ConstPtr, flags: CUlong): CInt
 
-public expect fun extattrListFd(fd: CInt, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrListFd(fd: CInt, attrnamespace: CInt, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrListFile(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrListFile(path: ConstPtr, attrnamespace: CInt, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrListLink(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrListLink(path: ConstPtr, attrnamespace: CInt, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt
+public expect fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr): CInt
 
-public expect fun extattrDeleteFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt
+public expect fun extattrDeleteFile(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr): CInt
 
-public expect fun extattrDeleteLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt
+public expect fun extattrDeleteLink(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr): CInt
 
-public expect fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrGetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrGetFile(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrGetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT
+public expect fun extattrGetLink(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr, data: MutPtr, nbytes: SizeT): SsizeT
 
-public expect fun extattrNamespaceToString(attrnamespace: CInt, string: MutPtr<MutPtr<CChar>>): CInt
+public expect fun extattrNamespaceToString(attrnamespace: CInt, string: MutPtr): CInt
 
-public expect fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): CInt
+public expect fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr, data: ConstPtr, nbytes: SizeT): CInt
 
-public expect fun extattrSetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): CInt
+public expect fun extattrSetFile(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr, data: ConstPtr, nbytes: SizeT): CInt
 
-public expect fun extattrSetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): CInt
+public expect fun extattrSetLink(path: ConstPtr, attrnamespace: CInt, attrname: ConstPtr, data: ConstPtr, nbytes: SizeT): CInt
 
-public expect fun extattrStringToNamespace(string: ConstPtr<CChar>, attrnamespace: MutPtr<CInt>): CInt
+public expect fun extattrStringToNamespace(string: ConstPtr, attrnamespace: MutPtr): CInt
 
-public expect fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt
+public expect fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt
 
-public expect fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT
+public expect fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT
 
-public expect fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt
+public expect fun ptsnameR(fd: CInt, buf: MutPtr, buflen: SizeT): CInt
 
-public expect fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt
+public expect fun lutimes(file: ConstPtr, times: ConstPtr): CInt
 
-public expect fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt
+public expect fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt
 
-public expect fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt
+public expect fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt
 
-public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt
 
-public expect fun sysctl(name: ConstPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: ConstPtr<CVoid>, newlen: SizeT): CInt
+public expect fun sysctl(name: ConstPtr, namelen: CUint, oldp: MutPtr, oldlenp: MutPtr, newp: ConstPtr, newlen: SizeT): CInt
 
-public expect fun sysctlbyname(name: ConstPtr<CChar>, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: ConstPtr<CVoid>, newlen: SizeT): CInt
+public expect fun sysctlbyname(name: ConstPtr, oldp: MutPtr, oldlenp: MutPtr, newp: ConstPtr, newlen: SizeT): CInt
 
-public expect fun sysctlnametomib(sname: ConstPtr<CChar>, name: MutPtr<CInt>, namelenp: MutPtr<SizeT>): CInt
+public expect fun sysctlnametomib(sname: ConstPtr, name: MutPtr, namelenp: MutPtr): CInt
 
-public expect fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: SizeT, eventlist: MutPtr<Kevent>, nevents: SizeT, timeout: ConstPtr<Timespec>): CInt
+public expect fun kevent(kq: CInt, changelist: ConstPtr, nchanges: SizeT, eventlist: MutPtr, nevents: SizeT, timeout: ConstPtr): CInt
 
-public expect fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, flags: CInt, data: MutPtr<CVoid>, size: SizeT): CInt
+public expect fun mount(src: ConstPtr, target: ConstPtr, flags: CInt, data: MutPtr, size: SizeT): CInt
 
-public expect fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT
+public expect fun mqOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MqdT
 
 public expect fun mqClose(mqd: MqdT): CInt
 
-public expect fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt
+public expect fun mqGetattr(mqd: MqdT, attr: MutPtr): CInt
 
-public expect fun mqNotify(mqd: MqdT, notification: ConstPtr<Sigevent>): CInt
+public expect fun mqNotify(mqd: MqdT, notification: ConstPtr): CInt
 
-public expect fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT
+public expect fun mqReceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr): SsizeT
 
-public expect fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt
+public expect fun mqSend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint): CInt
 
-public expect fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt
+public expect fun mqSetattr(mqd: MqdT, newattr: ConstPtr, oldattr: MutPtr): CInt
 
-public expect fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT
+public expect fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr, absTimeout: ConstPtr): SsizeT
 
-public expect fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt
+public expect fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr): CInt
 
-public expect fun mqUnlink(name: ConstPtr<CChar>): CInt
+public expect fun mqUnlink(name: ConstPtr): CInt
 
-public expect fun ptrace(request: CInt, pid: PidT, addr: MutPtr<CVoid>, data: CInt): CInt
+public expect fun ptrace(request: CInt, pid: PidT, addr: MutPtr, data: CInt): CInt
 
-public expect fun utrace(label: ConstPtr<CChar>, addr: MutPtr<CVoid>, len: SizeT): CInt
+public expect fun utrace(label: ConstPtr, addr: MutPtr, len: SizeT): CInt
 
-public expect fun pthreadGetnameNp(t: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt
+public expect fun pthreadGetnameNp(t: PthreadT, name: MutPtr, len: SizeT): CInt
 
-public expect fun pthreadSetnameNp(t: PthreadT, name: ConstPtr<CChar>, arg: ConstPtr<CVoid>): CInt
+public expect fun pthreadSetnameNp(t: PthreadT, name: ConstPtr, arg: ConstPtr): CInt
 
-public expect fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr): CInt
 
-public expect fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadGetattrNp(native: PthreadT, attr: MutPtr): CInt
 
-public expect fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt
+public expect fun pthreadAttrGetguardsize(attr: ConstPtr, guardsize: MutPtr): CInt
 
-public expect fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt
+public expect fun pthreadAttrSetguardsize(attr: MutPtr, guardsize: SizeT): CInt
 
-public expect fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt
+public expect fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt
 
-public expect fun pthreadGetaffinityNp(thread: PthreadT, size: SizeT, set: MutPtr<CpusetT>): CInt
+public expect fun pthreadGetaffinityNp(thread: PthreadT, size: SizeT, set: MutPtr): CInt
 
-public expect fun pthreadSetaffinityNp(thread: PthreadT, size: SizeT, set: MutPtr<CpusetT>): CInt
+public expect fun pthreadSetaffinityNp(thread: PthreadT, size: SizeT, set: MutPtr): CInt
 
-public expect fun cpusetCreate(): MutPtr<CpusetT>
+public expect fun cpusetCreate(): MutPtr
 
-public expect fun cpusetDestroy(set: MutPtr<CpusetT>)
+public expect fun cpusetDestroy(set: MutPtr)
 
-public expect fun cpusetClr(cpu: CpuidT, set: MutPtr<CpusetT>): CInt
+public expect fun cpusetClr(cpu: CpuidT, set: MutPtr): CInt
 
-public expect fun cpusetSet(cpu: CpuidT, set: MutPtr<CpusetT>): CInt
+public expect fun cpusetSet(cpu: CpuidT, set: MutPtr): CInt
 
-public expect fun cpusetIsset(cpu: CpuidT, set: ConstPtr<CpusetT>): CInt
+public expect fun cpusetIsset(cpu: CpuidT, set: ConstPtr): CInt
 
-public expect fun cpusetSize(set: ConstPtr<CpusetT>): SizeT
+public expect fun cpusetSize(set: ConstPtr): SizeT
 
-public expect fun cpusetZero(set: MutPtr<CpusetT>)
+public expect fun cpusetZero(set: MutPtr)
 
-public expect fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt
+public expect fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt
 
-public expect fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt
+public expect fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt
 
 public expect fun duplocale(base: LocaleT): LocaleT
 
 public expect fun freelocale(loc: LocaleT)
 
-public expect fun localeconvL(loc: LocaleT): MutPtr<Lconv>
+public expect fun localeconvL(loc: LocaleT): MutPtr
 
-public expect fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT
+public expect fun newlocale(mask: CInt, locale: ConstPtr, base: LocaleT): LocaleT
 
-public expect fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<CVoid>): CInt
+public expect fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt
 
 public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
 
@@ -272,198 +255,198 @@ public expect fun kqueue1(flags: CInt): CInt
 
 public expect fun lwpSelf(): LwpidT
 
-public expect fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid>
+public expect fun memmem(haystack: ConstPtr, haystacklen: SizeT, needle: ConstPtr, needlelen: SizeT): MutPtr
 
 // link.h
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt
 
 // dlfcn.h
-public expect fun dlauxinfo(): MutPtr<CVoid>
+public expect fun dlauxinfo(): MutPtr
 
-public expect fun iconvOpen(tocode: ConstPtr<CChar>, fromcode: ConstPtr<CChar>): IconvT
+public expect fun iconvOpen(tocode: ConstPtr, fromcode: ConstPtr): IconvT
 
-public expect fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT
+public expect fun iconv(cd: IconvT, inbuf: MutPtr, inbytesleft: MutPtr, outbuf: MutPtr, outbytesleft: MutPtr): SizeT
 
 public expect fun iconvClose(cd: IconvT): CInt
 
-public expect fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt
+public expect fun timerCreate(clockid: ClockidT, sevp: MutPtr, timerid: MutPtr): CInt
 
 public expect fun timerDelete(timerid: TimerT): CInt
 
 public expect fun timerGetoverrun(timerid: TimerT): CInt
 
-public expect fun timerGettime(timerid: TimerT, currValue: MutPtr<Itimerspec>): CInt
+public expect fun timerGettime(timerid: TimerT, currValue: MutPtr): CInt
 
-public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt
+public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt
 
-public expect fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid>
+public expect fun dlvsym(handle: MutPtr, symbol: ConstPtr, version: ConstPtr): MutPtr
 
 // Added in `NetBSD` 7.0
-public expect fun explicitMemset(b: MutPtr<CVoid>, c: CInt, len: SizeT)
+public expect fun explicitMemset(b: MutPtr, c: CInt, len: SizeT)
 
-public expect fun consttimeMemequal(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt
+public expect fun consttimeMemequal(a: ConstPtr, b: ConstPtr, len: SizeT): CInt
 
-public expect fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long)
+public expect fun setproctitle(fmt: ConstPtr, vararg variadicArgs: Long)
 
-public expect fun mremap(oldp: MutPtr<CVoid>, oldsize: SizeT, newp: MutPtr<CVoid>, newsize: SizeT, flags: CInt): MutPtr<CVoid>
+public expect fun mremap(oldp: MutPtr, oldsize: SizeT, newp: MutPtr, newsize: SizeT, flags: CInt): MutPtr
 
-public expect fun schedRrGetInterval(pid: PidT, t: MutPtr<Timespec>): CInt
+public expect fun schedRrGetInterval(pid: PidT, t: MutPtr): CInt
 
-public expect fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt
+public expect fun schedSetparam(pid: PidT, param: ConstPtr): CInt
 
-public expect fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt
+public expect fun schedGetparam(pid: PidT, param: MutPtr): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt
 
-public expect fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt
+public expect fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt
 
-public expect fun pollts(fds: MutPtr<Pollfd>, nfds: NfdsT, ts: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt
+public expect fun pollts(fds: MutPtr, nfds: NfdsT, ts: ConstPtr, sigmask: ConstPtr): CInt
 
-public expect fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT
+public expect fun getrandom(buf: MutPtr, buflen: SizeT, flags: CUint): SsizeT
 
-public expect fun reboot(mode: CInt, bootstr: MutPtr<CChar>): CInt
+public expect fun reboot(mode: CInt, bootstr: MutPtr): CInt
 
-public expect fun lwpPark(clock: ClockidT, flags: CInt, ts: ConstPtr<Timespec>, unpark: LwpidT, hint: ConstPtr<CVoid>, unparkhint: MutPtr<CVoid>): CInt
+public expect fun lwpPark(clock: ClockidT, flags: CInt, ts: ConstPtr, unpark: LwpidT, hint: ConstPtr, unparkhint: MutPtr): CInt
 
-public expect fun lwpUnpark(lwp: LwpidT, hint: ConstPtr<CVoid>): CInt
+public expect fun lwpUnpark(lwp: LwpidT, hint: ConstPtr): CInt
 
-public expect fun lwpUnparkAll(targets: ConstPtr<LwpidT>, ntargets: SizeT, hint: ConstPtr<CVoid>): CInt
+public expect fun lwpUnparkAll(targets: ConstPtr, ntargets: SizeT, hint: ConstPtr): CInt
 
-public expect fun getmntinfo(mntbufp: MutPtr<MutPtr<Statvfs>>, flags: CInt): CInt
+public expect fun getmntinfo(mntbufp: MutPtr, flags: CInt): CInt
 
-public expect fun getvfsstat(buf: MutPtr<Statvfs>, bufsize: SizeT, flags: CInt): CInt
+public expect fun getvfsstat(buf: MutPtr, bufsize: SizeT, flags: CInt): CInt
 
 public expect fun eventfd(value: CUint, flags: CInt): CInt
 
-public expect fun eventfdRead(efd: CInt, valp: MutPtr<EventfdT>): CInt
+public expect fun eventfdRead(efd: CInt, valp: MutPtr): CInt
 
 public expect fun eventfdWrite(efd: CInt, value: EventfdT): CInt
 
 // Added in `NetBSD` 10.0
 public expect fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt
 
-public expect fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt
+public expect fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt
 
-public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt
+public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt
 
-public expect fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>)
+public expect fun qsortR(base: MutPtr, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr)
 
-public expect fun aioRead(aiocbp: MutPtr<Aiocb>): CInt
+public expect fun aioRead(aiocbp: MutPtr): CInt
 
-public expect fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt
+public expect fun aioWrite(aiocbp: MutPtr): CInt
 
-public expect fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt
+public expect fun aioFsync(op: CInt, aiocbp: MutPtr): CInt
 
-public expect fun aioError(aiocbp: ConstPtr<Aiocb>): CInt
+public expect fun aioError(aiocbp: ConstPtr): CInt
 
-public expect fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT
+public expect fun aioReturn(aiocbp: MutPtr): SsizeT
 
-public expect fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt
+public expect fun aioSuspend(aiocbList: ConstPtr, nitems: CInt, timeout: ConstPtr): CInt
 
-public expect fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt
+public expect fun aioCancel(fd: CInt, aiocbp: MutPtr): CInt
 
-public expect fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt
+public expect fun lioListio(mode: CInt, aiocbList: ConstPtr, nitems: CInt, sevp: MutPtr): CInt
 
-public expect fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt
+public expect fun getpwentR(pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt
 
-public expect fun getgrentR(grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt
+public expect fun getgrentR(grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt
 
-public expect fun efopen(p: ConstPtr<CChar>, m: ConstPtr<CChar>): FILE
+public expect fun efopen(p: ConstPtr, m: ConstPtr): FILE
 
-public expect fun emalloc(n: SizeT): MutPtr<CVoid>
+public expect fun emalloc(n: SizeT): MutPtr
 
-public expect fun ecalloc(n: SizeT, c: SizeT): MutPtr<CVoid>
+public expect fun ecalloc(n: SizeT, c: SizeT): MutPtr
 
-public expect fun erealloc(p: MutPtr<CVoid>, n: SizeT): MutPtr<CVoid>
+public expect fun erealloc(p: MutPtr, n: SizeT): MutPtr
 
-public expect fun ereallocarr(p: MutPtr<CVoid>, n: SizeT, s: SizeT)
+public expect fun ereallocarr(p: MutPtr, n: SizeT, s: SizeT)
 
-public expect fun estrdup(s: ConstPtr<CChar>): MutPtr<CChar>
+public expect fun estrdup(s: ConstPtr): MutPtr
 
-public expect fun estrndup(s: ConstPtr<CChar>, len: SizeT): MutPtr<CChar>
+public expect fun estrndup(s: ConstPtr, len: SizeT): MutPtr
 
-public expect fun estrlcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, len: SizeT): SizeT
+public expect fun estrlcpy(dst: MutPtr, src: ConstPtr, len: SizeT): SizeT
 
-public expect fun estrlcat(dst: MutPtr<CChar>, src: ConstPtr<CChar>, len: SizeT): SizeT
+public expect fun estrlcat(dst: MutPtr, src: ConstPtr, len: SizeT): SizeT
 
-public expect fun estrtoi(nptr: ConstPtr<CChar>, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT
+public expect fun estrtoi(nptr: ConstPtr, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT
 
-public expect fun estrtou(nptr: ConstPtr<CChar>, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT
+public expect fun estrtou(nptr: ConstPtr, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT
 
-public expect fun easprintf(string: MutPtr<MutPtr<CChar>>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
+public expect fun easprintf(string: MutPtr, fmt: ConstPtr, vararg variadicArgs: Long): CInt
 
-public expect fun evasprintf(string: MutPtr<MutPtr<CChar>>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
+public expect fun evasprintf(string: MutPtr, fmt: ConstPtr, vararg variadicArgs: Long): CInt
 
 public expect fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback?
 
-public expect fun securePath(path: ConstPtr<CChar>): CInt
+public expect fun securePath(path: ConstPtr): CInt
 
-public expect fun snprintb(buf: MutPtr<CChar>, buflen: SizeT, fmt: ConstPtr<CChar>, value: ULong): CInt
+public expect fun snprintb(buf: MutPtr, buflen: SizeT, fmt: ConstPtr, value: ULong): CInt
 
-public expect fun snprintbM(buf: MutPtr<CChar>, buflen: SizeT, fmt: ConstPtr<CChar>, value: ULong, max: SizeT): CInt
+public expect fun snprintbM(buf: MutPtr, buflen: SizeT, fmt: ConstPtr, value: ULong, max: SizeT): CInt
 
-public expect fun getbootfile(): ConstPtr<CChar>
+public expect fun getbootfile(): ConstPtr
 
 public expect fun getbyteorder(): CInt
 
-public expect fun getdiskrawname(buf: MutPtr<CChar>, buflen: SizeT, name: ConstPtr<CChar>): ConstPtr<CChar>
+public expect fun getdiskrawname(buf: MutPtr, buflen: SizeT, name: ConstPtr): ConstPtr
 
-public expect fun getdiskcookedname(buf: MutPtr<CChar>, buflen: SizeT, name: ConstPtr<CChar>): ConstPtr<CChar>
+public expect fun getdiskcookedname(buf: MutPtr, buflen: SizeT, name: ConstPtr): ConstPtr
 
-public expect fun getfsspecname(buf: MutPtr<CChar>, buflen: SizeT, spec: ConstPtr<CChar>): ConstPtr<CChar>
+public expect fun getfsspecname(buf: MutPtr, buflen: SizeT, spec: ConstPtr): ConstPtr
 
-public expect fun strpct(buf: MutPtr<CChar>, bufsiz: SizeT, numerator: UintmaxT, denominator: UintmaxT, precision: SizeT): MutPtr<CChar>
+public expect fun strpct(buf: MutPtr, bufsiz: SizeT, numerator: UintmaxT, denominator: UintmaxT, precision: SizeT): MutPtr
 
-public expect fun strspct(buf: MutPtr<CChar>, bufsiz: SizeT, numerator: IntmaxT, denominator: IntmaxT, precision: SizeT): MutPtr<CChar>
+public expect fun strspct(buf: MutPtr, bufsiz: SizeT, numerator: IntmaxT, denominator: IntmaxT, precision: SizeT): MutPtr
 
-public expect fun login(ut: ConstPtr<Utmp>)
+public expect fun login(ut: ConstPtr)
 
-public expect fun loginx(ut: ConstPtr<Utmpx>)
+public expect fun loginx(ut: ConstPtr)
 
-public expect fun logout(line: ConstPtr<CChar>)
+public expect fun logout(line: ConstPtr)
 
-public expect fun logoutx(line: ConstPtr<CChar>, status: CInt, tpe: CInt)
+public expect fun logoutx(line: ConstPtr, status: CInt, tpe: CInt)
 
-public expect fun logwtmp(line: ConstPtr<CChar>, name: ConstPtr<CChar>, host: ConstPtr<CChar>)
+public expect fun logwtmp(line: ConstPtr, name: ConstPtr, host: ConstPtr)
 
-public expect fun logwtmpx(line: ConstPtr<CChar>, name: ConstPtr<CChar>, host: ConstPtr<CChar>, status: CInt, tpe: CInt)
+public expect fun logwtmpx(line: ConstPtr, name: ConstPtr, host: ConstPtr, status: CInt, tpe: CInt)
 
-public expect fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT
+public expect fun getxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT
 
-public expect fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT
+public expect fun lgetxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT
 
-public expect fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT
+public expect fun fgetxattr(filedes: CInt, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT
 
-public expect fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT): CInt
+public expect fun setxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT): CInt
 
-public expect fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT): CInt
+public expect fun lsetxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT): CInt
 
-public expect fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt
+public expect fun fsetxattr(filedes: CInt, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt
 
-public expect fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT
+public expect fun listxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT
 
-public expect fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT
+public expect fun llistxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT
 
-public expect fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT
+public expect fun flistxattr(filedes: CInt, list: MutPtr, size: SizeT): SsizeT
 
-public expect fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt
+public expect fun removexattr(path: ConstPtr, name: ConstPtr): CInt
 
-public expect fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt
+public expect fun lremovexattr(path: ConstPtr, name: ConstPtr): CInt
 
-public expect fun fremovexattr(fd: CInt, path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt
+public expect fun fremovexattr(fd: CInt, path: ConstPtr, name: ConstPtr): CInt
 
-public expect fun stringToFlags(stringP: MutPtr<MutPtr<CChar>>, setp: MutPtr<CUlong>, clrp: MutPtr<CUlong>): CInt
+public expect fun stringToFlags(stringP: MutPtr, setp: MutPtr, clrp: MutPtr): CInt
 
-public expect fun flagsToString(flags: CUlong, def: ConstPtr<CChar>): CInt
+public expect fun flagsToString(flags: CUlong, def: ConstPtr): CInt
 
-public expect fun kinfoGetvmmap(pid: PidT, cntp: MutPtr<SizeT>): MutPtr<KinfoVmentry>
+public expect fun kinfoGetvmmap(pid: PidT, cntp: MutPtr): MutPtr
 
-public expect fun backtrace(addrlist: MutPtr<MutPtr<CVoid>>, len: SizeT): SizeT
+public expect fun backtrace(addrlist: MutPtr, len: SizeT): SizeT
 
-public expect fun backtraceSymbols(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT): MutPtr<MutPtr<CChar>>
+public expect fun backtraceSymbols(addrlist: ConstPtr, len: SizeT): MutPtr
 
-public expect fun backtraceSymbolsFd(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fd: CInt): CInt
+public expect fun backtraceSymbolsFd(addrlist: ConstPtr, len: SizeT, fd: CInt): CInt
 
-public expect fun backtraceSymbolsFmt(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fmt: ConstPtr<CChar>): MutPtr<MutPtr<CChar>>
+public expect fun backtraceSymbolsFmt(addrlist: ConstPtr, len: SizeT, fmt: ConstPtr): MutPtr
 
-public expect fun backtraceSymbolsFdFmt(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fd: CInt, fmt: ConstPtr<CChar>): CInt
+public expect fun backtraceSymbolsFdFmt(addrlist: ConstPtr, len: SizeT, fd: CInt, fmt: ConstPtr): CInt

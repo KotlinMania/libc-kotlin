@@ -3,9 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.dlfcn
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -26,14 +24,14 @@ private external fun wasmLibcNewQurtDlfcnDlsym(p0: String, p1: String): String
 @JsFun("() => globalThis.__km_napi_libc.libcNewQurtDlfcnDlerror()")
 private external fun wasmLibcNewQurtDlfcnDlerror(): String
 
-public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+public actual fun dlopen(filename: ConstPtr, flag: CInt): MutPtr =
     if (newQurtDlfcnNapiAvailable) MutPtr(wasmLibcNewQurtDlfcnDlopen(filename.rawAddress.toString(), flag).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+public actual fun dlclose(handle: MutPtr): CInt =
     if (newQurtDlfcnNapiAvailable) wasmLibcNewQurtDlfcnDlclose(handle.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+public actual fun dlsym(handle: MutPtr, symbol: ConstPtr): MutPtr =
     if (newQurtDlfcnNapiAvailable) MutPtr(wasmLibcNewQurtDlfcnDlsym(handle.rawAddress.toString(), symbol.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlerror(): MutPtr<CChar> =
+public actual fun dlerror(): MutPtr =
     if (newQurtDlfcnNapiAvailable) MutPtr(wasmLibcNewQurtDlfcnDlerror().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

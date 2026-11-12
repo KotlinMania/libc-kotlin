@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.powerpc64
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -29,19 +28,19 @@ private external fun wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Swapcontext(p0: St
 @JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext(p0, p1, p2, p3, p4, p5, p6, p7)")
 private external fun wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext(p0: String, p1: String, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String)
 
-public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+public actual fun sysctl(name: MutPtr, namelen: CInt, oldp: MutPtr, oldlenp: MutPtr, newp: MutPtr, newlen: SizeT): CInt =
     if (unixLinuxlikeLinuxGnuB64Powerpc64NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Sysctl(name.rawAddress.toString(), namelen, oldp.rawAddress.toString(), oldlenp.rawAddress.toString(), newp.rawAddress.toString(), newlen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+public actual fun getcontext(ucp: MutPtr): CInt =
     if (unixLinuxlikeLinuxGnuB64Powerpc64NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Getcontext(ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+public actual fun setcontext(ucp: ConstPtr): CInt =
     if (unixLinuxlikeLinuxGnuB64Powerpc64NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Setcontext(ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapcontext(oucp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+public actual fun swapcontext(oucp: MutPtr, ucp: ConstPtr): CInt =
     if (unixLinuxlikeLinuxGnuB64Powerpc64NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Swapcontext(oucp.rawAddress.toString(), ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: MutPtr, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
     if (unixLinuxlikeLinuxGnuB64Powerpc64NapiAvailable) {
         wasmLibcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext(ucp.rawAddress.toString(), 0L.toString(), argc, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
     } else {

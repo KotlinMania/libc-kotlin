@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.new.qurt.unistd
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
@@ -22,14 +21,13 @@ import io.github.kotlinmania.libc.new.qurt.unistd.cinterop.libcNewQurtUnistdSlee
 import io.github.kotlinmania.libc.new.qurt.unistd.cinterop.libcNewQurtUnistdSysconf
 import io.github.kotlinmania.libc.new.qurt.unistd.cinterop.libcNewQurtUnistdUnlink
 import io.github.kotlinmania.libc.new.qurt.unistd.cinterop.libcNewQurtUnistdWrite
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun access(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun access(pathname: ConstPtr, mode: CInt): CInt =
     libcNewQurtUnistdAccess(pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun close(fd: CInt): CInt =
@@ -38,22 +36,22 @@ public actual fun close(fd: CInt): CInt =
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     libcNewQurtUnistdLseek(fd, offset, whence)
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     libcNewQurtUnistdRead(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     libcNewQurtUnistdWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     libcNewQurtUnistdFtruncate(fd, length)
 
-public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
+public actual fun unlink(pathname: ConstPtr): CInt =
     libcNewQurtUnistdUnlink(pathname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcNewQurtUnistdGetcwd(buf.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun rmdir(pathname: ConstPtr<CChar>): CInt =
+public actual fun rmdir(pathname: ConstPtr): CInt =
     libcNewQurtUnistdRmdir(pathname.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpid(): PidT =

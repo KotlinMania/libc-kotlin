@@ -29,7 +29,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.SIZEOF_PTHR
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32.SIZEOF_PTHREAD_BARRIER_T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32.SIZEOF_PTHREAD_MUTEX_T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32.SIZEOF_PTHREAD_RWLOCK_T
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -1083,9 +1082,9 @@ public class FfPeriodicEffect internal constructor(
     public var phase: U16,
     public var envelope: FfEnvelope,
     public var customLen: U32,
-    customDataCtorArg: MutPtr<S16>,
+    customDataCtorArg: MutPtr,
 ) {
-    public var customData: MutPtr<S16> = customDataCtorArg
+    public var customData: MutPtr = customDataCtorArg
         internal set
 
     public constructor() : this(
@@ -1113,9 +1112,9 @@ public class FfPeriodicEffect internal constructor(
 
     public operator fun component7(): U32 = this.customLen
 
-    public operator fun component8(): MutPtr<S16> = this.customData
+    public operator fun component8(): MutPtr = this.customData
 
-    public fun copy(waveform: U16 = this.waveform, period: U16 = this.period, magnitude: S16 = this.magnitude, offset: S16 = this.offset, phase: U16 = this.phase, envelope: FfEnvelope = this.envelope, customLen: U32 = this.customLen, customData: MutPtr<S16> = this.customData): FfPeriodicEffect = FfPeriodicEffect(waveform = waveform, period = period, magnitude = magnitude, offset = offset, phase = phase, envelope = envelope, customLen = customLen, customDataCtorArg = customData)
+    public fun copy(waveform: U16 = this.waveform, period: U16 = this.period, magnitude: S16 = this.magnitude, offset: S16 = this.offset, phase: U16 = this.phase, envelope: FfEnvelope = this.envelope, customLen: U32 = this.customLen, customData: MutPtr = this.customData): FfPeriodicEffect = FfPeriodicEffect(waveform = waveform, period = period, magnitude = magnitude, offset = offset, phase = phase, envelope = envelope, customLen = customLen, customDataCtorArg = customData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1159,7 +1158,7 @@ public class FfPeriodicEffect internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<S16>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: FfPeriodicEffect) {
@@ -1172,7 +1171,7 @@ public class FfPeriodicEffect internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.customLen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<S16>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.customData)
                 }
             }
@@ -1185,7 +1184,7 @@ public class FfPeriodicEffect internal constructor(
             phase: U16 = 0u,
             envelope: FfEnvelope = FfEnvelope(),
             customLen: U32 = 0u,
-            customData: MutPtr<S16> = MutPtr(0L),
+            customData: MutPtr = MutPtr(0L),
         ): FfPeriodicEffect =
             FfPeriodicEffect(
                 waveform = waveform,
@@ -1397,10 +1396,10 @@ public data class CAnonymousKernelFsidT(
 public class PosixSpawnFileActionsT internal constructor(
     public var allocated: CInt,
     public var used: CInt,
-    actionsCtorArg: MutPtr<CInt>,
+    actionsCtorArg: MutPtr,
     public var pad: IntArray,
 ) {
-    public var actions: MutPtr<CInt> = actionsCtorArg
+    public var actions: MutPtr = actionsCtorArg
         internal set
 
     public constructor() : this(
@@ -1414,11 +1413,11 @@ public class PosixSpawnFileActionsT internal constructor(
 
     public operator fun component2(): CInt = this.used
 
-    public operator fun component3(): MutPtr<CInt> = this.actions
+    public operator fun component3(): MutPtr = this.actions
 
     public operator fun component4(): IntArray = this.pad
 
-    public fun copy(allocated: CInt = this.allocated, used: CInt = this.used, actions: MutPtr<CInt> = this.actions, pad: IntArray = this.pad): PosixSpawnFileActionsT = PosixSpawnFileActionsT(allocated = allocated, used = used, actionsCtorArg = actions, pad = pad)
+    public fun copy(allocated: CInt = this.allocated, used: CInt = this.used, actions: MutPtr = this.actions, pad: IntArray = this.pad): PosixSpawnFileActionsT = PosixSpawnFileActionsT(allocated = allocated, used = used, actionsCtorArg = actions, pad = pad)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1449,7 +1448,7 @@ public class PosixSpawnFileActionsT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CInt>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -1461,7 +1460,7 @@ public class PosixSpawnFileActionsT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.used)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CInt>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.actions)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -1473,7 +1472,7 @@ public class PosixSpawnFileActionsT internal constructor(
         public operator fun invoke(
             allocated: CInt = 0,
             used: CInt = 0,
-            actions: MutPtr<CInt> = MutPtr(0L),
+            actions: MutPtr = MutPtr(0L),
             pad: IntArray = IntArray(16),
         ): PosixSpawnFileActionsT =
             PosixSpawnFileActionsT(
@@ -3171,11 +3170,11 @@ public data class IwParam(
 }
 
 public class IwPoint internal constructor(
-    pointerCtorArg: MutPtr<CVoid>,
+    pointerCtorArg: MutPtr,
     public var length: U16,
     public var flags: U16,
 ) {
-    public var pointer: MutPtr<CVoid> = pointerCtorArg
+    public var pointer: MutPtr = pointerCtorArg
         internal set
 
     public constructor() : this(
@@ -3184,13 +3183,13 @@ public class IwPoint internal constructor(
         flags = 0u,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.pointer
+    public operator fun component1(): MutPtr = this.pointer
 
     public operator fun component2(): U16 = this.length
 
     public operator fun component3(): U16 = this.flags
 
-    public fun copy(pointer: MutPtr<CVoid> = this.pointer, length: U16 = this.length, flags: U16 = this.flags): IwPoint = IwPoint(pointerCtorArg = pointer, length = length, flags = flags)
+    public fun copy(pointer: MutPtr = this.pointer, length: U16 = this.length, flags: U16 = this.flags): IwPoint = IwPoint(pointerCtorArg = pointer, length = length, flags = flags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3217,7 +3216,7 @@ public class IwPoint internal constructor(
                     IwPoint(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 10L),
@@ -3225,7 +3224,7 @@ public class IwPoint internal constructor(
                 override fun writeNative(addr: Long, value: IwPoint) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.pointer)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 8L, value.length)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 10L, value.flags)
@@ -3233,7 +3232,7 @@ public class IwPoint internal constructor(
             }
 
         public operator fun invoke(
-            pointer: MutPtr<CVoid> = MutPtr(0L),
+            pointer: MutPtr = MutPtr(0L),
             length: U16 = 0u,
             flags: U16 = 0u,
         ): IwPoint =

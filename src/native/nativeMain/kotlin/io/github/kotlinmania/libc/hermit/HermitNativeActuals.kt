@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAbort
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAccept
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAlloc
@@ -50,23 +49,22 @@ import io.github.kotlinmania.libc.hermit.cinterop.libcHermitStat
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitUnlink
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitWrite
 import io.github.kotlinmania.libc.hermit.cinterop.libcHermitWritev
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun alloc(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun alloc(size: ULong, align: ULong): MutPtr =
     MutPtr(libcHermitAlloc(size, align)?.toLong() ?: 0L)
 
-public actual fun allocZeroed(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun allocZeroed(size: ULong, align: ULong): MutPtr =
     MutPtr(libcHermitAllocZeroed(size, align)?.toLong() ?: 0L)
 
-public actual fun realloc(ptr: MutPtr<UByte>, size: ULong, align: ULong, newSize: ULong): MutPtr<UByte> =
+public actual fun realloc(ptr: MutPtr, size: ULong, align: ULong, newSize: ULong): MutPtr =
     MutPtr(libcHermitRealloc(ptr.rawAddress.toCPointer<ByteVar>(), size, align, newSize)?.toLong() ?: 0L)
 
-public actual fun dealloc(ptr: MutPtr<UByte>, size: ULong, align: ULong) {
+public actual fun dealloc(ptr: MutPtr, size: ULong, align: ULong) {
     libcHermitDealloc(ptr.rawAddress.toCPointer<ByteVar>(), size, align)
 }
 
@@ -83,52 +81,52 @@ public actual fun abort(): Nothing {
 public actual fun errno(): Int =
     libcHermitErrno()
 
-public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr): Int =
     libcHermitClockGettime(clockid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nanosleep(req: ConstPtr<Timespec>): Int =
+public actual fun nanosleep(req: ConstPtr): Int =
     libcHermitNanosleep(req.rawAddress.toCPointer<ByteVar>())
 
 public actual fun availableParallelism(): ULong =
     libcHermitAvailableParallelism()
 
-public actual fun futexWait(address: MutPtr<UInt>, expected: UInt, timeout: ConstPtr<Timespec>, flags: UInt): Int =
+public actual fun futexWait(address: MutPtr, expected: UInt, timeout: ConstPtr, flags: UInt): Int =
     libcHermitFutexWait(address.rawAddress.toCPointer<ByteVar>(), expected, timeout.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun futexWake(address: MutPtr<UInt>, count: Int): Int =
+public actual fun futexWake(address: MutPtr, count: Int): Int =
     libcHermitFutexWake(address.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun stat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun stat(path: ConstPtr, stat: MutPtr): Int =
     libcHermitStat(path.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat(fd: Int, stat: MutPtr<Stat>): Int =
+public actual fun fstat(fd: Int, stat: MutPtr): Int =
     libcHermitFstat(fd, stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lstat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun lstat(path: ConstPtr, stat: MutPtr): Int =
     libcHermitLstat(path.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open(path: ConstPtr<CChar>, flags: Int, mode: ModeT): Int =
+public actual fun open(path: ConstPtr, flags: Int, mode: ModeT): Int =
     libcHermitOpen(path.rawAddress.toCPointer<ByteVar>(), flags, mode)
 
-public actual fun unlink(path: ConstPtr<CChar>): Int =
+public actual fun unlink(path: ConstPtr): Int =
     libcHermitUnlink(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): Int =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): Int =
     libcHermitMkdir(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun rmdir(path: ConstPtr<CChar>): Int =
+public actual fun rmdir(path: ConstPtr): Int =
     libcHermitRmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun read(fd: Int, buf: MutPtr<UByte>, len: ULong): Long =
+public actual fun read(fd: Int, buf: MutPtr, len: ULong): Long =
     libcHermitRead(fd, buf.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun write(fd: Int, buf: ConstPtr<UByte>, len: ULong): Long =
+public actual fun write(fd: Int, buf: ConstPtr, len: ULong): Long =
     libcHermitWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun readv(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun readv(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     libcHermitReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun writev(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     libcHermitWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
 public actual fun close(fd: Int): Int =
@@ -140,56 +138,56 @@ public actual fun dup(fd: Int): Int =
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
     libcHermitFcntl(fd, cmd, arg)
 
-public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
+public actual fun getdents64(fd: Int, dirp: MutPtr, count: ULong): Long =
     libcHermitGetdents64(fd, dirp.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun getaddrinfo(nodename: ConstPtr<CChar>, servname: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): Int =
+public actual fun getaddrinfo(nodename: ConstPtr, servname: ConstPtr, hints: ConstPtr, res: MutPtr): Int =
     libcHermitGetaddrinfo(nodename.rawAddress.toCPointer<ByteVar>(), servname.rawAddress.toCPointer<ByteVar>(), hints.rawAddress.toCPointer<ByteVar>(), res.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(ai: MutPtr) {
     libcHermitFreeaddrinfo(ai.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     libcHermitSocket(domain, ty, protocol)
 
-public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun bind(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     libcHermitBind(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
     libcHermitListen(sockfd, backlog)
 
-public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun accept(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     libcHermitAccept(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connect(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun connect(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     libcHermitConnect(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
-public actual fun recv(sockfd: Int, buf: MutPtr<UByte>, len: ULong, flags: Int): Long =
+public actual fun recv(sockfd: Int, buf: MutPtr, len: ULong, flags: Int): Long =
     libcHermitRecv(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Long =
+public actual fun recvfrom(sockfd: Int, buf: MutPtr, len: ULong, flags: Int, addr: MutPtr, addrlen: MutPtr): Long =
     libcHermitRecvfrom(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun send(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): Long =
+public actual fun send(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int): Long =
     libcHermitSend(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun sendto(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, tolen: SocklenT): Long =
+public actual fun sendto(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, tolen: SocklenT): Long =
     libcHermitSendto(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags, to.rawAddress.toCPointer<ByteVar>(), tolen)
 
-public actual fun getpeername(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getpeername(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     libcHermitGetpeername(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockname(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getsockname(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     libcHermitGetsockname(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): Int =
+public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr, optlen: MutPtr): Int =
     libcHermitGetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr<CVoid>, optlen: SocklenT): Int =
+public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr, optlen: SocklenT): Int =
     libcHermitSetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen)
 
-public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
+public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr): Int =
     libcHermitIoctl(sockfd, cmd, argp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
@@ -198,5 +196,5 @@ public actual fun shutdown(sockfd: Int, how: Int): Int =
 public actual fun eventfd(initval: ULong, flags: Short): Int =
     libcHermitEventfd(initval, flags)
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: Int): Int =
     libcHermitPoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout)

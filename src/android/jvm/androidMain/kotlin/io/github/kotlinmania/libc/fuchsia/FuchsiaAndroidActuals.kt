@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -12,9 +11,7 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.fuchsia.aarch64.Stat
 import io.github.kotlinmania.libc.fuchsia.aarch64.WcharT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1569,31 +1566,31 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaToupper(c)
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaFopen(filename.rawAddress, mode.rawAddress))
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, file: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaFreopen(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fflush(file: MutPtr<FILE>): CInt =
+public actual fun fflush(file: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFflush(file.rawAddress)
 
-public actual fun fclose(file: MutPtr<FILE>): CInt =
+public actual fun fclose(file: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFclose(file.rawAddress)
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaRemove(filename.rawAddress)
 
-public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+public actual fun rename(oldname: ConstPtr, newname: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaTmpfile())
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buf: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaSetbuf(stream.rawAddress, buf.rawAddress)
 }
 
@@ -1603,96 +1600,96 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPutchar(c)
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFgetc(stream.rawAddress)
 
-public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(buf: MutPtr, n: CInt, stream: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaFgets(buf.rawAddress, n, stream.rawAddress))
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFputc(c, stream.rawAddress)
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFputs(s.rawAddress, stream.rawAddress)
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPuts(s.rawAddress)
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUngetc(c, stream.rawAddress)
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaFread(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaFwrite(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFseek(stream.rawAddress, offset, whence)
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     FuchsiaJniBridge.libcFuchsiaFtell(stream.rawAddress)
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaRewind(stream.rawAddress)
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, ptr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFgetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, ptr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFsetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFeof(stream.rawAddress)
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFerror(stream.rawAddress)
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     FuchsiaJniBridge.libcFuchsiaPerror(s.rawAddress)
 }
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     FuchsiaJniBridge.libcFuchsiaAtof(s.rawAddress)
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaAtoi(s.rawAddress)
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     FuchsiaJniBridge.libcFuchsiaAtol(s.rawAddress)
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     FuchsiaJniBridge.libcFuchsiaAtoll(s.rawAddress)
 
-public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, endp: MutPtr): CDouble =
     FuchsiaJniBridge.libcFuchsiaStrtod(s.rawAddress, endp.rawAddress)
 
-public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(s: ConstPtr, endp: MutPtr): CFloat =
     FuchsiaJniBridge.libcFuchsiaStrtof(s.rawAddress, endp.rawAddress)
 
-public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, endp: MutPtr, base: CInt): CLong =
     FuchsiaJniBridge.libcFuchsiaStrtol(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(s: ConstPtr, endp: MutPtr, base: CInt): CLonglong =
     FuchsiaJniBridge.libcFuchsiaStrtoll(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, endp: MutPtr, base: CInt): CUlong =
     FuchsiaJniBridge.libcFuchsiaStrtoul(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(s: ConstPtr, endp: MutPtr, base: CInt): CUlonglong =
     FuchsiaJniBridge.libcFuchsiaStrtoull(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaCalloc(nobj.toLong(), size.toLong()))
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMalloc(size.toLong()))
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaRealloc(p.rawAddress, size.toLong()))
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaFree(p.rawAddress)
 }
 
@@ -1709,91 +1706,91 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(cb: SigactionSaRestorerCallback): CInt =
     FuchsiaJniBridge.libcFuchsiaAtexit(0L)
 
-public actual fun system(s: ConstPtr<CChar>): CInt =
+public actual fun system(s: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSystem(s.rawAddress)
 
-public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(s: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetenv(s.rawAddress))
 
-public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dst: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrcpy(dst.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dst: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrncpy(dst.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(s: MutPtr, ct: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrcat(s.rawAddress, ct.rawAddress))
 
-public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(s: MutPtr, ct: ConstPtr, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrncat(s.rawAddress, ct.rawAddress, n.toLong()))
 
-public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcmp(cs: ConstPtr, ct: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaStrcmp(cs.rawAddress, ct.rawAddress)
 
-public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(cs: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaStrncmp(cs.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcoll(cs: ConstPtr, ct: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaStrcoll(cs.rawAddress, ct.rawAddress)
 
-public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrchr(cs.rawAddress, c))
 
-public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrrchr(cs.rawAddress, c))
 
-public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaStrspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaStrcspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(cs: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrdup(cs.rawAddress))
 
-public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrpbrk(cs.rawAddress, ct.rawAddress))
 
-public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrstr(cs.rawAddress, ct.rawAddress))
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaStrlen(cs.rawAddress).toULong()
 
-public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, maxlen: SizeT): SizeT =
     FuchsiaJniBridge.libcFuchsiaStrnlen(cs.rawAddress, maxlen.toLong()).toULong()
 
-public actual fun strerror(n: CInt): MutPtr<CChar> =
+public actual fun strerror(n: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrerror(n))
 
-public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, t: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaStrtok(s.rawAddress, t.rawAddress))
 
-public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(s: MutPtr, ct: ConstPtr, n: SizeT): SizeT =
     FuchsiaJniBridge.libcFuchsiaStrxfrm(s.rawAddress, ct.rawAddress, n.toLong()).toULong()
 
-public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(buf: ConstPtr): SizeT =
     FuchsiaJniBridge.libcFuchsiaWcslen(buf.rawAddress).toULong()
 
-public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+public actual fun wcstombs(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     FuchsiaJniBridge.libcFuchsiaWcstombs(dest.rawAddress, src.rawAddress, n.toLong()).toULong()
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaWmemchr(cx.rawAddress, c.toInt(), n.toLong()))
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMemcmp(cx.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemset(dest.rawAddress, c, n.toLong()))
 
 public actual fun abs(i: CInt): CInt =
@@ -1809,31 +1806,31 @@ public actual fun srand(seed: CUint) {
     FuchsiaJniBridge.libcFuchsiaSrand(seed.toInt())
 }
 
-public actual fun getpwnam(name: ConstPtr<CChar>): MutPtr<Passwd> =
+public actual fun getpwnam(name: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetpwnam(name.rawAddress))
 
-public actual fun getpwuid(uid: UidT): MutPtr<Passwd> =
+public actual fun getpwuid(uid: UidT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetpwuid(uid.toInt()))
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(s: MutPtr, n: SizeT, format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaSnprintf(s.rawAddress, n.toLong(), format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(s: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaSprintf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaFscanf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaScanf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(s: ConstPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaSscanf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
@@ -1845,128 +1842,128 @@ public actual fun putcharUnlocked(c: CInt): CInt =
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSocket(domain, ty, protocol)
 
-public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+public actual fun connect(socket: CInt, address: ConstPtr, len: SocklenT): CInt =
     FuchsiaJniBridge.libcFuchsiaConnect(socket, address.rawAddress, len.toInt())
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaListen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun accept(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaAccept(socket, address.rawAddress, addressLen.rawAddress)
 
-public actual fun getpeername(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun getpeername(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetpeername(socket, address.rawAddress, addressLen.rawAddress)
 
-public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun getsockname(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetsockname(socket, address.rawAddress, addressLen.rawAddress)
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr, optionLen: SocklenT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetsockopt(socket, level, name, value.rawAddress, optionLen.toInt())
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr<CInt>): CInt =
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSocketpair(domain, type, protocol, socketVector.rawAddress)
 
-public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+public actual fun sendto(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt, addr: ConstPtr, addrlen: SocklenT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaSendto(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.toInt())
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaShutdown(socket, how)
 
-public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun chmod(path: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaChmod(path.rawAddress, mode.toInt())
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaFchmod(fd, mode.toInt())
 
-public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+public actual fun fstat(fildes: CInt, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFstat(fildes, buf.rawAddress)
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMkdir(path.rawAddress, mode.toInt())
 
-public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun stat(path: ConstPtr, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaStat(path.rawAddress, buf.rawAddress)
 
-public actual fun pclose(stream: MutPtr<FILE>): CInt =
+public actual fun pclose(stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPclose(stream.rawAddress)
 
-public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(fd: CInt, mode: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaFdopen(fd, mode.rawAddress))
 
-public actual fun fileno(stream: MutPtr<FILE>): CInt =
+public actual fun fileno(stream: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFileno(stream.rawAddress)
 
-public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaOpen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun creat(path: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaCreat(path.rawAddress, mode.toInt())
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun opendir(dirname: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaOpendir(dirname.rawAddress))
 
-public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun readdir(dirp: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaReaddir(dirp.rawAddress))
 
-public actual fun readdirR(dirp: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+public actual fun readdirR(dirp: MutPtr, entry: MutPtr, result: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaReaddirR(dirp.rawAddress, entry.rawAddress, result.rawAddress)
 
-public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+public actual fun closedir(dirp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaClosedir(dirp.rawAddress)
 
-public actual fun rewinddir(dirp: MutPtr<DIR>) {
+public actual fun rewinddir(dirp: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaRewinddir(dirp.rawAddress)
 }
 
-public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+public actual fun openat(dirfd: CInt, pathname: ConstPtr, flags: CInt, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaOpenat(dirfd, pathname.rawAddress, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFchmodat(dirfd, pathname.rawAddress, mode.toInt(), flags)
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
     FuchsiaJniBridge.libcFuchsiaFchown(fd, owner.toInt(), group.toInt())
 
-public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr, owner: UidT, group: GidT, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFchownat(dirfd, pathname.rawAddress, owner.toInt(), group.toInt(), flags)
 
-public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr, buf: MutPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFstatat(dirfd, pathname.rawAddress, buf.rawAddress, flags)
 
-public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaLinkat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags)
 
-public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMkdirat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr, buf: MutPtr, bufsiz: SizeT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaReadlinkat(dirfd, pathname.rawAddress, buf.rawAddress, bufsiz.toLong())
 
-public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaRenameat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress)
 
-public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+public actual fun symlinkat(target: ConstPtr, newdirfd: CInt, linkpath: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSymlinkat(target.rawAddress, newdirfd, linkpath.rawAddress)
 
-public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaUnlinkat(dirfd, pathname.rawAddress, flags)
 
-public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun access(path: ConstPtr, amode: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaAccess(path.rawAddress, amode)
 
 public actual fun alarm(seconds: CUint): CUint =
     FuchsiaJniBridge.libcFuchsiaAlarm(seconds.toInt()).toUInt()
 
-public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+public actual fun chdir(dir: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaChdir(dir.rawAddress)
 
-public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+public actual fun chown(path: ConstPtr, uid: UidT, gid: GidT): CInt =
     FuchsiaJniBridge.libcFuchsiaChown(path.rawAddress, uid.toInt(), gid.toInt())
 
-public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+public actual fun lchown(path: ConstPtr, uid: UidT, gid: GidT): CInt =
     FuchsiaJniBridge.libcFuchsiaLchown(path.rawAddress, uid.toInt(), gid.toInt())
 
 public actual fun close(fd: CInt): CInt =
@@ -1978,22 +1975,22 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaDup2(src, dst)
 
-public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaExecl(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaExecle(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlp(file: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execlp(file: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaExeclp(file.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execv(prog: ConstPtr, argv: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaExecv(prog.rawAddress, argv.rawAddress)
 
-public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaExecve(prog.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvp(c: ConstPtr, argv: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaExecvp(c.rawAddress, argv.rawAddress)
 
 public actual fun fork(): PidT =
@@ -2002,7 +1999,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     FuchsiaJniBridge.libcFuchsiaFpathconf(filedes, name)
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetcwd(buf.rawAddress, size.toLong()))
 
 public actual fun getegid(): GidT =
@@ -2014,13 +2011,13 @@ public actual fun geteuid(): UidT =
 public actual fun getgid(): GidT =
     FuchsiaJniBridge.libcFuchsiaGetgid().toUInt()
 
-public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetgroups(ngroupsMax, groups.rawAddress)
 
-public actual fun getlogin(): MutPtr<CChar> =
+public actual fun getlogin(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetlogin())
 
-public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+public actual fun getopt(argc: CInt, argv: ConstPtr, optstr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetopt(argc, argv.rawAddress, optstr.rawAddress)
 
 public actual fun getpgid(pid: PidT): PidT =
@@ -2041,28 +2038,28 @@ public actual fun getuid(): UidT =
 public actual fun isatty(fd: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaIsatty(fd)
 
-public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+public actual fun link(src: ConstPtr, dst: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaLink(src.rawAddress, dst.rawAddress)
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     FuchsiaJniBridge.libcFuchsiaLseek(fd, offset, whence)
 
-public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+public actual fun pathconf(path: ConstPtr, name: CInt): CLong =
     FuchsiaJniBridge.libcFuchsiaPathconf(path.rawAddress, name)
 
 public actual fun pause(): CInt =
     FuchsiaJniBridge.libcFuchsiaPause()
 
-public actual fun pipe(fds: MutPtr<CInt>): CInt =
+public actual fun pipe(fds: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPipe(fds.rawAddress)
 
-public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+public actual fun posixMemalign(memptr: MutPtr, align: SizeT, size: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaPosixMemalign(memptr.rawAddress, align.toLong(), size.toLong())
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaRead(fd, buf.rawAddress, count.toLong())
 
-public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+public actual fun rmdir(path: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaRmdir(path.rawAddress)
 
 public actual fun seteuid(uid: UidT): CInt =
@@ -2086,7 +2083,7 @@ public actual fun setuid(uid: UidT): CInt =
 public actual fun sleep(secs: CUint): CUint =
     FuchsiaJniBridge.libcFuchsiaSleep(secs.toInt()).toUInt()
 
-public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun nanosleep(rqtp: ConstPtr, rmtp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaNanosleep(rqtp.rawAddress, rmtp.rawAddress)
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
@@ -2095,40 +2092,40 @@ public actual fun tcgetpgrp(fd: CInt): PidT =
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
     FuchsiaJniBridge.libcFuchsiaTcsetpgrp(fd, pgrp)
 
-public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+public actual fun ttyname(fd: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaTtyname(fd))
 
-public actual fun unlink(c: ConstPtr<CChar>): CInt =
+public actual fun unlink(c: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUnlink(c.rawAddress)
 
-public actual fun wait(status: MutPtr<CInt>): PidT =
+public actual fun wait(status: MutPtr): PidT =
     FuchsiaJniBridge.libcFuchsiaWait(status.rawAddress)
 
-public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+public actual fun waitpid(pid: PidT, status: MutPtr, options: CInt): PidT =
     FuchsiaJniBridge.libcFuchsiaWaitpid(pid, status.rawAddress, options)
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaWrite(fd, buf.rawAddress, count.toLong())
 
-public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+public actual fun pread(fd: CInt, buf: MutPtr, count: SizeT, offset: OffT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaPread(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+public actual fun pwrite(fd: CInt, buf: ConstPtr, count: SizeT, offset: OffT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaPwrite(fd, buf.rawAddress, count.toLong(), offset)
 
 public actual fun umask(mask: ModeT): ModeT =
     FuchsiaJniBridge.libcFuchsiaUmask(mask.toInt()).toUInt()
 
-public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+public actual fun utime(file: ConstPtr, buf: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUtime(file.rawAddress, buf.rawAddress)
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaKill(pid, sig)
 
-public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun mlock(addr: ConstPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMlock(addr.rawAddress, len.toLong())
 
-public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun munlock(addr: ConstPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMunlock(addr.rawAddress, len.toLong())
 
 public actual fun mlockall(flags: CInt): CInt =
@@ -2137,31 +2134,31 @@ public actual fun mlockall(flags: CInt): CInt =
 public actual fun munlockall(): CInt =
     FuchsiaJniBridge.libcFuchsiaMunlockall()
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMmap(addr.rawAddress, len.toLong(), prot, flags, fd, offset))
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMunmap(addr.rawAddress, len.toLong())
 
-public actual fun ifNametoindex(ifname: ConstPtr<CChar>): CUint =
+public actual fun ifNametoindex(ifname: ConstPtr): CUint =
     FuchsiaJniBridge.libcFuchsiaIfNametoindex(ifname.rawAddress).toUInt()
 
-public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaIfIndextoname(ifindex.toInt(), ifname.rawAddress))
 
-public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun lstat(path: ConstPtr, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaLstat(path.rawAddress, buf.rawAddress)
 
 public actual fun fsync(fd: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFsync(fd)
 
-public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(name: ConstPtr, value: ConstPtr, overwrite: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSetenv(name.rawAddress, value.rawAddress, overwrite)
 
-public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(name: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUnsetenv(name.rawAddress)
 
-public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+public actual fun symlink(path1: ConstPtr, path2: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSymlink(path1.rawAddress, path2.rawAddress)
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
@@ -2170,42 +2167,42 @@ public actual fun ftruncate(fd: CInt, length: OffT): CInt =
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
     FuchsiaJniBridge.libcFuchsiaSignal(signum, handler.toLong()).toULong()
 
-public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun realpath(pathname: ConstPtr, resolved: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaRealpath(pathname.rawAddress, resolved.rawAddress))
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFlock(fd, operation)
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun times(buf: MutPtr<Tms>): ClockT =
+public actual fun times(buf: MutPtr): ClockT =
     FuchsiaJniBridge.libcFuchsiaTimes(buf.rawAddress)
 
 public actual fun pthreadSelf(): PthreadT =
     FuchsiaJniBridge.libcFuchsiaPthreadSelf().toULong()
 
-public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadJoin(native.toLong(), value.rawAddress)
 
-public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+public actual fun pthreadExit(value: MutPtr): Nothing {
     FuchsiaJniBridge.libcFuchsiaPthreadExit(value.rawAddress)
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrInit(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrInit(attr.rawAddress)
 
-public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrDestroy(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrDestroy(attr.rawAddress)
 
-public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr, stacksize: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrGetstacksize(attr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+public actual fun pthreadAttrSetstacksize(attr: MutPtr, stackSize: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrSetstacksize(attr.rawAddress, stackSize.toLong())
 
-public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr, state: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrSetdetachstate(attr.rawAddress, state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
@@ -2214,248 +2211,248 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedYield()
 
-public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: MutPtr, dtor: PthreadKeyCreateDtorCallback?): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadKeyCreate(key.rawAddress, 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadKeyDelete(key.toInt())
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaPthreadGetspecific(key.toInt()))
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadSetspecific(key.toInt(), value.rawAddress)
 
-public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexInit(lock: MutPtr, attr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexInit(lock.rawAddress, attr.rawAddress)
 
-public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexDestroy(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexDestroy(lock.rawAddress)
 
-public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexLock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexLock(lock.rawAddress)
 
-public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexTrylock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexTrylock(lock.rawAddress)
 
-public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexUnlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexUnlock(lock.rawAddress)
 
-public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrInit(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexattrInit(attr.rawAddress)
 
-public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrDestroy(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexattrDestroy(attr.rawAddress)
 
-public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+public actual fun pthreadMutexattrSettype(attr: MutPtr, type: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexattrSettype(attr.rawAddress, type)
 
-public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondInit(cond.rawAddress, attr.rawAddress)
 
-public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadCondWait(cond: MutPtr, lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondWait(cond.rawAddress, lock.rawAddress)
 
-public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwait(cond: MutPtr, lock: MutPtr, abstime: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondTimedwait(cond.rawAddress, lock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondSignal(cond: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondSignal(cond.rawAddress)
 
-public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondBroadcast(cond: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondBroadcast(cond.rawAddress)
 
-public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondDestroy(cond: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondDestroy(cond.rawAddress)
 
-public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrInit(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondattrInit(attr.rawAddress)
 
-public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrDestroy(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondattrDestroy(attr.rawAddress)
 
-public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockInit(lock: MutPtr, attr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockInit(lock.rawAddress, attr.rawAddress)
 
-public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockDestroy(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockDestroy(lock.rawAddress)
 
-public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockRdlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockRdlock(lock.rawAddress)
 
-public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockTryrdlock(lock.rawAddress)
 
-public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockWrlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockWrlock(lock.rawAddress)
 
-public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockTrywrlock(lock.rawAddress)
 
-public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockUnlock(lock: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockUnlock(lock.rawAddress)
 
-public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrInit(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockattrInit(attr.rawAddress)
 
-public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadRwlockattrDestroy(attr.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadGetnameNp(thread.toLong(), name.rawAddress, len.toLong())
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadSetnameNp(thread.toLong(), name.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetsockopt(sockfd, level, optname, optval.rawAddress, optlen.rawAddress)
 
 public actual fun raise(signum: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaRaise(signum)
 
-public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+public actual fun sigaction(signum: CInt, act: ConstPtr, oldact: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigaction(signum, act.rawAddress, oldact.rawAddress)
 
-public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun utimes(filename: ConstPtr, times: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUtimes(filename.rawAddress, times.rawAddress)
 
-public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+public actual fun dlopen(filename: ConstPtr, flag: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaDlopen(filename.rawAddress, flag))
 
-public actual fun dlerror(): MutPtr<CChar> =
+public actual fun dlerror(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaDlerror())
 
-public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+public actual fun dlsym(handle: MutPtr, symbol: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaDlsym(handle.rawAddress, symbol.rawAddress))
 
-public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+public actual fun dlclose(handle: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaDlclose(handle.rawAddress)
 
-public actual fun dladdr(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+public actual fun dladdr(addr: ConstPtr, info: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaDladdr(addr.rawAddress, info.rawAddress)
 
-public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+public actual fun getaddrinfo(node: ConstPtr, service: ConstPtr, hints: ConstPtr, res: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetaddrinfo(node.rawAddress, service.rawAddress, hints.rawAddress, res.rawAddress)
 
-public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(res: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaFreeaddrinfo(res.rawAddress)
 }
 
-public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
+public actual fun gaiStrerror(errcode: CInt): ConstPtr =
     ConstPtr(FuchsiaJniBridge.libcFuchsiaGaiStrerror(errcode))
 
 public actual fun resInit(): CInt =
     FuchsiaJniBridge.libcFuchsiaResInit()
 
-public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun gmtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGmtimeR(timeP.rawAddress, result.rawAddress))
 
-public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun localtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaLocaltimeR(timeP.rawAddress, result.rawAddress))
 
-public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+public actual fun mktime(tm: MutPtr): TimeT =
     FuchsiaJniBridge.libcFuchsiaMktime(tm.rawAddress)
 
-public actual fun time(time: MutPtr<TimeT>): TimeT =
+public actual fun time(time: MutPtr): TimeT =
     FuchsiaJniBridge.libcFuchsiaTime(time.rawAddress)
 
-public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun gmtime(timeP: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGmtime(timeP.rawAddress))
 
-public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun localtime(timeP: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaLocaltime(timeP.rawAddress))
 
-public actual fun mknod(pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknod(pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     FuchsiaJniBridge.libcFuchsiaMknod(pathname.rawAddress, mode.toInt(), dev.toLong())
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUname(buf.rawAddress)
 
-public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun gethostname(name: MutPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaGethostname(name.rawAddress, len.toLong())
 
-public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+public actual fun getservbyname(name: ConstPtr, proto: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetservbyname(name.rawAddress, proto.rawAddress))
 
-public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+public actual fun getprotobyname(name: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetprotobyname(name.rawAddress))
 
-public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+public actual fun getprotobynumber(proto: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetprotobynumber(proto))
 
 public actual fun usleep(secs: CUint): CInt =
     FuchsiaJniBridge.libcFuchsiaUsleep(secs.toInt())
 
-public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+public actual fun send(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaSend(socket, buf.rawAddress, len.toLong(), flags)
 
-public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+public actual fun recv(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaRecv(socket, buf.rawAddress, len.toLong(), flags)
 
-public actual fun putenv(string: MutPtr<CChar>): CInt =
+public actual fun putenv(string: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPutenv(string.rawAddress)
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPoll(fds.rawAddress, nfds.toLong(), timeout)
 
-public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: MutPtr<Timeval>): CInt =
+public actual fun select(nfds: CInt, readfds: MutPtr, writefds: MutPtr, errorfds: MutPtr, timeout: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSelect(nfds, readfds.rawAddress, writefds.rawAddress, errorfds.rawAddress, timeout.rawAddress)
 
-public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaSetlocale(category, locale.rawAddress))
 
-public actual fun localeconv(): MutPtr<Lconv> =
+public actual fun localeconv(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaLocaleconv())
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemDestroy(sem.rawAddress)
 
-public actual fun semWait(sem: MutPtr<SemT>): CInt =
+public actual fun semWait(sem: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemWait(sem.rawAddress)
 
-public actual fun semTrywait(sem: MutPtr<SemT>): CInt =
+public actual fun semTrywait(sem: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemTrywait(sem.rawAddress)
 
-public actual fun semPost(sem: MutPtr<SemT>): CInt =
+public actual fun semPost(sem: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemPost(sem.rawAddress)
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     FuchsiaJniBridge.libcFuchsiaSemInit(sem.rawAddress, pshared, value.toInt())
 
-public actual fun statvfs(path: ConstPtr<CChar>, buf: MutPtr<Statvfs>): CInt =
+public actual fun statvfs(path: ConstPtr, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaStatvfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatvfs(fd: CInt, buf: MutPtr<Statvfs>): CInt =
+public actual fun fstatvfs(fd: CInt, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFstatvfs(fd, buf.rawAddress)
 
-public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+public actual fun readlink(path: ConstPtr, buf: MutPtr, bufsz: SizeT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaReadlink(path.rawAddress, buf.rawAddress, bufsz.toLong())
 
-public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigemptyset(set: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigemptyset(set.rawAddress)
 
-public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigaddset(set: MutPtr, signum: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSigaddset(set.rawAddress, signum)
 
-public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigfillset(set: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigfillset(set.rawAddress)
 
-public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigdelset(set: MutPtr, signum: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSigdelset(set.rawAddress, signum)
 
-public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigismember(set: ConstPtr, signum: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSigismember(set.rawAddress, signum)
 
-public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun sigprocmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigprocmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+public actual fun sigpending(set: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigpending(set.rawAddress)
 
-public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+public actual fun timegm(tm: MutPtr): TimeT =
     FuchsiaJniBridge.libcFuchsiaTimegm(tm.rawAddress)
 
 public actual fun getsid(pid: PidT): PidT =
@@ -2464,44 +2461,44 @@ public actual fun getsid(pid: PidT): PidT =
 public actual fun sysconf(name: CInt): CLong =
     FuchsiaJniBridge.libcFuchsiaSysconf(name)
 
-public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifo(path: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMkfifo(path.rawAddress, mode.toInt())
 
-public actual fun pselect(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun pselect(nfds: CInt, readfds: MutPtr, writefds: MutPtr, errorfds: MutPtr, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPselect(nfds, readfds.rawAddress, writefds.rawAddress, errorfds.rawAddress, timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+public actual fun fseeko(stream: MutPtr, offset: OffT, whence: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFseeko(stream.rawAddress, offset, whence)
 
-public actual fun ftello(stream: MutPtr<FILE>): OffT =
+public actual fun ftello(stream: MutPtr): OffT =
     FuchsiaJniBridge.libcFuchsiaFtello(stream.rawAddress)
 
 public actual fun tcdrain(fd: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaTcdrain(fd)
 
-public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
+public actual fun cfgetispeed(termios: ConstPtr): SpeedT =
     FuchsiaJniBridge.libcFuchsiaCfgetispeed(termios.rawAddress).toUInt()
 
-public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+public actual fun cfgetospeed(termios: ConstPtr): SpeedT =
     FuchsiaJniBridge.libcFuchsiaCfgetospeed(termios.rawAddress).toUInt()
 
-public actual fun cfmakeraw(termios: MutPtr<Termios>) {
+public actual fun cfmakeraw(termios: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaCfmakeraw(termios.rawAddress)
 }
 
-public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetispeed(termios: MutPtr, speed: SpeedT): CInt =
     FuchsiaJniBridge.libcFuchsiaCfsetispeed(termios.rawAddress, speed.toInt())
 
-public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetospeed(termios: MutPtr, speed: SpeedT): CInt =
     FuchsiaJniBridge.libcFuchsiaCfsetospeed(termios.rawAddress, speed.toInt())
 
-public actual fun cfsetspeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetspeed(termios: MutPtr, speed: SpeedT): CInt =
     FuchsiaJniBridge.libcFuchsiaCfsetspeed(termios.rawAddress, speed.toInt())
 
-public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+public actual fun tcgetattr(fd: CInt, termios: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaTcgetattr(fd, termios.rawAddress)
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaTcsetattr(fd, optionalActions, termios.rawAddress)
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
@@ -2516,16 +2513,16 @@ public actual fun tcgetsid(fd: CInt): PidT =
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaTcsendbreak(fd, duration)
 
-public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+public actual fun mkstemp(template: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaMkstemp(template.rawAddress)
 
-public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mkdtemp(template: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMkdtemp(template.rawAddress))
 
-public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(ptr: MutPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaTmpnam(ptr.rawAddress))
 
-public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+public actual fun openlog(ident: ConstPtr, logopt: CInt, facility: CInt) {
     FuchsiaJniBridge.libcFuchsiaOpenlog(ident.rawAddress, logopt, facility)
 }
 
@@ -2536,7 +2533,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSetlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+public actual fun syslog(priority: CInt, message: ConstPtr, vararg variadicArgs: Long) {
     FuchsiaJniBridge.libcFuchsiaSyslog(priority, message.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
@@ -2546,7 +2543,7 @@ public actual fun grantpt(fd: CInt): CInt =
 public actual fun posixOpenpt(flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPosixOpenpt(flags)
 
-public actual fun ptsname(fd: CInt): MutPtr<CChar> =
+public actual fun ptsname(fd: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaPtsname(fd))
 
 public actual fun unlockpt(fd: CInt): CInt =
@@ -2555,49 +2552,49 @@ public actual fun unlockpt(fd: CInt): CInt =
 public actual fun fdatasync(fd: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFdatasync(fd)
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaClockSettime(clkId, tp.rawAddress)
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaDirfd(dirp.rawAddress)
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadGetattrNp(native.toLong(), attr.rawAddress)
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemalign(align.toLong(), size.toLong()))
 
-public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSetgroups(ngroups.toLong(), ptr.rawAddress)
 
-public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+public actual fun pipe2(fds: MutPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPipe2(fds.rawAddress, flags)
 
-public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+public actual fun statfs(path: ConstPtr, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+public actual fun fstatfs(fd: CInt, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFstatfs(fd, buf.rawAddress)
 
-public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaMemrchr(cx.rawAddress, c, n.toLong()))
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFutimens(fd, times.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
@@ -2607,34 +2604,34 @@ public actual fun freelocale(loc: LocaleT) {
     FuchsiaJniBridge.libcFuchsiaFreelocale(loc.rawAddress)
 }
 
-public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+public actual fun newlocale(mask: CInt, locale: ConstPtr, base: LocaleT): LocaleT =
     MutPtr(FuchsiaJniBridge.libcFuchsiaNewlocale(mask, locale.rawAddress, base.rawAddress))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     MutPtr(FuchsiaJniBridge.libcFuchsiaUselocale(loc.rawAddress))
 
-public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+public actual fun fdopendir(fd: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaFdopendir(fd))
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     FuchsiaJniBridge.libcFuchsiaMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev.toLong())
 
-public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(attr: ConstPtr, clockId: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+public actual fun accept4(fd: CInt, addr: MutPtr, len: MutPtr, flg: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaAccept4(fd, addr.rawAddress, len.rawAddress, flg)
 
-public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun ptsnameR(fd: CInt, buf: MutPtr, buflen: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaPtsnameR(fd, buf.rawAddress, buflen.toLong())
 
 public actual fun clearenv(): CInt =
     FuchsiaJniBridge.libcFuchsiaClearenv()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaWaitid(idtype.toInt(), id.toInt(), infop.rawAddress, options)
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
@@ -2643,16 +2640,16 @@ public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetregid(rgid.toInt(), egid.toInt())
 
-public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+public actual fun getresuid(ruid: MutPtr, euid: MutPtr, suid: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetresuid(ruid.rawAddress, euid.rawAddress, suid.rawAddress)
 
-public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+public actual fun getresgid(rgid: MutPtr, egid: MutPtr, sgid: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetresgid(rgid.rawAddress, egid.rawAddress, sgid.rawAddress)
 
-public actual fun acct(filename: ConstPtr<CChar>): CInt =
+public actual fun acct(filename: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaAcct(filename.rawAddress)
 
-public actual fun brk(addr: MutPtr<CVoid>): CInt =
+public actual fun brk(addr: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaBrk(addr.rawAddress)
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
@@ -2661,19 +2658,19 @@ public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetresuid(ruid.toInt(), euid.toInt(), suid.toInt())
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaExecvpe(file.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFexecve(fd, argv.rawAddress, envp.rawAddress)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun lutimes(file: ConstPtr, times: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaLutimes(file.rawAddress, times.rawAddress)
 
 public actual fun setpwent() {
@@ -2684,52 +2681,52 @@ public actual fun endpwent() {
     FuchsiaJniBridge.libcFuchsiaEndpwent()
 }
 
-public actual fun getpwent(): MutPtr<Passwd> =
+public actual fun getpwent(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetpwent())
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaShmOpen(name.rawAddress, oflag, mode.toInt())
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaShmget(key, size.toLong(), shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr, shmflg: CInt): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaShmat(shmid, shmaddr.rawAddress, shmflg))
 
-public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+public actual fun shmdt(shmaddr: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaShmdt(shmaddr.rawAddress)
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaShmctl(shmid, cmd, buf.rawAddress)
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     FuchsiaJniBridge.libcFuchsiaFtok(pathname.rawAddress, projId)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+public actual fun semop(semid: CInt, sops: MutPtr, nsops: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaSemop(semid, sops.rawAddress, nsops.toLong())
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaMsgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr, msgsz: SizeT, msgflg: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun errnoLocation(): MutPtr<CInt> =
+public actual fun errnoLocation(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaErrnoLocation())
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
@@ -2741,46 +2738,46 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaReadahead(fd, offset, count.toLong())
 
-public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+public actual fun signalfd(fd: CInt, mask: ConstPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSignalfd(fd, mask.rawAddress, flags)
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaTimerfdGettime(fd, currValue.rawAddress)
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaTimerfdSettime(fd, flags, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     FuchsiaJniBridge.libcFuchsiaPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+public actual fun quotactl(cmd: CInt, special: ConstPtr, id: CInt, data: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaQuotactl(cmd, special.rawAddress, id, data.rawAddress)
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaDup3(oldfd, newfd, flags)
 
-public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+public actual fun mkostemp(template: MutPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMkostemp(template.rawAddress, flags)
 
-public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: MutPtr, suffixlen: CInt, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMkostemps(template.rawAddress, suffixlen, flags)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaNlLanginfoL(item, locale.rawAddress))
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
 public actual fun reboot(howTo: CInt): CInt =
@@ -2792,92 +2789,92 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetfsuid(uid.toInt())
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     FuchsiaJniBridge.libcFuchsiaMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun ifNameindex(): MutPtr<IfNameindex> =
+public actual fun ifNameindex(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaIfNameindex())
 
-public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+public actual fun ifFreenameindex(ptr: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaIfFreenameindex(ptr.rawAddress)
 }
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
     FuchsiaJniBridge.libcFuchsiaSyncFileRange(fd, offset, nbytes, flags.toInt())
 
-public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+public actual fun getifaddrs(ifap: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetifaddrs(ifap.rawAddress)
 
-public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+public actual fun freeifaddrs(ifa: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaFreeifaddrs(ifa.rawAddress)
 }
 
-public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+public actual fun glob(pattern: ConstPtr, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: MutPtr<GlobT>) {
+public actual fun globfree(pglob: MutPtr) {
     FuchsiaJniBridge.libcFuchsiaGlobfree(pglob.rawAddress)
 }
 
-public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaShmUnlink(name.rawAddress)
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     FuchsiaJniBridge.libcFuchsiaSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     FuchsiaJniBridge.libcFuchsiaTelldir(dirp.rawAddress)
 
-public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT =
     FuchsiaJniBridge.libcFuchsiaRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: MutPtr, suffixlen: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaMkstemps(template.rawAddress, suffixlen)
 
-public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+public actual fun futimes(fd: CInt, times: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaFutimes(fd, times.rawAddress)
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaNlLanginfo(item))
 
-public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+public actual fun bind(socket: CInt, address: ConstPtr, addressLen: SocklenT): CInt =
     FuchsiaJniBridge.libcFuchsiaBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaSendmsg(fd, msg.rawAddress, flags)
 
-public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: CInt, msg: MutPtr, flags: CInt): SsizeT =
     FuchsiaJniBridge.libcFuchsiaRecvmsg(fd, msg.rawAddress, flags)
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun getdomainname(name: MutPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaGetdomainname(name.rawAddress, len.toLong())
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun setdomainname(name: ConstPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaSetdomainname(name.rawAddress, len.toLong())
 
 public actual fun vhangup(): CInt =
     FuchsiaJniBridge.libcFuchsiaVhangup()
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSendmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt, timeout: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaRecvmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags, timeout.rawAddress)
 
 public actual fun sync() {
@@ -2887,13 +2884,13 @@ public actual fun sync() {
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     FuchsiaJniBridge.libcFuchsiaSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedGetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedSetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun umount(target: ConstPtr<CChar>): CInt =
+public actual fun umount(target: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaUmount(target.rawAddress)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
@@ -2902,106 +2899,106 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
     FuchsiaJniBridge.libcFuchsiaTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSettimeofday(tv.rawAddress, tz.rawAddress)
 
-public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+public actual fun splice(fdIn: CInt, offIn: MutPtr, fdOut: CInt, offOut: MutPtr, len: SizeT, flags: CUint): SsizeT =
     FuchsiaJniBridge.libcFuchsiaSplice(fdIn, offIn.rawAddress, fdOut, offOut.rawAddress, len.toLong(), flags.toInt())
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaEventfd(initval.toInt(), flags)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedRrGetInterval(pid, tp.rawAddress)
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemGetvalue(sem.rawAddress, sval.rawAddress)
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedSetparam(pid, param.rawAddress)
 
-public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+public actual fun swapoff(puath: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSwapoff(puath.rawAddress)
 
-public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+public actual fun vmsplice(fd: CInt, iov: ConstPtr, nrSegs: SizeT, flags: CUint): SsizeT =
     FuchsiaJniBridge.libcFuchsiaVmsplice(fd, iov.rawAddress, nrSegs.toLong(), flags.toInt())
 
-public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+public actual fun mount(src: ConstPtr, target: ConstPtr, fstype: ConstPtr, flags: CUlong, data: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaMount(src.rawAddress, target.rawAddress, fstype.rawAddress, flags.toLong(), data.rawAddress)
 
 public actual fun personality(persona: CUlong): CInt =
     FuchsiaJniBridge.libcFuchsiaPersonality(persona.toLong())
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedGetparam(pid, param.rawAddress)
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, nfds: NfdsT, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPpoll(fds.rawAddress, nfds.toLong(), timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(lock: MutPtr, abstime: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadMutexTimedlock(lock.rawAddress, abstime.rawAddress)
 
-public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr, flags: CInt, arg: MutPtr, vararg variadicArgs: Long): CInt =
     FuchsiaJniBridge.libcFuchsiaClone(0L, childStack.rawAddress, flags, arg.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaClockNanosleep(clkId, flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr, guardsize: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+public actual fun pthreadAttrSetguardsize(attr: MutPtr, guardsize: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAttrSetguardsize(attr.rawAddress, guardsize.toLong())
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     FuchsiaJniBridge.libcFuchsiaSethostname(name.rawAddress, len.toLong())
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedGetPriorityMin(policy)
 
-public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount2(target: ConstPtr, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaUmount2(target.rawAddress, flags)
 
-public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+public actual fun swapon(path: ConstPtr, swapflags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaSwapon(path.rawAddress, swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSchedSetscheduler(pid, policy, param.rawAddress)
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigsuspend(mask.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetgrgidR(gid.toInt(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigaltstack(ss.rawAddress, oss.rawAddress)
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemClose(sem.rawAddress)
 
 public actual fun getdtablesize(): CInt =
     FuchsiaJniBridge.libcFuchsiaGetdtablesize()
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+public actual fun initgroups(user: ConstPtr, group: GidT): CInt =
     FuchsiaJniBridge.libcFuchsiaInitgroups(user.rawAddress, group.toInt())
 
-public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadSigmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetgrnam(name.rawAddress))
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
@@ -3010,25 +3007,25 @@ public actual fun pthreadCancel(thread: PthreadT): CInt =
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadKill(thread.toLong(), sig)
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSemUnlink(name.rawAddress)
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaDaemon(nochdir, noclose)
 
-public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwnamR(name: ConstPtr, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetpwuidR(uid.toInt(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaSigwait(set.rawAddress, sig.rawAddress)
 
 public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadAtfork(0L, 0L, 0L)
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetgrgid(gid.toInt()))
 
 public actual fun setgrent() {
@@ -3039,20 +3036,20 @@ public actual fun endgrent() {
     FuchsiaJniBridge.libcFuchsiaEndgrent()
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaGetgrent())
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaGetgrouplist(user.rawAddress, group.toInt(), groups.rawAddress, ngroups.rawAddress)
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(FuchsiaJniBridge.libcFuchsiaPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     FuchsiaJniBridge.libcFuchsiaFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     FuchsiaJniBridge.libcFuchsiaDlIteratePhdr(0L, data.rawAddress)

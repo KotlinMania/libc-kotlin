@@ -40,7 +40,7 @@ public typealias ShmattT = CUint
 
 public typealias MqdT = CInt
 
-public typealias SemT = MutPtr<Sem>
+public typealias SemT = MutPtr
 
 public typealias CpusetT = CpumaskT
 
@@ -68,9 +68,9 @@ public typealias VmSubsysT = CInt
 
 public typealias VmEflagsT = CUint
 
-public typealias VmMapT = MutPtr<CAnonymousVmMap>
+public typealias VmMapT = MutPtr
 
-public typealias VmMapEntryT = MutPtr<VmMapEntry>
+public typealias VmMapEntryT = MutPtr
 
 public typealias Pmap = CAnonymousPmap
 

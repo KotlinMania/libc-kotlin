@@ -23,7 +23,6 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlItem
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SpeedT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val AT_FDCWD: CInt = -100
@@ -889,9 +888,9 @@ public val PL_EVENT_SIGNAL: CInt = 1
 
 public val PL_EVENT_SUSPENDED: CInt = 2
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(ptcMagic = 0x55550005u, ptcLock = 0u, ptcWaitersFirst = MutPtr<UByte>(0L), ptcWaitersLast = MutPtr<UByte>(0L), ptcMutex = MutPtr<PthreadMutexT>(0L), ptcPrivate = MutPtr<CVoid>(0L))
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(ptcMagic = 0x55550005u, ptcLock = 0u, ptcWaitersFirst = MutPtr(0L), ptcWaitersLast = MutPtr(0L), ptcMutex = MutPtr(0L), ptcPrivate = MutPtr(0L))
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(ptrMagic = 0x99990009u, ptrInterlock = 0u, ptrRblockedFirst = MutPtr<UByte>(0L), ptrRblockedLast = MutPtr<UByte>(0L), ptrWblockedFirst = MutPtr<UByte>(0L), ptrWblockedLast = MutPtr<UByte>(0L), ptrNreaders = 0u, ptrOwner = 0uL, ptrPrivate = MutPtr<CVoid>(0L))
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(ptrMagic = 0x99990009u, ptrInterlock = 0u, ptrRblockedFirst = MutPtr(0L), ptrRblockedLast = MutPtr(0L), ptrWblockedFirst = MutPtr(0L), ptrWblockedLast = MutPtr(0L), ptrNreaders = 0u, ptrOwner = 0uL, ptrPrivate = MutPtr(0L))
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 
@@ -1657,4 +1656,4 @@ public val TFD_TIMER_ABSTIME: Int = O_WRONLY
 
 public val TFD_TIMER_CANCEL_ON_SET: Int = O_RDWR
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = UByteArray(0), ptmUnused = 0u, ptmPad2 = UByteArray(0), ptmWaiters = MutPtr<UByte>(0L), ptmOwner = 0uL, ptmRecursed = 0u, ptmSpare2 = MutPtr<CVoid>(0L))
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = UByteArray(0), ptmUnused = 0u, ptmPad2 = UByteArray(0), ptmWaiters = MutPtr(0L), ptmOwner = 0uL, ptmRecursed = 0u, ptmSpare2 = MutPtr(0L))

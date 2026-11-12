@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsblkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsfilcntT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -847,4 +846,4 @@ public val SYS_FCHMODAT2: CLong = 452L
 
 public val SYS_MSEAL: CLong = 462L
 
-public expect fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt
+public expect fun sysctl(name: MutPtr, namelen: CInt, oldp: MutPtr, oldlenp: MutPtr, newp: MutPtr, newlen: SizeT): CInt

@@ -12,7 +12,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.IdtypeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_CLOEXEC
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -254,7 +253,7 @@ public val MAP_PRIVATE: CInt = 0x0002
 
 public val MAP_FIXED: CInt = 0x0010
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 // MS_ flags for msync(2)
 public val MS_ASYNC: CInt = 0x0001

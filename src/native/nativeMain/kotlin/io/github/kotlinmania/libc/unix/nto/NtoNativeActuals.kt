@@ -3,26 +3,15 @@
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Iovec
-import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rlimit
-import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAbs
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioCancel
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioError
@@ -229,29 +218,28 @@ import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoUtimensat
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWait4
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWaitid
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWritev
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual var SYSPAGE_PTR: MutPtr<SyspageEntry>
+public actual var SYSPAGE_PTR: MutPtr
     get() = MutPtr(libcUnixNtoGetSYSPAGEPTR()?.toLong() ?: 0L)
     set(value) {
         libcUnixNtoSetSYSPAGEPTR(value.rawAddress.toCPointer<ByteVar>())
     }
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint): CInt =
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CUint): CInt =
     libcUnixNtoSendmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint, timeout: MutPtr<Timespec>): CInt =
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CUint, timeout: MutPtr): CInt =
     libcUnixNtoRecvmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     libcUnixNtoSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     libcUnixNtoSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
 public actual fun fdatasync(fd: CInt): CInt =
@@ -263,116 +251,116 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     libcUnixNtoSetpriority(which, who, prio)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     libcUnixNtoMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mknodat(fd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(fd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     libcUnixNtoMknodat(fd, pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     libcUnixNtoClockGetres(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     libcUnixNtoClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     libcUnixNtoClockSettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr): CInt =
     libcUnixNtoClockGetcpuclockid(pid, clkId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     libcUnixNtoPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     MutPtr(libcUnixNtoMemalign(align, size)?.toLong() ?: 0L)
 
-public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr): CInt =
     libcUnixNtoSetgroups(ngroups, ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
     libcUnixNtoPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     libcUnixNtoFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     MutPtr(libcUnixNtoNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     libcUnixNtoUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(attr: ConstPtr, clockId: MutPtr): CInt =
     libcUnixNtoPthreadCondattrGetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     libcUnixNtoPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+public actual fun pthreadCondattrSetpshared(attr: MutPtr, pshared: CInt): CInt =
     libcUnixNtoPthreadCondattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr, pshared: CInt): CInt =
     libcUnixNtoPthreadMutexattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr, value: MutPtr): CInt =
     libcUnixNtoPthreadRwlockattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr, value: CInt): CInt =
     libcUnixNtoPthreadRwlockattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), value)
 
-public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): MutPtr<CChar> =
+public actual fun ptsnameR(fd: CInt, buf: MutPtr, buflen: SizeT): MutPtr =
     MutPtr(libcUnixNtoPtsnameR(fd, buf.rawAddress.toCPointer<ByteVar>(), buflen)?.toLong() ?: 0L)
 
 public actual fun clearenv(): CInt =
     libcUnixNtoClearenv()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     libcUnixNtoWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+public actual fun wait4(pid: PidT, status: MutPtr, options: CInt, rusage: MutPtr): PidT =
     libcUnixNtoWait4(pid, status.rawAddress.toCPointer<ByteVar>(), options, rusage.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcUnixNtoExecvpe(file.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+public actual fun getifaddrs(ifap: MutPtr): CInt =
     libcUnixNtoGetifaddrs(ifap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+public actual fun freeifaddrs(ifa: MutPtr) {
     libcUnixNtoFreeifaddrs(ifa.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+public actual fun bind(socket: CInt, address: ConstPtr, addressLen: SocklenT): CInt =
     libcUnixNtoBind(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen)
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     libcUnixNtoWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     libcUnixNtoReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     libcUnixNtoSendmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: CInt, msg: MutPtr, flags: CInt): SsizeT =
     libcUnixNtoRecvmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt =
     libcUnixNtoOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+public actual fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT =
     libcUnixNtoForkpty(amaster.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun loginTty(fd: CInt): CInt =
     libcUnixNtoLoginTty(fd)
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     libcUnixNtoUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+public actual fun getpeereid(socket: CInt, euid: MutPtr, egid: MutPtr): CInt =
     libcUnixNtoGetpeereid(socket, euid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     libcUnixNtoStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
 public actual fun abs(i: CInt): CInt =
@@ -396,7 +384,7 @@ public actual fun endpwent() {
     libcUnixNtoEndpwent()
 }
 
-public actual fun getpwent(): MutPtr<Passwd> =
+public actual fun getpwent(): MutPtr =
     MutPtr(libcUnixNtoGetpwent()?.toLong() ?: 0L)
 
 public actual fun setgrent() {
@@ -407,7 +395,7 @@ public actual fun endgrent() {
     libcUnixNtoEndgrent()
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     MutPtr(libcUnixNtoGetgrent()?.toLong() ?: 0L)
 
 public actual fun setspent() {
@@ -418,203 +406,203 @@ public actual fun endspent() {
     libcUnixNtoEndspent()
 }
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     libcUnixNtoShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     libcUnixNtoFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     libcUnixNtoMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
     libcUnixNtoPosixFallocate(fd, offset, len)
 
-public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+public actual fun mkostemp(template: MutPtr, flags: CInt): CInt =
     libcUnixNtoMkostemp(template.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: MutPtr, suffixlen: CInt, flags: CInt): CInt =
     libcUnixNtoMkostemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen, flags)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     libcUnixNtoSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt =
     libcUnixNtoSigwaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
     libcUnixNtoPthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
 
-public actual fun ifNameindex(): MutPtr<IfNameindex> =
+public actual fun ifNameindex(): MutPtr =
     MutPtr(libcUnixNtoIfNameindex()?.toLong() ?: 0L)
 
-public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+public actual fun ifFreenameindex(ptr: MutPtr) {
     libcUnixNtoIfFreenameindex(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+public actual fun glob(pattern: ConstPtr, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: MutPtr): CInt =
     libcUnixNtoGlob(pattern.rawAddress.toCPointer<ByteVar>(), flags, 0L.toCPointer<ByteVar>(), pglob.rawAddress.toCPointer<ByteVar>())
 
-public actual fun globfree(pglob: MutPtr<GlobT>) {
+public actual fun globfree(pglob: MutPtr) {
     libcUnixNtoGlobfree(pglob.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     libcUnixNtoPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     libcUnixNtoShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     libcUnixNtoSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     libcUnixNtoTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     libcUnixNtoMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT =
     libcUnixNtoRecvfrom(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: MutPtr, suffixlen: CInt): CInt =
     libcUnixNtoMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun getdomainname(name: MutPtr, len: SizeT): CInt =
     libcUnixNtoGetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun setdomainname(name: ConstPtr, len: SizeT): CInt =
     libcUnixNtoSetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun sync() {
     libcUnixNtoSync()
 }
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr, param: MutPtr): CInt =
     libcUnixNtoPthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount(target: ConstPtr, flags: CInt): CInt =
     libcUnixNtoUmount(target.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
     libcUnixNtoSchedGetPriorityMax(policy)
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<CVoid>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     libcUnixNtoSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     libcUnixNtoSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     libcUnixNtoSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     libcUnixNtoSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     libcUnixNtoSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mount(specialDevice: ConstPtr<CChar>, mountDirectory: ConstPtr<CChar>, flags: CInt, mountType: ConstPtr<CChar>, mountData: ConstPtr<CVoid>, mountDatalen: CInt): CInt =
+public actual fun mount(specialDevice: ConstPtr, mountDirectory: ConstPtr, flags: CInt, mountType: ConstPtr, mountData: ConstPtr, mountDatalen: CInt): CInt =
     libcUnixNtoMount(specialDevice.rawAddress.toCPointer<ByteVar>(), mountDirectory.rawAddress.toCPointer<ByteVar>(), flags, mountType.rawAddress.toCPointer<ByteVar>(), mountData.rawAddress.toCPointer<ByteVar>(), mountDatalen)
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     libcUnixNtoSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexConsistent(mutex: MutPtr): CInt =
     libcUnixNtoPthreadMutexConsistent(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(lock: MutPtr, abstime: ConstPtr): CInt =
     libcUnixNtoPthreadMutexTimedlock(lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: MutPtr, pshared: CInt): CInt =
     libcUnixNtoPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinDestroy(lock: MutPtr): CInt =
     libcUnixNtoPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinLock(lock: MutPtr): CInt =
     libcUnixNtoPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinTrylock(lock: MutPtr): CInt =
     libcUnixNtoPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinUnlock(lock: MutPtr): CInt =
     libcUnixNtoPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+public actual fun pthreadBarrierattrInit(attr: MutPtr): CInt =
     libcUnixNtoPthreadBarrierattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr): CInt =
     libcUnixNtoPthreadBarrierattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, pshared: MutPtr<CInt>): CInt =
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr, pshared: MutPtr): CInt =
     libcUnixNtoPthreadBarrierattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, pshared: CInt): CInt =
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr, pshared: CInt): CInt =
     libcUnixNtoPthreadBarrierattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+public actual fun pthreadBarrierInit(barrier: MutPtr, attr: ConstPtr, count: CUint): CInt =
     libcUnixNtoPthreadBarrierInit(barrier.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+public actual fun pthreadBarrierDestroy(barrier: MutPtr): CInt =
     libcUnixNtoPthreadBarrierDestroy(barrier.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+public actual fun pthreadBarrierWait(barrier: MutPtr): CInt =
     libcUnixNtoPthreadBarrierWait(barrier.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     libcUnixNtoSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     libcUnixNtoClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr, guardsize: MutPtr): CInt =
     libcUnixNtoPthreadAttrGetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+public actual fun pthreadAttrSetguardsize(attr: MutPtr, guardsize: SizeT): CInt =
     libcUnixNtoPthreadAttrSetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize)
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     libcUnixNtoSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     libcUnixNtoSchedGetPriorityMin(policy)
 
-public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr, pshared: MutPtr): CInt =
     libcUnixNtoPthreadCondattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr): CInt =
     libcUnixNtoPthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     libcUnixNtoSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     libcUnixNtoSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixNtoGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     libcUnixNtoSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
     libcUnixNtoGetdtablesize()
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixNtoGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+public actual fun initgroups(user: ConstPtr, group: GidT): CInt =
     libcUnixNtoInitgroups(user.rawAddress.toCPointer<ByteVar>(), group)
 
-public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     libcUnixNtoPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(libcUnixNtoSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     MutPtr(libcUnixNtoGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
@@ -623,115 +611,115 @@ public actual fun pthreadCancel(thread: PthreadT): CInt =
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
     libcUnixNtoPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     libcUnixNtoSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libcUnixNtoDaemon(nochdir, noclose)
 
-public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwnamR(name: ConstPtr, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixNtoGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixNtoGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     libcUnixNtoSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     libcUnixNtoPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     MutPtr(libcUnixNtoGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     libcUnixNtoGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr, pshared: MutPtr): CInt =
     libcUnixNtoPthreadMutexattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetrobust(attr: ConstPtr<PthreadMutexattrT>, robustness: MutPtr<CInt>): CInt =
+public actual fun pthreadMutexattrGetrobust(attr: ConstPtr, robustness: MutPtr): CInt =
     libcUnixNtoPthreadMutexattrGetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr, robustness: CInt): CInt =
     libcUnixNtoPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     libcUnixNtoPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+public actual fun getitimer(which: CInt, currValue: MutPtr): CInt =
     libcUnixNtoGetitimer(which, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setitimer(which: CInt, value: ConstPtr<Itimerval>, ovalue: MutPtr<Itimerval>): CInt =
+public actual fun setitimer(which: CInt, value: ConstPtr, ovalue: MutPtr): CInt =
     libcUnixNtoSetitimer(which, value.rawAddress.toCPointer<ByteVar>(), ovalue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawn(pid: MutPtr, path: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcUnixNtoPosixSpawn(pid.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawnp(pid: MutPtr, file: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcUnixNtoPosixSpawnp(pid.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrInit(attr: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrDestroy(attr: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr, default: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr, default: ConstPtr): CInt =
     libcUnixNtoPosixSpawnattrSetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr, default: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr, default: ConstPtr): CInt =
     libcUnixNtoPosixSpawnattrSetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+public actual fun posixSpawnattrGetflags(attr: ConstPtr, flags: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetflags(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: MutPtr, flags: CShort): CInt =
     libcUnixNtoPosixSpawnattrSetflags(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr, flags: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr, flags: PidT): CInt =
     libcUnixNtoPosixSpawnattrSetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr, flags: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr, flags: CInt): CInt =
     libcUnixNtoPosixSpawnattrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr, param: MutPtr): CInt =
     libcUnixNtoPosixSpawnattrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr, param: ConstPtr): CInt =
     libcUnixNtoPosixSpawnattrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsInit(actions: MutPtr): CInt =
     libcUnixNtoPosixSpawnFileActionsInit(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr): CInt =
     libcUnixNtoPosixSpawnFileActionsDestroy(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr, fd: CInt, path: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     libcUnixNtoPosixSpawnFileActionsAddopen(actions.rawAddress.toCPointer<ByteVar>(), fd, path.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr, fd: CInt): CInt =
     libcUnixNtoPosixSpawnFileActionsAddclose(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr, fd: CInt, newfd: CInt): CInt =
     libcUnixNtoPosixSpawnFileActionsAdddup2(actions.rawAddress.toCPointer<ByteVar>(), fd, newfd)
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(libcUnixNtoPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     libcUnixNtoFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
@@ -740,25 +728,25 @@ public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
 public actual fun inotifyInit(): CInt =
     libcUnixNtoInotifyInit()
 
-public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr, mask: UInt): CInt =
     libcUnixNtoInotifyAddWatch(fd, path.rawAddress.toCPointer<ByteVar>(), mask)
 
 public actual fun gettid(): PidT =
     libcUnixNtoGettid()
 
-public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: MutPtr): CInt =
     libcUnixNtoPthreadGetcpuclockid(thread.toLong().toCPointer<ByteVar>(), clkId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt =
     libcUnixNtoGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
 public actual fun mallopt(param: CInt, value: Long): CInt =
     libcUnixNtoMallopt(param, value)
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     libcUnixNtoGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctermid(s: MutPtr): MutPtr =
     MutPtr(libcUnixNtoCtermid(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
@@ -767,106 +755,106 @@ public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CIn
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
-public actual fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, bufsize: CInt, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwentR(pwd: MutPtr, buf: MutPtr, bufsize: CInt, result: MutPtr): CInt =
     libcUnixNtoGetpwentR(pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsize, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: CInt): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: CInt): CInt =
     libcUnixNtoPthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): CInt =
     libcUnixNtoPthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sysctl(arg0: ConstPtr<CInt>, arg1: CUint, arg2: MutPtr<CVoid>, arg3: MutPtr<SizeT>, arg4: ConstPtr<CVoid>, arg5: SizeT): CInt =
+public actual fun sysctl(arg0: ConstPtr, arg1: CUint, arg2: MutPtr, arg3: MutPtr, arg4: ConstPtr, arg5: SizeT): CInt =
     libcUnixNtoSysctl(arg0.rawAddress.toCPointer<ByteVar>(), arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>(), arg5)
 
-public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+public actual fun getrlimit(resource: CInt, rlim: MutPtr): CInt =
     libcUnixNtoGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlp: ConstPtr<Rlimit>): CInt =
+public actual fun setrlimit(resource: CInt, rlp: ConstPtr): CInt =
     libcUnixNtoSetrlimit(resource, rlp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lioListio(mode: CInt, list: ConstPtr<MutPtr<Aiocb>>, nent: CInt, sig: MutPtr<Sigevent>): CInt =
+public actual fun lioListio(mode: CInt, list: ConstPtr, nent: CInt, sig: MutPtr): CInt =
     libcUnixNtoLioListio(mode, list.rawAddress.toCPointer<ByteVar>(), nent, sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     libcUnixNtoDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+public actual fun memsetS(s: MutPtr, smax: SizeT, c: CInt, n: SizeT): CInt =
     libcUnixNtoMemsetS(s.rawAddress.toCPointer<ByteVar>(), smax, c, n)
 
-public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+public actual fun regcomp(preg: MutPtr, pattern: ConstPtr, cflags: CInt): CInt =
     libcUnixNtoRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regexec(preg: ConstPtr<RegexT>, str: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+public actual fun regexec(preg: ConstPtr, str: ConstPtr, nmatch: SizeT, pmatch: MutPtr, eflags: CInt): CInt =
     libcUnixNtoRegexec(preg.rawAddress.toCPointer<ByteVar>(), str.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+public actual fun regerror(errcode: CInt, preg: ConstPtr, errbuf: MutPtr, errbufSize: SizeT): SizeT =
     libcUnixNtoRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regfree(preg: MutPtr<RegexT>) {
+public actual fun regfree(preg: MutPtr) {
     libcUnixNtoRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     libcUnixNtoDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dircntl(dir: MutPtr<DIR>, cmd: CInt, vararg variadicArgs: Long): CInt =
+public actual fun dircntl(dir: MutPtr, cmd: CInt, vararg variadicArgs: Long): CInt =
     libcUnixNtoDircntl(dir.rawAddress.toCPointer<ByteVar>(), cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr): CInt =
     libcUnixNtoAioCancel(fd, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+public actual fun aioError(aiocbp: ConstPtr): CInt =
     libcUnixNtoAioError(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioFsync(operation: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioFsync(operation: CInt, aiocbp: MutPtr): CInt =
     libcUnixNtoAioFsync(operation, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioRead(aiocbp: MutPtr): CInt =
     libcUnixNtoAioRead(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReturn(aiocpb: MutPtr<Aiocb>): SsizeT =
+public actual fun aioReturn(aiocpb: MutPtr): SsizeT =
     libcUnixNtoAioReturn(aiocpb.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioSuspend(list: ConstPtr<ConstPtr<Aiocb>>, nent: CInt, timeout: ConstPtr<Timespec>): CInt =
+public actual fun aioSuspend(list: ConstPtr, nent: CInt, timeout: ConstPtr): CInt =
     libcUnixNtoAioSuspend(list.rawAddress.toCPointer<ByteVar>(), nent, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWrite(aiocpb: MutPtr<Aiocb>): CInt =
+public actual fun aioWrite(aiocpb: MutPtr): CInt =
     libcUnixNtoAioWrite(aiocpb.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mqClose(mqdes: MqdT): CInt =
     libcUnixNtoMqClose(mqdes.toLong().toCPointer<ByteVar>())
 
-public actual fun mqGetattr(mqdes: MqdT, mqstat: MutPtr<MqAttr>): CInt =
+public actual fun mqGetattr(mqdes: MqdT, mqstat: MutPtr): CInt =
     libcUnixNtoMqGetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqNotify(mqdes: MqdT, notification: ConstPtr<Sigevent>): CInt =
+public actual fun mqNotify(mqdes: MqdT, notification: ConstPtr): CInt =
     libcUnixNtoMqNotify(mqdes.toLong().toCPointer<ByteVar>(), notification.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+public actual fun mqOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MqdT =
     (libcUnixNtoMqOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
-public actual fun mqReceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+public actual fun mqReceive(mqdes: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr): SsizeT =
     libcUnixNtoMqReceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+public actual fun mqSend(mqdes: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint): CInt =
     libcUnixNtoMqSend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio)
 
-public actual fun mqSetattr(mqdes: MqdT, mqstat: ConstPtr<MqAttr>, omqstat: MutPtr<MqAttr>): CInt =
+public actual fun mqSetattr(mqdes: MqdT, mqstat: ConstPtr, omqstat: MutPtr): CInt =
     libcUnixNtoMqSetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat.rawAddress.toCPointer<ByteVar>(), omqstat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr, absTimeout: ConstPtr): SsizeT =
     libcUnixNtoMqTimedreceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>(), absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedsend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+public actual fun mqTimedsend(mqdes: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr): CInt =
     libcUnixNtoMqTimedsend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio, absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun mqUnlink(name: ConstPtr): CInt =
     libcUnixNtoMqUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getErrnoPtr(): MutPtr<CInt> =
+public actual fun getErrnoPtr(): MutPtr =
     MutPtr(libcUnixNtoGetErrnoPtr()?.toLong() ?: 0L)
 
-public actual fun myThreadExit(valuePtr: MutPtr<ConstPtr<CVoid>>) {
+public actual fun myThreadExit(valuePtr: MutPtr) {
     libcUnixNtoMyThreadExit(valuePtr.rawAddress.toCPointer<ByteVar>())
 }

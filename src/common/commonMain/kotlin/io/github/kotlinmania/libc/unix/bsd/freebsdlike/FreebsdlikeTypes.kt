@@ -10,21 +10,21 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ModeT = UShort
 
-public typealias PthreadAttrT = MutPtr<CVoid>
+public typealias PthreadAttrT = MutPtr
 
 public typealias RlimT = Long
 
-public typealias PthreadMutexT = MutPtr<CVoid>
+public typealias PthreadMutexT = MutPtr
 
-public typealias PthreadMutexattrT = MutPtr<CVoid>
+public typealias PthreadMutexattrT = MutPtr
 
-public typealias PthreadCondT = MutPtr<CVoid>
+public typealias PthreadCondT = MutPtr
 
-public typealias PthreadCondattrT = MutPtr<CVoid>
+public typealias PthreadCondattrT = MutPtr
 
-public typealias PthreadRwlockT = MutPtr<CVoid>
+public typealias PthreadRwlockT = MutPtr
 
-public typealias PthreadRwlockattrT = MutPtr<CVoid>
+public typealias PthreadRwlockattrT = MutPtr
 
 public typealias PthreadKeyT = CInt
 
@@ -69,15 +69,15 @@ public typealias Elf64Word = UInt
 
 public typealias Elf64Xword = ULong
 
-public typealias IconvT = MutPtr<CVoid>
+public typealias IconvT = MutPtr
 
 // It's an alias over "struct __kvm_t". However, its fields aren't supposed to be used directly,
 // making the type definition system dependent. Better not bind it exactly.
 public typealias KvmT = CVoid
 
-public typealias PosixSpawnattrT = MutPtr<CVoid>
+public typealias PosixSpawnattrT = MutPtr
 
-public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
+public typealias PosixSpawnFileActionsT = MutPtr
 
 // link.h
 public typealias ElfAddr = Elf64Addr

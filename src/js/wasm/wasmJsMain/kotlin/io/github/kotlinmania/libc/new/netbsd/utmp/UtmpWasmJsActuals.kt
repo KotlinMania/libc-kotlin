@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -25,7 +24,7 @@ private external fun wasmLibcNewNetbsdUtmpGetutent(): String
 @JsFun("() => globalThis.__km_napi_libc.libcNewNetbsdUtmpEndutent()")
 private external fun wasmLibcNewNetbsdUtmpEndutent()
 
-public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpname(file: ConstPtr): CInt =
     if (newNetbsdUtmpNapiAvailable) wasmLibcNewNetbsdUtmpUtmpname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutent() {
@@ -36,7 +35,7 @@ public actual fun setutent() {
     }
 }
 
-public actual fun getutent(): MutPtr<Utmp> =
+public actual fun getutent(): MutPtr =
     if (newNetbsdUtmpNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpGetutent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun endutent() {

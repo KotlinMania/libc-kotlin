@@ -4,26 +4,18 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.haiku.b64.ElfAddr
 import io.github.kotlinmania.libc.unix.haiku.b64.ElfHalf
-import io.github.kotlinmania.libc.unix.haiku.b64.ElfPhdr
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -39,7 +31,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 // this libc crate.
 
 public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: MutPtr<DlPhdrInfo>, size: ULong, data: MutPtr<CVoid>): CInt
+    public operator fun invoke(info: MutPtr, size: ULong, data: MutPtr): CInt
 }
 
 // stringlist.h (utility library)
@@ -49,11 +41,11 @@ public typealias StringList = Stringlist
 // stringlist.h (utility library)
 // Note: this is kept because it was previously introduced
 public class Stringlist internal constructor(
-    slStrCtorArg: MutPtr<MutPtr<CChar>>,
+    slStrCtorArg: MutPtr,
     public var slMax: SizeT,
     public var slCur: SizeT,
 ) {
-    public var slStr: MutPtr<MutPtr<CChar>> = slStrCtorArg
+    public var slStr: MutPtr = slStrCtorArg
         internal set
 
     public constructor() : this(
@@ -62,13 +54,13 @@ public class Stringlist internal constructor(
         slCur = 0uL,
     )
 
-    public operator fun component1(): MutPtr<MutPtr<CChar>> = this.slStr
+    public operator fun component1(): MutPtr = this.slStr
 
     public operator fun component2(): SizeT = this.slMax
 
     public operator fun component3(): SizeT = this.slCur
 
-    public fun copy(slStr: MutPtr<MutPtr<CChar>> = this.slStr, slMax: SizeT = this.slMax, slCur: SizeT = this.slCur): Stringlist = Stringlist(slStrCtorArg = slStr, slMax = slMax, slCur = slCur)
+    public fun copy(slStr: MutPtr = this.slStr, slMax: SizeT = this.slMax, slCur: SizeT = this.slCur): Stringlist = Stringlist(slStrCtorArg = slStr, slMax = slMax, slCur = slCur)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -95,7 +87,7 @@ public class Stringlist internal constructor(
                     Stringlist(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<MutPtr<CChar>>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
@@ -103,7 +95,7 @@ public class Stringlist internal constructor(
                 override fun writeNative(addr: Long, value: Stringlist) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<MutPtr<CChar>>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.slStr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.slMax)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.slCur)
@@ -111,7 +103,7 @@ public class Stringlist internal constructor(
             }
 
         public operator fun invoke(
-            slStr: MutPtr<MutPtr<CChar>> = MutPtr(0L),
+            slStr: MutPtr = MutPtr(0L),
             slMax: SizeT = 0uL,
             slCur: SizeT = 0uL,
         ): Stringlist =
@@ -130,10 +122,10 @@ public class Kevent internal constructor(
     public var flags: CUshort,
     public var fflags: CUint,
     public var data: Long,
-    udataCtorArg: MutPtr<CVoid>,
+    udataCtorArg: MutPtr,
     public var ext: ULongArray,
 ) {
-    public var udata: MutPtr<CVoid> = udataCtorArg
+    public var udata: MutPtr = udataCtorArg
         internal set
 
     public constructor() : this(
@@ -156,11 +148,11 @@ public class Kevent internal constructor(
 
     public operator fun component5(): Long = this.data
 
-    public operator fun component6(): MutPtr<CVoid> = this.udata
+    public operator fun component6(): MutPtr = this.udata
 
     public operator fun component7(): ULongArray = this.ext
 
-    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: Long = this.data, udata: MutPtr<CVoid> = this.udata, ext: ULongArray = this.ext): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata, ext = ext)
+    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: Long = this.data, udata: MutPtr = this.udata, ext: ULongArray = this.ext): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata, ext = ext)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -200,7 +192,7 @@ public class Kevent internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -215,7 +207,7 @@ public class Kevent internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 16L, value.data)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.udata)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -230,7 +222,7 @@ public class Kevent internal constructor(
             flags: CUshort = 0u,
             fflags: CUint = 0u,
             data: Long = 0L,
-            udata: MutPtr<CVoid> = MutPtr(0L),
+            udata: MutPtr = MutPtr(0L),
             ext: ULongArray = ULongArray(4),
         ): Kevent =
             Kevent(
@@ -248,14 +240,14 @@ public class Kevent internal constructor(
 // sys/linkElf.h
 public class DlPhdrInfo internal constructor(
     public var dlpiAddr: ElfAddr,
-    dlpiNameCtorArg: ConstPtr<CChar>,
-    dlpiPhdrCtorArg: ConstPtr<ElfPhdr>,
+    dlpiNameCtorArg: ConstPtr,
+    dlpiPhdrCtorArg: ConstPtr,
     public var dlpiPhnum: ElfHalf,
 ) {
-    public var dlpiName: ConstPtr<CChar> = dlpiNameCtorArg
+    public var dlpiName: ConstPtr = dlpiNameCtorArg
         internal set
 
-    public var dlpiPhdr: ConstPtr<ElfPhdr> = dlpiPhdrCtorArg
+    public var dlpiPhdr: ConstPtr = dlpiPhdrCtorArg
         internal set
 
     public constructor() : this(
@@ -267,13 +259,13 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component1(): ElfAddr = this.dlpiAddr
 
-    public operator fun component2(): ConstPtr<CChar> = this.dlpiName
+    public operator fun component2(): ConstPtr = this.dlpiName
 
-    public operator fun component3(): ConstPtr<ElfPhdr> = this.dlpiPhdr
+    public operator fun component3(): ConstPtr = this.dlpiPhdr
 
     public operator fun component4(): ElfHalf = this.dlpiPhnum
 
-    public fun copy(dlpiAddr: ElfAddr = this.dlpiAddr, dlpiName: ConstPtr<CChar> = this.dlpiName, dlpiPhdr: ConstPtr<ElfPhdr> = this.dlpiPhdr, dlpiPhnum: ElfHalf = this.dlpiPhnum): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum)
+    public fun copy(dlpiAddr: ElfAddr = this.dlpiAddr, dlpiName: ConstPtr = this.dlpiName, dlpiPhdr: ConstPtr = this.dlpiPhdr, dlpiPhnum: ElfHalf = this.dlpiPhnum): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -303,11 +295,11 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<ElfPhdr>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 24L),
                     )
@@ -315,11 +307,11 @@ public class DlPhdrInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.dlpiAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 8L, value.dlpiName)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<ElfPhdr>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.dlpiPhdr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 24L, value.dlpiPhnum)
                 }
@@ -327,8 +319,8 @@ public class DlPhdrInfo internal constructor(
 
         public operator fun invoke(
             dlpiAddr: ElfAddr = 0uL,
-            dlpiName: ConstPtr<CChar> = ConstPtr(0L),
-            dlpiPhdr: ConstPtr<ElfPhdr> = ConstPtr(0L),
+            dlpiName: ConstPtr = ConstPtr(0L),
+            dlpiPhdr: ConstPtr = ConstPtr(0L),
             dlpiPhnum: ElfHalf = 0u,
         ): DlPhdrInfo =
             DlPhdrInfo(
@@ -375,57 +367,57 @@ public val IOC_DIRMASK: CUlong = 0xe0000000uL
 // stdlib.h
 public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
 
-public expect fun getprogname(): ConstPtr<CChar>
+public expect fun getprogname(): ConstPtr
 
-public expect fun setprogname(progname: ConstPtr<CChar>)
+public expect fun setprogname(progname: ConstPtr)
 
 public expect fun arc4random(): UInt
 
 public expect fun arc4randomUniform(upperBound: UInt): UInt
 
-public expect fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT)
+public expect fun arc4randomBuf(buf: MutPtr, n: SizeT)
 
-public expect fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt
+public expect fun mkstemps(template: MutPtr, suffixlen: CInt): CInt
 
-public expect fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong
+public expect fun strtonum(nptr: ConstPtr, minval: CLonglong, maxval: CLonglong, errstr: MutPtr): CLonglong
 
 // pty.h
-public expect fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt
+public expect fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt
 
 public expect fun loginTty(fd: CInt): CInt
 
-public expect fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT
+public expect fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT
 
 // string.h
-public expect fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar>
+public expect fun strsep(string: MutPtr, delimiters: ConstPtr): MutPtr
 
-public expect fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT)
+public expect fun explicitBzero(buf: MutPtr, len: SizeT)
 
 // stringlist.h (utility library)
 // Note: this is kept because it was previously introduced
-public expect fun slInit(): MutPtr<StringList>
+public expect fun slInit(): MutPtr
 
-public expect fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt
+public expect fun slAdd(sl: MutPtr, n: MutPtr): CInt
 
-public expect fun slFree(sl: MutPtr<StringList>, i: CInt)
+public expect fun slFree(sl: MutPtr, i: CInt)
 
-public expect fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar>
+public expect fun slFind(sl: MutPtr, n: MutPtr): MutPtr
 
 // sys/event.h
 public expect fun kqueue(): CInt
 
-public expect fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt
+public expect fun kevent(kq: CInt, changelist: ConstPtr, nchanges: CInt, eventlist: MutPtr, nevents: CInt, timeout: ConstPtr): CInt
 
 // sys/linkElf.h
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt
 
 // sys/time.h
-public expect fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt
+public expect fun lutimes(file: ConstPtr, times: ConstPtr): CInt
 
 // sys/uov.h
-public expect fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
 // sys/wait.h
-public expect fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT
+public expect fun wait4(pid: PidT, status: MutPtr, options: CInt, rusage: MutPtr): PidT

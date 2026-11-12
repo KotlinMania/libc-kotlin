@@ -13,26 +13,25 @@ import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanM
 import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunlock
 import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunlockall
 import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunmap
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     MutPtr(libcNewQurtSysMmanMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     libcNewQurtSysMmanMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     libcNewQurtSysMmanMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun mlock(addr: ConstPtr, len: SizeT): CInt =
     libcNewQurtSysMmanMlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun munlock(addr: ConstPtr, len: SizeT): CInt =
     libcNewQurtSysMmanMunlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun mlockall(flags: CInt): CInt =
@@ -41,5 +40,5 @@ public actual fun mlockall(flags: CInt): CInt =
 public actual fun munlockall(): CInt =
     libcNewQurtSysMmanMunlockall()
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     libcNewQurtSysMmanMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)

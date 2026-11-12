@@ -4,16 +4,9 @@ package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
-import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
-import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
-import io.github.kotlinmania.libc.unix.newlib.PthreadT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -98,27 +91,27 @@ private object UnixNewlibRtemsJniBridge {
     external fun libcUnixNewlibRtemsSetgroups(ngroups: Int, grouplist: Long): Int
 }
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsFutimens(fd, times.rawAddress)
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsPthreadCondattrSetclock(attr.rawAddress, clockId.toLong())
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun arc4randomBuf(buf: MutPtr<CVoid>, nbytes: SizeT) {
+public actual fun arc4randomBuf(buf: MutPtr, nbytes: SizeT) {
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsArc4randomBuf(buf.rawAddress, nbytes.toLong())
 }
 
-public actual fun setgroups(ngroups: CInt, grouplist: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: CInt, grouplist: ConstPtr): CInt =
     UnixNewlibRtemsJniBridge.libcUnixNewlibRtemsSetgroups(ngroups, grouplist.rawAddress)

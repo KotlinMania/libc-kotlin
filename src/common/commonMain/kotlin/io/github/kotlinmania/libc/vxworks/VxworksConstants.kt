@@ -8,7 +8,6 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -1220,7 +1219,7 @@ public val MS_ASYNC: CInt = 0x0002
 
 public val MS_INVALIDATE: CInt = 0x0004
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 // sys/ttycom.h
 public val TIOCGWINSZ: CInt = 0x1740087468L.toInt()
@@ -1229,7 +1228,7 @@ public val TIOCSWINSZ: CInt = -0x7ff78b99
 
 // Note(vxworks): This is not defined in vxWorks, but we have to define it here
 // to make the building pass for getrandom and std
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
 public val SS_ALIGNSIZE: Int = sizeOf<UInt>(typeLayoutT = PrimitiveLayouts.U32)
 

@@ -4,7 +4,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.qos.QosClassT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -20,14 +19,14 @@ private external fun wasmLibcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassN
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(p0, p1, p2)")
 private external fun wasmLibcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(p0: String, p1: String, p2: String): Int
 
-public actual fun pthreadAttrSetQosClassNp(attr: MutPtr<PthreadAttrT>, cls: QosClassT, priority: CInt): CInt =
+public actual fun pthreadAttrSetQosClassNp(attr: MutPtr, cls: QosClassT, priority: CInt): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetQosClassNp(attr: MutPtr<PthreadAttrT>, cls: MutPtr<QosClassT>, priority: MutPtr<CInt>): CInt =
+public actual fun pthreadAttrGetQosClassNp(attr: MutPtr, cls: MutPtr, priority: MutPtr): CInt =
     if (newAppleLibpthreadPthreadQosNapiAvailable) wasmLibcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp(attr.rawAddress.toString(), cls.rawAddress.toString(), priority.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSetQosClassSelfNp(cls: QosClassT, priority: CInt): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetQosClassNp(thread: PthreadT, cls: MutPtr<QosClassT>, priority: MutPtr<CInt>): CInt =
+public actual fun pthreadGetQosClassNp(thread: PthreadT, cls: MutPtr, priority: MutPtr): CInt =
     if (newAppleLibpthreadPthreadQosNapiAvailable) wasmLibcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(thread.toLong().toString(), cls.rawAddress.toString(), priority.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

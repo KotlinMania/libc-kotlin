@@ -4,16 +4,9 @@ package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
-import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
-import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
-import io.github.kotlinmania.libc.unix.newlib.PthreadT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -46,25 +39,25 @@ private external fun wasmLibcUnixNewlibRtemsArc4randomBuf(p0: String, p1: String
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixNewlibRtemsSetgroups(p0, p1)")
 private external fun wasmLibcUnixNewlibRtemsSetgroups(p0: Int, p1: String): Int
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsReadv(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsPthreadCondattrSetclock(attr.rawAddress.toString(), clockId.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsGetentropy(buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(buf: MutPtr<CVoid>, nbytes: SizeT) {
+public actual fun arc4randomBuf(buf: MutPtr, nbytes: SizeT) {
     if (unixNewlibRtemsNapiAvailable) {
         wasmLibcUnixNewlibRtemsArc4randomBuf(buf.rawAddress.toString(), nbytes.toString())
     } else {
@@ -72,5 +65,5 @@ public actual fun arc4randomBuf(buf: MutPtr<CVoid>, nbytes: SizeT) {
     }
 }
 
-public actual fun setgroups(ngroups: CInt, grouplist: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: CInt, grouplist: ConstPtr): CInt =
     if (unixNewlibRtemsNapiAvailable) wasmLibcUnixNewlibRtemsSetgroups(ngroups, grouplist.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

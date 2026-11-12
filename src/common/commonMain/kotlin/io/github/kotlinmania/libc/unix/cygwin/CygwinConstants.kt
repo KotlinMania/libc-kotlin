@@ -9,7 +9,6 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val FD_SETSIZE: Int = 1024
@@ -851,7 +850,7 @@ public val LC_TIME_MASK: CInt = 1 shl 5
 
 public val LC_MESSAGES_MASK: CInt = 1 shl 6
 
-public val LC_GLOBAL_LOCALE: LocaleT = MutPtr<CVoid>((-1).toLong())
+public val LC_GLOBAL_LOCALE: LocaleT = MutPtr((-1).toLong())
 
 public val ST_RDONLY: CUlong = 0x80000uL
 
@@ -1217,7 +1216,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_NORESERVE: CInt = 0x4000
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 
@@ -2106,6 +2105,6 @@ public val FALLOC_FL_INSERT_RANGE: CInt = 0x0010
 
 public val FALLOC_FL_KEEP_SIZE: CInt = 0x1000
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
-public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
+public val SEM_FAILED: MutPtr = MutPtr(0L)

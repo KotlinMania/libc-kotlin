@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
@@ -9,7 +8,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -124,7 +122,7 @@ public val MAP_PRIVATE: CInt = 2
 
 public val MAP_FIXED: CInt = 0x10
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 
@@ -844,7 +842,7 @@ public val MSG_NOERROR: CInt = 4096
 
 public val LOG_NFACILITIES: CInt = 24
 
-public val SEM_FAILED: MutPtr<SemT> = MutPtr<SemT>(0xFFFFFFFFFFFFFFFFuL.toLong())
+public val SEM_FAILED: MutPtr = MutPtr(0xFFFFFFFFFFFFFFFFuL.toLong())
 
 public val AI_PASSIVE: CInt = 0x00000001
 
@@ -1778,9 +1776,9 @@ public val ST_NOEXEC: CUlong = 0x02uL
 
 public val ST_NOATIME: CUlong = 0x20uL
 
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-3L))
+public val RTLD_NEXT: MutPtr = MutPtr((-3L))
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-2L))
+public val RTLD_DEFAULT: MutPtr = MutPtr((-2L))
 
 public val RTLD_NODELETE: CInt = 0x1000
 
@@ -2586,7 +2584,7 @@ public val SCHED_SETPRIO: CInt = 7
 
 public val SCHED_SPORADIC: CInt = 4
 
-public val SHM_ANON: MutPtr<CChar> = MutPtr<CChar>((-1).toLong())
+public val SHM_ANON: MutPtr = MutPtr((-1).toLong())
 
 public val SIGCLD: CInt = SIGCHLD
 

@@ -173,6 +173,6 @@ public class Timex(
     }
 }
 
-public expect fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt
+public expect fun ntpGettime(buf: MutPtr): CInt
 
-public expect fun ntpAdjtime(buf: MutPtr<Timex>): CInt
+public expect fun ntpAdjtime(buf: MutPtr): CInt

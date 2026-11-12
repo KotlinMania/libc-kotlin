@@ -1,11 +1,9 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ClockT = Long
@@ -24,23 +22,23 @@ public typealias FsfilcntT = ULong
 
 public typealias IdtypeT = CUint
 
-public typealias PthreadAttrT = MutPtr<CVoid>
+public typealias PthreadAttrT = MutPtr
 
-public typealias PthreadMutexT = MutPtr<CVoid>
+public typealias PthreadMutexT = MutPtr
 
-public typealias PthreadMutexattrT = MutPtr<CVoid>
+public typealias PthreadMutexattrT = MutPtr
 
-public typealias PthreadCondT = MutPtr<CVoid>
+public typealias PthreadCondT = MutPtr
 
-public typealias PthreadCondattrT = MutPtr<CVoid>
+public typealias PthreadCondattrT = MutPtr
 
-public typealias PthreadRwlockT = MutPtr<CVoid>
+public typealias PthreadRwlockT = MutPtr
 
-public typealias PthreadRwlockattrT = MutPtr<CVoid>
+public typealias PthreadRwlockattrT = MutPtr
 
 public typealias PthreadSpinlockT = UintptrT
 
-public typealias CaddrT = MutPtr<CChar>
+public typealias CaddrT = MutPtr
 
 // elf.h
 public typealias Elf32Addr = UInt
@@ -74,9 +72,9 @@ public typealias Elf64Xword = ULong
 public typealias Action = CUint
 
 // spawn.h
-public typealias PosixSpawnattrT = MutPtr<CVoid>
+public typealias PosixSpawnattrT = MutPtr
 
-public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
+public typealias PosixSpawnFileActionsT = MutPtr
 
 public typealias ElfAddr = Elf64Addr
 

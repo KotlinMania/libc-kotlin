@@ -16,4 +16,4 @@ public data class DarwinMcontext64(
     public var fs: DarwinX86FloatState64 = DarwinX86FloatState64(),
 )
 
-public typealias McontextT = MutPtr<DarwinMcontext64>
+public typealias McontextT = MutPtr

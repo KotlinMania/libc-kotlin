@@ -3,11 +3,9 @@
 package io.github.kotlinmania.libc.wasi.p2
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.wasi.SizeT
 import io.github.kotlinmania.libc.wasi.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -17,43 +15,43 @@ private val wasiP2NapiAddon: dynamic =
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Socket(domain, type, protocol) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(fd: CInt, name: ConstPtr<Sockaddr>, addrlen: SocklenT): CInt =
+public actual fun connect(fd: CInt, name: ConstPtr, addrlen: SocklenT): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Connect(fd, name.rawAddress.toString(), addrlen.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(socket: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): CInt =
+public actual fun bind(socket: CInt, addr: ConstPtr, addrlen: SocklenT): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Bind(socket, addr.rawAddress.toString(), addrlen.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Listen(socket, backlog) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
+public actual fun accept(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Accept(socket, addr.rawAddress.toString(), addrlen.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt =
+public actual fun accept4(socket: CInt, addr: MutPtr, addrlen: MutPtr, flags: CInt): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Accept4(socket, addr.rawAddress.toString(), addrlen.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
+public actual fun getsockname(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Getsockname(socket, addr.rawAddress.toString(), addrlen.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
+public actual fun getpeername(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Getpeername(socket, addr.rawAddress.toString(), addrlen.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(socket: CInt, buffer: ConstPtr<CVoid>, length: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+public actual fun sendto(socket: CInt, buffer: ConstPtr, length: SizeT, flags: CInt, addr: ConstPtr, addrlen: SocklenT): SsizeT =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Sendto(socket, buffer.rawAddress.toString(), length.toString(), flags, addr.rawAddress.toString(), addrlen.toInt()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(socket: CInt, buffer: MutPtr<CVoid>, length: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(socket: CInt, buffer: MutPtr, length: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Recvfrom(socket, buffer.rawAddress.toString(), length.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Getsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: ConstPtr<CVoid>, optlen: SocklenT): CInt =
+public actual fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: ConstPtr, optlen: SocklenT): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Setsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getaddrinfo(host: ConstPtr<CChar>, serv: ConstPtr<CChar>, hint: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+public actual fun getaddrinfo(host: ConstPtr, serv: ConstPtr, hint: ConstPtr, res: MutPtr): CInt =
     if (wasiP2NapiAddon != null) (wasiP2NapiAddon.libcWasiP2Getaddrinfo(host.rawAddress.toString(), serv.rawAddress.toString(), hint.rawAddress.toString(), res.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeaddrinfo(p: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(p: MutPtr) {
     if (wasiP2NapiAddon != null) {
         wasiP2NapiAddon.libcWasiP2Freeaddrinfo(p.rawAddress.toString())
     } else {
@@ -61,5 +59,5 @@ public actual fun freeaddrinfo(p: MutPtr<Addrinfo>) {
     }
 }
 
-public actual fun gaiStrerror(ecode: CInt): ConstPtr<CChar> =
+public actual fun gaiStrerror(ecode: CInt): ConstPtr =
     if (wasiP2NapiAddon != null) ConstPtr((wasiP2NapiAddon.libcWasiP2GaiStrerror(ecode) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

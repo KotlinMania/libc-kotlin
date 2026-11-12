@@ -3,9 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -158,109 +156,109 @@ private external fun wasmLibcNewQurtTolower(p0: Int): Int
 @JsFun("(p0) => globalThis.__km_napi_libc.libcNewQurtToupper(p0)")
 private external fun wasmLibcNewQurtToupper(p0: Int): Int
 
-public actual fun opendir(name: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun opendir(name: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtOpendir(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun readdir(dirp: MutPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtReaddir(dirp.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun closedir(dirp: ConstPtr<DIR>): CInt =
+public actual fun closedir(dirp: ConstPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtClosedir(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtMkdir(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+public actual fun pthreadAttrSetstack(attr: MutPtr, stackaddr: MutPtr, stacksize: SizeT): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtPthreadAttrSetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetcpuclockid(pid: PidT, clockId: MutPtr<ClockidT>): CInt =
+public actual fun clockGetcpuclockid(pid: PidT, clockId: MutPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtClockGetcpuclockid(pid, clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtSemOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtAlignedAlloc(alignment.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(s: ConstPtr<CChar>): SizeT =
+public actual fun strlen(s: ConstPtr): SizeT =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrlen(s.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dest: MutPtr, src: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrcpy(dest.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrncpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(dest: MutPtr, src: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrcat(dest.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrncat(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcmp(s1: ConstPtr, s2: ConstPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrcmp(s1.rawAddress.toString(), s2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrncmp(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcoll(s1: ConstPtr, s2: ConstPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrcoll(s1.rawAddress.toString(), s2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrxfrm(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(s: ConstPtr, c: CInt): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrchr(s.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(s: ConstPtr, c: CInt): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrrchr(s.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): SizeT =
+public actual fun strspn(s: ConstPtr, accept: ConstPtr): SizeT =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrspn(s.rawAddress.toString(), accept.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(s: ConstPtr<CChar>, reject: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(s: ConstPtr, reject: ConstPtr): SizeT =
     if (newQurtNapiAvailable) wasmLibcNewQurtStrcspn(s.rawAddress.toString(), reject.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(s: ConstPtr, accept: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrpbrk(s.rawAddress.toString(), accept.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(haystack: ConstPtr<CChar>, needle: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(haystack: ConstPtr, needle: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrstr(haystack.rawAddress.toString(), needle.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(s: MutPtr<CChar>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, delim: ConstPtr): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrtok(s.rawAddress.toString(), delim.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(errnum: CInt): MutPtr<CChar> =
+public actual fun strerror(errnum: CInt): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtStrerror(errnum).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(s: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(s: ConstPtr, c: CInt, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtMemchr(s.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(s1: ConstPtr<CVoid>, s2: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtMemcmp(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(s: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(s: MutPtr, c: CInt, n: SizeT): MutPtr =
     if (newQurtNapiAvailable) MutPtr(wasmLibcNewQurtMemset(s.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fork(): PidT =
     if (newQurtNapiAvailable) wasmLibcNewQurtFork() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execve(filename: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(filename: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     if (newQurtNapiAvailable) wasmLibcNewQurtExecve(filename.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalnum(c: CInt): CInt =

@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -190,17 +189,16 @@ import io.github.kotlinmania.libc.windows.cinterop.libcWindowsWrmdir
 import io.github.kotlinmania.libc.windows.cinterop.libcWindowsWsetlocale
 import io.github.kotlinmania.libc.windows.cinterop.libcWindowsWstat
 import io.github.kotlinmania.libc.windows.cinterop.libcWindowsWutime
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     libcWindowsPrintf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     libcWindowsFprintf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun isalnum(c: CInt): CInt =
@@ -245,39 +243,39 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     libcWindowsToupper(c)
 
-public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: MutPtr, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
     libcWindowsQsort(base.rawAddress.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun qsortS(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr<CVoid>) {
+public actual fun qsortS(base: MutPtr, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr) {
     libcWindowsQsortS(base.rawAddress.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(libcWindowsFopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, file: MutPtr): MutPtr =
     MutPtr(libcWindowsFreopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fflush(file: MutPtr<FILE>): CInt =
+public actual fun fflush(file: MutPtr): CInt =
     libcWindowsFflush(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fclose(file: MutPtr<FILE>): CInt =
+public actual fun fclose(file: MutPtr): CInt =
     libcWindowsFclose(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     libcWindowsRemove(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+public actual fun rename(oldname: ConstPtr, newname: ConstPtr): CInt =
     libcWindowsRename(oldname.rawAddress.toCPointer<ByteVar>(), newname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     MutPtr(libcWindowsTmpfile()?.toLong() ?: 0L)
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     libcWindowsSetvbuf(stream.rawAddress.toCPointer<ByteVar>(), buffer.rawAddress.toCPointer<ByteVar>(), mode, size)
 
-public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buf: MutPtr) {
     libcWindowsSetbuf(stream.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 }
 
@@ -287,99 +285,99 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     libcWindowsPutchar(c)
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     libcWindowsFgetc(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(buf: MutPtr, n: CInt, stream: MutPtr): MutPtr =
     MutPtr(libcWindowsFgets(buf.rawAddress.toCPointer<ByteVar>(), n, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     libcWindowsFputc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     libcWindowsFputs(s.rawAddress.toCPointer<ByteVar>(), stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     libcWindowsPuts(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     libcWindowsUngetc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     libcWindowsFread(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     libcWindowsFwrite(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     libcWindowsFseek(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     libcWindowsFtell(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     libcWindowsRewind(stream.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, ptr: MutPtr): CInt =
     libcWindowsFgetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, ptr: ConstPtr): CInt =
     libcWindowsFsetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     libcWindowsFeof(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     libcWindowsFerror(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     libcWindowsPerror(s.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     libcWindowsAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     libcWindowsAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     libcWindowsAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     libcWindowsAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, endp: MutPtr): CDouble =
     libcWindowsStrtod(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(s: ConstPtr, endp: MutPtr): CFloat =
     libcWindowsStrtof(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, endp: MutPtr, base: CInt): CLong =
     libcWindowsStrtol(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(s: ConstPtr, endp: MutPtr, base: CInt): CLonglong =
     libcWindowsStrtoll(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, endp: MutPtr, base: CInt): CUlong =
     libcWindowsStrtoul(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(s: ConstPtr, endp: MutPtr, base: CInt): CUlonglong =
     libcWindowsStrtoull(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     MutPtr(libcWindowsCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(libcWindowsMalloc(size)?.toLong() ?: 0L)
 
-public actual fun msize(p: MutPtr<CVoid>): SizeT =
+public actual fun msize(p: MutPtr): SizeT =
     libcWindowsMsize(p.rawAddress.toCPointer<ByteVar>())
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcWindowsRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     libcWindowsFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
@@ -396,91 +394,91 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(cb: AtexitCbCallback): CInt =
     libcWindowsAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun system(s: ConstPtr<CChar>): CInt =
+public actual fun system(s: ConstPtr): CInt =
     libcWindowsSystem(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(s: ConstPtr): MutPtr =
     MutPtr(libcWindowsGetenv(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dst: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrcpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dst: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcWindowsStrncpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(s: MutPtr, ct: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrcat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(s: MutPtr, ct: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcWindowsStrncat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcmp(cs: ConstPtr, ct: ConstPtr): CInt =
     libcWindowsStrcmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(cs: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     libcWindowsStrncmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcoll(cs: ConstPtr, ct: ConstPtr): CInt =
     libcWindowsStrcoll(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(libcWindowsStrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(libcWindowsStrrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     libcWindowsStrspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     libcWindowsStrcspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(cs: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrdup(cs.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrpbrk(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrstr(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     libcWindowsStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, maxlen: SizeT): SizeT =
     libcWindowsStrnlen(cs.rawAddress.toCPointer<ByteVar>(), maxlen)
 
-public actual fun strerror(n: CInt): MutPtr<CChar> =
+public actual fun strerror(n: CInt): MutPtr =
     MutPtr(libcWindowsStrerror(n)?.toLong() ?: 0L)
 
-public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, t: ConstPtr): MutPtr =
     MutPtr(libcWindowsStrtok(s.rawAddress.toCPointer<ByteVar>(), t.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(s: MutPtr, ct: ConstPtr, n: SizeT): SizeT =
     libcWindowsStrxfrm(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(buf: ConstPtr): SizeT =
     libcWindowsWcslen(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wcsnlen(str: ConstPtr<WcharT>, numberOfElements: SizeT): SizeT =
+public actual fun wcsnlen(str: ConstPtr, numberOfElements: SizeT): SizeT =
     libcWindowsWcsnlen(str.rawAddress.toCPointer<ByteVar>(), numberOfElements)
 
-public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+public actual fun wcstombs(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     libcWindowsWcstombs(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(libcWindowsMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     libcWindowsMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcWindowsMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(libcWindowsMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(libcWindowsMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun abs(i: CInt): CInt =
@@ -505,86 +503,86 @@ public actual fun raise(signum: CInt): CInt =
 public actual fun clock(): ClockT =
     libcWindowsClock()
 
-public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
+public actual fun ctime(sourceTime: ConstPtr): MutPtr =
     MutPtr(libcWindowsCtime(sourceTime.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble =
     libcWindowsDifftime(timeEnd, timeStart)
 
-public actual fun gmtimeS(destTime: MutPtr<Tm>, srcTime: ConstPtr<TimeT>): CInt =
+public actual fun gmtimeS(destTime: MutPtr, srcTime: ConstPtr): CInt =
     libcWindowsGmtimeS(destTime.rawAddress.toCPointer<ByteVar>(), srcTime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getDaylight(hours: MutPtr<CInt>): ErrnoT =
+public actual fun getDaylight(hours: MutPtr): ErrnoT =
     libcWindowsGetDaylight(hours.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getDstbias(seconds: MutPtr<CLong>): ErrnoT =
+public actual fun getDstbias(seconds: MutPtr): ErrnoT =
     libcWindowsGetDstbias(seconds.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getTimezone(seconds: MutPtr<CLong>): ErrnoT =
+public actual fun getTimezone(seconds: MutPtr): ErrnoT =
     libcWindowsGetTimezone(seconds.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getTzname(pReturnValue: MutPtr<SizeT>, timeZoneName: MutPtr<CChar>, sizeInBytes: SizeT, index: CInt): ErrnoT =
+public actual fun getTzname(pReturnValue: MutPtr, timeZoneName: MutPtr, sizeInBytes: SizeT, index: CInt): ErrnoT =
     libcWindowsGetTzname(pReturnValue.rawAddress.toCPointer<ByteVar>(), timeZoneName.rawAddress.toCPointer<ByteVar>(), sizeInBytes, index)
 
-public actual fun localtimeS(tmDest: MutPtr<Tm>, sourceTime: ConstPtr<TimeT>): ErrnoT =
+public actual fun localtimeS(tmDest: MutPtr, sourceTime: ConstPtr): ErrnoT =
     libcWindowsLocaltimeS(tmDest.rawAddress.toCPointer<ByteVar>(), sourceTime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun time(destTime: MutPtr<TimeT>): TimeT =
+public actual fun time(destTime: MutPtr): TimeT =
     libcWindowsTime(destTime.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tzset() {
     libcWindowsTzset()
 }
 
-public actual fun chmod(path: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun chmod(path: ConstPtr, mode: CInt): CInt =
     libcWindowsChmod(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun wchmod(path: ConstPtr<WcharT>, mode: CInt): CInt =
+public actual fun wchmod(path: ConstPtr, mode: CInt): CInt =
     libcWindowsWchmod(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mkdir(path: ConstPtr<CChar>): CInt =
+public actual fun mkdir(path: ConstPtr): CInt =
     libcWindowsMkdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wrmdir(path: ConstPtr<WcharT>): CInt =
+public actual fun wrmdir(path: ConstPtr): CInt =
     libcWindowsWrmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+public actual fun fstat(fildes: CInt, buf: MutPtr): CInt =
     libcWindowsFstat(fildes, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun stat(path: ConstPtr, buf: MutPtr): CInt =
     libcWindowsStat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wstat(path: ConstPtr<WcharT>, buf: MutPtr<Stat>): CInt =
+public actual fun wstat(path: ConstPtr, buf: MutPtr): CInt =
     libcWindowsWstat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wutime(file: ConstPtr<WcharT>, buf: MutPtr<Utimbuf>): CInt =
+public actual fun wutime(file: ConstPtr, buf: MutPtr): CInt =
     libcWindowsWutime(file.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(libcWindowsPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pclose(stream: MutPtr<FILE>): CInt =
+public actual fun pclose(stream: MutPtr): CInt =
     libcWindowsPclose(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(fd: CInt, mode: ConstPtr): MutPtr =
     MutPtr(libcWindowsFdopen(fd, mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(stream: MutPtr<FILE>): CInt =
+public actual fun fileno(stream: MutPtr): CInt =
     libcWindowsFileno(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     libcWindowsOpen(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wopen(path: ConstPtr<WcharT>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun wopen(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     libcWindowsWopen(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun creat(path: ConstPtr, mode: CInt): CInt =
     libcWindowsCreat(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun access(path: ConstPtr, amode: CInt): CInt =
     libcWindowsAccess(path.rawAddress.toCPointer<ByteVar>(), amode)
 
-public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+public actual fun chdir(dir: ConstPtr): CInt =
     libcWindowsChdir(dir.rawAddress.toCPointer<ByteVar>())
 
 public actual fun close(fd: CInt): CInt =
@@ -596,55 +594,55 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     libcWindowsDup2(src, dst)
 
-public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsExecl(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecl(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexecl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsWexecl(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsExecle(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecle(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexecle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsWexecle(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlp(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execlp(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsExeclp(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclp(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexeclp(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsWexeclp(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlpe(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execlpe(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsExeclpe(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclpe(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexeclpe(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     libcWindowsWexeclpe(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): IntptrT =
+public actual fun execv(prog: ConstPtr, argv: ConstPtr): IntptrT =
     libcWindowsExecv(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcWindowsExecve(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvp(c: ConstPtr, argv: ConstPtr): CInt =
     libcWindowsExecvp(c.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvpe(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(c: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcWindowsExecvpe(c.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wexecv(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecv(prog: ConstPtr, argv: ConstPtr): IntptrT =
     libcWindowsWexecv(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wexecve(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): IntptrT =
     libcWindowsWexecve(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wexecvp(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecvp(c: ConstPtr, argv: ConstPtr): IntptrT =
     libcWindowsWexecvp(c.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wexecvpe(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecvpe(c: ConstPtr, argv: ConstPtr, envp: ConstPtr): IntptrT =
     libcWindowsWexecvpe(c.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: CInt): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: CInt): MutPtr =
     MutPtr(libcWindowsGetcwd(buf.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
 public actual fun getpid(): CInt =
@@ -659,19 +657,19 @@ public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
 public actual fun lseek64(fd: CInt, offset: CLonglong, origin: CInt): CLonglong =
     libcWindowsLseek64(fd, offset, origin)
 
-public actual fun pipe(fds: MutPtr<CInt>, psize: CUint, textmode: CInt): CInt =
+public actual fun pipe(fds: MutPtr, psize: CUint, textmode: CInt): CInt =
     libcWindowsPipe(fds.rawAddress.toCPointer<ByteVar>(), psize, textmode)
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: CUint): CInt =
+public actual fun read(fd: CInt, buf: MutPtr, count: CUint): CInt =
     libcWindowsRead(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+public actual fun rmdir(path: ConstPtr): CInt =
     libcWindowsRmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun unlink(c: ConstPtr<CChar>): CInt =
+public actual fun unlink(c: ConstPtr): CInt =
     libcWindowsUnlink(c.rawAddress.toCPointer<ByteVar>())
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: CUint): CInt =
+public actual fun write(fd: CInt, buf: ConstPtr, count: CUint): CInt =
     libcWindowsWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun commit(fd: CInt): CInt =
@@ -683,62 +681,62 @@ public actual fun getOsfhandle(fd: CInt): IntptrT =
 public actual fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt =
     libcWindowsOpenOsfhandle(osfhandle, flags)
 
-public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(libcWindowsSetlocale(category, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun wsetlocale(category: CInt, locale: ConstPtr<WcharT>): MutPtr<WcharT> =
+public actual fun wsetlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(libcWindowsWsetlocale(category, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr =
     MutPtr(libcWindowsAlignedMalloc(size, alignment)?.toLong() ?: 0L)
 
-public actual fun alignedFree(ptr: MutPtr<CVoid>) {
+public actual fun alignedFree(ptr: MutPtr) {
     libcWindowsAlignedFree(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun alignedRealloc(memblock: MutPtr<CVoid>, size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+public actual fun alignedRealloc(memblock: MutPtr, size: SizeT, alignment: SizeT): MutPtr =
     MutPtr(libcWindowsAlignedRealloc(memblock.rawAddress.toCPointer<ByteVar>(), size, alignment)?.toLong() ?: 0L)
 
-public actual fun putenv(envstring: ConstPtr<CChar>): CInt =
+public actual fun putenv(envstring: ConstPtr): CInt =
     libcWindowsPutenv(envstring.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wputenv(envstring: ConstPtr<WcharT>): CInt =
+public actual fun wputenv(envstring: ConstPtr): CInt =
     libcWindowsWputenv(envstring.rawAddress.toCPointer<ByteVar>())
 
-public actual fun putenvS(envstring: ConstPtr<CChar>, valueString: ConstPtr<CChar>): ErrnoT =
+public actual fun putenvS(envstring: ConstPtr, valueString: ConstPtr): ErrnoT =
     libcWindowsPutenvS(envstring.rawAddress.toCPointer<ByteVar>(), valueString.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wputenvS(envstring: ConstPtr<WcharT>, valueString: ConstPtr<WcharT>): ErrnoT =
+public actual fun wputenvS(envstring: ConstPtr, valueString: ConstPtr): ErrnoT =
     libcWindowsWputenvS(envstring.rawAddress.toCPointer<ByteVar>(), valueString.rawAddress.toCPointer<ByteVar>())
 
 public actual fun listen(s: Socket, backlog: CInt): CInt =
     libcWindowsListen(s, backlog)
 
-public actual fun accept(s: Socket, addr: MutPtr<Sockaddr>, addrlen: MutPtr<CInt>): Socket =
+public actual fun accept(s: Socket, addr: MutPtr, addrlen: MutPtr): Socket =
     libcWindowsAccept(s, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun bind(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+public actual fun bind(s: Socket, name: ConstPtr, namelen: CInt): CInt =
     libcWindowsBind(s, name.rawAddress.toCPointer<ByteVar>(), namelen)
 
-public actual fun connect(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+public actual fun connect(s: Socket, name: ConstPtr, namelen: CInt): CInt =
     libcWindowsConnect(s, name.rawAddress.toCPointer<ByteVar>(), namelen)
 
-public actual fun getpeername(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+public actual fun getpeername(s: Socket, name: MutPtr, nameln: MutPtr): CInt =
     libcWindowsGetpeername(s, name.rawAddress.toCPointer<ByteVar>(), nameln.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockname(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+public actual fun getsockname(s: Socket, name: MutPtr, nameln: MutPtr): CInt =
     libcWindowsGetsockname(s, name.rawAddress.toCPointer<ByteVar>(), nameln.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr<CChar>, optlen: MutPtr<CInt>): CInt =
+public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     libcWindowsGetsockopt(s, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun recvfrom(s: Socket, buf: MutPtr<CChar>, len: CInt, flags: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<CInt>): CInt =
+public actual fun recvfrom(s: Socket, buf: MutPtr, len: CInt, flags: CInt, from: MutPtr, fromlen: MutPtr): CInt =
     libcWindowsRecvfrom(s, buf.rawAddress.toCPointer<ByteVar>(), len, flags, from.rawAddress.toCPointer<ByteVar>(), fromlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendto(s: Socket, buf: ConstPtr<CChar>, len: CInt, flags: CInt, to: ConstPtr<Sockaddr>, tolen: CInt): CInt =
+public actual fun sendto(s: Socket, buf: ConstPtr, len: CInt, flags: CInt, to: ConstPtr, tolen: CInt): CInt =
     libcWindowsSendto(s, buf.rawAddress.toCPointer<ByteVar>(), len, flags, to.rawAddress.toCPointer<ByteVar>(), tolen)
 
-public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr<CChar>, optlen: CInt): CInt =
+public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr, optlen: CInt): CInt =
     libcWindowsSetsockopt(s, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen)
 
 public actual fun socket(af: CInt, socketType: CInt, protocol: CInt): Socket =

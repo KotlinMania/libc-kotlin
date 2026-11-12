@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.windows.SizeT
 import io.github.kotlinmania.libc.windows.WcharT
@@ -25,11 +24,11 @@ private object WindowsGnuJniBridge {
     external fun libcWindowsGnuWmemchr(cx: Long, c: Short, n: Long): Long
 }
 
-public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(s1: ConstPtr, s2: ConstPtr): CInt =
     WindowsGnuJniBridge.libcWindowsGnuStrcasecmp(s1.rawAddress, s2.rawAddress)
 
-public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncasecmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     WindowsGnuJniBridge.libcWindowsGnuStrncasecmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     MutPtr(WindowsGnuJniBridge.libcWindowsGnuWmemchr(cx.rawAddress, c.toShort(), n.toLong()))

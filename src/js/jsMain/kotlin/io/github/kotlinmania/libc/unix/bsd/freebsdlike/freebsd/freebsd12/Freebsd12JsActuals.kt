@@ -3,13 +3,11 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd12
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private val unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon: dynamic =
@@ -23,7 +21,7 @@ public actual fun setgrent() {
     }
 }
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     if (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect(addr.rawAddress.toString(), len.toString(), prot) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
@@ -34,16 +32,16 @@ public actual fun freelocale(loc: LocaleT) {
     }
 }
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     if (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtyp.toString(), msgflg) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) MutPtr((unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) MutPtr((unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, arg: MutPtr<CVoid>, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: MutPtr, num: SizeT, size: SizeT, arg: MutPtr, compar: QsortRComparCallback?) {
     if (unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) {
         unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR(base.rawAddress.toString(), num.toString(), size.toString(), arg.rawAddress.toString(), 0L.toString())
     } else {

@@ -4,13 +4,11 @@
 package io.github.kotlinmania.libc.wasi.p2
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.wasi.SizeT
 import io.github.kotlinmania.libc.wasi.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -223,17 +221,17 @@ public class Addrinfo internal constructor(
     public var aiSocktype: CInt,
     public var aiProtocol: CInt,
     public var aiAddrlen: SocklenT,
-    aiAddrCtorArg: MutPtr<Sockaddr>,
-    aiCanonnameCtorArg: MutPtr<CChar>,
-    aiNextCtorArg: MutPtr<Addrinfo>,
+    aiAddrCtorArg: MutPtr,
+    aiCanonnameCtorArg: MutPtr,
+    aiNextCtorArg: MutPtr,
 ) {
-    public var aiAddr: MutPtr<Sockaddr> = aiAddrCtorArg
+    public var aiAddr: MutPtr = aiAddrCtorArg
         internal set
 
-    public var aiCanonname: MutPtr<CChar> = aiCanonnameCtorArg
+    public var aiCanonname: MutPtr = aiCanonnameCtorArg
         internal set
 
-    public var aiNext: MutPtr<Addrinfo> = aiNextCtorArg
+    public var aiNext: MutPtr = aiNextCtorArg
         internal set
 
     public constructor() : this(
@@ -257,13 +255,13 @@ public class Addrinfo internal constructor(
 
     public operator fun component5(): SocklenT = this.aiAddrlen
 
-    public operator fun component6(): MutPtr<Sockaddr> = this.aiAddr
+    public operator fun component6(): MutPtr = this.aiAddr
 
-    public operator fun component7(): MutPtr<CChar> = this.aiCanonname
+    public operator fun component7(): MutPtr = this.aiCanonname
 
-    public operator fun component8(): MutPtr<Addrinfo> = this.aiNext
+    public operator fun component8(): MutPtr = this.aiNext
 
-    public fun copy(aiFlags: CInt = this.aiFlags, aiFamily: CInt = this.aiFamily, aiSocktype: CInt = this.aiSocktype, aiProtocol: CInt = this.aiProtocol, aiAddrlen: SocklenT = this.aiAddrlen, aiAddr: MutPtr<Sockaddr> = this.aiAddr, aiCanonname: MutPtr<CChar> = this.aiCanonname, aiNext: MutPtr<Addrinfo> = this.aiNext): Addrinfo = Addrinfo(aiFlags = aiFlags, aiFamily = aiFamily, aiSocktype = aiSocktype, aiProtocol = aiProtocol, aiAddrlen = aiAddrlen, aiAddrCtorArg = aiAddr, aiCanonnameCtorArg = aiCanonname, aiNextCtorArg = aiNext)
+    public fun copy(aiFlags: CInt = this.aiFlags, aiFamily: CInt = this.aiFamily, aiSocktype: CInt = this.aiSocktype, aiProtocol: CInt = this.aiProtocol, aiAddrlen: SocklenT = this.aiAddrlen, aiAddr: MutPtr = this.aiAddr, aiCanonname: MutPtr = this.aiCanonname, aiNext: MutPtr = this.aiNext): Addrinfo = Addrinfo(aiFlags = aiFlags, aiFamily = aiFamily, aiSocktype = aiSocktype, aiProtocol = aiProtocol, aiAddrlen = aiAddrlen, aiAddrCtorArg = aiAddr, aiCanonnameCtorArg = aiCanonname, aiNextCtorArg = aiNext)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -305,15 +303,15 @@ public class Addrinfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Sockaddr>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<Addrinfo>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 40L),
                     )
                 override fun writeNative(addr: Long, value: Addrinfo) {
@@ -324,15 +322,15 @@ public class Addrinfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.aiAddrlen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Sockaddr>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.aiAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.aiCanonname)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<Addrinfo>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 40L, value.aiNext)
                 }
             }
@@ -343,9 +341,9 @@ public class Addrinfo internal constructor(
             aiSocktype: CInt = 0,
             aiProtocol: CInt = 0,
             aiAddrlen: SocklenT = 0u,
-            aiAddr: MutPtr<Sockaddr> = MutPtr(0L),
-            aiCanonname: MutPtr<CChar> = MutPtr(0L),
-            aiNext: MutPtr<Addrinfo> = MutPtr(0L),
+            aiAddr: MutPtr = MutPtr(0L),
+            aiCanonname: MutPtr = MutPtr(0L),
+            aiNext: MutPtr = MutPtr(0L),
         ): Addrinfo =
             Addrinfo(
                 aiFlags = aiFlags,
@@ -520,30 +518,30 @@ public val EAI_SYSTEM: CInt = -11
 
 public expect fun socket(domain: CInt, type: CInt, protocol: CInt): CInt
 
-public expect fun connect(fd: CInt, name: ConstPtr<Sockaddr>, addrlen: SocklenT): CInt
+public expect fun connect(fd: CInt, name: ConstPtr, addrlen: SocklenT): CInt
 
-public expect fun bind(socket: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): CInt
+public expect fun bind(socket: CInt, addr: ConstPtr, addrlen: SocklenT): CInt
 
 public expect fun listen(socket: CInt, backlog: CInt): CInt
 
-public expect fun accept(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt
+public expect fun accept(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt
 
-public expect fun accept4(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt
+public expect fun accept4(socket: CInt, addr: MutPtr, addrlen: MutPtr, flags: CInt): CInt
 
-public expect fun getsockname(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt
+public expect fun getsockname(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt
 
-public expect fun getpeername(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt
+public expect fun getpeername(socket: CInt, addr: MutPtr, addrlen: MutPtr): CInt
 
-public expect fun sendto(socket: CInt, buffer: ConstPtr<CVoid>, length: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT
+public expect fun sendto(socket: CInt, buffer: ConstPtr, length: SizeT, flags: CInt, addr: ConstPtr, addrlen: SocklenT): SsizeT
 
-public expect fun recvfrom(socket: CInt, buffer: MutPtr<CVoid>, length: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT
+public expect fun recvfrom(socket: CInt, buffer: MutPtr, length: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT
 
-public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt
+public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt
 
-public expect fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: ConstPtr<CVoid>, optlen: SocklenT): CInt
+public expect fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: ConstPtr, optlen: SocklenT): CInt
 
-public expect fun getaddrinfo(host: ConstPtr<CChar>, serv: ConstPtr<CChar>, hint: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt
+public expect fun getaddrinfo(host: ConstPtr, serv: ConstPtr, hint: ConstPtr, res: MutPtr): CInt
 
-public expect fun freeaddrinfo(p: MutPtr<Addrinfo>)
+public expect fun freeaddrinfo(p: MutPtr)
 
-public expect fun gaiStrerror(ecode: CInt): ConstPtr<CChar>
+public expect fun gaiStrerror(ecode: CInt): ConstPtr

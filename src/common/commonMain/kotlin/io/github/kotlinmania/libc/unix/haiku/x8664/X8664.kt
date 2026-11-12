@@ -288,12 +288,12 @@ public class McontextT(
 }
 
 public class UcontextT internal constructor(
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucSigmask: SigsetT,
     public var ucStack: StackT,
     ucMcontextCtorArg: McontextT,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
@@ -306,7 +306,7 @@ public class UcontextT internal constructor(
         ucMcontextCtorArg = McontextT(),
     )
 
-    public operator fun component1(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component1(): MutPtr = this.ucLink
 
     public operator fun component2(): SigsetT = this.ucSigmask
 
@@ -314,7 +314,7 @@ public class UcontextT internal constructor(
 
     public operator fun component4(): McontextT = this.ucMcontext
 
-    public fun copy(ucLink: MutPtr<UcontextT> = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext)
+    public fun copy(ucLink: MutPtr = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -336,7 +336,7 @@ public class UcontextT internal constructor(
 
     public companion object {
         public operator fun invoke(
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucSigmask: SigsetT = 0uL,
             ucStack: StackT = StackT(),
             ucMcontext: McontextT = McontextT(),

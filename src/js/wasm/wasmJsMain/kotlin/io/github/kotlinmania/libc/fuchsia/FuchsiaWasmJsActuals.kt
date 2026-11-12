@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -12,9 +11,7 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.fuchsia.aarch64.Stat
 import io.github.kotlinmania.libc.fuchsia.aarch64.WcharT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1568,31 +1565,31 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaToupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFopen(filename.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, file: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFreopen(filename.rawAddress.toString(), mode.rawAddress.toString(), file.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(file: MutPtr<FILE>): CInt =
+public actual fun fflush(file: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFflush(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fclose(file: MutPtr<FILE>): CInt =
+public actual fun fclose(file: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFclose(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRemove(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+public actual fun rename(oldname: ConstPtr, newname: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRename(oldname.rawAddress.toString(), newname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTmpfile().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetvbuf(stream.rawAddress.toString(), buffer.rawAddress.toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buf: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaSetbuf(stream.rawAddress.toString(), buf.rawAddress.toString())
     } else {
@@ -1606,37 +1603,37 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPutchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFgetc(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(buf: MutPtr, n: CInt, stream: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFgets(buf.rawAddress.toString(), n, stream.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFputc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFputs(s.rawAddress.toString(), stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPuts(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUngetc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFread(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFwrite(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFseek(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtell(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaRewind(stream.rawAddress.toString())
     } else {
@@ -1644,19 +1641,19 @@ public actual fun rewind(stream: MutPtr<FILE>) {
     }
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, ptr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFgetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, ptr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFsetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFeof(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFerror(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaPerror(s.rawAddress.toString())
     } else {
@@ -1664,46 +1661,46 @@ public actual fun perror(s: ConstPtr<CChar>) {
     }
 }
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtof(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtoi(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtol(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtoll(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, endp: MutPtr): CDouble =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtod(s.rawAddress.toString(), endp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(s: ConstPtr, endp: MutPtr): CFloat =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtof(s.rawAddress.toString(), endp.rawAddress.toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, endp: MutPtr, base: CInt): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtol(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(s: ConstPtr, endp: MutPtr, base: CInt): CLonglong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoll(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, endp: MutPtr, base: CInt): CUlong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoul(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(s: ConstPtr, endp: MutPtr, base: CInt): CUlonglong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoull(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaCalloc(nobj.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaRealloc(p.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaFree(p.rawAddress.toString())
     } else {
@@ -1732,91 +1729,91 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(cb: SigactionSaRestorerCallback): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun system(s: ConstPtr<CChar>): CInt =
+public actual fun system(s: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSystem(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(s: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetenv(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dst: MutPtr, src: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrcpy(dst.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dst: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrncpy(dst.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(s: MutPtr, ct: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrcat(s.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(s: MutPtr, ct: ConstPtr, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrncat(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcmp(cs: ConstPtr, ct: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcmp(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(cs: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrncmp(cs.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcoll(cs: ConstPtr, ct: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcoll(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(cs: ConstPtr, c: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(cs: ConstPtr, c: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(cs: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrdup(cs.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(cs: ConstPtr, ct: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrpbrk(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(cs: ConstPtr, ct: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrstr(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrlen(cs.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, maxlen: SizeT): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrnlen(cs.rawAddress.toString(), maxlen.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(n: CInt): MutPtr<CChar> =
+public actual fun strerror(n: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrerror(n).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, t: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrtok(s.rawAddress.toString(), t.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(s: MutPtr, ct: ConstPtr, n: SizeT): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrxfrm(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(buf: ConstPtr): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWcslen(buf.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+public actual fun wcstombs(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWcstombs(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaWmemchr(cx.rawAddress.toString(), c.toInt(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMemcmp(cx.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemset(dest.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
@@ -1836,31 +1833,31 @@ public actual fun srand(seed: CUint) {
     }
 }
 
-public actual fun getpwnam(name: ConstPtr<CChar>): MutPtr<Passwd> =
+public actual fun getpwnam(name: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuid(uid: UidT): MutPtr<Passwd> =
+public actual fun getpwuid(uid: UidT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwuid(uid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFprintf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPrintf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(s: MutPtr, n: SizeT, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSnprintf(s.rawAddress.toString(), n.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(s: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSprintf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFscanf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaScanf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(s: ConstPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSscanf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getcharUnlocked(): CInt =
@@ -1872,79 +1869,79 @@ public actual fun putcharUnlocked(c: CInt): CInt =
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSocket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+public actual fun connect(socket: CInt, address: ConstPtr, len: SocklenT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaConnect(socket, address.rawAddress.toString(), len.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaListen(socket, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun accept(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccept(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun getpeername(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpeername(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun getsockname(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetsockname(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr, optionLen: SocklenT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetsockopt(socket, level, name, value.rawAddress.toString(), optionLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr<CInt>): CInt =
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSocketpair(domain, type, protocol, socketVector.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+public actual fun sendto(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt, addr: ConstPtr, addrlen: SocklenT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendto(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShutdown(socket, how) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun chmod(path: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaChmod(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchmod(fd, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+public actual fun fstat(fildes: CInt, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstat(fildes, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkdir(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun stat(path: ConstPtr, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pclose(stream: MutPtr<FILE>): CInt =
+public actual fun pclose(stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPclose(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(fd: CInt, mode: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFdopen(fd, mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fileno(stream: MutPtr<FILE>): CInt =
+public actual fun fileno(stream: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFileno(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpen(path.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun creat(path: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCreat(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun opendir(dirname: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaOpendir(dirname.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun readdir(dirp: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaReaddir(dirp.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdirR(dirp: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+public actual fun readdirR(dirp: MutPtr, entry: MutPtr, result: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaReaddirR(dirp.rawAddress.toString(), entry.rawAddress.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+public actual fun closedir(dirp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClosedir(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewinddir(dirp: MutPtr<DIR>) {
+public actual fun rewinddir(dirp: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaRewinddir(dirp.rawAddress.toString())
     } else {
@@ -1952,52 +1949,52 @@ public actual fun rewinddir(dirp: MutPtr<DIR>) {
     }
 }
 
-public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+public actual fun openat(dirfd: CInt, pathname: ConstPtr, flags: CInt, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpenat(dirfd, pathname.rawAddress.toString(), flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchmodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchown(fd, owner.toInt(), group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr, owner: UidT, group: GidT, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchownat(dirfd, pathname.rawAddress.toString(), owner.toInt(), group.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr, buf: MutPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLinkat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkdirat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr, buf: MutPtr, bufsiz: SizeT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadlinkat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), bufsiz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRenameat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+public actual fun symlinkat(target: ConstPtr, newdirfd: CInt, linkpath: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSymlinkat(target.rawAddress.toString(), newdirfd, linkpath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnlinkat(dirfd, pathname.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun access(path: ConstPtr, amode: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccess(path.rawAddress.toString(), amode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun alarm(seconds: CUint): CUint =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAlarm(seconds.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+public actual fun chdir(dir: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaChdir(dir.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+public actual fun chown(path: ConstPtr, uid: UidT, gid: GidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaChown(path.rawAddress.toString(), uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+public actual fun lchown(path: ConstPtr, uid: UidT, gid: GidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLchown(path.rawAddress.toString(), uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
@@ -2009,22 +2006,22 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDup2(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecl(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecle(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execlp(file: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun execlp(file: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExeclp(file.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execv(prog: ConstPtr, argv: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecv(prog.rawAddress.toString(), argv.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecve(prog.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvp(c: ConstPtr, argv: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecvp(c.rawAddress.toString(), argv.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fork(): PidT =
@@ -2033,7 +2030,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFpathconf(filedes, name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetcwd(buf.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getegid(): GidT =
@@ -2045,13 +2042,13 @@ public actual fun geteuid(): UidT =
 public actual fun getgid(): GidT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgroups(ngroupsMax, groups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getlogin(): MutPtr<CChar> =
+public actual fun getlogin(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetlogin().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+public actual fun getopt(argc: CInt, argv: ConstPtr, optstr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetopt(argc, argv.rawAddress.toString(), optstr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpgid(pid: PidT): PidT =
@@ -2072,28 +2069,28 @@ public actual fun getuid(): UidT =
 public actual fun isatty(fd: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsatty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+public actual fun link(src: ConstPtr, dst: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLink(src.rawAddress.toString(), dst.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLseek(fd, offset.toString(), whence).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+public actual fun pathconf(path: ConstPtr, name: CInt): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPathconf(path.rawAddress.toString(), name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pause(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPause() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe(fds: MutPtr<CInt>): CInt =
+public actual fun pipe(fds: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPipe(fds.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+public actual fun posixMemalign(memptr: MutPtr, align: SizeT, size: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixMemalign(memptr.rawAddress.toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRead(fd, buf.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+public actual fun rmdir(path: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun seteuid(uid: UidT): CInt =
@@ -2117,7 +2114,7 @@ public actual fun setuid(uid: UidT): CInt =
 public actual fun sleep(secs: CUint): CUint =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSleep(secs.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun nanosleep(rqtp: ConstPtr, rmtp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaNanosleep(rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
@@ -2126,40 +2123,40 @@ public actual fun tcgetpgrp(fd: CInt): PidT =
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsetpgrp(fd, pgrp) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+public actual fun ttyname(fd: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTtyname(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(c: ConstPtr<CChar>): CInt =
+public actual fun unlink(c: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnlink(c.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wait(status: MutPtr<CInt>): PidT =
+public actual fun wait(status: MutPtr): PidT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWait(status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+public actual fun waitpid(pid: PidT, status: MutPtr, options: CInt): PidT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWaitpid(pid, status.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWrite(fd, buf.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+public actual fun pread(fd: CInt, buf: MutPtr, count: SizeT, offset: OffT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPread(fd, buf.rawAddress.toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+public actual fun pwrite(fd: CInt, buf: ConstPtr, count: SizeT, offset: OffT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPwrite(fd, buf.rawAddress.toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun umask(mask: ModeT): ModeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmask(mask.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+public actual fun utime(file: ConstPtr, buf: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtime(file.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaKill(pid, sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun mlock(addr: ConstPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMlock(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun munlock(addr: ConstPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunlock(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mlockall(flags: CInt): CInt =
@@ -2168,31 +2165,31 @@ public actual fun mlockall(flags: CInt): CInt =
 public actual fun munlockall(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunlockall() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMmap(addr.rawAddress.toString(), len.toString(), prot, flags, fd, offset.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunmap(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifNametoindex(ifname: ConstPtr<CChar>): CUint =
+public actual fun ifNametoindex(ifname: ConstPtr): CUint =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaIfNametoindex(ifname.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaIfIndextoname(ifindex.toInt(), ifname.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun lstat(path: ConstPtr, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLstat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fsync(fd: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFsync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(name: ConstPtr, value: ConstPtr, overwrite: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetenv(name.rawAddress.toString(), value.rawAddress.toString(), overwrite) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(name: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnsetenv(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+public actual fun symlink(path1: ConstPtr, path2: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSymlink(path1.rawAddress.toString(), path2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
@@ -2201,25 +2198,25 @@ public actual fun ftruncate(fd: CInt, length: OffT): CInt =
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSignal(signum, handler.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun realpath(pathname: ConstPtr, resolved: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaRealpath(pathname.rawAddress.toString(), resolved.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFlock(fd, operation) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun times(buf: MutPtr<Tms>): ClockT =
+public actual fun times(buf: MutPtr): ClockT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimes(buf.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSelf(): PthreadT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSelf().toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadJoin(native.toLong().toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+public actual fun pthreadExit(value: MutPtr): Nothing {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaPthreadExit(value.rawAddress.toString())
     } else {
@@ -2228,19 +2225,19 @@ public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrInit(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrDestroy(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr, stacksize: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetstacksize(attr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+public actual fun pthreadAttrSetstacksize(attr: MutPtr, stackSize: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetstacksize(attr.rawAddress.toString(), stackSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr, state: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetdetachstate(attr.rawAddress.toString(), state) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
@@ -2249,133 +2246,133 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedYield() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: MutPtr, dtor: PthreadKeyCreateDtorCallback?): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKeyCreate(key.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKeyDelete(key.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPthreadGetspecific(key.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSetspecific(key.toInt(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexInit(lock: MutPtr, attr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexInit(lock.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexDestroy(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexLock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexTrylock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexUnlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrInit(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrDestroy(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+public actual fun pthreadMutexattrSettype(attr: MutPtr, type: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrSettype(attr.rawAddress.toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondInit(cond.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadCondWait(cond: MutPtr, lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondWait(cond.rawAddress.toString(), lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwait(cond: MutPtr, lock: MutPtr, abstime: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondTimedwait(cond.rawAddress.toString(), lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondSignal(cond: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondSignal(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondBroadcast(cond: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondBroadcast(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondDestroy(cond: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondDestroy(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrInit(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrDestroy(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockInit(lock: MutPtr, attr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockInit(lock.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockDestroy(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockRdlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockRdlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockTryrdlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockWrlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockWrlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockTrywrlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockUnlock(lock: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrInit(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadGetnameNp(thread.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSetnameNp(thread.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrerrorR(errnum, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun raise(signum: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRaise(signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+public actual fun sigaction(signum: CInt, act: ConstPtr, oldact: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaction(signum, act.rawAddress.toString(), oldact.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun utimes(filename: ConstPtr, times: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtimes(filename.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+public actual fun dlopen(filename: ConstPtr, flag: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlopen(filename.rawAddress.toString(), flag).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlerror(): MutPtr<CChar> =
+public actual fun dlerror(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlerror().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+public actual fun dlsym(handle: MutPtr, symbol: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlsym(handle.rawAddress.toString(), symbol.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+public actual fun dlclose(handle: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDlclose(handle.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dladdr(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+public actual fun dladdr(addr: ConstPtr, info: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDladdr(addr.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+public actual fun getaddrinfo(node: ConstPtr, service: ConstPtr, hints: ConstPtr, res: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetaddrinfo(node.rawAddress.toString(), service.rawAddress.toString(), hints.rawAddress.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(res: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaFreeaddrinfo(res.rawAddress.toString())
     } else {
@@ -2383,118 +2380,118 @@ public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
     }
 }
 
-public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
+public actual fun gaiStrerror(errcode: CInt): ConstPtr =
     if (fuchsiaNapiAvailable) ConstPtr(wasmLibcFuchsiaGaiStrerror(errcode).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun resInit(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaResInit() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun gmtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGmtimeR(timeP.rawAddress.toString(), result.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun localtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaltimeR(timeP.rawAddress.toString(), result.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+public actual fun mktime(tm: MutPtr): TimeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMktime(tm.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(time: MutPtr<TimeT>): TimeT =
+public actual fun time(time: MutPtr): TimeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTime(time.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun gmtime(timeP: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGmtime(timeP.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun localtime(timeP: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaltime(timeP.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknod(pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknod(pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMknod(pathname.rawAddress.toString(), mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun gethostname(name: MutPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+public actual fun getservbyname(name: ConstPtr, proto: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetservbyname(name.rawAddress.toString(), proto.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+public actual fun getprotobyname(name: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetprotobyname(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+public actual fun getprotobynumber(proto: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetprotobynumber(proto).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun usleep(secs: CUint): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUsleep(secs.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+public actual fun send(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSend(socket, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+public actual fun recv(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecv(socket, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putenv(string: MutPtr<CChar>): CInt =
+public actual fun putenv(string: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPutenv(string.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPoll(fds.rawAddress.toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: MutPtr<Timeval>): CInt =
+public actual fun select(nfds: CInt, readfds: MutPtr, writefds: MutPtr, errorfds: MutPtr, timeout: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSelect(nfds, readfds.rawAddress.toString(), writefds.rawAddress.toString(), errorfds.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(category: CInt, locale: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaSetlocale(category, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localeconv(): MutPtr<Lconv> =
+public actual fun localeconv(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaleconv().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semWait(sem: MutPtr<SemT>): CInt =
+public actual fun semWait(sem: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemWait(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTrywait(sem: MutPtr<SemT>): CInt =
+public actual fun semTrywait(sem: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemTrywait(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semPost(sem: MutPtr<SemT>): CInt =
+public actual fun semPost(sem: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemPost(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun statvfs(path: ConstPtr<CChar>, buf: MutPtr<Statvfs>): CInt =
+public actual fun statvfs(path: ConstPtr, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStatvfs(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatvfs(fd: CInt, buf: MutPtr<Statvfs>): CInt =
+public actual fun fstatvfs(fd: CInt, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatvfs(fd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+public actual fun readlink(path: ConstPtr, buf: MutPtr, bufsz: SizeT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadlink(path.rawAddress.toString(), buf.rawAddress.toString(), bufsz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigemptyset(set: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigemptyset(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigaddset(set: MutPtr, signum: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaddset(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigfillset(set: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigfillset(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigdelset(set: MutPtr, signum: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigdelset(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigismember(set: ConstPtr, signum: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigismember(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun sigprocmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigprocmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+public actual fun sigpending(set: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigpending(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+public actual fun timegm(tm: MutPtr): TimeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimegm(tm.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getsid(pid: PidT): PidT =
@@ -2503,28 +2500,28 @@ public actual fun getsid(pid: PidT): PidT =
 public actual fun sysconf(name: CInt): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSysconf(name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifo(path: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkfifo(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pselect(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun pselect(nfds: CInt, readfds: MutPtr, writefds: MutPtr, errorfds: MutPtr, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPselect(nfds, readfds.rawAddress.toString(), writefds.rawAddress.toString(), errorfds.rawAddress.toString(), timeout.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+public actual fun fseeko(stream: MutPtr, offset: OffT, whence: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFseeko(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftello(stream: MutPtr<FILE>): OffT =
+public actual fun ftello(stream: MutPtr): OffT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtello(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcdrain(fd: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcdrain(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
+public actual fun cfgetispeed(termios: ConstPtr): SpeedT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfgetispeed(termios.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+public actual fun cfgetospeed(termios: ConstPtr): SpeedT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfgetospeed(termios.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfmakeraw(termios: MutPtr<Termios>) {
+public actual fun cfmakeraw(termios: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaCfmakeraw(termios.rawAddress.toString())
     } else {
@@ -2532,19 +2529,19 @@ public actual fun cfmakeraw(termios: MutPtr<Termios>) {
     }
 }
 
-public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetispeed(termios: MutPtr, speed: SpeedT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetispeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetospeed(termios: MutPtr, speed: SpeedT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetospeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfsetspeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetspeed(termios: MutPtr, speed: SpeedT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetspeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+public actual fun tcgetattr(fd: CInt, termios: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcgetattr(fd, termios.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsetattr(fd, optionalActions, termios.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
@@ -2559,16 +2556,16 @@ public actual fun tcgetsid(fd: CInt): PidT =
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsendbreak(fd, duration) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+public actual fun mkstemp(template: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkstemp(template.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mkdtemp(template: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMkdtemp(template.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(ptr: MutPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTmpnam(ptr.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+public actual fun openlog(ident: ConstPtr, logopt: CInt, facility: CInt) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaOpenlog(ident.rawAddress.toString(), logopt, facility)
     } else {
@@ -2587,7 +2584,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetlogmask(maskpri) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+public actual fun syslog(priority: CInt, message: ConstPtr, vararg variadicArgs: Long) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaSyslog(priority, message.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
     } else {
@@ -2601,7 +2598,7 @@ public actual fun grantpt(fd: CInt): CInt =
 public actual fun posixOpenpt(flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixOpenpt(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsname(fd: CInt): MutPtr<CChar> =
+public actual fun ptsname(fd: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPtsname(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun unlockpt(fd: CInt): CInt =
@@ -2610,49 +2607,49 @@ public actual fun unlockpt(fd: CInt): CInt =
 public actual fun fdatasync(fd: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockGetres(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockSettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDirfd(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadGetattrNp(native.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetgroups(ngroups.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+public actual fun pipe2(fds: MutPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPipe2(fds.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+public actual fun statfs(path: ConstPtr, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaStatfs(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+public actual fun fstatfs(fd: CInt, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatfs(fd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemrchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixFadvise(fd, offset.toString(), len.toString(), advise) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun duplocale(base: LocaleT): LocaleT =
@@ -2666,34 +2663,34 @@ public actual fun freelocale(loc: LocaleT) {
     }
 }
 
-public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+public actual fun newlocale(mask: CInt, locale: ConstPtr, base: LocaleT): LocaleT =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNewlocale(mask, locale.rawAddress.toString(), base.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaUselocale(loc.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+public actual fun fdopendir(fd: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFdopendir(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMknodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(attr: ConstPtr, clockId: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrGetclock(attr.rawAddress.toString(), clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+public actual fun accept4(fd: CInt, addr: MutPtr, len: MutPtr, flg: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccept4(fd, addr.rawAddress.toString(), len.rawAddress.toString(), flg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun ptsnameR(fd: CInt, buf: MutPtr, buflen: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPtsnameR(fd, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clearenv(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClearenv() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWaitid(idtype.toInt(), id.toInt(), infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
@@ -2702,16 +2699,16 @@ public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetregid(rgid.toInt(), egid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+public actual fun getresuid(ruid: MutPtr, euid: MutPtr, suid: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetresuid(ruid.rawAddress.toString(), euid.rawAddress.toString(), suid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+public actual fun getresgid(rgid: MutPtr, egid: MutPtr, sgid: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetresgid(rgid.rawAddress.toString(), egid.rawAddress.toString(), sgid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun acct(filename: ConstPtr<CChar>): CInt =
+public actual fun acct(filename: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaAcct(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun brk(addr: MutPtr<CVoid>): CInt =
+public actual fun brk(addr: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaBrk(addr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
@@ -2720,19 +2717,19 @@ public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetresuid(ruid.toInt(), euid.toInt(), suid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpenpty(amaster.rawAddress.toString(), aslave.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecvpe(file.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFexecve(fd, argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaIoctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun lutimes(file: ConstPtr, times: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaLutimes(file.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpwent() {
@@ -2751,52 +2748,52 @@ public actual fun endpwent() {
     }
 }
 
-public actual fun getpwent(): MutPtr<Passwd> =
+public actual fun getpwent(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmget(key, size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr, shmflg: CInt): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaShmat(shmid, shmaddr.rawAddress.toString(), shmflg).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+public actual fun shmdt(shmaddr: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmdt(shmaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmctl(shmid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtok(pathname.rawAddress.toString(), projId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemget(key, nsems, semflag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+public actual fun semop(semid: CInt, sops: MutPtr, nsops: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemop(semid, sops.rawAddress.toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgctl(msqid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtyp.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr, msgsz: SizeT, msgflg: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgsnd(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMprotect(addr.rawAddress.toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errnoLocation(): MutPtr<CInt> =
+public actual fun errnoLocation(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaErrnoLocation().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
@@ -2808,46 +2805,46 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadahead(fd, offset.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+public actual fun signalfd(fd: CInt, mask: ConstPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSignalfd(fd, mask.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdGettime(fd, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdSettime(fd, flags, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+public actual fun quotactl(cmd: CInt, special: ConstPtr, id: CInt, data: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaQuotactl(cmd, special.rawAddress.toString(), id, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDup3(oldfd, newfd, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+public actual fun mkostemp(template: MutPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkostemp(template.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: MutPtr, suffixlen: CInt, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkostemps(template.rawAddress.toString(), suffixlen, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigtimedwait(set.rawAddress.toString(), info.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigwaitinfo(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNlLanginfoL(item, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetnameinfo(sa.rawAddress.toString(), salen.toInt(), host.rawAddress.toString(), hostlen.toInt(), serv.rawAddress.toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun reboot(howTo: CInt): CInt =
@@ -2859,13 +2856,13 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetfsuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifNameindex(): MutPtr<IfNameindex> =
+public actual fun ifNameindex(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaIfNameindex().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+public actual fun ifFreenameindex(ptr: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaIfFreenameindex(ptr.rawAddress.toString())
     } else {
@@ -2876,10 +2873,10 @@ public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSyncFileRange(fd, offset.toString(), nbytes.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+public actual fun getifaddrs(ifap: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetifaddrs(ifap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+public actual fun freeifaddrs(ifa: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaFreeifaddrs(ifa.rawAddress.toString())
     } else {
@@ -2887,10 +2884,10 @@ public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
     }
 }
 
-public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+public actual fun glob(pattern: ConstPtr, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGlob(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree(pglob: MutPtr<GlobT>) {
+public actual fun globfree(pglob: MutPtr) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaGlobfree(pglob.rawAddress.toString())
     } else {
@@ -2898,13 +2895,13 @@ public actual fun globfree(pglob: MutPtr<GlobT>) {
     }
 }
 
-public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     if (fuchsiaNapiAvailable) {
         wasmLibcFuchsiaSeekdir(dirp.rawAddress.toString(), loc.toString())
     } else {
@@ -2912,55 +2909,55 @@ public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
     }
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTelldir(dirp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsync(addr.rawAddress.toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvfrom(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: MutPtr, suffixlen: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkstemps(template.rawAddress.toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+public actual fun futimes(fd: CInt, times: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFutimes(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNlLanginfo(item).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+public actual fun bind(socket: CInt, address: ConstPtr, addressLen: SocklenT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaBind(socket, address.rawAddress.toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadv(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: CInt, msg: MutPtr, flags: CInt): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun getdomainname(name: MutPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun setdomainname(name: ConstPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun vhangup(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaVhangup() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr, vlen: CUint, flags: CInt, timeout: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sync() {
@@ -2974,13 +2971,13 @@ public actual fun sync() {
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSyscall(num.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount(target: ConstPtr<CChar>): CInt =
+public actual fun umount(target: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmount(target.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
@@ -2989,106 +2986,106 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaTee(fdIn, fdOut, len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSettimeofday(tv.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+public actual fun splice(fdIn: CInt, offIn: MutPtr, fdOut: CInt, offOut: MutPtr, len: SizeT, flags: CUint): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSplice(fdIn, offIn.rawAddress.toString(), fdOut, offOut.rawAddress.toString(), len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaEventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedRrGetInterval(pid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemTimedwait(sem.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemGetvalue(sem.rawAddress.toString(), sval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+public actual fun swapoff(puath: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSwapoff(puath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+public actual fun vmsplice(fd: CInt, iov: ConstPtr, nrSegs: SizeT, flags: CUint): SsizeT =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaVmsplice(fd, iov.rawAddress.toString(), nrSegs.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+public actual fun mount(src: ConstPtr, target: ConstPtr, fstype: ConstPtr, flags: CUlong, data: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaMount(src.rawAddress.toString(), target.rawAddress.toString(), fstype.rawAddress.toString(), flags.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun personality(persona: CUlong): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPersonality(persona.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, nfds: NfdsT, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPpoll(fds.rawAddress.toString(), nfds.toString(), timeout.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(lock: MutPtr, abstime: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexTimedlock(lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr, flags: CInt, arg: MutPtr, vararg variadicArgs: Long): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClone(0L.toString(), childStack.rawAddress.toString(), flags, arg.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockNanosleep(clkId, flags, rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr, guardsize: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetguardsize(attr.rawAddress.toString(), guardsize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+public actual fun pthreadAttrSetguardsize(attr: MutPtr, guardsize: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetguardsize(attr.rawAddress.toString(), guardsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetPriorityMin(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount2(target: ConstPtr, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmount2(target.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+public actual fun swapon(path: ConstPtr, swapflags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSwapon(path.rawAddress.toString(), swapflags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetscheduler(pid, policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigsuspend(mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrgidR(gid.toInt(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaltstack(ss.rawAddress.toString(), oss.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getdtablesize(): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrnamR(name.rawAddress.toString(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+public actual fun initgroups(user: ConstPtr, group: GidT): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaInitgroups(user.rawAddress.toString(), group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSigmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaSemOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
@@ -3097,25 +3094,25 @@ public actual fun pthreadCancel(thread: PthreadT): CInt =
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDaemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwnamR(name: ConstPtr, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpwnamR(name.rawAddress.toString(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpwuidR(uid.toInt(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigwait(set.rawAddress.toString(), sig.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrgid(gid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgrent() {
@@ -3134,20 +3131,20 @@ public actual fun endgrent() {
     }
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrouplist(user.rawAddress.toString(), group.toInt(), groups.rawAddress.toString(), ngroups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPopen(command.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaFaccessat(dirfd, pathname.rawAddress.toString(), mode, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     if (fuchsiaNapiAvailable) wasmLibcFuchsiaDlIteratePhdr(0L.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

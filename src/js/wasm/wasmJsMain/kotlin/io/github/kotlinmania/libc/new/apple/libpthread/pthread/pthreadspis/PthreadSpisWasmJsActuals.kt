@@ -4,9 +4,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthreadspis
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
-import io.github.kotlinmania.libc.new.qurt.PthreadT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -18,5 +15,5 @@ private val newAppleLibpthreadPthreadPthreadspisPthreadSpisNapiAvailable: Boolea
 @JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread(p0, p1, p2, p3)")
 private external fun wasmLibcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread(p0: String, p1: String, p2: String, p3: String): Int
 
-public actual fun pthreadCreateFromMachThread(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFromMachThreadFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreateFromMachThread(thread: MutPtr, attr: ConstPtr, f: PthreadCreateFromMachThreadFCallback, value: MutPtr): CInt =
     if (newAppleLibpthreadPthreadPthreadspisPthreadSpisNapiAvailable) wasmLibcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread(thread.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

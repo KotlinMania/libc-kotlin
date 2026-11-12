@@ -20,7 +20,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.prctl
 import io.github.kotlinmania.libc.unix.memcmp
 import io.github.kotlinmania.libc.unix.memset
 import io.github.kotlinmania.libc.unix.open
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlin.test.assertEquals
@@ -29,24 +28,24 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 private fun writeInt32Le(
-    base: MutPtr<*>,
+    base: MutPtr,
     byteOffset: Long,
     value: Int,
 ) {
-    memset(MutPtr<CVoid>(base.rawAddress + byteOffset), value and 0xFF, 1uL)
-    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 1L), (value ushr 8) and 0xFF, 1uL)
-    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 2L), (value ushr 16) and 0xFF, 1uL)
-    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 3L), (value ushr 24) and 0xFF, 1uL)
+    memset(MutPtr(base.rawAddress + byteOffset), value and 0xFF, 1uL)
+    memset(MutPtr(base.rawAddress + byteOffset + 1L), (value ushr 8) and 0xFF, 1uL)
+    memset(MutPtr(base.rawAddress + byteOffset + 2L), (value ushr 16) and 0xFF, 1uL)
+    memset(MutPtr(base.rawAddress + byteOffset + 3L), (value ushr 24) and 0xFF, 1uL)
 }
 
 private fun writeInt64Le(
-    base: MutPtr<*>,
+    base: MutPtr,
     byteOffset: Long,
     value: Long,
 ) {
     for (i in 0 until 8) {
         val byteVal = ((value ushr (i * 8)) and 0xFFL).toInt()
-        memset(MutPtr<CVoid>(base.rawAddress + byteOffset + i.toLong()), byteVal, 1uL)
+        memset(MutPtr(base.rawAddress + byteOffset + i.toLong()), byteVal, 1uL)
     }
 }
 

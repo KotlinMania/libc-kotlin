@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish.x86
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
@@ -67,16 +66,16 @@ public data class CAnonymousElf32Phdr(
 
 public class DlPhdrInfo internal constructor(
     public var dlpiAddr: Elf32Addr,
-    dlpiNameCtorArg: ConstPtr<CChar>,
-    dlpiPhdrCtorArg: ConstPtr<Elf32Phdr>,
+    dlpiNameCtorArg: ConstPtr,
+    dlpiPhdrCtorArg: ConstPtr,
     public var dlpiPhnum: Elf32Half,
     public var dlpiAdds: CUlonglong,
     public var dlpiSubs: CUlonglong,
 ) {
-    public var dlpiName: ConstPtr<CChar> = dlpiNameCtorArg
+    public var dlpiName: ConstPtr = dlpiNameCtorArg
         internal set
 
-    public var dlpiPhdr: ConstPtr<Elf32Phdr> = dlpiPhdrCtorArg
+    public var dlpiPhdr: ConstPtr = dlpiPhdrCtorArg
         internal set
 
     public constructor() : this(
@@ -90,9 +89,9 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component1(): Elf32Addr = this.dlpiAddr
 
-    public operator fun component2(): ConstPtr<CChar> = this.dlpiName
+    public operator fun component2(): ConstPtr = this.dlpiName
 
-    public operator fun component3(): ConstPtr<Elf32Phdr> = this.dlpiPhdr
+    public operator fun component3(): ConstPtr = this.dlpiPhdr
 
     public operator fun component4(): Elf32Half = this.dlpiPhnum
 
@@ -100,7 +99,7 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component6(): CUlonglong = this.dlpiSubs
 
-    public fun copy(dlpiAddr: Elf32Addr = this.dlpiAddr, dlpiName: ConstPtr<CChar> = this.dlpiName, dlpiPhdr: ConstPtr<Elf32Phdr> = this.dlpiPhdr, dlpiPhnum: Elf32Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs)
+    public fun copy(dlpiAddr: Elf32Addr = this.dlpiAddr, dlpiName: ConstPtr = this.dlpiName, dlpiPhdr: ConstPtr = this.dlpiPhdr, dlpiPhnum: Elf32Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -134,11 +133,11 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<Elf32Phdr>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 24L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
@@ -148,11 +147,11 @@ public class DlPhdrInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.dlpiAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 8L, value.dlpiName)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<Elf32Phdr>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.dlpiPhdr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 24L, value.dlpiPhnum)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.dlpiAdds)
@@ -162,8 +161,8 @@ public class DlPhdrInfo internal constructor(
 
         public operator fun invoke(
             dlpiAddr: Elf32Addr = 0uL,
-            dlpiName: ConstPtr<CChar> = ConstPtr(0L),
-            dlpiPhdr: ConstPtr<Elf32Phdr> = ConstPtr(0L),
+            dlpiName: ConstPtr = ConstPtr(0L),
+            dlpiPhdr: ConstPtr = ConstPtr(0L),
             dlpiPhnum: Elf32Half = 0u,
             dlpiAdds: CUlonglong = 0uL,
             dlpiSubs: CUlonglong = 0uL,

@@ -4,15 +4,10 @@ package io.github.kotlinmania.libc.unix.newlib.vita
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
-import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
-import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
 import io.github.kotlinmania.libc.unix.newlib.PthreadT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -72,53 +67,53 @@ private external fun wasmLibcUnixNewlibVitaGetentropy(p0: String, p1: String): I
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixNewlibVitaPipe2(p0, p1)")
 private external fun wasmLibcUnixNewlibVitaPipe2(p0: String, p1: Int): Int
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaReadv(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmsg(s: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(s: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaSendmsg(s, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmsg(s: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(s: CInt, msg: MutPtr, flags: CInt): SsizeT =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaRecvmsg(s, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(native: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr, param: MutPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadAttrGetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+public actual fun pthreadAttrSetschedparam(attr: MutPtr, param: ConstPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadAttrSetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetprocessoridNp(attr: ConstPtr<PthreadAttrT>, processorId: MutPtr<CInt>): CInt =
+public actual fun pthreadAttrGetprocessoridNp(attr: ConstPtr, processorId: MutPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadAttrGetprocessoridNp(attr.rawAddress.toString(), processorId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetprocessoridNp(attr: MutPtr<PthreadAttrT>, processorId: CInt): CInt =
+public actual fun pthreadAttrSetprocessoridNp(attr: MutPtr, processorId: CInt): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadAttrSetprocessoridNp(attr.rawAddress.toString(), processorId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr, param: MutPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadGetschedparam(native.toLong().toString(), policy.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadSetschedparam(native.toLong().toString(), policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(attr: ConstPtr, clockId: MutPtr): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadCondattrGetclock(attr.rawAddress.toString(), clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadCondattrSetclock(attr.rawAddress.toString(), clockId.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadGetprocessoridNp(): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPthreadGetprocessoridNp() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaGetentropy(buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+public actual fun pipe2(fds: MutPtr, flags: CInt): CInt =
     if (unixNewlibVitaNapiAvailable) wasmLibcUnixNewlibVitaPipe2(fds.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")

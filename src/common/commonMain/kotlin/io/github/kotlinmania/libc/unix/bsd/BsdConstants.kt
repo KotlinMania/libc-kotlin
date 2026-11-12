@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.TcflagT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val LC_ALL: CInt = 0
@@ -366,11 +365,11 @@ public val RTLD_LAZY: CInt = 0x1
 
 public val RTLD_NOW: CInt = 0x2
 
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1).toLong())
+public val RTLD_NEXT: MutPtr = MutPtr((-1).toLong())
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-2).toLong())
+public val RTLD_DEFAULT: MutPtr = MutPtr((-2).toLong())
 
-public val RTLD_SELF: MutPtr<CVoid> = MutPtr<CVoid>((-3).toLong())
+public val RTLD_SELF: MutPtr = MutPtr((-3).toLong())
 
 public val LOG_CRON: CInt = 9 shl 3
 

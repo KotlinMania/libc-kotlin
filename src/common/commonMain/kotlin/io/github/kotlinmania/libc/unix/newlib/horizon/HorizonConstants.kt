@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val SIGEV_NONE: CInt = 1
@@ -185,4 +184,4 @@ public val GRND_NONBLOCK: CUint = 0x1u
 
 public val GRND_RANDOM: CUint = 0x2u
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)

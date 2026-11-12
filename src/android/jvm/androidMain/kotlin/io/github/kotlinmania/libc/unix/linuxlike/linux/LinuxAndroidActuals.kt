@@ -3,38 +3,19 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
-import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
-import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
-import io.github.kotlinmania.libc.unix.linuxlike.Fpos64T
-import io.github.kotlinmania.libc.unix.linuxlike.Itimerspec
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
-import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-import io.github.kotlinmania.libc.unix.linuxlike.Sembuf
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.linuxlike.Spwd
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.MsqidDs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.StackT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -419,77 +400,77 @@ private object UnixLinuxlikeLinuxJniBridge {
     external fun libcUnixLinuxlikeLinuxTmpfile64(): Long
 }
 
-public actual fun getspnamR(name: ConstPtr<CChar>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+public actual fun getspnamR(name: ConstPtr, spbuf: MutPtr, buf: MutPtr, buflen: SizeT, spbufp: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxGetspnamR(name.rawAddress, spbuf.rawAddress, buf.rawAddress, buflen.toLong(), spbufp.rawAddress)
 
-public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+public actual fun mqOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MqdT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqClose(mqd.toLong())
 
-public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun mqUnlink(name: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqUnlink(name.rawAddress)
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqReceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress)
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr, absTimeout: ConstPtr): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqTimedreceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress, absTimeout.rawAddress)
 
-public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqSend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt())
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqTimedsend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt(), absTimeout.rawAddress)
 
-public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqGetattr(mqd.toLong(), attr.rawAddress)
 
-public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr, oldattr: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMqSetattr(mqd.toLong(), newattr.rawAddress, oldattr.rawAddress)
 
 public actual fun mrand48(): CLong =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMrand48()
 
-public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+public actual fun seed48(xseed: MutPtr): MutPtr =
     MutPtr(UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSeed48(xseed.rawAddress))
 
-public actual fun lcong48(p: MutPtr<CUshort>) {
+public actual fun lcong48(p: MutPtr) {
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLcong48(p.rawAddress)
 }
 
-public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun lutimes(file: ConstPtr, times: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLutimes(file.rawAddress, times.rawAddress)
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxShmUnlink(name.rawAddress)
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFtok(pathname.rawAddress, projId)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+public actual fun semop(semid: CInt, sops: MutPtr, nsops: SizeT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSemop(semid, sops.rawAddress, nsops.toLong())
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMsgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr, msgsz: SizeT, msgflg: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
@@ -501,70 +482,70 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxReadahead(fd, offset, count.toLong())
 
-public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun getxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxGetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun lgetxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLgetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFgetxattr(filedes, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun setxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun lsetxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLsetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFsetxattr(filedes, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun listxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxListxattr(path.rawAddress, list.rawAddress, size.toLong())
 
-public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun llistxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLlistxattr(path.rawAddress, list.rawAddress, size.toLong())
 
-public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun flistxattr(filedes: CInt, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFlistxattr(filedes, list.rawAddress, size.toLong())
 
-public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun removexattr(path: ConstPtr, name: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxRemovexattr(path.rawAddress, name.rawAddress)
 
-public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun lremovexattr(path: ConstPtr, name: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxLremovexattr(path.rawAddress, name.rawAddress)
 
-public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFremovexattr(filedes, name.rawAddress)
 
-public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+public actual fun signalfd(fd: CInt, mask: ConstPtr, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSignalfd(fd, mask.rawAddress, flags)
 
 public actual fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxTimerfdGettime(fd, currValue.rawAddress)
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxTimerfdSettime(fd, flags, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+public actual fun quotactl(cmd: CInt, special: ConstPtr, id: CInt, data: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxQuotactl(cmd, special.rawAddress, id, data.rawAddress)
 
-public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun epollPwait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt, sigmask: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEpollPwait(epfd, events.rawAddress, maxevents, timeout, sigmask.rawAddress)
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxDup3(oldfd, newfd, flags)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+public actual fun accept4(fd: CInt, addr: MutPtr, len: MutPtr, flg: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxAccept4(fd, addr.rawAddress, len.rawAddress, flg)
 
 public actual fun reboot(howTo: CInt): CInt =
@@ -576,19 +557,19 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSetfsuid(uid.toShort())
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSyncFileRange(fd, offset, nbytes, flags.toInt())
 
-public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun remapFilePages(addr: MutPtr<CVoid>, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
+public actual fun remapFilePages(addr: MutPtr, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxRemapFilePages(addr.rawAddress, size.toLong(), prot, pgoff.toLong(), flags)
 
-public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: MutPtr, suffixlen: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxMkstemps(template.rawAddress, suffixlen)
 
 public actual fun vhangup(): CInt =
@@ -604,7 +585,7 @@ public actual fun syncfs(fd: CInt): CInt =
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedSetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
 public actual fun epollCreate(size: CInt): CInt =
@@ -613,148 +594,148 @@ public actual fun epollCreate(size: CInt): CInt =
 public actual fun epollCreate1(flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+public actual fun epollWait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEpollWait(epfd, events.rawAddress, maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEpollCtl(epfd, op, fd, event.rawAddress)
 
 public actual fun unshare(flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxUnshare(flags)
 
-public actual fun umount(target: ConstPtr<CChar>): CInt =
+public actual fun umount(target: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxUmount(target.rawAddress)
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
-public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+public actual fun splice(fdIn: CInt, offIn: MutPtr, fdOut: CInt, offOut: MutPtr, len: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSplice(fdIn, offIn.rawAddress, fdOut, offOut.rawAddress, len.toLong(), flags.toInt())
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEventfd(initval.toInt(), flags)
 
-public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+public actual fun eventfdRead(fd: CInt, value: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEventfdRead(fd, value.rawAddress)
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxEventfdWrite(fd, value.toLong())
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedRrGetInterval(pid, tp.rawAddress)
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedSetparam(pid, param.rawAddress)
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSetns(fd, nstype)
 
-public actual fun swapoff(path: ConstPtr<CChar>): CInt =
+public actual fun swapoff(path: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSwapoff(path.rawAddress)
 
-public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+public actual fun vmsplice(fd: CInt, iov: ConstPtr, nrSegs: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxVmsplice(fd, iov.rawAddress, nrSegs.toLong(), flags.toInt())
 
 public actual fun personality(persona: CUlong): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPersonality(persona.toLong())
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedGetparam(pid, param.rawAddress)
 
-public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr, flags: CInt, arg: MutPtr, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxClone(0L, childStack.rawAddress, flags, arg.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxClockNanosleep(clkId, flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount2(target: ConstPtr, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxUmount2(target.rawAddress, flags)
 
-public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+public actual fun swapon(path: ConstPtr, swapflags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSwapon(path.rawAddress, swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSchedSetscheduler(pid, policy, param.rawAddress)
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSendfile(outFd, inFd, offset.rawAddress, count.toLong())
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSigaltstack(ss.rawAddress, oss.rawAddress)
 
 public actual fun getdtablesize(): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxGetdtablesize()
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxGetgrouplist(user.rawAddress, group.toShort(), groups.rawAddress, ngroups.rawAddress)
 
-public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawn(pid: MutPtr, path: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawnp(pid: MutPtr, file: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrInit(attr: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrDestroy(attr: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr, default: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr, default: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr, default: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr, default: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+public actual fun posixSpawnattrGetflags(attr: ConstPtr, flags: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: MutPtr, flags: CShort): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr, flags: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr, flags: PidT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr, flags: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr, flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr, param: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr, param: ConstPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsInit(actions: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnFileActionsInit(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr, fd: CInt, path: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen(actions.rawAddress, fd, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr, fd: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr, fd: CInt, newfd: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2(actions.rawAddress, fd, newfd)
 
-public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun freadUnlocked(buf: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFreadUnlocked(buf.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
@@ -766,7 +747,7 @@ public actual fun inotifyInit(): CInt =
 public actual fun inotifyInit1(flags: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxInotifyInit1(flags)
 
-public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr, mask: UInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxInotifyAddWatch(fd, path.rawAddress, mask.toInt())
 
 public actual fun fanotifyInit(flags: CUint, eventFFlags: CUint): CInt =
@@ -775,23 +756,23 @@ public actual fun fanotifyInit(flags: CUint, eventFFlags: CUint): CInt =
 public actual fun gethostid(): CLong =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxGethostid()
 
-public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr, len: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxKlogctl(syslogType, bufp.rawAddress, len)
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFallocate64(fd, mode, offset, len)
 
-public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
+public actual fun fgetpos64(stream: MutPtr, ptr: MutPtr): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFgetpos64(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen64(filename: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxFopen64(filename.rawAddress, mode.rawAddress))
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxPosixFallocate64(fd, offset, len)
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxSendfile64(outFd, inFd, offset.rawAddress, count.toLong())
 
-public actual fun tmpfile64(): MutPtr<FILE> =
+public actual fun tmpfile64(): MutPtr =
     MutPtr(UnixLinuxlikeLinuxJniBridge.libcUnixLinuxlikeLinuxTmpfile64())

@@ -3,36 +3,19 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Pollfd
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
-import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
-import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
-import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Sysinfo
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -548,58 +531,58 @@ public actual fun endgrent() {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEndgrent()
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrent())
 
-public actual fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt =
+public actual fun getrlimit64(resource: CInt, rlim: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetrlimit64(resource, rlim.rawAddress)
 
-public actual fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt =
+public actual fun setrlimit64(resource: CInt, rlim: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetrlimit64(resource, rlim.rawAddress)
 
-public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+public actual fun getrlimit(resource: CInt, rlim: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetrlimit(resource, rlim.rawAddress)
 
-public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr, oldLimit: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPrlimit(pid, resource, newLimit.rawAddress, oldLimit.rawAddress)
 
-public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit64>, oldLimit: MutPtr<Rlimit64>): CInt =
+public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: ConstPtr, oldLimit: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPrlimit64(pid, resource, newLimit.rawAddress, oldLimit.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun mlock2(addr: ConstPtr, len: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMlock2(addr.rawAddress, len.toLong(), flags)
 
-public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SizeT, serv: MutPtr, servlen: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toLong(), serv.rawAddress, servlen.toLong(), flags)
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, count: CInt, offset: OffT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPreadv(fd, iov.rawAddress, count, offset)
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, count: CInt, offset: OffT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPwritev(fd, iov.rawAddress, count, offset)
 
-public actual fun processVmReadv(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+public actual fun processVmReadv(pid: PidT, localIov: ConstPtr, localIovCount: CUlong, remoteIov: ConstPtr, remoteIovCount: CUlong, flags: CUlong): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidProcessVmReadv(pid, localIov.rawAddress, localIovCount.toLong(), remoteIov.rawAddress, remoteIovCount.toLong(), flags.toLong())
 
-public actual fun processVmWritev(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+public actual fun processVmWritev(pid: PidT, localIov: ConstPtr, localIovCount: CUlong, remoteIov: ConstPtr, remoteIovCount: CUlong, flags: CUlong): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidProcessVmWritev(pid, localIov.rawAddress, localIovCount.toLong(), remoteIov.rawAddress, remoteIovCount.toLong(), flags.toLong())
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
@@ -611,14 +594,14 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetpriority(which, who.toInt(), prio)
 
-public actual fun schedCpualloc(count: SizeT): MutPtr<CpuSetT> =
+public actual fun schedCpualloc(count: SizeT): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedCpualloc(count.toLong()))
 
-public actual fun schedCpufree(set: MutPtr<CpuSetT>) {
+public actual fun schedCpufree(set: MutPtr) {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedCpufree(set.rawAddress)
 }
 
-public actual fun schedCpucount(setsize: SizeT, set: ConstPtr<CpuSetT>): CInt =
+public actual fun schedCpucount(setsize: SizeT, set: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedCpucount(setsize.toLong(), set.rawAddress)
 
 public actual fun schedGetcpu(): CInt =
@@ -627,27 +610,27 @@ public actual fun schedGetcpu(): CInt =
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
-public actual fun mallocInfo(options: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun mallocInfo(options: CInt, stream: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMallocInfo(options, stream.rawAddress)
 
-public actual fun mallocUsableSize(ptr: ConstPtr<CVoid>): SizeT =
+public actual fun mallocUsableSize(ptr: ConstPtr): SizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMallocUsableSize(ptr.rawAddress).toULong()
 
-public actual fun utmpname(name: ConstPtr<CChar>): CInt =
+public actual fun utmpname(name: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidUtmpname(name.rawAddress)
 
 public actual fun setutent() {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetutent()
 }
 
-public actual fun getutent(): MutPtr<Utmp> =
+public actual fun getutent(): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetutent())
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidTelldir(dirp.rawAddress)
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
@@ -662,61 +645,61 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPosixFallocate64(fd, offset, len)
 
-public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun getxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun lgetxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidLgetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFgetxattr(filedes, name.rawAddress, value.rawAddress, size.toLong())
 
-public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun setxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun lsetxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidLsetxattr(path.rawAddress, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFsetxattr(filedes, name.rawAddress, value.rawAddress, size.toLong(), flags)
 
-public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun listxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidListxattr(path.rawAddress, list.rawAddress, size.toLong())
 
-public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun llistxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidLlistxattr(path.rawAddress, list.rawAddress, size.toLong())
 
-public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun flistxattr(filedes: CInt, list: MutPtr, size: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFlistxattr(filedes, list.rawAddress, size.toLong())
 
-public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun removexattr(path: ConstPtr, name: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRemovexattr(path.rawAddress, name.rawAddress)
 
-public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun lremovexattr(path: ConstPtr, name: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidLremovexattr(path.rawAddress, name.rawAddress)
 
-public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFremovexattr(filedes, name.rawAddress)
 
-public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+public actual fun signalfd(fd: CInt, mask: ConstPtr, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSignalfd(fd, mask.rawAddress, flags)
 
 public actual fun timerfdCreate(clock: ClockidT, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidTimerfdCreate(clock, flags)
 
-public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidTimerfdGettime(fd, currentValue.rawAddress)
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidTimerfdSettime(fd, flags, newValue.rawAddress, oldValue.rawAddress)
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedGetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedSetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
 public actual fun epollCreate(size: CInt): CInt =
@@ -725,16 +708,16 @@ public actual fun epollCreate(size: CInt): CInt =
 public actual fun epollCreate1(flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+public actual fun epollWait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEpollWait(epfd, events.rawAddress, maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEpollCtl(epfd, op, fd, event.rawAddress)
 
 public actual fun unshare(flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidUnshare(flags)
 
-public actual fun umount(target: ConstPtr<CChar>): CInt =
+public actual fun umount(target: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidUmount(target.rawAddress)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
@@ -743,43 +726,43 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSettimeofday(tv.rawAddress, tz.rawAddress)
 
-public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+public actual fun splice(fdIn: CInt, offIn: MutPtr, fdOut: CInt, offOut: MutPtr, len: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSplice(fdIn, offIn.rawAddress, fdOut, offOut.rawAddress, len.toLong(), flags.toInt())
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEventfd(initval.toInt(), flags)
 
-public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+public actual fun eventfdRead(fd: CInt, value: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEventfdRead(fd, value.rawAddress)
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidEventfdWrite(fd, value.toLong())
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedRrGetInterval(pid, tp.rawAddress)
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSemGetvalue(sem.rawAddress, sval.rawAddress)
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedSetparam(pid, param.rawAddress)
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetns(fd, nstype)
 
-public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+public actual fun swapoff(puath: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSwapoff(puath.rawAddress)
 
-public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+public actual fun vmsplice(fd: CInt, iov: ConstPtr, nrSegs: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidVmsplice(fd, iov.rawAddress, nrSegs.toLong(), flags.toInt())
 
-public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+public actual fun mount(src: ConstPtr, target: ConstPtr, fstype: ConstPtr, flags: CUlong, data: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMount(src.rawAddress, target.rawAddress, fstype.rawAddress, flags.toLong(), data.rawAddress)
 
 public actual fun personality(persona: CUint): CInt =
@@ -788,43 +771,43 @@ public actual fun personality(persona: CUint): CInt =
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPrctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedGetparam(pid, param.rawAddress)
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, nfds: NfdsT, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPpoll(fds.rawAddress, nfds.toInt(), timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr, flags: CInt, arg: MutPtr, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidClone(0L, childStack.rawAddress, flags, arg.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidClockNanosleep(clkId, flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSethostname(name.rawAddress, len.toLong())
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedGetPriorityMin(policy)
 
-public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
+public actual fun sysinfo(info: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSysinfo(info.rawAddress)
 
-public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount2(target: ConstPtr, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidUmount2(target.rawAddress, flags)
 
-public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+public actual fun swapon(path: ConstPtr, swapflags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSwapon(path.rawAddress, swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSchedSetscheduler(pid, policy, param.rawAddress)
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSendfile(outFd, inFd, offset.rawAddress, count.toLong())
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSendfile64(outFd, inFd, offset.rawAddress, count.toLong())
 
 public actual fun setfsgid(gid: GidT): CInt =
@@ -833,55 +816,55 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSetfsuid(uid.toShort())
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSigsuspend(mask.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSigaltstack(ss.rawAddress, oss.rawAddress)
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSemClose(sem.rawAddress)
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrnam(name.rawAddress))
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSemUnlink(name.rawAddress)
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidDaemon(nochdir, noclose)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrgid(gid.toShort()))
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetgrouplist(user.rawAddress, group.toShort(), groups.rawAddress, ngroups.rawAddress)
 
-public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+public actual fun initgroups(user: ConstPtr, group: GidT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidInitgroups(user.rawAddress, group.toShort())
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun errno(): MutPtr<CInt> =
+public actual fun errno(): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidErrno())
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
@@ -893,23 +876,23 @@ public actual fun inotifyInit(): CInt =
 public actual fun inotifyInit1(flags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidInotifyInit1(flags)
 
-public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr, mask: UInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidInotifyAddWatch(fd, path.rawAddress, mask.toInt())
 
-public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+public actual fun regcomp(preg: MutPtr, pattern: ConstPtr, cflags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRegcomp(preg.rawAddress, pattern.rawAddress, cflags)
 
-public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+public actual fun regexec(preg: ConstPtr, input: ConstPtr, nmatch: SizeT, pmatch: MutPtr, eflags: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRegexec(preg.rawAddress, input.rawAddress, nmatch.toLong(), pmatch.rawAddress, eflags)
 
-public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+public actual fun regerror(errcode: CInt, preg: ConstPtr, errbuf: MutPtr, errbufSize: SizeT): SizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRegerror(errcode, preg.rawAddress, errbuf.rawAddress, errbufSize.toLong()).toULong()
 
-public actual fun regfree(preg: MutPtr<RegexT>) {
+public actual fun regfree(preg: MutPtr) {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRegfree(preg.rawAddress)
 }
 
-public actual fun androidSetAbortMessage(msg: ConstPtr<CChar>) {
+public actual fun androidSetAbortMessage(msg: ConstPtr) {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidAndroidSetAbortMessage(msg.rawAddress)
 }
 
@@ -922,28 +905,28 @@ public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
 public actual fun getauxval(type: CUlong): CUlong =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetauxval(type.toLong()).toULong()
 
-public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+public actual fun getrandom(buf: MutPtr, buflen: SizeT, flags: CUint): SsizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun systemPropertySet(name: ConstPtr<CChar>, value: ConstPtr<CChar>): CInt =
+public actual fun systemPropertySet(name: ConstPtr, value: ConstPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSystemPropertySet(name.rawAddress, value.rawAddress)
 
-public actual fun systemPropertyGet(name: ConstPtr<CChar>, value: MutPtr<CChar>): CInt =
+public actual fun systemPropertyGet(name: ConstPtr, value: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSystemPropertyGet(name.rawAddress, value.rawAddress)
 
-public actual fun systemPropertyFind(name: ConstPtr<CChar>): ConstPtr<PropInfo> =
+public actual fun systemPropertyFind(name: ConstPtr): ConstPtr =
     ConstPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSystemPropertyFind(name.rawAddress))
 
-public actual fun systemPropertyFindNth(n: CUint): ConstPtr<PropInfo> =
+public actual fun systemPropertyFindNth(n: CUint): ConstPtr =
     ConstPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSystemPropertyFindNth(n.toInt()))
 
-public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: MutPtr<CVoid>): CInt =
+public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSystemPropertyForeach(0L, cookie.rawAddress)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidDlIteratePhdr(0L, data.rawAddress)
 
 public actual fun arc4random(): UInt =
@@ -952,20 +935,20 @@ public actual fun arc4random(): UInt =
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidArc4randomUniform(upperBound.toInt()).toUInt()
 
-public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+public actual fun arc4randomBuf(buf: MutPtr, n: SizeT) {
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidArc4randomBuf(buf.rawAddress, n.toLong())
 }
 
-public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun reallocarray(ptr: MutPtr, nmemb: SizeT, size: SizeT): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
-public actual fun dirname(path: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: ConstPtr): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidDirname(path.rawAddress))
 
-public actual fun basename(path: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: ConstPtr): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidBasename(path.rawAddress))
 
-public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+public actual fun getoptLong(argc: CInt, argv: ConstPtr, optstring: ConstPtr, longopts: ConstPtr, longindex: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidGetoptLong(argc, argv.rawAddress, optstring.rawAddress, longopts.rawAddress, longindex.rawAddress)
 
 public actual fun sync() {
@@ -975,26 +958,26 @@ public actual fun sync() {
 public actual fun syncfs(fd: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidSyncfs(fd)
 
-public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+public actual fun memmem(haystack: ConstPtr, haystacklen: SizeT, needle: ConstPtr, needlelen: SizeT): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
-public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun freadUnlocked(buf: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFreadUnlocked(buf.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwriteUnlocked(buf: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwriteUnlocked(buf: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFwriteUnlocked(buf.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fflushUnlocked(stream: MutPtr<FILE>): CInt =
+public actual fun fflushUnlocked(stream: MutPtr): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFflushUnlocked(stream.rawAddress)
 
-public actual fun fgetsUnlocked(buf: MutPtr<CChar>, size: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgetsUnlocked(buf: MutPtr, size: CInt, stream: MutPtr): MutPtr =
     MutPtr(UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidFgetsUnlocked(buf.rawAddress, size, stream.rawAddress))
 
-public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr, len: CInt): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidKlogctl(syslogType, bufp.rawAddress, len)
 
-public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun memfdCreate(name: ConstPtr, flags: CUint): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidMemfdCreate(name.rawAddress, flags.toInt())
 
-public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr, flags: CUint): CInt =
     UnixLinuxlikeAndroidJniBridge.libcUnixLinuxlikeAndroidRenameat2(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags.toInt())

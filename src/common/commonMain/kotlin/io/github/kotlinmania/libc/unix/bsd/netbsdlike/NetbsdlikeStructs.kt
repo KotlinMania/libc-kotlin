@@ -14,7 +14,6 @@ import io.github.kotlinmania.libc.unix.bsd.Msghdr
 import io.github.kotlinmania.libc.unix.bsd.NCCS
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -45,11 +44,11 @@ public data class Sigaction(
 )
 
 public class StackT internal constructor(
-    ssSpCtorArg: MutPtr<CVoid>,
+    ssSpCtorArg: MutPtr,
     public var ssSize: SizeT,
     public var ssFlags: CInt,
 ) {
-    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+    public var ssSp: MutPtr = ssSpCtorArg
         internal set
 
     public constructor() : this(
@@ -58,13 +57,13 @@ public class StackT internal constructor(
         ssFlags = 0,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+    public operator fun component1(): MutPtr = this.ssSp
 
     public operator fun component2(): SizeT = this.ssSize
 
     public operator fun component3(): CInt = this.ssFlags
 
-    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssSize: SizeT = this.ssSize, ssFlags: CInt = this.ssFlags): StackT = StackT(ssSpCtorArg = ssSp, ssSize = ssSize, ssFlags = ssFlags)
+    public fun copy(ssSp: MutPtr = this.ssSp, ssSize: SizeT = this.ssSize, ssFlags: CInt = this.ssFlags): StackT = StackT(ssSpCtorArg = ssSp, ssSize = ssSize, ssFlags = ssFlags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -91,7 +90,7 @@ public class StackT internal constructor(
                     StackT(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
@@ -99,7 +98,7 @@ public class StackT internal constructor(
                 override fun writeNative(addr: Long, value: StackT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.ssSp)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.ssSize)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.ssFlags)
@@ -107,7 +106,7 @@ public class StackT internal constructor(
             }
 
         public operator fun invoke(
-            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssSp: MutPtr = MutPtr(0L),
             ssSize: SizeT = 0uL,
             ssFlags: CInt = 0,
         ): StackT =
@@ -232,14 +231,14 @@ public data class Flock(
 
 public class PtraceIoDesc internal constructor(
     public var piodOp: CInt,
-    piodOffsCtorArg: MutPtr<CVoid>,
-    piodAddrCtorArg: MutPtr<CVoid>,
+    piodOffsCtorArg: MutPtr,
+    piodAddrCtorArg: MutPtr,
     public var piodLen: SizeT,
 ) {
-    public var piodOffs: MutPtr<CVoid> = piodOffsCtorArg
+    public var piodOffs: MutPtr = piodOffsCtorArg
         internal set
 
-    public var piodAddr: MutPtr<CVoid> = piodAddrCtorArg
+    public var piodAddr: MutPtr = piodAddrCtorArg
         internal set
 
     public constructor() : this(
@@ -251,13 +250,13 @@ public class PtraceIoDesc internal constructor(
 
     public operator fun component1(): CInt = this.piodOp
 
-    public operator fun component2(): MutPtr<CVoid> = this.piodOffs
+    public operator fun component2(): MutPtr = this.piodOffs
 
-    public operator fun component3(): MutPtr<CVoid> = this.piodAddr
+    public operator fun component3(): MutPtr = this.piodAddr
 
     public operator fun component4(): SizeT = this.piodLen
 
-    public fun copy(piodOp: CInt = this.piodOp, piodOffs: MutPtr<CVoid> = this.piodOffs, piodAddr: MutPtr<CVoid> = this.piodAddr, piodLen: SizeT = this.piodLen): PtraceIoDesc = PtraceIoDesc(piodOp = piodOp, piodOffsCtorArg = piodOffs, piodAddrCtorArg = piodAddr, piodLen = piodLen)
+    public fun copy(piodOp: CInt = this.piodOp, piodOffs: MutPtr = this.piodOffs, piodAddr: MutPtr = this.piodAddr, piodLen: SizeT = this.piodLen): PtraceIoDesc = PtraceIoDesc(piodOp = piodOp, piodOffsCtorArg = piodOffs, piodAddrCtorArg = piodAddr, piodLen = piodLen)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -287,11 +286,11 @@ public class PtraceIoDesc internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
                     )
@@ -299,11 +298,11 @@ public class PtraceIoDesc internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.piodOp)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.piodOffs)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.piodAddr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.piodLen)
                 }
@@ -311,8 +310,8 @@ public class PtraceIoDesc internal constructor(
 
         public operator fun invoke(
             piodOp: CInt = 0,
-            piodOffs: MutPtr<CVoid> = MutPtr(0L),
-            piodAddr: MutPtr<CVoid> = MutPtr(0L),
+            piodOffs: MutPtr = MutPtr(0L),
+            piodAddr: MutPtr = MutPtr(0L),
             piodLen: SizeT = 0uL,
         ): PtraceIoDesc =
             PtraceIoDesc(

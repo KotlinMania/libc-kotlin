@@ -3,10 +3,8 @@
 package io.github.kotlinmania.libc.windows.msvc
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.windows.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -24,11 +22,11 @@ private external fun wasmLibcWindowsMsvcStrnicmp(p0: String, p1: String, p2: Str
 @JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsMsvcMemccpy(p0, p1, p2, p3)")
 private external fun wasmLibcWindowsMsvcMemccpy(p0: String, p1: String, p2: Int, p3: String): String
 
-public actual fun stricmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun stricmp(s1: ConstPtr, s2: ConstPtr): CInt =
     if (windowsMsvcNapiAvailable) wasmLibcWindowsMsvcStricmp(s1.rawAddress.toString(), s2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnicmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strnicmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     if (windowsMsvcNapiAvailable) wasmLibcWindowsMsvcStrnicmp(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memccpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, c: CInt, count: SizeT): MutPtr<CVoid> =
+public actual fun memccpy(dest: MutPtr, src: ConstPtr, c: CInt, count: SizeT): MutPtr =
     if (windowsMsvcNapiAvailable) MutPtr(wasmLibcWindowsMsvcMemccpy(dest.rawAddress.toString(), src.rawAddress.toString(), c, count.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

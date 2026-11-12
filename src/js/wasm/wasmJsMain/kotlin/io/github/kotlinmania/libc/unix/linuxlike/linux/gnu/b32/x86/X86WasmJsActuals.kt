@@ -24,13 +24,13 @@ private external fun wasmLibcUnixLinuxlikeLinuxGnuB32X86Makecontext(p0: String, 
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(p0, p1)")
 private external fun wasmLibcUnixLinuxlikeLinuxGnuB32X86Swapcontext(p0: String, p1: String): Int
 
-public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+public actual fun getcontext(ucp: MutPtr): CInt =
     if (unixLinuxlikeLinuxGnuB32X86NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB32X86Getcontext(ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+public actual fun setcontext(ucp: ConstPtr): CInt =
     if (unixLinuxlikeLinuxGnuB32X86NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB32X86Setcontext(ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: MutPtr, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
     if (unixLinuxlikeLinuxGnuB32X86NapiAvailable) {
         wasmLibcUnixLinuxlikeLinuxGnuB32X86Makecontext(ucp.rawAddress.toString(), 0L.toString(), argc, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
     } else {
@@ -38,5 +38,5 @@ public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerC
     }
 }
 
-public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+public actual fun swapcontext(uocp: MutPtr, ucp: ConstPtr): CInt =
     if (unixLinuxlikeLinuxGnuB32X86NapiAvailable) wasmLibcUnixLinuxlikeLinuxGnuB32X86Swapcontext(uocp.rawAddress.toString(), ucp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

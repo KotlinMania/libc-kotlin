@@ -2,33 +2,21 @@
 
 package io.github.kotlinmania.libc.unix.bsd.apple
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadCondT
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadMutexT
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.IntptrT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
-import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.BooleanT
-import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.MallocZoneT
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleAioCancel
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleAioError
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleAioFsync
@@ -291,7 +279,6 @@ import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleUtmpxn
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleVmAllocate
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleVmDeallocate
 import io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libcUnixBsdAppleWaitid
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
@@ -314,67 +301,67 @@ public actual fun setgrent() {
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libcUnixBsdAppleDaemon(nochdir, noclose)
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     libcUnixBsdAppleSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     libcUnixBsdAppleSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioRead(aiocbp: MutPtr): CInt =
     libcUnixBsdAppleAioRead(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioWrite(aiocbp: MutPtr): CInt =
     libcUnixBsdAppleAioWrite(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr): CInt =
     libcUnixBsdAppleAioFsync(op, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+public actual fun aioError(aiocbp: ConstPtr): CInt =
     libcUnixBsdAppleAioError(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+public actual fun aioReturn(aiocbp: MutPtr): SsizeT =
     libcUnixBsdAppleAioReturn(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+public actual fun aioSuspend(aiocbList: ConstPtr, nitems: CInt, timeout: ConstPtr): CInt =
     libcUnixBsdAppleAioSuspend(aiocbList.rawAddress.toCPointer<ByteVar>(), nitems, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr): CInt =
     libcUnixBsdAppleAioCancel(fd, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun chflags(path: ConstPtr, flags: CUint): CInt =
     libcUnixBsdAppleChflags(path.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun fchflags(fd: CInt, flags: CUint): CInt =
     libcUnixBsdAppleFchflags(fd, flags)
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     libcUnixBsdAppleClockGetres(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     libcUnixBsdAppleClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr, nitems: CInt, sevp: MutPtr): CInt =
     libcUnixBsdAppleLioListio(mode, aiocbList.rawAddress.toCPointer<ByteVar>(), nitems, sevp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     libcUnixBsdAppleDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun lutimes(file: ConstPtr, times: ConstPtr): CInt =
     libcUnixBsdAppleLutimes(file.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     libcUnixBsdAppleGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getutxent(): MutPtr<Utmpx> =
+public actual fun getutxent(): MutPtr =
     MutPtr(libcUnixBsdAppleGetutxent()?.toLong() ?: 0L)
 
-public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxid(ut: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleGetutxid(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxline(ut: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleGetutxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun pututxline(ut: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdApplePututxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun setutxent() {
@@ -385,37 +372,37 @@ public actual fun endutxent() {
     libcUnixBsdAppleEndutxent()
 }
 
-public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpxname(file: ConstPtr): CInt =
     libcUnixBsdAppleUtmpxname(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun asctime(tm: ConstPtr<Tm>): MutPtr<CChar> =
+public actual fun asctime(tm: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleAsctime(tm.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun ctime(clock: ConstPtr<TimeT>): MutPtr<CChar> =
+public actual fun ctime(clock: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleCtime(clock.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getdate(datestr: ConstPtr<CChar>): MutPtr<Tm> =
+public actual fun getdate(datestr: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleGetdate(datestr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strptime(buf: ConstPtr<CChar>, format: ConstPtr<CChar>, timeptr: MutPtr<Tm>): MutPtr<CChar> =
+public actual fun strptime(buf: ConstPtr, format: ConstPtr, timeptr: MutPtr): MutPtr =
     MutPtr(libcUnixBsdAppleStrptime(buf.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), timeptr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun asctimeR(tm: ConstPtr<Tm>, result: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun asctimeR(tm: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(libcUnixBsdAppleAsctimeR(tm.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun ctimeR(clock: ConstPtr<TimeT>, result: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctimeR(clock: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(libcUnixBsdAppleCtimeR(clock.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt =
     libcUnixBsdAppleGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun mincore(addr: ConstPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt =
+public actual fun mincore(addr: ConstPtr, len: SizeT, vec: MutPtr): CInt =
     libcUnixBsdAppleMincore(addr.rawAddress.toCPointer<ByteVar>(), len, vec.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sysctlnametomib(name: ConstPtr<CChar>, mibp: MutPtr<CInt>, sizep: MutPtr<SizeT>): CInt =
+public actual fun sysctlnametomib(name: ConstPtr, mibp: MutPtr, sizep: MutPtr): CInt =
     libcUnixBsdAppleSysctlnametomib(name.rawAddress.toCPointer<ByteVar>(), mibp.rawAddress.toCPointer<ByteVar>(), sizep.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     libcUnixBsdAppleMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
@@ -424,37 +411,37 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     libcUnixBsdAppleSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+public actual fun semop(semid: CInt, sops: MutPtr, nsops: SizeT): CInt =
     libcUnixBsdAppleSemop(semid, sops.rawAddress.toCPointer<ByteVar>(), nsops)
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     libcUnixBsdAppleShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     libcUnixBsdAppleFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
-public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr, shmflg: CInt): MutPtr =
     MutPtr(libcUnixBsdAppleShmat(shmid, shmaddr.rawAddress.toCPointer<ByteVar>(), shmflg)?.toLong() ?: 0L)
 
-public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+public actual fun shmdt(shmaddr: ConstPtr): CInt =
     libcUnixBsdAppleShmdt(shmaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr): CInt =
     libcUnixBsdAppleShmctl(shmid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
     libcUnixBsdAppleShmget(key, size, shmflg)
 
-public actual fun sysctl(name: MutPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+public actual fun sysctl(name: MutPtr, namelen: CUint, oldp: MutPtr, oldlenp: MutPtr, newp: MutPtr, newlen: SizeT): CInt =
     libcUnixBsdAppleSysctl(name.rawAddress.toCPointer<ByteVar>(), namelen, oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
-public actual fun sysctlbyname(name: ConstPtr<CChar>, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+public actual fun sysctlbyname(name: ConstPtr, oldp: MutPtr, oldlenp: MutPtr, newp: MutPtr, newlen: SizeT): CInt =
     libcUnixBsdAppleSysctlbyname(name.rawAddress.toCPointer<ByteVar>(), oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
 public actual fun machAbsoluteTime(): ULong =
     libcUnixBsdAppleMachAbsoluteTime()
 
-public actual fun machTimebaseInfo(info: MutPtr<MachTimebaseInfo>): CInt =
+public actual fun machTimebaseInfo(info: MutPtr): CInt =
     libcUnixBsdAppleMachTimebaseInfo(info.rawAddress.toCPointer<ByteVar>())
 
 public actual fun machHostSelf(): MachPortT =
@@ -463,28 +450,28 @@ public actual fun machHostSelf(): MachPortT =
 public actual fun machThreadSelf(): MachPortT =
     libcUnixBsdAppleMachThreadSelf()
 
-public actual fun pthreadCondTimedwaitRelativeNp(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwaitRelativeNp(cond: MutPtr, lock: MutPtr, timeout: ConstPtr): CInt =
     libcUnixBsdApplePthreadCondTimedwaitRelativeNp(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetscope(attr: ConstPtr<PthreadAttrT>, contentionscope: MutPtr<CInt>): CInt =
+public actual fun pthreadAttrGetscope(attr: ConstPtr, contentionscope: MutPtr): CInt =
     libcUnixBsdApplePthreadAttrGetscope(attr.rawAddress.toCPointer<ByteVar>(), contentionscope.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr, stackaddr: MutPtr): CInt =
     libcUnixBsdApplePthreadAttrGetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt =
+public actual fun pthreadAttrGetdetachstate(attr: ConstPtr, detachstate: MutPtr): CInt =
     libcUnixBsdApplePthreadAttrGetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), detachstate.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetscope(attr: MutPtr<PthreadAttrT>, contentionscope: CInt): CInt =
+public actual fun pthreadAttrSetscope(attr: MutPtr, contentionscope: CInt): CInt =
     libcUnixBsdApplePthreadAttrSetscope(attr.rawAddress.toCPointer<ByteVar>(), contentionscope)
 
-public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr, stackaddr: MutPtr): CInt =
     libcUnixBsdApplePthreadAttrSetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetnameNp(name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(name: ConstPtr): CInt =
     libcUnixBsdApplePthreadSetnameNp(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt =
     libcUnixBsdApplePthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun pthreadMachThreadNp(thread: PthreadT): MachPortT =
@@ -493,7 +480,7 @@ public actual fun pthreadMachThreadNp(thread: PthreadT): MachPortT =
 public actual fun pthreadFromMachThreadNp(port: MachPortT): PthreadT =
     (libcUnixBsdApplePthreadFromMachThreadNp(port)?.toLong() ?: 0L).toULong()
 
-public actual fun pthreadGetStackaddrNp(thread: PthreadT): MutPtr<CVoid> =
+public actual fun pthreadGetStackaddrNp(thread: PthreadT): MutPtr =
     MutPtr(libcUnixBsdApplePthreadGetStackaddrNp(thread.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadGetStacksizeNp(thread: PthreadT): SizeT =
@@ -502,7 +489,7 @@ public actual fun pthreadGetStacksizeNp(thread: PthreadT): SizeT =
 public actual fun pthreadMainNp(): CInt =
     libcUnixBsdApplePthreadMainNp()
 
-public actual fun pthreadThreadidNp(thread: PthreadT, threadId: MutPtr<ULong>): CInt =
+public actual fun pthreadThreadidNp(thread: PthreadT, threadId: MutPtr): CInt =
     libcUnixBsdApplePthreadThreadidNp(thread.toLong().toCPointer<ByteVar>(), threadId.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadJitWriteProtectNp(enabled: CInt) {
@@ -512,29 +499,29 @@ public actual fun pthreadJitWriteProtectNp(enabled: CInt) {
 public actual fun pthreadJitWriteProtectSupportedNp(): CInt =
     libcUnixBsdApplePthreadJitWriteProtectSupportedNp()
 
-public actual fun pthreadJitWriteWithCallbackNp(callback: PthreadJitWriteCallbackT, ctx: MutPtr<CVoid>): CInt =
+public actual fun pthreadJitWriteWithCallbackNp(callback: PthreadJitWriteCallbackT, ctx: MutPtr): CInt =
     libcUnixBsdApplePthreadJitWriteWithCallbackNp(0L.toCPointer<ByteVar>(), ctx.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadJitWriteFreezeCallbacksNp() {
     libcUnixBsdApplePthreadJitWriteFreezeCallbacksNp()
 }
 
-public actual fun pthreadCpuNumberNp(cpuNumberOut: MutPtr<SizeT>): CInt =
+public actual fun pthreadCpuNumberNp(cpuNumberOut: MutPtr): CInt =
     libcUnixBsdApplePthreadCpuNumberNp(cpuNumberOut.rawAddress.toCPointer<ByteVar>())
 
-public actual fun osSyncWaitOnAddress(addr: MutPtr<CVoid>, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT): CInt =
+public actual fun osSyncWaitOnAddress(addr: MutPtr, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT): CInt =
     libcUnixBsdAppleOsSyncWaitOnAddress(addr.rawAddress.toCPointer<ByteVar>(), value, size, flags)
 
-public actual fun osSyncWaitOnAddressWithDeadline(addr: MutPtr<CVoid>, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT, clockid: OsClockidT, deadline: ULong): CInt =
+public actual fun osSyncWaitOnAddressWithDeadline(addr: MutPtr, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT, clockid: OsClockidT, deadline: ULong): CInt =
     libcUnixBsdAppleOsSyncWaitOnAddressWithDeadline(addr.rawAddress.toCPointer<ByteVar>(), value, size, flags, clockid, deadline)
 
-public actual fun osSyncWaitOnAddressWithTimeout(addr: MutPtr<CVoid>, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT, clockid: OsClockidT, timeoutNs: ULong): CInt =
+public actual fun osSyncWaitOnAddressWithTimeout(addr: MutPtr, value: ULong, size: SizeT, flags: OsSyncWaitOnAddressFlagsT, clockid: OsClockidT, timeoutNs: ULong): CInt =
     libcUnixBsdAppleOsSyncWaitOnAddressWithTimeout(addr.rawAddress.toCPointer<ByteVar>(), value, size, flags, clockid, timeoutNs)
 
-public actual fun osSyncWakeByAddressAny(addr: MutPtr<CVoid>, size: SizeT, flags: OsSyncWakeByAddressFlagsT): CInt =
+public actual fun osSyncWakeByAddressAny(addr: MutPtr, size: SizeT, flags: OsSyncWakeByAddressFlagsT): CInt =
     libcUnixBsdAppleOsSyncWakeByAddressAny(addr.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun osSyncWakeByAddressAll(addr: MutPtr<CVoid>, size: SizeT, flags: OsSyncWakeByAddressFlagsT): CInt =
+public actual fun osSyncWakeByAddressAll(addr: MutPtr, size: SizeT, flags: OsSyncWakeByAddressFlagsT): CInt =
     libcUnixBsdAppleOsSyncWakeByAddressAll(addr.rawAddress.toCPointer<ByteVar>(), size, flags)
 
 public actual fun osUnfairLockLock(lock: OsUnfairLockT) {
@@ -556,13 +543,13 @@ public actual fun osUnfairLockAssertNotOwner(lock: OsUnfairLockT) {
     libcUnixBsdAppleOsUnfairLockAssertNotOwner(lock.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun osLogCreate(subsystem: ConstPtr<CChar>, category: ConstPtr<CChar>): OsLogT =
+public actual fun osLogCreate(subsystem: ConstPtr, category: ConstPtr): OsLogT =
     MutPtr(libcUnixBsdAppleOsLogCreate(subsystem.rawAddress.toCPointer<ByteVar>(), category.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun osLogTypeEnabled(oslog: OsLogT, tpe: OsLogTypeT): Boolean =
     libcUnixBsdAppleOsLogTypeEnabled(oslog.rawAddress.toCPointer<ByteVar>(), tpe)
 
-public actual fun osSignpostIdMakeWithPointer(log: OsLogT, ptr: ConstPtr<CVoid>): OsSignpostIdT =
+public actual fun osSignpostIdMakeWithPointer(log: OsLogT, ptr: ConstPtr): OsSignpostIdT =
     libcUnixBsdAppleOsSignpostIdMakeWithPointer(log.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun osSignpostIdGenerate(log: OsLogT): OsSignpostIdT =
@@ -574,75 +561,75 @@ public actual fun osSignpostEnabled(log: OsLogT): Boolean =
 public actual fun threadPolicySet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MachMsgTypeNumberT): KernReturnT =
     libcUnixBsdAppleThreadPolicySet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun threadPolicyGet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MutPtr<MachMsgTypeNumberT>, getDefault: MutPtr<BooleanT>): KernReturnT =
+public actual fun threadPolicyGet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MutPtr, getDefault: MutPtr): KernReturnT =
     libcUnixBsdAppleThreadPolicyGet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo.rawAddress.toCPointer<ByteVar>(), count.rawAddress.toCPointer<ByteVar>(), getDefault.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, threadInfoOut: ThreadInfoT, threadInfoOutCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, threadInfoOut: ThreadInfoT, threadInfoOutCnt: MutPtr): KernReturnT =
     libcUnixBsdAppleThreadInfo(targetAct, flavor, threadInfoOut.rawAddress.toCPointer<ByteVar>(), threadInfoOutCnt.rawAddress.toCPointer<ByteVar>())
 
-public actual fun error(): MutPtr<CInt> =
+public actual fun error(): MutPtr =
     MutPtr(libcUnixBsdAppleError()?.toLong() ?: 0L)
 
-public actual fun backtrace(buf: MutPtr<MutPtr<CVoid>>, sz: CInt): CInt =
+public actual fun backtrace(buf: MutPtr, sz: CInt): CInt =
     libcUnixBsdAppleBacktrace(buf.rawAddress.toCPointer<ByteVar>(), sz)
 
-public actual fun backtraceSymbols(addrs: ConstPtr<MutPtr<CVoid>>, sz: CInt): MutPtr<MutPtr<CChar>> =
+public actual fun backtraceSymbols(addrs: ConstPtr, sz: CInt): MutPtr =
     MutPtr(libcUnixBsdAppleBacktraceSymbols(addrs.rawAddress.toCPointer<ByteVar>(), sz)?.toLong() ?: 0L)
 
-public actual fun backtraceSymbolsFd(addrs: ConstPtr<MutPtr<CVoid>>, sz: CInt, fd: CInt) {
+public actual fun backtraceSymbolsFd(addrs: ConstPtr, sz: CInt, fd: CInt) {
     libcUnixBsdAppleBacktraceSymbolsFd(addrs.rawAddress.toCPointer<ByteVar>(), sz, fd)
 }
 
-public actual fun backtraceFromFp(startfp: MutPtr<CVoid>, array: MutPtr<MutPtr<CVoid>>, size: CInt): CInt =
+public actual fun backtraceFromFp(startfp: MutPtr, array: MutPtr, size: CInt): CInt =
     libcUnixBsdAppleBacktraceFromFp(startfp.rawAddress.toCPointer<ByteVar>(), array.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun backtraceImageOffsets(array: ConstPtr<MutPtr<CVoid>>, imageOffsets: MutPtr<ImageOffset>, size: CInt) {
+public actual fun backtraceImageOffsets(array: ConstPtr, imageOffsets: MutPtr, size: CInt) {
     libcUnixBsdAppleBacktraceImageOffsets(array.rawAddress.toCPointer<ByteVar>(), imageOffsets.rawAddress.toCPointer<ByteVar>(), size)
 }
 
-public actual fun backtraceAsync(array: MutPtr<MutPtr<CVoid>>, length: SizeT, taskId: MutPtr<UInt>): SizeT =
+public actual fun backtraceAsync(array: MutPtr, length: SizeT, taskId: MutPtr): SizeT =
     libcUnixBsdAppleBacktraceAsync(array.rawAddress.toCPointer<ByteVar>(), length, taskId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+public actual fun statfs(path: ConstPtr, buf: MutPtr): CInt =
     libcUnixBsdAppleStatfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+public actual fun fstatfs(fd: CInt, buf: MutPtr): CInt =
     libcUnixBsdAppleFstatfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+public actual fun kevent(kq: CInt, changelist: ConstPtr, nchanges: CInt, eventlist: MutPtr, nevents: CInt, timeout: ConstPtr): CInt =
     libcUnixBsdAppleKevent(kq, changelist.rawAddress.toCPointer<ByteVar>(), nchanges, eventlist.rawAddress.toCPointer<ByteVar>(), nevents, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kevent64(kq: CInt, changelist: ConstPtr<Kevent64S>, nchanges: CInt, eventlist: MutPtr<Kevent64S>, nevents: CInt, flags: CUint, timeout: ConstPtr<Timespec>): CInt =
+public actual fun kevent64(kq: CInt, changelist: ConstPtr, nchanges: CInt, eventlist: MutPtr, nevents: CInt, flags: CUint, timeout: ConstPtr): CInt =
     libcUnixBsdAppleKevent64(kq, changelist.rawAddress.toCPointer<ByteVar>(), nchanges, eventlist.rawAddress.toCPointer<ByteVar>(), nevents, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, flags: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun mount(src: ConstPtr, target: ConstPtr, flags: CInt, data: MutPtr): CInt =
     libcUnixBsdAppleMount(src.rawAddress.toCPointer<ByteVar>(), target.rawAddress.toCPointer<ByteVar>(), flags, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fmount(src: ConstPtr<CChar>, fd: CInt, flags: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun fmount(src: ConstPtr, fd: CInt, flags: CInt, data: MutPtr): CInt =
     libcUnixBsdAppleFmount(src.rawAddress.toCPointer<ByteVar>(), fd, flags, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ptrace(request: CInt, pid: PidT, addr: MutPtr<CChar>, data: CInt): CInt =
+public actual fun ptrace(request: CInt, pid: PidT, addr: MutPtr, data: CInt): CInt =
     libcUnixBsdApplePtrace(request, pid, addr.rawAddress.toCPointer<ByteVar>(), data)
 
-public actual fun quotactl(special: ConstPtr<CChar>, cmd: CInt, id: CInt, data: MutPtr<CChar>): CInt =
+public actual fun quotactl(special: ConstPtr, cmd: CInt, id: CInt, data: MutPtr): CInt =
     libcUnixBsdAppleQuotactl(special.rawAddress.toCPointer<ByteVar>(), cmd, id, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: CInt): CInt =
+public actual fun sethostname(name: ConstPtr, len: CInt): CInt =
     libcUnixBsdAppleSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun sendfile(fd: CInt, s: CInt, offset: OffT, len: MutPtr<OffT>, hdtr: MutPtr<SfHdtr>, flags: CInt): CInt =
+public actual fun sendfile(fd: CInt, s: CInt, offset: OffT, len: MutPtr, hdtr: MutPtr, flags: CInt): CInt =
     libcUnixBsdAppleSendfile(fd, s, offset, len.rawAddress.toCPointer<ByteVar>(), hdtr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     libcUnixBsdAppleFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     libcUnixBsdAppleUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt =
     libcUnixBsdAppleOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+public actual fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT =
     libcUnixBsdAppleForkpty(amaster.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun loginTty(fd: CInt): CInt =
@@ -654,16 +641,16 @@ public actual fun duplocale(base: LocaleT): LocaleT =
 public actual fun freelocale(loc: LocaleT): CInt =
     libcUnixBsdAppleFreelocale(loc.rawAddress.toCPointer<ByteVar>())
 
-public actual fun localeconvL(loc: LocaleT): MutPtr<Lconv> =
+public actual fun localeconvL(loc: LocaleT): MutPtr =
     MutPtr(libcUnixBsdAppleLocaleconvL(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+public actual fun newlocale(mask: CInt, locale: ConstPtr, base: LocaleT): LocaleT =
     MutPtr(libcUnixBsdAppleNewlocale(mask, locale.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     MutPtr(libcUnixBsdAppleUselocale(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun querylocale(mask: CInt, loc: LocaleT): ConstPtr<CChar> =
+public actual fun querylocale(mask: CInt, loc: LocaleT): ConstPtr =
     ConstPtr(libcUnixBsdAppleQuerylocale(mask, loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
@@ -672,172 +659,172 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     libcUnixBsdAppleSetpriority(which, who, prio)
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: CInt): CInt =
+public actual fun getdomainname(name: MutPtr, len: CInt): CInt =
     libcUnixBsdAppleGetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: CInt): CInt =
+public actual fun setdomainname(name: ConstPtr, len: CInt): CInt =
     libcUnixBsdAppleSetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     libcUnixBsdApplePreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     libcUnixBsdApplePwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT, position: UInt, flags: CInt): SsizeT =
+public actual fun getxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT, position: UInt, flags: CInt): SsizeT =
     libcUnixBsdAppleGetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, position, flags)
 
-public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT, position: UInt, flags: CInt): SsizeT =
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr, value: MutPtr, size: SizeT, position: UInt, flags: CInt): SsizeT =
     libcUnixBsdAppleFgetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, position, flags)
 
-public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, position: UInt, flags: CInt): CInt =
+public actual fun setxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, position: UInt, flags: CInt): CInt =
     libcUnixBsdAppleSetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, position, flags)
 
-public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, position: UInt, flags: CInt): CInt =
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr, value: ConstPtr, size: SizeT, position: UInt, flags: CInt): CInt =
     libcUnixBsdAppleFsetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, position, flags)
 
-public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT, flags: CInt): SsizeT =
+public actual fun listxattr(path: ConstPtr, list: MutPtr, size: SizeT, flags: CInt): SsizeT =
     libcUnixBsdAppleListxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT, flags: CInt): SsizeT =
+public actual fun flistxattr(filedes: CInt, list: MutPtr, size: SizeT, flags: CInt): SsizeT =
     libcUnixBsdAppleFlistxattr(filedes, list.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun removexattr(path: ConstPtr, name: ConstPtr, flags: CInt): CInt =
     libcUnixBsdAppleRemovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun renamexNp(from: ConstPtr<CChar>, to: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun renamexNp(from: ConstPtr, to: ConstPtr, flags: CUint): CInt =
     libcUnixBsdAppleRenamexNp(from.rawAddress.toCPointer<ByteVar>(), to.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun renameatxNp(fromfd: CInt, from: ConstPtr<CChar>, tofd: CInt, to: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun renameatxNp(fromfd: CInt, from: ConstPtr, tofd: CInt, to: ConstPtr, flags: CUint): CInt =
     libcUnixBsdAppleRenameatxNp(fromfd, from.rawAddress.toCPointer<ByteVar>(), tofd, to.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr, flags: CInt): CInt =
     libcUnixBsdAppleFremovexattr(filedes, name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun getgrouplist(name: ConstPtr<CChar>, basegid: CInt, groups: MutPtr<CInt>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(name: ConstPtr, basegid: CInt, groups: MutPtr, ngroups: MutPtr): CInt =
     libcUnixBsdAppleGetgrouplist(name.rawAddress.toCPointer<ByteVar>(), basegid, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: ConstPtr<CChar>, basegroup: CInt): CInt =
+public actual fun initgroups(user: ConstPtr, basegroup: CInt): CInt =
     libcUnixBsdAppleInitgroups(user.rawAddress.toCPointer<ByteVar>(), basegroup)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     libcUnixBsdAppleWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun brk(addr: ConstPtr<CVoid>): MutPtr<CVoid> =
+public actual fun brk(addr: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleBrk(addr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun sbrk(increment: CInt): MutPtr<CVoid> =
+public actual fun sbrk(increment: CInt): MutPtr =
     MutPtr(libcUnixBsdAppleSbrk(increment)?.toLong() ?: 0L)
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     libcUnixBsdAppleSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
 public actual fun dyldImageCount(): UInt =
     libcUnixBsdAppleDyldImageCount()
 
-public actual fun dyldGetImageHeader(imageIndex: UInt): ConstPtr<MachHeader> =
+public actual fun dyldGetImageHeader(imageIndex: UInt): ConstPtr =
     ConstPtr(libcUnixBsdAppleDyldGetImageHeader(imageIndex)?.toLong() ?: 0L)
 
 public actual fun dyldGetImageVmaddrSlide(imageIndex: UInt): IntptrT =
     libcUnixBsdAppleDyldGetImageVmaddrSlide(imageIndex)
 
-public actual fun dyldGetImageName(imageIndex: UInt): ConstPtr<CChar> =
+public actual fun dyldGetImageName(imageIndex: UInt): ConstPtr =
     ConstPtr(libcUnixBsdAppleDyldGetImageName(imageIndex)?.toLong() ?: 0L)
 
-public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawn(pid: MutPtr, path: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcUnixBsdApplePosixSpawn(pid.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawnp(pid: MutPtr, file: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     libcUnixBsdApplePosixSpawnp(pid.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrInit(attr: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrDestroy(attr: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr, default: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr, default: ConstPtr): CInt =
     libcUnixBsdApplePosixSpawnattrSetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr, default: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr, default: ConstPtr): CInt =
     libcUnixBsdApplePosixSpawnattrSetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+public actual fun posixSpawnattrGetflags(attr: ConstPtr, flags: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetflags(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: MutPtr, flags: CShort): CInt =
     libcUnixBsdApplePosixSpawnattrSetflags(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr, flags: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr, flags: PidT): CInt =
     libcUnixBsdApplePosixSpawnattrSetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrSetarchprefNp(attr: MutPtr<PosixSpawnattrT>, count: SizeT, pref: MutPtr<CpuTypeT>, subpref: MutPtr<CpuSubtypeT>, ocount: MutPtr<SizeT>): CInt =
+public actual fun posixSpawnattrSetarchprefNp(attr: MutPtr, count: SizeT, pref: MutPtr, subpref: MutPtr, ocount: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrSetarchprefNp(attr.rawAddress.toCPointer<ByteVar>(), count, pref.rawAddress.toCPointer<ByteVar>(), subpref.rawAddress.toCPointer<ByteVar>(), ocount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetarchprefNp(attr: ConstPtr<PosixSpawnattrT>, count: SizeT, pref: MutPtr<CpuTypeT>, subpref: MutPtr<CpuSubtypeT>, ocount: MutPtr<SizeT>): CInt =
+public actual fun posixSpawnattrGetarchprefNp(attr: ConstPtr, count: SizeT, pref: MutPtr, subpref: MutPtr, ocount: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetarchprefNp(attr.rawAddress.toCPointer<ByteVar>(), count, pref.rawAddress.toCPointer<ByteVar>(), subpref.rawAddress.toCPointer<ByteVar>(), ocount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetbinprefNp(attr: ConstPtr<PosixSpawnattrT>, count: SizeT, pref: MutPtr<CpuTypeT>, ocount: MutPtr<SizeT>): CInt =
+public actual fun posixSpawnattrGetbinprefNp(attr: ConstPtr, count: SizeT, pref: MutPtr, ocount: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrGetbinprefNp(attr.rawAddress.toCPointer<ByteVar>(), count, pref.rawAddress.toCPointer<ByteVar>(), ocount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetbinprefNp(attr: MutPtr<PosixSpawnattrT>, count: SizeT, pref: MutPtr<CpuTypeT>, ocount: MutPtr<SizeT>): CInt =
+public actual fun posixSpawnattrSetbinprefNp(attr: MutPtr, count: SizeT, pref: MutPtr, ocount: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnattrSetbinprefNp(attr.rawAddress.toCPointer<ByteVar>(), count, pref.rawAddress.toCPointer<ByteVar>(), ocount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsInit(actions: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnFileActionsInit(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr): CInt =
     libcUnixBsdApplePosixSpawnFileActionsDestroy(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr, fd: CInt, path: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     libcUnixBsdApplePosixSpawnFileActionsAddopen(actions.rawAddress.toCPointer<ByteVar>(), fd, path.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr, fd: CInt): CInt =
     libcUnixBsdApplePosixSpawnFileActionsAddclose(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr, fd: CInt, newfd: CInt): CInt =
     libcUnixBsdApplePosixSpawnFileActionsAdddup2(actions.rawAddress.toCPointer<ByteVar>(), fd, newfd)
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     libcUnixBsdAppleUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectx(socket: CInt, endpoints: ConstPtr<SaEndpointsT>, associd: SaeAssocidT, flags: CUint, iov: ConstPtr<Iovec>, iovcnt: CUint, len: MutPtr<SizeT>, connid: MutPtr<SaeConnidT>): CInt =
+public actual fun connectx(socket: CInt, endpoints: ConstPtr, associd: SaeAssocidT, flags: CUint, iov: ConstPtr, iovcnt: CUint, len: MutPtr, connid: MutPtr): CInt =
     libcUnixBsdAppleConnectx(socket, endpoints.rawAddress.toCPointer<ByteVar>(), associd, flags, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, len.rawAddress.toCPointer<ByteVar>(), connid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun disconnectx(socket: CInt, associd: SaeAssocidT, connid: SaeConnidT): CInt =
     libcUnixBsdAppleDisconnectx(socket, associd, connid)
 
-public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+public actual fun ntpAdjtime(buf: MutPtr): CInt =
     libcUnixBsdAppleNtpAdjtime(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+public actual fun ntpGettime(buf: MutPtr): CInt =
     libcUnixBsdAppleNtpGettime(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, flags: CInt): CInt =
+public actual fun getmntinfo(mntbufp: MutPtr, flags: CInt): CInt =
     libcUnixBsdAppleGetmntinfo(mntbufp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun getfsstat(mntbufp: MutPtr<Statfs>, bufsize: CInt, flags: CInt): CInt =
+public actual fun getfsstat(mntbufp: MutPtr, bufsize: CInt, flags: CInt): CInt =
     libcUnixBsdAppleGetfsstat(mntbufp.rawAddress.toCPointer<ByteVar>(), bufsize, flags)
 
-public actual fun clonefile(src: ConstPtr<CChar>, dst: ConstPtr<CChar>, flags: UInt): CInt =
+public actual fun clonefile(src: ConstPtr, dst: ConstPtr, flags: UInt): CInt =
     libcUnixBsdAppleClonefile(src.rawAddress.toCPointer<ByteVar>(), dst.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun clonefileat(srcDirfd: CInt, src: ConstPtr<CChar>, dstDirfd: CInt, dst: ConstPtr<CChar>, flags: UInt): CInt =
+public actual fun clonefileat(srcDirfd: CInt, src: ConstPtr, dstDirfd: CInt, dst: ConstPtr, flags: UInt): CInt =
     libcUnixBsdAppleClonefileat(srcDirfd, src.rawAddress.toCPointer<ByteVar>(), dstDirfd, dst.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun fclonefileat(srcfd: CInt, dstDirfd: CInt, dst: ConstPtr<CChar>, flags: UInt): CInt =
+public actual fun fclonefileat(srcfd: CInt, dstDirfd: CInt, dst: ConstPtr, flags: UInt): CInt =
     libcUnixBsdAppleFclonefileat(srcfd, dstDirfd, dst.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun copyfile(from: ConstPtr<CChar>, to: ConstPtr<CChar>, state: CopyfileStateT, flags: CopyfileFlagsT): CInt =
+public actual fun copyfile(from: ConstPtr, to: ConstPtr, state: CopyfileStateT, flags: CopyfileFlagsT): CInt =
     libcUnixBsdAppleCopyfile(from.rawAddress.toCPointer<ByteVar>(), to.rawAddress.toCPointer<ByteVar>(), state.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun fcopyfile(from: CInt, to: CInt, state: CopyfileStateT, flags: CopyfileFlagsT): CInt =
@@ -849,118 +836,118 @@ public actual fun copyfileStateFree(s: CopyfileStateT): CInt =
 public actual fun copyfileStateAlloc(): CopyfileStateT =
     MutPtr(libcUnixBsdAppleCopyfileStateAlloc()?.toLong() ?: 0L)
 
-public actual fun copyfileStateGet(s: CopyfileStateT, flags: UInt, dst: MutPtr<CVoid>): CInt =
+public actual fun copyfileStateGet(s: CopyfileStateT, flags: UInt, dst: MutPtr): CInt =
     libcUnixBsdAppleCopyfileStateGet(s.rawAddress.toCPointer<ByteVar>(), flags, dst.rawAddress.toCPointer<ByteVar>())
 
-public actual fun copyfileStateSet(s: CopyfileStateT, flags: UInt, src: ConstPtr<CVoid>): CInt =
+public actual fun copyfileStateSet(s: CopyfileStateT, flags: UInt, src: ConstPtr): CInt =
     libcUnixBsdAppleCopyfileStateSet(s.rawAddress.toCPointer<ByteVar>(), flags, src.rawAddress.toCPointer<ByteVar>())
 
-public actual fun machErrorString(errorValue: MachErrorT): MutPtr<CChar> =
+public actual fun machErrorString(errorValue: MachErrorT): MutPtr =
     MutPtr(libcUnixBsdAppleMachErrorString(errorValue)?.toLong() ?: 0L)
 
-public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+public actual fun memsetS(s: MutPtr, smax: SizeT, c: CInt, n: SizeT): CInt =
     libcUnixBsdAppleMemsetS(s.rawAddress.toCPointer<ByteVar>(), smax, c, n)
 
-public actual fun memsetPattern4(b: MutPtr<CVoid>, pattern4: ConstPtr<CVoid>, len: SizeT) {
+public actual fun memsetPattern4(b: MutPtr, pattern4: ConstPtr, len: SizeT) {
     libcUnixBsdAppleMemsetPattern4(b.rawAddress.toCPointer<ByteVar>(), pattern4.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun memsetPattern8(b: MutPtr<CVoid>, pattern8: ConstPtr<CVoid>, len: SizeT) {
+public actual fun memsetPattern8(b: MutPtr, pattern8: ConstPtr, len: SizeT) {
     libcUnixBsdAppleMemsetPattern8(b.rawAddress.toCPointer<ByteVar>(), pattern8.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun memsetPattern16(b: MutPtr<CVoid>, pattern16: ConstPtr<CVoid>, len: SizeT) {
+public actual fun memsetPattern16(b: MutPtr, pattern16: ConstPtr, len: SizeT) {
     libcUnixBsdAppleMemsetPattern16(b.rawAddress.toCPointer<ByteVar>(), pattern16.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun strtonum(numstr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstrp: MutPtr<ConstPtr<CChar>>): CLonglong =
+public actual fun strtonum(numstr: ConstPtr, minval: CLonglong, maxval: CLonglong, errstrp: MutPtr): CLonglong =
     libcUnixBsdAppleStrtonum(numstr.rawAddress.toCPointer<ByteVar>(), minval, maxval, errstrp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mstats(): Mstats =
     Mstats()
 
-public actual fun mallocPrintf(format: ConstPtr<CChar>, vararg variadicArgs: Long) {
+public actual fun mallocPrintf(format: ConstPtr, vararg variadicArgs: Long) {
     libcUnixBsdAppleMallocPrintf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun mallocZoneCheck(zone: MutPtr<MallocZoneT>): BooleanT =
+public actual fun mallocZoneCheck(zone: MutPtr): BooleanT =
     libcUnixBsdAppleMallocZoneCheck(zone.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mallocZonePrint(zone: MutPtr<MallocZoneT>, verbose: BooleanT) {
+public actual fun mallocZonePrint(zone: MutPtr, verbose: BooleanT) {
     libcUnixBsdAppleMallocZonePrint(zone.rawAddress.toCPointer<ByteVar>(), verbose)
 }
 
-public actual fun mallocZoneStatistics(zone: MutPtr<MallocZoneT>, stats: MutPtr<MallocStatisticsT>) {
+public actual fun mallocZoneStatistics(zone: MutPtr, stats: MutPtr) {
     libcUnixBsdAppleMallocZoneStatistics(zone.rawAddress.toCPointer<ByteVar>(), stats.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun mallocZoneLog(zone: MutPtr<MallocZoneT>, address: MutPtr<CVoid>) {
+public actual fun mallocZoneLog(zone: MutPtr, address: MutPtr) {
     libcUnixBsdAppleMallocZoneLog(zone.rawAddress.toCPointer<ByteVar>(), address.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun mallocZonePrintPtrInfo(ptr: MutPtr<CVoid>) {
+public actual fun mallocZonePrintPtrInfo(ptr: MutPtr) {
     libcUnixBsdAppleMallocZonePrintPtrInfo(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun mallocDefaultZone(): MutPtr<MallocZoneT> =
+public actual fun mallocDefaultZone(): MutPtr =
     MutPtr(libcUnixBsdAppleMallocDefaultZone()?.toLong() ?: 0L)
 
-public actual fun mallocZoneFromPtr(ptr: ConstPtr<CVoid>): MutPtr<MallocZoneT> =
+public actual fun mallocZoneFromPtr(ptr: ConstPtr): MutPtr =
     MutPtr(libcUnixBsdAppleMallocZoneFromPtr(ptr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mallocZoneMalloc(zone: MutPtr<MallocZoneT>, size: SizeT): MutPtr<CVoid> =
+public actual fun mallocZoneMalloc(zone: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcUnixBsdAppleMallocZoneMalloc(zone.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun mallocZoneValloc(zone: MutPtr<MallocZoneT>, size: SizeT): MutPtr<CVoid> =
+public actual fun mallocZoneValloc(zone: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcUnixBsdAppleMallocZoneValloc(zone.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun mallocZoneCalloc(zone: MutPtr<MallocZoneT>, numItems: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun mallocZoneCalloc(zone: MutPtr, numItems: SizeT, size: SizeT): MutPtr =
     MutPtr(libcUnixBsdAppleMallocZoneCalloc(zone.rawAddress.toCPointer<ByteVar>(), numItems, size)?.toLong() ?: 0L)
 
-public actual fun mallocZoneRealloc(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun mallocZoneRealloc(zone: MutPtr, ptr: MutPtr, size: SizeT): MutPtr =
     MutPtr(libcUnixBsdAppleMallocZoneRealloc(zone.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun mallocZoneFree(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>) {
+public actual fun mallocZoneFree(zone: MutPtr, ptr: MutPtr) {
     libcUnixBsdAppleMallocZoneFree(zone.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procListpids(t: UInt, typeinfo: UInt, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procListpids(t: UInt, typeinfo: UInt, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcListpids(t, typeinfo, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procListallpids(buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procListallpids(buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcListallpids(buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procListpgrppids(pgrpid: PidT, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procListpgrppids(pgrpid: PidT, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcListpgrppids(pgrpid, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procListchildpids(ppid: PidT, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procListchildpids(ppid: PidT, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcListchildpids(ppid, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procPidinfo(pid: CInt, flavor: CInt, arg: ULong, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procPidinfo(pid: CInt, flavor: CInt, arg: ULong, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcPidinfo(pid, flavor, arg, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procPidfdinfo(pid: CInt, fd: CInt, flavor: CInt, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procPidfdinfo(pid: CInt, fd: CInt, flavor: CInt, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcPidfdinfo(pid, fd, flavor, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procPidfileportinfo(pid: CInt, fileport: UInt, flavor: CInt, buffer: MutPtr<CVoid>, buffersize: CInt): CInt =
+public actual fun procPidfileportinfo(pid: CInt, fileport: UInt, flavor: CInt, buffer: MutPtr, buffersize: CInt): CInt =
     libcUnixBsdAppleProcPidfileportinfo(pid, fileport, flavor, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procPidpath(pid: CInt, buffer: MutPtr<CVoid>, buffersize: UInt): CInt =
+public actual fun procPidpath(pid: CInt, buffer: MutPtr, buffersize: UInt): CInt =
     libcUnixBsdAppleProcPidpath(pid, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procName(pid: CInt, buffer: MutPtr<CVoid>, buffersize: UInt): CInt =
+public actual fun procName(pid: CInt, buffer: MutPtr, buffersize: UInt): CInt =
     libcUnixBsdAppleProcName(pid, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procRegionfilename(pid: CInt, address: ULong, buffer: MutPtr<CVoid>, buffersize: UInt): CInt =
+public actual fun procRegionfilename(pid: CInt, address: ULong, buffer: MutPtr, buffersize: UInt): CInt =
     libcUnixBsdAppleProcRegionfilename(pid, address, buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procKmsgbuf(buffer: MutPtr<CVoid>, buffersize: UInt): CInt =
+public actual fun procKmsgbuf(buffer: MutPtr, buffersize: UInt): CInt =
     libcUnixBsdAppleProcKmsgbuf(buffer.rawAddress.toCPointer<ByteVar>(), buffersize)
 
-public actual fun procLibversion(major: MutPtr<CInt>, minor: MutPtr<CInt>): CInt =
+public actual fun procLibversion(major: MutPtr, minor: MutPtr): CInt =
     libcUnixBsdAppleProcLibversion(major.rawAddress.toCPointer<ByteVar>(), minor.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procPidRusage(pid: CInt, flavor: CInt, buffer: MutPtr<RusageInfoT>): CInt =
+public actual fun procPidRusage(pid: CInt, flavor: CInt, buffer: MutPtr): CInt =
     libcUnixBsdAppleProcPidRusage(pid, flavor, buffer.rawAddress.toCPointer<ByteVar>())
 
 public actual fun procSetNoSmt(): CInt =
@@ -975,7 +962,7 @@ public actual fun procSetCsm(flags: UInt): CInt =
 public actual fun procSetthreadCsm(flags: UInt): CInt =
     libcUnixBsdAppleProcSetthreadCsm(flags)
 
-public actual fun gethostuuid(id: MutPtr<UByte>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun gethostuuid(id: MutPtr, timeout: ConstPtr): CInt =
     libcUnixBsdAppleGethostuuid(id.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
 public actual fun gethostid(): CLong =
@@ -985,128 +972,128 @@ public actual fun sethostid(hostid: CLong) {
     libcUnixBsdAppleSethostid(hostid)
 }
 
-public actual fun cCRandomGenerateBytes(bytes: MutPtr<CVoid>, size: SizeT): CCRNGStatus =
+public actual fun cCRandomGenerateBytes(bytes: MutPtr, size: SizeT): CCRNGStatus =
     libcUnixBsdAppleCCRandomGenerateBytes(bytes.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     libcUnixBsdAppleGetentropy(buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun nsgetExecutablePath(buf: MutPtr<CChar>, bufsize: MutPtr<UInt>): CInt =
+public actual fun nsgetExecutablePath(buf: MutPtr, bufsize: MutPtr): CInt =
     libcUnixBsdAppleNsgetExecutablePath(buf.rawAddress.toCPointer<ByteVar>(), bufsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nsgetArgv(): MutPtr<MutPtr<MutPtr<CChar>>> =
+public actual fun nsgetArgv(): MutPtr =
     MutPtr(libcUnixBsdAppleNsgetArgv()?.toLong() ?: 0L)
 
-public actual fun nsgetArgc(): MutPtr<CInt> =
+public actual fun nsgetArgc(): MutPtr =
     MutPtr(libcUnixBsdAppleNsgetArgc()?.toLong() ?: 0L)
 
-public actual fun nsgetEnviron(): MutPtr<MutPtr<MutPtr<CChar>>> =
+public actual fun nsgetEnviron(): MutPtr =
     MutPtr(libcUnixBsdAppleNsgetEnviron()?.toLong() ?: 0L)
 
-public actual fun nsgetProgname(): MutPtr<MutPtr<CChar>> =
+public actual fun nsgetProgname(): MutPtr =
     MutPtr(libcUnixBsdAppleNsgetProgname()?.toLong() ?: 0L)
 
-public actual fun machVmMap(targetTask: VmMapT, address: MutPtr<MachVmAddressT>, size: MachVmSizeT, mask: MachVmOffsetT, flags: CInt, obj: MemEntryNamePortT, offset: MemoryObjectOffsetT, copy: BooleanT, curProtection: VmProtT, maxProtection: VmProtT, inheritance: VmInheritT): KernReturnT =
+public actual fun machVmMap(targetTask: VmMapT, address: MutPtr, size: MachVmSizeT, mask: MachVmOffsetT, flags: CInt, obj: MemEntryNamePortT, offset: MemoryObjectOffsetT, copy: BooleanT, curProtection: VmProtT, maxProtection: VmProtT, inheritance: VmInheritT): KernReturnT =
     libcUnixBsdAppleMachVmMap(targetTask.toLong().toCPointer<ByteVar>(), address.rawAddress.toCPointer<ByteVar>(), size, mask, flags, obj, offset, copy, curProtection, maxProtection, inheritance)
 
-public actual fun vmAllocate(targetTask: VmMapT, address: MutPtr<VmAddressT>, size: VmSizeT, flags: CInt): KernReturnT =
+public actual fun vmAllocate(targetTask: VmMapT, address: MutPtr, size: VmSizeT, flags: CInt): KernReturnT =
     libcUnixBsdAppleVmAllocate(targetTask.toLong().toCPointer<ByteVar>(), address.rawAddress.toCPointer<ByteVar>(), size, flags)
 
 public actual fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: VmSizeT): KernReturnT =
     libcUnixBsdAppleVmDeallocate(targetTask.toLong().toCPointer<ByteVar>(), address, size)
 
-public actual fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: MutPtr): KernReturnT =
     libcUnixBsdAppleHostStatistics64(hostPriv, flavor, hostInfo64Out.rawAddress.toCPointer<ByteVar>(), hostInfo64OutCnt.rawAddress.toCPointer<ByteVar>())
 
-public actual fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: MutPtr<NaturalT>, outProcessorInfo: MutPtr<ProcessorInfoArrayT>, outProcessorInfoCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: MutPtr, outProcessorInfo: MutPtr, outProcessorInfoCnt: MutPtr): KernReturnT =
     libcUnixBsdAppleHostProcessorInfo(host, flavor, outProcessorCount.rawAddress.toCPointer<ByteVar>(), outProcessorInfo.rawAddress.toCPointer<ByteVar>(), outProcessorInfoCnt.rawAddress.toCPointer<ByteVar>())
 
-public actual fun taskForPid(host: MachPortT, pid: PidT, task: MutPtr<MachPortT>): KernReturnT =
+public actual fun taskForPid(host: MachPortT, pid: PidT, task: MutPtr): KernReturnT =
     libcUnixBsdAppleTaskForPid(host, pid, task.rawAddress.toCPointer<ByteVar>())
 
-public actual fun taskInfo(host: MachPortT, flavor: TaskFlavorT, taskInfoOut: TaskInfoT, taskInfoCount: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun taskInfo(host: MachPortT, flavor: TaskFlavorT, taskInfoOut: TaskInfoT, taskInfoCount: MutPtr): KernReturnT =
     libcUnixBsdAppleTaskInfo(host, flavor, taskInfoOut.rawAddress.toCPointer<ByteVar>(), taskInfoCount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCnt: MachMsgTypeNumberT, inheritMemory: BooleanT, childTask: MutPtr<TaskT>): KernReturnT =
+public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCnt: MachMsgTypeNumberT, inheritMemory: BooleanT, childTask: MutPtr): KernReturnT =
     libcUnixBsdAppleTaskCreate(targetTask, ledgers.rawAddress.toCPointer<ByteVar>(), ledgersCnt, inheritMemory, childTask.rawAddress.toCPointer<ByteVar>())
 
 public actual fun taskTerminate(targetTask: TaskT): KernReturnT =
     libcUnixBsdAppleTaskTerminate(targetTask)
 
-public actual fun taskThreads(targetTask: TaskInspectT, actList: MutPtr<ThreadActArrayT>, actListCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun taskThreads(targetTask: TaskInspectT, actList: MutPtr, actListCnt: MutPtr): KernReturnT =
     libcUnixBsdAppleTaskThreads(targetTask, actList.rawAddress.toCPointer<ByteVar>(), actListCnt.rawAddress.toCPointer<ByteVar>())
 
-public actual fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
+public actual fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MutPtr): KernReturnT =
     libcUnixBsdAppleHostStatistics(hostPriv, flavor, hostInfoOut.rawAddress.toCPointer<ByteVar>(), hostInfoOutCnt.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState =
     0u
 
-public actual fun sysdirGetNextSearchPathEnumeration(state: SysdirSearchPathEnumerationState, path: MutPtr<CChar>): SysdirSearchPathEnumerationState =
+public actual fun sysdirGetNextSearchPathEnumeration(state: SysdirSearchPathEnumerationState, path: MutPtr): SysdirSearchPathEnumerationState =
     libcUnixBsdAppleSysdirGetNextSearchPathEnumeration(state, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getattrlist(path: ConstPtr<CChar>, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: UInt): CInt =
+public actual fun getattrlist(path: ConstPtr, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: UInt): CInt =
     libcUnixBsdAppleGetattrlist(path.rawAddress.toCPointer<ByteVar>(), attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun fgetattrlist(fd: CInt, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: UInt): CInt =
+public actual fun fgetattrlist(fd: CInt, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: UInt): CInt =
     libcUnixBsdAppleFgetattrlist(fd, attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun getattrlistat(fd: CInt, path: ConstPtr<CChar>, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: CUlong): CInt =
+public actual fun getattrlistat(fd: CInt, path: ConstPtr, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: CUlong): CInt =
     libcUnixBsdAppleGetattrlistat(fd, path.rawAddress.toCPointer<ByteVar>(), attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun setattrlist(path: ConstPtr<CChar>, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: UInt): CInt =
+public actual fun setattrlist(path: ConstPtr, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: UInt): CInt =
     libcUnixBsdAppleSetattrlist(path.rawAddress.toCPointer<ByteVar>(), attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun fsetattrlist(fd: CInt, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: UInt): CInt =
+public actual fun fsetattrlist(fd: CInt, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: UInt): CInt =
     libcUnixBsdAppleFsetattrlist(fd, attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun setattrlistat(dirFd: CInt, path: ConstPtr<CChar>, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: UInt): CInt =
+public actual fun setattrlistat(dirFd: CInt, path: ConstPtr, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: UInt): CInt =
     libcUnixBsdAppleSetattrlistat(dirFd, path.rawAddress.toCPointer<ByteVar>(), attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun getattrlistbulk(dirfd: CInt, attrList: MutPtr<CVoid>, attrBuf: MutPtr<CVoid>, attrBufSize: SizeT, options: ULong): CInt =
+public actual fun getattrlistbulk(dirfd: CInt, attrList: MutPtr, attrBuf: MutPtr, attrBufSize: SizeT, options: ULong): CInt =
     libcUnixBsdAppleGetattrlistbulk(dirfd, attrList.rawAddress.toCPointer<ByteVar>(), attrBuf.rawAddress.toCPointer<ByteVar>(), attrBufSize, options)
 
-public actual fun mallocSize(ptr: ConstPtr<CVoid>): SizeT =
+public actual fun mallocSize(ptr: ConstPtr): SizeT =
     libcUnixBsdAppleMallocSize(ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mallocGoodSize(size: SizeT): SizeT =
     libcUnixBsdAppleMallocGoodSize(size)
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     MutPtr(libcUnixBsdAppleDirname(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     MutPtr(libcUnixBsdAppleBasename(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     libcUnixBsdAppleMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     libcUnixBsdAppleMknodat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun freadlink(fd: CInt, buf: MutPtr<CChar>, size: SizeT): CInt =
+public actual fun freadlink(fd: CInt, buf: MutPtr, size: SizeT): CInt =
     libcUnixBsdAppleFreadlink(fd, buf.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun execvP(file: ConstPtr<CChar>, searchPath: ConstPtr<CChar>, argv: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun execvP(file: ConstPtr, searchPath: ConstPtr, argv: ConstPtr): CInt =
     libcUnixBsdAppleExecvP(file.rawAddress.toCPointer<ByteVar>(), searchPath.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, arg: MutPtr<CVoid>, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: MutPtr, num: SizeT, size: SizeT, arg: MutPtr, compar: QsortRComparCallback?) {
     libcUnixBsdAppleQsortR(base.rawAddress.toCPointer<ByteVar>(), num, size, arg.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 }
 
-public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr): CInt =
     libcUnixBsdAppleClockSettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+public actual fun memmem(haystack: ConstPtr, haystacklen: SizeT, needle: ConstPtr, needlelen: SizeT): MutPtr =
     MutPtr(libcUnixBsdAppleMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
 public actual fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT =
     libcUnixBsdAppleTaskSetInfo(targetTask, flavor, taskInfoIn.rawAddress.toCPointer<ByteVar>(), taskInfoInCnt)
 
-public actual fun iconvOpen(tocode: ConstPtr<CChar>, fromcode: ConstPtr<CChar>): IconvT =
+public actual fun iconvOpen(tocode: ConstPtr, fromcode: ConstPtr): IconvT =
     MutPtr(libcUnixBsdAppleIconvOpen(tocode.rawAddress.toCPointer<ByteVar>(), fromcode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =
+public actual fun iconv(cd: IconvT, inbuf: MutPtr, inbytesleft: MutPtr, outbuf: MutPtr, outbytesleft: MutPtr): SizeT =
     libcUnixBsdAppleIconv(cd.rawAddress.toCPointer<ByteVar>(), inbuf.rawAddress.toCPointer<ByteVar>(), inbytesleft.rawAddress.toCPointer<ByteVar>(), outbuf.rawAddress.toCPointer<ByteVar>(), outbytesleft.rawAddress.toCPointer<ByteVar>())
 
 public actual fun iconvClose(cd: IconvT): CInt =

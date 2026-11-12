@@ -14,11 +14,11 @@ public class DarwinUcontext internal constructor(
     public var ucOnstack: CInt,
     public var ucSigmask: SigsetT,
     public var ucStack: StackT,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucMcsize: Int,
     ucMcontextCtorArg: McontextT,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
@@ -39,13 +39,13 @@ public class DarwinUcontext internal constructor(
 
     public operator fun component3(): StackT = this.ucStack
 
-    public operator fun component4(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component4(): MutPtr = this.ucLink
 
     public operator fun component5(): Int = this.ucMcsize
 
     public operator fun component6(): McontextT = this.ucMcontext
 
-    public fun copy(ucOnstack: CInt = this.ucOnstack, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucLink: MutPtr<UcontextT> = this.ucLink, ucMcsize: Int = this.ucMcsize, ucMcontext: McontextT = this.ucMcontext): DarwinUcontext = DarwinUcontext(ucOnstack = ucOnstack, ucSigmask = ucSigmask, ucStack = ucStack, ucLinkCtorArg = ucLink, ucMcsize = ucMcsize, ucMcontextCtorArg = ucMcontext)
+    public fun copy(ucOnstack: CInt = this.ucOnstack, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucLink: MutPtr = this.ucLink, ucMcsize: Int = this.ucMcsize, ucMcontext: McontextT = this.ucMcontext): DarwinUcontext = DarwinUcontext(ucOnstack = ucOnstack, ucSigmask = ucSigmask, ucStack = ucStack, ucLinkCtorArg = ucLink, ucMcsize = ucMcsize, ucMcontextCtorArg = ucMcontext)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -74,7 +74,7 @@ public class DarwinUcontext internal constructor(
             ucOnstack: CInt = 0,
             ucSigmask: SigsetT = 0u,
             ucStack: StackT = StackT(),
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucMcsize: Int = 0,
             ucMcontext: McontextT = MutPtr(0L),
         ): DarwinUcontext =

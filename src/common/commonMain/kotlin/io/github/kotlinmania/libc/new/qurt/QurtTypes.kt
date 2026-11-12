@@ -1,14 +1,12 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Basic C types for QuRT
@@ -38,7 +36,7 @@ public typealias UsecondsT = CUlong
 
 public typealias ClockidT = CInt
 
-public typealias TimerT = MutPtr<CVoid>
+public typealias TimerT = MutPtr
 
 // File system types
 public typealias DevT = CUlonglong
@@ -119,7 +117,7 @@ public typealias NfdsT = CUlong
 public typealias SigsetT = CUlong
 
 // Variadic argument list type
-public typealias VaList = MutPtr<CChar>
+public typealias VaList = MutPtr
 
 // Additional missing types
 public typealias CSchar = Byte

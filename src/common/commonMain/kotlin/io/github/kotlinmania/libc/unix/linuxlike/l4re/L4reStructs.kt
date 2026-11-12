@@ -5,7 +5,6 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -59,14 +58,14 @@ public class PthreadAttrT internal constructor(
     public var scope: CInt,
     public var guardsize: SizeT,
     public var stackaddrSet: CInt,
-    stackaddrCtorArg: MutPtr<CVoid>,
+    stackaddrCtorArg: MutPtr,
     // better don't use it
     public var stacksize: SizeT,
     // L4Re specifics
     public var affinity: L4SchedCpuSetT,
     public var createFlags: CUint,
 ) {
-    public var stackaddr: MutPtr<CVoid> = stackaddrCtorArg
+    public var stackaddr: MutPtr = stackaddrCtorArg
         internal set
 
     public constructor() : this(
@@ -97,7 +96,7 @@ public class PthreadAttrT internal constructor(
 
     public operator fun component7(): CInt = this.stackaddrSet
 
-    public operator fun component8(): MutPtr<CVoid> = this.stackaddr
+    public operator fun component8(): MutPtr = this.stackaddr
 
     public operator fun component9(): SizeT = this.stacksize
 
@@ -105,7 +104,7 @@ public class PthreadAttrT internal constructor(
 
     public operator fun component11(): CUint = this.createFlags
 
-    public fun copy(detachstate: CInt = this.detachstate, schedpolicy: CInt = this.schedpolicy, schedparam: SchedParam = this.schedparam, inheritsched: CInt = this.inheritsched, scope: CInt = this.scope, guardsize: SizeT = this.guardsize, stackaddrSet: CInt = this.stackaddrSet, stackaddr: MutPtr<CVoid> = this.stackaddr, stacksize: SizeT = this.stacksize, affinity: L4SchedCpuSetT = this.affinity, createFlags: CUint = this.createFlags): PthreadAttrT = PthreadAttrT(detachstate = detachstate, schedpolicy = schedpolicy, schedparam = schedparam, inheritsched = inheritsched, scope = scope, guardsize = guardsize, stackaddrSet = stackaddrSet, stackaddrCtorArg = stackaddr, stacksize = stacksize, affinity = affinity, createFlags = createFlags)
+    public fun copy(detachstate: CInt = this.detachstate, schedpolicy: CInt = this.schedpolicy, schedparam: SchedParam = this.schedparam, inheritsched: CInt = this.inheritsched, scope: CInt = this.scope, guardsize: SizeT = this.guardsize, stackaddrSet: CInt = this.stackaddrSet, stackaddr: MutPtr = this.stackaddr, stacksize: SizeT = this.stacksize, affinity: L4SchedCpuSetT = this.affinity, createFlags: CUint = this.createFlags): PthreadAttrT = PthreadAttrT(detachstate = detachstate, schedpolicy = schedpolicy, schedparam = schedparam, inheritsched = inheritsched, scope = scope, guardsize = guardsize, stackaddrSet = stackaddrSet, stackaddrCtorArg = stackaddr, stacksize = stacksize, affinity = affinity, createFlags = createFlags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -148,7 +147,7 @@ public class PthreadAttrT internal constructor(
             scope: CInt = 0,
             guardsize: SizeT = 0uL,
             stackaddrSet: CInt = 0,
-            stackaddr: MutPtr<CVoid> = MutPtr(0L),
+            stackaddr: MutPtr = MutPtr(0L),
             stacksize: SizeT = 0uL,
             affinity: L4SchedCpuSetT = L4SchedCpuSetT(),
             createFlags: CUint = 0u,

@@ -4,19 +4,16 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.types.CEnumRepr
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.haiku.b64.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
@@ -24,7 +21,7 @@ import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface FnCallback {
-    public operator fun invoke(arg0: MutPtr<CVoid>): StatusT
+    public operator fun invoke(arg0: MutPtr): StatusT
 }
 
 public fun interface ImageInfoInitRoutineCallback {
@@ -32,7 +29,7 @@ public fun interface ImageInfoInitRoutineCallback {
 }
 
 public fun interface OnExitThreadCallbackCallback {
-    public operator fun invoke(arg0: MutPtr<CVoid>)
+    public operator fun invoke(arg0: MutPtr)
 }
 
 // support/SupportDefs.h
@@ -58,7 +55,7 @@ public typealias TeamId = Int
 public typealias ThreadId = Int
 
 public fun interface ThreadFunc {
-    public operator fun invoke(arg0: MutPtr<CVoid>): StatusT
+    public operator fun invoke(arg0: MutPtr): StatusT
 }
 
 // kernel/image.h
@@ -422,9 +419,9 @@ public class AreaInfo internal constructor(
     public var copyCount: UInt,
     public var inCount: UInt,
     public var outCount: UInt,
-    addressCtorArg: MutPtr<CVoid>,
+    addressCtorArg: MutPtr,
 ) {
-    public var address: MutPtr<CVoid> = addressCtorArg
+    public var address: MutPtr = addressCtorArg
         internal set
 
     public constructor() : this(
@@ -461,9 +458,9 @@ public class AreaInfo internal constructor(
 
     public operator fun component10(): UInt = this.outCount
 
-    public operator fun component11(): MutPtr<CVoid> = this.address
+    public operator fun component11(): MutPtr = this.address
 
-    public fun copy(area: AreaId = this.area, name: UByteArray = this.name, size: Int = this.size, lock: UInt = this.lock, protection: UInt = this.protection, team: TeamId = this.team, ramSize: UInt = this.ramSize, copyCount: UInt = this.copyCount, inCount: UInt = this.inCount, outCount: UInt = this.outCount, address: MutPtr<CVoid> = this.address): AreaInfo = AreaInfo(area = area, name = name, size = size, lock = lock, protection = protection, team = team, ramSize = ramSize, copyCount = copyCount, inCount = inCount, outCount = outCount, addressCtorArg = address)
+    public fun copy(area: AreaId = this.area, name: UByteArray = this.name, size: Int = this.size, lock: UInt = this.lock, protection: UInt = this.protection, team: TeamId = this.team, ramSize: UInt = this.ramSize, copyCount: UInt = this.copyCount, inCount: UInt = this.inCount, outCount: UInt = this.outCount, address: MutPtr = this.address): AreaInfo = AreaInfo(area = area, name = name, size = size, lock = lock, protection = protection, team = team, ramSize = ramSize, copyCount = copyCount, inCount = inCount, outCount = outCount, addressCtorArg = address)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -548,7 +545,7 @@ public class AreaInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off9),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + off10),
                     )
                 override fun writeNative(addr: Long, value: AreaInfo) {
@@ -567,7 +564,7 @@ public class AreaInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off9, value.outCount)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + off10, value.address)
                 }
             }
@@ -583,7 +580,7 @@ public class AreaInfo internal constructor(
             copyCount: UInt = 0u,
             inCount: UInt = 0u,
             outCount: UInt = 0u,
-            address: MutPtr<CVoid> = MutPtr(0L),
+            address: MutPtr = MutPtr(0L),
         ): AreaInfo =
             AreaInfo(
                 area = area,
@@ -880,13 +877,13 @@ public class ThreadInfo internal constructor(
     public var sem: SemId,
     public var userTime: BigtimeT,
     public var kernelTime: BigtimeT,
-    stackBaseCtorArg: MutPtr<CVoid>,
-    stackEndCtorArg: MutPtr<CVoid>,
+    stackBaseCtorArg: MutPtr,
+    stackEndCtorArg: MutPtr,
 ) {
-    public var stackBase: MutPtr<CVoid> = stackBaseCtorArg
+    public var stackBase: MutPtr = stackBaseCtorArg
         internal set
 
-    public var stackEnd: MutPtr<CVoid> = stackEndCtorArg
+    public var stackEnd: MutPtr = stackEndCtorArg
         internal set
 
     public constructor() : this(
@@ -918,11 +915,11 @@ public class ThreadInfo internal constructor(
 
     public operator fun component8(): BigtimeT = this.kernelTime
 
-    public operator fun component9(): MutPtr<CVoid> = this.stackBase
+    public operator fun component9(): MutPtr = this.stackBase
 
-    public operator fun component10(): MutPtr<CVoid> = this.stackEnd
+    public operator fun component10(): MutPtr = this.stackEnd
 
-    public fun copy(thread: ThreadId = this.thread, team: TeamId = this.team, name: UByteArray = this.name, state: ThreadState = this.state, priority: Int = this.priority, sem: SemId = this.sem, userTime: BigtimeT = this.userTime, kernelTime: BigtimeT = this.kernelTime, stackBase: MutPtr<CVoid> = this.stackBase, stackEnd: MutPtr<CVoid> = this.stackEnd): ThreadInfo = ThreadInfo(thread = thread, team = team, name = name, state = state, priority = priority, sem = sem, userTime = userTime, kernelTime = kernelTime, stackBaseCtorArg = stackBase, stackEndCtorArg = stackEnd)
+    public fun copy(thread: ThreadId = this.thread, team: TeamId = this.team, name: UByteArray = this.name, state: ThreadState = this.state, priority: Int = this.priority, sem: SemId = this.sem, userTime: BigtimeT = this.userTime, kernelTime: BigtimeT = this.kernelTime, stackBase: MutPtr = this.stackBase, stackEnd: MutPtr = this.stackEnd): ThreadInfo = ThreadInfo(thread = thread, team = team, name = name, state = state, priority = priority, sem = sem, userTime = userTime, kernelTime = kernelTime, stackBaseCtorArg = stackBase, stackEndCtorArg = stackEnd)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -997,11 +994,11 @@ public class ThreadInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off7),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + off8),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + off9),
                     )
                 override fun writeNative(addr: Long, value: ThreadInfo) {
@@ -1018,11 +1015,11 @@ public class ThreadInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off7, value.kernelTime)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + off8, value.stackBase)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + off9, value.stackEnd)
                 }
             }
@@ -1036,8 +1033,8 @@ public class ThreadInfo internal constructor(
             sem: SemId = 0,
             userTime: BigtimeT = 0L,
             kernelTime: BigtimeT = 0L,
-            stackBase: MutPtr<CVoid> = MutPtr(0L),
-            stackEnd: MutPtr<CVoid> = MutPtr(0L),
+            stackBase: MutPtr = MutPtr(0L),
+            stackEnd: MutPtr = MutPtr(0L),
         ): ThreadInfo =
             ThreadInfo(
                 thread = thread,
@@ -1469,17 +1466,17 @@ public class ImageInfo internal constructor(
     public var device: DevT,
     public var node: InoT,
     public var name: UByteArray,
-    textCtorArg: MutPtr<CVoid>,
-    dataCtorArg: MutPtr<CVoid>,
+    textCtorArg: MutPtr,
+    dataCtorArg: MutPtr,
     public var textSize: Int,
     public var dataSize: Int,
     public var apiVersion: Int,
     public var abi: Int,
 ) {
-    public var text: MutPtr<CVoid> = textCtorArg
+    public var text: MutPtr = textCtorArg
         internal set
 
-    public var data: MutPtr<CVoid> = dataCtorArg
+    public var data: MutPtr = dataCtorArg
         internal set
 
     public constructor() : this(
@@ -1518,9 +1515,9 @@ public class ImageInfo internal constructor(
 
     public operator fun component9(): UByteArray = this.name
 
-    public operator fun component10(): MutPtr<CVoid> = this.text
+    public operator fun component10(): MutPtr = this.text
 
-    public operator fun component11(): MutPtr<CVoid> = this.data
+    public operator fun component11(): MutPtr = this.data
 
     public operator fun component12(): Int = this.textSize
 
@@ -1530,7 +1527,7 @@ public class ImageInfo internal constructor(
 
     public operator fun component15(): Int = this.abi
 
-    public fun copy(id: ImageId = this.id, imageType: CInt = this.imageType, sequence: Int = this.sequence, initOrder: Int = this.initOrder, initRoutine: ImageInfoInitRoutineCallback = this.initRoutine, termRoutine: ImageInfoInitRoutineCallback = this.termRoutine, device: DevT = this.device, node: InoT = this.node, name: UByteArray = this.name, text: MutPtr<CVoid> = this.text, data: MutPtr<CVoid> = this.data, textSize: Int = this.textSize, dataSize: Int = this.dataSize, apiVersion: Int = this.apiVersion, abi: Int = this.abi): ImageInfo = ImageInfo(id = id, imageType = imageType, sequence = sequence, initOrder = initOrder, initRoutine = initRoutine, termRoutine = termRoutine, device = device, node = node, name = name, textCtorArg = text, dataCtorArg = data, textSize = textSize, dataSize = dataSize, apiVersion = apiVersion, abi = abi)
+    public fun copy(id: ImageId = this.id, imageType: CInt = this.imageType, sequence: Int = this.sequence, initOrder: Int = this.initOrder, initRoutine: ImageInfoInitRoutineCallback = this.initRoutine, termRoutine: ImageInfoInitRoutineCallback = this.termRoutine, device: DevT = this.device, node: InoT = this.node, name: UByteArray = this.name, text: MutPtr = this.text, data: MutPtr = this.data, textSize: Int = this.textSize, dataSize: Int = this.dataSize, apiVersion: Int = this.apiVersion, abi: Int = this.abi): ImageInfo = ImageInfo(id = id, imageType = imageType, sequence = sequence, initOrder = initOrder, initRoutine = initRoutine, termRoutine = termRoutine, device = device, node = node, name = name, textCtorArg = text, dataCtorArg = data, textSize = textSize, dataSize = dataSize, apiVersion = apiVersion, abi = abi)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1583,8 +1580,8 @@ public class ImageInfo internal constructor(
             device: DevT = 0,
             node: InoT = 0L,
             name: UByteArray = UByteArray(PATH_MAX),
-            text: MutPtr<CVoid> = MutPtr(0L),
-            data: MutPtr<CVoid> = MutPtr(0L),
+            text: MutPtr = MutPtr(0L),
+            data: MutPtr = MutPtr(0L),
             textSize: Int = 0,
             dataSize: Int = 0,
             apiVersion: Int = 0,
@@ -2558,16 +2555,16 @@ public val B_MIME_STRING_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('I'.code.
 
 public val B_ASCII_TYPE: UInt = (('T'.code.toUInt()) shl 24) + (('E'.code.toUInt()) shl 16) + (('X'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_APP_IMAGE_SYMBOL: ConstPtr<CVoid> = ConstPtr(0L)
+public val B_APP_IMAGE_SYMBOL: ConstPtr = ConstPtr(0L)
 
 // kernel/OS.h
-public expect fun createArea(name: ConstPtr<CChar>, startAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId
+public expect fun createArea(name: ConstPtr, startAddress: MutPtr, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId
 
-public expect fun cloneArea(name: ConstPtr<CChar>, destAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, protection: UInt, source: AreaId): AreaId
+public expect fun cloneArea(name: ConstPtr, destAddress: MutPtr, addressSpec: UInt, protection: UInt, source: AreaId): AreaId
 
-public expect fun findArea(name: ConstPtr<CChar>): AreaId
+public expect fun findArea(name: ConstPtr): AreaId
 
-public expect fun areaFor(address: MutPtr<CVoid>): AreaId
+public expect fun areaFor(address: MutPtr): AreaId
 
 public expect fun deleteArea(id: AreaId): StatusT
 
@@ -2575,21 +2572,21 @@ public expect fun resizeArea(id: AreaId, newSize: ULong): StatusT
 
 public expect fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT
 
-public expect fun getAreaInfo(id: AreaId, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT
+public expect fun getAreaInfo(id: AreaId, areaInfo: MutPtr, size: ULong): StatusT
 
-public expect fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT
+public expect fun getNextAreaInfo(team: TeamId, cookie: MutPtr, areaInfo: MutPtr, size: ULong): StatusT
 
-public expect fun createPort(capacity: Int, name: ConstPtr<CChar>): PortId
+public expect fun createPort(capacity: Int, name: ConstPtr): PortId
 
-public expect fun findPort(name: ConstPtr<CChar>): PortId
+public expect fun findPort(name: ConstPtr): PortId
 
-public expect fun readPort(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT): SsizeT
+public expect fun readPort(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT): SsizeT
 
-public expect fun readPortEtc(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT
+public expect fun readPortEtc(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT
 
-public expect fun writePort(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT
+public expect fun writePort(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT
 
-public expect fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT
+public expect fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT
 
 public expect fun closePort(port: PortId): StatusT
 
@@ -2603,13 +2600,13 @@ public expect fun portCount(port: PortId): SsizeT
 
 public expect fun setPortOwner(port: PortId, team: TeamId): StatusT
 
-public expect fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT
+public expect fun getPortInfo(port: PortId, buf: MutPtr, portInfoSize: SizeT): StatusT
 
-public expect fun getNextPortInfo(port: PortId, cookie: MutPtr<Int>, portInfo: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT
+public expect fun getNextPortInfo(port: PortId, cookie: MutPtr, portInfo: MutPtr, portInfoSize: SizeT): StatusT
 
-public expect fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT
+public expect fun getPortMessageInfoEtc(port: PortId, info: MutPtr, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT
 
-public expect fun createSem(count: Int, name: ConstPtr<CChar>): SemId
+public expect fun createSem(count: Int, name: ConstPtr): SemId
 
 public expect fun deleteSem(id: SemId): StatusT
 
@@ -2625,21 +2622,21 @@ public expect fun switchSem(semToBeReleased: SemId, id: SemId): StatusT
 
 public expect fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT
 
-public expect fun getSemCount(id: SemId, threadCount: MutPtr<Int>): StatusT
+public expect fun getSemCount(id: SemId, threadCount: MutPtr): StatusT
 
 public expect fun setSemOwner(id: SemId, team: TeamId): StatusT
 
-public expect fun getSemInfo(id: SemId, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT
+public expect fun getSemInfo(id: SemId, info: MutPtr, infoSize: SizeT): StatusT
 
-public expect fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT
+public expect fun getNextSemInfo(team: TeamId, cookie: MutPtr, info: MutPtr, infoSize: SizeT): StatusT
 
 public expect fun killTeam(team: TeamId): StatusT
 
-public expect fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>, size: SizeT): StatusT
+public expect fun getTeamInfo(team: TeamId, info: MutPtr, size: SizeT): StatusT
 
-public expect fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>, size: SizeT): StatusT
+public expect fun getNextTeamInfo(cookie: MutPtr, info: MutPtr, size: SizeT): StatusT
 
-public expect fun spawnThread(func: ThreadFunc, name: ConstPtr<CChar>, priority: Int, data: MutPtr<CVoid>): ThreadId
+public expect fun spawnThread(func: ThreadFunc, name: ConstPtr, priority: Int, data: MutPtr): ThreadId
 
 public expect fun killThread(thread: ThreadId): StatusT
 
@@ -2647,7 +2644,7 @@ public expect fun resumeThread(thread: ThreadId): StatusT
 
 public expect fun suspendThread(thread: ThreadId): StatusT
 
-public expect fun renameThread(thread: ThreadId, newName: ConstPtr<CChar>): StatusT
+public expect fun renameThread(thread: ThreadId, newName: ConstPtr): StatusT
 
 public expect fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT
 
@@ -2657,19 +2654,19 @@ public expect fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT
 
 public expect fun exitThread(status: StatusT)
 
-public expect fun waitForThread(thread: ThreadId, returnValue: MutPtr<StatusT>): StatusT
+public expect fun waitForThread(thread: ThreadId, returnValue: MutPtr): StatusT
 
-public expect fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr<CVoid>): StatusT
+public expect fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr): StatusT
 
-public expect fun findThread(name: ConstPtr<CChar>): ThreadId
+public expect fun findThread(name: ConstPtr): ThreadId
 
 public expect fun getSchedulerMode(): Int
 
 public expect fun setSchedulerMode(mode: Int): StatusT
 
-public expect fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT
+public expect fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT
 
-public expect fun receiveData(sender: MutPtr<ThreadId>, buffer: MutPtr<CVoid>, bufferSize: SizeT): Int
+public expect fun receiveData(sender: MutPtr, buffer: MutPtr, bufferSize: SizeT): Int
 
 public expect fun hasData(thread: ThreadId): Boolean
 
@@ -2679,13 +2676,13 @@ public expect fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): Stat
 
 public expect fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT
 
-public expect fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>, size: SizeT): StatusT
+public expect fun getThreadInfo(id: ThreadId, info: MutPtr, size: SizeT): StatusT
 
-public expect fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>, size: SizeT): StatusT
+public expect fun getNextThreadInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT
 
 public expect fun getPthreadThreadId(thread: PthreadT): ThreadId
 
-public expect fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr<TeamUsageInfo>, size: SizeT): StatusT
+public expect fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr, size: SizeT): StatusT
 
 public expect fun realTimeClock(): CUlong
 
@@ -2700,15 +2697,15 @@ public expect fun systemTimeNsecs(): NanotimeT
 // setTimezone() is deprecated and a no-op
 public expect fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT
 
-public expect fun debugger(message: ConstPtr<CChar>)
+public expect fun debugger(message: ConstPtr)
 
 public expect fun disableDebugger(state: CInt): CInt
 
-public expect fun getSystemInfo(info: MutPtr<SystemInfo>): StatusT
+public expect fun getSystemInfo(info: MutPtr): StatusT
 
-public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr<CpuInfo>, size: SizeT): StatusT
+public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr, size: SizeT): StatusT
 
-public expect fun getCpuTopologyInfo(topologyInfos: MutPtr<CpuTopologyNodeInfo>, topologyInfoCount: MutPtr<UInt>): StatusT
+public expect fun getCpuTopologyInfo(topologyInfos: MutPtr, topologyInfoCount: MutPtr): StatusT
 
 public expect fun isComputerOn(): Int
 
@@ -2716,138 +2713,138 @@ public expect fun isComputerOnFire(): CDouble
 
 public expect fun sendSignal(threadID: ThreadId, signal: CUint): CInt
 
-public expect fun setSignalStack(base: MutPtr<CVoid>, size: SizeT)
+public expect fun setSignalStack(base: MutPtr, size: SizeT)
 
-public expect fun waitForObjects(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt): SsizeT
+public expect fun waitForObjects(infos: MutPtr, numInfos: CInt): SsizeT
 
-public expect fun waitForObjectsEtc(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT
+public expect fun waitForObjectsEtc(infos: MutPtr, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT
 
 // kernel/fsAttr.h
-public expect fun fsReadAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: MutPtr<CVoid>, readBytes: SizeT): SsizeT
+public expect fun fsReadAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: MutPtr, readBytes: SizeT): SsizeT
 
-public expect fun fsWriteAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: ConstPtr<CVoid>, writeBytes: SizeT): SsizeT
+public expect fun fsWriteAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: ConstPtr, writeBytes: SizeT): SsizeT
 
-public expect fun fsRemoveAttr(fd: CInt, attribute: ConstPtr<CChar>): CInt
+public expect fun fsRemoveAttr(fd: CInt, attribute: ConstPtr): CInt
 
-public expect fun fsStatAttr(fd: CInt, attribute: ConstPtr<CChar>, attrInfo: MutPtr<AttrInfo>): CInt
+public expect fun fsStatAttr(fd: CInt, attribute: ConstPtr, attrInfo: MutPtr): CInt
 
-public expect fun fsOpenAttr(path: ConstPtr<CChar>, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt
+public expect fun fsOpenAttr(path: ConstPtr, attribute: ConstPtr, type: UInt, openMode: CInt): CInt
 
-public expect fun fsFopenAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt
+public expect fun fsFopenAttr(fd: CInt, attribute: ConstPtr, type: UInt, openMode: CInt): CInt
 
 public expect fun fsCloseAttr(fd: CInt): CInt
 
-public expect fun fsOpenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR>
+public expect fun fsOpenAttrDir(path: ConstPtr): MutPtr
 
-public expect fun fsLopenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR>
+public expect fun fsLopenAttrDir(path: ConstPtr): MutPtr
 
-public expect fun fsFopenAttrDir(fd: CInt): MutPtr<DIR>
+public expect fun fsFopenAttrDir(fd: CInt): MutPtr
 
-public expect fun fsCloseAttrDir(dir: MutPtr<DIR>): CInt
+public expect fun fsCloseAttrDir(dir: MutPtr): CInt
 
-public expect fun fsReadAttrDir(dir: MutPtr<DIR>): MutPtr<Dirent>
+public expect fun fsReadAttrDir(dir: MutPtr): MutPtr
 
-public expect fun fsRewindAttrDir(dir: MutPtr<DIR>)
+public expect fun fsRewindAttrDir(dir: MutPtr)
 
 // kernel/fsImage.h
-public expect fun fsCreateIndex(device: DevT, name: ConstPtr<CChar>, type: UInt, flags: UInt): CInt
+public expect fun fsCreateIndex(device: DevT, name: ConstPtr, type: UInt, flags: UInt): CInt
 
-public expect fun fsRemoveIndex(device: DevT, name: ConstPtr<CChar>): CInt
+public expect fun fsRemoveIndex(device: DevT, name: ConstPtr): CInt
 
-public expect fun fsStatIndex(device: DevT, name: ConstPtr<CChar>, indexInfo: MutPtr<IndexInfo>): CInt
+public expect fun fsStatIndex(device: DevT, name: ConstPtr, indexInfo: MutPtr): CInt
 
-public expect fun fsOpenIndexDir(device: DevT): MutPtr<DIR>
+public expect fun fsOpenIndexDir(device: DevT): MutPtr
 
-public expect fun fsCloseIndexDir(indexDirectory: MutPtr<DIR>): CInt
+public expect fun fsCloseIndexDir(indexDirectory: MutPtr): CInt
 
-public expect fun fsReadIndexDir(indexDirectory: MutPtr<DIR>): MutPtr<Dirent>
+public expect fun fsReadIndexDir(indexDirectory: MutPtr): MutPtr
 
-public expect fun fsRewindIndexDir(indexDirectory: MutPtr<DIR>)
+public expect fun fsRewindIndexDir(indexDirectory: MutPtr)
 
 // kernel/fsInfo.h
-public expect fun devForPath(path: ConstPtr<CChar>): DevT
+public expect fun devForPath(path: ConstPtr): DevT
 
-public expect fun nextDev(pos: MutPtr<Int>): DevT
+public expect fun nextDev(pos: MutPtr): DevT
 
-public expect fun fsStatDev(dev: DevT, info: MutPtr<FsInfo>): CInt
+public expect fun fsStatDev(dev: DevT, info: MutPtr): CInt
 
 // kernel/fsQuery.h
-public expect fun fsOpenQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt): MutPtr<DIR>
+public expect fun fsOpenQuery(device: DevT, query: ConstPtr, flags: UInt): MutPtr
 
-public expect fun fsOpenLiveQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt, port: PortId, token: Int): MutPtr<DIR>
+public expect fun fsOpenLiveQuery(device: DevT, query: ConstPtr, flags: UInt, port: PortId, token: Int): MutPtr
 
-public expect fun fsCloseQuery(d: MutPtr<DIR>): CInt
+public expect fun fsCloseQuery(d: MutPtr): CInt
 
-public expect fun fsReadQuery(d: MutPtr<DIR>): MutPtr<Dirent>
+public expect fun fsReadQuery(d: MutPtr): MutPtr
 
-public expect fun getPathForDirent(dent: MutPtr<Dirent>, buf: MutPtr<CChar>, len: SizeT): StatusT
+public expect fun getPathForDirent(dent: MutPtr, buf: MutPtr, len: SizeT): StatusT
 
 // kernel/fsVolume.h
-public expect fun fsMountVolume(where: ConstPtr<CChar>, device: ConstPtr<CChar>, filesystem: ConstPtr<CChar>, flags: UInt, parameters: ConstPtr<CChar>): DevT
+public expect fun fsMountVolume(where: ConstPtr, device: ConstPtr, filesystem: ConstPtr, flags: UInt, parameters: ConstPtr): DevT
 
-public expect fun fsUnmountVolume(path: ConstPtr<CChar>, flags: UInt): StatusT
+public expect fun fsUnmountVolume(path: ConstPtr, flags: UInt): StatusT
 
 // kernel/image.h
-public expect fun loadImage(argc: Int, argv: MutPtr<ConstPtr<CChar>>, environ: MutPtr<ConstPtr<CChar>>): ThreadId
+public expect fun loadImage(argc: Int, argv: MutPtr, environ: MutPtr): ThreadId
 
-public expect fun loadAddOn(path: ConstPtr<CChar>): ImageId
+public expect fun loadAddOn(path: ConstPtr): ImageId
 
 public expect fun unloadAddOn(image: ImageId): StatusT
 
-public expect fun getImageSymbol(image: ImageId, name: ConstPtr<CChar>, symbolType: Int, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT
+public expect fun getImageSymbol(image: ImageId, name: ConstPtr, symbolType: Int, symbolLocation: MutPtr): StatusT
 
-public expect fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr<CChar>, nameLength: MutPtr<Int>, symbolType: MutPtr<Int>, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT
+public expect fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr, nameLength: MutPtr, symbolType: MutPtr, symbolLocation: MutPtr): StatusT
 
-public expect fun clearCaches(address: MutPtr<CVoid>, length: SizeT, flags: UInt)
+public expect fun clearCaches(address: MutPtr, length: SizeT, flags: UInt)
 
-public expect fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>, size: SizeT): StatusT
+public expect fun getImageInfo(image: ImageId, info: MutPtr, size: SizeT): StatusT
 
-public expect fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>, size: SizeT): StatusT
+public expect fun getNextImageInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT
 
-public expect fun findPath(codePointer: ConstPtr<CVoid>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: ULong): StatusT
+public expect fun findPath(codePointer: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: ULong): StatusT
 
-public expect fun findPathEtc(codePointer: ConstPtr<CVoid>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT
+public expect fun findPathEtc(codePointer: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT
 
-public expect fun findPathForPath(path: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT
+public expect fun findPathForPath(path: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: SizeT): StatusT
 
-public expect fun findPathForPathEtc(path: ConstPtr<CChar>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT
+public expect fun findPathForPathEtc(path: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT
 
-public expect fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT
+public expect fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr, paths: MutPtr, pathCount: MutPtr): StatusT
 
-public expect fun findPathsEtc(architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT
+public expect fun findPathsEtc(architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, paths: MutPtr, pathCount: MutPtr): StatusT
 
-public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr<CChar>, length: Int): StatusT
+public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr, length: Int): StatusT
 
-public expect fun getCpuid(info: MutPtr<CpuidInfo>, eaxRegister: UInt, cpuNum: UInt): StatusT
+public expect fun getCpuid(info: MutPtr, eaxRegister: UInt, cpuNum: UInt): StatusT
 
 // The following functions are defined as macros in C/C++
-public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: MutPtr<CpuInfo>): StatusT = getCpuInfoEtc(firstCPU, cpuCount, info, sizeOf<CpuInfo>(typeLayoutT = CpuInfo.typeLayout()).toULong())
+public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: MutPtr): StatusT = getCpuInfoEtc(firstCPU, cpuCount, info, sizeOf<CpuInfo>(typeLayoutT = CpuInfo.typeLayout()).toULong())
 
-public fun getAreaInfo(id: AreaId, info: MutPtr<AreaInfo>): StatusT = getAreaInfo(id, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
+public fun getAreaInfo(id: AreaId, info: MutPtr): StatusT = getAreaInfo(id, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
 
-public fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, info: MutPtr<AreaInfo>): StatusT = getNextAreaInfo(team, cookie, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
+public fun getNextAreaInfo(team: TeamId, cookie: MutPtr, info: MutPtr): StatusT = getNextAreaInfo(team, cookie, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
 
-public fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>): StatusT = getPortInfo(port, buf, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
+public fun getPortInfo(port: PortId, buf: MutPtr): StatusT = getPortInfo(port, buf, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
 
-public fun getNextPortInfo(port: PortId, cookie: MutPtr<Int>, portInfo: MutPtr<PortInfo>): StatusT = getNextPortInfo(port, cookie, portInfo, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
+public fun getNextPortInfo(port: PortId, cookie: MutPtr, portInfo: MutPtr): StatusT = getNextPortInfo(port, cookie, portInfo, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
 
-public fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, flags: UInt, timeout: BigtimeT): StatusT = getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>(typeLayoutT = PortMessageInfo.typeLayout()).toULong(), flags, timeout)
+public fun getPortMessageInfoEtc(port: PortId, info: MutPtr, flags: UInt, timeout: BigtimeT): StatusT = getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>(typeLayoutT = PortMessageInfo.typeLayout()).toULong(), flags, timeout)
 
-public fun getSemInfo(id: SemId, info: MutPtr<SemInfo>): StatusT = getSemInfo(id, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
+public fun getSemInfo(id: SemId, info: MutPtr): StatusT = getSemInfo(id, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
 
-public fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<SemInfo>): StatusT = getNextSemInfo(team, cookie, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
+public fun getNextSemInfo(team: TeamId, cookie: MutPtr, info: MutPtr): StatusT = getNextSemInfo(team, cookie, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
 
-public fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>): StatusT = getTeamInfo(team, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
+public fun getTeamInfo(team: TeamId, info: MutPtr): StatusT = getTeamInfo(team, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
 
-public fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>): StatusT = getNextTeamInfo(cookie, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
+public fun getNextTeamInfo(cookie: MutPtr, info: MutPtr): StatusT = getNextTeamInfo(cookie, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
 
-public fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr<TeamUsageInfo>): StatusT = getTeamUsageInfo(team, who, info, sizeOf<TeamUsageInfo>(typeLayoutT = TeamUsageInfo.typeLayout()).toULong())
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr): StatusT = getTeamUsageInfo(team, who, info, sizeOf<TeamUsageInfo>(typeLayoutT = TeamUsageInfo.typeLayout()).toULong())
 
-public fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>): StatusT = getThreadInfo(id, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
+public fun getThreadInfo(id: ThreadId, info: MutPtr): StatusT = getThreadInfo(id, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
 
-public fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>): StatusT = getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
+public fun getNextThreadInfo(team: TeamId, cookie: MutPtr, info: MutPtr): StatusT = getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
 
 // kernel/image.h
-public fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>): StatusT = getImageInfo(image, info, 1104uL)
+public fun getImageInfo(image: ImageId, info: MutPtr): StatusT = getImageInfo(image, info, 1104uL)
 
-public fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>): StatusT = getNextImageInfo(team, cookie, info, 1104uL)
+public fun getNextImageInfo(team: TeamId, cookie: MutPtr, info: MutPtr): StatusT = getNextImageInfo(team, cookie, info, 1104uL)

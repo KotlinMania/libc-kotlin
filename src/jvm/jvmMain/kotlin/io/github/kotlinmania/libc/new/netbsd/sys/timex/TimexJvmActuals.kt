@@ -69,8 +69,8 @@ private object NewNetbsdSysTimexJniBridge {
     external fun libcNewNetbsdSysTimexNtpAdjtime(buf: Long): Int
 }
 
-public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+public actual fun ntpGettime(buf: MutPtr): CInt =
     NewNetbsdSysTimexJniBridge.libcNewNetbsdSysTimexNtpGettime(buf.rawAddress)
 
-public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+public actual fun ntpAdjtime(buf: MutPtr): CInt =
     NewNetbsdSysTimexJniBridge.libcNewNetbsdSysTimexNtpAdjtime(buf.rawAddress)

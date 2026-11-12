@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
@@ -30,7 +29,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.b64.UT_HOSTSIZE
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.UT_LINESIZE
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.UT_NAMESIZE
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.aarch64.U64
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -65,11 +63,11 @@ public class DebugStruct(
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
 public class StackT internal constructor(
-    ssSpCtorArg: MutPtr<CVoid>,
+    ssSpCtorArg: MutPtr,
     public var ssFlags: CInt,
     public var ssSize: SizeT,
 ) {
-    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+    public var ssSp: MutPtr = ssSpCtorArg
         internal set
 
     public constructor() : this(
@@ -78,13 +76,13 @@ public class StackT internal constructor(
         ssSize = 0uL,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+    public operator fun component1(): MutPtr = this.ssSp
 
     public operator fun component2(): CInt = this.ssFlags
 
     public operator fun component3(): SizeT = this.ssSize
 
-    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
+    public fun copy(ssSp: MutPtr = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -111,7 +109,7 @@ public class StackT internal constructor(
                     StackT(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
@@ -119,7 +117,7 @@ public class StackT internal constructor(
                 override fun writeNative(addr: Long, value: StackT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.ssSp)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.ssFlags)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.ssSize)
@@ -127,7 +125,7 @@ public class StackT internal constructor(
             }
 
         public operator fun invoke(
-            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssSp: MutPtr = MutPtr(0L),
             ssFlags: CInt = 0,
             ssSize: SizeT = 0uL,
         ): StackT =
@@ -954,13 +952,13 @@ public data class SockExtendedErr(
 public class RegexT internal constructor(
     public var reMagic: CInt,
     public var reNsub: SizeT,
-    reEndpCtorArg: ConstPtr<CChar>,
-    reGutsCtorArg: MutPtr<CVoid>,
+    reEndpCtorArg: ConstPtr,
+    reGutsCtorArg: MutPtr,
 ) {
-    public var reEndp: ConstPtr<CChar> = reEndpCtorArg
+    public var reEndp: ConstPtr = reEndpCtorArg
         internal set
 
-    public var reGuts: MutPtr<CVoid> = reGutsCtorArg
+    public var reGuts: MutPtr = reGutsCtorArg
         internal set
 
     public constructor() : this(
@@ -974,11 +972,11 @@ public class RegexT internal constructor(
 
     public operator fun component2(): SizeT = this.reNsub
 
-    public operator fun component3(): ConstPtr<CChar> = this.reEndp
+    public operator fun component3(): ConstPtr = this.reEndp
 
-    public operator fun component4(): MutPtr<CVoid> = this.reGuts
+    public operator fun component4(): MutPtr = this.reGuts
 
-    public fun copy(reMagic: CInt = this.reMagic, reNsub: SizeT = this.reNsub, reEndp: ConstPtr<CChar> = this.reEndp, reGuts: MutPtr<CVoid> = this.reGuts): RegexT = RegexT(reMagic = reMagic, reNsub = reNsub, reEndpCtorArg = reEndp, reGutsCtorArg = reGuts)
+    public fun copy(reMagic: CInt = this.reMagic, reNsub: SizeT = this.reNsub, reEndp: ConstPtr = this.reEndp, reGuts: MutPtr = this.reGuts): RegexT = RegexT(reMagic = reMagic, reNsub = reNsub, reEndpCtorArg = reEndp, reGutsCtorArg = reGuts)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1009,11 +1007,11 @@ public class RegexT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: RegexT) {
@@ -1021,11 +1019,11 @@ public class RegexT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.reNsub)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.reEndp)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.reGuts)
                 }
             }
@@ -1033,8 +1031,8 @@ public class RegexT internal constructor(
         public operator fun invoke(
             reMagic: CInt = 0,
             reNsub: SizeT = 0uL,
-            reEndp: ConstPtr<CChar> = ConstPtr(0L),
-            reGuts: MutPtr<CVoid> = MutPtr(0L),
+            reEndp: ConstPtr = ConstPtr(0L),
+            reGuts: MutPtr = MutPtr(0L),
         ): RegexT =
             RegexT(
                 reMagic = reMagic,
@@ -1208,22 +1206,22 @@ public data class Elf64Phdr(
 // link.h
 public class DlPhdrInfo internal constructor(
     public var dlpiAddr: Elf64Addr,
-    dlpiNameCtorArg: ConstPtr<CChar>,
-    dlpiPhdrCtorArg: ConstPtr<Elf64Phdr>,
+    dlpiNameCtorArg: ConstPtr,
+    dlpiPhdrCtorArg: ConstPtr,
     public var dlpiPhnum: Elf64Half,
     // These fields were added in Android R
     public var dlpiAdds: CUlonglong,
     public var dlpiSubs: CUlonglong,
     public var dlpiTlsModid: SizeT,
-    dlpiTlsDataCtorArg: MutPtr<CVoid>,
+    dlpiTlsDataCtorArg: MutPtr,
 ) {
-    public var dlpiName: ConstPtr<CChar> = dlpiNameCtorArg
+    public var dlpiName: ConstPtr = dlpiNameCtorArg
         internal set
 
-    public var dlpiPhdr: ConstPtr<Elf64Phdr> = dlpiPhdrCtorArg
+    public var dlpiPhdr: ConstPtr = dlpiPhdrCtorArg
         internal set
 
-    public var dlpiTlsData: MutPtr<CVoid> = dlpiTlsDataCtorArg
+    public var dlpiTlsData: MutPtr = dlpiTlsDataCtorArg
         internal set
 
     public constructor() : this(
@@ -1239,9 +1237,9 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component1(): Elf64Addr = this.dlpiAddr
 
-    public operator fun component2(): ConstPtr<CChar> = this.dlpiName
+    public operator fun component2(): ConstPtr = this.dlpiName
 
-    public operator fun component3(): ConstPtr<Elf64Phdr> = this.dlpiPhdr
+    public operator fun component3(): ConstPtr = this.dlpiPhdr
 
     public operator fun component4(): Elf64Half = this.dlpiPhnum
 
@@ -1251,9 +1249,9 @@ public class DlPhdrInfo internal constructor(
 
     public operator fun component7(): SizeT = this.dlpiTlsModid
 
-    public operator fun component8(): MutPtr<CVoid> = this.dlpiTlsData
+    public operator fun component8(): MutPtr = this.dlpiTlsData
 
-    public fun copy(dlpiAddr: Elf64Addr = this.dlpiAddr, dlpiName: ConstPtr<CChar> = this.dlpiName, dlpiPhdr: ConstPtr<Elf64Phdr> = this.dlpiPhdr, dlpiPhnum: Elf64Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs, dlpiTlsModid: SizeT = this.dlpiTlsModid, dlpiTlsData: MutPtr<CVoid> = this.dlpiTlsData): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs, dlpiTlsModid = dlpiTlsModid, dlpiTlsDataCtorArg = dlpiTlsData)
+    public fun copy(dlpiAddr: Elf64Addr = this.dlpiAddr, dlpiName: ConstPtr = this.dlpiName, dlpiPhdr: ConstPtr = this.dlpiPhdr, dlpiPhnum: Elf64Half = this.dlpiPhnum, dlpiAdds: CUlonglong = this.dlpiAdds, dlpiSubs: CUlonglong = this.dlpiSubs, dlpiTlsModid: SizeT = this.dlpiTlsModid, dlpiTlsData: MutPtr = this.dlpiTlsData): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum, dlpiAdds = dlpiAdds, dlpiSubs = dlpiSubs, dlpiTlsModid = dlpiTlsModid, dlpiTlsDataCtorArg = dlpiTlsData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1291,11 +1289,11 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<Elf64Phdr>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 24L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
@@ -1303,18 +1301,18 @@ public class DlPhdrInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                     )
                 override fun writeNative(addr: Long, value: DlPhdrInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.dlpiAddr)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 8L, value.dlpiName)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<Elf64Phdr>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.dlpiPhdr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 24L, value.dlpiPhnum)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.dlpiAdds)
@@ -1322,20 +1320,20 @@ public class DlPhdrInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.dlpiTlsModid)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.dlpiTlsData)
                 }
             }
 
         public operator fun invoke(
             dlpiAddr: Elf64Addr = 0uL,
-            dlpiName: ConstPtr<CChar> = ConstPtr(0L),
-            dlpiPhdr: ConstPtr<Elf64Phdr> = ConstPtr(0L),
+            dlpiName: ConstPtr = ConstPtr(0L),
+            dlpiPhdr: ConstPtr = ConstPtr(0L),
             dlpiPhnum: Elf64Half = 0u,
             dlpiAdds: CUlonglong = 0uL,
             dlpiSubs: CUlonglong = 0uL,
             dlpiTlsModid: SizeT = 0uL,
-            dlpiTlsData: MutPtr<CVoid> = MutPtr(0L),
+            dlpiTlsData: MutPtr = MutPtr(0L),
         ): DlPhdrInfo =
             DlPhdrInfo(
                 dlpiAddr = dlpiAddr,
@@ -1763,9 +1761,9 @@ public class FfPeriodicEffect internal constructor(
     public var phase: U16,
     public var envelope: FfEnvelope,
     public var customLen: U32,
-    customDataCtorArg: MutPtr<S16>,
+    customDataCtorArg: MutPtr,
 ) {
-    public var customData: MutPtr<S16> = customDataCtorArg
+    public var customData: MutPtr = customDataCtorArg
         internal set
 
     public constructor() : this(
@@ -1793,9 +1791,9 @@ public class FfPeriodicEffect internal constructor(
 
     public operator fun component7(): U32 = this.customLen
 
-    public operator fun component8(): MutPtr<S16> = this.customData
+    public operator fun component8(): MutPtr = this.customData
 
-    public fun copy(waveform: U16 = this.waveform, period: U16 = this.period, magnitude: S16 = this.magnitude, offset: S16 = this.offset, phase: U16 = this.phase, envelope: FfEnvelope = this.envelope, customLen: U32 = this.customLen, customData: MutPtr<S16> = this.customData): FfPeriodicEffect = FfPeriodicEffect(waveform = waveform, period = period, magnitude = magnitude, offset = offset, phase = phase, envelope = envelope, customLen = customLen, customDataCtorArg = customData)
+    public fun copy(waveform: U16 = this.waveform, period: U16 = this.period, magnitude: S16 = this.magnitude, offset: S16 = this.offset, phase: U16 = this.phase, envelope: FfEnvelope = this.envelope, customLen: U32 = this.customLen, customData: MutPtr = this.customData): FfPeriodicEffect = FfPeriodicEffect(waveform = waveform, period = period, magnitude = magnitude, offset = offset, phase = phase, envelope = envelope, customLen = customLen, customDataCtorArg = customData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1839,7 +1837,7 @@ public class FfPeriodicEffect internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<S16>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: FfPeriodicEffect) {
@@ -1852,7 +1850,7 @@ public class FfPeriodicEffect internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.customLen)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<S16>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.customData)
                 }
             }
@@ -1865,7 +1863,7 @@ public class FfPeriodicEffect internal constructor(
             phase: U16 = 0u,
             envelope: FfEnvelope = FfEnvelope(),
             customLen: U32 = 0u,
-            customData: MutPtr<S16> = MutPtr(0L),
+            customData: MutPtr = MutPtr(0L),
         ): FfPeriodicEffect =
             FfPeriodicEffect(
                 waveform = waveform,
@@ -2042,15 +2040,15 @@ public data class UinputAbsSetup(
 }
 
 public class Option internal constructor(
-    nameCtorArg: ConstPtr<CChar>,
+    nameCtorArg: ConstPtr,
     public var hasArg: CInt,
-    flagCtorArg: MutPtr<CInt>,
+    flagCtorArg: MutPtr,
     public var value: CInt,
 ) {
-    public var name: ConstPtr<CChar> = nameCtorArg
+    public var name: ConstPtr = nameCtorArg
         internal set
 
-    public var flag: MutPtr<CInt> = flagCtorArg
+    public var flag: MutPtr = flagCtorArg
         internal set
 
     public constructor() : this(
@@ -2060,15 +2058,15 @@ public class Option internal constructor(
         value = 0,
     )
 
-    public operator fun component1(): ConstPtr<CChar> = this.name
+    public operator fun component1(): ConstPtr = this.name
 
     public operator fun component2(): CInt = this.hasArg
 
-    public operator fun component3(): MutPtr<CInt> = this.flag
+    public operator fun component3(): MutPtr = this.flag
 
     public operator fun component4(): CInt = this.value
 
-    public fun copy(name: ConstPtr<CChar> = this.name, hasArg: CInt = this.hasArg, flag: MutPtr<CInt> = this.flag, value: CInt = this.value): Option = Option(nameCtorArg = name, hasArg = hasArg, flagCtorArg = flag, value = value)
+    public fun copy(name: ConstPtr = this.name, hasArg: CInt = this.hasArg, flag: MutPtr = this.flag, value: CInt = this.value): Option = Option(nameCtorArg = name, hasArg = hasArg, flagCtorArg = flag, value = value)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2097,33 +2095,33 @@ public class Option internal constructor(
                     Option(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CInt>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: Option) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr, value.name)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.hasArg)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CInt>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.flag)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.value)
                 }
             }
 
         public operator fun invoke(
-            name: ConstPtr<CChar> = ConstPtr(0L),
+            name: ConstPtr = ConstPtr(0L),
             hasArg: CInt = 0,
-            flag: MutPtr<CInt> = MutPtr(0L),
+            flag: MutPtr = MutPtr(0L),
             value: CInt = 0,
         ): Option =
             Option(
@@ -2344,7 +2342,7 @@ public data class SiginfoT(
         return result
     }
 
-    public fun siAddr(): MutPtr<CVoid> {
+    public fun siAddr(): MutPtr {
         val sz = maxOf(64L, typeLayout().sizeBytes)
         val scratch =
             io.github.kotlinmania.rustlang.core.intrinsics
@@ -2352,7 +2350,7 @@ public data class SiginfoT(
         typeLayout().writeNative(scratch, this)
         val out =
             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                .mutPtrLayout<CVoid>(64)
+                .mutPtrLayout(64)
                 .readNative(scratch + 16L)
         io.github.kotlinmania.rustlang.core.intrinsics
             .kmDealloc(scratch, sz, 8L)
@@ -2381,7 +2379,7 @@ public data class SiginfoT(
             Sifields(
                 alignPointerCtorArg =
                     io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                        .mutPtrLayout<CVoid>(64)
+                        .mutPtrLayout(64)
                         .readNative(scratch + 16L),
                 sigchld = SifieldsSigchld.typeLayout().readNative(scratch + 16L),
             )
@@ -2882,9 +2880,9 @@ public class CAnonymousIfrIfru internal constructor(
     public var ifruMap: CAnonymousIfruMap,
     public var ifruSlave: UByteArray,
     public var ifruNewname: UByteArray,
-    ifruDataCtorArg: MutPtr<CChar>,
+    ifruDataCtorArg: MutPtr,
 ) {
-    public var ifruData: MutPtr<CChar> = ifruDataCtorArg
+    public var ifruData: MutPtr = ifruDataCtorArg
         internal set
 
     public constructor() : this(
@@ -2927,9 +2925,9 @@ public class CAnonymousIfrIfru internal constructor(
 
     public operator fun component12(): UByteArray = this.ifruNewname
 
-    public operator fun component13(): MutPtr<CChar> = this.ifruData
+    public operator fun component13(): MutPtr = this.ifruData
 
-    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, ifruNetmask: Sockaddr = this.ifruNetmask, ifruHwaddr: Sockaddr = this.ifruHwaddr, ifruFlags: CShort = this.ifruFlags, ifruIfindex: CInt = this.ifruIfindex, ifruMetric: CInt = this.ifruMetric, ifruMtu: CInt = this.ifruMtu, ifruMap: CAnonymousIfruMap = this.ifruMap, ifruSlave: UByteArray = this.ifruSlave, ifruNewname: UByteArray = this.ifruNewname, ifruData: MutPtr<CChar> = this.ifruData): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, ifruNetmask = ifruNetmask, ifruHwaddr = ifruHwaddr, ifruFlags = ifruFlags, ifruIfindex = ifruIfindex, ifruMetric = ifruMetric, ifruMtu = ifruMtu, ifruMap = ifruMap, ifruSlave = ifruSlave, ifruNewname = ifruNewname, ifruDataCtorArg = ifruData)
+    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, ifruNetmask: Sockaddr = this.ifruNetmask, ifruHwaddr: Sockaddr = this.ifruHwaddr, ifruFlags: CShort = this.ifruFlags, ifruIfindex: CInt = this.ifruIfindex, ifruMetric: CInt = this.ifruMetric, ifruMtu: CInt = this.ifruMtu, ifruMap: CAnonymousIfruMap = this.ifruMap, ifruSlave: UByteArray = this.ifruSlave, ifruNewname: UByteArray = this.ifruNewname, ifruData: MutPtr = this.ifruData): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, ifruNetmask = ifruNetmask, ifruHwaddr = ifruHwaddr, ifruFlags = ifruFlags, ifruIfindex = ifruIfindex, ifruMetric = ifruMetric, ifruMtu = ifruMtu, ifruMap = ifruMap, ifruSlave = ifruSlave, ifruNewname = ifruNewname, ifruDataCtorArg = ifruData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2985,7 +2983,7 @@ public class CAnonymousIfrIfru internal constructor(
             ifruMap: CAnonymousIfruMap = CAnonymousIfruMap(),
             ifruSlave: UByteArray = UByteArray(IFNAMSIZ.toInt()),
             ifruNewname: UByteArray = UByteArray(IFNAMSIZ.toInt()),
-            ifruData: MutPtr<CChar> = MutPtr(0L),
+            ifruData: MutPtr = MutPtr(0L),
         ): CAnonymousIfrIfru =
             CAnonymousIfrIfru(
                 ifruAddr = ifruAddr,
@@ -3028,13 +3026,13 @@ public data class Ifreq(
 }
 
 public class CAnonymousIfcIfcu internal constructor(
-    ifcuBufCtorArg: MutPtr<CChar>,
-    ifcuReqCtorArg: MutPtr<Ifreq>,
+    ifcuBufCtorArg: MutPtr,
+    ifcuReqCtorArg: MutPtr,
 ) {
-    public var ifcuBuf: MutPtr<CChar> = ifcuBufCtorArg
+    public var ifcuBuf: MutPtr = ifcuBufCtorArg
         internal set
 
-    public var ifcuReq: MutPtr<Ifreq> = ifcuReqCtorArg
+    public var ifcuReq: MutPtr = ifcuReqCtorArg
         internal set
 
     public constructor() : this(
@@ -3042,11 +3040,11 @@ public class CAnonymousIfcIfcu internal constructor(
         ifcuReqCtorArg = MutPtr(0L),
     )
 
-    public operator fun component1(): MutPtr<CChar> = this.ifcuBuf
+    public operator fun component1(): MutPtr = this.ifcuBuf
 
-    public operator fun component2(): MutPtr<Ifreq> = this.ifcuReq
+    public operator fun component2(): MutPtr = this.ifcuReq
 
-    public fun copy(ifcuBuf: MutPtr<CChar> = this.ifcuBuf, ifcuReq: MutPtr<Ifreq> = this.ifcuReq): CAnonymousIfcIfcu = CAnonymousIfcIfcu(ifcuBufCtorArg = ifcuBuf, ifcuReqCtorArg = ifcuReq)
+    public fun copy(ifcuBuf: MutPtr = this.ifcuBuf, ifcuReq: MutPtr = this.ifcuReq): CAnonymousIfcIfcu = CAnonymousIfcIfcu(ifcuBufCtorArg = ifcuBuf, ifcuReqCtorArg = ifcuReq)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3068,8 +3066,8 @@ public class CAnonymousIfcIfcu internal constructor(
 
     public companion object {
         public operator fun invoke(
-            ifcuBuf: MutPtr<CChar> = MutPtr(0L),
-            ifcuReq: MutPtr<Ifreq> = MutPtr(0L),
+            ifcuBuf: MutPtr = MutPtr(0L),
+            ifcuReq: MutPtr = MutPtr(0L),
         ): CAnonymousIfcIfcu =
             CAnonymousIfcIfcu(
                 ifcuBufCtorArg = ifcuBuf,
@@ -3119,10 +3117,10 @@ public data class SifieldsSigchld(
 }
 
 public class Sifields internal constructor(
-    alignPointerCtorArg: MutPtr<CVoid>,
+    alignPointerCtorArg: MutPtr,
     public var sigchld: SifieldsSigchld,
 ) {
-    public var alignPointer: MutPtr<CVoid> = alignPointerCtorArg
+    public var alignPointer: MutPtr = alignPointerCtorArg
         internal set
 
     public constructor() : this(
@@ -3130,11 +3128,11 @@ public class Sifields internal constructor(
         sigchld = SifieldsSigchld(),
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.alignPointer
+    public operator fun component1(): MutPtr = this.alignPointer
 
     public operator fun component2(): SifieldsSigchld = this.sigchld
 
-    public fun copy(alignPointer: MutPtr<CVoid> = this.alignPointer, sigchld: SifieldsSigchld = this.sigchld): Sifields = Sifields(alignPointerCtorArg = alignPointer, sigchld = sigchld)
+    public fun copy(alignPointer: MutPtr = this.alignPointer, sigchld: SifieldsSigchld = this.sigchld): Sifields = Sifields(alignPointerCtorArg = alignPointer, sigchld = sigchld)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3156,7 +3154,7 @@ public class Sifields internal constructor(
 
     public companion object {
         public operator fun invoke(
-            alignPointer: MutPtr<CVoid> = MutPtr(0L),
+            alignPointer: MutPtr = MutPtr(0L),
             sigchld: SifieldsSigchld = SifieldsSigchld(),
         ): Sifields =
             Sifields(

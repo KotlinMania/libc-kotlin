@@ -3,15 +3,12 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -398,16 +395,16 @@ private external fun wasmLibcUnixHaikuNativeFindDirectory(p0: Int, p1: Int, p2: 
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuNativeGetCpuid(p0, p1, p2)")
 private external fun wasmLibcUnixHaikuNativeGetCpuid(p0: String, p1: Int, p2: Int): Int
 
-public actual fun createArea(name: ConstPtr<CChar>, startAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId =
+public actual fun createArea(name: ConstPtr, startAddress: MutPtr, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeCreateArea(name.rawAddress.toString(), startAddress.rawAddress.toString(), addressSpec.toInt(), size.toString(), lock.toInt(), protection.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cloneArea(name: ConstPtr<CChar>, destAddress: MutPtr<MutPtr<CVoid>>, addressSpec: UInt, protection: UInt, source: AreaId): AreaId =
+public actual fun cloneArea(name: ConstPtr, destAddress: MutPtr, addressSpec: UInt, protection: UInt, source: AreaId): AreaId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeCloneArea(name.rawAddress.toString(), destAddress.rawAddress.toString(), addressSpec.toInt(), protection.toInt(), source) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findArea(name: ConstPtr<CChar>): AreaId =
+public actual fun findArea(name: ConstPtr): AreaId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindArea(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun areaFor(address: MutPtr<CVoid>): AreaId =
+public actual fun areaFor(address: MutPtr): AreaId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeAreaFor(address.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun deleteArea(id: AreaId): StatusT =
@@ -419,28 +416,28 @@ public actual fun resizeArea(id: AreaId, newSize: ULong): StatusT =
 public actual fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSetAreaProtection(id, newProtection.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getAreaInfo(id: AreaId, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT =
+public actual fun getAreaInfo(id: AreaId, areaInfo: MutPtr, size: ULong): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetAreaInfo(id, areaInfo.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT =
+public actual fun getNextAreaInfo(team: TeamId, cookie: MutPtr, areaInfo: MutPtr, size: ULong): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextAreaInfo(team, cookie.rawAddress.toString(), areaInfo.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun createPort(capacity: Int, name: ConstPtr<CChar>): PortId =
+public actual fun createPort(capacity: Int, name: ConstPtr): PortId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeCreatePort(capacity, name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPort(name: ConstPtr<CChar>): PortId =
+public actual fun findPort(name: ConstPtr): PortId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPort(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readPort(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT): SsizeT =
+public actual fun readPort(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeReadPort(port, code.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readPortEtc(port: PortId, code: MutPtr<Int>, buffer: MutPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT =
+public actual fun readPortEtc(port: PortId, code: MutPtr, buffer: MutPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeReadPortEtc(port, code.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString(), flags.toInt(), timeout.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writePort(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT =
+public actual fun writePort(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeWritePort(port, code, buffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
+public actual fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeWritePortEtc(port, code, buffer.rawAddress.toString(), bufferSize.toString(), flags.toInt(), timeout.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun closePort(port: PortId): StatusT =
@@ -461,16 +458,16 @@ public actual fun portCount(port: PortId): SsizeT =
 public actual fun setPortOwner(port: PortId, team: TeamId): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSetPortOwner(port, team) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT =
+public actual fun getPortInfo(port: PortId, buf: MutPtr, portInfoSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetPortInfo(port, buf.rawAddress.toString(), portInfoSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextPortInfo(port: PortId, cookie: MutPtr<Int>, portInfo: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT =
+public actual fun getNextPortInfo(port: PortId, cookie: MutPtr, portInfo: MutPtr, portInfoSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextPortInfo(port, cookie.rawAddress.toString(), portInfo.rawAddress.toString(), portInfoSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
+public actual fun getPortMessageInfoEtc(port: PortId, info: MutPtr, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetPortMessageInfoEtc(port, info.rawAddress.toString(), infoSize.toString(), flags.toInt(), timeout.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun createSem(count: Int, name: ConstPtr<CChar>): SemId =
+public actual fun createSem(count: Int, name: ConstPtr): SemId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeCreateSem(count, name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun deleteSem(id: SemId): StatusT =
@@ -494,28 +491,28 @@ public actual fun switchSem(semToBeReleased: SemId, id: SemId): StatusT =
 public actual fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSwitchSemEtc(semToBeReleased, id, count, flags.toInt(), timeout.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getSemCount(id: SemId, threadCount: MutPtr<Int>): StatusT =
+public actual fun getSemCount(id: SemId, threadCount: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetSemCount(id, threadCount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setSemOwner(id: SemId, team: TeamId): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSetSemOwner(id, team) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getSemInfo(id: SemId, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT =
+public actual fun getSemInfo(id: SemId, info: MutPtr, infoSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetSemInfo(id, info.rawAddress.toString(), infoSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT =
+public actual fun getNextSemInfo(team: TeamId, cookie: MutPtr, info: MutPtr, infoSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextSemInfo(team, cookie.rawAddress.toString(), info.rawAddress.toString(), infoSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun killTeam(team: TeamId): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeKillTeam(team) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>, size: SizeT): StatusT =
+public actual fun getTeamInfo(team: TeamId, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetTeamInfo(team, info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>, size: SizeT): StatusT =
+public actual fun getNextTeamInfo(cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextTeamInfo(cookie.rawAddress.toString(), info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun spawnThread(func: ThreadFunc, name: ConstPtr<CChar>, priority: Int, data: MutPtr<CVoid>): ThreadId =
+public actual fun spawnThread(func: ThreadFunc, name: ConstPtr, priority: Int, data: MutPtr): ThreadId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSpawnThread(0L.toString(), name.rawAddress.toString(), priority, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun killThread(thread: ThreadId): StatusT =
@@ -527,7 +524,7 @@ public actual fun resumeThread(thread: ThreadId): StatusT =
 public actual fun suspendThread(thread: ThreadId): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSuspendThread(thread) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun renameThread(thread: ThreadId, newName: ConstPtr<CChar>): StatusT =
+public actual fun renameThread(thread: ThreadId, newName: ConstPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeRenameThread(thread, newName.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT =
@@ -547,13 +544,13 @@ public actual fun exitThread(status: StatusT) {
     }
 }
 
-public actual fun waitForThread(thread: ThreadId, returnValue: MutPtr<StatusT>): StatusT =
+public actual fun waitForThread(thread: ThreadId, returnValue: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeWaitForThread(thread, returnValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr<CVoid>): StatusT =
+public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeOnExitThread(0L.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findThread(name: ConstPtr<CChar>): ThreadId =
+public actual fun findThread(name: ConstPtr): ThreadId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindThread(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getSchedulerMode(): Int =
@@ -562,10 +559,10 @@ public actual fun getSchedulerMode(): Int =
 public actual fun setSchedulerMode(mode: Int): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSetSchedulerMode(mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT =
+public actual fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr, bufferSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSendData(thread, code, buffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun receiveData(sender: MutPtr<ThreadId>, buffer: MutPtr<CVoid>, bufferSize: SizeT): Int =
+public actual fun receiveData(sender: MutPtr, buffer: MutPtr, bufferSize: SizeT): Int =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeReceiveData(sender.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun hasData(thread: ThreadId): Boolean =
@@ -580,16 +577,16 @@ public actual fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): Stat
 public actual fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSnoozeUntil(time.toString(), timeBase) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>, size: SizeT): StatusT =
+public actual fun getThreadInfo(id: ThreadId, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetThreadInfo(id, info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>, size: SizeT): StatusT =
+public actual fun getNextThreadInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextThreadInfo(team, cookie.rawAddress.toString(), info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getPthreadThreadId(thread: PthreadT): ThreadId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetPthreadThreadId(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr<TeamUsageInfo>, size: SizeT): StatusT =
+public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetTeamUsageInfo(team, who, info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun realTimeClock(): CUlong =
@@ -615,7 +612,7 @@ public actual fun systemTimeNsecs(): NanotimeT =
 public actual fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSetAlarm(whenBranch.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun debugger(message: ConstPtr<CChar>) {
+public actual fun debugger(message: ConstPtr) {
     if (unixHaikuNativeNapiAvailable) {
         wasmLibcUnixHaikuNativeDebugger(message.rawAddress.toString())
     } else {
@@ -626,13 +623,13 @@ public actual fun debugger(message: ConstPtr<CChar>) {
 public actual fun disableDebugger(state: CInt): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeDisableDebugger(state) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getSystemInfo(info: MutPtr<SystemInfo>): StatusT =
+public actual fun getSystemInfo(info: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetSystemInfo(info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr<CpuInfo>, size: SizeT): StatusT =
+public actual fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetCpuInfoEtc(firstCPU.toInt(), cpuCount.toInt(), info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getCpuTopologyInfo(topologyInfos: MutPtr<CpuTopologyNodeInfo>, topologyInfoCount: MutPtr<UInt>): StatusT =
+public actual fun getCpuTopologyInfo(topologyInfos: MutPtr, topologyInfoCount: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetCpuTopologyInfo(topologyInfos.rawAddress.toString(), topologyInfoCount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isComputerOn(): Int =
@@ -644,7 +641,7 @@ public actual fun isComputerOnFire(): CDouble =
 public actual fun sendSignal(threadID: ThreadId, signal: CUint): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeSendSignal(threadID, signal.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setSignalStack(base: MutPtr<CVoid>, size: SizeT) {
+public actual fun setSignalStack(base: MutPtr, size: SizeT) {
     if (unixHaikuNativeNapiAvailable) {
         wasmLibcUnixHaikuNativeSetSignalStack(base.rawAddress.toString(), size.toString())
     } else {
@@ -652,49 +649,49 @@ public actual fun setSignalStack(base: MutPtr<CVoid>, size: SizeT) {
     }
 }
 
-public actual fun waitForObjects(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt): SsizeT =
+public actual fun waitForObjects(infos: MutPtr, numInfos: CInt): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeWaitForObjects(infos.rawAddress.toString(), numInfos).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitForObjectsEtc(infos: MutPtr<ObjectWaitInfo>, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT =
+public actual fun waitForObjectsEtc(infos: MutPtr, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeWaitForObjectsEtc(infos.rawAddress.toString(), numInfos, flags.toInt(), timeout.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsReadAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: MutPtr<CVoid>, readBytes: SizeT): SsizeT =
+public actual fun fsReadAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: MutPtr, readBytes: SizeT): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsReadAttr(fd, attribute.rawAddress.toString(), type.toInt(), pos.toString(), buffer.rawAddress.toString(), readBytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsWriteAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, pos: OffT, buffer: ConstPtr<CVoid>, writeBytes: SizeT): SsizeT =
+public actual fun fsWriteAttr(fd: CInt, attribute: ConstPtr, type: UInt, pos: OffT, buffer: ConstPtr, writeBytes: SizeT): SsizeT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsWriteAttr(fd, attribute.rawAddress.toString(), type.toInt(), pos.toString(), buffer.rawAddress.toString(), writeBytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsRemoveAttr(fd: CInt, attribute: ConstPtr<CChar>): CInt =
+public actual fun fsRemoveAttr(fd: CInt, attribute: ConstPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsRemoveAttr(fd, attribute.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsStatAttr(fd: CInt, attribute: ConstPtr<CChar>, attrInfo: MutPtr<AttrInfo>): CInt =
+public actual fun fsStatAttr(fd: CInt, attribute: ConstPtr, attrInfo: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsStatAttr(fd, attribute.rawAddress.toString(), attrInfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsOpenAttr(path: ConstPtr<CChar>, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt =
+public actual fun fsOpenAttr(path: ConstPtr, attribute: ConstPtr, type: UInt, openMode: CInt): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsOpenAttr(path.rawAddress.toString(), attribute.rawAddress.toString(), type.toInt(), openMode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsFopenAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, openMode: CInt): CInt =
+public actual fun fsFopenAttr(fd: CInt, attribute: ConstPtr, type: UInt, openMode: CInt): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsFopenAttr(fd, attribute.rawAddress.toString(), type.toInt(), openMode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fsCloseAttr(fd: CInt): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsCloseAttr(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsOpenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun fsOpenAttrDir(path: ConstPtr): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsOpenAttrDir(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsLopenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun fsLopenAttrDir(path: ConstPtr): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsLopenAttrDir(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsFopenAttrDir(fd: CInt): MutPtr<DIR> =
+public actual fun fsFopenAttrDir(fd: CInt): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsFopenAttrDir(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsCloseAttrDir(dir: MutPtr<DIR>): CInt =
+public actual fun fsCloseAttrDir(dir: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsCloseAttrDir(dir.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsReadAttrDir(dir: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadAttrDir(dir: MutPtr): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsReadAttrDir(dir.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsRewindAttrDir(dir: MutPtr<DIR>) {
+public actual fun fsRewindAttrDir(dir: MutPtr) {
     if (unixHaikuNativeNapiAvailable) {
         wasmLibcUnixHaikuNativeFsRewindAttrDir(dir.rawAddress.toString())
     } else {
@@ -702,25 +699,25 @@ public actual fun fsRewindAttrDir(dir: MutPtr<DIR>) {
     }
 }
 
-public actual fun fsCreateIndex(device: DevT, name: ConstPtr<CChar>, type: UInt, flags: UInt): CInt =
+public actual fun fsCreateIndex(device: DevT, name: ConstPtr, type: UInt, flags: UInt): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsCreateIndex(device, name.rawAddress.toString(), type.toInt(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsRemoveIndex(device: DevT, name: ConstPtr<CChar>): CInt =
+public actual fun fsRemoveIndex(device: DevT, name: ConstPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsRemoveIndex(device, name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsStatIndex(device: DevT, name: ConstPtr<CChar>, indexInfo: MutPtr<IndexInfo>): CInt =
+public actual fun fsStatIndex(device: DevT, name: ConstPtr, indexInfo: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsStatIndex(device, name.rawAddress.toString(), indexInfo.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsOpenIndexDir(device: DevT): MutPtr<DIR> =
+public actual fun fsOpenIndexDir(device: DevT): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsOpenIndexDir(device).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsCloseIndexDir(indexDirectory: MutPtr<DIR>): CInt =
+public actual fun fsCloseIndexDir(indexDirectory: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsCloseIndexDir(indexDirectory.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsReadIndexDir(indexDirectory: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadIndexDir(indexDirectory: MutPtr): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsReadIndexDir(indexDirectory.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsRewindIndexDir(indexDirectory: MutPtr<DIR>) {
+public actual fun fsRewindIndexDir(indexDirectory: MutPtr) {
     if (unixHaikuNativeNapiAvailable) {
         wasmLibcUnixHaikuNativeFsRewindIndexDir(indexDirectory.rawAddress.toString())
     } else {
@@ -728,52 +725,52 @@ public actual fun fsRewindIndexDir(indexDirectory: MutPtr<DIR>) {
     }
 }
 
-public actual fun devForPath(path: ConstPtr<CChar>): DevT =
+public actual fun devForPath(path: ConstPtr): DevT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeDevForPath(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nextDev(pos: MutPtr<Int>): DevT =
+public actual fun nextDev(pos: MutPtr): DevT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeNextDev(pos.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsStatDev(dev: DevT, info: MutPtr<FsInfo>): CInt =
+public actual fun fsStatDev(dev: DevT, info: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsStatDev(dev, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsOpenQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt): MutPtr<DIR> =
+public actual fun fsOpenQuery(device: DevT, query: ConstPtr, flags: UInt): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsOpenQuery(device, query.rawAddress.toString(), flags.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsOpenLiveQuery(device: DevT, query: ConstPtr<CChar>, flags: UInt, port: PortId, token: Int): MutPtr<DIR> =
+public actual fun fsOpenLiveQuery(device: DevT, query: ConstPtr, flags: UInt, port: PortId, token: Int): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsOpenLiveQuery(device, query.rawAddress.toString(), flags.toInt(), port, token).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsCloseQuery(d: MutPtr<DIR>): CInt =
+public actual fun fsCloseQuery(d: MutPtr): CInt =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsCloseQuery(d.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsReadQuery(d: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun fsReadQuery(d: MutPtr): MutPtr =
     if (unixHaikuNativeNapiAvailable) MutPtr(wasmLibcUnixHaikuNativeFsReadQuery(d.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getPathForDirent(dent: MutPtr<Dirent>, buf: MutPtr<CChar>, len: SizeT): StatusT =
+public actual fun getPathForDirent(dent: MutPtr, buf: MutPtr, len: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetPathForDirent(dent.rawAddress.toString(), buf.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsMountVolume(where: ConstPtr<CChar>, device: ConstPtr<CChar>, filesystem: ConstPtr<CChar>, flags: UInt, parameters: ConstPtr<CChar>): DevT =
+public actual fun fsMountVolume(where: ConstPtr, device: ConstPtr, filesystem: ConstPtr, flags: UInt, parameters: ConstPtr): DevT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsMountVolume(where.rawAddress.toString(), device.rawAddress.toString(), filesystem.rawAddress.toString(), flags.toInt(), parameters.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsUnmountVolume(path: ConstPtr<CChar>, flags: UInt): StatusT =
+public actual fun fsUnmountVolume(path: ConstPtr, flags: UInt): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFsUnmountVolume(path.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun loadImage(argc: Int, argv: MutPtr<ConstPtr<CChar>>, environ: MutPtr<ConstPtr<CChar>>): ThreadId =
+public actual fun loadImage(argc: Int, argv: MutPtr, environ: MutPtr): ThreadId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeLoadImage(argc, argv.rawAddress.toString(), environ.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun loadAddOn(path: ConstPtr<CChar>): ImageId =
+public actual fun loadAddOn(path: ConstPtr): ImageId =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeLoadAddOn(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun unloadAddOn(image: ImageId): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeUnloadAddOn(image) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getImageSymbol(image: ImageId, name: ConstPtr<CChar>, symbolType: Int, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT =
+public actual fun getImageSymbol(image: ImageId, name: ConstPtr, symbolType: Int, symbolLocation: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetImageSymbol(image, name.rawAddress.toString(), symbolType, symbolLocation.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr<CChar>, nameLength: MutPtr<Int>, symbolType: MutPtr<Int>, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT =
+public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: MutPtr, nameLength: MutPtr, symbolType: MutPtr, symbolLocation: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNthImageSymbol(image, n, nameBuffer.rawAddress.toString(), nameLength.rawAddress.toString(), symbolType.rawAddress.toString(), symbolLocation.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clearCaches(address: MutPtr<CVoid>, length: SizeT, flags: UInt) {
+public actual fun clearCaches(address: MutPtr, length: SizeT, flags: UInt) {
     if (unixHaikuNativeNapiAvailable) {
         wasmLibcUnixHaikuNativeClearCaches(address.rawAddress.toString(), length.toString(), flags.toInt())
     } else {
@@ -781,32 +778,32 @@ public actual fun clearCaches(address: MutPtr<CVoid>, length: SizeT, flags: UInt
     }
 }
 
-public actual fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>, size: SizeT): StatusT =
+public actual fun getImageInfo(image: ImageId, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetImageInfo(image, info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>, size: SizeT): StatusT =
+public actual fun getNextImageInfo(team: TeamId, cookie: MutPtr, info: MutPtr, size: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetNextImageInfo(team, cookie.rawAddress.toString(), info.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPath(codePointer: ConstPtr<CVoid>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: ULong): StatusT =
+public actual fun findPath(codePointer: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: ULong): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPath(codePointer.rawAddress.toString(), baseDirectory, subPath.rawAddress.toString(), pathBuffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPathEtc(codePointer: ConstPtr<CVoid>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathEtc(codePointer: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPathEtc(codePointer.rawAddress.toString(), dependency.rawAddress.toString(), architecture.rawAddress.toString(), baseDirectory, subPath.rawAddress.toString(), flags.toInt(), pathBuffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPathForPath(path: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathForPath(path: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPathForPath(path.rawAddress.toString(), baseDirectory, subPath.rawAddress.toString(), pathBuffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPathForPathEtc(path: ConstPtr<CChar>, dependency: ConstPtr<CChar>, architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, pathBuffer: MutPtr<CChar>, bufferSize: SizeT): StatusT =
+public actual fun findPathForPathEtc(path: ConstPtr, dependency: ConstPtr, architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, pathBuffer: MutPtr, bufferSize: SizeT): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPathForPathEtc(path.rawAddress.toString(), dependency.rawAddress.toString(), architecture.rawAddress.toString(), baseDirectory, subPath.rawAddress.toString(), flags.toInt(), pathBuffer.rawAddress.toString(), bufferSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT =
+public actual fun findPaths(baseDirectory: PathBaseDirectory, subPath: ConstPtr, paths: MutPtr, pathCount: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPaths(baseDirectory, subPath.rawAddress.toString(), paths.rawAddress.toString(), pathCount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findPathsEtc(architecture: ConstPtr<CChar>, baseDirectory: PathBaseDirectory, subPath: ConstPtr<CChar>, flags: UInt, paths: MutPtr<MutPtr<MutPtr<CChar>>>, pathCount: MutPtr<SizeT>): StatusT =
+public actual fun findPathsEtc(architecture: ConstPtr, baseDirectory: PathBaseDirectory, subPath: ConstPtr, flags: UInt, paths: MutPtr, pathCount: MutPtr): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindPathsEtc(architecture.rawAddress.toString(), baseDirectory, subPath.rawAddress.toString(), flags.toInt(), paths.rawAddress.toString(), pathCount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr<CChar>, length: Int): StatusT =
+public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: MutPtr, length: Int): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeFindDirectory(which, volume, createIt, pathString.rawAddress.toString(), length) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getCpuid(info: MutPtr<CpuidInfo>, eaxRegister: UInt, cpuNum: UInt): StatusT =
+public actual fun getCpuid(info: MutPtr, eaxRegister: UInt, cpuNum: UInt): StatusT =
     if (unixHaikuNativeNapiAvailable) wasmLibcUnixHaikuNativeGetCpuid(info.rawAddress.toString(), eaxRegister.toInt(), cpuNum.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")

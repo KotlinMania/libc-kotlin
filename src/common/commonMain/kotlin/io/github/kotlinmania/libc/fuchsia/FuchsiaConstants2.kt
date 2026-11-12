@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.fuchsia
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val ESHUTDOWN: CInt = 108
@@ -305,6 +304,6 @@ public val MAP_HUGE_SHIFT: UInt = 26u
 // END_PUB_CONST
 public val ULONG_SIZE: Int = 64
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
-public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
+public val SEM_FAILED: MutPtr = MutPtr(0L)

@@ -3,11 +3,6 @@
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -58,46 +53,46 @@ private external fun wasmLibcUnixNuttxArc4random(): Int
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixNuttxArc4randomBuf(p0, p1)")
 private external fun wasmLibcUnixNuttxArc4randomBuf(p0: String, p1: String)
 
-public actual fun errno(): MutPtr<CInt> =
+public actual fun errno(): MutPtr =
     if (unixNuttxNapiAvailable) MutPtr(wasmLibcUnixNuttxErrno().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun bind(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxBind(sockfd, addr.rawAddress.toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxIoctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirfd(dirp: MutPtr<DIR>): Int =
+public actual fun dirfd(dirp: MutPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxDirfd(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, srcAddr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun recvfrom(sockfd: Int, buf: MutPtr, len: ULong, flags: Int, srcAddr: MutPtr, addrlen: MutPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxRecvfrom(sockfd, buf.rawAddress.toString(), len.toString(), flags, srcAddr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): Int =
+public actual fun pthreadCreate(thread: MutPtr, attr: ConstPtr, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxPthreadCreate(thread.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxClockGettime(clockid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: Int, times: ConstPtr<Timespec>): Int =
+public actual fun futimens(fd: Int, times: ConstPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): Int =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): Int =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxPthreadSetnameNp(thread.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: ULong): Int =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: ULong): Int =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxPthreadGetnameNp(thread.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrandom(buf: MutPtr<CVoid>, buflen: ULong, flags: UInt): Long =
+public actual fun getrandom(buf: MutPtr, buflen: ULong, flags: UInt): Long =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxGetrandom(buf.rawAddress.toString(), buflen.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun arc4random(): UInt =
     if (unixNuttxNapiAvailable) wasmLibcUnixNuttxArc4random().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(bytes: MutPtr<CVoid>, nbytes: ULong) {
+public actual fun arc4randomBuf(bytes: MutPtr, nbytes: ULong) {
     if (unixNuttxNapiAvailable) {
         wasmLibcUnixNuttxArc4randomBuf(bytes.rawAddress.toString(), nbytes.toString())
     } else {

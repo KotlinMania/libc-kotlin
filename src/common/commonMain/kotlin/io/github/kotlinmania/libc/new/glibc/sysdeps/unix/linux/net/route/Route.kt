@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.glibc.sysdeps.unix.linux.net.route
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUlong
@@ -28,12 +27,12 @@ public class Rtentry internal constructor(
     // Note(1.0): private padding fields
     public var rtPad4: ShortArray,
     public var rtMetric: CShort,
-    rtDevCtorArg: MutPtr<CChar>,
+    rtDevCtorArg: MutPtr,
     public var rtMtu: CUlong,
     public var rtWindow: CUlong,
     public var rtIrtt: CUshort,
 ) {
-    public var rtDev: MutPtr<CChar> = rtDevCtorArg
+    public var rtDev: MutPtr = rtDevCtorArg
         internal set
 
     public constructor() : this(
@@ -76,7 +75,7 @@ public class Rtentry internal constructor(
 
     public operator fun component11(): CShort = this.rtMetric
 
-    public operator fun component12(): MutPtr<CChar> = this.rtDev
+    public operator fun component12(): MutPtr = this.rtDev
 
     public operator fun component13(): CUlong = this.rtMtu
 
@@ -84,7 +83,7 @@ public class Rtentry internal constructor(
 
     public operator fun component15(): CUshort = this.rtIrtt
 
-    public fun copy(rtPad1: CUlong = this.rtPad1, rtDst: Sockaddr = this.rtDst, rtGateway: Sockaddr = this.rtGateway, rtGenmask: Sockaddr = this.rtGenmask, rtFlags: CUshort = this.rtFlags, rtPad2: CShort = this.rtPad2, rtPad3: CUlong = this.rtPad3, rtTos: CUchar = this.rtTos, rtClass: CUchar = this.rtClass, rtPad4: ShortArray = this.rtPad4, rtMetric: CShort = this.rtMetric, rtDev: MutPtr<CChar> = this.rtDev, rtMtu: CUlong = this.rtMtu, rtWindow: CUlong = this.rtWindow, rtIrtt: CUshort = this.rtIrtt): Rtentry = Rtentry(rtPad1 = rtPad1, rtDst = rtDst, rtGateway = rtGateway, rtGenmask = rtGenmask, rtFlags = rtFlags, rtPad2 = rtPad2, rtPad3 = rtPad3, rtTos = rtTos, rtClass = rtClass, rtPad4 = rtPad4, rtMetric = rtMetric, rtDevCtorArg = rtDev, rtMtu = rtMtu, rtWindow = rtWindow, rtIrtt = rtIrtt)
+    public fun copy(rtPad1: CUlong = this.rtPad1, rtDst: Sockaddr = this.rtDst, rtGateway: Sockaddr = this.rtGateway, rtGenmask: Sockaddr = this.rtGenmask, rtFlags: CUshort = this.rtFlags, rtPad2: CShort = this.rtPad2, rtPad3: CUlong = this.rtPad3, rtTos: CUchar = this.rtTos, rtClass: CUchar = this.rtClass, rtPad4: ShortArray = this.rtPad4, rtMetric: CShort = this.rtMetric, rtDev: MutPtr = this.rtDev, rtMtu: CUlong = this.rtMtu, rtWindow: CUlong = this.rtWindow, rtIrtt: CUshort = this.rtIrtt): Rtentry = Rtentry(rtPad1 = rtPad1, rtDst = rtDst, rtGateway = rtGateway, rtGenmask = rtGenmask, rtFlags = rtFlags, rtPad2 = rtPad2, rtPad3 = rtPad3, rtTos = rtTos, rtClass = rtClass, rtPad4 = rtPad4, rtMetric = rtMetric, rtDevCtorArg = rtDev, rtMtu = rtMtu, rtWindow = rtWindow, rtIrtt = rtIrtt)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -139,7 +138,7 @@ public class Rtentry internal constructor(
             rtClass: CUchar = 0u,
             rtPad4: ShortArray = ShortArray(3),
             rtMetric: CShort = 0,
-            rtDev: MutPtr<CChar> = MutPtr(0L),
+            rtDev: MutPtr = MutPtr(0L),
             rtMtu: CUlong = 0uL,
             rtWindow: CUlong = 0uL,
             rtIrtt: CUshort = 0u,

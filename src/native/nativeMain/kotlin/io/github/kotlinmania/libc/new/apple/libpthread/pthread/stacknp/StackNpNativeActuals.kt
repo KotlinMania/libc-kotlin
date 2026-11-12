@@ -8,5 +8,5 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr<UintptrT>): UintptrT =
+public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr): UintptrT =
     libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(frameAddr, returnAddr.rawAddress.toCPointer<ByteVar>())

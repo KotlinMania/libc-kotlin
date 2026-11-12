@@ -3,14 +3,10 @@
 package io.github.kotlinmania.libc.new.qurt.stdio
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.new.qurt.FILE
-import io.github.kotlinmania.libc.new.qurt.FposT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.VaList
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -142,28 +138,28 @@ private external fun wasmLibcNewQurtStdioSetvbuf(p0: String, p1: String, p2: Int
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcNewQurtStdioSetbuf(p0, p1)")
 private external fun wasmLibcNewQurtStdioSetbuf(p0: String, p1: String)
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioFopen(filename.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, stream: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, stream: MutPtr): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioFreopen(filename.rawAddress.toString(), mode.rawAddress.toString(), stream.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fclose(stream: MutPtr<FILE>): CInt =
+public actual fun fclose(stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFclose(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(stream: MutPtr<FILE>): CInt =
+public actual fun fflush(stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFflush(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nmemb: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nmemb: SizeT, stream: MutPtr): SizeT =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFread(ptr.rawAddress.toString(), size.toString(), nmemb.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nmemb: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nmemb: SizeT, stream: MutPtr): SizeT =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFwrite(ptr.rawAddress.toString(), size.toString(), nmemb.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFgetc(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFputc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getchar(): CInt =
@@ -172,61 +168,61 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioPutchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioUngetc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgets(s: MutPtr<CChar>, size: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(s: MutPtr, size: CInt, stream: MutPtr): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioFgets(s.rawAddress.toString(), size, stream.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFputs(s.rawAddress.toString(), stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gets(s: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun gets(s: MutPtr): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioGets(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioPuts(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioPrintf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFprintf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(s: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioSprintf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(s: MutPtr, n: SizeT, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioSnprintf(s.rawAddress.toString(), n.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vprintf(format: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vprintf(format: ConstPtr, ap: VaList): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioVprintf(format.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vfprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vfprintf(stream: MutPtr, format: ConstPtr, ap: VaList): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioVfprintf(stream.rawAddress.toString(), format.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vsprintf(s: MutPtr, format: ConstPtr, ap: VaList): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioVsprintf(s.rawAddress.toString(), format.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsnprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, ap: VaList): CInt =
+public actual fun vsnprintf(s: MutPtr, n: SizeT, format: ConstPtr, ap: VaList): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioVsnprintf(s.rawAddress.toString(), n.toString(), format.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioScanf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFscanf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(s: ConstPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioSscanf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFseek(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFtell(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     if (newQurtStdioNapiAvailable) {
         wasmLibcNewQurtStdioRewind(stream.rawAddress.toString())
     } else {
@@ -234,13 +230,13 @@ public actual fun rewind(stream: MutPtr<FILE>) {
     }
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, pos: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, pos: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFgetpos(stream.rawAddress.toString(), pos.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(stream: MutPtr<FILE>, pos: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, pos: ConstPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFsetpos(stream.rawAddress.toString(), pos.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clearerr(stream: MutPtr<FILE>) {
+public actual fun clearerr(stream: MutPtr) {
     if (newQurtStdioNapiAvailable) {
         wasmLibcNewQurtStdioClearerr(stream.rawAddress.toString())
     } else {
@@ -248,13 +244,13 @@ public actual fun clearerr(stream: MutPtr<FILE>) {
     }
 }
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFeof(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioFerror(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     if (newQurtStdioNapiAvailable) {
         wasmLibcNewQurtStdioPerror(s.rawAddress.toString())
     } else {
@@ -262,22 +258,22 @@ public actual fun perror(s: ConstPtr<CChar>) {
     }
 }
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioRemove(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(old: ConstPtr<CChar>, new: ConstPtr<CChar>): CInt =
+public actual fun rename(old: ConstPtr, new: ConstPtr): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioRename(old.rawAddress.toString(), new.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioTmpfile().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpnam(s: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(s: MutPtr): MutPtr =
     if (newQurtStdioNapiAvailable) MutPtr(wasmLibcNewQurtStdioTmpnam(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     if (newQurtStdioNapiAvailable) wasmLibcNewQurtStdioSetvbuf(stream.rawAddress.toString(), buffer.rawAddress.toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buffer: MutPtr) {
     if (newQurtStdioNapiAvailable) {
         wasmLibcNewQurtStdioSetbuf(stream.rawAddress.toString(), buffer.rawAddress.toString())
     } else {

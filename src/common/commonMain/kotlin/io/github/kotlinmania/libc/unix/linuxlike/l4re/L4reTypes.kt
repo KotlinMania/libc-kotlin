@@ -5,13 +5,12 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias L4UmwordT = CUlong
 
 // Unsigned machine word.
-public typealias PthreadT = MutPtr<CVoid>
+public typealias PthreadT = MutPtr
 
 public typealias DevT = ULong
 

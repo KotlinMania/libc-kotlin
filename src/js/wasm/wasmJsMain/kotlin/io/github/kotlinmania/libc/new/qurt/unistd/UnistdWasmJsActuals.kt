@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.unistd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
@@ -11,7 +10,6 @@ import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -56,7 +54,7 @@ private external fun wasmLibcNewQurtUnistdSleep(p0: Int): Int
 @JsFun("(p0) => globalThis.__km_napi_libc.libcNewQurtUnistdSysconf(p0)")
 private external fun wasmLibcNewQurtUnistdSysconf(p0: Int): String
 
-public actual fun access(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun access(pathname: ConstPtr, mode: CInt): CInt =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdAccess(pathname.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
@@ -65,22 +63,22 @@ public actual fun close(fd: CInt): CInt =
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdLseek(fd, offset.toString(), whence).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdRead(fd, buf.rawAddress.toString(), count.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdWrite(fd, buf.rawAddress.toString(), count.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdFtruncate(fd, length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
+public actual fun unlink(pathname: ConstPtr): CInt =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdUnlink(pathname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     if (newQurtUnistdNapiAvailable) MutPtr(wasmLibcNewQurtUnistdGetcwd(buf.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(pathname: ConstPtr<CChar>): CInt =
+public actual fun rmdir(pathname: ConstPtr): CInt =
     if (newQurtUnistdNapiAvailable) wasmLibcNewQurtUnistdRmdir(pathname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpid(): PidT =

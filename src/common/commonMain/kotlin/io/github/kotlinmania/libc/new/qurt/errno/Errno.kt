@@ -278,7 +278,7 @@ public val ERFKILL: CInt = 132
 public val EHWPOISON: CInt = 133
 
 // Error number access
-public expect fun errnoLocation(): MutPtr<CInt>
+public expect fun errnoLocation(): MutPtr
 
 public fun errno(): CInt = (PrimitiveLayouts.I32).readNative((errnoLocation()).rawAddress)
 

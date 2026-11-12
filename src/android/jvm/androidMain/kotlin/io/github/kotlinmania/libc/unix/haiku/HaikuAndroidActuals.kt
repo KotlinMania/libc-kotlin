@@ -3,32 +3,20 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
-import io.github.kotlinmania.libc.unix.Iovec
-import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Pollfd
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -563,10 +551,10 @@ private object UnixHaikuJniBridge {
     external fun libcUnixHaikuPthreadSetnameNp(thread: Long, name: Long): Int
 }
 
-public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+public actual fun getrlimit(resource: CInt, rlim: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSetrlimit(resource, rlim.rawAddress)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
@@ -579,10 +567,10 @@ public actual fun endusershell() {
     UnixHaikuJniBridge.libcUnixHaikuEndusershell()
 }
 
-public actual fun getpass(prompt: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getpass(prompt: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetpass(prompt.rawAddress))
 
-public actual fun getusershell(): MutPtr<CChar> =
+public actual fun getusershell(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetusershell())
 
 public actual fun issetugid(): CInt =
@@ -592,16 +580,16 @@ public actual fun setusershell() {
     UnixHaikuJniBridge.libcUnixHaikuSetusershell()
 }
 
-public actual fun utimensat(fd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(fd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuUtimensat(fd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuFutimens(fd, times.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun errnop(): MutPtr<CInt> =
+public actual fun errnop(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuErrnop())
 
 public actual fun abs(i: CInt): CInt =
@@ -617,20 +605,20 @@ public actual fun srand(seed: CUint) {
     UnixHaikuJniBridge.libcUnixHaikuSrand(seed.toInt())
 }
 
-public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+public actual fun getifaddrs(ifap: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetifaddrs(ifap.rawAddress)
 
-public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+public actual fun freeifaddrs(ifa: MutPtr) {
     UnixHaikuJniBridge.libcUnixHaikuFreeifaddrs(ifa.rawAddress)
 }
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, numfds: NfdsT, timeout: ConstPtr<Timespec>, sigMask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, numfds: NfdsT, timeout: ConstPtr, sigMask: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPpoll(fds.rawAddress, numfds.toLong(), timeout.rawAddress, sigMask.rawAddress)
 
-public actual fun getspent(): MutPtr<Spwd> =
+public actual fun getspent(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetspent())
 
-public actual fun getspentR(pwd: MutPtr<Spwd>, buf: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+public actual fun getspentR(pwd: MutPtr, buf: MutPtr, bufferSize: SizeT, res: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetspentR(pwd.rawAddress, buf.rawAddress, bufferSize.toLong(), res.rawAddress)
 
 public actual fun setspent() {
@@ -641,128 +629,128 @@ public actual fun endspent() {
     UnixHaikuJniBridge.libcUnixHaikuEndspent()
 }
 
-public actual fun getspnam(name: ConstPtr<CChar>): MutPtr<Spwd> =
+public actual fun getspnam(name: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetspnam(name.rawAddress))
 
-public actual fun getspnamR(name: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+public actual fun getspnamR(name: ConstPtr, spwd: MutPtr, buffer: MutPtr, bufferSize: SizeT, res: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetspnamR(name.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun sgetspent(line: ConstPtr<CChar>): MutPtr<Spwd> =
+public actual fun sgetspent(line: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuSgetspent(line.rawAddress))
 
-public actual fun sgetspentR(line: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+public actual fun sgetspentR(line: ConstPtr, spwd: MutPtr, buffer: MutPtr, bufferSize: SizeT, res: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSgetspentR(line.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun fgetspent(file: MutPtr<FILE>): MutPtr<Spwd> =
+public actual fun fgetspent(file: MutPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuFgetspent(file.rawAddress))
 
-public actual fun fgetspentR(file: MutPtr<FILE>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+public actual fun fgetspentR(file: MutPtr, spwd: MutPtr, buffer: MutPtr, bufferSize: SizeT, res: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuFgetspentR(file.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr, mode: ModeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev)
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemDestroy(sem.rawAddress)
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemInit(sem.rawAddress, pshared, value.toInt())
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuClockSettime(clkId, tp.rawAddress)
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuClockGetcpuclockid(pid, clkId.rawAddress)
 
-public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(thread: MutPtr, attr: ConstPtr, f: PthreadCreateFCallback, value: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadCreate(thread.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr, guardsize: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+public actual fun pthreadAttrSetguardsize(attr: MutPtr, guardsize: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadAttrSetguardsize(attr.rawAddress, guardsize.toLong())
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(attr: ConstPtr, clockId: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun valloc(numBytes: SizeT): MutPtr<CVoid> =
+public actual fun valloc(numBytes: SizeT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuValloc(numBytes.toLong()))
 
-public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+public actual fun mallocUsableSize(ptr: MutPtr): SizeT =
     UnixHaikuJniBridge.libcUnixHaikuMallocUsableSize(ptr.rawAddress).toULong()
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemalign(align.toLong(), size.toLong()))
 
-public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSetgroups(ngroups, ptr.rawAddress)
 
-public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+public actual fun initgroups(name: ConstPtr, basegid: GidT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuInitgroups(name.rawAddress, basegid.toShort())
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     UnixHaikuJniBridge.libcUnixHaikuIoctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuDirfd(dirp.rawAddress)
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SocklenT, serv: MutPtr, servlen: SocklenT, flags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
-public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(lock: MutPtr, abstime: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadMutexTimedlock(lock.rawAddress, abstime.rawAddress)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: MutPtr, pshared: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinDestroy(lock: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinLock(lock: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinTrylock(lock: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+public actual fun pthreadSpinUnlock(lock: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuWaitid(idtype, id, infop.rawAddress, options)
 
-public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+public actual fun glob(pattern: ConstPtr, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: MutPtr<GlobT>) {
+public actual fun globfree(pglob: MutPtr) {
     UnixHaikuJniBridge.libcUnixHaikuGlobfree(pglob.rawAddress)
 }
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun posixMadvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
@@ -771,95 +759,95 @@ public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt):
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixFallocate(fd, offset, len)
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuShmUnlink(name.rawAddress)
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     UnixHaikuJniBridge.libcUnixHaikuSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     UnixHaikuJniBridge.libcUnixHaikuTelldir(dirp.rawAddress)
 
-public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(socket: CInt, buf: MutPtr, len: SizeT, flags: CInt, addr: MutPtr, addrlen: MutPtr): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuNlLanginfo(item))
 
-public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+public actual fun bind(socket: CInt, address: ConstPtr, addressLen: SocklenT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun accept4(socket: CInt, address: MutPtr<Sockaddr>, addressLength: MutPtr<SocklenT>, flags: CInt): CInt =
+public actual fun accept4(socket: CInt, address: MutPtr, addressLength: MutPtr, flags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuAccept4(socket, address.rawAddress, addressLength.rawAddress, flags)
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, count: CInt): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuWritev(fd, iov.rawAddress, count)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, count: CInt): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuReadv(fd, iov.rawAddress, count)
 
-public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuSendmsg(fd, msg.rawAddress, flags)
 
-public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: CInt, msg: MutPtr, flags: CInt): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuRecvmsg(fd, msg.rawAddress, flags)
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, environment: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, environment: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuExecvpe(file.rawAddress, argv.rawAddress, environment.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, basegroup: GidT, grouplist: MutPtr<GidT>, groupcount: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, basegroup: GidT, grouplist: MutPtr, groupcount: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetgrouplist(user.rawAddress, basegroup.toShort(), grouplist.rawAddress, groupcount.rawAddress)
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSigaltstack(ss.rawAddress, oss.rawAddress)
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSigsuspend(mask.rawAddress)
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemClose(sem.rawAddress)
 
 public actual fun getdtablesize(): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetdtablesize()
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSigmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrnam(name.rawAddress))
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadKill(thread.toLong(), sig)
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemUnlink(name.rawAddress)
 
-public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwnamR(name: ConstPtr, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetpwuidR(uid.toShort(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwent(): MutPtr<Passwd> =
+public actual fun getpwent(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetpwent())
 
 public actual fun setpwent() {
@@ -874,41 +862,41 @@ public actual fun endgrent() {
     UnixHaikuJniBridge.libcUnixHaikuEndgrent()
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrent())
 
 public actual fun setgrent() {
     UnixHaikuJniBridge.libcUnixHaikuSetgrent()
 }
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSigwait(set.rawAddress, sig.rawAddress)
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadAtfork(0L, 0L, 0L)
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrgid(gid.toShort()))
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSethostname(name.rawAddress, len.toLong())
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuUname(buf.rawAddress)
 
-public actual fun getutxent(): MutPtr<Utmpx> =
+public actual fun getutxent(): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxent())
 
-public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxid(ut: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxid(ut.rawAddress))
 
-public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxline(ut: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxline(ut.rawAddress))
 
-public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun pututxline(ut: ConstPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuPututxline(ut.rawAddress))
 
 public actual fun setutxent() {
@@ -919,44 +907,44 @@ public actual fun endutxent() {
     UnixHaikuJniBridge.libcUnixHaikuEndutxent()
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun sigwaitinfo(set: ConstPtr, info: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+public actual fun getitimer(which: CInt, currValue: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetitimer(which, currValue.rawAddress)
 
-public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+public actual fun setitimer(which: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSetitimer(which, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+public actual fun regcomp(preg: MutPtr, pattern: ConstPtr, cflags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuRegcomp(preg.rawAddress, pattern.rawAddress, cflags)
 
-public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+public actual fun regexec(preg: ConstPtr, input: ConstPtr, nmatch: SizeT, pmatch: MutPtr, eflags: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuRegexec(preg.rawAddress, input.rawAddress, nmatch.toLong(), pmatch.rawAddress, eflags)
 
-public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+public actual fun regerror(errcode: CInt, preg: ConstPtr, errbuf: MutPtr, errbufSize: SizeT): SizeT =
     UnixHaikuJniBridge.libcUnixHaikuRegerror(errcode, preg.rawAddress, errbuf.rawAddress, errbufSize.toLong()).toULong()
 
-public actual fun regfree(preg: MutPtr<RegexT>) {
+public actual fun regfree(preg: MutPtr) {
     UnixHaikuJniBridge.libcUnixHaikuRegfree(preg.rawAddress)
 }
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
     UnixHaikuJniBridge.libcUnixHaikuMsgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtype, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr, msgsz: SizeT, msgflg: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
@@ -965,19 +953,19 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+public actual fun semop(semid: CInt, sops: MutPtr, nsops: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuSemop(semid, sops.rawAddress, nsops.toLong())
 
-public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+public actual fun ftok(pathname: ConstPtr, projId: CInt): KeyT =
     UnixHaikuJniBridge.libcUnixHaikuFtok(pathname.rawAddress, projId)
 
-public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemrchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+public actual fun lsearch(key: ConstPtr, base: MutPtr, nelp: MutPtr, width: SizeT, compar: LsearchComparCallback?): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuLsearch(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
-public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+public actual fun lfind(key: ConstPtr, base: ConstPtr, nelp: MutPtr, width: SizeT, compar: LsearchComparCallback?): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuLfind(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
 public actual fun hcreate(nelt: SizeT): CInt =
@@ -987,42 +975,42 @@ public actual fun hdestroy() {
     UnixHaikuJniBridge.libcUnixHaikuHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+public actual fun hsearch(entry: Entry, action: Action): MutPtr =
     MutPtr(0L)
 
 public actual fun drand48(): CDouble =
     UnixHaikuJniBridge.libcUnixHaikuDrand48()
 
-public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+public actual fun erand48(xseed: MutPtr): CDouble =
     UnixHaikuJniBridge.libcUnixHaikuErand48(xseed.rawAddress)
 
 public actual fun lrand48(): CLong =
     UnixHaikuJniBridge.libcUnixHaikuLrand48()
 
-public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+public actual fun nrand48(xseed: MutPtr): CLong =
     UnixHaikuJniBridge.libcUnixHaikuNrand48(xseed.rawAddress)
 
 public actual fun mrand48(): CLong =
     UnixHaikuJniBridge.libcUnixHaikuMrand48()
 
-public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+public actual fun jrand48(xseed: MutPtr): CLong =
     UnixHaikuJniBridge.libcUnixHaikuJrand48(xseed.rawAddress)
 
 public actual fun srand48(seed: CLong) {
     UnixHaikuJniBridge.libcUnixHaikuSrand48(seed)
 }
 
-public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+public actual fun seed48(xseed: MutPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuSeed48(xseed.rawAddress))
 
-public actual fun lcong48(p: MutPtr<CUshort>) {
+public actual fun lcong48(p: MutPtr) {
     UnixHaikuJniBridge.libcUnixHaikuLcong48(p.rawAddress)
 }
 
 public actual fun clearenv(): CInt =
     UnixHaikuJniBridge.libcUnixHaikuClearenv()
 
-public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctermid(s: MutPtr): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuCtermid(s.rawAddress))
 
 public actual fun sync() {
@@ -1032,83 +1020,83 @@ public actual fun sync() {
 public actual fun getpagesize(): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetpagesize()
 
-public actual fun brk(addr: MutPtr<CVoid>): CInt =
+public actual fun brk(addr: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuBrk(addr.rawAddress)
 
-public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+public actual fun sbrk(increment: IntptrT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuSbrk(increment))
 
-public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawn(pid: MutPtr, path: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+public actual fun posixSpawnp(pid: MutPtr, file: ConstPtr, fileActions: ConstPtr, attrp: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsInit(fileActions: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsInit(fileActions.rawAddress)
 
-public actual fun posixSpawnFileActionsDestroy(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+public actual fun posixSpawnFileActionsDestroy(fileActions: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsDestroy(fileActions.rawAddress)
 
-public actual fun posixSpawnFileActionsAddopen(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(fileActions: MutPtr, fildes: CInt, path: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAddopen(fileActions.rawAddress, fildes, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsAddclose(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(fileActions: MutPtr, fildes: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAddclose(fileActions.rawAddress, fildes)
 
-public actual fun posixSpawnFileActionsAdddup2(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, newfildes: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(fileActions: MutPtr, fildes: CInt, newfildes: CInt): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAdddup2(fileActions.rawAddress, fildes, newfildes)
 
-public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrInit(attr: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+public actual fun posixSpawnattrDestroy(attr: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+public actual fun posixSpawnattrGetflags(attr: ConstPtr, flags: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: MutPtr, flags: CShort): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, pgroup: MutPtr<PidT>): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr, pgroup: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetpgroup(attr.rawAddress, pgroup.rawAddress)
 
-public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, pgroup: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr, pgroup: PidT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetpgroup(attr.rawAddress, pgroup)
 
-public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, sigdefault: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr, sigdefault: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetsigdefault(attr.rawAddress, sigdefault.rawAddress)
 
-public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, sigdefault: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr, sigdefault: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetsigdefault(attr.rawAddress, sigdefault.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, sigmask: MutPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr, sigmask: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetsigmask(attr.rawAddress, sigmask.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr, sigmask: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetsigmask(attr.rawAddress, sigmask.rawAddress)
 
-public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+public actual fun getoptLong(argc: CInt, argv: ConstPtr, optstring: ConstPtr, longopts: ConstPtr, longindex: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetoptLong(argc, argv.rawAddress, optstring.rawAddress, longopts.rawAddress, longindex.rawAddress)
 
-public actual fun strcasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, locale: LocaleT): CInt =
+public actual fun strcasecmpL(string1: ConstPtr, string2: ConstPtr, locale: LocaleT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuStrcasecmpL(string1.rawAddress, string2.rawAddress, locale.rawAddress)
 
-public actual fun strncasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, length: SizeT, locale: LocaleT): CInt =
+public actual fun strncasecmpL(string1: ConstPtr, string2: ConstPtr, length: SizeT, locale: LocaleT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuStrncasecmpL(string1.rawAddress, string2.rawAddress, length.toLong(), locale.rawAddress)
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun memmem(source: ConstPtr<CVoid>, sourceLength: SizeT, search: ConstPtr<CVoid>, searchLength: SizeT): MutPtr<CVoid> =
+public actual fun memmem(source: ConstPtr, sourceLength: SizeT, search: ConstPtr, searchLength: SizeT): MutPtr =
     MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemmem(source.rawAddress, sourceLength.toLong(), search.rawAddress, searchLength.toLong()))
 
-public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadGetattrNp(thread.toLong(), attr.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, buffer: MutPtr<CChar>, length: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, buffer: MutPtr, length: SizeT): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadGetnameNp(thread.toLong(), buffer.rawAddress, length.toLong())
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): CInt =
     UnixHaikuJniBridge.libcUnixHaikuPthreadSetnameNp(thread.toLong(), name.rawAddress)

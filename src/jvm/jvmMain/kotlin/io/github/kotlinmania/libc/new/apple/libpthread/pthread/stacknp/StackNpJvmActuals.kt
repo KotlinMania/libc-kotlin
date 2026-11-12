@@ -66,5 +66,5 @@ private object NewAppleLibpthreadPthreadStacknpStackNpJniBridge {
     external fun libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(frameAddr: Long, returnAddr: Long): Long
 }
 
-public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr<UintptrT>): UintptrT =
+public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr): UintptrT =
     NewAppleLibpthreadPthreadStacknpStackNpJniBridge.libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(frameAddr.toLong(), returnAddr.rawAddress).toULong()

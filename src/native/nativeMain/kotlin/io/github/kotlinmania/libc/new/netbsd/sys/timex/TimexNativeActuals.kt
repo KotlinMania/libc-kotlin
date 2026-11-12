@@ -9,8 +9,8 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+public actual fun ntpGettime(buf: MutPtr): CInt =
     libcNewNetbsdSysTimexNtpGettime(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+public actual fun ntpAdjtime(buf: MutPtr): CInt =
     libcNewNetbsdSysTimexNtpAdjtime(buf.rawAddress.toCPointer<ByteVar>())

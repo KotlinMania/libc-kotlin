@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -16,5 +15,5 @@ private val unixBsdAppleB32NapiAvailable: Boolean = initUnixBsdAppleB32NapiAddon
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdAppleB32Exchangedata(p0, p1, p2)")
 private external fun wasmLibcUnixBsdAppleB32Exchangedata(p0: String, p1: String, p2: String): Int
 
-public actual fun exchangedata(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>, options: CUlong): CInt =
+public actual fun exchangedata(path1: ConstPtr, path2: ConstPtr, options: CUlong): CInt =
     if (unixBsdAppleB32NapiAvailable) wasmLibcUnixBsdAppleB32Exchangedata(path1.rawAddress.toString(), path2.rawAddress.toString(), options.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

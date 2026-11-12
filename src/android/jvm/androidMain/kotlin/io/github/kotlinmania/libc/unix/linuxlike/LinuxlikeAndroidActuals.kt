@@ -3,39 +3,22 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
-import io.github.kotlinmania.libc.unix.Iovec
-import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.DevT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.IdtypeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Stat64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statfs
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statfs64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statvfs64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.powerpc64.Termios
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -318,64 +301,64 @@ public actual fun libcCurrentSigrtmax(): CInt =
 public actual fun libcCurrentSigrtmin(): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeLibcCurrentSigrtmin()
 
-public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+public actual fun semDestroy(sem: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSemDestroy(sem.rawAddress)
 
-public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+public actual fun semInit(sem: MutPtr, pshared: CInt, value: CUint): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSemInit(sem.rawAddress, pshared, value.toInt())
 
 public actual fun fdatasync(fd: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFdatasync(fd)
 
-public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CUchar>): CInt =
+public actual fun mincore(addr: MutPtr, len: SizeT, vec: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeMincore(addr.rawAddress, len.toLong(), vec.rawAddress)
 
-public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeClockSettime(clkId, tp.rawAddress)
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeClockGetcpuclockid(pid, clkId.rawAddress)
 
-public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+public actual fun getitimer(which: CInt, currValue: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetitimer(which, currValue.rawAddress)
 
-public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+public actual fun setitimer(which: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSetitimer(which, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+public actual fun dirfd(dirp: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeDirfd(dirp.rawAddress)
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeMemalign(align.toLong(), size.toLong()))
 
-public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt =
+public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSetgroups(ngroups.toLong(), ptr.rawAddress)
 
-public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+public actual fun pipe2(fds: MutPtr, flags: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePipe2(fds.rawAddress, flags)
 
-public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+public actual fun statfs(path: ConstPtr, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+public actual fun fstatfs(fd: CInt, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFstatfs(fd, buf.rawAddress)
 
-public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeMemrchr(cx.rawAddress, c, n.toLong()))
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFutimens(fd, times.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
@@ -385,37 +368,37 @@ public actual fun freelocale(loc: LocaleT) {
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFreelocale(loc.rawAddress)
 }
 
-public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+public actual fun newlocale(mask: CInt, locale: ConstPtr, base: LocaleT): LocaleT =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeNewlocale(mask, locale.rawAddress, base.rawAddress))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeUselocale(loc.rawAddress))
 
-public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, dev: DevT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev.toLong())
 
-public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun ptsnameR(fd: CInt, buf: MutPtr, buflen: SizeT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePtsnameR(fd, buf.rawAddress, buflen.toLong())
 
 public actual fun clearenv(): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeClearenv()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr, options: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeWaitid(idtype.toInt(), id.toInt(), infop.rawAddress, options)
 
-public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+public actual fun getresuid(ruid: MutPtr, euid: MutPtr, suid: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetresuid(ruid.rawAddress, euid.rawAddress, suid.rawAddress)
 
-public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+public actual fun getresgid(rgid: MutPtr, egid: MutPtr, sgid: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetresgid(rgid.rawAddress, egid.rawAddress, sgid.rawAddress)
 
-public actual fun acct(filename: ConstPtr<CChar>): CInt =
+public actual fun acct(filename: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeAcct(filename.rawAddress)
 
-public actual fun brk(addr: MutPtr<CVoid>): CInt =
+public actual fun brk(addr: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeBrk(addr.rawAddress)
 
-public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+public actual fun sbrk(increment: IntptrT): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeSbrk(increment))
 
 public actual fun vfork(): PidT =
@@ -427,99 +410,99 @@ public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSetresuid(ruid.toShort(), euid.toShort(), suid.toShort())
 
-public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+public actual fun wait4(pid: PidT, status: MutPtr, options: CInt, rusage: MutPtr): PidT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeWait4(pid, status.rawAddress, options, rusage.rawAddress)
 
 public actual fun loginTty(fd: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeLoginTty(fd)
 
-public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(file: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeExecvpe(file.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFexecve(fd, argv.rawAddress, envp.rawAddress)
 
-public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+public actual fun getifaddrs(ifap: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetifaddrs(ifap.rawAddress)
 
-public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+public actual fun freeifaddrs(ifa: MutPtr) {
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFreeifaddrs(ifa.rawAddress)
 }
 
-public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+public actual fun bind(socket: CInt, address: ConstPtr, addressLen: SocklenT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: CInt, msg: ConstPtr, flags: CInt): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSendmsg(fd, msg.rawAddress, flags)
 
-public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: CInt, msg: MutPtr, flags: CInt): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeRecvmsg(fd, msg.rawAddress, flags)
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeUname(buf.rawAddress)
 
-public actual fun strchrnul(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchrnul(s: ConstPtr, c: CInt): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeStrchrnul(s.rawAddress, c))
 
-public actual fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>): SizeT =
+public actual fun strftime(s: MutPtr, max: SizeT, format: ConstPtr, tm: ConstPtr): SizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStrftime(s.rawAddress, max.toLong(), format.rawAddress, tm.rawAddress).toULong()
 
-public actual fun strftimeL(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>, locale: LocaleT): SizeT =
+public actual fun strftimeL(s: MutPtr, max: SizeT, format: ConstPtr, tm: ConstPtr, locale: LocaleT): SizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStrftimeL(s.rawAddress, max.toLong(), format.rawAddress, tm.rawAddress, locale.rawAddress).toULong()
 
-public actual fun strptime(s: ConstPtr<CChar>, format: ConstPtr<CChar>, tm: MutPtr<Tm>): MutPtr<CChar> =
+public actual fun strptime(s: ConstPtr, format: ConstPtr, tm: MutPtr): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeStrptime(s.rawAddress, format.rawAddress, tm.rawAddress))
 
-public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+public actual fun mkostemp(template: MutPtr, flags: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeMkostemp(template.rawAddress, flags)
 
-public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: MutPtr, suffixlen: CInt, flags: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeMkostemps(template.rawAddress, suffixlen, flags)
 
-public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun getdomainname(name: MutPtr, len: SizeT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetdomainname(name.rawAddress, len.toLong())
 
-public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun setdomainname(name: ConstPtr, len: SizeT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeSetdomainname(name.rawAddress, len.toLong())
 
-public actual fun ifNameindex(): MutPtr<IfNameindex> =
+public actual fun ifNameindex(): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeIfNameindex())
 
-public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+public actual fun ifFreenameindex(ptr: MutPtr) {
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeIfFreenameindex(ptr.rawAddress)
 }
 
-public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwnamR(name: ConstPtr, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeGetpwuidR(uid.toShort(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt =
+public actual fun fstatfs64(fd: CInt, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFstatfs64(fd, buf.rawAddress)
 
-public actual fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt =
+public actual fun statvfs64(path: ConstPtr, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStatvfs64(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt =
+public actual fun fstatvfs64(fd: CInt, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFstatvfs64(fd, buf.rawAddress)
 
-public actual fun statfs64(path: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt =
+public actual fun statfs64(path: ConstPtr, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStatfs64(path.rawAddress, buf.rawAddress)
 
-public actual fun creat64(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun creat64(path: ConstPtr, mode: ModeT): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeCreat64(path.rawAddress, mode.toInt())
 
-public actual fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt =
+public actual fun fstat64(fildes: CInt, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFstat64(fildes, buf.rawAddress)
 
-public actual fun fstatat64(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat64>, flags: CInt): CInt =
+public actual fun fstatat64(dirfd: CInt, pathname: ConstPtr, buf: MutPtr, flags: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeFstatat64(dirfd, pathname.rawAddress, buf.rawAddress, flags)
 
 public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
@@ -528,50 +511,50 @@ public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeLseek64(fd, offset, whence)
 
-public actual fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+public actual fun lstat64(path: ConstPtr, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeLstat64(path.rawAddress, buf.rawAddress)
 
-public actual fun mmap64(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): MutPtr<CVoid> =
+public actual fun mmap64(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeMmap64(addr.rawAddress, len.toLong(), prot, flags, fd, offset))
 
-public actual fun open64(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open64(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeOpen64(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun openat64(fd: CInt, path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun openat64(fd: CInt, path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeOpenat64(fd, path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePosixFadvise64(fd, offset, len, advise)
 
-public actual fun pread64(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+public actual fun pread64(fd: CInt, buf: MutPtr, count: SizeT, offset: Off64T): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePread64(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun pwrite64(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+public actual fun pwrite64(fd: CInt, buf: ConstPtr, count: SizeT, offset: Off64T): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePwrite64(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun readdir64(dirp: MutPtr<DIR>): MutPtr<Dirent64> =
+public actual fun readdir64(dirp: MutPtr): MutPtr =
     MutPtr(UnixLinuxlikeJniBridge.libcUnixLinuxlikeReaddir64(dirp.rawAddress))
 
-public actual fun readdir64R(dirp: MutPtr<DIR>, entry: MutPtr<Dirent64>, result: MutPtr<MutPtr<Dirent64>>): CInt =
+public actual fun readdir64R(dirp: MutPtr, entry: MutPtr, result: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeReaddir64R(dirp.rawAddress, entry.rawAddress, result.rawAddress)
 
-public actual fun stat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+public actual fun stat64(path: ConstPtr, buf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStat64(path.rawAddress, buf.rawAddress)
 
-public actual fun truncate64(path: ConstPtr<CChar>, length: Off64T): CInt =
+public actual fun truncate64(path: ConstPtr, length: Off64T): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeTruncate64(path.rawAddress, length)
 
-public actual fun preadv64(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+public actual fun preadv64(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: Off64T): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePreadv64(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun pwritev64(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+public actual fun pwritev64(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: Off64T): SsizeT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikePwritev64(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT =
+public actual fun forkpty(amaster: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): PidT =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeForkpty(amaster.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun statx(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, mask: CUint, statxbuf: MutPtr<Statx>): CInt =
+public actual fun statx(dirfd: CInt, pathname: ConstPtr, flags: CInt, mask: CUint, statxbuf: MutPtr): CInt =
     UnixLinuxlikeJniBridge.libcUnixLinuxlikeStatx(dirfd, pathname.rawAddress, flags, mask.toInt(), statxbuf.rawAddress)

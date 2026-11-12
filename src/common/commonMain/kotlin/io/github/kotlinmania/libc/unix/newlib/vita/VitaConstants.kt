@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val AF_UNIX: CInt = 1
@@ -141,4 +140,4 @@ public val PTHREAD_STACK_MIN: SizeT = 32uL * 1024uL
 
 public val IP_HDRINCL: CInt = 2
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)

@@ -13,7 +13,6 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -628,7 +627,7 @@ public val MAP_TEXT: CInt = 0x400
 
 public val MAP_INITDATA: CInt = 0x800
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -1933,13 +1932,13 @@ public val PTHREAD_MUTEX_RECURSIVE: CInt = 4
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1).toLong())
+public val RTLD_NEXT: MutPtr = MutPtr((-1).toLong())
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-2).toLong())
+public val RTLD_DEFAULT: MutPtr = MutPtr((-2).toLong())
 
-public val RTLD_SELF: MutPtr<CVoid> = MutPtr<CVoid>((-3).toLong())
+public val RTLD_SELF: MutPtr = MutPtr((-3).toLong())
 
-public val RTLD_PROBE: MutPtr<CVoid> = MutPtr<CVoid>((-4).toLong())
+public val RTLD_PROBE: MutPtr = MutPtr((-4).toLong())
 
 public val RTLD_LAZY: CInt = 0x1
 

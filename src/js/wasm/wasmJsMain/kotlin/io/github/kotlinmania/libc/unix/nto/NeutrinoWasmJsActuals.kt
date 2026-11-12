@@ -6,10 +6,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Sigval
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -603,10 +600,10 @@ public actual fun channelCreate(flags: CUint): CInt =
 public actual fun channelCreateR(flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoChannelCreateR(flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt =
+public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoChannelCreatePulsePool(flags.toInt(), config.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr<Sigevent>, cred: MutPtr<CredInfo>): CInt =
+public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr, cred: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoChannelCreateExt(flags.toInt(), mode.toInt(), bufsize.toString(), maxnumbuf.toInt(), ev.rawAddress.toString(), cred.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun channelDestroy(chid: CInt): CInt =
@@ -627,31 +624,31 @@ public actual fun connectDetach(coid: CInt): CInt =
 public actual fun connectDetachR(coid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectDetachR(coid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectServerInfo(pid, coid, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectServerInfoR(pid, coid, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfoExtraArgs(scoid, infoPp.rawAddress.toString(), ngroups, abilities.rawAddress.toString(), nable, typeId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfoExtraArgsR(scoid, infoPp.rawAddress.toString(), ngroups, abilities.rawAddress.toString(), nable, typeId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfo(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfo(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfo(scoid, info.rawAddress.toString(), ngroups) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfoR(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfoR(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfoR(scoid, info.rawAddress.toString(), ngroups) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt): CInt =
+public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr, flags: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfoExt(scoid, infoPp.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clientInfoExtFree(infoPp: MutPtr<MutPtr<ClientInfo>>): CInt =
+public actual fun clientInfoExtFree(infoPp: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClientInfoExtFree(infoPp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt, abilities: MutPtr<ClientAble>, nable: CInt): CInt =
+public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr, flags: CInt, abilities: MutPtr, nable: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectClientInfoAble(scoid, infoPp.rawAddress.toString(), flags, abilities.rawAddress.toString(), nable) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
@@ -660,121 +657,121 @@ public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint):
 public actual fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoConnectFlagsR(pid, coid, mask.toInt(), bits.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt =
+public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr, newAttr: MutPtr, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoChannelConnectAttr(id.toInt(), oldAttr.rawAddress.toString(), newAttr.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSend(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSend(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSend(coid, smsg.rawAddress.toString(), sbytes.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendR(coid, smsg.rawAddress.toString(), sbytes.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendnc(coid, smsg.rawAddress.toString(), sbytes.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendncR(coid, smsg.rawAddress.toString(), sbytes.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendsv(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsv(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendsv(coid, smsg.rawAddress.toString(), sbytes.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendsvR(coid, smsg.rawAddress.toString(), sbytes.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendsvnc(coid, smsg.rawAddress.toString(), sbytes.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendsvncR(coid, smsg.rawAddress.toString(), sbytes.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvs(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvs(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvs(coid, siov.rawAddress.toString(), sparts.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvsR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvsR(coid, siov.rawAddress.toString(), sparts.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvsnc(coid, siov.rawAddress.toString(), sparts.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvsncR(coid, siov.rawAddress.toString(), sparts.toString(), rmsg.rawAddress.toString(), rbytes.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendv(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendv(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendv(coid, siov.rawAddress.toString(), sparts.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvR(coid, siov.rawAddress.toString(), sparts.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvnc(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvnc(coid, siov.rawAddress.toString(), sparts.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendvncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvncR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendvncR(coid, siov.rawAddress.toString(), sparts.toString(), riov.rawAddress.toString(), rparts.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceive(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceive(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceive(chid, msg.rawAddress.toString(), bytes.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceiveR(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceiveR(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceiveR(chid, msg.rawAddress.toString(), bytes.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivev(chid, iov.rawAddress.toString(), parts.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivevR(chid, iov.rawAddress.toString(), parts.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivePulse(chid, pulse.rawAddress.toString(), bytes.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivePulseR(chid, pulse.rawAddress.toString(), bytes.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivePulsev(chid, iov.rawAddress.toString(), parts.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceivePulsevR(chid, iov.rawAddress.toString(), parts.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReply(rcvid, status.toString(), msg.rawAddress.toString(), bytes.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReplyR(rcvid, status.toString(), msg.rawAddress.toString(), bytes.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReplyv(rcvid, status.toString(), iov.rawAddress.toString(), parts.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReplyvR(rcvid, status.toString(), iov.rawAddress.toString(), parts.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReadiov(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReadiovR(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgRead(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgRead(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgRead(rcvid, msg.rawAddress.toString(), bytes.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReadR(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgReadR(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReadR(rcvid, msg.rawAddress.toString(), bytes.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReadv(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadv(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReadv(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReadvR(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgWrite(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWrite(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgWrite(rcvid, msg.rawAddress.toString(), bytes.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgWriteR(rcvid, msg.rawAddress.toString(), bytes.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgWritev(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritev(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgWritev(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgWritevR(rcvid, iov.rawAddress.toString(), parts.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
@@ -783,46 +780,46 @@ public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CI
 public actual fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendPulseR(coid, priority, code, value) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendPulsePtr(coid, priority, code, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendPulsePtrR(coid, priority, code, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgDeliverEvent(rcvid, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgDeliverEventR(rcvid, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgVerifyEvent(rcvid, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgVerifyEventR(rcvid, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgRegisterEvent(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEvent(event: MutPtr, coid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgRegisterEvent(event.rawAddress.toString(), coid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgRegisterEventR(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEventR(event: MutPtr, coid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgRegisterEventR(event.rawAddress.toString(), coid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgUnregisterEvent(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEvent(event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgUnregisterEvent(event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgUnregisterEventR(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEventR(event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgUnregisterEventR(event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgInfo(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfo(rcvid: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgInfo(rcvid, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgInfoR(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfoR(rcvid: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgInfoR(rcvid, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgKeyData(rcvid, oper, key.toInt(), newkey.rawAddress.toString(), iov.rawAddress.toString(), parts) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgKeyDataR(rcvid, oper, key.toInt(), newkey.rawAddress.toString(), iov.rawAddress.toString(), parts) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgError(rcvid: CInt, err: CInt): CInt =
@@ -837,16 +834,16 @@ public actual fun msgCurrent(rcvid: CInt): CInt =
 public actual fun msgCurrentR(rcvid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgCurrentR(rcvid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt =
+public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr, sbytes: ULong, msgPrio: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendAsyncGbl(coid, smsg.rawAddress.toString(), sbytes.toString(), msgPrio.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgSendAsync(coid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgSendAsync(coid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt =
+public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr, rbytes: ULong, info: MutPtr, coid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceiveAsyncGbl(chid, rmsg.rawAddress.toString(), rbytes.toString(), info.rawAddress.toString(), coid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint): CInt =
+public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr, parts: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoMsgReceiveAsync(chid, iov.rawAddress.toString(), parts.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgPause(rcvid: CInt, cookie: CUint): CInt =
@@ -861,58 +858,58 @@ public actual fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: 
 public actual fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalKillR(nd.toInt(), pid, tid, signo, code, value) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalKillSigval(nd.toInt(), pid, tid, signo, code, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalKillSigvalR(nd.toInt(), pid, tid, signo, code, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalReturn(info: MutPtr<SighandlerInfo>): CInt =
+public actual fun signalReturn(info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalReturn(info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalFault(sigcode: CUint, regs: MutPtr<CVoid>, refaddr: ULong): CInt =
+public actual fun signalFault(sigcode: CUint, regs: MutPtr, refaddr: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalFault(sigcode.toInt(), regs.rawAddress.toString(), refaddr.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalAction(pid, 0L.toString(), signo, act.rawAddress.toString(), oact.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalActionR(pid, 0L.toString(), signo, act.rawAddress.toString(), oact.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalProcmask(pid, tid, how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalProcmaskR(pid, tid, how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalSuspend(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspend(set: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalSuspend(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalSuspendR(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspendR(set: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalSuspendR(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalWaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfo(set: ConstPtr, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalWaitinfo(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalWaitinfoR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfoR(set: ConstPtr, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalWaitinfoR(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalWaitinfoMask(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMask(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalWaitinfoMask(set.rawAddress.toString(), info.rawAddress.toString(), mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalWaitinfoMaskR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMaskR(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSignalWaitinfoMaskR(set.rawAddress.toString(), info.rawAddress.toString(), mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCreate(pid, 0L.toString(), arg.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCreateR(pid, 0L.toString(), arg.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadDestroy(tid, priority, status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadDestroyR(tid, priority, status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun threadDetach(tid: CInt): CInt =
@@ -921,10 +918,10 @@ public actual fun threadDetach(tid: CInt): CInt =
 public actual fun threadDetachR(tid: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadDetachR(tid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoin(tid: CInt, status: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadJoin(tid, status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadJoinR(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoinR(tid: CInt, status: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadJoinR(tid, status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
@@ -933,16 +930,16 @@ public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback):
 public actual fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCancelR(tid, 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCtl(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtl(cmd: CInt, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCtl(cmd, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCtlR(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlR(cmd: CInt, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCtlR(cmd, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCtlExt(pid, tid, cmd, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoThreadCtlExtR(pid, tid, cmd, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt =
@@ -954,25 +951,25 @@ public actual fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, 
 public actual fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptHookIdle2(0L.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptHookOverdriveEvent(event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptHookOverdriveEvent(event: ConstPtr, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptHookOverdriveEvent(event.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttachEvent(intr, event.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttachEventR(intr, event.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttach(intr, 0L.toString(), area.rawAddress.toString(), size, flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttachR(intr, 0L.toString(), area.rawAddress.toString(), size, flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttachArray(intr, 0L.toString(), area.rawAddress.toString(), size, flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptAttachArrayR(intr, 0L.toString(), area.rawAddress.toString(), size, flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun interruptDetach(id: CInt): CInt =
@@ -981,37 +978,37 @@ public actual fun interruptDetach(id: CInt): CInt =
 public actual fun interruptDetachR(id: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptDetachR(id) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWait(flags: CInt, timeout: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptWait(flags, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptWaitR(flags, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptCharacteristic(type, id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoInterruptCharacteristicR(type, id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedGet(pid, tid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedGetR(pid, tid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetCpuNum(): CUint =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedGetCpuNum().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedSet(pid, tid, algorithm, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedSetR(pid, tid, algorithm, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedInfo(pid, algorithm, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedInfoR(pid, algorithm, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedYield(): CInt =
@@ -1020,34 +1017,34 @@ public actual fun schedYield(): CInt =
 public actual fun schedYieldR(): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedYieldR() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtl(cmd: CInt, data: MutPtr, length: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedCtl(cmd, data.rawAddress.toString(), length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedCtlR(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtlR(cmd: CInt, data: MutPtr, length: ULong): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedCtlR(cmd, data.rawAddress.toString(), length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedJobCreate(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreate(job: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedJobCreate(job.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedJobCreateR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreateR(job: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedJobCreateR(job.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedJobDestroy(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroy(job: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedJobDestroy(job.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedJobDestroyR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroyR(job: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedJobDestroyR(job.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedWaypoint(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypoint(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedWaypoint(job.rawAddress.toString(), new.rawAddress.toString(), max.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedWaypointR(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypointR(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSchedWaypointR(job.rawAddress.toString(), new.rawAddress.toString(), max.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerCreate(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreate(id: ClockidT, notify: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerCreate(id, notify.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerCreateR(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreateR(id: ClockidT, notify: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerCreateR(id, notify.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerDestroy(id: TimerT): CInt =
@@ -1056,112 +1053,112 @@ public actual fun timerDestroy(id: TimerT): CInt =
 public actual fun timerDestroyR(id: TimerT): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerDestroyR(id.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerSettime(id.toLong().toString(), flags, itime.rawAddress.toString(), oitime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerSettimeR(id.toLong().toString(), flags, itime.rawAddress.toString(), oitime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerInfo(pid, id.toLong().toString(), flags, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerInfoR(pid, id.toLong().toString(), flags, info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerAlarm(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarm(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerAlarm(id, itime.rawAddress.toString(), otime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerAlarmR(id, itime.rawAddress.toString(), otime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerTimeout(id, flags, notify.rawAddress.toString(), ntime.rawAddress.toString(), otime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoTimerTimeoutR(id, flags, notify.rawAddress.toString(), ntime.rawAddress.toString(), otime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncTypeCreate(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreate(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncTypeCreate(type.toInt(), sync.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncTypeCreateR(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreateR(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncTypeCreateR(type.toInt(), sync.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncDestroy(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroy(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncDestroy(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncDestroyR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroyR(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncDestroyR(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCtl(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtl(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCtl(cmd, sync.rawAddress.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCtlR(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtlR(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCtlR(cmd, sync.rawAddress.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexEvent(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEvent(sync: MutPtr, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexEvent(sync.rawAddress.toString(), event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexEventR(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEventR(sync: MutPtr, event: ConstPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexEventR(sync.rawAddress.toString(), event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexLock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLock(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexLock(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexLockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLockR(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexLockR(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexUnlock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlock(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexUnlock(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexUnlockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlockR(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexUnlockR(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexRevive(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexRevive(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexRevive(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncMutexReviveR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexReviveR(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncMutexReviveR(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCondvarWait(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWait(sync: MutPtr, mutex: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCondvarWait(sync.rawAddress.toString(), mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCondvarWaitR(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWaitR(sync: MutPtr, mutex: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCondvarWaitR(sync.rawAddress.toString(), mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCondvarSignal(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignal(sync: MutPtr, all: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCondvarSignal(sync.rawAddress.toString(), all) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncCondvarSignalR(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignalR(sync: MutPtr, all: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncCondvarSignalR(sync.rawAddress.toString(), all) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncSemPost(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPost(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncSemPost(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncSemPostR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPostR(sync: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncSemPostR(sync.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncSemWait(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWait(sync: MutPtr, tryto: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncSemWait(sync.rawAddress.toString(), tryto) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syncSemWaitR(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWaitR(sync: MutPtr, tryto: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoSyncSemWaitR(sync.rawAddress.toString(), tryto) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockTime(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTime(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockTime(id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockTimeR(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTimeR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockTimeR(id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockAdjust(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjust(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockAdjust(id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockAdjustR(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjustR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockAdjustR(id, new.rawAddress.toString(), old.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockPeriod(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriod(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockPeriod(id, new.rawAddress.toString(), old.rawAddress.toString(), reserved) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriodR(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     if (unixNtoNeutrinoNapiAvailable) wasmLibcUnixNtoNeutrinoClockPeriodR(id, new.rawAddress.toString(), old.rawAddress.toString(), reserved) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clockId(pid: PidT, tid: CInt): CInt =

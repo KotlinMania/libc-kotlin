@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.new.qurt.sys.sched
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -22,10 +21,10 @@ public val SCHED_SPORADIC: CInt = 2
 public val SCHED_OTHER: CInt = 3
 
 public class SchedParam internal constructor(
-    unsupportedBranchCtorArg: MutPtr<CVoid>,
+    unsupportedBranchCtorArg: MutPtr,
     public var schedPriority: CInt,
 ) {
-    public var unsupportedBranch: MutPtr<CVoid> = unsupportedBranchCtorArg
+    public var unsupportedBranch: MutPtr = unsupportedBranchCtorArg
         internal set
 
     public constructor() : this(
@@ -33,11 +32,11 @@ public class SchedParam internal constructor(
         schedPriority = 0,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.unsupportedBranch
+    public operator fun component1(): MutPtr = this.unsupportedBranch
 
     public operator fun component2(): CInt = this.schedPriority
 
-    public fun copy(unsupportedBranch: MutPtr<CVoid> = this.unsupportedBranch, schedPriority: CInt = this.schedPriority): SchedParam = SchedParam(unsupportedBranchCtorArg = unsupportedBranch, schedPriority = schedPriority)
+    public fun copy(unsupportedBranch: MutPtr = this.unsupportedBranch, schedPriority: CInt = this.schedPriority): SchedParam = SchedParam(unsupportedBranchCtorArg = unsupportedBranch, schedPriority = schedPriority)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -62,21 +61,21 @@ public class SchedParam internal constructor(
                     SchedParam(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: SchedParam) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.unsupportedBranch)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.schedPriority)
                 }
             }
 
         public operator fun invoke(
-            unsupportedBranch: MutPtr<CVoid> = MutPtr(0L),
+            unsupportedBranch: MutPtr = MutPtr(0L),
             schedPriority: CInt = 0,
         ): SchedParam =
             SchedParam(

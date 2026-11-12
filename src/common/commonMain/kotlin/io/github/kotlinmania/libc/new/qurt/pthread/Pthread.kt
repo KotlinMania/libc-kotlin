@@ -2,21 +2,14 @@
 package io.github.kotlinmania.libc.new.qurt.pthread
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.ClockidT
-import io.github.kotlinmania.libc.new.qurt.PthreadAttrT
 import io.github.kotlinmania.libc.new.qurt.PthreadCondT
-import io.github.kotlinmania.libc.new.qurt.PthreadCondattrT
 import io.github.kotlinmania.libc.new.qurt.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadMutexT
-import io.github.kotlinmania.libc.new.qurt.PthreadMutexattrT
 import io.github.kotlinmania.libc.new.qurt.PthreadOnceT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.Timespec
-import io.github.kotlinmania.libc.new.qurt.sys.types.CpuSetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -25,11 +18,11 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 // QuRT provides a subset of POSIX pthread functionality optimized for real-time systems.
 
 public fun interface PthreadCreateStartRoutineCallback {
-    public operator fun invoke(arg0: MutPtr<CVoid>): MutPtr<CVoid>
+    public operator fun invoke(arg0: MutPtr): MutPtr
 }
 
 public fun interface PthreadKeyCreateDestructorCallback {
-    public operator fun invoke(arg0: MutPtr<CVoid>)
+    public operator fun invoke(arg0: MutPtr)
 }
 
 public fun interface PthreadOnceInitRoutineCallback {
@@ -82,89 +75,89 @@ public val PTHREAD_INHERIT_SCHED: CInt = 0
 public val PTHREAD_EXPLICIT_SCHED: CInt = 1
 
 // Thread management
-public expect fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): CInt
+public expect fun pthreadCreate(thread: MutPtr, attr: ConstPtr, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr): CInt
 
-public expect fun pthreadJoin(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt
+public expect fun pthreadJoin(thread: PthreadT, retval: MutPtr): CInt
 
 public expect fun pthreadDetach(thread: PthreadT): CInt
 
-public expect fun pthreadExit(retval: MutPtr<CVoid>): Nothing
+public expect fun pthreadExit(retval: MutPtr): Nothing
 
 public expect fun pthreadSelf(): PthreadT
 
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 
 // Thread attributes
-public expect fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadAttrInit(attr: MutPtr): CInt
 
-public expect fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadAttrDestroy(attr: MutPtr): CInt
 
-public expect fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stacksize: SizeT): CInt
+public expect fun pthreadAttrSetstacksize(attr: MutPtr, stacksize: SizeT): CInt
 
-public expect fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt
+public expect fun pthreadAttrGetstacksize(attr: ConstPtr, stacksize: MutPtr): CInt
 
-public expect fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, detachstate: CInt): CInt
+public expect fun pthreadAttrSetdetachstate(attr: MutPtr, detachstate: CInt): CInt
 
-public expect fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt
+public expect fun pthreadAttrGetdetachstate(attr: ConstPtr, detachstate: MutPtr): CInt
 
 // Mutex operations
-public expect fun pthreadMutexInit(mutex: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt
+public expect fun pthreadMutexInit(mutex: MutPtr, attr: ConstPtr): CInt
 
-public expect fun pthreadMutexDestroy(mutex: MutPtr<PthreadMutexT>): CInt
+public expect fun pthreadMutexDestroy(mutex: MutPtr): CInt
 
-public expect fun pthreadMutexLock(mutex: MutPtr<PthreadMutexT>): CInt
+public expect fun pthreadMutexLock(mutex: MutPtr): CInt
 
-public expect fun pthreadMutexTrylock(mutex: MutPtr<PthreadMutexT>): CInt
+public expect fun pthreadMutexTrylock(mutex: MutPtr): CInt
 
-public expect fun pthreadMutexUnlock(mutex: MutPtr<PthreadMutexT>): CInt
+public expect fun pthreadMutexUnlock(mutex: MutPtr): CInt
 
 // Mutex attributes
-public expect fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt
+public expect fun pthreadMutexattrInit(attr: MutPtr): CInt
 
-public expect fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt
+public expect fun pthreadMutexattrDestroy(attr: MutPtr): CInt
 
-public expect fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, kind: CInt): CInt
+public expect fun pthreadMutexattrSettype(attr: MutPtr, kind: CInt): CInt
 
-public expect fun pthreadMutexattrGettype(attr: ConstPtr<PthreadMutexattrT>, kind: MutPtr<CInt>): CInt
+public expect fun pthreadMutexattrGettype(attr: ConstPtr, kind: MutPtr): CInt
 
 // Condition variables
-public expect fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt
+public expect fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt
 
-public expect fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt
+public expect fun pthreadCondDestroy(cond: MutPtr): CInt
 
-public expect fun pthreadCondWait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>): CInt
+public expect fun pthreadCondWait(cond: MutPtr, mutex: MutPtr): CInt
 
-public expect fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt
+public expect fun pthreadCondTimedwait(cond: MutPtr, mutex: MutPtr, abstime: ConstPtr): CInt
 
-public expect fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt
+public expect fun pthreadCondSignal(cond: MutPtr): CInt
 
-public expect fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt
+public expect fun pthreadCondBroadcast(cond: MutPtr): CInt
 
 // Condition variable attributes
-public expect fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt
+public expect fun pthreadCondattrInit(attr: MutPtr): CInt
 
-public expect fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt
+public expect fun pthreadCondattrDestroy(attr: MutPtr): CInt
 
-public expect fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt
+public expect fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt
 
 // Thread-local storage
-public expect fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, destructor: PthreadKeyCreateDestructorCallback?): CInt
+public expect fun pthreadKeyCreate(key: MutPtr, destructor: PthreadKeyCreateDestructorCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
-public expect fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid>
+public expect fun pthreadGetspecific(key: PthreadKeyT): MutPtr
 
-public expect fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt
+public expect fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt
 
 // One-time initialization
-public expect fun pthreadOnce(onceControl: MutPtr<PthreadOnceT>, initRoutine: PthreadOnceInitRoutineCallback): CInt
+public expect fun pthreadOnce(onceControl: MutPtr, initRoutine: PthreadOnceInitRoutineCallback): CInt
 
 // GNU extensions
-public expect fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt
+public expect fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt
 
-public expect fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt
+public expect fun pthreadAttrSetaffinityNp(attr: MutPtr, cpusetsize: SizeT, cpuset: ConstPtr): CInt
 
-public expect fun pthreadAttrGetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt
+public expect fun pthreadAttrGetaffinityNp(attr: MutPtr, cpusetsize: SizeT, cpuset: MutPtr): CInt
 
 // POSIX standard
-public expect fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, alignment: SizeT, size: SizeT): CInt
+public expect fun posixMemalign(memptr: MutPtr, alignment: SizeT, size: SizeT): CInt

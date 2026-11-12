@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
@@ -10,10 +9,9 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public typealias CaddrT = MutPtr<CChar>
+public typealias CaddrT = MutPtr
 
 public typealias ClockidT = CLonglong
 
@@ -105,19 +103,19 @@ public typealias PollsetT = CInt
 
 public typealias SctpAssocT = CUint
 
-public typealias PthreadRwlockattrT = MutPtr<CVoid>
+public typealias PthreadRwlockattrT = MutPtr
 
-public typealias PthreadCondattrT = MutPtr<CVoid>
+public typealias PthreadCondattrT = MutPtr
 
-public typealias PthreadMutexattrT = MutPtr<CVoid>
+public typealias PthreadMutexattrT = MutPtr
 
-public typealias PthreadAttrT = MutPtr<CVoid>
+public typealias PthreadAttrT = MutPtr
 
-public typealias PthreadBarrierattrT = MutPtr<CVoid>
+public typealias PthreadBarrierattrT = MutPtr
 
-public typealias PosixSpawnFileActionsT = MutPtr<CChar>
+public typealias PosixSpawnFileActionsT = MutPtr
 
-public typealias IconvT = MutPtr<CVoid>
+public typealias IconvT = MutPtr
 
 public enum class UioRw(
     public val value: UInt,

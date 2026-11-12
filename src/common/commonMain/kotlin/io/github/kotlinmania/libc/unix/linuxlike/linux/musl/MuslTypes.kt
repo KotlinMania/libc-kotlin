@@ -5,10 +5,9 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public typealias PthreadT = MutPtr<CVoid>
+public typealias PthreadT = MutPtr
 
 public typealias ClockT = CLong
 

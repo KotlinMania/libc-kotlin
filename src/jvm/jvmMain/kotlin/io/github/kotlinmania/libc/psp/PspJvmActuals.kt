@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1724,16 +1722,16 @@ public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: Audi
 public actual fun sceAudioChRelease(channel: Int): Int =
     PspJniBridge.libcPspSceAudioChRelease(channel)
 
-public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioOutput(channel, vol, buf.rawAddress)
 
-public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioOutputBlocking(channel, vol, buf.rawAddress)
 
-public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioOutputPanned(channel, leftVol, rightVol, buf.rawAddress)
 
-public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioOutputPannedBlocking(channel, leftVol, rightVol, buf.rawAddress)
 
 public actual fun sceAudioGetChannelRestLen(channel: Int): Int =
@@ -1760,7 +1758,7 @@ public actual fun sceAudioOutput2Release(): Int =
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
     PspJniBridge.libcPspSceAudioOutput2ChangeLength(sampleCount)
 
-public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioOutput2OutputBlocking(vol, buf.rawAddress)
 
 public actual fun sceAudioOutput2GetRestSample(): Int =
@@ -1772,19 +1770,19 @@ public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFreque
 public actual fun sceAudioSRCChRelease(): Int =
     PspJniBridge.libcPspSceAudioSRCChRelease()
 
-public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr): Int =
     PspJniBridge.libcPspSceAudioSRCOutputBlocking(vol, buf.rawAddress)
 
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
     PspJniBridge.libcPspSceAudioInputInit(unknown1, gain, unknown2)
 
-public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
+public actual fun sceAudioInputInitEx(params: MutPtr): Int =
     PspJniBridge.libcPspSceAudioInputInitEx(params.rawAddress)
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr) {
 }
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr) {
 }
 
 public actual fun sceAudioGetInputLength(): Int =
@@ -1799,22 +1797,22 @@ public actual fun sceAudioPollInputEnd(): Int =
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
     PspJniBridge.libcPspSceAtracGetAtracID(uiCodecType.toInt())
 
-public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
+public actual fun sceAtracSetDataAndGetID(buf: MutPtr, bufsize: ULong): Int =
     PspJniBridge.libcPspSceAtracSetDataAndGetID(buf.rawAddress, bufsize.toLong())
 
-public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr, outN: MutPtr, outEnd: MutPtr, outRemainFrame: MutPtr): Int =
     PspJniBridge.libcPspSceAtracDecodeData(atracId, outSamples.rawAddress, outN.rawAddress, outEnd.rawAddress, outRemainFrame.rawAddress)
 
-public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetRemainFrame(atracId, outRemainFrame.rawAddress)
 
-public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int =
+public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr, availableBytes: MutPtr, readOffset: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetStreamDataInfo(atracId, writePointer.rawAddress, availableBytes.rawAddress, readOffset.rawAddress)
 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
     PspJniBridge.libcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt())
 
-public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
+public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetBitrate(atracId, outBitrate.rawAddress)
 
 public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
@@ -1823,94 +1821,94 @@ public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
     PspJniBridge.libcPspSceAtracReleaseAtracID(atracId)
 
-public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
+public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetNextSample(atracId, outN.rawAddress)
 
-public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int =
+public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetMaxSample(atracId, outMax.rawAddress)
 
-public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int =
+public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetBufferInfoForReseting(atracId, uiSample.toInt(), pbufferInfo.rawAddress)
 
-public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int =
+public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetChannel(atracId, puiChannel.rawAddress)
 
-public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int =
+public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetInternalErrorInfo(atracId, piResult.rawAddress)
 
-public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int =
+public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr, puiLoopStatus: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetLoopStatus(atracId, piLoopNum.rawAddress, puiLoopStatus.rawAddress)
 
-public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int =
+public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetNextDecodePosition(atracId, puiSamplePosition.rawAddress)
 
-public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int =
+public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr, puiDataByte: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetSecondBufferInfo(atracId, puiPosition.rawAddress, puiDataByte.rawAddress)
 
-public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int =
+public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr, piLoopStartSample: MutPtr, piLoopEndSample: MutPtr): Int =
     PspJniBridge.libcPspSceAtracGetSoundSample(atracId, piEndSample.rawAddress, piLoopStartSample.rawAddress, piLoopEndSample.rawAddress)
 
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
     PspJniBridge.libcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt())
 
-public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr, uiBufferByte: UInt): Int =
     PspJniBridge.libcPspSceAtracSetData(atracId, pucBufferAddr.rawAddress, uiBufferByte.toInt())
 
-public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     PspJniBridge.libcPspSceAtracSetHalfwayBuffer(atracId, pucBufferAddr.rawAddress, uiReadByte.toInt(), uiBufferByte.toInt())
 
-public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     PspJniBridge.libcPspSceAtracSetHalfwayBufferAndGetID(pucBufferAddr.rawAddress, uiReadByte.toInt(), uiBufferByte.toInt())
 
-public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int =
+public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr, uiSecondBufferByte: UInt): Int =
     PspJniBridge.libcPspSceAtracSetSecondBuffer(atracId, pucSecondBufferAddr.rawAddress, uiSecondBufferByte.toInt())
 
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
     PspJniBridge.libcPspSceCtrlSetSamplingCycle(cycle)
 
-public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr): Int =
     PspJniBridge.libcPspSceCtrlGetSamplingCycle(pcycle.rawAddress)
 
 public actual fun sceCtrlSetSamplingMode(mode: CtrlMode): Int =
     0
 
-public actual fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingMode(pmode: MutPtr): Int =
     PspJniBridge.libcPspSceCtrlGetSamplingMode(pmode.rawAddress)
 
-public actual fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferPositive(padData: MutPtr, count: Int): Int =
     PspJniBridge.libcPspSceCtrlPeekBufferPositive(padData.rawAddress, count)
 
-public actual fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferNegative(padData: MutPtr, count: Int): Int =
     PspJniBridge.libcPspSceCtrlPeekBufferNegative(padData.rawAddress, count)
 
-public actual fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferPositive(padData: MutPtr, count: Int): Int =
     PspJniBridge.libcPspSceCtrlReadBufferPositive(padData.rawAddress, count)
 
-public actual fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferNegative(padData: MutPtr, count: Int): Int =
     PspJniBridge.libcPspSceCtrlReadBufferNegative(padData.rawAddress, count)
 
-public actual fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlPeekLatch(latchData: MutPtr): Int =
     PspJniBridge.libcPspSceCtrlPeekLatch(latchData.rawAddress)
 
-public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlReadLatch(latchData: MutPtr): Int =
     PspJniBridge.libcPspSceCtrlReadLatch(latchData.rawAddress)
 
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
     PspJniBridge.libcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback)
 
-public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
+public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr, idleback: MutPtr): Int =
     PspJniBridge.libcPspSceCtrlGetIdleCancelThreshold(idlereset.rawAddress, idleback.rawAddress)
 
 public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
     0u
 
-public actual fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int =
+public actual fun sceDisplayGetMode(pmode: MutPtr, pwidth: MutPtr, pheight: MutPtr): Int =
     PspJniBridge.libcPspSceDisplayGetMode(pmode.rawAddress, pwidth.rawAddress, pheight.rawAddress)
 
-public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
     0u
 
-public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int =
+public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr, bufferWidth: MutPtr, pixelFormat: MutPtr, sync: DisplaySetBufSync): Int =
     0
 
 public actual fun sceDisplayGetVcount(): UInt =
@@ -1946,7 +1944,7 @@ public actual fun sceDisplayIsVblank(): Int =
 public actual fun sceGeEdramGetSize(): UInt =
     PspJniBridge.libcPspSceGeEdramGetSize().toUInt()
 
-public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
+public actual fun sceGeEdramGetAddr(): MutPtr =
     MutPtr(PspJniBridge.libcPspSceGeEdramGetAddr())
 
 public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
@@ -1955,28 +1953,28 @@ public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
 public actual fun sceGeGetCmd(cmd: Int): UInt =
     PspJniBridge.libcPspSceGeGetCmd(cmd).toUInt()
 
-public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int =
+public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr): Int =
     0
 
-public actual fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int =
+public actual fun sceGeGetStack(stackId: Int, stack: MutPtr): Int =
     PspJniBridge.libcPspSceGeGetStack(stackId, stack.rawAddress)
 
-public actual fun sceGeSaveContext(context: MutPtr<GeContext>): Int =
+public actual fun sceGeSaveContext(context: MutPtr): Int =
     PspJniBridge.libcPspSceGeSaveContext(context.rawAddress)
 
-public actual fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int =
+public actual fun sceGeRestoreContext(context: ConstPtr): Int =
     PspJniBridge.libcPspSceGeRestoreContext(context.rawAddress)
 
-public actual fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueue(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     PspJniBridge.libcPspSceGeListEnQueue(list.rawAddress, stall.rawAddress, cbid, arg.rawAddress)
 
-public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueueHead(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     PspJniBridge.libcPspSceGeListEnQueueHead(list.rawAddress, stall.rawAddress, cbid, arg.rawAddress)
 
 public actual fun sceGeListDeQueue(qid: Int): Int =
     PspJniBridge.libcPspSceGeListDeQueue(qid)
 
-public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
+public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr): Int =
     PspJniBridge.libcPspSceGeListUpdateStallAddr(qid, stall.rawAddress)
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
@@ -1985,13 +1983,13 @@ public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
+public actual fun sceGeBreak(mode: Int, pParam: MutPtr): Int =
     PspJniBridge.libcPspSceGeBreak(mode, pParam.rawAddress)
 
 public actual fun sceGeContinue(): Int =
     PspJniBridge.libcPspSceGeContinue()
 
-public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
+public actual fun sceGeSetCallback(cb: MutPtr): Int =
     PspJniBridge.libcPspSceGeSetCallback(cb.rawAddress)
 
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
@@ -2004,13 +2002,13 @@ public actual fun sceKernelExitGame() {
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     0
 
-public actual fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int =
+public actual fun sceKernelLoadExec(file: ConstPtr, param: MutPtr): Int =
     PspJniBridge.libcPspSceKernelLoadExec(file.rawAddress, param.rawAddress)
 
-public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid> =
+public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr =
     MutPtr(0L)
 
 public actual fun sceKernelFreePartitionMemory(blockid: SceUid): Int =
@@ -2031,13 +2029,13 @@ public actual fun sceKernelSetCompiledSdkVersion(version: UInt): Int =
 public actual fun sceKernelGetCompiledSdkVersion(): UInt =
     PspJniBridge.libcPspSceKernelGetCompiledSdkVersion().toUInt()
 
-public actual fun sceKernelLibcTime(t: MutPtr<Int>): Int =
+public actual fun sceKernelLibcTime(t: MutPtr): Int =
     PspJniBridge.libcPspSceKernelLibcTime(t.rawAddress)
 
 public actual fun sceKernelLibcClock(): UInt =
     PspJniBridge.libcPspSceKernelLibcClock().toUInt()
 
-public actual fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int =
+public actual fun sceKernelLibcGettimeofday(tp: MutPtr, tzp: MutPtr): Int =
     PspJniBridge.libcPspSceKernelLibcGettimeofday(tp.rawAddress, tzp.rawAddress)
 
 public actual fun sceKernelDcacheWritebackAll() {
@@ -2048,15 +2046,15 @@ public actual fun sceKernelDcacheWritebackInvalidateAll() {
     PspJniBridge.libcPspSceKernelDcacheWritebackInvalidateAll()
 }
 
-public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheWritebackRange(p: ConstPtr, size: UInt) {
     PspJniBridge.libcPspSceKernelDcacheWritebackRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr, size: UInt) {
     PspJniBridge.libcPspSceKernelDcacheWritebackInvalidateRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr, size: UInt) {
     PspJniBridge.libcPspSceKernelDcacheInvalidateRange(p.rawAddress, size.toInt())
 }
 
@@ -2064,41 +2062,41 @@ public actual fun sceKernelIcacheInvalidateAll() {
     PspJniBridge.libcPspSceKernelIcacheInvalidateAll()
 }
 
-public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr, size: UInt) {
     PspJniBridge.libcPspSceKernelIcacheInvalidateRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int =
+public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr, seed: UInt): Int =
     PspJniBridge.libcPspSceKernelUtilsMt19937Init(ctx.rawAddress, seed.toInt())
 
-public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt =
+public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr): UInt =
     PspJniBridge.libcPspSceKernelUtilsMt19937UInt(ctx.rawAddress).toUInt()
 
-public actual fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsMd5Digest(data.rawAddress, size.toInt(), digest.rawAddress)
 
-public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int =
+public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsMd5BlockInit(ctx.rawAddress)
 
-public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     PspJniBridge.libcPspSceKernelUtilsMd5BlockUpdate(ctx.rawAddress, data.rawAddress, size.toInt())
 
-public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsMd5BlockResult(ctx.rawAddress, digest.rawAddress)
 
-public actual fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsSha1Digest(data.rawAddress, size.toInt(), digest.rawAddress)
 
-public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int =
+public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsSha1BlockInit(ctx.rawAddress)
 
-public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     PspJniBridge.libcPspSceKernelUtilsSha1BlockUpdate(ctx.rawAddress, data.rawAddress, size.toInt())
 
-public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUtilsSha1BlockResult(ctx.rawAddress, digest.rawAddress)
 
-public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int =
+public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr, arg: MutPtr): Int =
     PspJniBridge.libcPspSceKernelRegisterSubIntrHandler(intNo, no, handler.rawAddress, arg.rawAddress)
 
 public actual fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int =
@@ -2110,7 +2108,7 @@ public actual fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int =
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
     PspJniBridge.libcPspSceKernelDisableSubIntr(intNo, no)
 
-public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
+public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr): Int =
     0
 
 public actual fun sceKernelCpuSuspendIntr(): UInt =
@@ -2130,43 +2128,43 @@ public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
 public actual fun sceKernelIsCpuIntrEnable(): Int =
     PspJniBridge.libcPspSceKernelIsCpuIntrEnable()
 
-public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModule(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleMs(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr, flags: Int, option: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     0
 
-public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     0
 
 public actual fun sceKernelUnloadModule(modId: SceUid): Int =
     0
 
-public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int =
+public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr): Int =
     PspJniBridge.libcPspSceKernelSelfStopUnloadModule(unknown, argSize.toLong(), argp.rawAddress)
 
-public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     PspJniBridge.libcPspSceKernelStopUnloadSelfModule(argSize.toLong(), argp.rawAddress, status.rawAddress, option.rawAddress)
 
-public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int =
+public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetModuleIdList(readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     PspJniBridge.libcPspSceKernelGetModuleIdList(readBuf.rawAddress, readBufSize, idCount.rawAddress)
 
-public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     PspJniBridge.libcPspSceKernelVolatileMemLock(unk, ptr.rawAddress, size.rawAddress)
 
-public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     PspJniBridge.libcPspSceKernelVolatileMemTryLock(unk, ptr.rawAddress, size.rawAddress)
 
 public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
@@ -2184,13 +2182,13 @@ public actual fun sceKernelStderr(): SceUid =
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
     SceKernelIdListType.entries.first()
 
-public actual fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid =
+public actual fun sceKernelCreateThread(name: ConstPtr, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int =
+public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr): Int =
     0
 
 public actual fun sceKernelExitThread(status: Int): Int =
@@ -2229,10 +2227,10 @@ public actual fun sceKernelSuspendThread(thid: SceUid): Int =
 public actual fun sceKernelResumeThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr): Int =
     0
 
 public actual fun sceKernelDelayThread(delay: UInt): Int =
@@ -2241,10 +2239,10 @@ public actual fun sceKernelDelayThread(delay: UInt): Int =
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
     PspJniBridge.libcPspSceKernelDelayThreadCB(delay.toInt())
 
-public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThread(delay: MutPtr): Int =
     PspJniBridge.libcPspSceKernelDelaySysClockThread(delay.rawAddress)
 
-public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr): Int =
     PspJniBridge.libcPspSceKernelDelaySysClockThreadCB(delay.rawAddress)
 
 public actual fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int =
@@ -2274,13 +2272,13 @@ public actual fun sceKernelCheckThreadStack(): Int =
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int =
+public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int =
+public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid =
+public actual fun sceKernelCreateSema(name: ConstPtr, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
@@ -2289,19 +2287,19 @@ public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
 public actual fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     0
 
 public actual fun sceKernelPollSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int =
+public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid =
+public actual fun sceKernelCreateEventFlag(name: ConstPtr, attr: Int, bits: Int, opt: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
@@ -2310,61 +2308,61 @@ public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
 public actual fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int =
     0
 
-public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int =
+public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr): Int =
     0
 
-public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     0
 
 public actual fun sceKernelDeleteEventFlag(evId: SceUid): Int =
     0
 
-public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int =
+public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid =
+public actual fun sceKernelCreateMbx(name: ConstPtr, attr: UInt, option: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     0
 
-public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int =
+public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr): Int =
     0
 
-public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr): Int =
     0
 
-public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr): Int =
     0
 
-public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int =
+public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetSysClockAlarm(clock: MutPtr, handler: MutPtr, common: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     0
 
-public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int =
+public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateCallback(name: ConstPtr, func: SceKernelCallbackFunction, arg: MutPtr): SceUid =
     SceUid()
 
-public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int =
+public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr): Int =
     0
 
 public actual fun sceKernelDeleteCallback(cb: SceUid): Int =
@@ -2382,103 +2380,103 @@ public actual fun sceKernelGetCallbackCount(cb: SceUid): Int =
 public actual fun sceKernelCheckCallback(): Int =
     PspJniBridge.libcPspSceKernelCheckCallback()
 
-public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     0
 
-public actual fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int =
+public actual fun sceKernelReferSystemStatus(status: MutPtr): Int =
     PspJniBridge.libcPspSceKernelReferSystemStatus(status.rawAddress)
 
-public actual fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateMsgPipe(name: ConstPtr, part: Int, attr: Int, unk1: MutPtr, opt: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     0
 
-public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int =
+public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr, recv: MutPtr): Int =
     0
 
-public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int =
+public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid =
+public actual fun sceKernelCreateVpl(name: ConstPtr, part: Int, attr: Int, size: UInt, opt: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr): Int =
     0
 
-public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr): Int =
     0
 
-public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr): Int =
     0
 
-public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int =
+public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int =
+public actual fun sceKernelCreateFpl(name: ConstPtr, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr): Int =
     PspJniBridge.libcPspSceKernelCreateFpl(name.rawAddress, part, attr, size.toInt(), blocks.toInt(), opt.rawAddress)
 
 public actual fun sceKernelDeleteFpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     0
 
-public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr): Int =
     0
 
-public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr): Int =
     0
 
-public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int =
+public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr): Int =
     0
 
-public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int =
+public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr): Int =
     PspJniBridge.libcPspSceKernelUSec2SysClock(usec.toInt(), clock.rawAddress)
 
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
     PspJniBridge.libcPspSceKernelUSec2SysClockWide(usec.toInt())
 
-public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USec(clock: MutPtr, low: MutPtr, high: MutPtr): Int =
     PspJniBridge.libcPspSceKernelSysClock2USec(clock.rawAddress, low.rawAddress, high.rawAddress)
 
-public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr, high: MutPtr): Int =
     PspJniBridge.libcPspSceKernelSysClock2USecWide(clock, low.rawAddress, high.rawAddress)
 
-public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetSystemTime(time: MutPtr): Int =
     PspJniBridge.libcPspSceKernelGetSystemTime(time.rawAddress)
 
 public actual fun sceKernelGetSystemTimeWide(): Long =
@@ -2487,25 +2485,25 @@ public actual fun sceKernelGetSystemTimeWide(): Long =
 public actual fun sceKernelGetSystemTimeLow(): UInt =
     PspJniBridge.libcPspSceKernelGetSystemTimeLow().toUInt()
 
-public actual fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid =
+public actual fun sceKernelCreateVTimer(name: ConstPtr, opt: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr): Int =
     0
 
 public actual fun sceKernelGetVTimerBaseWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr): Int =
     0
 
 public actual fun sceKernelGetVTimerTimeWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr): Int =
     0
 
 public actual fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long =
@@ -2517,37 +2515,37 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr, handler: SceKernelVTimerHandler, common: MutPtr): Int =
     0
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr): Int =
     0
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int =
+public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr): SceUid =
     SceUid()
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int =
+public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr): Int =
     0
 
-public actual fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferThreadProfiler(): MutPtr =
     MutPtr(PspJniBridge.libcPspSceKernelReferThreadProfiler())
 
-public actual fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferGlobalProfiler(): MutPtr =
     MutPtr(PspJniBridge.libcPspSceKernelReferGlobalProfiler())
 
-public actual fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStart(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     PspJniBridge.libcPspSceUsbStart(driverName.rawAddress, size, args.rawAddress)
 
-public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStop(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     PspJniBridge.libcPspSceUsbStop(driverName.rawAddress, size, args.rawAddress)
 
 public actual fun sceUsbActivate(pid: UInt): Int =
@@ -2559,19 +2557,19 @@ public actual fun sceUsbDeactivate(pid: UInt): Int =
 public actual fun sceUsbGetState(): Int =
     PspJniBridge.libcPspSceUsbGetState()
 
-public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
+public actual fun sceUsbGetDrvState(driverName: ConstPtr): Int =
     PspJniBridge.libcPspSceUsbGetDrvState(driverName.rawAddress)
 
-public actual fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int =
+public actual fun sceUsbCamSetupStill(param: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamSetupStill(param.rawAddress)
 
-public actual fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int =
+public actual fun sceUsbCamSetupStillEx(param: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamSetupStillEx(param.rawAddress)
 
-public actual fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInputBlocking(buf: MutPtr, size: ULong): Int =
     PspJniBridge.libcPspSceUsbCamStillInputBlocking(buf.rawAddress, size.toLong())
 
-public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInput(buf: MutPtr, size: ULong): Int =
     PspJniBridge.libcPspSceUsbCamStillInput(buf.rawAddress, size.toLong())
 
 public actual fun sceUsbCamStillWaitInputEnd(): Int =
@@ -2586,10 +2584,10 @@ public actual fun sceUsbCamStillCancelInput(): Int =
 public actual fun sceUsbCamStillGetInputLength(): Int =
     PspJniBridge.libcPspSceUsbCamStillGetInputLength()
 
-public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideo(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     PspJniBridge.libcPspSceUsbCamSetupVideo(param.rawAddress, workArea.rawAddress, workAreaSize)
 
-public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideoEx(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     PspJniBridge.libcPspSceUsbCamSetupVideoEx(param.rawAddress, workArea.rawAddress, workAreaSize)
 
 public actual fun sceUsbCamStartVideo(): Int =
@@ -2598,10 +2596,10 @@ public actual fun sceUsbCamStartVideo(): Int =
 public actual fun sceUsbCamStopVideo(): Int =
     PspJniBridge.libcPspSceUsbCamStopVideo()
 
-public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr, size: ULong): Int =
     PspJniBridge.libcPspSceUsbCamReadVideoFrameBlocking(buf.rawAddress, size.toLong())
 
-public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrame(buf: MutPtr, size: ULong): Int =
     PspJniBridge.libcPspSceUsbCamReadVideoFrame(buf.rawAddress, size.toLong())
 
 public actual fun sceUsbCamWaitReadVideoFrameEnd(): Int =
@@ -2637,28 +2635,28 @@ public actual fun sceUsbCamSetReverseMode(reverseFlags: Int): Int =
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
     PspJniBridge.libcPspSceUsbCamSetZoom(zoom)
 
-public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSaturation(saturation: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetSaturation(saturation.rawAddress)
 
-public actual fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetBrightness(brightness: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetBrightness(brightness.rawAddress)
 
-public actual fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetContrast(contrast: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetContrast(contrast.rawAddress)
 
-public actual fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSharpness(sharpness: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetSharpness(sharpness.rawAddress)
 
-public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int =
+public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetImageEffectMode(effectMode.rawAddress)
 
-public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int =
+public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetEvLevel(exposureLevel.rawAddress)
 
-public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetReverseMode(reverseFlags.rawAddress)
 
-public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetZoom(zoom: MutPtr): Int =
     PspJniBridge.libcPspSceUsbCamGetZoom(zoom.rawAddress)
 
 public actual fun sceUsbCamAutoImageReverseSW(on: Int): Int =
@@ -2772,7 +2770,7 @@ public actual fun sceWlanDevIsPowerOn(): Int =
 public actual fun sceWlanGetSwitchState(): Int =
     PspJniBridge.libcPspSceWlanGetSwitchState()
 
-public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
+public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr): Int =
     PspJniBridge.libcPspSceWlanGetEtherAddr(etherAddr.rawAddress)
 
 public actual fun sceWlanDevAttach(): Int =
@@ -2784,19 +2782,19 @@ public actual fun sceWlanDevDetach(): Int =
 public actual fun sceRtcGetTickResolution(): UInt =
     PspJniBridge.libcPspSceRtcGetTickResolution().toUInt()
 
-public actual fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetCurrentTick(tick: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetCurrentTick(tick.rawAddress)
 
-public actual fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int =
+public actual fun sceRtcGetCurrentClock(tm: MutPtr, tz: Int): Int =
     PspJniBridge.libcPspSceRtcGetCurrentClock(tm.rawAddress, tz)
 
-public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int =
+public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetCurrentClockLocalTime(tm.rawAddress)
 
-public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr, tickLocal: MutPtr): Int =
     PspJniBridge.libcPspSceRtcConvertUtcToLocalTime(tickUtc.rawAddress, tickLocal.rawAddress)
 
-public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr, tickUtc: MutPtr): Int =
     PspJniBridge.libcPspSceRtcConvertLocalTimeToUTC(tickLocal.rawAddress, tickUtc.rawAddress)
 
 public actual fun sceRtcIsLeapYear(year: Int): Int =
@@ -2808,91 +2806,91 @@ public actual fun sceRtcGetDaysInMonth(year: Int, month: Int): Int =
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
     PspJniBridge.libcPspSceRtcGetDayOfWeek(year, month, day)
 
-public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
+public actual fun sceRtcCheckValid(date: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcCheckValid(date.rawAddress)
 
-public actual fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int =
+public actual fun sceRtcSetTick(date: MutPtr, tick: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcSetTick(date.rawAddress, tick.rawAddress)
 
-public actual fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTick(date: ConstPtr, tick: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetTick(date.rawAddress, tick.rawAddress)
 
-public actual fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int =
+public actual fun sceRtcCompareTick(tick1: ConstPtr, tick2: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcCompareTick(tick1.rawAddress, tick2.rawAddress)
 
-public actual fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int =
+public actual fun sceRtcTickAddTicks(destTick: MutPtr, srcTick: ConstPtr, numTicks: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddTicks(destTick.rawAddress, srcTick.rawAddress, numTicks.toLong())
 
-public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int =
+public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr, srcTick: ConstPtr, numMs: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddMicroseconds(destTick.rawAddress, srcTick.rawAddress, numMs.toLong())
 
-public actual fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int =
+public actual fun sceRtcTickAddSeconds(destTick: MutPtr, srcTick: ConstPtr, numSeconds: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddSeconds(destTick.rawAddress, srcTick.rawAddress, numSeconds.toLong())
 
-public actual fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int =
+public actual fun sceRtcTickAddMinutes(destTick: MutPtr, srcTick: ConstPtr, numMinutes: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddMinutes(destTick.rawAddress, srcTick.rawAddress, numMinutes.toLong())
 
-public actual fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int =
+public actual fun sceRtcTickAddHours(destTick: MutPtr, srcTick: ConstPtr, numHours: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddHours(destTick.rawAddress, srcTick.rawAddress, numHours.toLong())
 
-public actual fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int =
+public actual fun sceRtcTickAddDays(destTick: MutPtr, srcTick: ConstPtr, numDays: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddDays(destTick.rawAddress, srcTick.rawAddress, numDays.toLong())
 
-public actual fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int =
+public actual fun sceRtcTickAddWeeks(destTick: MutPtr, srcTick: ConstPtr, numWeeks: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddWeeks(destTick.rawAddress, srcTick.rawAddress, numWeeks.toLong())
 
-public actual fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int =
+public actual fun sceRtcTickAddMonths(destTick: MutPtr, srcTick: ConstPtr, numMonths: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddMonths(destTick.rawAddress, srcTick.rawAddress, numMonths.toLong())
 
-public actual fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int =
+public actual fun sceRtcTickAddYears(destTick: MutPtr, srcTick: ConstPtr, numYears: ULong): Int =
     PspJniBridge.libcPspSceRtcTickAddYears(destTick.rawAddress, srcTick.rawAddress, numYears.toLong())
 
-public actual fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int =
+public actual fun sceRtcSetTimeT(date: MutPtr, time: UInt): Int =
     PspJniBridge.libcPspSceRtcSetTimeT(date.rawAddress, time.toInt())
 
-public actual fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int =
+public actual fun sceRtcGetTimeT(date: ConstPtr, time: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetTimeT(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int =
+public actual fun sceRtcSetTime64T(date: MutPtr, time: ULong): Int =
     PspJniBridge.libcPspSceRtcSetTime64T(date.rawAddress, time.toLong())
 
-public actual fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTime64T(date: ConstPtr, time: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetTime64T(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcSetDosTime(date: MutPtr, dosTime: UInt): Int =
     PspJniBridge.libcPspSceRtcSetDosTime(date.rawAddress, dosTime.toInt())
 
-public actual fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcGetDosTime(date: MutPtr, dosTime: UInt): Int =
     PspJniBridge.libcPspSceRtcGetDosTime(date.rawAddress, dosTime.toInt())
 
-public actual fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcSetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     PspJniBridge.libcPspSceRtcSetWin32FileTime(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     PspJniBridge.libcPspSceRtcGetWin32FileTime(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseDateTime(destTick: MutPtr, dateString: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcParseDateTime(destTick.rawAddress, dateString.rawAddress)
 
-public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     PspJniBridge.libcPspSceRtcFormatRFC3339(pszDateTime.rawAddress, pUtc.rawAddress, timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcFormatRFC3339LocalTime(pszDateTime.rawAddress, pUtc.rawAddress)
 
-public actual fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseRFC3339(pUtc: MutPtr, pszDateTime: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcParseRFC3339(pUtc.rawAddress, pszDateTime.rawAddress)
 
-public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     PspJniBridge.libcPspSceRtcFormatRFC2822(pszDateTime.rawAddress, pUtc.rawAddress, timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     PspJniBridge.libcPspSceRtcFormatRFC2822LocalTime(pszDateTime.rawAddress, pUtc.rawAddress)
 
-public actual fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpen(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
-public actual fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpenAsync(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
 public actual fun sceIoClose(fd: SceUid): Int =
@@ -2901,16 +2899,16 @@ public actual fun sceIoClose(fd: SceUid): Int =
 public actual fun sceIoCloseAsync(fd: SceUid): Int =
     0
 
-public actual fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoRead(fd: SceUid, data: MutPtr, size: UInt): Int =
     0
 
-public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr, size: UInt): Int =
     0
 
-public actual fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceIoWrite(fd: SceUid, data: ConstPtr, size: ULong): Int =
     0
 
-public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr, size: UInt): Int =
     0
 
 public actual fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long =
@@ -2925,64 +2923,64 @@ public actual fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int =
 public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int =
     0
 
-public actual fun sceIoRemove(file: ConstPtr<UByte>): Int =
+public actual fun sceIoRemove(file: ConstPtr): Int =
     PspJniBridge.libcPspSceIoRemove(file.rawAddress)
 
-public actual fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int =
+public actual fun sceIoMkdir(dir: ConstPtr, mode: IoPermissions): Int =
     PspJniBridge.libcPspSceIoMkdir(dir.rawAddress, mode)
 
-public actual fun sceIoRmdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoRmdir(path: ConstPtr): Int =
     PspJniBridge.libcPspSceIoRmdir(path.rawAddress)
 
-public actual fun sceIoChdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoChdir(path: ConstPtr): Int =
     PspJniBridge.libcPspSceIoChdir(path.rawAddress)
 
-public actual fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int =
+public actual fun sceIoRename(oldname: ConstPtr, newname: ConstPtr): Int =
     PspJniBridge.libcPspSceIoRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid =
+public actual fun sceIoDopen(dirname: ConstPtr): SceUid =
     SceUid()
 
-public actual fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int =
+public actual fun sceIoDread(fd: SceUid, dir: MutPtr): Int =
     0
 
 public actual fun sceIoDclose(fd: SceUid): Int =
     0
 
-public actual fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoDevctl(dev: ConstPtr, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     PspJniBridge.libcPspSceIoDevctl(dev.rawAddress, cmd.toInt(), indata.rawAddress, inlen, outdata.rawAddress, outlen)
 
-public actual fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int =
+public actual fun sceIoAssign(dev1: ConstPtr, dev2: ConstPtr, dev3: ConstPtr, mode: IoAssignPerms, unk1: MutPtr, unk2: Int): Int =
     0
 
-public actual fun sceIoUnassign(dev: ConstPtr<UByte>): Int =
+public actual fun sceIoUnassign(dev: ConstPtr): Int =
     PspJniBridge.libcPspSceIoUnassign(dev.rawAddress)
 
-public actual fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int =
+public actual fun sceIoGetstat(file: ConstPtr, stat: MutPtr): Int =
     PspJniBridge.libcPspSceIoGetstat(file.rawAddress, stat.rawAddress)
 
-public actual fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int =
+public actual fun sceIoChstat(file: ConstPtr, stat: MutPtr, bits: Int): Int =
     PspJniBridge.libcPspSceIoChstat(file.rawAddress, stat.rawAddress, bits)
 
-public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     0
 
-public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     0
 
-public actual fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int =
+public actual fun sceIoSync(device: ConstPtr, unk: UInt): Int =
     PspJniBridge.libcPspSceIoSync(device.rawAddress, unk.toInt())
 
-public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr): Int =
     0
 
-public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr): Int =
     0
 
-public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr): Int =
     0
 
-public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int =
+public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr): Int =
     0
 
 public actual fun sceIoCancel(fd: SceUid): Int =
@@ -2994,7 +2992,7 @@ public actual fun sceIoGetDevType(fd: SceUid): Int =
 public actual fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int =
     0
 
-public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int =
+public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr): Int =
     0
 
 public actual fun sceJpegInitMJpeg(): Int =
@@ -3009,19 +3007,19 @@ public actual fun sceJpegCreateMJpeg(width: Int, height: Int): Int =
 public actual fun sceJpegDeleteMJpeg(): Int =
     PspJniBridge.libcPspSceJpegDeleteMJpeg()
 
-public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
+public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr, size: ULong, rgba: MutPtr, unk: UInt): Int =
     PspJniBridge.libcPspSceJpegDecodeMJpeg(jpegBuf.rawAddress, size.toLong(), rgba.rawAddress, unk.toInt())
 
 public actual fun sceUmdCheckMedium(): Int =
     PspJniBridge.libcPspSceUmdCheckMedium()
 
-public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
+public actual fun sceUmdGetDiscInfo(info: MutPtr): Int =
     PspJniBridge.libcPspSceUmdGetDiscInfo(info.rawAddress)
 
-public actual fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdActivate(unit: Int, drive: ConstPtr): Int =
     PspJniBridge.libcPspSceUmdActivate(unit, drive.rawAddress)
 
-public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr): Int =
     PspJniBridge.libcPspSceUmdDeactivate(unit, drive.rawAddress)
 
 public actual fun sceUmdWaitDriveStat(state: Int): Int =
@@ -3064,32 +3062,32 @@ public actual fun sceMpegFinish() {
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     PspJniBridge.libcPspSceMpegRingbufferQueryMemSize(packets)
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
+public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr, packets: Int, data: MutPtr, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr): Int =
     PspJniBridge.libcPspSceMpegRingbufferConstruct(ringbuffer.rawAddress, packets, data.rawAddress, size, 0L, cbParam.rawAddress)
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>) {
+public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr) {
     PspJniBridge.libcPspSceMpegRingbufferDestruct(ringbuffer.rawAddress)
 }
 
-public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int =
+public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr): Int =
     PspJniBridge.libcPspSceMpegRingbufferAvailableSize(ringbuffer.rawAddress)
 
-public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int =
+public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr, numPackets: Int, available: Int): Int =
     PspJniBridge.libcPspSceMpegRingbufferPut(ringbuffer.rawAddress, numPackets, available)
 
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
     PspJniBridge.libcPspSceMpegQueryMemSize(unk)
 
-public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
+public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr, size: Int, ringbuffer: MutPtr, frameWidth: Int, unk1: Int, unk2: Int): Int =
     0
 
 public actual fun sceMpegDelete(handle: SceMpeg) {
 }
 
-public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr, offset: MutPtr): Int =
     0
 
-public actual fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamSize(buffer: MutPtr, size: MutPtr): Int =
     PspJniBridge.libcPspSceMpegQueryStreamSize(buffer.rawAddress, size.rawAddress)
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
@@ -3101,55 +3099,55 @@ public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     0
 
-public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid> =
+public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr =
     MutPtr(0L)
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>) {
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr) {
 }
 
-public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int =
+public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr, outSize: MutPtr): Int =
     0
 
-public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int =
+public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr, au: MutPtr): Int =
     0
 
-public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int =
+public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     0
 
-public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int =
+public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr): Int =
     0
 
-public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr, iframeWidth: Int, buffer: MutPtr, init: MutPtr): Int =
     0
 
-public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr, status: MutPtr): Int =
     0
 
-public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int =
+public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     0
 
-public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int =
+public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr, buffer: MutPtr, init: Int): Int =
     0
 
-public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int =
+public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr, buffer: MutPtr, type: Int): Int =
     PspJniBridge.libcPspSceMpegBaseYCrCbCopyVme(yuvBuffer.rawAddress, buffer.rawAddress, type)
 
 public actual fun sceMpegBaseCscInit(width: Int): Int =
     PspJniBridge.libcPspSceMpegBaseCscInit(width)
 
-public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
+public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr, rgbBuffer2: MutPtr, width: Int, yCrCbBuffer: MutPtr): Int =
     PspJniBridge.libcPspSceMpegBaseCscVme(rgbBuffer.rawAddress, rgbBuffer2.rawAddress, width, yCrCbBuffer.rawAddress)
 
-public actual fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int =
+public actual fun sceMpegbaseBea18f91(lli: MutPtr): Int =
     PspJniBridge.libcPspSceMpegbaseBea18f91(lli.rawAddress)
 
-public actual fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int =
+public actual fun sceHprmPeekCurrentKey(key: MutPtr): Int =
     PspJniBridge.libcPspSceHprmPeekCurrentKey(key.rawAddress)
 
-public actual fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmPeekLatch(latch: MutPtr): Int =
     PspJniBridge.libcPspSceHprmPeekLatch(latch.rawAddress)
 
-public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmReadLatch(latch: MutPtr): Int =
     PspJniBridge.libcPspSceHprmReadLatch(latch.rawAddress)
 
 public actual fun sceHprmIsHeadphoneExist(): Int =
@@ -3161,18 +3159,18 @@ public actual fun sceHprmIsRemoteExist(): Int =
 public actual fun sceHprmIsMicrophoneExist(): Int =
     PspJniBridge.libcPspSceHprmIsMicrophoneExist()
 
-public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int) {
+public actual fun sceGuDepthBuffer(zbp: MutPtr, zbw: Int) {
     PspJniBridge.libcPspSceGuDepthBuffer(zbp.rawAddress, zbw)
 }
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int) {
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr, dispbw: Int) {
     PspJniBridge.libcPspSceGuDispBuffer(width, height, dispbp.rawAddress, dispbw)
 }
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int) {
 }
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int) {
 }
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
@@ -3225,10 +3223,10 @@ public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
 public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
 }
 
-public actual fun sceGuGetMemory(size: Int): MutPtr<CVoid> =
+public actual fun sceGuGetMemory(size: Int): MutPtr =
     MutPtr(PspJniBridge.libcPspSceGuGetMemory(size))
 
-public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>) {
+public actual fun sceGuStart(contextType: GuContextType, list: MutPtr) {
 }
 
 public actual fun sceGuFinish(): Int =
@@ -3237,7 +3235,7 @@ public actual fun sceGuFinish(): Int =
 public actual fun sceGuFinishId(id: UInt): Int =
     PspJniBridge.libcPspSceGuFinishId(id.toInt())
 
-public actual fun sceGuCallList(list: ConstPtr<CVoid>) {
+public actual fun sceGuCallList(list: ConstPtr) {
     PspJniBridge.libcPspSceGuCallList(list.rawAddress)
 }
 
@@ -3248,19 +3246,19 @@ public actual fun sceGuCallMode(mode: Int) {
 public actual fun sceGuCheckList(): Int =
     PspJniBridge.libcPspSceGuCheckList()
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>) {
+public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr, context: MutPtr) {
 }
 
-public actual fun sceGuSwapBuffers(): MutPtr<CVoid> =
+public actual fun sceGuSwapBuffers(): MutPtr =
     MutPtr(PspJniBridge.libcPspSceGuSwapBuffers())
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr) {
 }
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr) {
     PspJniBridge.libcPspSceGuBeginObject(vtype, count, indices.rawAddress, vertices.rawAddress)
 }
 
@@ -3379,7 +3377,7 @@ public actual fun sceGuSetDither(matrix: ScePspIMatrix4) {
 public actual fun sceGuShadeModel(mode: ShadingModel) {
 }
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>) {
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr, dx: Int, dy: Int, destw: Int, dest: MutPtr) {
 }
 
 public actual fun sceGuTexEnvColor(color: UInt) {
@@ -3396,7 +3394,7 @@ public actual fun sceGuTexFlush() {
 public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
 }
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>) {
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr) {
 }
 
 public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
@@ -3430,7 +3428,7 @@ public actual fun sceGuTexSync() {
 public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
 }
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>) {
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr) {
     PspJniBridge.libcPspSceGuClutLoad(numBlocks, cbp.rawAddress)
 }
 
@@ -3449,7 +3447,7 @@ public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
     PspJniBridge.libcPspSceGuViewport(cx, cy, width, height)
 }
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr) {
     PspJniBridge.libcPspSceGuDrawBezier(vType, uCount, vCount, indices.rawAddress, vertices.rawAddress)
 }
 
@@ -3464,7 +3462,7 @@ public actual fun sceGuPatchFrontFace(a0: UInt) {
 public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
 }
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr) {
     PspJniBridge.libcPspSceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress, vertices.rawAddress)
 }
 
@@ -3478,20 +3476,20 @@ public actual fun sceGuMorphWeight(index: Int, weight: Float) {
     PspJniBridge.libcPspSceGuMorphWeight(index, weight)
 }
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr) {
 }
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr, vertices: ConstPtr) {
 }
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr) {
 }
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr) {
     PspJniBridge.libcPspSceGumDrawBezier(vType, uCount, vCount, indices.rawAddress, vertices.rawAddress)
 }
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr) {
     PspJniBridge.libcPspSceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress, vertices.rawAddress)
 }
 
@@ -3566,7 +3564,7 @@ public actual fun sceGumUpdateMatrix() {
     PspJniBridge.libcPspSceGumUpdateMatrix()
 }
 
-public actual fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int =
+public actual fun sceMp3ReserveMp3Handle(args: MutPtr): Int =
     PspJniBridge.libcPspSceMp3ReserveMp3Handle(args.rawAddress)
 
 public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
@@ -3581,10 +3579,10 @@ public actual fun sceMp3TermResource(): Int =
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     0
 
-public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int =
+public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr): Int =
     0
 
-public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int =
+public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr, toWrite: MutPtr, srcPos: MutPtr): Int =
     0
 
 public actual fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int =
@@ -3617,7 +3615,7 @@ public actual fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int =
 public actual fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int =
     0
 
-public actual fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenRegistry(reg: MutPtr, mode: Int, handle: MutPtr): Int =
     PspJniBridge.libcPspSceRegOpenRegistry(reg.rawAddress, mode, handle.rawAddress)
 
 public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
@@ -3626,10 +3624,10 @@ public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
 public actual fun sceRegCloseRegistry(handle: RegHandle): Int =
     0
 
-public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr, mode: Int, dirHandle: MutPtr): Int =
     0
 
-public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int =
+public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr): Int =
     0
 
 public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
@@ -3638,37 +3636,37 @@ public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
 public actual fun sceRegFlushCategory(dirHandle: RegHandle): Int =
     0
 
-public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr, keyHandle: MutPtr, type: MutPtr, size: MutPtr): Int =
     0
 
-public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr, type: MutPtr, size: MutPtr): Int =
     0
 
-public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr, buf: MutPtr, size: ULong): Int =
     0
 
-public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr, buf: ConstPtr, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int =
+public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr): Int =
     0
 
-public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int =
+public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr, num: Int): Int =
     0
 
-public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int =
+public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr, type: Int, size: ULong): Int =
     0
 
-public actual fun sceRegRemoveRegistry(key: MutPtr<Key>): Int =
+public actual fun sceRegRemoveRegistry(key: MutPtr): Int =
     PspJniBridge.libcPspSceRegRemoveRegistry(key.rawAddress)
 
-public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int =
+public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr): Int =
     PspJniBridge.libcPspSceOpenPSIDGetOpenPSID(openpsid.rawAddress)
 
-public actual fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int =
+public actual fun sceUtilityMsgDialogInitStart(params: MutPtr): Int =
     PspJniBridge.libcPspSceUtilityMsgDialogInitStart(params.rawAddress)
 
 public actual fun sceUtilityMsgDialogShutdownStart() {
@@ -3685,7 +3683,7 @@ public actual fun sceUtilityMsgDialogUpdate(n: Int) {
 public actual fun sceUtilityMsgDialogAbort(): Int =
     PspJniBridge.libcPspSceUtilityMsgDialogAbort()
 
-public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
+public actual fun sceUtilityNetconfInitStart(data: MutPtr): Int =
     PspJniBridge.libcPspSceUtilityNetconfInitStart(data.rawAddress)
 
 public actual fun sceUtilityNetconfShutdownStart(): Int =
@@ -3700,10 +3698,10 @@ public actual fun sceUtilityNetconfGetStatus(): Int =
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
     PspJniBridge.libcPspSceUtilityCheckNetParam(id)
 
-public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
+public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr): Int =
     0
 
-public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int =
+public actual fun sceUtilitySavedataInitStart(params: MutPtr): Int =
     PspJniBridge.libcPspSceUtilitySavedataInitStart(params.rawAddress)
 
 public actual fun sceUtilitySavedataGetStatus(): Int =
@@ -3716,7 +3714,7 @@ public actual fun sceUtilitySavedataUpdate(unknown: Int) {
     PspJniBridge.libcPspSceUtilitySavedataUpdate(unknown)
 }
 
-public actual fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int =
+public actual fun sceUtilityGameSharingInitStart(params: MutPtr): Int =
     PspJniBridge.libcPspSceUtilityGameSharingInitStart(params.rawAddress)
 
 public actual fun sceUtilityGameSharingShutdownStart() {
@@ -3730,7 +3728,7 @@ public actual fun sceUtilityGameSharingUpdate(n: Int) {
     PspJniBridge.libcPspSceUtilityGameSharingUpdate(n)
 }
 
-public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int =
+public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr): Int =
     PspJniBridge.libcPspSceUtilityHtmlViewerInitStart(params.rawAddress)
 
 public actual fun sceUtilityHtmlViewerShutdownStart(): Int =
@@ -3745,16 +3743,16 @@ public actual fun sceUtilityHtmlViewerGetStatus(): Int =
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     0
 
-public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int =
+public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr): Int =
     0
 
-public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int =
+public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr): Int =
     0
 
-public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int =
+public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr, len: Int): Int =
     0
 
-public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int =
+public actual fun sceUtilityOskInitStart(params: MutPtr): Int =
     PspJniBridge.libcPspSceUtilityOskInitStart(params.rawAddress)
 
 public actual fun sceUtilityOskShutdownStart(): Int =
@@ -3793,7 +3791,7 @@ public actual fun sceUtilityUnloadModule(module: Module): Int =
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
     PspJniBridge.libcPspSceUtilityCreateNetParam(conf)
 
-public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
+public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr): Int =
     0
 
 public actual fun sceUtilityCopyNetParam(src: Int, dest: Int): Int =
@@ -3814,81 +3812,81 @@ public actual fun sceNetFreeThreadinfo(thid: Int): Int =
 public actual fun sceNetThreadAbort(thid: Int): Int =
     PspJniBridge.libcPspSceNetThreadAbort(thid)
 
-public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>) {
+public actual fun sceNetEtherStrton(name: MutPtr, mac: MutPtr) {
     PspJniBridge.libcPspSceNetEtherStrton(name.rawAddress, mac.rawAddress)
 }
 
-public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>) {
+public actual fun sceNetEtherNtostr(mac: MutPtr, name: MutPtr) {
     PspJniBridge.libcPspSceNetEtherNtostr(mac.rawAddress, name.rawAddress)
 }
 
-public actual fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int =
+public actual fun sceNetGetLocalEtherAddr(mac: MutPtr): Int =
     PspJniBridge.libcPspSceNetGetLocalEtherAddr(mac.rawAddress)
 
-public actual fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int =
+public actual fun sceNetGetMallocStat(stat: MutPtr): Int =
     PspJniBridge.libcPspSceNetGetMallocStat(stat.rawAddress)
 
-public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlInit(stacksize, priority, adhocId.rawAddress)
 
 public actual fun sceNetAdhocctlTerm(): Int =
     PspJniBridge.libcPspSceNetAdhocctlTerm()
 
-public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlConnect(name: ConstPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlConnect(name.rawAddress)
 
 public actual fun sceNetAdhocctlDisconnect(): Int =
     PspJniBridge.libcPspSceNetAdhocctlDisconnect()
 
-public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
+public actual fun sceNetAdhocctlGetState(event: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetState(event.rawAddress)
 
-public actual fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlCreate(name: ConstPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlCreate(name.rawAddress)
 
-public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int =
+public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlJoin(scaninfo.rawAddress)
 
-public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetAdhocId(id.rawAddress)
 
-public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int =
+public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr, unknown: Int, num: Int, macs: MutPtr, timeout: UInt, unknown2: Int): Int =
     PspJniBridge.libcPspSceNetAdhocctlCreateEnterGameMode(name.rawAddress, unknown, num, macs.rawAddress, timeout.toInt(), unknown2)
 
-public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int =
+public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr, hostmac: MutPtr, timeout: UInt, unknown: Int): Int =
     PspJniBridge.libcPspSceNetAdhocctlJoinEnterGameMode(name.rawAddress, hostmac.rawAddress, timeout.toInt(), unknown)
 
-public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int =
+public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetGameModeInfo(gamemodeinfo.rawAddress)
 
 public actual fun sceNetAdhocctlExitGameMode(): Int =
     PspJniBridge.libcPspSceNetAdhocctlExitGameMode()
 
-public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetPeerList(length: MutPtr, buf: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetPeerList(length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int =
+public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr, size: Int, peerinfo: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetPeerInfo(mac.rawAddress, size, peerinfo.rawAddress)
 
 public actual fun sceNetAdhocctlScan(): Int =
     PspJniBridge.libcPspSceNetAdhocctlScan()
 
-public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr, buf: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetScanInfo(length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlAddHandler(0L, unknown.rawAddress)
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
     PspJniBridge.libcPspSceNetAdhocctlDelHandler(id)
 
-public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr, nickname: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetNameByAddr(mac.rawAddress, nickname.rawAddress)
 
-public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr, length: MutPtr, buf: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetAddrByName(nickname.rawAddress, length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int =
+public actual fun sceNetAdhocctlGetParameter(params: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocctlGetParameter(params.rawAddress)
 
 public actual fun sceNetAdhocInit(): Int =
@@ -3897,25 +3895,25 @@ public actual fun sceNetAdhocInit(): Int =
 public actual fun sceNetAdhocTerm(): Int =
     PspJniBridge.libcPspSceNetAdhocTerm()
 
-public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
+public actual fun sceNetAdhocPdpCreate(mac: MutPtr, port: UShort, bufSize: UInt, unk1: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPdpCreate(mac.rawAddress, port.toShort(), bufSize.toInt(), unk1)
 
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPdpDelete(id, unk1)
 
-public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr, port: UShort, data: MutPtr, len: UInt, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPdpSend(id, destMacAddr.rawAddress, port.toShort(), data.rawAddress, len.toInt(), timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr, port: MutPtr, data: MutPtr, dataLength: MutPtr, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPdpRecv(id, srcMacAddr.rawAddress, port.rawAddress, data.rawAddress, dataLength.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int =
+public actual fun sceNetAdhocGetPdpStat(size: MutPtr, stat: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocGetPdpStat(size.rawAddress, stat.rawAddress)
 
-public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr, size: Int): Int =
     PspJniBridge.libcPspSceNetAdhocGameModeCreateMaster(data.rawAddress, size)
 
-public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr, data: MutPtr, size: Int): Int =
     PspJniBridge.libcPspSceNetAdhocGameModeCreateReplica(mac.rawAddress, data.rawAddress, size)
 
 public actual fun sceNetAdhocGameModeUpdateMaster(): Int =
@@ -3930,22 +3928,22 @@ public actual fun sceNetAdhocGameModeDeleteMaster(): Int =
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
     PspJniBridge.libcPspSceNetAdhocGameModeDeleteReplica(id)
 
-public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr, srcport: UShort, destmac: MutPtr, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpOpen(srcmac.rawAddress, srcport.toShort(), destmac.rawAddress, destport.toShort(), bufSize.toInt(), delay.toInt(), count, unk1)
 
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpListen(srcmac: MutPtr, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpListen(srcmac.rawAddress, srcport.toShort(), bufSize.toInt(), delay.toInt(), count, queue, unk1)
 
-public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr, port: MutPtr, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpAccept(id, mac.rawAddress, port.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpSend(id, data.rawAddress, dataSize.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpRecv(id, data.rawAddress, dataSize.rawAddress, timeout.toInt(), nonblock)
 
 public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int =
@@ -3954,7 +3952,7 @@ public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): In
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
     PspJniBridge.libcPspSceNetAdhocPtpClose(id, unk1)
 
-public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
+public actual fun sceNetAdhocGetPtpStat(size: MutPtr, stat: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocGetPtpStat(size.rawAddress, stat.rawAddress)
 
 public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
@@ -3969,40 +3967,40 @@ public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: I
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingDelete(matchingId)
 
-public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData.rawAddress)
 
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingStop(matchingId)
 
-public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingSelectTarget(matchingId, mac.rawAddress, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingCancelTarget(matchingId, mac.rawAddress)
 
-public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingCancelTargetWithOpt(matchingId, mac.rawAddress, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr, dataLen: Int, data: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingSendData(matchingId, mac.rawAddress, dataLen, data.rawAddress)
 
-public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingAbortSendData(matchingId, mac.rawAddress)
 
-public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingSetHelloOpt(matchingId, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr, optData: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingGetHelloOpt(matchingId, optLen.rawAddress, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr, buf: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingGetMembers(matchingId, length.rawAddress, buf.rawAddress)
 
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingGetPoolMaxAlloc()
 
-public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
+public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr): Int =
     PspJniBridge.libcPspSceNetAdhocMatchingGetPoolStat(poolstat.rawAddress)
 
 public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
@@ -4011,10 +4009,10 @@ public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
 public actual fun sceNetApctlTerm(): Int =
     PspJniBridge.libcPspSceNetApctlTerm()
 
-public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
+public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr): Int =
     0
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int =
+public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr): Int =
     PspJniBridge.libcPspSceNetApctlAddHandler(0L, parg.rawAddress)
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
@@ -4026,7 +4024,7 @@ public actual fun sceNetApctlConnect(connIndex: Int): Int =
 public actual fun sceNetApctlDisconnect(): Int =
     PspJniBridge.libcPspSceNetApctlDisconnect()
 
-public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
+public actual fun sceNetApctlGetState(pstate: MutPtr): Int =
     PspJniBridge.libcPspSceNetApctlGetState(pstate.rawAddress)
 
 public actual fun sceNetInetInit(): Int =
@@ -4035,34 +4033,34 @@ public actual fun sceNetInetInit(): Int =
 public actual fun sceNetInetTerm(): Int =
     PspJniBridge.libcPspSceNetInetTerm()
 
-public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetAccept(s: Int, addr: MutPtr, addrLen: MutPtr): Int =
     PspJniBridge.libcPspSceNetInetAccept(s, addr.rawAddress, addrLen.rawAddress)
 
-public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr, addrLen: SocklenT): Int =
     PspJniBridge.libcPspSceNetInetBind(s, myAddr.rawAddress, addrLen.toInt())
 
-public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr, addrLen: SocklenT): Int =
     PspJniBridge.libcPspSceNetInetConnect(s, servAddr.rawAddress, addrLen.toInt())
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr, optlEn: MutPtr): Int =
     PspJniBridge.libcPspSceNetInetGetsockopt(s, level, optName, optVal.rawAddress, optlEn.rawAddress)
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
     PspJniBridge.libcPspSceNetInetListen(s, backlog)
 
-public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetRecv(s: Int, buf: MutPtr, len: ULong, flags: Int): ULong =
     PspJniBridge.libcPspSceNetInetRecv(s, buf.rawAddress, len.toLong(), flags).toULong()
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong =
+public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr, flags: ULong, arg1: Int, from: MutPtr, fromLen: MutPtr): ULong =
     PspJniBridge.libcPspSceNetInetRecvfrom(s, buf.rawAddress, flags.toLong(), arg1, from.rawAddress, fromLen.rawAddress).toULong()
 
-public actual fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetSend(s: Int, buf: ConstPtr, len: ULong, flags: Int): ULong =
     PspJniBridge.libcPspSceNetInetSend(s, buf.rawAddress, len.toLong(), flags).toULong()
 
-public actual fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong =
+public actual fun sceNetInetSendto(s: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, toLen: SocklenT): ULong =
     PspJniBridge.libcPspSceNetInetSendto(s, buf.rawAddress, len.toLong(), flags, to.rawAddress, toLen.toInt()).toULong()
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int =
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr, optLen: SocklenT): Int =
     PspJniBridge.libcPspSceNetInetSetsockopt(s, level, optName, optVal.rawAddress, optLen.toInt())
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
@@ -4083,10 +4081,10 @@ public actual fun sceSslInit(unknown1: Int): Int =
 public actual fun sceSslEnd(): Int =
     PspJniBridge.libcPspSceSslEnd()
 
-public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryMax(memory: MutPtr): Int =
     PspJniBridge.libcPspSceSslGetUsedMemoryMax(memory.rawAddress)
 
-public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr): Int =
     PspJniBridge.libcPspSceSslGetUsedMemoryCurrent(memory.rawAddress)
 
 public actual fun sceHttpInit(unknown1: UInt): Int =
@@ -4095,43 +4093,43 @@ public actual fun sceHttpInit(unknown1: UInt): Int =
 public actual fun sceHttpEnd(): Int =
     PspJniBridge.libcPspSceHttpEnd()
 
-public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
+public actual fun sceHttpCreateTemplate(agent: MutPtr, unknown1: Int, unknown2: Int): Int =
     PspJniBridge.libcPspSceHttpCreateTemplate(agent.rawAddress, unknown1, unknown2)
 
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
     PspJniBridge.libcPspSceHttpDeleteTemplate(templateid)
 
-public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
+public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr, unknown1: MutPtr, port: UShort, unknown2: Int): Int =
     PspJniBridge.libcPspSceHttpCreateConnection(templateid, host.rawAddress, unknown1.rawAddress, port.toShort(), unknown2)
 
-public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr, unknown1: Int): Int =
     PspJniBridge.libcPspSceHttpCreateConnectionWithURL(templateid, url.rawAddress, unknown1)
 
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
     PspJniBridge.libcPspSceHttpDeleteConnection(connectionId)
 
-public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr, contentLength: ULong): Int =
     0
 
-public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr, contentLength: ULong): Int =
     0
 
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
     PspJniBridge.libcPspSceHttpDeleteRequest(requestId)
 
-public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     PspJniBridge.libcPspSceHttpSendRequest(requestId, data.rawAddress, dataSize.toInt())
 
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
     PspJniBridge.libcPspSceHttpAbortRequest(requestId)
 
-public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpReadData(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     PspJniBridge.libcPspSceHttpReadData(requestId, data.rawAddress, dataSize.toInt())
 
-public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int =
+public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr): Int =
     PspJniBridge.libcPspSceHttpGetContentLength(requestId, contentLength.rawAddress)
 
-public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int =
+public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr): Int =
     PspJniBridge.libcPspSceHttpGetStatusCode(requestId, statusCode.rawAddress)
 
 public actual fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int =
@@ -4173,10 +4171,10 @@ public actual fun sceHttpSaveSystemCookie(): Int =
 public actual fun sceHttpLoadSystemCookie(): Int =
     PspJniBridge.libcPspSceHttpLoadSystemCookie()
 
-public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr, value: MutPtr, unknown1: Int): Int =
     PspJniBridge.libcPspSceHttpAddExtraHeader(id, name.rawAddress, value.rawAddress, unknown1)
 
-public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
+public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr): Int =
     PspJniBridge.libcPspSceHttpDeleteHeader(id, name.rawAddress)
 
 public actual fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int =
@@ -4203,13 +4201,13 @@ public actual fun sceHttpEnableCache(id: Int): Int =
 public actual fun sceHttpEndCache(): Int =
     PspJniBridge.libcPspSceHttpEndCache()
 
-public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
+public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr, headerSize: MutPtr): Int =
     PspJniBridge.libcPspSceHttpGetAllHeader(request, header.rawAddress, headerSize.rawAddress)
 
-public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int =
+public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr): Int =
     PspJniBridge.libcPspSceHttpGetNetworkErrno(request, errNum.rawAddress)
 
-public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int =
+public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr, mode: MutPtr, proxyHost: MutPtr, len: ULong, proxyPort: MutPtr): Int =
     PspJniBridge.libcPspSceHttpGetProxy(id, activateFlag.rawAddress, mode.rawAddress, proxyHost.rawAddress, len.toLong(), proxyPort.rawAddress)
 
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
@@ -4218,7 +4216,7 @@ public actual fun sceHttpInitCache(maxSize: ULong): Int =
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
     PspJniBridge.libcPspSceHttpSetAuthInfoCB(id, 0L)
 
-public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int =
+public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr, newProxyPort: UShort): Int =
     PspJniBridge.libcPspSceHttpSetProxy(id, activateFlag, mode, newProxyHost.rawAddress, newProxyPort.toShort())
 
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
@@ -4230,16 +4228,16 @@ public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeF
 public actual fun sceNetResolverInit(): Int =
     PspJniBridge.libcPspSceNetResolverInit()
 
-public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
+public actual fun sceNetResolverCreate(rid: MutPtr, buf: MutPtr, bufLength: UInt): Int =
     PspJniBridge.libcPspSceNetResolverCreate(rid.rawAddress, buf.rawAddress, bufLength.toInt())
 
 public actual fun sceNetResolverDelete(rid: Int): Int =
     PspJniBridge.libcPspSceNetResolverDelete(rid)
 
-public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr, addr: MutPtr, timeout: UInt, retry: Int): Int =
     PspJniBridge.libcPspSceNetResolverStartNtoA(rid, hostname.rawAddress, addr.rawAddress, timeout.toInt(), retry)
 
-public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr, hostname: MutPtr, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
     PspJniBridge.libcPspSceNetResolverStartAtoN(rid, addr.rawAddress, hostname.rawAddress, hostnameLen.toInt(), timeout.toInt(), retry)
 
 public actual fun sceNetResolverStop(rid: Int): Int =

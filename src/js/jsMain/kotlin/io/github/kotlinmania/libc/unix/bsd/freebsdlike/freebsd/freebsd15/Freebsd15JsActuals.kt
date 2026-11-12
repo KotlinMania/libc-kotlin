@@ -3,17 +3,14 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpulevelT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpuwhichT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -28,7 +25,7 @@ public actual fun setgrent() {
     }
 }
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15Mprotect(addr.rawAddress.toString(), len.toString(), prot) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
@@ -39,22 +36,22 @@ public actual fun freelocale(loc: LocaleT) {
     }
 }
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15Msgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtyp.toString(), msgflg) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<DomainsetT>, policy: MutPtr<CInt>): CInt =
+public actual fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr, policy: MutPtr): CInt =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15CpusetGetdomain(level, which, id.toString(), setsize.toString(), mask.rawAddress.toString(), policy.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr<DomainsetT>, policy: CInt): CInt =
+public actual fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr, policy: CInt): CInt =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15CpusetSetdomain(level, which, id.toString(), setsize.toString(), mask.rawAddress.toString(), policy) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) MutPtr((unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15Dirname(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) MutPtr((unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15Basename(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>) {
+public actual fun qsortR(base: MutPtr, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr) {
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) {
         unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15QsortR(base.rawAddress.toString(), num.toString(), size.toString(), 0L.toString(), arg.rawAddress.toString())
     } else {
@@ -62,5 +59,5 @@ public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: Q
     }
 }
 
-public actual fun kvmKerndisp(kd: MutPtr<KvmT>): KssizeT =
+public actual fun kvmKerndisp(kd: MutPtr): KssizeT =
     if (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) (unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libcUnixBsdFreebsdlikeFreebsdFreebsd15KvmKerndisp(kd.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -17,7 +17,6 @@ import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadMutexT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadOnceT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadRwlockT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `pthread.h` or `pthread / pthread.h`
@@ -40,7 +39,7 @@ public val PTHREAD_CANCEL_DEFERRED: CInt = 0x02
 
 public val PTHREAD_CANCEL_ASYNCHRONOUS: CInt = 0x00
 
-public val PTHREAD_CANCELED: MutPtr<CVoid> = MutPtr<CVoid>(1.toLong())
+public val PTHREAD_CANCELED: MutPtr = MutPtr(1.toLong())
 
 public val PTHREAD_SCOPE_SYSTEM: CInt = 1
 

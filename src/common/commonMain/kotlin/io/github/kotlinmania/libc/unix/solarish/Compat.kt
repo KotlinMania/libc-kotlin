@@ -1,12 +1,9 @@
 // port-lint: source unix/solarish/compat.rs
 package io.github.kotlinmania.libc.unix.solarish
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.cfsetispeed
 import io.github.kotlinmania.libc.unix.cfsetospeed
 import io.github.kotlinmania.libc.unix.close
@@ -25,7 +22,7 @@ import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public fun cfmakeraw(termios: MutPtr<Termios>) {
+public fun cfmakeraw(termios: MutPtr) {
     val cur = (Termios.typeLayout()).readNative((termios).rawAddress)
     cur.cIflag = cur.cIflag and (IMAXBEL or IGNBRK or BRKINT or PARMRK or ISTRIP or INLCR or IGNCR or ICRNL or IXON).inv()
     cur.cOflag = cur.cOflag and OPOST.inv()
@@ -50,7 +47,7 @@ public fun cfmakeraw(termios: MutPtr<Termios>) {
     (Termios.typeLayout()).writeNative((termios).rawAddress, cur)
 }
 
-public fun cfsetspeed(termios: MutPtr<Termios>, speed: SpeedT): CInt {
+public fun cfsetspeed(termios: MutPtr, speed: SpeedT): CInt {
     // Neither of these functions on illumos or Solaris actually ever
     // return an error
     cfsetispeed(MutPtr(termios.rawAddress, termios.rawMeta), speed)
@@ -70,7 +67,7 @@ public fun bail(fdm: CInt, fds: CInt): CInt {
     return -1
 }
 
-public fun openpty(amain: MutPtr<CInt>, asubord: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt {
+public fun openpty(amain: MutPtr, asubord: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): CInt {
     val amain1 = amain
     val asubord1 = asubord
     val ptemBytes: List<UByte> = "ptem\u0000".encodeToByteArray().map { it.toUByte() }
@@ -147,7 +144,7 @@ public fun openpty(amain: MutPtr<CInt>, asubord: MutPtr<CInt>, name: MutPtr<CCha
     return 0
 }
 
-public fun forkpty(amain: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT {
+public fun forkpty(amain: MutPtr, name: MutPtr, termp: ConstPtr, winp: ConstPtr): PidT {
     val fdsCell =
         io.github.kotlinmania.rustlang.core.mem
             .AddressableLocal(-1, PrimitiveLayouts.I32)
@@ -189,13 +186,13 @@ public fun forkpty(amain: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Ter
     return 0
 }
 
-public fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt {
+public fun getpwentR(pwd: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt {
     val result1 = result
     val oldErrno = (PrimitiveLayouts.I32).readNative((errno()).rawAddress)
     (PrimitiveLayouts.I32).writeNative((errno()).rawAddress, 0)
-    (PrimitiveLayouts.mutPtrLayout<Passwd>(64L)).writeNative((result1).rawAddress, nativeGetpwentR(pwd, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt()))
+    (PrimitiveLayouts.mutPtrLayout(64L)).writeNative((result1).rawAddress, nativeGetpwentR(pwd, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt()))
     val ret =
-        if ((((PrimitiveLayouts.mutPtrLayout<Passwd>(64L)).readNative((result1).rawAddress)).rawAddress == 0L)) {
+        if ((((PrimitiveLayouts.mutPtrLayout(64L)).readNative((result1).rawAddress)).rawAddress == 0L)) {
             (PrimitiveLayouts.I32).readNative((errno()).rawAddress)
         } else {
             0
@@ -204,13 +201,13 @@ public fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, res
     return ret
 }
 
-public fun getgrentR(grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt {
+public fun getgrentR(grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt {
     val result1 = result
     val oldErrno = (PrimitiveLayouts.I32).readNative((errno()).rawAddress)
     (PrimitiveLayouts.I32).writeNative((errno()).rawAddress, 0)
-    (PrimitiveLayouts.mutPtrLayout<Group>(64L)).writeNative((result1).rawAddress, nativeGetgrentR(grp, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt()))
+    (PrimitiveLayouts.mutPtrLayout(64L)).writeNative((result1).rawAddress, nativeGetgrentR(grp, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt()))
     val ret =
-        if ((((PrimitiveLayouts.mutPtrLayout<Group>(64L)).readNative((result1).rawAddress)).rawAddress == 0L)) {
+        if ((((PrimitiveLayouts.mutPtrLayout(64L)).readNative((result1).rawAddress)).rawAddress == 0L)) {
             (PrimitiveLayouts.I32).readNative((errno()).rawAddress)
         } else {
             0

@@ -6,9 +6,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoChannelConnectAttr
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoChannelCreate
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoChannelCreateExt
@@ -202,7 +200,6 @@ import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoTimerSett
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoTimerSettimeR
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoTimerTimeout
 import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNeutrinoTimerTimeoutR
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
@@ -214,10 +211,10 @@ public actual fun channelCreate(flags: CUint): CInt =
 public actual fun channelCreateR(flags: CUint): CInt =
     libcUnixNtoNeutrinoChannelCreateR(flags)
 
-public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt =
+public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr): CInt =
     libcUnixNtoNeutrinoChannelCreatePulsePool(flags, config.rawAddress.toCPointer<ByteVar>())
 
-public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr<Sigevent>, cred: MutPtr<CredInfo>): CInt =
+public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr, cred: MutPtr): CInt =
     libcUnixNtoNeutrinoChannelCreateExt(flags, mode, bufsize, maxnumbuf, ev.rawAddress.toCPointer<ByteVar>(), cred.rawAddress.toCPointer<ByteVar>())
 
 public actual fun channelDestroy(chid: CInt): CInt =
@@ -238,31 +235,31 @@ public actual fun connectDetach(coid: CInt): CInt =
 public actual fun connectDetachR(coid: CInt): CInt =
     libcUnixNtoNeutrinoConnectDetachR(coid)
 
-public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoConnectServerInfo(pid, coid, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoConnectServerInfoR(pid, coid, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     libcUnixNtoNeutrinoConnectClientInfoExtraArgs(scoid, infoPp.rawAddress.toCPointer<ByteVar>(), ngroups, abilities.rawAddress.toCPointer<ByteVar>(), nable, typeId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     libcUnixNtoNeutrinoConnectClientInfoExtraArgsR(scoid, infoPp.rawAddress.toCPointer<ByteVar>(), ngroups, abilities.rawAddress.toCPointer<ByteVar>(), nable, typeId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectClientInfo(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfo(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     libcUnixNtoNeutrinoConnectClientInfo(scoid, info.rawAddress.toCPointer<ByteVar>(), ngroups)
 
-public actual fun connectClientInfoR(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfoR(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     libcUnixNtoNeutrinoConnectClientInfoR(scoid, info.rawAddress.toCPointer<ByteVar>(), ngroups)
 
-public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt): CInt =
+public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr, flags: CInt): CInt =
     libcUnixNtoNeutrinoConnectClientInfoExt(scoid, infoPp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun clientInfoExtFree(infoPp: MutPtr<MutPtr<ClientInfo>>): CInt =
+public actual fun clientInfoExtFree(infoPp: MutPtr): CInt =
     libcUnixNtoNeutrinoClientInfoExtFree(infoPp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt, abilities: MutPtr<ClientAble>, nable: CInt): CInt =
+public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr, flags: CInt, abilities: MutPtr, nable: CInt): CInt =
     libcUnixNtoNeutrinoConnectClientInfoAble(scoid, infoPp.rawAddress.toCPointer<ByteVar>(), flags, abilities.rawAddress.toCPointer<ByteVar>(), nable)
 
 public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
@@ -271,121 +268,121 @@ public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint):
 public actual fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
     libcUnixNtoNeutrinoConnectFlagsR(pid, coid, mask, bits)
 
-public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt =
+public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr, newAttr: MutPtr, flags: CUint): CInt =
     libcUnixNtoNeutrinoChannelConnectAttr(id, oldAttr.rawAddress.toCPointer<ByteVar>(), newAttr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun msgSend(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSend(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSend(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendR(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendnc(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendncR(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendsv(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsv(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendsv(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendsvR(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendsvnc(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendsvncR(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendvs(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvs(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvs(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendvsR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvsR(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvsnc(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvsncR(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes)
 
-public actual fun msgSendv(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendv(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendv(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendvR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvR(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendvnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvnc(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvnc(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgSendvncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvncR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     libcUnixNtoNeutrinoMsgSendvncR(coid, siov.rawAddress.toCPointer<ByteVar>(), sparts, riov.rawAddress.toCPointer<ByteVar>(), rparts)
 
-public actual fun msgReceive(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceive(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceive(chid, msg.rawAddress.toCPointer<ByteVar>(), bytes, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceiveR(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceiveR(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceiveR(chid, msg.rawAddress.toCPointer<ByteVar>(), bytes, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivev(chid, iov.rawAddress.toCPointer<ByteVar>(), parts, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivevR(chid, iov.rawAddress.toCPointer<ByteVar>(), parts, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivePulse(chid, pulse.rawAddress.toCPointer<ByteVar>(), bytes, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivePulseR(chid, pulse.rawAddress.toCPointer<ByteVar>(), bytes, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivePulsev(chid, iov.rawAddress.toCPointer<ByteVar>(), parts, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgReceivePulsevR(chid, iov.rawAddress.toCPointer<ByteVar>(), parts, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     libcUnixNtoNeutrinoMsgReply(rcvid, status, msg.rawAddress.toCPointer<ByteVar>(), bytes)
 
-public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     libcUnixNtoNeutrinoMsgReplyR(rcvid, status, msg.rawAddress.toCPointer<ByteVar>(), bytes)
 
-public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     libcUnixNtoNeutrinoMsgReplyv(rcvid, status, iov.rawAddress.toCPointer<ByteVar>(), parts)
 
-public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     libcUnixNtoNeutrinoMsgReplyvR(rcvid, status, iov.rawAddress.toCPointer<ByteVar>(), parts)
 
-public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     libcUnixNtoNeutrinoMsgReadiov(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset, flags)
 
-public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     libcUnixNtoNeutrinoMsgReadiovR(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset, flags)
 
-public actual fun msgRead(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgRead(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgRead(rcvid, msg.rawAddress.toCPointer<ByteVar>(), bytes, offset)
 
-public actual fun msgReadR(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgReadR(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgReadR(rcvid, msg.rawAddress.toCPointer<ByteVar>(), bytes, offset)
 
-public actual fun msgReadv(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadv(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgReadv(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset)
 
-public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgReadvR(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset)
 
-public actual fun msgWrite(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWrite(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgWrite(rcvid, msg.rawAddress.toCPointer<ByteVar>(), bytes, offset)
 
-public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgWriteR(rcvid, msg.rawAddress.toCPointer<ByteVar>(), bytes, offset)
 
-public actual fun msgWritev(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritev(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgWritev(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset)
 
-public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     libcUnixNtoNeutrinoMsgWritevR(rcvid, iov.rawAddress.toCPointer<ByteVar>(), parts, offset)
 
 public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
@@ -394,46 +391,46 @@ public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CI
 public actual fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
     libcUnixNtoNeutrinoMsgSendPulseR(coid, priority, code, value)
 
-public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgSendPulsePtr(coid, priority, code, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgSendPulsePtrR(coid, priority, code, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgDeliverEvent(rcvid, event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgDeliverEventR(rcvid, event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgVerifyEvent(rcvid, event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgVerifyEventR(rcvid, event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgRegisterEvent(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEvent(event: MutPtr, coid: CInt): CInt =
     libcUnixNtoNeutrinoMsgRegisterEvent(event.rawAddress.toCPointer<ByteVar>(), coid)
 
-public actual fun msgRegisterEventR(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEventR(event: MutPtr, coid: CInt): CInt =
     libcUnixNtoNeutrinoMsgRegisterEventR(event.rawAddress.toCPointer<ByteVar>(), coid)
 
-public actual fun msgUnregisterEvent(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEvent(event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgUnregisterEvent(event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgUnregisterEventR(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEventR(event: ConstPtr): CInt =
     libcUnixNtoNeutrinoMsgUnregisterEventR(event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgInfo(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfo(rcvid: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgInfo(rcvid, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgInfoR(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfoR(rcvid: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoMsgInfoR(rcvid, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     libcUnixNtoNeutrinoMsgKeyData(rcvid, oper, key, newkey.rawAddress.toCPointer<ByteVar>(), iov.rawAddress.toCPointer<ByteVar>(), parts)
 
-public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     libcUnixNtoNeutrinoMsgKeyDataR(rcvid, oper, key, newkey.rawAddress.toCPointer<ByteVar>(), iov.rawAddress.toCPointer<ByteVar>(), parts)
 
 public actual fun msgError(rcvid: CInt, err: CInt): CInt =
@@ -448,16 +445,16 @@ public actual fun msgCurrent(rcvid: CInt): CInt =
 public actual fun msgCurrentR(rcvid: CInt): CInt =
     libcUnixNtoNeutrinoMsgCurrentR(rcvid)
 
-public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt =
+public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr, sbytes: ULong, msgPrio: CUint): CInt =
     libcUnixNtoNeutrinoMsgSendAsyncGbl(coid, smsg.rawAddress.toCPointer<ByteVar>(), sbytes, msgPrio)
 
 public actual fun msgSendAsync(coid: CInt): CInt =
     libcUnixNtoNeutrinoMsgSendAsync(coid)
 
-public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt =
+public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr, rbytes: ULong, info: MutPtr, coid: CInt): CInt =
     libcUnixNtoNeutrinoMsgReceiveAsyncGbl(chid, rmsg.rawAddress.toCPointer<ByteVar>(), rbytes, info.rawAddress.toCPointer<ByteVar>(), coid)
 
-public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint): CInt =
+public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr, parts: CUint): CInt =
     libcUnixNtoNeutrinoMsgReceiveAsync(chid, iov.rawAddress.toCPointer<ByteVar>(), parts)
 
 public actual fun msgPause(rcvid: CInt, cookie: CUint): CInt =
@@ -472,58 +469,58 @@ public actual fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: 
 public actual fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt =
     libcUnixNtoNeutrinoSignalKillR(nd, pid, tid, signo, code, value)
 
-public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalKillSigval(nd, pid, tid, signo, code, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalKillSigvalR(nd, pid, tid, signo, code, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalReturn(info: MutPtr<SighandlerInfo>): CInt =
+public actual fun signalReturn(info: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalReturn(info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalFault(sigcode: CUint, regs: MutPtr<CVoid>, refaddr: ULong): CInt =
+public actual fun signalFault(sigcode: CUint, regs: MutPtr, refaddr: ULong): CInt =
     libcUnixNtoNeutrinoSignalFault(sigcode, regs.rawAddress.toCPointer<ByteVar>(), refaddr)
 
-public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalAction(pid, 0L.toCPointer<ByteVar>(), signo, act.rawAddress.toCPointer<ByteVar>(), oact.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalActionR(pid, 0L.toCPointer<ByteVar>(), signo, act.rawAddress.toCPointer<ByteVar>(), oact.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalProcmask(pid, tid, how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalProcmaskR(pid, tid, how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalSuspend(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspend(set: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalSuspend(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalSuspendR(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspendR(set: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalSuspendR(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalWaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfo(set: ConstPtr, info: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalWaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalWaitinfoR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfoR(set: ConstPtr, info: MutPtr): CInt =
     libcUnixNtoNeutrinoSignalWaitinfoR(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalWaitinfoMask(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMask(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalWaitinfoMask(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalWaitinfoMaskR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMaskR(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     libcUnixNtoNeutrinoSignalWaitinfoMaskR(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     libcUnixNtoNeutrinoThreadCreate(pid, 0L.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     libcUnixNtoNeutrinoThreadCreateR(pid, 0L.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadDestroy(tid, priority, status.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadDestroyR(tid, priority, status.rawAddress.toCPointer<ByteVar>())
 
 public actual fun threadDetach(tid: CInt): CInt =
@@ -532,10 +529,10 @@ public actual fun threadDetach(tid: CInt): CInt =
 public actual fun threadDetachR(tid: CInt): CInt =
     libcUnixNtoNeutrinoThreadDetachR(tid)
 
-public actual fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoin(tid: CInt, status: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadJoin(tid, status.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadJoinR(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoinR(tid: CInt, status: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadJoinR(tid, status.rawAddress.toCPointer<ByteVar>())
 
 public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
@@ -544,16 +541,16 @@ public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback):
 public actual fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
     libcUnixNtoNeutrinoThreadCancelR(tid, 0L.toCPointer<ByteVar>())
 
-public actual fun threadCtl(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtl(cmd: CInt, data: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadCtl(cmd, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadCtlR(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlR(cmd: CInt, data: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadCtlR(cmd, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadCtlExt(pid, tid, cmd, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     libcUnixNtoNeutrinoThreadCtlExtR(pid, tid, cmd, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt =
@@ -565,25 +562,25 @@ public actual fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, 
 public actual fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptHookIdle2(0L.toCPointer<ByteVar>(), flags)
 
-public actual fun interruptHookOverdriveEvent(event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptHookOverdriveEvent(event: ConstPtr, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptHookOverdriveEvent(event.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttachEvent(intr, event.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttachEventR(intr, event.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttach(intr, 0L.toCPointer<ByteVar>(), area.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttachR(intr, 0L.toCPointer<ByteVar>(), area.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttachArray(intr, 0L.toCPointer<ByteVar>(), area.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     libcUnixNtoNeutrinoInterruptAttachArrayR(intr, 0L.toCPointer<ByteVar>(), area.rawAddress.toCPointer<ByteVar>(), size, flags)
 
 public actual fun interruptDetach(id: CInt): CInt =
@@ -592,37 +589,37 @@ public actual fun interruptDetach(id: CInt): CInt =
 public actual fun interruptDetachR(id: CInt): CInt =
     libcUnixNtoNeutrinoInterruptDetachR(id)
 
-public actual fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWait(flags: CInt, timeout: ConstPtr): CInt =
     libcUnixNtoNeutrinoInterruptWait(flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr): CInt =
     libcUnixNtoNeutrinoInterruptWaitR(flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoInterruptCharacteristic(type, id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoInterruptCharacteristicR(type, id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedGet(pid, tid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedGetR(pid, tid, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetCpuNum(): CUint =
     libcUnixNtoNeutrinoSchedGetCpuNum()
 
-public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     libcUnixNtoNeutrinoSchedSet(pid, tid, algorithm, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     libcUnixNtoNeutrinoSchedSetR(pid, tid, algorithm, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedInfo(pid, algorithm, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedInfoR(pid, algorithm, info.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedYield(): CInt =
@@ -631,34 +628,34 @@ public actual fun schedYield(): CInt =
 public actual fun schedYieldR(): CInt =
     libcUnixNtoNeutrinoSchedYieldR()
 
-public actual fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtl(cmd: CInt, data: MutPtr, length: ULong): CInt =
     libcUnixNtoNeutrinoSchedCtl(cmd, data.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun schedCtlR(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtlR(cmd: CInt, data: MutPtr, length: ULong): CInt =
     libcUnixNtoNeutrinoSchedCtlR(cmd, data.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun schedJobCreate(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreate(job: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedJobCreate(job.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedJobCreateR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreateR(job: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedJobCreateR(job.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedJobDestroy(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroy(job: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedJobDestroy(job.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedJobDestroyR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroyR(job: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedJobDestroyR(job.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedWaypoint(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypoint(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedWaypoint(job.rawAddress.toCPointer<ByteVar>(), new.rawAddress.toCPointer<ByteVar>(), max.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedWaypointR(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypointR(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoSchedWaypointR(job.rawAddress.toCPointer<ByteVar>(), new.rawAddress.toCPointer<ByteVar>(), max.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerCreate(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreate(id: ClockidT, notify: ConstPtr): CInt =
     libcUnixNtoNeutrinoTimerCreate(id, notify.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerCreateR(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreateR(id: ClockidT, notify: ConstPtr): CInt =
     libcUnixNtoNeutrinoTimerCreateR(id, notify.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerDestroy(id: TimerT): CInt =
@@ -667,112 +664,112 @@ public actual fun timerDestroy(id: TimerT): CInt =
 public actual fun timerDestroyR(id: TimerT): CInt =
     libcUnixNtoNeutrinoTimerDestroyR(id.toLong().toCPointer<ByteVar>())
 
-public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerSettime(id.toLong().toCPointer<ByteVar>(), flags, itime.rawAddress.toCPointer<ByteVar>(), oitime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerSettimeR(id.toLong().toCPointer<ByteVar>(), flags, itime.rawAddress.toCPointer<ByteVar>(), oitime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerInfo(pid, id.toLong().toCPointer<ByteVar>(), flags, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerInfoR(pid, id.toLong().toCPointer<ByteVar>(), flags, info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerAlarm(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarm(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerAlarm(id, itime.rawAddress.toCPointer<ByteVar>(), otime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerAlarmR(id, itime.rawAddress.toCPointer<ByteVar>(), otime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerTimeout(id, flags, notify.rawAddress.toCPointer<ByteVar>(), ntime.rawAddress.toCPointer<ByteVar>(), otime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     libcUnixNtoNeutrinoTimerTimeoutR(id, flags, notify.rawAddress.toCPointer<ByteVar>(), ntime.rawAddress.toCPointer<ByteVar>(), otime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncTypeCreate(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreate(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     libcUnixNtoNeutrinoSyncTypeCreate(type, sync.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncTypeCreateR(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreateR(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     libcUnixNtoNeutrinoSyncTypeCreateR(type, sync.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncDestroy(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroy(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncDestroy(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncDestroyR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroyR(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncDestroyR(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncCtl(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtl(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncCtl(cmd, sync.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncCtlR(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtlR(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncCtlR(cmd, sync.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexEvent(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEvent(sync: MutPtr, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexEvent(sync.rawAddress.toCPointer<ByteVar>(), event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexEventR(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEventR(sync: MutPtr, event: ConstPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexEventR(sync.rawAddress.toCPointer<ByteVar>(), event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexLock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLock(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexLock(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexLockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLockR(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexLockR(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexUnlock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlock(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexUnlock(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexUnlockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlockR(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexUnlockR(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexRevive(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexRevive(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexRevive(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncMutexReviveR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexReviveR(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncMutexReviveR(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncCondvarWait(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWait(sync: MutPtr, mutex: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncCondvarWait(sync.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncCondvarWaitR(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWaitR(sync: MutPtr, mutex: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncCondvarWaitR(sync.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncCondvarSignal(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignal(sync: MutPtr, all: CInt): CInt =
     libcUnixNtoNeutrinoSyncCondvarSignal(sync.rawAddress.toCPointer<ByteVar>(), all)
 
-public actual fun syncCondvarSignalR(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignalR(sync: MutPtr, all: CInt): CInt =
     libcUnixNtoNeutrinoSyncCondvarSignalR(sync.rawAddress.toCPointer<ByteVar>(), all)
 
-public actual fun syncSemPost(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPost(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncSemPost(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncSemPostR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPostR(sync: MutPtr): CInt =
     libcUnixNtoNeutrinoSyncSemPostR(sync.rawAddress.toCPointer<ByteVar>())
 
-public actual fun syncSemWait(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWait(sync: MutPtr, tryto: CInt): CInt =
     libcUnixNtoNeutrinoSyncSemWait(sync.rawAddress.toCPointer<ByteVar>(), tryto)
 
-public actual fun syncSemWaitR(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWaitR(sync: MutPtr, tryto: CInt): CInt =
     libcUnixNtoNeutrinoSyncSemWaitR(sync.rawAddress.toCPointer<ByteVar>(), tryto)
 
-public actual fun clockTime(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTime(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoClockTime(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockTimeR(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTimeR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoClockTimeR(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockAdjust(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjust(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoClockAdjust(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockAdjustR(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjustR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     libcUnixNtoNeutrinoClockAdjustR(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockPeriod(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriod(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     libcUnixNtoNeutrinoClockPeriod(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>(), reserved)
 
-public actual fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriodR(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     libcUnixNtoNeutrinoClockPeriodR(id, new.rawAddress.toCPointer<ByteVar>(), old.rawAddress.toCPointer<ByteVar>(), reserved)
 
 public actual fun clockId(pid: PidT, tid: CInt): CInt =

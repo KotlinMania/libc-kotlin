@@ -5,7 +5,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -47,7 +46,7 @@ public val MAP_TRYFIXED: CInt = 0x0400
 
 public val MAP_WIRED: CInt = 0x0800
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 // Memory sync constants
 public val MS_ASYNC: CInt = 0x01
@@ -61,18 +60,18 @@ public val MCL_CURRENT: CInt = 0x01
 
 public val MCL_FUTURE: CInt = 0x02
 
-public expect fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid>
+public expect fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr
 
-public expect fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt
+public expect fun munmap(addr: MutPtr, len: SizeT): CInt
 
-public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt
 
-public expect fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt
+public expect fun mlock(addr: ConstPtr, len: SizeT): CInt
 
-public expect fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt
+public expect fun munlock(addr: ConstPtr, len: SizeT): CInt
 
 public expect fun mlockall(flags: CInt): CInt
 
 public expect fun munlockall(): CInt
 
-public expect fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt
+public expect fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt

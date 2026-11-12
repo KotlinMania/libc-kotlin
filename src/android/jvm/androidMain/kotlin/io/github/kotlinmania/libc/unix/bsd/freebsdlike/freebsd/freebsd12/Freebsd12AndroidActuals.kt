@@ -3,13 +3,11 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd12
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge {
@@ -43,22 +41,22 @@ public actual fun setgrent() {
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Setgrent()
 }
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect(addr.rawAddress, len.toLong(), prot)
 
 public actual fun freelocale(loc: LocaleT) {
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Freelocale(loc.rawAddress)
 }
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname(path.rawAddress))
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename(path.rawAddress))
 
-public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, arg: MutPtr<CVoid>, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: MutPtr, num: SizeT, size: SizeT, arg: MutPtr, compar: QsortRComparCallback?) {
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR(base.rawAddress, num.toLong(), size.toLong(), arg.rawAddress, 0L)
 }

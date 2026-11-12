@@ -8,12 +8,9 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -28,27 +25,27 @@ public fun interface SignalActionSigstubCallback {
 }
 
 public fun interface ThreadCreateFuncCallback {
-    public operator fun invoke(arg: MutPtr<CVoid>): MutPtr<CVoid>
+    public operator fun invoke(arg: MutPtr): MutPtr
 }
 
 public fun interface InterruptHookTraceHandlerCallback {
-    public operator fun invoke(arg1: CInt): ConstPtr<Sigevent>
+    public operator fun invoke(arg1: CInt): ConstPtr
 }
 
 public fun interface InterruptHookIdleHandlerCallback {
-    public operator fun invoke(arg1: MutPtr<ULong>, arg2: MutPtr<QtimeEntry>)
+    public operator fun invoke(arg1: MutPtr, arg2: MutPtr)
 }
 
 public fun interface InterruptHookIdle2HandlerCallback {
-    public operator fun invoke(arg1: CUint, arg2: MutPtr<SyspageEntry>, arg3: MutPtr<IdleHook>)
+    public operator fun invoke(arg1: CUint, arg2: MutPtr, arg3: MutPtr)
 }
 
 public fun interface InterruptAttachHandlerCallback {
-    public operator fun invoke(area: MutPtr<CVoid>, id: CInt): ConstPtr<Sigevent>
+    public operator fun invoke(area: MutPtr, id: CInt): ConstPtr
 }
 
 public fun interface InterruptAttachArrayHandlerCallback {
-    public operator fun invoke(area: MutPtr<CVoid>, id: CInt): ConstPtr<ConstPtr<Sigevent>>
+    public operator fun invoke(area: MutPtr, id: CInt): ConstPtr
 }
 
 public typealias NtoJobT = SyncT
@@ -120,11 +117,11 @@ public data class Intrspin(
 }
 
 public class IovT internal constructor(
-    iovBaseCtorArg: MutPtr<CVoid>,
+    iovBaseCtorArg: MutPtr,
     // union
     public var iovLen: SizeT,
 ) {
-    public var iovBase: MutPtr<CVoid> = iovBaseCtorArg
+    public var iovBase: MutPtr = iovBaseCtorArg
         internal set
 
     public constructor() : this(
@@ -132,11 +129,11 @@ public class IovT internal constructor(
         iovLen = 0uL,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.iovBase
+    public operator fun component1(): MutPtr = this.iovBase
 
     public operator fun component2(): SizeT = this.iovLen
 
-    public fun copy(iovBase: MutPtr<CVoid> = this.iovBase, iovLen: SizeT = this.iovLen): IovT = IovT(iovBaseCtorArg = iovBase, iovLen = iovLen)
+    public fun copy(iovBase: MutPtr = this.iovBase, iovLen: SizeT = this.iovLen): IovT = IovT(iovBaseCtorArg = iovBase, iovLen = iovLen)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -161,21 +158,21 @@ public class IovT internal constructor(
                     IovT(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: IovT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.iovBase)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.iovLen)
                 }
             }
 
         public operator fun invoke(
-            iovBase: MutPtr<CVoid> = MutPtr(0L),
+            iovBase: MutPtr = MutPtr(0L),
             iovLen: SizeT = 0uL,
         ): IovT =
             IovT(
@@ -483,9 +480,9 @@ public data class ChannelConnectAttr(
 public class SighandlerInfo internal constructor(
     public var siginfo: SiginfoT,
     public var handler: SighandlerInfoHandlerCallback?,
-    contextCtorArg: MutPtr<CVoid>,
+    contextCtorArg: MutPtr,
 ) {
-    public var context: MutPtr<CVoid> = contextCtorArg
+    public var context: MutPtr = contextCtorArg
         internal set
 
     public constructor() : this(
@@ -498,9 +495,9 @@ public class SighandlerInfo internal constructor(
 
     public operator fun component2(): SighandlerInfoHandlerCallback? = this.handler
 
-    public operator fun component3(): MutPtr<CVoid> = this.context
+    public operator fun component3(): MutPtr = this.context
 
-    public fun copy(siginfo: SiginfoT = this.siginfo, handler: SighandlerInfoHandlerCallback? = this.handler, context: MutPtr<CVoid> = this.context): SighandlerInfo = SighandlerInfo(siginfo = siginfo, handler = handler, contextCtorArg = context)
+    public fun copy(siginfo: SiginfoT = this.siginfo, handler: SighandlerInfoHandlerCallback? = this.handler, context: MutPtr = this.context): SighandlerInfo = SighandlerInfo(siginfo = siginfo, handler = handler, contextCtorArg = context)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -522,7 +519,7 @@ public class SighandlerInfo internal constructor(
         public operator fun invoke(
             siginfo: SiginfoT = SiginfoT(),
             handler: SighandlerInfoHandlerCallback? = null,
-            context: MutPtr<CVoid> = MutPtr(0L),
+            context: MutPtr = MutPtr(0L),
         ): SighandlerInfo =
             SighandlerInfo(
                 siginfo = siginfo,
@@ -565,10 +562,10 @@ public class IdleHook internal constructor(
     public var resp: CUint,
     public var time: CAnonymousStructTime,
     public var trigger: Sigevent,
-    intrsCtorArg: MutPtr<CUint>,
+    intrsCtorArg: MutPtr,
     public var blockStackSize: CUint,
 ) {
-    public var intrs: MutPtr<CUint> = intrsCtorArg
+    public var intrs: MutPtr = intrsCtorArg
         internal set
 
     public constructor() : this(
@@ -606,11 +603,11 @@ public class IdleHook internal constructor(
 
     public operator fun component10(): Sigevent = this.trigger
 
-    public operator fun component11(): MutPtr<CUint> = this.intrs
+    public operator fun component11(): MutPtr = this.intrs
 
     public operator fun component12(): CUint = this.blockStackSize
 
-    public fun copy(hookSize: CUint = this.hookSize, cmd: CUint = this.cmd, mode: CUint = this.mode, latency: CUint = this.latency, nextFire: ULong = this.nextFire, currTime: ULong = this.currTime, todAdjust: ULong = this.todAdjust, resp: CUint = this.resp, time: CAnonymousStructTime = this.time, trigger: Sigevent = this.trigger, intrs: MutPtr<CUint> = this.intrs, blockStackSize: CUint = this.blockStackSize): IdleHook = IdleHook(hookSize = hookSize, cmd = cmd, mode = mode, latency = latency, nextFire = nextFire, currTime = currTime, todAdjust = todAdjust, resp = resp, time = time, trigger = trigger, intrsCtorArg = intrs, blockStackSize = blockStackSize)
+    public fun copy(hookSize: CUint = this.hookSize, cmd: CUint = this.cmd, mode: CUint = this.mode, latency: CUint = this.latency, nextFire: ULong = this.nextFire, currTime: ULong = this.currTime, todAdjust: ULong = this.todAdjust, resp: CUint = this.resp, time: CAnonymousStructTime = this.time, trigger: Sigevent = this.trigger, intrs: MutPtr = this.intrs, blockStackSize: CUint = this.blockStackSize): IdleHook = IdleHook(hookSize = hookSize, cmd = cmd, mode = mode, latency = latency, nextFire = nextFire, currTime = currTime, todAdjust = todAdjust, resp = resp, time = time, trigger = trigger, intrsCtorArg = intrs, blockStackSize = blockStackSize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -658,7 +655,7 @@ public class IdleHook internal constructor(
             resp: CUint = 0u,
             time: CAnonymousStructTime = CAnonymousStructTime(),
             trigger: Sigevent = Sigevent(),
-            intrs: MutPtr<CUint> = MutPtr(0L),
+            intrs: MutPtr = MutPtr(0L),
             blockStackSize: CUint = 0u,
         ): IdleHook =
             IdleHook(
@@ -1446,9 +1443,9 @@ public expect fun channelCreate(flags: CUint): CInt
 
 public expect fun channelCreateR(flags: CUint): CInt
 
-public expect fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt
+public expect fun channelCreatePulsePool(flags: CUint, config: ConstPtr): CInt
 
-public expect fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr<Sigevent>, cred: MutPtr<CredInfo>): CInt
+public expect fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr, cred: MutPtr): CInt
 
 public expect fun channelDestroy(chid: CInt): CInt
 
@@ -1473,137 +1470,137 @@ public expect fun connectDetach(coid: CInt): CInt
 
 public expect fun connectDetachR(coid: CInt): CInt
 
-public expect fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt
+public expect fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr): CInt
 
-public expect fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt
+public expect fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr): CInt
 
-public expect fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt
+public expect fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt
 
-public expect fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt
+public expect fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt
 
-public expect fun connectClientInfo(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt
+public expect fun connectClientInfo(scoid: CInt, info: MutPtr, ngroups: CInt): CInt
 
-public expect fun connectClientInfoR(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt
+public expect fun connectClientInfoR(scoid: CInt, info: MutPtr, ngroups: CInt): CInt
 
-public expect fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt): CInt
+public expect fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr, flags: CInt): CInt
 
-public expect fun clientInfoExtFree(infoPp: MutPtr<MutPtr<ClientInfo>>): CInt
+public expect fun clientInfoExtFree(infoPp: MutPtr): CInt
 
-public expect fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt, abilities: MutPtr<ClientAble>, nable: CInt): CInt
+public expect fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr, flags: CInt, abilities: MutPtr, nable: CInt): CInt
 
 public expect fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt
 
 public expect fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt
 
-public expect fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt
+public expect fun channelConnectAttr(id: CUint, oldAttr: MutPtr, newAttr: MutPtr, flags: CUint): CInt
 
-public expect fun msgSend(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSend(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendsv(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendsv(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendsvR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendsvR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendsvnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendsvnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendsvncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendsvncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendvs(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendvs(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendvsR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendvsR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendvsnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendvsnc(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendvsncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
+public expect fun msgSendvsncR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong
 
-public expect fun msgSendv(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendv(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendvR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendvR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendvnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendvnc(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgSendvncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
+public expect fun msgSendvncR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong
 
-public expect fun msgReceive(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceive(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt
 
-public expect fun msgReceiveR(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceiveR(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivePulse(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivePulse(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivePulseR(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivePulseR(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivePulsev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivePulsev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt
 
-public expect fun msgReceivePulsevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgReceivePulsevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt
 
-public expect fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt
+public expect fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt
 
-public expect fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt
+public expect fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt
 
-public expect fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt
+public expect fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt
 
-public expect fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt
+public expect fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt
 
-public expect fun msgReadiov(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long
+public expect fun msgReadiov(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long
 
-public expect fun msgReadiovR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long
+public expect fun msgReadiovR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long
 
-public expect fun msgRead(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long
+public expect fun msgRead(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long
 
-public expect fun msgReadR(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long
+public expect fun msgReadR(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long
 
-public expect fun msgReadv(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
+public expect fun msgReadv(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long
 
-public expect fun msgReadvR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
+public expect fun msgReadvR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long
 
-public expect fun msgWrite(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long
+public expect fun msgWrite(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long
 
-public expect fun msgWriteR(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long
+public expect fun msgWriteR(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long
 
-public expect fun msgWritev(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
+public expect fun msgWritev(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long
 
-public expect fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
+public expect fun msgWritevR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long
 
 public expect fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
 
 public expect fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
 
-public expect fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt
+public expect fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt
 
-public expect fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt
+public expect fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt
 
-public expect fun msgDeliverEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
+public expect fun msgDeliverEvent(rcvid: CInt, event: ConstPtr): CInt
 
-public expect fun msgDeliverEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
+public expect fun msgDeliverEventR(rcvid: CInt, event: ConstPtr): CInt
 
-public expect fun msgVerifyEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
+public expect fun msgVerifyEvent(rcvid: CInt, event: ConstPtr): CInt
 
-public expect fun msgVerifyEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
+public expect fun msgVerifyEventR(rcvid: CInt, event: ConstPtr): CInt
 
-public expect fun msgRegisterEvent(event: MutPtr<Sigevent>, coid: CInt): CInt
+public expect fun msgRegisterEvent(event: MutPtr, coid: CInt): CInt
 
-public expect fun msgRegisterEventR(event: MutPtr<Sigevent>, coid: CInt): CInt
+public expect fun msgRegisterEventR(event: MutPtr, coid: CInt): CInt
 
-public expect fun msgUnregisterEvent(event: ConstPtr<Sigevent>): CInt
+public expect fun msgUnregisterEvent(event: ConstPtr): CInt
 
-public expect fun msgUnregisterEventR(event: ConstPtr<Sigevent>): CInt
+public expect fun msgUnregisterEventR(event: ConstPtr): CInt
 
-public expect fun msgInfo(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgInfo(rcvid: CInt, info: MutPtr): CInt
 
-public expect fun msgInfoR(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt
+public expect fun msgInfoR(rcvid: CInt, info: MutPtr): CInt
 
-public expect fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt
+public expect fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt
 
-public expect fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt
+public expect fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt
 
 public expect fun msgError(rcvid: CInt, err: CInt): CInt
 
@@ -1613,13 +1610,13 @@ public expect fun msgCurrent(rcvid: CInt): CInt
 
 public expect fun msgCurrentR(rcvid: CInt): CInt
 
-public expect fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt
+public expect fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr, sbytes: ULong, msgPrio: CUint): CInt
 
 public expect fun msgSendAsync(coid: CInt): CInt
 
-public expect fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt
+public expect fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr, rbytes: ULong, info: MutPtr, coid: CInt): CInt
 
-public expect fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint): CInt
+public expect fun msgReceiveAsync(chid: CInt, iov: ConstPtr, parts: CUint): CInt
 
 public expect fun msgPause(rcvid: CInt, cookie: CUint): CInt
 
@@ -1629,61 +1626,61 @@ public expect fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: 
 
 public expect fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt
 
-public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt
+public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt
 
-public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt
+public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt
 
-public expect fun signalReturn(info: MutPtr<SighandlerInfo>): CInt
+public expect fun signalReturn(info: MutPtr): CInt
 
-public expect fun signalFault(sigcode: CUint, regs: MutPtr<CVoid>, refaddr: ULong): CInt
+public expect fun signalFault(sigcode: CUint, regs: MutPtr, refaddr: ULong): CInt
 
-public expect fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt
+public expect fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt
 
-public expect fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt
+public expect fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt
 
-public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
+public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt
 
-public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
+public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt
 
-public expect fun signalSuspend(set: ConstPtr<SigsetT>): CInt
+public expect fun signalSuspend(set: ConstPtr): CInt
 
-public expect fun signalSuspendR(set: ConstPtr<SigsetT>): CInt
+public expect fun signalSuspendR(set: ConstPtr): CInt
 
-public expect fun signalWaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt
+public expect fun signalWaitinfo(set: ConstPtr, info: MutPtr): CInt
 
-public expect fun signalWaitinfoR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt
+public expect fun signalWaitinfoR(set: ConstPtr, info: MutPtr): CInt
 
-public expect fun signalWaitinfoMask(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt
+public expect fun signalWaitinfoMask(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt
 
-public expect fun signalWaitinfoMaskR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt
+public expect fun signalWaitinfoMaskR(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt
 
-public expect fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt
+public expect fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt
 
-public expect fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt
+public expect fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt
 
-public expect fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt
+public expect fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr): CInt
 
-public expect fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt
+public expect fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr): CInt
 
 public expect fun threadDetach(tid: CInt): CInt
 
 public expect fun threadDetachR(tid: CInt): CInt
 
-public expect fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt
+public expect fun threadJoin(tid: CInt, status: MutPtr): CInt
 
-public expect fun threadJoinR(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt
+public expect fun threadJoinR(tid: CInt, status: MutPtr): CInt
 
 public expect fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt
 
 public expect fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt
 
-public expect fun threadCtl(cmd: CInt, data: MutPtr<CVoid>): CInt
+public expect fun threadCtl(cmd: CInt, data: MutPtr): CInt
 
-public expect fun threadCtlR(cmd: CInt, data: MutPtr<CVoid>): CInt
+public expect fun threadCtlR(cmd: CInt, data: MutPtr): CInt
 
-public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt
+public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt
 
-public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt
+public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt
 
 public expect fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt
 
@@ -1691,145 +1688,145 @@ public expect fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, 
 
 public expect fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt
 
-public expect fun interruptHookOverdriveEvent(event: ConstPtr<Sigevent>, flags: CUint): CInt
+public expect fun interruptHookOverdriveEvent(event: ConstPtr, flags: CUint): CInt
 
-public expect fun interruptAttachEvent(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt
+public expect fun interruptAttachEvent(intr: CInt, event: ConstPtr, flags: CUint): CInt
 
-public expect fun interruptAttachEventR(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt
+public expect fun interruptAttachEventR(intr: CInt, event: ConstPtr, flags: CUint): CInt
 
-public expect fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
+public expect fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt
 
 public expect fun interruptDetach(id: CInt): CInt
 
 public expect fun interruptDetachR(id: CInt): CInt
 
-public expect fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt
+public expect fun interruptWait(flags: CInt, timeout: ConstPtr): CInt
 
-public expect fun interruptWaitR(flags: CInt, timeout: ConstPtr<ULong>): CInt
+public expect fun interruptWaitR(flags: CInt, timeout: ConstPtr): CInt
 
-public expect fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt
+public expect fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt
 
-public expect fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt
+public expect fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt
 
-public expect fun schedGet(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt
+public expect fun schedGet(pid: PidT, tid: CInt, param: MutPtr): CInt
 
-public expect fun schedGetR(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt
+public expect fun schedGetR(pid: PidT, tid: CInt, param: MutPtr): CInt
 
 public expect fun schedGetCpuNum(): CUint
 
-public expect fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt
+public expect fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt
 
-public expect fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt
+public expect fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt
 
-public expect fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt
+public expect fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr): CInt
 
-public expect fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt
+public expect fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr): CInt
 
 public expect fun schedYield(): CInt
 
 public expect fun schedYieldR(): CInt
 
-public expect fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt
+public expect fun schedCtl(cmd: CInt, data: MutPtr, length: ULong): CInt
 
-public expect fun schedCtlR(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt
+public expect fun schedCtlR(cmd: CInt, data: MutPtr, length: ULong): CInt
 
-public expect fun schedJobCreate(job: MutPtr<NtoJobT>): CInt
+public expect fun schedJobCreate(job: MutPtr): CInt
 
-public expect fun schedJobCreateR(job: MutPtr<NtoJobT>): CInt
+public expect fun schedJobCreateR(job: MutPtr): CInt
 
-public expect fun schedJobDestroy(job: MutPtr<NtoJobT>): CInt
+public expect fun schedJobDestroy(job: MutPtr): CInt
 
-public expect fun schedJobDestroyR(job: MutPtr<NtoJobT>): CInt
+public expect fun schedJobDestroyR(job: MutPtr): CInt
 
-public expect fun schedWaypoint(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt
+public expect fun schedWaypoint(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt
 
-public expect fun schedWaypointR(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt
+public expect fun schedWaypointR(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt
 
-public expect fun timerCreate(id: ClockidT, notify: ConstPtr<Sigevent>): CInt
+public expect fun timerCreate(id: ClockidT, notify: ConstPtr): CInt
 
-public expect fun timerCreateR(id: ClockidT, notify: ConstPtr<Sigevent>): CInt
+public expect fun timerCreateR(id: ClockidT, notify: ConstPtr): CInt
 
 public expect fun timerDestroy(id: TimerT): CInt
 
 public expect fun timerDestroyR(id: TimerT): CInt
 
-public expect fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt
+public expect fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt
 
-public expect fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt
+public expect fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt
 
-public expect fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt
+public expect fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt
 
-public expect fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt
+public expect fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt
 
-public expect fun timerAlarm(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt
+public expect fun timerAlarm(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt
 
-public expect fun timerAlarmR(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt
+public expect fun timerAlarmR(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt
 
-public expect fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt
+public expect fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt
 
-public expect fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt
+public expect fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt
 
-public expect fun syncTypeCreate(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt
+public expect fun syncTypeCreate(type: CUint, sync: MutPtr, attr: ConstPtr): CInt
 
-public expect fun syncTypeCreateR(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt
+public expect fun syncTypeCreateR(type: CUint, sync: MutPtr, attr: ConstPtr): CInt
 
-public expect fun syncDestroy(sync: MutPtr<SyncT>): CInt
+public expect fun syncDestroy(sync: MutPtr): CInt
 
-public expect fun syncDestroyR(sync: MutPtr<SyncT>): CInt
+public expect fun syncDestroyR(sync: MutPtr): CInt
 
-public expect fun syncCtl(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt
+public expect fun syncCtl(cmd: CInt, sync: MutPtr, data: MutPtr): CInt
 
-public expect fun syncCtlR(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt
+public expect fun syncCtlR(cmd: CInt, sync: MutPtr, data: MutPtr): CInt
 
-public expect fun syncMutexEvent(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt
+public expect fun syncMutexEvent(sync: MutPtr, event: ConstPtr): CInt
 
-public expect fun syncMutexEventR(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt
+public expect fun syncMutexEventR(sync: MutPtr, event: ConstPtr): CInt
 
-public expect fun syncMutexLock(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexLock(sync: MutPtr): CInt
 
-public expect fun syncMutexLockR(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexLockR(sync: MutPtr): CInt
 
-public expect fun syncMutexUnlock(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexUnlock(sync: MutPtr): CInt
 
-public expect fun syncMutexUnlockR(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexUnlockR(sync: MutPtr): CInt
 
-public expect fun syncMutexRevive(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexRevive(sync: MutPtr): CInt
 
-public expect fun syncMutexReviveR(sync: MutPtr<SyncT>): CInt
+public expect fun syncMutexReviveR(sync: MutPtr): CInt
 
-public expect fun syncCondvarWait(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt
+public expect fun syncCondvarWait(sync: MutPtr, mutex: MutPtr): CInt
 
-public expect fun syncCondvarWaitR(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt
+public expect fun syncCondvarWaitR(sync: MutPtr, mutex: MutPtr): CInt
 
-public expect fun syncCondvarSignal(sync: MutPtr<SyncT>, all: CInt): CInt
+public expect fun syncCondvarSignal(sync: MutPtr, all: CInt): CInt
 
-public expect fun syncCondvarSignalR(sync: MutPtr<SyncT>, all: CInt): CInt
+public expect fun syncCondvarSignalR(sync: MutPtr, all: CInt): CInt
 
-public expect fun syncSemPost(sync: MutPtr<SyncT>): CInt
+public expect fun syncSemPost(sync: MutPtr): CInt
 
-public expect fun syncSemPostR(sync: MutPtr<SyncT>): CInt
+public expect fun syncSemPostR(sync: MutPtr): CInt
 
-public expect fun syncSemWait(sync: MutPtr<SyncT>, tryto: CInt): CInt
+public expect fun syncSemWait(sync: MutPtr, tryto: CInt): CInt
 
-public expect fun syncSemWaitR(sync: MutPtr<SyncT>, tryto: CInt): CInt
+public expect fun syncSemWaitR(sync: MutPtr, tryto: CInt): CInt
 
-public expect fun clockTime(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt
+public expect fun clockTime(id: ClockidT, new: ConstPtr, old: MutPtr): CInt
 
-public expect fun clockTimeR(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt
+public expect fun clockTimeR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt
 
-public expect fun clockAdjust(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt
+public expect fun clockAdjust(id: ClockidT, new: ConstPtr, old: MutPtr): CInt
 
-public expect fun clockAdjustR(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt
+public expect fun clockAdjustR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt
 
-public expect fun clockPeriod(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt
+public expect fun clockPeriod(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt
 
-public expect fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt
+public expect fun clockPeriodR(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt
 
 public expect fun clockId(pid: PidT, tid: CInt): CInt
 

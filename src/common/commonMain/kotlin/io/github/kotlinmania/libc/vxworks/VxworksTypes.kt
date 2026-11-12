@@ -115,7 +115,7 @@ public typealias VxSdId = VxObjHandle
 
 public typealias VxCondvarId = VxObjHandle
 
-public typealias VxSemId = MutPtr<VxSemaphore>
+public typealias VxSemId = MutPtr
 
 public typealias ObjHandle = VxObjHandle
 

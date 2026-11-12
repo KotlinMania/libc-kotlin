@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.windows.SizeT
 import io.github.kotlinmania.libc.windows.WcharT
@@ -24,11 +23,11 @@ private external fun wasmLibcWindowsGnuStrncasecmp(p0: String, p1: String, p2: S
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsGnuWmemchr(p0, p1, p2)")
 private external fun wasmLibcWindowsGnuWmemchr(p0: String, p1: Int, p2: String): String
 
-public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(s1: ConstPtr, s2: ConstPtr): CInt =
     if (windowsGnuNapiAvailable) wasmLibcWindowsGnuStrcasecmp(s1.rawAddress.toString(), s2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncasecmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     if (windowsGnuNapiAvailable) wasmLibcWindowsGnuStrncasecmp(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     if (windowsGnuNapiAvailable) MutPtr(wasmLibcWindowsGnuWmemchr(cx.rawAddress.toString(), c.toInt(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -15,7 +15,6 @@ import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.solarish.AioResultT
 import io.github.kotlinmania.libc.unix.solarish.ExitStatus
 import io.github.kotlinmania.libc.unix.solarish.IpcPerm
@@ -26,20 +25,17 @@ import io.github.kotlinmania.libc.unix.solarish.PRIV_AWARE_RESET
 import io.github.kotlinmania.libc.unix.solarish.PRIV_DEBUG
 import io.github.kotlinmania.libc.unix.solarish.PRIV_PFEXEC
 import io.github.kotlinmania.libc.unix.solarish.PRIV_XPOLICY
-import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
 import io.github.kotlinmania.libc.unix.solarish.ShmattT
 import io.github.kotlinmania.libc.unix.solarish.Sigevent
-import io.github.kotlinmania.libc.unix.solarish.Termios
 import io.github.kotlinmania.libc.unix.solarish.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface DoorCreateServerProcedureCallback {
-    public operator fun invoke(cookie: MutPtr<CVoid>, argp: MutPtr<CChar>, argSize: SizeT, dp: MutPtr<DoorDescT>, nDesc: CUint)
+    public operator fun invoke(cookie: MutPtr, argp: MutPtr, argSize: SizeT, dp: MutPtr, nDesc: CUint)
 }
 
 public typealias DoorAttrT = CUint
@@ -58,7 +54,7 @@ public enum class LgrpRsrcT(
 
 public class Aiocb internal constructor(
     public var aioFildes: CInt,
-    aioBufCtorArg: MutPtr<CVoid>,
+    aioBufCtorArg: MutPtr,
     public var aioNbytes: SizeT,
     public var aioOffset: OffT,
     public var aioReqprio: CInt,
@@ -70,7 +66,7 @@ public class Aiocb internal constructor(
     public var aioPad1: UByteArray,
     public var aioFlags: CInt,
 ) {
-    public var aioBuf: MutPtr<CVoid> = aioBufCtorArg
+    public var aioBuf: MutPtr = aioBufCtorArg
         internal set
 
     public constructor() : this(
@@ -90,7 +86,7 @@ public class Aiocb internal constructor(
 
     public operator fun component1(): CInt = this.aioFildes
 
-    public operator fun component2(): MutPtr<CVoid> = this.aioBuf
+    public operator fun component2(): MutPtr = this.aioBuf
 
     public operator fun component3(): SizeT = this.aioNbytes
 
@@ -112,7 +108,7 @@ public class Aiocb internal constructor(
 
     public operator fun component12(): CInt = this.aioFlags
 
-    public fun copy(aioFildes: CInt = this.aioFildes, aioBuf: MutPtr<CVoid> = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioOffset: OffT = this.aioOffset, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioLioOpcode: CInt = this.aioLioOpcode, aioResultp: AioResultT = this.aioResultp, aioState: CChar = this.aioState, aioReturned: CChar = this.aioReturned, aioPad1: UByteArray = this.aioPad1, aioFlags: CInt = this.aioFlags): Aiocb = Aiocb(aioFildes = aioFildes, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioOffset = aioOffset, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioLioOpcode = aioLioOpcode, aioResultp = aioResultp, aioState = aioState, aioReturned = aioReturned, aioPad1 = aioPad1, aioFlags = aioFlags)
+    public fun copy(aioFildes: CInt = this.aioFildes, aioBuf: MutPtr = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioOffset: OffT = this.aioOffset, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioLioOpcode: CInt = this.aioLioOpcode, aioResultp: AioResultT = this.aioResultp, aioState: CChar = this.aioState, aioReturned: CChar = this.aioReturned, aioPad1: UByteArray = this.aioPad1, aioFlags: CInt = this.aioFlags): Aiocb = Aiocb(aioFildes = aioFildes, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioOffset = aioOffset, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioLioOpcode = aioLioOpcode, aioResultp = aioResultp, aioState = aioState, aioReturned = aioReturned, aioPad1 = aioPad1, aioFlags = aioFlags)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -151,7 +147,7 @@ public class Aiocb internal constructor(
     public companion object {
         public operator fun invoke(
             aioFildes: CInt = 0,
-            aioBuf: MutPtr<CVoid> = MutPtr(0L),
+            aioBuf: MutPtr = MutPtr(0L),
             aioNbytes: SizeT = 0uL,
             aioOffset: OffT = 0L,
             aioReqprio: CInt = 0,
@@ -192,12 +188,12 @@ public class ShmidDs internal constructor(
     public var shmAtime: TimeT,
     public var shmDtime: TimeT,
     public var shmCtime: TimeT,
-    shmAmpCtorArg: MutPtr<CVoid>,
+    shmAmpCtorArg: MutPtr,
     public var shmGransize: ULong,
     public var shmAllocated: ULong,
     public var shmPad4: LongArray,
 ) {
-    public var shmAmp: MutPtr<CVoid> = shmAmpCtorArg
+    public var shmAmp: MutPtr = shmAmpCtorArg
         internal set
 
     public constructor() : this(
@@ -240,7 +236,7 @@ public class ShmidDs internal constructor(
 
     public operator fun component11(): TimeT = this.shmCtime
 
-    public operator fun component12(): MutPtr<CVoid> = this.shmAmp
+    public operator fun component12(): MutPtr = this.shmAmp
 
     public operator fun component13(): ULong = this.shmGransize
 
@@ -248,7 +244,7 @@ public class ShmidDs internal constructor(
 
     public operator fun component15(): LongArray = this.shmPad4
 
-    public fun copy(shmPerm: IpcPerm = this.shmPerm, shmSegsz: SizeT = this.shmSegsz, shmFlags: UintptrT = this.shmFlags, shmLkcnt: CUshort = this.shmLkcnt, shmLpid: PidT = this.shmLpid, shmCpid: PidT = this.shmCpid, shmNattch: ShmattT = this.shmNattch, shmCnattch: CUlong = this.shmCnattch, shmAtime: TimeT = this.shmAtime, shmDtime: TimeT = this.shmDtime, shmCtime: TimeT = this.shmCtime, shmAmp: MutPtr<CVoid> = this.shmAmp, shmGransize: ULong = this.shmGransize, shmAllocated: ULong = this.shmAllocated, shmPad4: LongArray = this.shmPad4): ShmidDs = ShmidDs(shmPerm = shmPerm, shmSegsz = shmSegsz, shmFlags = shmFlags, shmLkcnt = shmLkcnt, shmLpid = shmLpid, shmCpid = shmCpid, shmNattch = shmNattch, shmCnattch = shmCnattch, shmAtime = shmAtime, shmDtime = shmDtime, shmCtime = shmCtime, shmAmpCtorArg = shmAmp, shmGransize = shmGransize, shmAllocated = shmAllocated, shmPad4 = shmPad4)
+    public fun copy(shmPerm: IpcPerm = this.shmPerm, shmSegsz: SizeT = this.shmSegsz, shmFlags: UintptrT = this.shmFlags, shmLkcnt: CUshort = this.shmLkcnt, shmLpid: PidT = this.shmLpid, shmCpid: PidT = this.shmCpid, shmNattch: ShmattT = this.shmNattch, shmCnattch: CUlong = this.shmCnattch, shmAtime: TimeT = this.shmAtime, shmDtime: TimeT = this.shmDtime, shmCtime: TimeT = this.shmCtime, shmAmp: MutPtr = this.shmAmp, shmGransize: ULong = this.shmGransize, shmAllocated: ULong = this.shmAllocated, shmPad4: LongArray = this.shmPad4): ShmidDs = ShmidDs(shmPerm = shmPerm, shmSegsz = shmSegsz, shmFlags = shmFlags, shmLkcnt = shmLkcnt, shmLpid = shmLpid, shmCpid = shmCpid, shmNattch = shmNattch, shmCnattch = shmCnattch, shmAtime = shmAtime, shmDtime = shmDtime, shmCtime = shmCtime, shmAmpCtorArg = shmAmp, shmGransize = shmGransize, shmAllocated = shmAllocated, shmPad4 = shmPad4)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -303,7 +299,7 @@ public class ShmidDs internal constructor(
             shmAtime: TimeT = 0L,
             shmDtime: TimeT = 0L,
             shmCtime: TimeT = 0L,
-            shmAmp: MutPtr<CVoid> = MutPtr(0L),
+            shmAmp: MutPtr = MutPtr(0L),
             shmGransize: ULong = 0uL,
             shmAllocated: ULong = 0uL,
             shmPad4: LongArray = LongArray(1),
@@ -330,9 +326,9 @@ public class ShmidDs internal constructor(
 
 public class XrsT internal constructor(
     public var xrsId: CUlong,
-    xrsPtrCtorArg: MutPtr<CChar>,
+    xrsPtrCtorArg: MutPtr,
 ) {
-    public var xrsPtr: MutPtr<CChar> = xrsPtrCtorArg
+    public var xrsPtr: MutPtr = xrsPtrCtorArg
         internal set
 
     public constructor() : this(
@@ -342,9 +338,9 @@ public class XrsT internal constructor(
 
     public operator fun component1(): CUlong = this.xrsId
 
-    public operator fun component2(): MutPtr<CChar> = this.xrsPtr
+    public operator fun component2(): MutPtr = this.xrsPtr
 
-    public fun copy(xrsId: CUlong = this.xrsId, xrsPtr: MutPtr<CChar> = this.xrsPtr): XrsT = XrsT(xrsId = xrsId, xrsPtrCtorArg = xrsPtr)
+    public fun copy(xrsId: CUlong = this.xrsId, xrsPtr: MutPtr = this.xrsPtr): XrsT = XrsT(xrsId = xrsId, xrsPtrCtorArg = xrsPtr)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -370,21 +366,21 @@ public class XrsT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CChar>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                     )
                 override fun writeNative(addr: Long, value: XrsT) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.xrsId)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CChar>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.xrsPtr)
                 }
             }
 
         public operator fun invoke(
             xrsId: CUlong = 0uL,
-            xrsPtr: MutPtr<CChar> = MutPtr(0L),
+            xrsPtr: MutPtr = MutPtr(0L),
         ): XrsT =
             XrsT(
                 xrsId = xrsId,
@@ -486,20 +482,20 @@ public data class DoorDescT(
 )
 
 public class DoorArgT internal constructor(
-    dataPtrCtorArg: ConstPtr<CChar>,
+    dataPtrCtorArg: ConstPtr,
     public var dataSize: SizeT,
-    descPtrCtorArg: ConstPtr<DoorDescT>,
+    descPtrCtorArg: ConstPtr,
     public var decNum: CUint,
-    rbufCtorArg: ConstPtr<CChar>,
+    rbufCtorArg: ConstPtr,
     public var rsize: SizeT,
 ) {
-    public var dataPtr: ConstPtr<CChar> = dataPtrCtorArg
+    public var dataPtr: ConstPtr = dataPtrCtorArg
         internal set
 
-    public var descPtr: ConstPtr<DoorDescT> = descPtrCtorArg
+    public var descPtr: ConstPtr = descPtrCtorArg
         internal set
 
-    public var rbuf: ConstPtr<CChar> = rbufCtorArg
+    public var rbuf: ConstPtr = rbufCtorArg
         internal set
 
     public constructor() : this(
@@ -511,19 +507,19 @@ public class DoorArgT internal constructor(
         rsize = 0uL,
     )
 
-    public operator fun component1(): ConstPtr<CChar> = this.dataPtr
+    public operator fun component1(): ConstPtr = this.dataPtr
 
     public operator fun component2(): SizeT = this.dataSize
 
-    public operator fun component3(): ConstPtr<DoorDescT> = this.descPtr
+    public operator fun component3(): ConstPtr = this.descPtr
 
     public operator fun component4(): CUint = this.decNum
 
-    public operator fun component5(): ConstPtr<CChar> = this.rbuf
+    public operator fun component5(): ConstPtr = this.rbuf
 
     public operator fun component6(): SizeT = this.rsize
 
-    public fun copy(dataPtr: ConstPtr<CChar> = this.dataPtr, dataSize: SizeT = this.dataSize, descPtr: ConstPtr<DoorDescT> = this.descPtr, decNum: CUint = this.decNum, rbuf: ConstPtr<CChar> = this.rbuf, rsize: SizeT = this.rsize): DoorArgT = DoorArgT(dataPtrCtorArg = dataPtr, dataSize = dataSize, descPtrCtorArg = descPtr, decNum = decNum, rbufCtorArg = rbuf, rsize = rsize)
+    public fun copy(dataPtr: ConstPtr = this.dataPtr, dataSize: SizeT = this.dataSize, descPtr: ConstPtr = this.descPtr, decNum: CUint = this.decNum, rbuf: ConstPtr = this.rbuf, rsize: SizeT = this.rsize): DoorArgT = DoorArgT(dataPtrCtorArg = dataPtr, dataSize = dataSize, descPtrCtorArg = descPtr, decNum = decNum, rbufCtorArg = rbuf, rsize = rsize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -556,45 +552,45 @@ public class DoorArgT internal constructor(
                     DoorArgT(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<DoorDescT>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<CChar>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 32L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
                     )
                 override fun writeNative(addr: Long, value: DoorArgT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr, value.dataPtr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.dataSize)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<DoorDescT>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 16L, value.descPtr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.decNum)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<CChar>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 32L, value.rbuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.rsize)
                 }
             }
 
         public operator fun invoke(
-            dataPtr: ConstPtr<CChar> = ConstPtr(0L),
+            dataPtr: ConstPtr = ConstPtr(0L),
             dataSize: SizeT = 0uL,
-            descPtr: ConstPtr<DoorDescT> = ConstPtr(0L),
+            descPtr: ConstPtr = ConstPtr(0L),
             decNum: CUint = 0u,
-            rbuf: ConstPtr<CChar> = ConstPtr(0L),
+            rbuf: ConstPtr = ConstPtr(0L),
             rsize: SizeT = 0uL,
         ): DoorArgT =
             DoorArgT(
@@ -666,22 +662,22 @@ public val POSIX_SPAWN_SETSID: CShort = 0x400
 public val PRIV_USER: CUint = PRIV_DEBUG or PRIV_PROC_SENSITIVE or NET_MAC_AWARE or NET_MAC_AWARE_INHERIT or PRIV_XPOLICY or PRIV_AWARE_RESET or PRIV_PFEXEC or PRIV_PFEXEC_AUTH or PRIV_PROC_TPD or PRIV_TPD_UNSAFE or PRIV_TPD_KILLABLE or PRIV_PROC_TPD_RESET
 
 // DIFF(main): changed to `* const *` in e77f551de9
-public expect fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt
+public expect fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt
 
-public expect fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt
+public expect fun mincore(addr: MutPtr, len: SizeT, vec: MutPtr): CInt
 
-public expect fun doorCall(d: CInt, params: MutPtr<DoorArgT>): CInt
+public expect fun doorCall(d: CInt, params: MutPtr): CInt
 
-public expect fun doorReturn(dataPtr: MutPtr<CChar>, dataSize: SizeT, descPtr: MutPtr<DoorDescT>, numDesc: CUint): CInt
+public expect fun doorReturn(dataPtr: MutPtr, dataSize: SizeT, descPtr: MutPtr, numDesc: CUint): CInt
 
-public expect fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr<CVoid>, attributes: DoorAttrT): CInt
+public expect fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr, attributes: DoorAttrT): CInt
 
-public expect fun fattach(fildes: CInt, path: ConstPtr<CChar>): CInt
+public expect fun fattach(fildes: CInt, path: ConstPtr): CInt
 
-public expect fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr): CInt
 
-public expect fun euidaccess(path: ConstPtr<CChar>, amode: CInt): CInt
+public expect fun euidaccess(path: ConstPtr, amode: CInt): CInt
 
-public expect fun openpty(amain: MutPtr<CInt>, asubord: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt
+public expect fun openpty(amain: MutPtr, asubord: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt
 
-public expect fun forkpty(amain: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT
+public expect fun forkpty(amain: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT

@@ -38,17 +38,16 @@ import io.github.kotlinmania.libc.unix.aix.StTimespec
 import io.github.kotlinmania.libc.unix.aix.StackT
 import io.github.kotlinmania.libc.unix.aix.TimeT
 import io.github.kotlinmania.libc.unix.aix.UioRw
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface FileopsTFoRwCallback {
-    public operator fun invoke(file: MutPtr<File>, rw: UioRw, io: MutPtr<CVoid>, ext: CLong, secattr: MutPtr<CVoid>): CInt
+    public operator fun invoke(file: MutPtr, rw: UioRw, io: MutPtr, ext: CLong, secattr: MutPtr): CInt
 }
 
 public fun interface FileopsTFoIoctlCallback {
-    public operator fun invoke(file: MutPtr<File>, a: CLong, b: CaddrT, c: CLong, d: CLong): CInt
+    public operator fun invoke(file: MutPtr, a: CLong, b: CaddrT, c: CLong, d: CLong): CInt
 }
 
 public fun interface FnCallback {
@@ -56,15 +55,15 @@ public fun interface FnCallback {
 }
 
 public fun interface FileopsTFoSelectCallback {
-    public operator fun invoke(file: MutPtr<File>, a: CInt, b: MutPtr<CUshort>, c: FnCallback): CInt
+    public operator fun invoke(file: MutPtr, a: CInt, b: MutPtr, c: FnCallback): CInt
 }
 
 public fun interface FileopsTFoCloseCallback {
-    public operator fun invoke(file: MutPtr<File>): CInt
+    public operator fun invoke(file: MutPtr): CInt
 }
 
 public fun interface FileopsTFoFstatCallback {
-    public operator fun invoke(file: MutPtr<File>, sstat: MutPtr<Stat>): CInt
+    public operator fun invoke(file: MutPtr, sstat: MutPtr): CInt
 }
 
 // Define lockDataInstrumented as an empty enum
@@ -479,7 +478,7 @@ public class Aiocb internal constructor(
     public var aioFildes: CInt,
     public var aioWord1: CInt,
     public var aioOffset: OffT,
-    aioBufCtorArg: MutPtr<CVoid>,
+    aioBufCtorArg: MutPtr,
     public var aioReturn: SsizeT,
     public var aioErrno: CInt,
     public var aioNbytes: SizeT,
@@ -487,14 +486,14 @@ public class Aiocb internal constructor(
     public var aioSigevent: Sigevent,
     public var aioWord2: CInt,
     public var aioFp: CInt,
-    aioHandleCtorArg: MutPtr<Aiocb>,
+    aioHandleCtorArg: MutPtr,
     public var aioReserved: UIntArray,
     public var aioSigevTid: CLong,
 ) {
-    public var aioBuf: MutPtr<CVoid> = aioBufCtorArg
+    public var aioBuf: MutPtr = aioBufCtorArg
         internal set
 
-    public var aioHandle: MutPtr<Aiocb> = aioHandleCtorArg
+    public var aioHandle: MutPtr = aioHandleCtorArg
         internal set
 
     public constructor() : this(
@@ -523,7 +522,7 @@ public class Aiocb internal constructor(
 
     public operator fun component4(): OffT = this.aioOffset
 
-    public operator fun component5(): MutPtr<CVoid> = this.aioBuf
+    public operator fun component5(): MutPtr = this.aioBuf
 
     public operator fun component6(): SsizeT = this.aioReturn
 
@@ -539,13 +538,13 @@ public class Aiocb internal constructor(
 
     public operator fun component12(): CInt = this.aioFp
 
-    public operator fun component13(): MutPtr<Aiocb> = this.aioHandle
+    public operator fun component13(): MutPtr = this.aioHandle
 
     public operator fun component14(): UIntArray = this.aioReserved
 
     public operator fun component15(): CLong = this.aioSigevTid
 
-    public fun copy(aioLioOpcode: CInt = this.aioLioOpcode, aioFildes: CInt = this.aioFildes, aioWord1: CInt = this.aioWord1, aioOffset: OffT = this.aioOffset, aioBuf: MutPtr<CVoid> = this.aioBuf, aioReturn: SsizeT = this.aioReturn, aioErrno: CInt = this.aioErrno, aioNbytes: SizeT = this.aioNbytes, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioWord2: CInt = this.aioWord2, aioFp: CInt = this.aioFp, aioHandle: MutPtr<Aiocb> = this.aioHandle, aioReserved: UIntArray = this.aioReserved, aioSigevTid: CLong = this.aioSigevTid): Aiocb = Aiocb(aioLioOpcode = aioLioOpcode, aioFildes = aioFildes, aioWord1 = aioWord1, aioOffset = aioOffset, aioBufCtorArg = aioBuf, aioReturn = aioReturn, aioErrno = aioErrno, aioNbytes = aioNbytes, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioWord2 = aioWord2, aioFp = aioFp, aioHandleCtorArg = aioHandle, aioReserved = aioReserved, aioSigevTid = aioSigevTid)
+    public fun copy(aioLioOpcode: CInt = this.aioLioOpcode, aioFildes: CInt = this.aioFildes, aioWord1: CInt = this.aioWord1, aioOffset: OffT = this.aioOffset, aioBuf: MutPtr = this.aioBuf, aioReturn: SsizeT = this.aioReturn, aioErrno: CInt = this.aioErrno, aioNbytes: SizeT = this.aioNbytes, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioWord2: CInt = this.aioWord2, aioFp: CInt = this.aioFp, aioHandle: MutPtr = this.aioHandle, aioReserved: UIntArray = this.aioReserved, aioSigevTid: CLong = this.aioSigevTid): Aiocb = Aiocb(aioLioOpcode = aioLioOpcode, aioFildes = aioFildes, aioWord1 = aioWord1, aioOffset = aioOffset, aioBufCtorArg = aioBuf, aioReturn = aioReturn, aioErrno = aioErrno, aioNbytes = aioNbytes, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioWord2 = aioWord2, aioFp = aioFp, aioHandleCtorArg = aioHandle, aioReserved = aioReserved, aioSigevTid = aioSigevTid)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -593,7 +592,7 @@ public class Aiocb internal constructor(
             aioFildes: CInt = 0,
             aioWord1: CInt = 0,
             aioOffset: OffT = 0L,
-            aioBuf: MutPtr<CVoid> = MutPtr(0L),
+            aioBuf: MutPtr = MutPtr(0L),
             aioReturn: SsizeT = 0L,
             aioErrno: CInt = 0,
             aioNbytes: SizeT = 0uL,
@@ -601,7 +600,7 @@ public class Aiocb internal constructor(
             aioSigevent: Sigevent = Sigevent(),
             aioWord2: CInt = 0,
             aioFp: CInt = 0,
-            aioHandle: MutPtr<Aiocb> = MutPtr(0L),
+            aioHandle: MutPtr = MutPtr(0L),
             aioReserved: UIntArray = UIntArray(2),
             aioSigevTid: CLong = 0L,
         ): Aiocb =
@@ -1097,19 +1096,19 @@ public class UcontextT internal constructor(
     public var ucSigmask: SigsetT,
     public var scUerror: CInt,
     ucMcontextCtorArg: McontextT,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucStack: StackT,
-    extctxCtorArg: MutPtr<ExtctxT>,
+    extctxCtorArg: MutPtr,
     public var extctxMagic: CInt,
     public var pad: IntArray,
 ) {
     public var ucMcontext: McontextT = ucMcontextCtorArg
         internal set
 
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
-    public var extctx: MutPtr<ExtctxT> = extctxCtorArg
+    public var extctx: MutPtr = extctxCtorArg
         internal set
 
     public constructor() : this(
@@ -1132,17 +1131,17 @@ public class UcontextT internal constructor(
 
     public operator fun component4(): McontextT = this.ucMcontext
 
-    public operator fun component5(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component5(): MutPtr = this.ucLink
 
     public operator fun component6(): StackT = this.ucStack
 
-    public operator fun component7(): MutPtr<ExtctxT> = this.extctx
+    public operator fun component7(): MutPtr = this.extctx
 
     public operator fun component8(): CInt = this.extctxMagic
 
     public operator fun component9(): IntArray = this.pad
 
-    public fun copy(scOnstack: CInt = this.scOnstack, ucSigmask: SigsetT = this.ucSigmask, scUerror: CInt = this.scUerror, ucMcontext: McontextT = this.ucMcontext, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, extctx: MutPtr<ExtctxT> = this.extctx, extctxMagic: CInt = this.extctxMagic, pad: IntArray = this.pad): UcontextT = UcontextT(scOnstack = scOnstack, ucSigmask = ucSigmask, scUerror = scUerror, ucMcontextCtorArg = ucMcontext, ucLinkCtorArg = ucLink, ucStack = ucStack, extctxCtorArg = extctx, extctxMagic = extctxMagic, pad = pad)
+    public fun copy(scOnstack: CInt = this.scOnstack, ucSigmask: SigsetT = this.ucSigmask, scUerror: CInt = this.scUerror, ucMcontext: McontextT = this.ucMcontext, ucLink: MutPtr = this.ucLink, ucStack: StackT = this.ucStack, extctx: MutPtr = this.extctx, extctxMagic: CInt = this.extctxMagic, pad: IntArray = this.pad): UcontextT = UcontextT(scOnstack = scOnstack, ucSigmask = ucSigmask, scUerror = scUerror, ucMcontextCtorArg = ucMcontext, ucLinkCtorArg = ucLink, ucStack = ucStack, extctxCtorArg = extctx, extctxMagic = extctxMagic, pad = pad)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1178,9 +1177,9 @@ public class UcontextT internal constructor(
             ucSigmask: SigsetT = SigsetT(),
             scUerror: CInt = 0,
             ucMcontext: McontextT = McontextT(),
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucStack: StackT = StackT(),
-            extctx: MutPtr<ExtctxT> = MutPtr(0L),
+            extctx: MutPtr = MutPtr(0L),
             extctxMagic: CInt = 0,
             pad: IntArray = IntArray(1),
         ): UcontextT =
@@ -1333,13 +1332,13 @@ public class SiginfoT internal constructor(
     public var siPid: PidT,
     public var siUid: UidT,
     public var siStatus: CInt,
-    siAddrCtorArg: MutPtr<CVoid>,
+    siAddrCtorArg: MutPtr,
     public var siBand: CLong,
     public var siValue: Sigval,
     public var siFlags: CInt,
     public var pad: IntArray,
 ) {
-    public var siAddr: MutPtr<CVoid> = siAddrCtorArg
+    public var siAddr: MutPtr = siAddrCtorArg
         internal set
 
     public constructor() : this(
@@ -1368,7 +1367,7 @@ public class SiginfoT internal constructor(
 
     public operator fun component6(): CInt = this.siStatus
 
-    public operator fun component7(): MutPtr<CVoid> = this.siAddr
+    public operator fun component7(): MutPtr = this.siAddr
 
     public operator fun component8(): CLong = this.siBand
 
@@ -1378,7 +1377,7 @@ public class SiginfoT internal constructor(
 
     public operator fun component11(): IntArray = this.pad
 
-    public fun copy(siSigno: CInt = this.siSigno, siErrno: CInt = this.siErrno, siCode: CInt = this.siCode, siPid: PidT = this.siPid, siUid: UidT = this.siUid, siStatus: CInt = this.siStatus, siAddr: MutPtr<CVoid> = this.siAddr, siBand: CLong = this.siBand, siValue: Sigval = this.siValue, siFlags: CInt = this.siFlags, pad: IntArray = this.pad): SiginfoT = SiginfoT(siSigno = siSigno, siErrno = siErrno, siCode = siCode, siPid = siPid, siUid = siUid, siStatus = siStatus, siAddrCtorArg = siAddr, siBand = siBand, siValue = siValue, siFlags = siFlags, pad = pad)
+    public fun copy(siSigno: CInt = this.siSigno, siErrno: CInt = this.siErrno, siCode: CInt = this.siCode, siPid: PidT = this.siPid, siUid: UidT = this.siUid, siStatus: CInt = this.siStatus, siAddr: MutPtr = this.siAddr, siBand: CLong = this.siBand, siValue: Sigval = this.siValue, siFlags: CInt = this.siFlags, pad: IntArray = this.pad): SiginfoT = SiginfoT(siSigno = siSigno, siErrno = siErrno, siCode = siCode, siPid = siPid, siUid = siUid, siStatus = siStatus, siAddrCtorArg = siAddr, siBand = siBand, siValue = siValue, siFlags = siFlags, pad = pad)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1420,7 +1419,7 @@ public class SiginfoT internal constructor(
             siPid: PidT = 0,
             siUid: UidT = 0u,
             siStatus: CInt = 0,
-            siAddr: MutPtr<CVoid> = MutPtr(0L),
+            siAddr: MutPtr = MutPtr(0L),
             siBand: CLong = 0L,
             siValue: Sigval = Sigval(),
             siFlags: CInt = 0,
@@ -1451,9 +1450,9 @@ public data class PollfdExt(
 
 public class KernelSimpleLock internal constructor(
     public var slock: CLong,
-    slockpCtorArg: MutPtr<LockDataInstrumented>,
+    slockpCtorArg: MutPtr,
 ) {
-    public var slockp: MutPtr<LockDataInstrumented> = slockpCtorArg
+    public var slockp: MutPtr = slockpCtorArg
         internal set
 
     public constructor() : this(
@@ -1463,9 +1462,9 @@ public class KernelSimpleLock internal constructor(
 
     public operator fun component1(): CLong = this.slock
 
-    public operator fun component2(): MutPtr<LockDataInstrumented> = this.slockp
+    public operator fun component2(): MutPtr = this.slockp
 
-    public fun copy(slock: CLong = this.slock, slockp: MutPtr<LockDataInstrumented> = this.slockp): KernelSimpleLock = KernelSimpleLock(slock = slock, slockpCtorArg = slockp)
+    public fun copy(slock: CLong = this.slock, slockp: MutPtr = this.slockp): KernelSimpleLock = KernelSimpleLock(slock = slock, slockpCtorArg = slockp)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1484,7 +1483,7 @@ public class KernelSimpleLock internal constructor(
     public companion object {
         public operator fun invoke(
             slock: CLong = 0L,
-            slockp: MutPtr<LockDataInstrumented> = MutPtr(0L),
+            slockp: MutPtr = MutPtr(0L),
         ): KernelSimpleLock =
             KernelSimpleLock(
                 slock = slock,
@@ -1506,30 +1505,30 @@ public class File internal constructor(
     public var fCount: CInt,
     public var fOptions: CShort,
     public var fType: CShort,
-    fDataCtorArg: MutPtr<CVoid>,
+    fDataCtorArg: MutPtr,
     public var fOffset: CLonglong,
     public var fDirOff: CLong,
-    fCredCtorArg: MutPtr<CVoid>,
+    fCredCtorArg: MutPtr,
     public var fLock: KernelSimpleLock,
     public var fOffsetLock: KernelSimpleLock,
     fVinfoCtorArg: CaddrT,
-    fOpsCtorArg: MutPtr<FileopsT>,
+    fOpsCtorArg: MutPtr,
     fParentpCtorArg: CaddrT,
     fFnamepCtorArg: CaddrT,
     public var fFdata: UByteArray,
 ) {
     // Should be pointer to 'vnode'
-    public var fData: MutPtr<CVoid> = fDataCtorArg
+    public var fData: MutPtr = fDataCtorArg
         internal set
 
     // Should be pointer to 'cred'
-    public var fCred: MutPtr<CVoid> = fCredCtorArg
+    public var fCred: MutPtr = fCredCtorArg
         internal set
 
     public var fVinfo: CaddrT = fVinfoCtorArg
         internal set
 
-    public var fOps: MutPtr<FileopsT> = fOpsCtorArg
+    public var fOps: MutPtr = fOpsCtorArg
         internal set
 
     public var fParentp: CaddrT = fParentpCtorArg
@@ -1564,13 +1563,13 @@ public class File internal constructor(
 
     public operator fun component4(): CShort = this.fType
 
-    public operator fun component5(): MutPtr<CVoid> = this.fData
+    public operator fun component5(): MutPtr = this.fData
 
     public operator fun component6(): CLonglong = this.fOffset
 
     public operator fun component7(): CLong = this.fDirOff
 
-    public operator fun component8(): MutPtr<CVoid> = this.fCred
+    public operator fun component8(): MutPtr = this.fCred
 
     public operator fun component9(): KernelSimpleLock = this.fLock
 
@@ -1578,7 +1577,7 @@ public class File internal constructor(
 
     public operator fun component11(): CaddrT = this.fVinfo
 
-    public operator fun component12(): MutPtr<FileopsT> = this.fOps
+    public operator fun component12(): MutPtr = this.fOps
 
     public operator fun component13(): CaddrT = this.fParentp
 
@@ -1586,7 +1585,7 @@ public class File internal constructor(
 
     public operator fun component15(): UByteArray = this.fFdata
 
-    public fun copy(fFlag: CLong = this.fFlag, fCount: CInt = this.fCount, fOptions: CShort = this.fOptions, fType: CShort = this.fType, fData: MutPtr<CVoid> = this.fData, fOffset: CLonglong = this.fOffset, fDirOff: CLong = this.fDirOff, fCred: MutPtr<CVoid> = this.fCred, fLock: KernelSimpleLock = this.fLock, fOffsetLock: KernelSimpleLock = this.fOffsetLock, fVinfo: CaddrT = this.fVinfo, fOps: MutPtr<FileopsT> = this.fOps, fParentp: CaddrT = this.fParentp, fFnamep: CaddrT = this.fFnamep, fFdata: UByteArray = this.fFdata): File = File(fFlag = fFlag, fCount = fCount, fOptions = fOptions, fType = fType, fDataCtorArg = fData, fOffset = fOffset, fDirOff = fDirOff, fCredCtorArg = fCred, fLock = fLock, fOffsetLock = fOffsetLock, fVinfoCtorArg = fVinfo, fOpsCtorArg = fOps, fParentpCtorArg = fParentp, fFnamepCtorArg = fFnamep, fFdata = fFdata)
+    public fun copy(fFlag: CLong = this.fFlag, fCount: CInt = this.fCount, fOptions: CShort = this.fOptions, fType: CShort = this.fType, fData: MutPtr = this.fData, fOffset: CLonglong = this.fOffset, fDirOff: CLong = this.fDirOff, fCred: MutPtr = this.fCred, fLock: KernelSimpleLock = this.fLock, fOffsetLock: KernelSimpleLock = this.fOffsetLock, fVinfo: CaddrT = this.fVinfo, fOps: MutPtr = this.fOps, fParentp: CaddrT = this.fParentp, fFnamep: CaddrT = this.fFnamep, fFdata: UByteArray = this.fFdata): File = File(fFlag = fFlag, fCount = fCount, fOptions = fOptions, fType = fType, fDataCtorArg = fData, fOffset = fOffset, fDirOff = fDirOff, fCredCtorArg = fCred, fLock = fLock, fOffsetLock = fOffsetLock, fVinfoCtorArg = fVinfo, fOpsCtorArg = fOps, fParentpCtorArg = fParentp, fFnamepCtorArg = fFnamep, fFdata = fFdata)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1634,14 +1633,14 @@ public class File internal constructor(
             fCount: CInt = 0,
             fOptions: CShort = 0,
             fType: CShort = 0,
-            fData: MutPtr<CVoid> = MutPtr(0L),
+            fData: MutPtr = MutPtr(0L),
             fOffset: CLonglong = 0L,
             fDirOff: CLong = 0L,
-            fCred: MutPtr<CVoid> = MutPtr(0L),
+            fCred: MutPtr = MutPtr(0L),
             fLock: KernelSimpleLock = KernelSimpleLock(),
             fOffsetLock: KernelSimpleLock = KernelSimpleLock(),
             fVinfo: CaddrT = MutPtr(0L),
-            fOps: MutPtr<FileopsT> = MutPtr(0L),
+            fOps: MutPtr = MutPtr(0L),
             fParentp: CaddrT = MutPtr(0L),
             fFnamep: CaddrT = MutPtr(0L),
             fFdata: UByteArray = UByteArray(160),
@@ -1668,10 +1667,10 @@ public class File internal constructor(
 
 public class LdInfoFile internal constructor(
     public var ldinfoFd: CInt,
-    ldinfoFpCtorArg: MutPtr<File>,
+    ldinfoFpCtorArg: MutPtr,
     public var coreOffset: CLong,
 ) {
-    public var ldinfoFp: MutPtr<File> = ldinfoFpCtorArg
+    public var ldinfoFp: MutPtr = ldinfoFpCtorArg
         internal set
 
     public constructor() : this(
@@ -1682,11 +1681,11 @@ public class LdInfoFile internal constructor(
 
     public operator fun component1(): CInt = this.ldinfoFd
 
-    public operator fun component2(): MutPtr<File> = this.ldinfoFp
+    public operator fun component2(): MutPtr = this.ldinfoFp
 
     public operator fun component3(): CLong = this.coreOffset
 
-    public fun copy(ldinfoFd: CInt = this.ldinfoFd, ldinfoFp: MutPtr<File> = this.ldinfoFp, coreOffset: CLong = this.coreOffset): LdInfoFile = LdInfoFile(ldinfoFd = ldinfoFd, ldinfoFpCtorArg = ldinfoFp, coreOffset = coreOffset)
+    public fun copy(ldinfoFd: CInt = this.ldinfoFd, ldinfoFp: MutPtr = this.ldinfoFp, coreOffset: CLong = this.coreOffset): LdInfoFile = LdInfoFile(ldinfoFd = ldinfoFd, ldinfoFpCtorArg = ldinfoFp, coreOffset = coreOffset)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1707,7 +1706,7 @@ public class LdInfoFile internal constructor(
     public companion object {
         public operator fun invoke(
             ldinfoFd: CInt = 0,
-            ldinfoFp: MutPtr<File> = MutPtr(0L),
+            ldinfoFp: MutPtr = MutPtr(0L),
             coreOffset: CLong = 0L,
         ): LdInfoFile =
             LdInfoFile(
@@ -1722,16 +1721,16 @@ public class LdInfo internal constructor(
     public var ldinfoNext: CUint,
     public var ldinfoFlags: CUint,
     public var file: LdInfoFile,
-    ldinfoTextorgCtorArg: MutPtr<CVoid>,
+    ldinfoTextorgCtorArg: MutPtr,
     public var ldinfoTextsize: CUlong,
-    ldinfoDataorgCtorArg: MutPtr<CVoid>,
+    ldinfoDataorgCtorArg: MutPtr,
     public var ldinfoDatasize: CUlong,
     public var ldinfoFilename: UByteArray,
 ) {
-    public var ldinfoTextorg: MutPtr<CVoid> = ldinfoTextorgCtorArg
+    public var ldinfoTextorg: MutPtr = ldinfoTextorgCtorArg
         internal set
 
-    public var ldinfoDataorg: MutPtr<CVoid> = ldinfoDataorgCtorArg
+    public var ldinfoDataorg: MutPtr = ldinfoDataorgCtorArg
         internal set
 
     public constructor() : this(
@@ -1751,17 +1750,17 @@ public class LdInfo internal constructor(
 
     public operator fun component3(): LdInfoFile = this.file
 
-    public operator fun component4(): MutPtr<CVoid> = this.ldinfoTextorg
+    public operator fun component4(): MutPtr = this.ldinfoTextorg
 
     public operator fun component5(): CUlong = this.ldinfoTextsize
 
-    public operator fun component6(): MutPtr<CVoid> = this.ldinfoDataorg
+    public operator fun component6(): MutPtr = this.ldinfoDataorg
 
     public operator fun component7(): CUlong = this.ldinfoDatasize
 
     public operator fun component8(): UByteArray = this.ldinfoFilename
 
-    public fun copy(ldinfoNext: CUint = this.ldinfoNext, ldinfoFlags: CUint = this.ldinfoFlags, file: LdInfoFile = this.file, ldinfoTextorg: MutPtr<CVoid> = this.ldinfoTextorg, ldinfoTextsize: CUlong = this.ldinfoTextsize, ldinfoDataorg: MutPtr<CVoid> = this.ldinfoDataorg, ldinfoDatasize: CUlong = this.ldinfoDatasize, ldinfoFilename: UByteArray = this.ldinfoFilename): LdInfo = LdInfo(ldinfoNext = ldinfoNext, ldinfoFlags = ldinfoFlags, file = file, ldinfoTextorgCtorArg = ldinfoTextorg, ldinfoTextsize = ldinfoTextsize, ldinfoDataorgCtorArg = ldinfoDataorg, ldinfoDatasize = ldinfoDatasize, ldinfoFilename = ldinfoFilename)
+    public fun copy(ldinfoNext: CUint = this.ldinfoNext, ldinfoFlags: CUint = this.ldinfoFlags, file: LdInfoFile = this.file, ldinfoTextorg: MutPtr = this.ldinfoTextorg, ldinfoTextsize: CUlong = this.ldinfoTextsize, ldinfoDataorg: MutPtr = this.ldinfoDataorg, ldinfoDatasize: CUlong = this.ldinfoDatasize, ldinfoFilename: UByteArray = this.ldinfoFilename): LdInfo = LdInfo(ldinfoNext = ldinfoNext, ldinfoFlags = ldinfoFlags, file = file, ldinfoTextorgCtorArg = ldinfoTextorg, ldinfoTextsize = ldinfoTextsize, ldinfoDataorgCtorArg = ldinfoDataorg, ldinfoDatasize = ldinfoDatasize, ldinfoFilename = ldinfoFilename)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1794,9 +1793,9 @@ public class LdInfo internal constructor(
             ldinfoNext: CUint = 0u,
             ldinfoFlags: CUint = 0u,
             file: LdInfoFile = LdInfoFile(),
-            ldinfoTextorg: MutPtr<CVoid> = MutPtr(0L),
+            ldinfoTextorg: MutPtr = MutPtr(0L),
             ldinfoTextsize: CUlong = 0uL,
-            ldinfoDataorg: MutPtr<CVoid> = MutPtr(0L),
+            ldinfoDataorg: MutPtr = MutPtr(0L),
             ldinfoDatasize: CUlong = 0uL,
             ldinfoFilename: UByteArray = UByteArray(2),
         ): LdInfo =
@@ -1814,11 +1813,11 @@ public class LdInfo internal constructor(
 }
 
 public class PollfdExtU internal constructor(
-    addrCtorArg: MutPtr<CVoid>,
+    addrCtorArg: MutPtr,
     public var data32: UInt,
     public var data: ULong,
 ) {
-    public var addr: MutPtr<CVoid> = addrCtorArg
+    public var addr: MutPtr = addrCtorArg
         internal set
 
     public constructor() : this(
@@ -1827,13 +1826,13 @@ public class PollfdExtU internal constructor(
         data = 0uL,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.addr
+    public operator fun component1(): MutPtr = this.addr
 
     public operator fun component2(): UInt = this.data32
 
     public operator fun component3(): ULong = this.data
 
-    public fun copy(addr: MutPtr<CVoid> = this.addr, data32: UInt = this.data32, data: ULong = this.data): PollfdExtU = PollfdExtU(addrCtorArg = addr, data32 = data32, data = data)
+    public fun copy(addr: MutPtr = this.addr, data32: UInt = this.data32, data: ULong = this.data): PollfdExtU = PollfdExtU(addrCtorArg = addr, data32 = data32, data = data)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1855,7 +1854,7 @@ public class PollfdExtU internal constructor(
 
     public companion object {
         public operator fun invoke(
-            addr: MutPtr<CVoid> = MutPtr(0L),
+            addr: MutPtr = MutPtr(0L),
             data32: UInt = 0u,
             data: ULong = 0uL,
         ): PollfdExtU =

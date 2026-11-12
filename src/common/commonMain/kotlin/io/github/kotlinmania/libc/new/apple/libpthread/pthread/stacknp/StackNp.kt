@@ -9,4 +9,4 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 //
 // <https://github.com/apple-oss-distributions/libpthread/blob/main/include/pthread/stackNp.h>
 
-public expect fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr<UintptrT>): UintptrT
+public expect fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: MutPtr): UintptrT

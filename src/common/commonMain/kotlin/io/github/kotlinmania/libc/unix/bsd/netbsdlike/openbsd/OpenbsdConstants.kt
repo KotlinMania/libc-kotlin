@@ -26,7 +26,6 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.MAX_PAGE_SHIFT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -1490,7 +1489,7 @@ public val LC_LAST: CInt = 7
 
 public val LC_ALL_MASK: CInt = (1 shl LC_LAST) - 2
 
-public val LC_GLOBAL_LOCALE: LocaleT = MutPtr<CVoid>((-1).toLong())
+public val LC_GLOBAL_LOCALE: LocaleT = MutPtr((-1).toLong())
 
 // sys/reboot.h
 public val RB_ASKNAME: CInt = 0x00001

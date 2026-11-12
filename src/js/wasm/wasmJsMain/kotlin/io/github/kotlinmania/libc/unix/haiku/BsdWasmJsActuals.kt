@@ -3,18 +3,11 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
-import io.github.kotlinmania.libc.unix.Winsize
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -98,10 +91,10 @@ private external fun wasmLibcUnixHaikuBsdWait4(p0: Int, p1: String, p2: Int, p3:
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdDaemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprogname(): ConstPtr<CChar> =
+public actual fun getprogname(): ConstPtr =
     if (unixHaikuBsdNapiAvailable) ConstPtr(wasmLibcUnixHaikuBsdGetprogname().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setprogname(progname: ConstPtr<CChar>) {
+public actual fun setprogname(progname: ConstPtr) {
     if (unixHaikuBsdNapiAvailable) {
         wasmLibcUnixHaikuBsdSetprogname(progname.rawAddress.toString())
     } else {
@@ -115,7 +108,7 @@ public actual fun arc4random(): UInt =
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdArc4randomUniform(upperBound.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+public actual fun arc4randomBuf(buf: MutPtr, n: SizeT) {
     if (unixHaikuBsdNapiAvailable) {
         wasmLibcUnixHaikuBsdArc4randomBuf(buf.rawAddress.toString(), n.toString())
     } else {
@@ -123,25 +116,25 @@ public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
     }
 }
 
-public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: MutPtr, suffixlen: CInt): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdMkstemps(template.rawAddress.toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+public actual fun strtonum(nptr: ConstPtr, minval: CLonglong, maxval: CLonglong, errstr: MutPtr): CLonglong =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdStrtonum(nptr.rawAddress.toString(), minval.toString(), maxval.toString(), errstr.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+public actual fun openpty(amaster: MutPtr, aslave: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdOpenpty(amaster.rawAddress.toString(), aslave.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun loginTty(fd: CInt): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdLoginTty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+public actual fun forkpty(amaster: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdForkpty(amaster.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strsep(string: MutPtr, delimiters: ConstPtr): MutPtr =
     if (unixHaikuBsdNapiAvailable) MutPtr(wasmLibcUnixHaikuBsdStrsep(string.rawAddress.toString(), delimiters.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT) {
+public actual fun explicitBzero(buf: MutPtr, len: SizeT) {
     if (unixHaikuBsdNapiAvailable) {
         wasmLibcUnixHaikuBsdExplicitBzero(buf.rawAddress.toString(), len.toString())
     } else {
@@ -149,13 +142,13 @@ public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT) {
     }
 }
 
-public actual fun slInit(): MutPtr<StringList> =
+public actual fun slInit(): MutPtr =
     if (unixHaikuBsdNapiAvailable) MutPtr(wasmLibcUnixHaikuBsdSlInit().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt =
+public actual fun slAdd(sl: MutPtr, n: MutPtr): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdSlAdd(sl.rawAddress.toString(), n.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun slFree(sl: MutPtr<StringList>, i: CInt) {
+public actual fun slFree(sl: MutPtr, i: CInt) {
     if (unixHaikuBsdNapiAvailable) {
         wasmLibcUnixHaikuBsdSlFree(sl.rawAddress.toString(), i)
     } else {
@@ -163,26 +156,26 @@ public actual fun slFree(sl: MutPtr<StringList>, i: CInt) {
     }
 }
 
-public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun slFind(sl: MutPtr, n: MutPtr): MutPtr =
     if (unixHaikuBsdNapiAvailable) MutPtr(wasmLibcUnixHaikuBsdSlFind(sl.rawAddress.toString(), n.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun kqueue(): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdKqueue() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+public actual fun kevent(kq: CInt, changelist: ConstPtr, nchanges: CInt, eventlist: MutPtr, nevents: CInt, timeout: ConstPtr): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdKevent(kq, changelist.rawAddress.toString(), nchanges, eventlist.rawAddress.toString(), nevents, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdDlIteratePhdr(0L.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun lutimes(file: ConstPtr, times: ConstPtr): CInt =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdLutimes(file.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+public actual fun wait4(pid: PidT, status: MutPtr, options: CInt, rusage: MutPtr): PidT =
     if (unixHaikuBsdNapiAvailable) wasmLibcUnixHaikuBsdWait4(pid, status.rawAddress.toString(), options, rusage.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

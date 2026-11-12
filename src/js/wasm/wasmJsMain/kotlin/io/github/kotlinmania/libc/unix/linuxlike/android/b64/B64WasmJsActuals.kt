@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.linuxlike.android.PropInfo
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -16,5 +14,5 @@ private val unixLinuxlikeAndroidB64NapiAvailable: Boolean = initUnixLinuxlikeAnd
 @JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeAndroidB64SystemPropertyWait(p0, p1, p2, p3)")
 private external fun wasmLibcUnixLinuxlikeAndroidB64SystemPropertyWait(p0: String, p1: Int, p2: String, p3: String): Boolean
 
-public actual fun systemPropertyWait(pi: ConstPtr<PropInfo>, oldSerial: UInt, newSerialPtr: MutPtr<UInt>, relativeTimeout: ConstPtr<Timespec>): Boolean =
+public actual fun systemPropertyWait(pi: ConstPtr, oldSerial: UInt, newSerialPtr: MutPtr, relativeTimeout: ConstPtr): Boolean =
     if (unixLinuxlikeAndroidB64NapiAvailable) wasmLibcUnixLinuxlikeAndroidB64SystemPropertyWait(pi.rawAddress.toString(), oldSerial.toInt(), newSerialPtr.rawAddress.toString(), relativeTimeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

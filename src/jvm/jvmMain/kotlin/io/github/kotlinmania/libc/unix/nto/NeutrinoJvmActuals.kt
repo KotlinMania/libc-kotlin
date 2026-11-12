@@ -6,10 +6,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Sigval
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -655,10 +652,10 @@ public actual fun channelCreate(flags: CUint): CInt =
 public actual fun channelCreateR(flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoChannelCreateR(flags.toInt())
 
-public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt =
+public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoChannelCreatePulsePool(flags.toInt(), config.rawAddress)
 
-public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr<Sigevent>, cred: MutPtr<CredInfo>): CInt =
+public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr, cred: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoChannelCreateExt(flags.toInt(), mode.toInt(), bufsize.toLong(), maxnumbuf.toInt(), ev.rawAddress, cred.rawAddress)
 
 public actual fun channelDestroy(chid: CInt): CInt =
@@ -679,31 +676,31 @@ public actual fun connectDetach(coid: CInt): CInt =
 public actual fun connectDetachR(coid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectDetachR(coid)
 
-public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectServerInfo(pid, coid, info.rawAddress)
 
-public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectServerInfoR(pid, coid, info.rawAddress)
 
-public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfoExtraArgs(scoid, infoPp.rawAddress, ngroups, abilities.rawAddress, nable, typeId.rawAddress)
 
-public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt =
+public actual fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr, ngroups: CInt, abilities: MutPtr, nable: CInt, typeId: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfoExtraArgsR(scoid, infoPp.rawAddress, ngroups, abilities.rawAddress, nable, typeId.rawAddress)
 
-public actual fun connectClientInfo(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfo(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfo(scoid, info.rawAddress, ngroups)
 
-public actual fun connectClientInfoR(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt =
+public actual fun connectClientInfoR(scoid: CInt, info: MutPtr, ngroups: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfoR(scoid, info.rawAddress, ngroups)
 
-public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt): CInt =
+public actual fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr, flags: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfoExt(scoid, infoPp.rawAddress, flags)
 
-public actual fun clientInfoExtFree(infoPp: MutPtr<MutPtr<ClientInfo>>): CInt =
+public actual fun clientInfoExtFree(infoPp: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClientInfoExtFree(infoPp.rawAddress)
 
-public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt, abilities: MutPtr<ClientAble>, nable: CInt): CInt =
+public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr, flags: CInt, abilities: MutPtr, nable: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectClientInfoAble(scoid, infoPp.rawAddress, flags, abilities.rawAddress, nable)
 
 public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
@@ -712,121 +709,121 @@ public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint):
 public actual fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoConnectFlagsR(pid, coid, mask.toInt(), bits.toInt())
 
-public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt =
+public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr, newAttr: MutPtr, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoChannelConnectAttr(id.toInt(), oldAttr.rawAddress, newAttr.rawAddress, flags.toInt())
 
-public actual fun msgSend(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSend(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSend(coid, smsg.rawAddress, sbytes.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendR(coid, smsg.rawAddress, sbytes.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendnc(coid, smsg.rawAddress, sbytes.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendncR(coid, smsg.rawAddress, sbytes.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendsv(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsv(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendsv(coid, smsg.rawAddress, sbytes.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendsvR(coid, smsg.rawAddress, sbytes.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvnc(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendsvnc(coid, smsg.rawAddress, sbytes.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendsvncR(coid: CInt, smsg: ConstPtr, sbytes: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendsvncR(coid, smsg.rawAddress, sbytes.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendvs(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvs(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvs(coid, siov.rawAddress, sparts.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendvsR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvsR(coid, siov.rawAddress, sparts.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsnc(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvsnc(coid, siov.rawAddress, sparts.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong =
+public actual fun msgSendvsncR(coid: CInt, siov: ConstPtr, sparts: ULong, rmsg: MutPtr, rbytes: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvsncR(coid, siov.rawAddress, sparts.toLong(), rmsg.rawAddress, rbytes.toLong())
 
-public actual fun msgSendv(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendv(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendv(coid, siov.rawAddress, sparts.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendvR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvR(coid, siov.rawAddress, sparts.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendvnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvnc(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvnc(coid, siov.rawAddress, sparts.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgSendvncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong =
+public actual fun msgSendvncR(coid: CInt, siov: ConstPtr, sparts: ULong, riov: ConstPtr, rparts: ULong): CLong =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendvncR(coid, siov.rawAddress, sparts.toLong(), riov.rawAddress, rparts.toLong())
 
-public actual fun msgReceive(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceive(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceive(chid, msg.rawAddress, bytes.toLong(), info.rawAddress)
 
-public actual fun msgReceiveR(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceiveR(chid: CInt, msg: MutPtr, bytes: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceiveR(chid, msg.rawAddress, bytes.toLong(), info.rawAddress)
 
-public actual fun msgReceivev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivev(chid, iov.rawAddress, parts.toLong(), info.rawAddress)
 
-public actual fun msgReceivevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivevR(chid, iov.rawAddress, parts.toLong(), info.rawAddress)
 
-public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulse(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivePulse(chid, pulse.rawAddress, bytes.toLong(), info.rawAddress)
 
-public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulseR(chid: CInt, pulse: MutPtr, bytes: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivePulseR(chid, pulse.rawAddress, bytes.toLong(), info.rawAddress)
 
-public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsev(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivePulsev(chid, iov.rawAddress, parts.toLong(), info.rawAddress)
 
-public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgReceivePulsevR(chid: CInt, iov: ConstPtr, parts: ULong, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceivePulsevR(chid, iov.rawAddress, parts.toLong(), info.rawAddress)
 
-public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReply(rcvid, status, msg.rawAddress, bytes.toLong())
 
-public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt =
+public actual fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr, bytes: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReplyR(rcvid, status, msg.rawAddress, bytes.toLong())
 
-public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReplyv(rcvid, status, iov.rawAddress, parts.toLong())
 
-public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt =
+public actual fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr, parts: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReplyvR(rcvid, status, iov.rawAddress, parts.toLong())
 
-public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiov(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReadiov(rcvid, iov.rawAddress, parts.toLong(), offset.toLong(), flags)
 
-public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long =
+public actual fun msgReadiovR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong, flags: CInt): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReadiovR(rcvid, iov.rawAddress, parts.toLong(), offset.toLong(), flags)
 
-public actual fun msgRead(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgRead(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgRead(rcvid, msg.rawAddress, bytes.toLong(), offset.toLong())
 
-public actual fun msgReadR(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgReadR(rcvid: CInt, msg: MutPtr, bytes: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReadR(rcvid, msg.rawAddress, bytes.toLong(), offset.toLong())
 
-public actual fun msgReadv(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadv(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReadv(rcvid, iov.rawAddress, parts.toLong(), offset.toLong())
 
-public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgReadvR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReadvR(rcvid, iov.rawAddress, parts.toLong(), offset.toLong())
 
-public actual fun msgWrite(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWrite(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgWrite(rcvid, msg.rawAddress, bytes.toLong(), offset.toLong())
 
-public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long =
+public actual fun msgWriteR(rcvid: CInt, msg: ConstPtr, bytes: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgWriteR(rcvid, msg.rawAddress, bytes.toLong(), offset.toLong())
 
-public actual fun msgWritev(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritev(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgWritev(rcvid, iov.rawAddress, parts.toLong(), offset.toLong())
 
-public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long =
+public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr, parts: ULong, offset: ULong): Long =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgWritevR(rcvid, iov.rawAddress, parts.toLong(), offset.toLong())
 
 public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
@@ -835,46 +832,46 @@ public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CI
 public actual fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendPulseR(coid, priority, code, value)
 
-public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendPulsePtr(coid, priority, code, value.rawAddress)
 
-public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
+public actual fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendPulsePtrR(coid, priority, code, value.rawAddress)
 
-public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEvent(rcvid: CInt, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgDeliverEvent(rcvid, event.rawAddress)
 
-public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgDeliverEventR(rcvid: CInt, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgDeliverEventR(rcvid, event.rawAddress)
 
-public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEvent(rcvid: CInt, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgVerifyEvent(rcvid, event.rawAddress)
 
-public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt =
+public actual fun msgVerifyEventR(rcvid: CInt, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgVerifyEventR(rcvid, event.rawAddress)
 
-public actual fun msgRegisterEvent(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEvent(event: MutPtr, coid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgRegisterEvent(event.rawAddress, coid)
 
-public actual fun msgRegisterEventR(event: MutPtr<Sigevent>, coid: CInt): CInt =
+public actual fun msgRegisterEventR(event: MutPtr, coid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgRegisterEventR(event.rawAddress, coid)
 
-public actual fun msgUnregisterEvent(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEvent(event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgUnregisterEvent(event.rawAddress)
 
-public actual fun msgUnregisterEventR(event: ConstPtr<Sigevent>): CInt =
+public actual fun msgUnregisterEventR(event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgUnregisterEventR(event.rawAddress)
 
-public actual fun msgInfo(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfo(rcvid: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgInfo(rcvid, info.rawAddress)
 
-public actual fun msgInfoR(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt =
+public actual fun msgInfoR(rcvid: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgInfoR(rcvid, info.rawAddress)
 
-public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgKeyData(rcvid, oper, key.toInt(), newkey.rawAddress, iov.rawAddress, parts)
 
-public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt =
+public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr, iov: ConstPtr, parts: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgKeyDataR(rcvid, oper, key.toInt(), newkey.rawAddress, iov.rawAddress, parts)
 
 public actual fun msgError(rcvid: CInt, err: CInt): CInt =
@@ -889,16 +886,16 @@ public actual fun msgCurrent(rcvid: CInt): CInt =
 public actual fun msgCurrentR(rcvid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgCurrentR(rcvid)
 
-public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt =
+public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr, sbytes: ULong, msgPrio: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendAsyncGbl(coid, smsg.rawAddress, sbytes.toLong(), msgPrio.toInt())
 
 public actual fun msgSendAsync(coid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgSendAsync(coid)
 
-public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt =
+public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr, rbytes: ULong, info: MutPtr, coid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceiveAsyncGbl(chid, rmsg.rawAddress, rbytes.toLong(), info.rawAddress, coid)
 
-public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint): CInt =
+public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr, parts: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoMsgReceiveAsync(chid, iov.rawAddress, parts.toInt())
 
 public actual fun msgPause(rcvid: CInt, cookie: CUint): CInt =
@@ -913,58 +910,58 @@ public actual fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: 
 public actual fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalKillR(nd.toInt(), pid, tid, signo, code, value)
 
-public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalKillSigval(nd.toInt(), pid, tid, signo, code, value.rawAddress)
 
-public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
+public actual fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalKillSigvalR(nd.toInt(), pid, tid, signo, code, value.rawAddress)
 
-public actual fun signalReturn(info: MutPtr<SighandlerInfo>): CInt =
+public actual fun signalReturn(info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalReturn(info.rawAddress)
 
-public actual fun signalFault(sigcode: CUint, regs: MutPtr<CVoid>, refaddr: ULong): CInt =
+public actual fun signalFault(sigcode: CUint, regs: MutPtr, refaddr: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalFault(sigcode.toInt(), regs.rawAddress, refaddr.toLong())
 
-public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalAction(pid, 0L, signo, act.rawAddress, oact.rawAddress)
 
-public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr, oact: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalActionR(pid, 0L, signo, act.rawAddress, oact.rawAddress)
 
-public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalProcmask(pid, tid, how, set.rawAddress, oldset.rawAddress)
 
-public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalProcmaskR(pid, tid, how, set.rawAddress, oldset.rawAddress)
 
-public actual fun signalSuspend(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspend(set: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalSuspend(set.rawAddress)
 
-public actual fun signalSuspendR(set: ConstPtr<SigsetT>): CInt =
+public actual fun signalSuspendR(set: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalSuspendR(set.rawAddress)
 
-public actual fun signalWaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfo(set: ConstPtr, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalWaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun signalWaitinfoR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+public actual fun signalWaitinfoR(set: ConstPtr, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalWaitinfoR(set.rawAddress, info.rawAddress)
 
-public actual fun signalWaitinfoMask(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMask(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalWaitinfoMask(set.rawAddress, info.rawAddress, mask.rawAddress)
 
-public actual fun signalWaitinfoMaskR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt =
+public actual fun signalWaitinfoMaskR(set: ConstPtr, info: MutPtr, mask: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSignalWaitinfoMaskR(set.rawAddress, info.rawAddress, mask.rawAddress)
 
-public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCreate(pid, 0L, arg.rawAddress, attr.rawAddress)
 
-public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt =
+public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr, attr: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCreateR(pid, 0L, arg.rawAddress, attr.rawAddress)
 
-public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadDestroy(tid, priority, status.rawAddress)
 
-public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt =
+public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadDestroyR(tid, priority, status.rawAddress)
 
 public actual fun threadDetach(tid: CInt): CInt =
@@ -973,10 +970,10 @@ public actual fun threadDetach(tid: CInt): CInt =
 public actual fun threadDetachR(tid: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadDetachR(tid)
 
-public actual fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoin(tid: CInt, status: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadJoin(tid, status.rawAddress)
 
-public actual fun threadJoinR(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun threadJoinR(tid: CInt, status: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadJoinR(tid, status.rawAddress)
 
 public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
@@ -985,16 +982,16 @@ public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback):
 public actual fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCancelR(tid, 0L)
 
-public actual fun threadCtl(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtl(cmd: CInt, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCtl(cmd, data.rawAddress)
 
-public actual fun threadCtlR(cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlR(cmd: CInt, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCtlR(cmd, data.rawAddress)
 
-public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCtlExt(pid, tid, cmd, data.rawAddress)
 
-public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt =
+public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoThreadCtlExtR(pid, tid, cmd, data.rawAddress)
 
 public actual fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt =
@@ -1006,25 +1003,25 @@ public actual fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, 
 public actual fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptHookIdle2(0L, flags.toInt())
 
-public actual fun interruptHookOverdriveEvent(event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptHookOverdriveEvent(event: ConstPtr, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptHookOverdriveEvent(event.rawAddress, flags.toInt())
 
-public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEvent(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttachEvent(intr, event.rawAddress, flags.toInt())
 
-public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt =
+public actual fun interruptAttachEventR(intr: CInt, event: ConstPtr, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttachEventR(intr, event.rawAddress, flags.toInt())
 
-public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttach(intr, 0L, area.rawAddress, size, flags.toInt())
 
-public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttachR(intr, 0L, area.rawAddress, size, flags.toInt())
 
-public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttachArray(intr, 0L, area.rawAddress, size, flags.toInt())
 
-public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr, size: CInt, flags: CUint): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptAttachArrayR(intr, 0L, area.rawAddress, size, flags.toInt())
 
 public actual fun interruptDetach(id: CInt): CInt =
@@ -1033,37 +1030,37 @@ public actual fun interruptDetach(id: CInt): CInt =
 public actual fun interruptDetachR(id: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptDetachR(id)
 
-public actual fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWait(flags: CInt, timeout: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptWait(flags, timeout.rawAddress)
 
-public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr<ULong>): CInt =
+public actual fun interruptWaitR(flags: CInt, timeout: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptWaitR(flags, timeout.rawAddress)
 
-public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptCharacteristic(type, id, new.rawAddress, old.rawAddress)
 
-public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt =
+public actual fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoInterruptCharacteristicR(type, id, new.rawAddress, old.rawAddress)
 
-public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGet(pid: PidT, tid: CInt, param: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedGet(pid, tid, param.rawAddress)
 
-public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetR(pid: PidT, tid: CInt, param: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedGetR(pid, tid, param.rawAddress)
 
 public actual fun schedGetCpuNum(): CUint =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedGetCpuNum().toUInt()
 
-public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedSet(pid, tid, algorithm, param.rawAddress)
 
-public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedSetR(pid, tid, algorithm, param.rawAddress)
 
-public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedInfo(pid, algorithm, info.rawAddress)
 
-public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt =
+public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedInfoR(pid, algorithm, info.rawAddress)
 
 public actual fun schedYield(): CInt =
@@ -1072,34 +1069,34 @@ public actual fun schedYield(): CInt =
 public actual fun schedYieldR(): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedYieldR()
 
-public actual fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtl(cmd: CInt, data: MutPtr, length: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedCtl(cmd, data.rawAddress, length.toLong())
 
-public actual fun schedCtlR(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
+public actual fun schedCtlR(cmd: CInt, data: MutPtr, length: ULong): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedCtlR(cmd, data.rawAddress, length.toLong())
 
-public actual fun schedJobCreate(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreate(job: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedJobCreate(job.rawAddress)
 
-public actual fun schedJobCreateR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobCreateR(job: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedJobCreateR(job.rawAddress)
 
-public actual fun schedJobDestroy(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroy(job: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedJobDestroy(job.rawAddress)
 
-public actual fun schedJobDestroyR(job: MutPtr<NtoJobT>): CInt =
+public actual fun schedJobDestroyR(job: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedJobDestroyR(job.rawAddress)
 
-public actual fun schedWaypoint(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypoint(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedWaypoint(job.rawAddress, new.rawAddress, max.rawAddress, old.rawAddress)
 
-public actual fun schedWaypointR(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt =
+public actual fun schedWaypointR(job: MutPtr, new: ConstPtr, max: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSchedWaypointR(job.rawAddress, new.rawAddress, max.rawAddress, old.rawAddress)
 
-public actual fun timerCreate(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreate(id: ClockidT, notify: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerCreate(id, notify.rawAddress)
 
-public actual fun timerCreateR(id: ClockidT, notify: ConstPtr<Sigevent>): CInt =
+public actual fun timerCreateR(id: ClockidT, notify: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerCreateR(id, notify.rawAddress)
 
 public actual fun timerDestroy(id: TimerT): CInt =
@@ -1108,112 +1105,112 @@ public actual fun timerDestroy(id: TimerT): CInt =
 public actual fun timerDestroyR(id: TimerT): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerDestroyR(id.toLong())
 
-public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerSettime(id.toLong(), flags, itime.rawAddress, oitime.rawAddress)
 
-public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt =
+public actual fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr, oitime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerSettimeR(id.toLong(), flags, itime.rawAddress, oitime.rawAddress)
 
-public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerInfo(pid, id.toLong(), flags, info.rawAddress)
 
-public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt =
+public actual fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerInfoR(pid, id.toLong(), flags, info.rawAddress)
 
-public actual fun timerAlarm(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarm(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerAlarm(id, itime.rawAddress, otime.rawAddress)
 
-public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt =
+public actual fun timerAlarmR(id: ClockidT, itime: ConstPtr, otime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerAlarmR(id, itime.rawAddress, otime.rawAddress)
 
-public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerTimeout(id, flags, notify.rawAddress, ntime.rawAddress, otime.rawAddress)
 
-public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt =
+public actual fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr, ntime: ConstPtr, otime: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoTimerTimeoutR(id, flags, notify.rawAddress, ntime.rawAddress, otime.rawAddress)
 
-public actual fun syncTypeCreate(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreate(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncTypeCreate(type.toInt(), sync.rawAddress, attr.rawAddress)
 
-public actual fun syncTypeCreateR(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt =
+public actual fun syncTypeCreateR(type: CUint, sync: MutPtr, attr: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncTypeCreateR(type.toInt(), sync.rawAddress, attr.rawAddress)
 
-public actual fun syncDestroy(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroy(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncDestroy(sync.rawAddress)
 
-public actual fun syncDestroyR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncDestroyR(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncDestroyR(sync.rawAddress)
 
-public actual fun syncCtl(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtl(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCtl(cmd, sync.rawAddress, data.rawAddress)
 
-public actual fun syncCtlR(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt =
+public actual fun syncCtlR(cmd: CInt, sync: MutPtr, data: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCtlR(cmd, sync.rawAddress, data.rawAddress)
 
-public actual fun syncMutexEvent(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEvent(sync: MutPtr, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexEvent(sync.rawAddress, event.rawAddress)
 
-public actual fun syncMutexEventR(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt =
+public actual fun syncMutexEventR(sync: MutPtr, event: ConstPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexEventR(sync.rawAddress, event.rawAddress)
 
-public actual fun syncMutexLock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLock(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexLock(sync.rawAddress)
 
-public actual fun syncMutexLockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexLockR(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexLockR(sync.rawAddress)
 
-public actual fun syncMutexUnlock(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlock(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexUnlock(sync.rawAddress)
 
-public actual fun syncMutexUnlockR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexUnlockR(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexUnlockR(sync.rawAddress)
 
-public actual fun syncMutexRevive(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexRevive(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexRevive(sync.rawAddress)
 
-public actual fun syncMutexReviveR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncMutexReviveR(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncMutexReviveR(sync.rawAddress)
 
-public actual fun syncCondvarWait(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWait(sync: MutPtr, mutex: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCondvarWait(sync.rawAddress, mutex.rawAddress)
 
-public actual fun syncCondvarWaitR(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt =
+public actual fun syncCondvarWaitR(sync: MutPtr, mutex: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCondvarWaitR(sync.rawAddress, mutex.rawAddress)
 
-public actual fun syncCondvarSignal(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignal(sync: MutPtr, all: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCondvarSignal(sync.rawAddress, all)
 
-public actual fun syncCondvarSignalR(sync: MutPtr<SyncT>, all: CInt): CInt =
+public actual fun syncCondvarSignalR(sync: MutPtr, all: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncCondvarSignalR(sync.rawAddress, all)
 
-public actual fun syncSemPost(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPost(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncSemPost(sync.rawAddress)
 
-public actual fun syncSemPostR(sync: MutPtr<SyncT>): CInt =
+public actual fun syncSemPostR(sync: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncSemPostR(sync.rawAddress)
 
-public actual fun syncSemWait(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWait(sync: MutPtr, tryto: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncSemWait(sync.rawAddress, tryto)
 
-public actual fun syncSemWaitR(sync: MutPtr<SyncT>, tryto: CInt): CInt =
+public actual fun syncSemWaitR(sync: MutPtr, tryto: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoSyncSemWaitR(sync.rawAddress, tryto)
 
-public actual fun clockTime(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTime(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockTime(id, new.rawAddress, old.rawAddress)
 
-public actual fun clockTimeR(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt =
+public actual fun clockTimeR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockTimeR(id, new.rawAddress, old.rawAddress)
 
-public actual fun clockAdjust(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjust(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockAdjust(id, new.rawAddress, old.rawAddress)
 
-public actual fun clockAdjustR(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt =
+public actual fun clockAdjustR(id: ClockidT, new: ConstPtr, old: MutPtr): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockAdjustR(id, new.rawAddress, old.rawAddress)
 
-public actual fun clockPeriod(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriod(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockPeriod(id, new.rawAddress, old.rawAddress, reserved)
 
-public actual fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt =
+public actual fun clockPeriodR(id: ClockidT, new: ConstPtr, old: MutPtr, reserved: CInt): CInt =
     UnixNtoNeutrinoJniBridge.libcUnixNtoNeutrinoClockPeriodR(id, new.rawAddress, old.rawAddress, reserved)
 
 public actual fun clockId(pid: PidT, tid: CInt): CInt =

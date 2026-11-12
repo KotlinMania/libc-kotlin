@@ -4,7 +4,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.CpuSimpleLockNvT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias BlksizeT = Int
@@ -52,7 +51,7 @@ public typealias Elf64Word = UInt
 
 public typealias Elf64Xword = ULong
 
-public typealias IconvT = MutPtr<CVoid>
+public typealias IconvT = MutPtr
 
 public enum class FaeAction(
     public val value: UInt,

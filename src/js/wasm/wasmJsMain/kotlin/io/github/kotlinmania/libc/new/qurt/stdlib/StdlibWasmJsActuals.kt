@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.stdlib
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -16,7 +15,6 @@ import io.github.kotlinmania.libc.new.qurt.DivT
 import io.github.kotlinmania.libc.new.qurt.LdivT
 import io.github.kotlinmania.libc.new.qurt.LldivT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -103,16 +101,16 @@ private external fun wasmLibcNewQurtStdlibLabs(p0: String): String
 @JsFun("(p0) => globalThis.__km_napi_libc.libcNewQurtStdlibLlabs(p0)")
 private external fun wasmLibcNewQurtStdlibLlabs(p0: String): String
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     if (newQurtStdlibNapiAvailable) MutPtr(wasmLibcNewQurtStdlibMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr =
     if (newQurtStdlibNapiAvailable) MutPtr(wasmLibcNewQurtStdlibCalloc(nmemb.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(ptr: MutPtr, size: SizeT): MutPtr =
     if (newQurtStdlibNapiAvailable) MutPtr(wasmLibcNewQurtStdlibRealloc(ptr.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(ptr: MutPtr<CVoid>) {
+public actual fun free(ptr: MutPtr) {
     if (newQurtStdlibNapiAvailable) {
         wasmLibcNewQurtStdlibFree(ptr.rawAddress.toString())
     } else {
@@ -141,40 +139,40 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(function: AtexitFunctionCallback): CInt =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibAtexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getenv(name: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(name: ConstPtr): MutPtr =
     if (newQurtStdlibNapiAvailable) MutPtr(wasmLibcNewQurtStdlibGetenv(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(name: ConstPtr, value: ConstPtr, overwrite: CInt): CInt =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibSetenv(name.rawAddress.toString(), value.rawAddress.toString(), overwrite) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(name: ConstPtr): CInt =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibUnsetenv(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(nptr: ConstPtr<CChar>): CInt =
+public actual fun atoi(nptr: ConstPtr): CInt =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibAtoi(nptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(nptr: ConstPtr<CChar>): CLong =
+public actual fun atol(nptr: ConstPtr): CLong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibAtol(nptr.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(nptr: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(nptr: ConstPtr): CLonglong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibAtoll(nptr.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtol(nptr.rawAddress.toString(), endptr.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtoul(nptr.rawAddress.toString(), endptr.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLonglong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtoll(nptr.rawAddress.toString(), endptr.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlonglong =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtoull(nptr.rawAddress.toString(), endptr.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(nptr: ConstPtr, endptr: MutPtr): CDouble =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtod(nptr.rawAddress.toString(), endptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(nptr: ConstPtr, endptr: MutPtr): CFloat =
     if (newQurtStdlibNapiAvailable) wasmLibcNewQurtStdlibStrtof(nptr.rawAddress.toString(), endptr.rawAddress.toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
@@ -188,7 +186,7 @@ public actual fun srand(seed: CUint) {
     }
 }
 
-public actual fun qsort(base: MutPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+public actual fun qsort(base: MutPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
     if (newQurtStdlibNapiAvailable) {
         wasmLibcNewQurtStdlibQsort(base.rawAddress.toString(), nmemb.toString(), size.toString(), 0L.toString())
     } else {
@@ -196,7 +194,7 @@ public actual fun qsort(base: MutPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: 
     }
 }
 
-public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr<CVoid> =
+public actual fun bsearch(key: ConstPtr, base: ConstPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr =
     if (newQurtStdlibNapiAvailable) MutPtr(wasmLibcNewQurtStdlibBsearch(key.rawAddress.toString(), base.rawAddress.toString(), nmemb.toString(), size.toString(), 0L.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(j: CInt): CInt =

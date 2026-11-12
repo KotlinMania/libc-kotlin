@@ -3,12 +3,9 @@
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.sys.types.CpuSetT
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -32,17 +29,17 @@ private external fun wasmLibcNewCommonLinuxlikePthreadPthreadSetaffinityNp(p0: S
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcNewCommonLinuxlikePthreadPthreadSetnameNp(p0, p1)")
 private external fun wasmLibcNewCommonLinuxlikePthreadPthreadSetnameNp(p0: String, p1: String): Int
 
-public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     if (newCommonLinuxlikePthreadNapiAvailable) wasmLibcNewCommonLinuxlikePthreadPthreadGetaffinityNp(thread.toLong().toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr): CInt =
     if (newCommonLinuxlikePthreadNapiAvailable) wasmLibcNewCommonLinuxlikePthreadPthreadGetattrNp(native.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt =
     if (newCommonLinuxlikePthreadNapiAvailable) wasmLibcNewCommonLinuxlikePthreadPthreadGetnameNp(thread.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     if (newCommonLinuxlikePthreadNapiAvailable) wasmLibcNewCommonLinuxlikePthreadPthreadSetaffinityNp(thread.toLong().toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): CInt =
     if (newCommonLinuxlikePthreadNapiAvailable) wasmLibcNewCommonLinuxlikePthreadPthreadSetnameNp(thread.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ClockT = UInt
@@ -105,7 +104,7 @@ public typealias FsfilcntT = ULong
 
 public typealias RlimT = ULong
 
-public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
+public typealias PosixSpawnFileActionsT = MutPtr
 
 public typealias PosixSpawnattrT = UintptrT
 

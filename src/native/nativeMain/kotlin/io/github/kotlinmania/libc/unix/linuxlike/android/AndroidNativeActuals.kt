@@ -2,35 +2,19 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
-import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
-import io.github.kotlinmania.libc.unix.Pollfd
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
-import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
-import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
-import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Sysinfo
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidAndroidSetAbortMessage
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidArc4random
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidArc4randomBuf
@@ -180,7 +164,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxl
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUnshare
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUtmpname
 import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidVmsplice
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
@@ -195,58 +178,58 @@ public actual fun endgrent() {
     libcUnixLinuxlikeAndroidEndgrent()
 }
 
-public actual fun getgrent(): MutPtr<Group> =
+public actual fun getgrent(): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidGetgrent()?.toLong() ?: 0L)
 
-public actual fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt =
+public actual fun getrlimit64(resource: CInt, rlim: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt =
+public actual fun setrlimit64(resource: CInt, rlim: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+public actual fun getrlimit(resource: CInt, rlim: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr, oldLimit: MutPtr): CInt =
     libcUnixLinuxlikeAndroidPrlimit(pid, resource, newLimit.rawAddress.toCPointer<ByteVar>(), oldLimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit64>, oldLimit: MutPtr<Rlimit64>): CInt =
+public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: ConstPtr, oldLimit: MutPtr): CInt =
     libcUnixLinuxlikeAndroidPrlimit64(pid, resource, newLimit.rawAddress.toCPointer<ByteVar>(), oldLimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     libcUnixLinuxlikeAndroidStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun mlock2(addr: ConstPtr, len: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidMlock2(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+public actual fun madvise(addr: MutPtr, len: SizeT, advice: CInt): CInt =
     libcUnixLinuxlikeAndroidMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     libcUnixLinuxlikeAndroidMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: ConstPtr, salen: SocklenT, host: MutPtr, hostlen: SizeT, serv: MutPtr, servlen: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, count: CInt, offset: OffT): SsizeT =
     libcUnixLinuxlikeAndroidPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, count: CInt, offset: OffT): SsizeT =
     libcUnixLinuxlikeAndroidPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun processVmReadv(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+public actual fun processVmReadv(pid: PidT, localIov: ConstPtr, localIovCount: CUlong, remoteIov: ConstPtr, remoteIovCount: CUlong, flags: CUlong): SsizeT =
     libcUnixLinuxlikeAndroidProcessVmReadv(pid, localIov.rawAddress.toCPointer<ByteVar>(), localIovCount, remoteIov.rawAddress.toCPointer<ByteVar>(), remoteIovCount, flags)
 
-public actual fun processVmWritev(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+public actual fun processVmWritev(pid: PidT, localIov: ConstPtr, localIovCount: CUlong, remoteIov: ConstPtr, remoteIovCount: CUlong, flags: CUlong): SsizeT =
     libcUnixLinuxlikeAndroidProcessVmWritev(pid, localIov.rawAddress.toCPointer<ByteVar>(), localIovCount, remoteIov.rawAddress.toCPointer<ByteVar>(), remoteIovCount, flags)
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
@@ -258,14 +241,14 @@ public actual fun getpriority(which: CInt, who: IdT): CInt =
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
     libcUnixLinuxlikeAndroidSetpriority(which, who, prio)
 
-public actual fun schedCpualloc(count: SizeT): MutPtr<CpuSetT> =
+public actual fun schedCpualloc(count: SizeT): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidSchedCpualloc(count)?.toLong() ?: 0L)
 
-public actual fun schedCpufree(set: MutPtr<CpuSetT>) {
+public actual fun schedCpufree(set: MutPtr) {
     libcUnixLinuxlikeAndroidSchedCpufree(set.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun schedCpucount(setsize: SizeT, set: ConstPtr<CpuSetT>): CInt =
+public actual fun schedCpucount(setsize: SizeT, set: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSchedCpucount(setsize, set.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetcpu(): CInt =
@@ -274,27 +257,27 @@ public actual fun schedGetcpu(): CInt =
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
-public actual fun mallocInfo(options: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun mallocInfo(options: CInt, stream: MutPtr): CInt =
     libcUnixLinuxlikeAndroidMallocInfo(options, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mallocUsableSize(ptr: ConstPtr<CVoid>): SizeT =
+public actual fun mallocUsableSize(ptr: ConstPtr): SizeT =
     libcUnixLinuxlikeAndroidMallocUsableSize(ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utmpname(name: ConstPtr<CChar>): CInt =
+public actual fun utmpname(name: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidUtmpname(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setutent() {
     libcUnixLinuxlikeAndroidSetutent()
 }
 
-public actual fun getutent(): MutPtr<Utmp> =
+public actual fun getutent(): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidGetutent()?.toLong() ?: 0L)
 
-public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+public actual fun seekdir(dirp: MutPtr, loc: CLong) {
     libcUnixLinuxlikeAndroidSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+public actual fun telldir(dirp: MutPtr): CLong =
     libcUnixLinuxlikeAndroidTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
@@ -309,61 +292,61 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
     libcUnixLinuxlikeAndroidPosixFallocate64(fd, offset, len)
 
-public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun getxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidGetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun lgetxattr(path: ConstPtr, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidLgetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr, value: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidFgetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun setxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidSetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun lsetxattr(path: ConstPtr, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidLsetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr, value: ConstPtr, size: SizeT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidFsetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun listxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidListxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun llistxattr(path: ConstPtr, list: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidLlistxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+public actual fun flistxattr(filedes: CInt, list: MutPtr, size: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidFlistxattr(filedes, list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun removexattr(path: ConstPtr, name: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidRemovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+public actual fun lremovexattr(path: ConstPtr, name: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidLremovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidFremovexattr(filedes, name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+public actual fun signalfd(fd: CInt, mask: ConstPtr, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidSignalfd(fd, mask.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun timerfdCreate(clock: ClockidT, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidTimerfdCreate(clock, flags)
 
-public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr): CInt =
     libcUnixLinuxlikeAndroidTimerfdGettime(fd, currentValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     libcUnixLinuxlikeAndroidTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     libcUnixLinuxlikeAndroidSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSchedGetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun epollCreate(size: CInt): CInt =
@@ -372,16 +355,16 @@ public actual fun epollCreate(size: CInt): CInt =
 public actual fun epollCreate1(flags: CInt): CInt =
     libcUnixLinuxlikeAndroidEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+public actual fun epollWait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt): CInt =
     libcUnixLinuxlikeAndroidEpollWait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr): CInt =
     libcUnixLinuxlikeAndroidEpollCtl(epfd, op, fd, event.rawAddress.toCPointer<ByteVar>())
 
 public actual fun unshare(flags: CInt): CInt =
     libcUnixLinuxlikeAndroidUnshare(flags)
 
-public actual fun umount(target: ConstPtr<CChar>): CInt =
+public actual fun umount(target: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidUmount(target.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
@@ -390,43 +373,43 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
     libcUnixLinuxlikeAndroidTee(fdIn, fdOut, len, flags)
 
-public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+public actual fun settimeofday(tv: ConstPtr, tz: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+public actual fun splice(fdIn: CInt, offIn: MutPtr, fdOut: CInt, offOut: MutPtr, len: SizeT, flags: CUint): SsizeT =
     libcUnixLinuxlikeAndroidSplice(fdIn, offIn.rawAddress.toCPointer<ByteVar>(), fdOut, offOut.rawAddress.toCPointer<ByteVar>(), len, flags)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidEventfd(initval, flags)
 
-public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+public actual fun eventfdRead(fd: CInt, value: MutPtr): CInt =
     libcUnixLinuxlikeAndroidEventfdRead(fd, value.rawAddress.toCPointer<ByteVar>())
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
     libcUnixLinuxlikeAndroidEventfdWrite(fd, value)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun semTimedwait(sem: MutPtr, abstime: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+public actual fun semGetvalue(sem: MutPtr, sval: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
     libcUnixLinuxlikeAndroidSetns(fd, nstype)
 
-public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+public actual fun swapoff(puath: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSwapoff(puath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+public actual fun vmsplice(fd: CInt, iov: ConstPtr, nrSegs: SizeT, flags: CUint): SsizeT =
     libcUnixLinuxlikeAndroidVmsplice(fd, iov.rawAddress.toCPointer<ByteVar>(), nrSegs, flags)
 
-public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+public actual fun mount(src: ConstPtr, target: ConstPtr, fstype: ConstPtr, flags: CUlong, data: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidMount(src.rawAddress.toCPointer<ByteVar>(), target.rawAddress.toCPointer<ByteVar>(), fstype.rawAddress.toCPointer<ByteVar>(), flags, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun personality(persona: CUint): CInt =
@@ -435,43 +418,43 @@ public actual fun personality(persona: CUint): CInt =
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     libcUnixLinuxlikeAndroidPrctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun ppoll(fds: MutPtr, nfds: NfdsT, timeout: ConstPtr, sigmask: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidPpoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout.rawAddress.toCPointer<ByteVar>(), sigmask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr, flags: CInt, arg: MutPtr, vararg variadicArgs: Long): CInt =
     libcUnixLinuxlikeAndroidClone(0L.toCPointer<ByteVar>(), childStack.rawAddress.toCPointer<ByteVar>(), flags, arg.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     libcUnixLinuxlikeAndroidSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     libcUnixLinuxlikeAndroidClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+public actual fun sethostname(name: ConstPtr, len: SizeT): CInt =
     libcUnixLinuxlikeAndroidSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     libcUnixLinuxlikeAndroidSchedGetPriorityMin(policy)
 
-public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
+public actual fun sysinfo(info: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSysinfo(info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun umount2(target: ConstPtr, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidUmount2(target.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+public actual fun swapon(path: ConstPtr, swapflags: CInt): CInt =
     libcUnixLinuxlikeAndroidSwapon(path.rawAddress.toCPointer<ByteVar>(), swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidSendfile(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr, count: SizeT): SsizeT =
     libcUnixLinuxlikeAndroidSendfile64(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun setfsgid(gid: GidT): CInt =
@@ -480,55 +463,55 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     libcUnixLinuxlikeAndroidSetfsuid(uid)
 
-public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+public actual fun sigsuspend(mask: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrgidR(gid: GidT, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+public actual fun sigaltstack(ss: ConstPtr, oss: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+public actual fun getgrnamR(name: ConstPtr, grp: MutPtr, buf: MutPtr, buflen: SizeT, result: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+public actual fun getgrnam(name: ConstPtr): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libcUnixLinuxlikeAndroidDaemon(nochdir, noclose)
 
-public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+public actual fun sigtimedwait(set: ConstPtr, info: MutPtr, timeout: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+public actual fun sigwait(set: ConstPtr, sig: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+public actual fun getgrgid(gid: GidT): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+public actual fun getgrouplist(user: ConstPtr, group: GidT, groups: MutPtr, ngroups: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+public actual fun initgroups(user: ConstPtr, group: GidT): CInt =
     libcUnixLinuxlikeAndroidInitgroups(user.rawAddress.toCPointer<ByteVar>(), group)
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr, mode: CInt, flags: CInt): CInt =
     libcUnixLinuxlikeAndroidFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun errno(): MutPtr<CInt> =
+public actual fun errno(): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidErrno()?.toLong() ?: 0L)
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
@@ -540,23 +523,23 @@ public actual fun inotifyInit(): CInt =
 public actual fun inotifyInit1(flags: CInt): CInt =
     libcUnixLinuxlikeAndroidInotifyInit1(flags)
 
-public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr, mask: UInt): CInt =
     libcUnixLinuxlikeAndroidInotifyAddWatch(fd, path.rawAddress.toCPointer<ByteVar>(), mask)
 
-public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+public actual fun regcomp(preg: MutPtr, pattern: ConstPtr, cflags: CInt): CInt =
     libcUnixLinuxlikeAndroidRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+public actual fun regexec(preg: ConstPtr, input: ConstPtr, nmatch: SizeT, pmatch: MutPtr, eflags: CInt): CInt =
     libcUnixLinuxlikeAndroidRegexec(preg.rawAddress.toCPointer<ByteVar>(), input.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+public actual fun regerror(errcode: CInt, preg: ConstPtr, errbuf: MutPtr, errbufSize: SizeT): SizeT =
     libcUnixLinuxlikeAndroidRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regfree(preg: MutPtr<RegexT>) {
+public actual fun regfree(preg: MutPtr) {
     libcUnixLinuxlikeAndroidRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun androidSetAbortMessage(msg: ConstPtr<CChar>) {
+public actual fun androidSetAbortMessage(msg: ConstPtr) {
     libcUnixLinuxlikeAndroidAndroidSetAbortMessage(msg.rawAddress.toCPointer<ByteVar>())
 }
 
@@ -569,28 +552,28 @@ public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
 public actual fun getauxval(type: CUlong): CUlong =
     libcUnixLinuxlikeAndroidGetauxval(type)
 
-public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+public actual fun getrandom(buf: MutPtr, buflen: SizeT, flags: CUint): SsizeT =
     libcUnixLinuxlikeAndroidGetrandom(buf.rawAddress.toCPointer<ByteVar>(), buflen, flags)
 
-public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+public actual fun getentropy(buf: MutPtr, buflen: SizeT): CInt =
     libcUnixLinuxlikeAndroidGetentropy(buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun systemPropertySet(name: ConstPtr<CChar>, value: ConstPtr<CChar>): CInt =
+public actual fun systemPropertySet(name: ConstPtr, value: ConstPtr): CInt =
     libcUnixLinuxlikeAndroidSystemPropertySet(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun systemPropertyGet(name: ConstPtr<CChar>, value: MutPtr<CChar>): CInt =
+public actual fun systemPropertyGet(name: ConstPtr, value: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSystemPropertyGet(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun systemPropertyFind(name: ConstPtr<CChar>): ConstPtr<PropInfo> =
+public actual fun systemPropertyFind(name: ConstPtr): ConstPtr =
     ConstPtr(libcUnixLinuxlikeAndroidSystemPropertyFind(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun systemPropertyFindNth(n: CUint): ConstPtr<PropInfo> =
+public actual fun systemPropertyFindNth(n: CUint): ConstPtr =
     ConstPtr(libcUnixLinuxlikeAndroidSystemPropertyFindNth(n)?.toLong() ?: 0L)
 
-public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: MutPtr<CVoid>): CInt =
+public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: MutPtr): CInt =
     libcUnixLinuxlikeAndroidSystemPropertyForeach(0L.toCPointer<ByteVar>(), cookie.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr): CInt =
     libcUnixLinuxlikeAndroidDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun arc4random(): UInt =
@@ -599,20 +582,20 @@ public actual fun arc4random(): UInt =
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
     libcUnixLinuxlikeAndroidArc4randomUniform(upperBound)
 
-public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+public actual fun arc4randomBuf(buf: MutPtr, n: SizeT) {
     libcUnixLinuxlikeAndroidArc4randomBuf(buf.rawAddress.toCPointer<ByteVar>(), n)
 }
 
-public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun reallocarray(ptr: MutPtr, nmemb: SizeT, size: SizeT): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidReallocarray(ptr.rawAddress.toCPointer<ByteVar>(), nmemb, size)?.toLong() ?: 0L)
 
-public actual fun dirname(path: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: ConstPtr): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidDirname(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun basename(path: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: ConstPtr): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidBasename(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+public actual fun getoptLong(argc: CInt, argv: ConstPtr, optstring: ConstPtr, longopts: ConstPtr, longindex: MutPtr): CInt =
     libcUnixLinuxlikeAndroidGetoptLong(argc, argv.rawAddress.toCPointer<ByteVar>(), optstring.rawAddress.toCPointer<ByteVar>(), longopts.rawAddress.toCPointer<ByteVar>(), longindex.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sync() {
@@ -622,26 +605,26 @@ public actual fun sync() {
 public actual fun syncfs(fd: CInt): CInt =
     libcUnixLinuxlikeAndroidSyncfs(fd)
 
-public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+public actual fun memmem(haystack: ConstPtr, haystacklen: SizeT, needle: ConstPtr, needlelen: SizeT): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
-public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun freadUnlocked(buf: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     libcUnixLinuxlikeAndroidFreadUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwriteUnlocked(buf: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwriteUnlocked(buf: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     libcUnixLinuxlikeAndroidFwriteUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fflushUnlocked(stream: MutPtr<FILE>): CInt =
+public actual fun fflushUnlocked(stream: MutPtr): CInt =
     libcUnixLinuxlikeAndroidFflushUnlocked(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetsUnlocked(buf: MutPtr<CChar>, size: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgetsUnlocked(buf: MutPtr, size: CInt, stream: MutPtr): MutPtr =
     MutPtr(libcUnixLinuxlikeAndroidFgetsUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr, len: CInt): CInt =
     libcUnixLinuxlikeAndroidKlogctl(syslogType, bufp.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun memfdCreate(name: ConstPtr, flags: CUint): CInt =
     libcUnixLinuxlikeAndroidMemfdCreate(name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr, flags: CUint): CInt =
     libcUnixLinuxlikeAndroidRenameat2(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)

@@ -8,7 +8,6 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
@@ -31,10 +30,10 @@ public typealias GregsetT = UIntArray
 public class McontextT internal constructor(
     public var gregs: GregsetT,
     public var mcVfpSize: Int,
-    mcVfpPtrCtorArg: MutPtr<CVoid>,
+    mcVfpPtrCtorArg: MutPtr,
     public var mcSpare: UIntArray,
 ) {
-    public var mcVfpPtr: MutPtr<CVoid> = mcVfpPtrCtorArg
+    public var mcVfpPtr: MutPtr = mcVfpPtrCtorArg
         internal set
 
     public constructor() : this(
@@ -48,11 +47,11 @@ public class McontextT internal constructor(
 
     public operator fun component2(): Int = this.mcVfpSize
 
-    public operator fun component3(): MutPtr<CVoid> = this.mcVfpPtr
+    public operator fun component3(): MutPtr = this.mcVfpPtr
 
     public operator fun component4(): UIntArray = this.mcSpare
 
-    public fun copy(gregs: GregsetT = this.gregs, mcVfpSize: Int = this.mcVfpSize, mcVfpPtr: MutPtr<CVoid> = this.mcVfpPtr, mcSpare: UIntArray = this.mcSpare): McontextT = McontextT(gregs = gregs, mcVfpSize = mcVfpSize, mcVfpPtrCtorArg = mcVfpPtr, mcSpare = mcSpare)
+    public fun copy(gregs: GregsetT = this.gregs, mcVfpSize: Int = this.mcVfpSize, mcVfpPtr: MutPtr = this.mcVfpPtr, mcSpare: UIntArray = this.mcSpare): McontextT = McontextT(gregs = gregs, mcVfpSize = mcVfpSize, mcVfpPtrCtorArg = mcVfpPtr, mcSpare = mcSpare)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -86,7 +85,7 @@ public class McontextT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 72L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 80L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -101,7 +100,7 @@ public class McontextT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 72L, value.mcVfpSize)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 80L, value.mcVfpPtr)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -113,7 +112,7 @@ public class McontextT internal constructor(
         public operator fun invoke(
             gregs: GregsetT = UIntArray(17),
             mcVfpSize: Int = 0,
-            mcVfpPtr: MutPtr<CVoid> = MutPtr(0L),
+            mcVfpPtr: MutPtr = MutPtr(0L),
             mcSpare: UIntArray = UIntArray(33),
         ): McontextT =
             McontextT(

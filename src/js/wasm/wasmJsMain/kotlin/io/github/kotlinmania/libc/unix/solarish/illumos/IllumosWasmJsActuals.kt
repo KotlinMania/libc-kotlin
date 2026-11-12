@@ -3,25 +3,17 @@
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.solarish.CaddrT
 import io.github.kotlinmania.libc.unix.solarish.IdT
-import io.github.kotlinmania.libc.unix.solarish.Itimerspec
 import io.github.kotlinmania.libc.unix.solarish.OffT
-import io.github.kotlinmania.libc.unix.solarish.PosixSpawnFileActionsT
 import io.github.kotlinmania.libc.unix.solarish.PsetidT
-import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
-import io.github.kotlinmania.libc.unix.solarish.SigsetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -108,7 +100,7 @@ private external fun wasmLibcUnixSolarishIllumosTimerfdSettime(p0: Int, p1: Int,
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+public actual fun epollPwait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt, sigmask: ConstPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollPwait(epfd, events.rawAddress.toString(), maxevents, timeout, sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun epollCreate(size: CInt): CInt =
@@ -117,65 +109,65 @@ public actual fun epollCreate(size: CInt): CInt =
 public actual fun epollCreate1(flags: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollCreate1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+public actual fun epollWait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollWait(epfd, events.rawAddress.toString(), maxevents, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollCtl(epfd, op, fd, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosMincore(addr.rawAddress.toString(), len.toString(), vec.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr<PsetidT>): CInt =
+public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPsetBindLwp(pset, id, pid, opset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetGetloadavg(pset: PsetidT, load: MutPtr<CDouble>, num: CInt): CInt =
+public actual fun psetGetloadavg(pset: PsetidT, load: MutPtr, num: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPsetGetloadavg(pset, load.rawAddress.toString(), num) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrGetNp(thread.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr, stackaddr: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrGetstackaddr(attr.rawAddress.toString(), stackaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+public actual fun pthreadAttrSetstack(attr: MutPtr, stackaddr: MutPtr, stacksize: SizeT): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrSetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr, stackaddr: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrSetstackaddr(attr.rawAddress.toString(), stackaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPosixFadvise(fd, offset.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpagesizes2(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+public actual fun getpagesizes2(pagesize: MutPtr, nelem: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosGetpagesizes2(pagesize.rawAddress.toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr, fd: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(fileActions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): CInt =
+public actual fun ptsnameR(fildes: CInt, name: MutPtr, namelen: SizeT): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPtsnameR(fildes, name.rawAddress.toString(), namelen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun syncfs(fd: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosSyncfs(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
+public actual fun strcasecmpL(s1: ConstPtr, s2: ConstPtr, loc: LocaleT): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosStrcasecmpL(s1.rawAddress.toString(), s2.rawAddress.toString(), loc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt =
+public actual fun strncasecmpL(s1: ConstPtr, s2: ConstPtr, n: SizeT, loc: LocaleT): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosStrncasecmpL(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString(), loc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdGettime(fd, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt =
     if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdSettime(fd, flags, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

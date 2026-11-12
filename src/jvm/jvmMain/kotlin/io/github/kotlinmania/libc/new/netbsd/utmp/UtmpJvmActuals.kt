@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -77,14 +76,14 @@ private object NewNetbsdUtmpJniBridge {
     external fun libcNewNetbsdUtmpEndutent()
 }
 
-public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpname(file: ConstPtr): CInt =
     NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpUtmpname(file.rawAddress)
 
 public actual fun setutent() {
     NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpSetutent()
 }
 
-public actual fun getutent(): MutPtr<Utmp> =
+public actual fun getutent(): MutPtr =
     MutPtr(NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpGetutent())
 
 public actual fun endutent() {

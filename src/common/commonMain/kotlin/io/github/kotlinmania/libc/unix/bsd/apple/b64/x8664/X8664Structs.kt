@@ -3,57 +3,55 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface MallocZoneTSizeCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, ptr: ConstPtr<CVoid>): SizeT
+    public operator fun invoke(zone: MutPtr, ptr: ConstPtr): SizeT
 }
 
 public fun interface MallocZoneTMallocCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, size: SizeT): MutPtr<CVoid>
+    public operator fun invoke(zone: MutPtr, size: SizeT): MutPtr
 }
 
 public fun interface MallocZoneTCallocCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, numItems: SizeT, size: SizeT): MutPtr<CVoid>
+    public operator fun invoke(zone: MutPtr, numItems: SizeT, size: SizeT): MutPtr
 }
 
 public fun interface MallocZoneTFreeCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>)
+    public operator fun invoke(zone: MutPtr, ptr: MutPtr)
 }
 
 public fun interface MallocZoneTReallocCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid>
+    public operator fun invoke(zone: MutPtr, ptr: MutPtr, size: SizeT): MutPtr
 }
 
 public fun interface MallocZoneTDestroyCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>)
+    public operator fun invoke(zone: MutPtr)
 }
 
 public fun interface MallocZoneTBatchMallocCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, size: SizeT, results: MutPtr<MutPtr<CVoid>>, numRequested: CUint): CUint
+    public operator fun invoke(zone: MutPtr, size: SizeT, results: MutPtr, numRequested: CUint): CUint
 }
 
 public fun interface MallocZoneTBatchFreeCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, toBeFreed: MutPtr<MutPtr<CVoid>>, numToBeFreed: CUint)
+    public operator fun invoke(zone: MutPtr, toBeFreed: MutPtr, numToBeFreed: CUint)
 }
 
 public fun interface MallocZoneTFreeDefiniteSizeCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>, size: SizeT)
+    public operator fun invoke(zone: MutPtr, ptr: MutPtr, size: SizeT)
 }
 
 public fun interface MallocZoneTPressureReliefCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, goal: SizeT): SizeT
+    public operator fun invoke(zone: MutPtr, goal: SizeT): SizeT
 }
 
 public fun interface MallocZoneTClaimedAddressCallback {
-    public operator fun invoke(zone: MutPtr<MallocZoneT>, ptr: MutPtr<CVoid>): BooleanT
+    public operator fun invoke(zone: MutPtr, ptr: MutPtr): BooleanT
 }
 
 public data class MallocIntrospectionT(
@@ -91,8 +89,8 @@ public data class MallocIntrospectionT(
 }
 
 public class MallocZoneT internal constructor(
-    reserved1CtorArg: MutPtr<CVoid>,
-    reserved2CtorArg: MutPtr<CVoid>,
+    reserved1CtorArg: MutPtr,
+    reserved2CtorArg: MutPtr,
     public var size: MallocZoneTSizeCallback?,
     public var malloc: MallocZoneTMallocCallback?,
     public var calloc: MallocZoneTCallocCallback?,
@@ -100,26 +98,26 @@ public class MallocZoneT internal constructor(
     public var free: MallocZoneTFreeCallback?,
     public var realloc: MallocZoneTReallocCallback?,
     public var destroy: MallocZoneTDestroyCallback?,
-    zoneNameCtorArg: ConstPtr<CChar>,
+    zoneNameCtorArg: ConstPtr,
     public var batchMalloc: MallocZoneTBatchMallocCallback?,
     public var batchFree: MallocZoneTBatchFreeCallback?,
-    introspectCtorArg: MutPtr<MallocIntrospectionT>,
+    introspectCtorArg: MutPtr,
     public var version: CUint,
     public var memalign: MallocZoneTCallocCallback?,
     public var freeDefiniteSize: MallocZoneTFreeDefiniteSizeCallback?,
     public var pressureRelief: MallocZoneTPressureReliefCallback?,
     public var claimedAddress: MallocZoneTClaimedAddressCallback?,
 ) {
-    public var reserved1: MutPtr<CVoid> = reserved1CtorArg
+    public var reserved1: MutPtr = reserved1CtorArg
         internal set
 
-    public var reserved2: MutPtr<CVoid> = reserved2CtorArg
+    public var reserved2: MutPtr = reserved2CtorArg
         internal set
 
-    public var zoneName: ConstPtr<CChar> = zoneNameCtorArg
+    public var zoneName: ConstPtr = zoneNameCtorArg
         internal set
 
-    public var introspect: MutPtr<MallocIntrospectionT> = introspectCtorArg
+    public var introspect: MutPtr = introspectCtorArg
         internal set
 
     public constructor() : this(
@@ -145,8 +143,8 @@ public class MallocZoneT internal constructor(
 
     public companion object {
         public operator fun invoke(
-            reserved1: MutPtr<CVoid> = MutPtr(0L),
-            reserved2: MutPtr<CVoid> = MutPtr(0L),
+            reserved1: MutPtr = MutPtr(0L),
+            reserved2: MutPtr = MutPtr(0L),
             size: MallocZoneTSizeCallback? = null,
             malloc: MallocZoneTMallocCallback? = null,
             calloc: MallocZoneTCallocCallback? = null,
@@ -154,10 +152,10 @@ public class MallocZoneT internal constructor(
             free: MallocZoneTFreeCallback? = null,
             realloc: MallocZoneTReallocCallback? = null,
             destroy: MallocZoneTDestroyCallback? = null,
-            zoneName: ConstPtr<CChar> = ConstPtr(0L),
+            zoneName: ConstPtr = ConstPtr(0L),
             batchMalloc: MallocZoneTBatchMallocCallback? = null,
             batchFree: MallocZoneTBatchFreeCallback? = null,
-            introspect: MutPtr<MallocIntrospectionT> = MutPtr(0L),
+            introspect: MutPtr = MutPtr(0L),
             version: CUint = 0u,
             memalign: MallocZoneTCallocCallback? = null,
             freeDefiniteSize: MallocZoneTFreeDefiniteSizeCallback? = null,

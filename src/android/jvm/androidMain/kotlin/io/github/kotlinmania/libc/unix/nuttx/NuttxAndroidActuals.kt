@@ -3,11 +3,6 @@
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -59,45 +54,45 @@ private object UnixNuttxJniBridge {
     external fun libcUnixNuttxArc4randomBuf(bytes: Long, nbytes: Long)
 }
 
-public actual fun errno(): MutPtr<CInt> =
+public actual fun errno(): MutPtr =
     MutPtr(UnixNuttxJniBridge.libcUnixNuttxErrno())
 
-public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun bind(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     UnixNuttxJniBridge.libcUnixNuttxBind(sockfd, addr.rawAddress, addrlen.toInt())
 
 public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
     UnixNuttxJniBridge.libcUnixNuttxIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun dirfd(dirp: MutPtr<DIR>): Int =
+public actual fun dirfd(dirp: MutPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxDirfd(dirp.rawAddress)
 
-public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, srcAddr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun recvfrom(sockfd: Int, buf: MutPtr, len: ULong, flags: Int, srcAddr: MutPtr, addrlen: MutPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxRecvfrom(sockfd, buf.rawAddress, len.toLong(), flags, srcAddr.rawAddress, addrlen.rawAddress)
 
-public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): Int =
+public actual fun pthreadCreate(thread: MutPtr, attr: ConstPtr, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxPthreadCreate(thread.rawAddress, attr.rawAddress, 0L, arg.rawAddress)
 
-public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxClockGettime(clockid, tp.rawAddress)
 
-public actual fun futimens(fd: Int, times: ConstPtr<Timespec>): Int =
+public actual fun futimens(fd: Int, times: ConstPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxFutimens(fd, times.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): Int =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): Int =
     UnixNuttxJniBridge.libcUnixNuttxPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): Int =
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr): Int =
     UnixNuttxJniBridge.libcUnixNuttxPthreadSetnameNp(thread.toLong(), name.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: ULong): Int =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: ULong): Int =
     UnixNuttxJniBridge.libcUnixNuttxPthreadGetnameNp(thread.toLong(), name.rawAddress, len.toLong())
 
-public actual fun getrandom(buf: MutPtr<CVoid>, buflen: ULong, flags: UInt): Long =
+public actual fun getrandom(buf: MutPtr, buflen: ULong, flags: UInt): Long =
     UnixNuttxJniBridge.libcUnixNuttxGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
 public actual fun arc4random(): UInt =
     UnixNuttxJniBridge.libcUnixNuttxArc4random().toUInt()
 
-public actual fun arc4randomBuf(bytes: MutPtr<CVoid>, nbytes: ULong) {
+public actual fun arc4randomBuf(bytes: MutPtr, nbytes: ULong) {
     UnixNuttxJniBridge.libcUnixNuttxArc4randomBuf(bytes.rawAddress, nbytes.toLong())
 }

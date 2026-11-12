@@ -3,9 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -210,109 +208,109 @@ private object NewQurtJniBridge {
     external fun libcNewQurtToupper(c: Int): Int
 }
 
-public actual fun opendir(name: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun opendir(name: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtOpendir(name.rawAddress))
 
-public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun readdir(dirp: MutPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtReaddir(dirp.rawAddress))
 
-public actual fun closedir(dirp: ConstPtr<DIR>): CInt =
+public actual fun closedir(dirp: ConstPtr): CInt =
     NewQurtJniBridge.libcNewQurtClosedir(dirp.rawAddress)
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): CInt =
     NewQurtJniBridge.libcNewQurtMkdir(path.rawAddress, mode.toInt())
 
-public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstack(attr: ConstPtr, stackaddr: MutPtr, stacksize: MutPtr): CInt =
     NewQurtJniBridge.libcNewQurtPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+public actual fun pthreadAttrSetstack(attr: MutPtr, stackaddr: MutPtr, stacksize: SizeT): CInt =
     NewQurtJniBridge.libcNewQurtPthreadAttrSetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.toLong())
 
-public actual fun clockGetcpuclockid(pid: PidT, clockId: MutPtr<ClockidT>): CInt =
+public actual fun clockGetcpuclockid(pid: PidT, clockId: MutPtr): CInt =
     NewQurtJniBridge.libcNewQurtClockGetcpuclockid(pid, clockId.rawAddress)
 
-public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+public actual fun semOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun semClose(sem: MutPtr<SemT>): CInt =
+public actual fun semClose(sem: MutPtr): CInt =
     NewQurtJniBridge.libcNewQurtSemClose(sem.rawAddress)
 
-public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun semUnlink(name: ConstPtr): CInt =
     NewQurtJniBridge.libcNewQurtSemUnlink(name.rawAddress)
 
-public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtAlignedAlloc(alignment.toLong(), size.toLong()))
 
-public actual fun strlen(s: ConstPtr<CChar>): SizeT =
+public actual fun strlen(s: ConstPtr): SizeT =
     NewQurtJniBridge.libcNewQurtStrlen(s.rawAddress).toULong()
 
-public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dest: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrcpy(dest.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrncpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(dest: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrcat(dest.rawAddress, src.rawAddress))
 
-public actual fun strncat(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrncat(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcmp(s1: ConstPtr, s2: ConstPtr): CInt =
     NewQurtJniBridge.libcNewQurtStrcmp(s1.rawAddress, s2.rawAddress)
 
-public actual fun strncmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     NewQurtJniBridge.libcNewQurtStrncmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun strcoll(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcoll(s1: ConstPtr, s2: ConstPtr): CInt =
     NewQurtJniBridge.libcNewQurtStrcoll(s1.rawAddress, s2.rawAddress)
 
-public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     NewQurtJniBridge.libcNewQurtStrxfrm(dest.rawAddress, src.rawAddress, n.toLong()).toULong()
 
-public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(s: ConstPtr, c: CInt): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrchr(s.rawAddress, c))
 
-public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(s: ConstPtr, c: CInt): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrrchr(s.rawAddress, c))
 
-public actual fun strspn(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): SizeT =
+public actual fun strspn(s: ConstPtr, accept: ConstPtr): SizeT =
     NewQurtJniBridge.libcNewQurtStrspn(s.rawAddress, accept.rawAddress).toULong()
 
-public actual fun strcspn(s: ConstPtr<CChar>, reject: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(s: ConstPtr, reject: ConstPtr): SizeT =
     NewQurtJniBridge.libcNewQurtStrcspn(s.rawAddress, reject.rawAddress).toULong()
 
-public actual fun strpbrk(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(s: ConstPtr, accept: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrpbrk(s.rawAddress, accept.rawAddress))
 
-public actual fun strstr(haystack: ConstPtr<CChar>, needle: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(haystack: ConstPtr, needle: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrstr(haystack.rawAddress, needle.rawAddress))
 
-public actual fun strtok(s: MutPtr<CChar>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, delim: ConstPtr): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrtok(s.rawAddress, delim.rawAddress))
 
-public actual fun strerror(errnum: CInt): MutPtr<CChar> =
+public actual fun strerror(errnum: CInt): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtStrerror(errnum))
 
-public actual fun memchr(s: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(s: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtMemchr(s.rawAddress, c, n.toLong()))
 
-public actual fun memcmp(s1: ConstPtr<CVoid>, s2: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     NewQurtJniBridge.libcNewQurtMemcmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(s: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(s: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(NewQurtJniBridge.libcNewQurtMemset(s.rawAddress, c, n.toLong()))
 
 public actual fun fork(): PidT =
     NewQurtJniBridge.libcNewQurtFork()
 
-public actual fun execve(filename: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(filename: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     NewQurtJniBridge.libcNewQurtExecve(filename.rawAddress, argv.rawAddress, envp.rawAddress)
 
 public actual fun isalnum(c: CInt): CInt =

@@ -3,9 +3,7 @@
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.netbsd.utmp.Utmp
 import io.github.kotlinmania.libc.new.qurt.UidT
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -67,28 +65,28 @@ public actual fun endutxent() {
     }
 }
 
-public actual fun getutxent(): MutPtr<Utmpx> =
+public actual fun getutxent(): MutPtr =
     if (newNetbsdUtmpxNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpxGetutxent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxid(ut: ConstPtr): MutPtr =
     if (newNetbsdUtmpxNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpxGetutxid(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun getutxline(ut: ConstPtr): MutPtr =
     if (newNetbsdUtmpxNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpxGetutxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+public actual fun pututxline(ut: ConstPtr): MutPtr =
     if (newNetbsdUtmpxNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpxPututxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun updwtmpx(file: ConstPtr<CChar>, ut: ConstPtr<Utmpx>): CInt =
+public actual fun updwtmpx(file: ConstPtr, ut: ConstPtr): CInt =
     if (newNetbsdUtmpxNapiAvailable) wasmLibcNewNetbsdUtmpxUpdwtmpx(file.rawAddress.toString(), ut.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): MutPtr<Lastlogx> =
+public actual fun getlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): MutPtr =
     if (newNetbsdUtmpxNapiAvailable) MutPtr(wasmLibcNewNetbsdUtmpxGetlastlogx(fname.rawAddress.toString(), uid.toInt(), ll.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun updlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): CInt =
+public actual fun updlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): CInt =
     if (newNetbsdUtmpxNapiAvailable) wasmLibcNewNetbsdUtmpxUpdlastlogx(fname.rawAddress.toString(), uid.toInt(), ll.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>) {
+public actual fun getutmp(ux: ConstPtr, u: MutPtr) {
     if (newNetbsdUtmpxNapiAvailable) {
         wasmLibcNewNetbsdUtmpxGetutmp(ux.rawAddress.toString(), u.rawAddress.toString())
     } else {
@@ -96,7 +94,7 @@ public actual fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>) {
     }
 }
 
-public actual fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>) {
+public actual fun getutmpx(u: ConstPtr, ux: MutPtr) {
     if (newNetbsdUtmpxNapiAvailable) {
         wasmLibcNewNetbsdUtmpxGetutmpx(u.rawAddress.toString(), ux.rawAddress.toString())
     } else {
@@ -104,5 +102,5 @@ public actual fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>) {
     }
 }
 
-public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpxname(file: ConstPtr): CInt =
     if (newNetbsdUtmpxNapiAvailable) wasmLibcNewNetbsdUtmpxUtmpxname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

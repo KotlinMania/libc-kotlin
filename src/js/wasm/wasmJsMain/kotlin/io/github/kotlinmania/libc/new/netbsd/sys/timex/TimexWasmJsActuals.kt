@@ -17,8 +17,8 @@ private external fun wasmLibcNewNetbsdSysTimexNtpGettime(p0: String): Int
 @JsFun("(p0) => globalThis.__km_napi_libc.libcNewNetbsdSysTimexNtpAdjtime(p0)")
 private external fun wasmLibcNewNetbsdSysTimexNtpAdjtime(p0: String): Int
 
-public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+public actual fun ntpGettime(buf: MutPtr): CInt =
     if (newNetbsdSysTimexNapiAvailable) wasmLibcNewNetbsdSysTimexNtpGettime(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+public actual fun ntpAdjtime(buf: MutPtr): CInt =
     if (newNetbsdSysTimexNapiAvailable) wasmLibcNewNetbsdSysTimexNtpAdjtime(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

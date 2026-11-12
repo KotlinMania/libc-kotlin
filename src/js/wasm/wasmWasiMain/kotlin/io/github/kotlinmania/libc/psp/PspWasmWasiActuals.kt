@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -18,16 +16,16 @@ private external fun wasiLibcPspSceAudioChRelease(channel: Int): Int
 public actual fun sceAudioChRelease(channel: Int): Int =
     wasiLibcPspSceAudioChRelease(channel)
 
-public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutput")
 
-public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutputBlocking")
 
-public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutputPanned")
 
-public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutputPannedBlocking")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioGetChannelRestLen")
@@ -75,7 +73,7 @@ private external fun wasiLibcPspSceAudioOutput2ChangeLength(sampleCount: Int): I
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
     wasiLibcPspSceAudioOutput2ChangeLength(sampleCount)
 
-public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutput2OutputBlocking")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioOutput2GetRestSample")
@@ -93,7 +91,7 @@ private external fun wasiLibcPspSceAudioSRCChRelease(): Int
 public actual fun sceAudioSRCChRelease(): Int =
     wasiLibcPspSceAudioSRCChRelease()
 
-public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioSRCOutputBlocking")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioInputInit")
@@ -102,12 +100,12 @@ private external fun wasiLibcPspSceAudioInputInit(unknown1: Int, gain: Int, unkn
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
     wasiLibcPspSceAudioInputInit(unknown1, gain, unknown2)
 
-public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
+public actual fun sceAudioInputInitEx(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInputInitEx")
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInputBlocking")
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInputBlocking")
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInput")
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInput")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioGetInputLength")
 private external fun wasiLibcPspSceAudioGetInputLength(): Int
@@ -133,16 +131,16 @@ private external fun wasiLibcPspSceAtracGetAtracID(uiCodecType: Int): Int
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
     wasiLibcPspSceAtracGetAtracID(uiCodecType.toInt())
 
-public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
+public actual fun sceAtracSetDataAndGetID(buf: MutPtr, bufsize: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetDataAndGetID")
 
-public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr, outN: MutPtr, outEnd: MutPtr, outRemainFrame: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracDecodeData")
 
-public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int =
+public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetRemainFrame")
 
-public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int =
+public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr, availableBytes: MutPtr, readOffset: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetStreamDataInfo")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAtracAddStreamData")
@@ -151,7 +149,7 @@ private external fun wasiLibcPspSceAtracAddStreamData(atracId: Int, bytesToAdd: 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
     wasiLibcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt())
 
-public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
+public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetBitrate")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAtracSetLoopNum")
@@ -166,31 +164,31 @@ private external fun wasiLibcPspSceAtracReleaseAtracID(atracId: Int): Int
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
     wasiLibcPspSceAtracReleaseAtracID(atracId)
 
-public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
+public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetNextSample")
 
-public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int =
+public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetMaxSample")
 
-public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int =
+public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetBufferInfoForReseting")
 
-public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int =
+public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetChannel")
 
-public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int =
+public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetInternalErrorInfo")
 
-public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int =
+public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr, puiLoopStatus: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetLoopStatus")
 
-public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int =
+public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetNextDecodePosition")
 
-public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int =
+public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr, puiDataByte: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetSecondBufferInfo")
 
-public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int =
+public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr, piLoopStartSample: MutPtr, piLoopEndSample: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetSoundSample")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAtracResetPlayPosition")
@@ -199,16 +197,16 @@ private external fun wasiLibcPspSceAtracResetPlayPosition(atracId: Int, uiSample
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
     wasiLibcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt())
 
-public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr, uiBufferByte: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetData")
 
-public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetHalfwayBuffer")
 
-public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetHalfwayBufferAndGetID")
 
-public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int =
+public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr, uiSecondBufferByte: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetSecondBuffer")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceCtrlSetSamplingCycle")
@@ -217,31 +215,31 @@ private external fun wasiLibcPspSceCtrlSetSamplingCycle(cycle: Int): Int
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
     wasiLibcPspSceCtrlSetSamplingCycle(cycle)
 
-public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlGetSamplingCycle")
 
 public actual fun sceCtrlSetSamplingMode(mode: CtrlMode): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlSetSamplingMode")
 
-public actual fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int =
+public actual fun sceCtrlGetSamplingMode(pmode: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlGetSamplingMode")
 
-public actual fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferPositive(padData: MutPtr, count: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlPeekBufferPositive")
 
-public actual fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlPeekBufferNegative(padData: MutPtr, count: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlPeekBufferNegative")
 
-public actual fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferPositive(padData: MutPtr, count: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlReadBufferPositive")
 
-public actual fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+public actual fun sceCtrlReadBufferNegative(padData: MutPtr, count: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlReadBufferNegative")
 
-public actual fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlPeekLatch(latchData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlPeekLatch")
 
-public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+public actual fun sceCtrlReadLatch(latchData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlReadLatch")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceCtrlSetIdleCancelThreshold")
@@ -250,19 +248,19 @@ private external fun wasiLibcPspSceCtrlSetIdleCancelThreshold(idlereset: Int, id
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
     wasiLibcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback)
 
-public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
+public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr, idleback: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlGetIdleCancelThreshold")
 
 public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceDisplaySetMode")
 
-public actual fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int =
+public actual fun sceDisplayGetMode(pmode: MutPtr, pwidth: MutPtr, pheight: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceDisplayGetMode")
 
-public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceDisplaySetFrameBuf")
 
-public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int =
+public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr, bufferWidth: MutPtr, pixelFormat: MutPtr, sync: DisplaySetBufSync): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceDisplayGetFrameBuf")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayGetVcount")
@@ -331,7 +329,7 @@ private external fun wasiLibcPspSceGeEdramGetSize(): Int
 public actual fun sceGeEdramGetSize(): UInt =
     wasiLibcPspSceGeEdramGetSize().toUInt()
 
-public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
+public actual fun sceGeEdramGetAddr(): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeEdramGetAddr")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeEdramSetAddrTranslation")
@@ -346,22 +344,22 @@ private external fun wasiLibcPspSceGeGetCmd(cmd: Int): Int
 public actual fun sceGeGetCmd(cmd: Int): UInt =
     wasiLibcPspSceGeGetCmd(cmd).toUInt()
 
-public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int =
+public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeGetMtx")
 
-public actual fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int =
+public actual fun sceGeGetStack(stackId: Int, stack: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeGetStack")
 
-public actual fun sceGeSaveContext(context: MutPtr<GeContext>): Int =
+public actual fun sceGeSaveContext(context: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeSaveContext")
 
-public actual fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int =
+public actual fun sceGeRestoreContext(context: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeRestoreContext")
 
-public actual fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueue(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeListEnQueue")
 
-public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+public actual fun sceGeListEnQueueHead(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeListEnQueueHead")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeListDeQueue")
@@ -370,7 +368,7 @@ private external fun wasiLibcPspSceGeListDeQueue(qid: Int): Int
 public actual fun sceGeListDeQueue(qid: Int): Int =
     wasiLibcPspSceGeListDeQueue(qid)
 
-public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
+public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeListUpdateStallAddr")
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
@@ -379,7 +377,7 @@ public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeDrawSync")
 
-public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
+public actual fun sceGeBreak(mode: Int, pParam: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeBreak")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeContinue")
@@ -388,7 +386,7 @@ private external fun wasiLibcPspSceGeContinue(): Int
 public actual fun sceGeContinue(): Int =
     wasiLibcPspSceGeContinue()
 
-public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
+public actual fun sceGeSetCallback(cb: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeSetCallback")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeUnsetCallback")
@@ -406,13 +404,13 @@ public actual fun sceKernelExitGame(): Unit =
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelRegisterExitCallback")
 
-public actual fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int =
+public actual fun sceKernelLoadExec(file: ConstPtr, param: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadExec")
 
-public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelAllocPartitionMemory")
 
-public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid> =
+public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetBlockHeadAddr")
 
 public actual fun sceKernelFreePartitionMemory(blockid: SceUid): Int =
@@ -448,7 +446,7 @@ private external fun wasiLibcPspSceKernelGetCompiledSdkVersion(): Int
 public actual fun sceKernelGetCompiledSdkVersion(): UInt =
     wasiLibcPspSceKernelGetCompiledSdkVersion().toUInt()
 
-public actual fun sceKernelLibcTime(t: MutPtr<Int>): Int =
+public actual fun sceKernelLibcTime(t: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLibcTime")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelLibcClock")
@@ -457,7 +455,7 @@ private external fun wasiLibcPspSceKernelLibcClock(): Int
 public actual fun sceKernelLibcClock(): UInt =
     wasiLibcPspSceKernelLibcClock().toUInt()
 
-public actual fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int =
+public actual fun sceKernelLibcGettimeofday(tp: MutPtr, tzp: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLibcGettimeofday")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelDcacheWritebackAll")
@@ -472,11 +470,11 @@ private external fun wasiLibcPspSceKernelDcacheWritebackInvalidateAll(): Unit
 public actual fun sceKernelDcacheWritebackInvalidateAll(): Unit =
     wasiLibcPspSceKernelDcacheWritebackInvalidateAll()
 
-public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheWritebackRange")
+public actual fun sceKernelDcacheWritebackRange(p: ConstPtr, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheWritebackRange")
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheWritebackInvalidateRange")
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheWritebackInvalidateRange")
 
-public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheInvalidateRange")
+public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDcacheInvalidateRange")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelIcacheInvalidateAll")
 private external fun wasiLibcPspSceKernelIcacheInvalidateAll(): Unit
@@ -484,39 +482,39 @@ private external fun wasiLibcPspSceKernelIcacheInvalidateAll(): Unit
 public actual fun sceKernelIcacheInvalidateAll(): Unit =
     wasiLibcPspSceKernelIcacheInvalidateAll()
 
-public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelIcacheInvalidateRange")
+public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr, size: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelIcacheInvalidateRange")
 
-public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int =
+public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr, seed: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMt19937Init")
 
-public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt =
+public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr): UInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMt19937UInt")
 
-public actual fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMd5Digest")
 
-public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int =
+public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMd5BlockInit")
 
-public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMd5BlockUpdate")
 
-public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsMd5BlockResult")
 
-public actual fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1Digest(data: MutPtr, size: UInt, digest: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsSha1Digest")
 
-public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int =
+public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsSha1BlockInit")
 
-public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int =
+public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsSha1BlockUpdate")
 
-public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int =
+public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr, digest: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUtilsSha1BlockResult")
 
-public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int =
+public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr, arg: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelRegisterSubIntrHandler")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelReleaseSubIntrHandler")
@@ -537,7 +535,7 @@ private external fun wasiLibcPspSceKernelDisableSubIntr(intNo: Int, no: Int): In
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
     wasiLibcPspSceKernelDisableSubIntr(intNo, no)
 
-public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
+public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspQueryIntrHandlerInfo")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelCpuSuspendIntr")
@@ -570,43 +568,43 @@ private external fun wasiLibcPspSceKernelIsCpuIntrEnable(): Int
 public actual fun sceKernelIsCpuIntrEnable(): Int =
     wasiLibcPspSceKernelIsCpuIntrEnable()
 
-public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModule(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadModule")
 
-public actual fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleMs(path: ConstPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadModuleMs")
 
-public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadModuleByID")
 
-public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr, flags: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadModuleBufferUsbWlan")
 
-public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStartModule")
 
-public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStopModule")
 
 public actual fun sceKernelUnloadModule(modId: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUnloadModule")
 
-public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int =
+public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSelfStopUnloadModule")
 
-public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStopUnloadSelfModule")
 
-public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int =
+public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelQueryModuleInfo")
 
-public actual fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetModuleIdList(readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetModuleIdList")
 
-public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelVolatileMemLock")
 
-public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelVolatileMemTryLock")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelVolatileMemUnlock")
@@ -627,13 +625,13 @@ public actual fun sceKernelStderr(): SceUid =
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadmanIdType")
 
-public actual fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid =
+public actual fun sceKernelCreateThread(name: ConstPtr, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateThread")
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteThread")
 
-public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int =
+public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStartThread")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelExitThread")
@@ -690,10 +688,10 @@ public actual fun sceKernelSuspendThread(thid: SceUid): Int =
 public actual fun sceKernelResumeThread(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelResumeThread")
 
-public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitThreadEnd")
 
-public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitThreadEndCB")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelDelayThread")
@@ -708,10 +706,10 @@ private external fun wasiLibcPspSceKernelDelayThreadCB(delay: Int): Int
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
     wasiLibcPspSceKernelDelayThreadCB(delay.toInt())
 
-public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThread(delay: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDelaySysClockThread")
 
-public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDelaySysClockThreadCB")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelChangeCurrentThreadAttr")
@@ -756,13 +754,13 @@ public actual fun sceKernelCheckThreadStack(): Int =
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadStackFreeSize")
 
-public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int =
+public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferThreadStatus")
 
-public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int =
+public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferThreadRunStatus")
 
-public actual fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid =
+public actual fun sceKernelCreateSema(name: ConstPtr, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateSema")
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
@@ -771,19 +769,19 @@ public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
 public actual fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSignalSema")
 
-public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitSema")
 
-public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitSemaCB")
 
 public actual fun sceKernelPollSema(semaId: SceUid, signal: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelPollSema")
 
-public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int =
+public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferSemaStatus")
 
-public actual fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid =
+public actual fun sceKernelCreateEventFlag(name: ConstPtr, attr: Int, bits: Int, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateEventFlag")
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
@@ -792,61 +790,61 @@ public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
 public actual fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelClearEventFlag")
 
-public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int =
+public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelPollEventFlag")
 
-public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitEventFlag")
 
-public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWaitEventFlagCB")
 
 public actual fun sceKernelDeleteEventFlag(evId: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteEventFlag")
 
-public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int =
+public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferEventFlagStatus")
 
-public actual fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid =
+public actual fun sceKernelCreateMbx(name: ConstPtr, attr: UInt, option: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateMbx")
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteMbx")
 
-public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int =
+public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSendMbx")
 
-public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReceiveMbx")
 
-public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReceiveMbxCB")
 
-public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelPollMbx")
 
-public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelReceiveMbx")
 
-public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int =
+public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferMbxStatus")
 
-public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSetAlarm")
 
-public actual fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelSetSysClockAlarm(clock: MutPtr, handler: MutPtr, common: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSetSysClockAlarm")
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelAlarm")
 
-public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int =
+public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferAlarmStatus")
 
-public actual fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateCallback(name: ConstPtr, func: SceKernelCallbackFunction, arg: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateCallback")
 
-public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int =
+public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferCallbackStatus")
 
 public actual fun sceKernelDeleteCallback(cb: SceUid): Int =
@@ -867,91 +865,91 @@ private external fun wasiLibcPspSceKernelCheckCallback(): Int
 public actual fun sceKernelCheckCallback(): Int =
     wasiLibcPspSceKernelCheckCallback()
 
-public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadmanIdList")
 
-public actual fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int =
+public actual fun sceKernelReferSystemStatus(status: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferSystemStatus")
 
-public actual fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelCreateMsgPipe(name: ConstPtr, part: Int, attr: Int, unk1: MutPtr, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateMsgPipe")
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteMsgPipe")
 
-public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSendMsgPipe")
 
-public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSendMsgPipeCB")
 
-public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelTrySendMsgPipe")
 
-public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReceiveMsgPipe")
 
-public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReceiveMsgPipeCB")
 
-public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
+public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelTryReceiveMsgPipe")
 
-public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int =
+public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr, recv: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelMsgPipe")
 
-public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int =
+public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferMsgPipeStatus")
 
-public actual fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid =
+public actual fun sceKernelCreateVpl(name: ConstPtr, part: Int, attr: Int, size: UInt, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateVpl")
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteVpl")
 
-public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelAllocateVpl")
 
-public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelAllocateVplCB")
 
-public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelTryAllocateVpl")
 
-public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelFreeVpl")
 
-public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int =
+public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelVpl")
 
-public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int =
+public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferVplStatus")
 
-public actual fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int =
+public actual fun sceKernelCreateFpl(name: ConstPtr, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateFpl")
 
 public actual fun sceKernelDeleteFpl(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteFpl")
 
-public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelAllocateFpl")
 
-public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
+public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr, timeout: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelAllocateFplCB")
 
-public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int =
+public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelTryAllocateFpl")
 
-public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int =
+public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelFreeFpl")
 
-public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int =
+public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelFpl")
 
-public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int =
+public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferFplStatus")
 
-public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelUSec2SysClock")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelUSec2SysClockWide")
@@ -960,13 +958,13 @@ private external fun wasiLibcPspSceKernelUSec2SysClockWide(usec: Int): Long
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
     wasiLibcPspSceKernelUSec2SysClockWide(usec.toInt())
 
-public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USec(clock: MutPtr, low: MutPtr, high: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSysClock2USec")
 
-public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr, high: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSysClock2USecWide")
 
-public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetSystemTime(time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetSystemTime")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelGetSystemTimeWide")
@@ -981,25 +979,25 @@ private external fun wasiLibcPspSceKernelGetSystemTimeLow(): Int
 public actual fun sceKernelGetSystemTimeLow(): UInt =
     wasiLibcPspSceKernelGetSystemTimeLow().toUInt()
 
-public actual fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid =
+public actual fun sceKernelCreateVTimer(name: ConstPtr, opt: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCreateVTimer")
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDeleteVTimer")
 
-public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetVTimerBase")
 
 public actual fun sceKernelGetVTimerBaseWide(uid: SceUid): Long =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetVTimerBaseWide")
 
-public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetVTimerTime")
 
 public actual fun sceKernelGetVTimerTimeWide(uid: SceUid): Long =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetVTimerTimeWide")
 
-public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
+public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSetVTimerTime")
 
 public actual fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long =
@@ -1011,37 +1009,37 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStopVTimer")
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr, handler: SceKernelVTimerHandler, common: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSetVTimerHandler")
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSetVTimerHandlerWide")
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelCancelVTimerHandler")
 
-public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int =
+public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferVTimerStatus")
 
-public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid =
+public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelRegisterThreadEventHandler")
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReleaseThreadEventHandler")
 
-public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int =
+public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferThreadEventHandlerStatus")
 
-public actual fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferThreadProfiler(): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferThreadProfiler")
 
-public actual fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs> =
+public actual fun sceKernelReferGlobalProfiler(): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReferGlobalProfiler")
 
-public actual fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStart(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbStart")
 
-public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+public actual fun sceUsbStop(driverName: ConstPtr, size: Int, args: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbStop")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbActivate")
@@ -1062,19 +1060,19 @@ private external fun wasiLibcPspSceUsbGetState(): Int
 public actual fun sceUsbGetState(): Int =
     wasiLibcPspSceUsbGetState()
 
-public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
+public actual fun sceUsbGetDrvState(driverName: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbGetDrvState")
 
-public actual fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int =
+public actual fun sceUsbCamSetupStill(param: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetupStill")
 
-public actual fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int =
+public actual fun sceUsbCamSetupStillEx(param: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetupStillEx")
 
-public actual fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInputBlocking(buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamStillInputBlocking")
 
-public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamStillInput(buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamStillInput")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStillWaitInputEnd")
@@ -1101,10 +1099,10 @@ private external fun wasiLibcPspSceUsbCamStillGetInputLength(): Int
 public actual fun sceUsbCamStillGetInputLength(): Int =
     wasiLibcPspSceUsbCamStillGetInputLength()
 
-public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideo(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetupVideo")
 
-public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+public actual fun sceUsbCamSetupVideoEx(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetupVideoEx")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStartVideo")
@@ -1119,10 +1117,10 @@ private external fun wasiLibcPspSceUsbCamStopVideo(): Int
 public actual fun sceUsbCamStopVideo(): Int =
     wasiLibcPspSceUsbCamStopVideo()
 
-public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamReadVideoFrameBlocking")
 
-public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int =
+public actual fun sceUsbCamReadVideoFrame(buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamReadVideoFrame")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamWaitReadVideoFrameEnd")
@@ -1185,28 +1183,28 @@ private external fun wasiLibcPspSceUsbCamSetZoom(zoom: Int): Int
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
     wasiLibcPspSceUsbCamSetZoom(zoom)
 
-public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSaturation(saturation: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetSaturation")
 
-public actual fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetBrightness(brightness: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetBrightness")
 
-public actual fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetContrast(contrast: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetContrast")
 
-public actual fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetSharpness(sharpness: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetSharpness")
 
-public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int =
+public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetImageEffectMode")
 
-public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int =
+public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetEvLevel")
 
-public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetReverseMode")
 
-public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
+public actual fun sceUsbCamGetZoom(zoom: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetZoom")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamAutoImageReverseSW")
@@ -1422,7 +1420,7 @@ private external fun wasiLibcPspSceWlanGetSwitchState(): Int
 public actual fun sceWlanGetSwitchState(): Int =
     wasiLibcPspSceWlanGetSwitchState()
 
-public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
+public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceWlanGetEtherAddr")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceWlanDevAttach")
@@ -1443,19 +1441,19 @@ private external fun wasiLibcPspSceRtcGetTickResolution(): Int
 public actual fun sceRtcGetTickResolution(): UInt =
     wasiLibcPspSceRtcGetTickResolution().toUInt()
 
-public actual fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetCurrentTick(tick: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetCurrentTick")
 
-public actual fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int =
+public actual fun sceRtcGetCurrentClock(tm: MutPtr, tz: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetCurrentClock")
 
-public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int =
+public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetCurrentClockLocalTime")
 
-public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr, tickLocal: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcConvertUtcToLocalTime")
 
-public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int =
+public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr, tickUtc: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcConvertLocalTimeToUTC")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceRtcIsLeapYear")
@@ -1476,91 +1474,91 @@ private external fun wasiLibcPspSceRtcGetDayOfWeek(year: Int, month: Int, day: I
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
     wasiLibcPspSceRtcGetDayOfWeek(year, month, day)
 
-public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
+public actual fun sceRtcCheckValid(date: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcCheckValid")
 
-public actual fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int =
+public actual fun sceRtcSetTick(date: MutPtr, tick: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcSetTick")
 
-public actual fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTick(date: ConstPtr, tick: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetTick")
 
-public actual fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int =
+public actual fun sceRtcCompareTick(tick1: ConstPtr, tick2: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcCompareTick")
 
-public actual fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int =
+public actual fun sceRtcTickAddTicks(destTick: MutPtr, srcTick: ConstPtr, numTicks: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddTicks")
 
-public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int =
+public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr, srcTick: ConstPtr, numMs: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddMicroseconds")
 
-public actual fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int =
+public actual fun sceRtcTickAddSeconds(destTick: MutPtr, srcTick: ConstPtr, numSeconds: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddSeconds")
 
-public actual fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int =
+public actual fun sceRtcTickAddMinutes(destTick: MutPtr, srcTick: ConstPtr, numMinutes: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddMinutes")
 
-public actual fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int =
+public actual fun sceRtcTickAddHours(destTick: MutPtr, srcTick: ConstPtr, numHours: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddHours")
 
-public actual fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int =
+public actual fun sceRtcTickAddDays(destTick: MutPtr, srcTick: ConstPtr, numDays: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddDays")
 
-public actual fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int =
+public actual fun sceRtcTickAddWeeks(destTick: MutPtr, srcTick: ConstPtr, numWeeks: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddWeeks")
 
-public actual fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int =
+public actual fun sceRtcTickAddMonths(destTick: MutPtr, srcTick: ConstPtr, numMonths: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddMonths")
 
-public actual fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int =
+public actual fun sceRtcTickAddYears(destTick: MutPtr, srcTick: ConstPtr, numYears: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcTickAddYears")
 
-public actual fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int =
+public actual fun sceRtcSetTimeT(date: MutPtr, time: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcSetTimeT")
 
-public actual fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int =
+public actual fun sceRtcGetTimeT(date: ConstPtr, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetTimeT")
 
-public actual fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int =
+public actual fun sceRtcSetTime64T(date: MutPtr, time: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcSetTime64T")
 
-public actual fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetTime64T(date: ConstPtr, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetTime64T")
 
-public actual fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcSetDosTime(date: MutPtr, dosTime: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcSetDosTime")
 
-public actual fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+public actual fun sceRtcGetDosTime(date: MutPtr, dosTime: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetDosTime")
 
-public actual fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcSetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcSetWin32FileTime")
 
-public actual fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+public actual fun sceRtcGetWin32FileTime(date: MutPtr, time: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcGetWin32FileTime")
 
-public actual fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseDateTime(destTick: MutPtr, dateString: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcParseDateTime")
 
-public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcFormatRFC3339")
 
-public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcFormatRFC3339LocalTime")
 
-public actual fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int =
+public actual fun sceRtcParseRFC3339(pUtc: MutPtr, pszDateTime: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcParseRFC3339")
 
-public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcFormatRFC2822")
 
-public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcFormatRFC2822LocalTime")
 
-public actual fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpen(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoOpen")
 
-public actual fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpenAsync(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoOpenAsync")
 
 public actual fun sceIoClose(fd: SceUid): Int =
@@ -1569,16 +1567,16 @@ public actual fun sceIoClose(fd: SceUid): Int =
 public actual fun sceIoCloseAsync(fd: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoCloseAsync")
 
-public actual fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoRead(fd: SceUid, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoRead")
 
-public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr, size: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoReadAsync")
 
-public actual fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceIoWrite(fd: SceUid, data: ConstPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoWrite")
 
-public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int =
+public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr, size: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoWriteAsync")
 
 public actual fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long =
@@ -1593,64 +1591,64 @@ public actual fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int =
 public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoLseek32Async")
 
-public actual fun sceIoRemove(file: ConstPtr<UByte>): Int =
+public actual fun sceIoRemove(file: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoRemove")
 
-public actual fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int =
+public actual fun sceIoMkdir(dir: ConstPtr, mode: IoPermissions): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoMkdir")
 
-public actual fun sceIoRmdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoRmdir(path: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoRmdir")
 
-public actual fun sceIoChdir(path: ConstPtr<UByte>): Int =
+public actual fun sceIoChdir(path: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoChdir")
 
-public actual fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int =
+public actual fun sceIoRename(oldname: ConstPtr, newname: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoRename")
 
-public actual fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid =
+public actual fun sceIoDopen(dirname: ConstPtr): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoDopen")
 
-public actual fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int =
+public actual fun sceIoDread(fd: SceUid, dir: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoDread")
 
 public actual fun sceIoDclose(fd: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoDclose")
 
-public actual fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoDevctl(dev: ConstPtr, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoDevctl")
 
-public actual fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int =
+public actual fun sceIoAssign(dev1: ConstPtr, dev2: ConstPtr, dev3: ConstPtr, mode: IoAssignPerms, unk1: MutPtr, unk2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoAssign")
 
-public actual fun sceIoUnassign(dev: ConstPtr<UByte>): Int =
+public actual fun sceIoUnassign(dev: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoUnassign")
 
-public actual fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int =
+public actual fun sceIoGetstat(file: ConstPtr, stat: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoGetstat")
 
-public actual fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int =
+public actual fun sceIoChstat(file: ConstPtr, stat: MutPtr, bits: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoChstat")
 
-public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoIoctl")
 
-public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoIoctlAsync")
 
-public actual fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int =
+public actual fun sceIoSync(device: ConstPtr, unk: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoSync")
 
-public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoWaitAsync")
 
-public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoWaitAsyncCB")
 
-public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int =
+public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoPollAsync")
 
-public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int =
+public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoGetAsyncStat")
 
 public actual fun sceIoCancel(fd: SceUid): Int =
@@ -1662,7 +1660,7 @@ public actual fun sceIoGetDevType(fd: SceUid): Int =
 public actual fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoChangeAsyncPriority")
 
-public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int =
+public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceIoSetAsyncCallback")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceJpegInitMJpeg")
@@ -1689,7 +1687,7 @@ private external fun wasiLibcPspSceJpegDeleteMJpeg(): Int
 public actual fun sceJpegDeleteMJpeg(): Int =
     wasiLibcPspSceJpegDeleteMJpeg()
 
-public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
+public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr, size: ULong, rgba: MutPtr, unk: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceJpegDecodeMJpeg")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdCheckMedium")
@@ -1698,13 +1696,13 @@ private external fun wasiLibcPspSceUmdCheckMedium(): Int
 public actual fun sceUmdCheckMedium(): Int =
     wasiLibcPspSceUmdCheckMedium()
 
-public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
+public actual fun sceUmdGetDiscInfo(info: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUmdGetDiscInfo")
 
-public actual fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdActivate(unit: Int, drive: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUmdActivate")
 
-public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
+public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUmdDeactivate")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdWaitDriveStat")
@@ -1785,15 +1783,15 @@ private external fun wasiLibcPspSceMpegRingbufferQueryMemSize(packets: Int): Int
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     wasiLibcPspSceMpegRingbufferQueryMemSize(packets)
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
+public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr, packets: Int, data: MutPtr, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferConstruct")
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferDestruct")
+public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferDestruct")
 
-public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int =
+public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferAvailableSize")
 
-public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int =
+public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr, numPackets: Int, available: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferPut")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceMpegQueryMemSize")
@@ -1802,15 +1800,15 @@ private external fun wasiLibcPspSceMpegQueryMemSize(unk: Int): Int
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
     wasiLibcPspSceMpegQueryMemSize(unk)
 
-public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
+public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr, size: Int, ringbuffer: MutPtr, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegCreate")
 
 public actual fun sceMpegDelete(handle: SceMpeg): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegDelete")
 
-public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr, offset: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegQueryStreamOffset")
 
-public actual fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int =
+public actual fun sceMpegQueryStreamSize(buffer: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegQueryStreamSize")
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
@@ -1821,36 +1819,36 @@ public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream):
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegFlushAllStream")
 
-public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid> =
+public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegMallocAvcEsBuf")
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegFreeAvcEsBuf")
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegFreeAvcEsBuf")
 
-public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int =
+public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr, outSize: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegQueryAtracEsSize")
 
-public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int =
+public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr, au: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegInitAu")
 
-public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int =
+public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegGetAvcAu")
 
-public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int =
+public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegAvcDecodeMode")
 
-public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr, iframeWidth: Int, buffer: MutPtr, init: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegAvcDecode")
 
-public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int =
+public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr, status: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegAvcDecodeStop")
 
-public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int =
+public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegGetAtracAu")
 
-public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int =
+public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr, buffer: MutPtr, init: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegAtracDecode")
 
-public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int =
+public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr, buffer: MutPtr, type: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegBaseYCrCbCopyVme")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceMpegBaseCscInit")
@@ -1859,19 +1857,19 @@ private external fun wasiLibcPspSceMpegBaseCscInit(width: Int): Int
 public actual fun sceMpegBaseCscInit(width: Int): Int =
     wasiLibcPspSceMpegBaseCscInit(width)
 
-public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
+public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr, rgbBuffer2: MutPtr, width: Int, yCrCbBuffer: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegBaseCscVme")
 
-public actual fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int =
+public actual fun sceMpegbaseBea18f91(lli: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegbaseBea18f91")
 
-public actual fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int =
+public actual fun sceHprmPeekCurrentKey(key: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHprmPeekCurrentKey")
 
-public actual fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmPeekLatch(latch: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHprmPeekLatch")
 
-public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
+public actual fun sceHprmReadLatch(latch: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHprmReadLatch")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHprmIsHeadphoneExist")
@@ -1892,13 +1890,13 @@ private external fun wasiLibcPspSceHprmIsMicrophoneExist(): Int
 public actual fun sceHprmIsMicrophoneExist(): Int =
     wasiLibcPspSceHprmIsMicrophoneExist()
 
-public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDepthBuffer")
+public actual fun sceGuDepthBuffer(zbp: MutPtr, zbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDepthBuffer")
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDispBuffer")
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr, dispbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDispBuffer")
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBuffer")
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBuffer")
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBufferList")
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBufferList")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuDisplay")
 private external fun wasiLibcPspSceGuDisplay(state: Int): Int
@@ -1965,10 +1963,10 @@ public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float): Unit = thr
 
 public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSendCommandi")
 
-public actual fun sceGuGetMemory(size: Int): MutPtr<CVoid> =
+public actual fun sceGuGetMemory(size: Int): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuGetMemory")
 
-public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuStart")
+public actual fun sceGuStart(contextType: GuContextType, list: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuFinish")
 private external fun wasiLibcPspSceGuFinish(): Int
@@ -1982,7 +1980,7 @@ private external fun wasiLibcPspSceGuFinishId(id: Int): Int
 public actual fun sceGuFinishId(id: UInt): Int =
     wasiLibcPspSceGuFinishId(id.toInt())
 
-public actual fun sceGuCallList(list: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuCallList")
+public actual fun sceGuCallList(list: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuCallList")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuCallMode")
 private external fun wasiLibcPspSceGuCallMode(mode: Int): Unit
@@ -1996,17 +1994,17 @@ private external fun wasiLibcPspSceGuCheckList(): Int
 public actual fun sceGuCheckList(): Int =
     wasiLibcPspSceGuCheckList()
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSendList")
+public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr, context: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSendList")
 
-public actual fun sceGuSwapBuffers(): MutPtr<CVoid> =
+public actual fun sceGuSwapBuffers(): MutPtr =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSwapBuffers")
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSync")
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawArray")
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawArray")
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuBeginObject")
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuBeginObject")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuEndObject")
 private external fun wasiLibcPspSceGuEndObject(): Unit
@@ -2143,7 +2141,7 @@ public actual fun sceGuSetDither(matrix: ScePspIMatrix4): Unit = throw Unsupport
 
 public actual fun sceGuShadeModel(mode: ShadingModel): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuShadeModel")
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuCopyImage")
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr, dx: Int, dy: Int, destw: Int, dest: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuCopyImage")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuTexEnvColor")
 private external fun wasiLibcPspSceGuTexEnvColor(color: Int): Unit
@@ -2161,7 +2159,7 @@ public actual fun sceGuTexFlush(): Unit =
 
 public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuTexFunc")
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuTexImage")
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuTexImage")
 
 public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuTexLevelMode")
 
@@ -2197,7 +2195,7 @@ public actual fun sceGuTexSync(): Unit =
 
 public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuTexWrap")
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuClutLoad")
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuClutLoad")
 
 public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuClutMode")
 
@@ -2219,7 +2217,7 @@ private external fun wasiLibcPspSceGuViewport(cx: Int, cy: Int, width: Int, heig
 public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int): Unit =
     wasiLibcPspSceGuViewport(cx, cy, width, height)
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBezier")
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawBezier")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuPatchDivide")
 private external fun wasiLibcPspSceGuPatchDivide(ulevel: Int, vlevel: Int): Unit
@@ -2235,7 +2233,7 @@ public actual fun sceGuPatchFrontFace(a0: UInt): Unit =
 
 public actual fun sceGuPatchPrim(prim: PatchPrimitive): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuPatchPrim")
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawSpline")
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawSpline")
 
 public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSetMatrix")
 
@@ -2247,15 +2245,15 @@ private external fun wasiLibcPspSceGuMorphWeight(index: Int, weight: Float): Uni
 public actual fun sceGuMorphWeight(index: Int, weight: Float): Unit =
     wasiLibcPspSceGuMorphWeight(index, weight)
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawArrayN")
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDrawArrayN")
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawArray")
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawArray")
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawArrayN")
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawArrayN")
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawBezier")
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawBezier")
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawSpline")
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGumDrawSpline")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGumFastInverse")
 private external fun wasiLibcPspSceGumFastInverse(): Unit
@@ -2341,7 +2339,7 @@ private external fun wasiLibcPspSceGumUpdateMatrix(): Unit
 public actual fun sceGumUpdateMatrix(): Unit =
     wasiLibcPspSceGumUpdateMatrix()
 
-public actual fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int =
+public actual fun sceMp3ReserveMp3Handle(args: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3ReserveMp3Handle")
 
 public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
@@ -2362,10 +2360,10 @@ public actual fun sceMp3TermResource(): Int =
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3Init")
 
-public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int =
+public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3Decode")
 
-public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int =
+public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr, toWrite: MutPtr, srcPos: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3GetInfoToAddStreamData")
 
 public actual fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int =
@@ -2398,7 +2396,7 @@ public actual fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int =
 public actual fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3ResetPlayPosition")
 
-public actual fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenRegistry(reg: MutPtr, mode: Int, handle: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegOpenRegistry")
 
 public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
@@ -2407,10 +2405,10 @@ public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
 public actual fun sceRegCloseRegistry(handle: RegHandle): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegCloseRegistry")
 
-public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int =
+public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr, mode: Int, dirHandle: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegOpenCategory")
 
-public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int =
+public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegRemoveCategory")
 
 public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
@@ -2419,37 +2417,37 @@ public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
 public actual fun sceRegFlushCategory(dirHandle: RegHandle): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegFlushCategory")
 
-public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr, keyHandle: MutPtr, type: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeyInfo")
 
-public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
+public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr, type: MutPtr, size: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeyInfoByName")
 
-public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeyValue")
 
-public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr, buf: MutPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeyValueByName")
 
-public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int =
+public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr, buf: ConstPtr, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegSetKeyValue")
 
-public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int =
+public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeysNum")
 
-public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int =
+public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr, num: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegGetKeys")
 
-public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int =
+public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr, type: Int, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegCreateKey")
 
-public actual fun sceRegRemoveRegistry(key: MutPtr<Key>): Int =
+public actual fun sceRegRemoveRegistry(key: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRegRemoveRegistry")
 
-public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int =
+public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceOpenPSIDGetOpenPSID")
 
-public actual fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int =
+public actual fun sceUtilityMsgDialogInitStart(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityMsgDialogInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityMsgDialogShutdownStart")
@@ -2476,7 +2474,7 @@ private external fun wasiLibcPspSceUtilityMsgDialogAbort(): Int
 public actual fun sceUtilityMsgDialogAbort(): Int =
     wasiLibcPspSceUtilityMsgDialogAbort()
 
-public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
+public actual fun sceUtilityNetconfInitStart(data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityNetconfInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityNetconfShutdownStart")
@@ -2503,10 +2501,10 @@ private external fun wasiLibcPspSceUtilityCheckNetParam(id: Int): Int
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
     wasiLibcPspSceUtilityCheckNetParam(id)
 
-public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
+public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityGetNetParam")
 
-public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int =
+public actual fun sceUtilitySavedataInitStart(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySavedataInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilitySavedataGetStatus")
@@ -2527,7 +2525,7 @@ private external fun wasiLibcPspSceUtilitySavedataUpdate(unknown: Int): Unit
 public actual fun sceUtilitySavedataUpdate(unknown: Int): Unit =
     wasiLibcPspSceUtilitySavedataUpdate(unknown)
 
-public actual fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int =
+public actual fun sceUtilityGameSharingInitStart(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityGameSharingInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityGameSharingShutdownStart")
@@ -2548,7 +2546,7 @@ private external fun wasiLibcPspSceUtilityGameSharingUpdate(n: Int): Unit
 public actual fun sceUtilityGameSharingUpdate(n: Int): Unit =
     wasiLibcPspSceUtilityGameSharingUpdate(n)
 
-public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int =
+public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityHtmlViewerInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityHtmlViewerShutdownStart")
@@ -2572,16 +2570,16 @@ public actual fun sceUtilityHtmlViewerGetStatus(): Int =
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySetSystemParamInt")
 
-public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int =
+public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySetSystemParamString")
 
-public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int =
+public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityGetSystemParamInt")
 
-public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int =
+public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr, len: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityGetSystemParamString")
 
-public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int =
+public actual fun sceUtilityOskInitStart(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityOskInitStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityOskShutdownStart")
@@ -2632,7 +2630,7 @@ private external fun wasiLibcPspSceUtilityCreateNetParam(conf: Int): Int
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
     wasiLibcPspSceUtilityCreateNetParam(conf)
 
-public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
+public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySetNetParam")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityCopyNetParam")
@@ -2671,17 +2669,17 @@ private external fun wasiLibcPspSceNetThreadAbort(thid: Int): Int
 public actual fun sceNetThreadAbort(thid: Int): Int =
     wasiLibcPspSceNetThreadAbort(thid)
 
-public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetEtherStrton")
+public actual fun sceNetEtherStrton(name: MutPtr, mac: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetEtherStrton")
 
-public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetEtherNtostr")
+public actual fun sceNetEtherNtostr(mac: MutPtr, name: MutPtr): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetEtherNtostr")
 
-public actual fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int =
+public actual fun sceNetGetLocalEtherAddr(mac: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetGetLocalEtherAddr")
 
-public actual fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int =
+public actual fun sceNetGetMallocStat(stat: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetGetMallocStat")
 
-public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlInit")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocctlTerm")
@@ -2690,7 +2688,7 @@ private external fun wasiLibcPspSceNetAdhocctlTerm(): Int
 public actual fun sceNetAdhocctlTerm(): Int =
     wasiLibcPspSceNetAdhocctlTerm()
 
-public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlConnect(name: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlConnect")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocctlDisconnect")
@@ -2699,25 +2697,25 @@ private external fun wasiLibcPspSceNetAdhocctlDisconnect(): Int
 public actual fun sceNetAdhocctlDisconnect(): Int =
     wasiLibcPspSceNetAdhocctlDisconnect()
 
-public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
+public actual fun sceNetAdhocctlGetState(event: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetState")
 
-public actual fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int =
+public actual fun sceNetAdhocctlCreate(name: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlCreate")
 
-public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int =
+public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlJoin")
 
-public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int =
+public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetAdhocId")
 
-public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int =
+public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr, unknown: Int, num: Int, macs: MutPtr, timeout: UInt, unknown2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlCreateEnterGameMode")
 
-public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int =
+public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr, hostmac: MutPtr, timeout: UInt, unknown: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlJoinEnterGameMode")
 
-public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int =
+public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetGameModeInfo")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocctlExitGameMode")
@@ -2726,10 +2724,10 @@ private external fun wasiLibcPspSceNetAdhocctlExitGameMode(): Int
 public actual fun sceNetAdhocctlExitGameMode(): Int =
     wasiLibcPspSceNetAdhocctlExitGameMode()
 
-public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetPeerList(length: MutPtr, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetPeerList")
 
-public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int =
+public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr, size: Int, peerinfo: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetPeerInfo")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocctlScan")
@@ -2738,10 +2736,10 @@ private external fun wasiLibcPspSceNetAdhocctlScan(): Int
 public actual fun sceNetAdhocctlScan(): Int =
     wasiLibcPspSceNetAdhocctlScan()
 
-public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetScanInfo")
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlAddHandler")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocctlDelHandler")
@@ -2750,13 +2748,13 @@ private external fun wasiLibcPspSceNetAdhocctlDelHandler(id: Int): Int
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
     wasiLibcPspSceNetAdhocctlDelHandler(id)
 
-public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr, nickname: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetNameByAddr")
 
-public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr, length: MutPtr, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetAddrByName")
 
-public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int =
+public actual fun sceNetAdhocctlGetParameter(params: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetParameter")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocInit")
@@ -2771,7 +2769,7 @@ private external fun wasiLibcPspSceNetAdhocTerm(): Int
 public actual fun sceNetAdhocTerm(): Int =
     wasiLibcPspSceNetAdhocTerm()
 
-public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
+public actual fun sceNetAdhocPdpCreate(mac: MutPtr, port: UShort, bufSize: UInt, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPdpCreate")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocPdpDelete")
@@ -2780,19 +2778,19 @@ private external fun wasiLibcPspSceNetAdhocPdpDelete(id: Int, unk1: Int): Int
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
     wasiLibcPspSceNetAdhocPdpDelete(id, unk1)
 
-public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr, port: UShort, data: MutPtr, len: UInt, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPdpSend")
 
-public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr, port: MutPtr, data: MutPtr, dataLength: MutPtr, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPdpRecv")
 
-public actual fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int =
+public actual fun sceNetAdhocGetPdpStat(size: MutPtr, stat: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocGetPdpStat")
 
-public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr, size: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocGameModeCreateMaster")
 
-public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int =
+public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr, data: MutPtr, size: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocGameModeCreateReplica")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocGameModeUpdateMaster")
@@ -2819,7 +2817,7 @@ private external fun wasiLibcPspSceNetAdhocGameModeDeleteReplica(id: Int): Int
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
     wasiLibcPspSceNetAdhocGameModeDeleteReplica(id)
 
-public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr, srcport: UShort, destmac: MutPtr, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpOpen")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocPtpConnect")
@@ -2828,16 +2826,16 @@ private external fun wasiLibcPspSceNetAdhocPtpConnect(id: Int, timeout: Int, non
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
     wasiLibcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
+public actual fun sceNetAdhocPtpListen(srcmac: MutPtr, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpListen")
 
-public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr, port: MutPtr, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpAccept")
 
-public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpSend")
 
-public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpRecv")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocPtpFlush")
@@ -2852,7 +2850,7 @@ private external fun wasiLibcPspSceNetAdhocPtpClose(id: Int, unk1: Int): Int
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
     wasiLibcPspSceNetAdhocPtpClose(id, unk1)
 
-public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
+public actual fun sceNetAdhocGetPtpStat(size: MutPtr, stat: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocGetPtpStat")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocMatchingInit")
@@ -2876,7 +2874,7 @@ private external fun wasiLibcPspSceNetAdhocMatchingDelete(matchingId: Int): Int
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
     wasiLibcPspSceNetAdhocMatchingDelete(matchingId)
 
-public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingStart")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocMatchingStop")
@@ -2885,28 +2883,28 @@ private external fun wasiLibcPspSceNetAdhocMatchingStop(matchingId: Int): Int
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
     wasiLibcPspSceNetAdhocMatchingStop(matchingId)
 
-public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingSelectTarget")
 
-public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingCancelTarget")
 
-public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingCancelTargetWithOpt")
 
-public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr, dataLen: Int, data: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingSendData")
 
-public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int =
+public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingAbortSendData")
 
-public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingSetHelloOpt")
 
-public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr, optData: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingGetHelloOpt")
 
-public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr, buf: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingGetMembers")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocMatchingGetPoolMaxAlloc")
@@ -2915,7 +2913,7 @@ private external fun wasiLibcPspSceNetAdhocMatchingGetPoolMaxAlloc(): Int
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
     wasiLibcPspSceNetAdhocMatchingGetPoolMaxAlloc()
 
-public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
+public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingGetPoolStat")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetApctlInit")
@@ -2930,10 +2928,10 @@ private external fun wasiLibcPspSceNetApctlTerm(): Int
 public actual fun sceNetApctlTerm(): Int =
     wasiLibcPspSceNetApctlTerm()
 
-public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
+public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetApctlGetInfo")
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int =
+public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetApctlAddHandler")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetApctlDelHandler")
@@ -2954,7 +2952,7 @@ private external fun wasiLibcPspSceNetApctlDisconnect(): Int
 public actual fun sceNetApctlDisconnect(): Int =
     wasiLibcPspSceNetApctlDisconnect()
 
-public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
+public actual fun sceNetApctlGetState(pstate: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetApctlGetState")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetInit")
@@ -2969,16 +2967,16 @@ private external fun wasiLibcPspSceNetInetTerm(): Int
 public actual fun sceNetInetTerm(): Int =
     wasiLibcPspSceNetInetTerm()
 
-public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetAccept(s: Int, addr: MutPtr, addrLen: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetAccept")
 
-public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr, addrLen: SocklenT): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetBind")
 
-public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr, addrLen: SocklenT): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetConnect")
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int =
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr, optlEn: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetGetsockopt")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetListen")
@@ -2987,19 +2985,19 @@ private external fun wasiLibcPspSceNetInetListen(s: Int, backlog: Int): Int
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
     wasiLibcPspSceNetInetListen(s, backlog)
 
-public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetRecv(s: Int, buf: MutPtr, len: ULong, flags: Int): ULong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetRecv")
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong =
+public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr, flags: ULong, arg1: Int, from: MutPtr, fromLen: MutPtr): ULong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetRecvfrom")
 
-public actual fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong =
+public actual fun sceNetInetSend(s: Int, buf: ConstPtr, len: ULong, flags: Int): ULong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetSend")
 
-public actual fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong =
+public actual fun sceNetInetSendto(s: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, toLen: SocklenT): ULong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetSendto")
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int =
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr, optLen: SocklenT): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetSetsockopt")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetShutdown")
@@ -3038,10 +3036,10 @@ private external fun wasiLibcPspSceSslEnd(): Int
 public actual fun sceSslEnd(): Int =
     wasiLibcPspSceSslEnd()
 
-public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryMax(memory: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceSslGetUsedMemoryMax")
 
-public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
+public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceSslGetUsedMemoryCurrent")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpInit")
@@ -3056,7 +3054,7 @@ private external fun wasiLibcPspSceHttpEnd(): Int
 public actual fun sceHttpEnd(): Int =
     wasiLibcPspSceHttpEnd()
 
-public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
+public actual fun sceHttpCreateTemplate(agent: MutPtr, unknown1: Int, unknown2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateTemplate")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDeleteTemplate")
@@ -3065,10 +3063,10 @@ private external fun wasiLibcPspSceHttpDeleteTemplate(templateid: Int): Int
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
     wasiLibcPspSceHttpDeleteTemplate(templateid)
 
-public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
+public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr, unknown1: MutPtr, port: UShort, unknown2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateConnection")
 
-public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr, unknown1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateConnectionWithURL")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDeleteConnection")
@@ -3077,10 +3075,10 @@ private external fun wasiLibcPspSceHttpDeleteConnection(connectionId: Int): Int
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
     wasiLibcPspSceHttpDeleteConnection(connectionId)
 
-public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr, contentLength: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateRequest")
 
-public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr, contentLength: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateRequestWithURL")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDeleteRequest")
@@ -3089,7 +3087,7 @@ private external fun wasiLibcPspSceHttpDeleteRequest(requestId: Int): Int
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
     wasiLibcPspSceHttpDeleteRequest(requestId)
 
-public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSendRequest")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpAbortRequest")
@@ -3098,13 +3096,13 @@ private external fun wasiLibcPspSceHttpAbortRequest(requestId: Int): Int
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
     wasiLibcPspSceHttpAbortRequest(requestId)
 
-public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+public actual fun sceHttpReadData(requestId: Int, data: MutPtr, dataSize: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpReadData")
 
-public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int =
+public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetContentLength")
 
-public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int =
+public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetStatusCode")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetResolveTimeOut")
@@ -3185,10 +3183,10 @@ private external fun wasiLibcPspSceHttpLoadSystemCookie(): Int
 public actual fun sceHttpLoadSystemCookie(): Int =
     wasiLibcPspSceHttpLoadSystemCookie()
 
-public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
+public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr, value: MutPtr, unknown1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpAddExtraHeader")
 
-public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
+public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpDeleteHeader")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpsInit")
@@ -3239,13 +3237,13 @@ private external fun wasiLibcPspSceHttpEndCache(): Int
 public actual fun sceHttpEndCache(): Int =
     wasiLibcPspSceHttpEndCache()
 
-public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
+public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr, headerSize: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetAllHeader")
 
-public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int =
+public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetNetworkErrno")
 
-public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int =
+public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr, mode: MutPtr, proxyHost: MutPtr, len: ULong, proxyPort: MutPtr): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetProxy")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpInitCache")
@@ -3257,7 +3255,7 @@ public actual fun sceHttpInitCache(maxSize: ULong): Int =
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSetAuthInfoCB")
 
-public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int =
+public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr, newProxyPort: UShort): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSetProxy")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetResHeaderMaxSize")
@@ -3275,7 +3273,7 @@ private external fun wasiLibcPspSceNetResolverInit(): Int
 public actual fun sceNetResolverInit(): Int =
     wasiLibcPspSceNetResolverInit()
 
-public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
+public actual fun sceNetResolverCreate(rid: MutPtr, buf: MutPtr, bufLength: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetResolverCreate")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetResolverDelete")
@@ -3284,10 +3282,10 @@ private external fun wasiLibcPspSceNetResolverDelete(rid: Int): Int
 public actual fun sceNetResolverDelete(rid: Int): Int =
     wasiLibcPspSceNetResolverDelete(rid)
 
-public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr, addr: MutPtr, timeout: UInt, retry: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetResolverStartNtoA")
 
-public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
+public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr, hostname: MutPtr, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetResolverStartAtoN")
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetResolverStop")

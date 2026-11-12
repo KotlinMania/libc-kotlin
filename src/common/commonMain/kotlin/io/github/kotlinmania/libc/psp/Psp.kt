@@ -4,10 +4,8 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.U128
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -20,63 +18,63 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 // crate graph, include a Note provider crate such as the `psp` crate.
 
 public fun interface FnCallback {
-    public operator fun invoke(args: ULong, argp: MutPtr<CVoid>): Int
+    public operator fun invoke(args: ULong, argp: MutPtr): Int
 }
 
 public fun interface FnCallback1 {
-    public operator fun invoke(common: MutPtr<CVoid>): UInt
+    public operator fun invoke(common: MutPtr): UInt
 }
 
 public fun interface FnCallback2 {
-    public operator fun invoke(arg1: Int, arg2: Int, arg: MutPtr<CVoid>): Int
+    public operator fun invoke(arg1: Int, arg2: Int, arg: MutPtr): Int
 }
 
 public fun interface FnCallback3 {
-    public operator fun invoke(uid: SceUid, arg1: MutPtr<SceKernelSysClock>, arg2: MutPtr<SceKernelSysClock>, arg3: MutPtr<CVoid>): UInt
+    public operator fun invoke(uid: SceUid, arg1: MutPtr, arg2: MutPtr, arg3: MutPtr): UInt
 }
 
 public fun interface FnCallback4 {
-    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: MutPtr<CVoid>): UInt
+    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: MutPtr): UInt
 }
 
 public fun interface FnCallback5 {
-    public operator fun invoke(mask: Int, thid: SceUid, common: MutPtr<CVoid>): Int
+    public operator fun invoke(mask: Int, thid: SceUid, common: MutPtr): Int
 }
 
 public fun interface FnCallback6 {
-    public operator fun invoke(data: MutPtr<CVoid>, numPackets: Int, param: MutPtr<CVoid>): Int
+    public operator fun invoke(data: MutPtr, numPackets: Int, param: MutPtr): Int
 }
 
 public fun interface FnCallback7 {
-    public operator fun invoke(id: Int, arg: MutPtr<CVoid>)
+    public operator fun invoke(id: Int, arg: MutPtr)
 }
 
 public fun interface FnCallback8 {
-    public operator fun invoke(flag: Int, error: Int, unknown: MutPtr<CVoid>)
+    public operator fun invoke(flag: Int, error: Int, unknown: MutPtr)
 }
 
 public fun interface FnCallback9 {
-    public operator fun invoke(matchingId: Int, event: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>)
+    public operator fun invoke(matchingId: Int, event: Int, mac: MutPtr, optLen: Int, optData: MutPtr)
 }
 
 public fun interface FnCallback10 {
-    public operator fun invoke(oldState: Int, newState: Int, event: Int, error: Int, pArg: MutPtr<CVoid>)
+    public operator fun invoke(oldState: Int, newState: Int, event: Int, error: Int, pArg: MutPtr)
 }
 
 public fun interface FnCallback11 {
-    public operator fun invoke(request: Int, authType: HttpAuthType, realm: ConstPtr<UByte>, username: MutPtr<UByte>, password: MutPtr<UByte>, needEntity: Int, entityBody: MutPtr<MutPtr<UByte>>, entitySize: MutPtr<ULong>, save: MutPtr<Int>): Int
+    public operator fun invoke(request: Int, authType: HttpAuthType, realm: ConstPtr, username: MutPtr, password: MutPtr, needEntity: Int, entityBody: MutPtr, entitySize: MutPtr, save: MutPtr): Int
 }
 
 public fun interface FnCallback12 {
-    public operator fun invoke(size: ULong): MutPtr<CVoid>
+    public operator fun invoke(size: ULong): MutPtr
 }
 
 public fun interface FnCallback13 {
-    public operator fun invoke(p: MutPtr<CVoid>)
+    public operator fun invoke(p: MutPtr)
 }
 
 public fun interface FnCallback14 {
-    public operator fun invoke(p: MutPtr<CVoid>, size: ULong): MutPtr<CVoid>
+    public operator fun invoke(p: MutPtr, size: ULong): MutPtr
 }
 
 public typealias IntmaxT = Long
@@ -94,27 +92,27 @@ public typealias UintptrT = ULong
 public typealias SsizeT = Long
 
 public fun interface SceKernelVTimerHandler {
-    public operator fun invoke(uid: SceUid, arg1: MutPtr<SceKernelSysClock>, arg2: MutPtr<SceKernelSysClock>, arg3: MutPtr<CVoid>): UInt
+    public operator fun invoke(uid: SceUid, arg1: MutPtr, arg2: MutPtr, arg3: MutPtr): UInt
 }
 
 public fun interface SceKernelVTimerHandlerWide {
-    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: MutPtr<CVoid>): UInt
+    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: MutPtr): UInt
 }
 
 public fun interface SceKernelThreadEventHandler {
-    public operator fun invoke(mask: Int, thid: SceUid, common: MutPtr<CVoid>): Int
+    public operator fun invoke(mask: Int, thid: SceUid, common: MutPtr): Int
 }
 
 public fun interface SceKernelAlarmHandler {
-    public operator fun invoke(common: MutPtr<CVoid>): UInt
+    public operator fun invoke(common: MutPtr): UInt
 }
 
 public fun interface SceKernelCallbackFunction {
-    public operator fun invoke(arg1: Int, arg2: Int, arg: MutPtr<CVoid>): Int
+    public operator fun invoke(arg1: Int, arg2: Int, arg: MutPtr): Int
 }
 
 public fun interface SceKernelThreadEntry {
-    public operator fun invoke(args: ULong, argp: MutPtr<CVoid>): Int
+    public operator fun invoke(args: ULong, argp: MutPtr): Int
 }
 
 public fun interface PowerCallback {
@@ -128,61 +126,61 @@ public fun interface UmdCallback {
 }
 
 public fun interface SceMpegRingbufferCbFn {
-    public operator fun invoke(data: MutPtr<CVoid>, numPackets: Int, param: MutPtr<CVoid>): Int
+    public operator fun invoke(data: MutPtr, numPackets: Int, param: MutPtr): Int
 }
 
 public typealias SceMpegRingbufferCb = SceMpegRingbufferCbFn?
 
 public fun interface GuCallbackFn {
-    public operator fun invoke(id: Int, arg: MutPtr<CVoid>)
+    public operator fun invoke(id: Int, arg: MutPtr)
 }
 
 public typealias GuCallback = GuCallbackFn?
 
 public fun interface GuSwapBuffersCallbackFn {
-    public operator fun invoke(display: MutPtr<MutPtr<CVoid>>, render: MutPtr<MutPtr<CVoid>>)
+    public operator fun invoke(display: MutPtr, render: MutPtr)
 }
 
 public typealias GuSwapBuffersCallback = GuSwapBuffersCallbackFn?
 
 public fun interface SceNetAdhocctlHandlerFn {
-    public operator fun invoke(flag: Int, error: Int, unknown: MutPtr<CVoid>)
+    public operator fun invoke(flag: Int, error: Int, unknown: MutPtr)
 }
 
 public typealias SceNetAdhocctlHandler = SceNetAdhocctlHandlerFn?
 
 public fun interface AdhocMatchingCallbackFn {
-    public operator fun invoke(matchingId: Int, event: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>)
+    public operator fun invoke(matchingId: Int, event: Int, mac: MutPtr, optLen: Int, optData: MutPtr)
 }
 
 public typealias AdhocMatchingCallback = AdhocMatchingCallbackFn?
 
 public fun interface SceNetApctlHandlerFn {
-    public operator fun invoke(oldState: Int, newState: Int, event: Int, error: Int, pArg: MutPtr<CVoid>)
+    public operator fun invoke(oldState: Int, newState: Int, event: Int, error: Int, pArg: MutPtr)
 }
 
 public typealias SceNetApctlHandler = SceNetApctlHandlerFn?
 
 public fun interface HttpMallocFunctionFn {
-    public operator fun invoke(size: ULong): MutPtr<CVoid>
+    public operator fun invoke(size: ULong): MutPtr
 }
 
 public typealias HttpMallocFunction = HttpMallocFunctionFn?
 
 public fun interface HttpReallocFunctionFn {
-    public operator fun invoke(p: MutPtr<CVoid>, size: ULong): MutPtr<CVoid>
+    public operator fun invoke(p: MutPtr, size: ULong): MutPtr
 }
 
 public typealias HttpReallocFunction = HttpReallocFunctionFn?
 
 public fun interface HttpFreeFunctionFn {
-    public operator fun invoke(p: MutPtr<CVoid>)
+    public operator fun invoke(p: MutPtr)
 }
 
 public typealias HttpFreeFunction = HttpFreeFunctionFn?
 
 public fun interface HttpPasswordCBFn {
-    public operator fun invoke(request: Int, authType: HttpAuthType, realm: ConstPtr<UByte>, username: MutPtr<UByte>, password: MutPtr<UByte>, needEntity: Int, entityBody: MutPtr<MutPtr<UByte>>, entitySize: MutPtr<ULong>, save: MutPtr<Int>): Int
+    public operator fun invoke(request: Int, authType: HttpAuthType, realm: ConstPtr, username: MutPtr, password: MutPtr, needEntity: Int, entityBody: MutPtr, entitySize: MutPtr, save: MutPtr): Int
 }
 
 public typealias HttpPasswordCB = HttpPasswordCBFn?
@@ -1568,12 +1566,12 @@ public data class SceUid(
 }
 
 public class SceMpeg internal constructor(
-    valueCtorArg: MutPtr<MutPtr<CVoid>>,
+    valueCtorArg: MutPtr,
 ) {
-    public var value: MutPtr<MutPtr<CVoid>> = valueCtorArg
+    public var value: MutPtr = valueCtorArg
         internal set
 
-    public var field0: MutPtr<MutPtr<CVoid>>
+    public var field0: MutPtr
         get() = value
         set(v) {
             value = v
@@ -1583,9 +1581,9 @@ public class SceMpeg internal constructor(
         valueCtorArg = MutPtr(0L),
     )
 
-    public operator fun component1(): MutPtr<MutPtr<CVoid>> = this.value
+    public operator fun component1(): MutPtr = this.value
 
-    public fun copy(value: MutPtr<MutPtr<CVoid>> = this.value): SceMpeg = SceMpeg(valueCtorArg = value)
+    public fun copy(value: MutPtr = this.value): SceMpeg = SceMpeg(valueCtorArg = value)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1605,19 +1603,19 @@ public class SceMpeg internal constructor(
                     SceMpeg(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<MutPtr<CVoid>>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                     )
                 override fun writeNative(addr: Long, value: SceMpeg) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<MutPtr<CVoid>>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.value)
                 }
             }
 
         public operator fun invoke(
-            value: MutPtr<MutPtr<CVoid>> = MutPtr(0L),
+            value: MutPtr = MutPtr(0L),
         ): SceMpeg =
             SceMpeg(
                 valueCtorArg = value,
@@ -1626,12 +1624,12 @@ public class SceMpeg internal constructor(
 }
 
 public class SceMpegStream internal constructor(
-    valueCtorArg: MutPtr<CVoid>,
+    valueCtorArg: MutPtr,
 ) {
-    public var value: MutPtr<CVoid> = valueCtorArg
+    public var value: MutPtr = valueCtorArg
         internal set
 
-    public var field0: MutPtr<CVoid>
+    public var field0: MutPtr
         get() = value
         set(v) {
             value = v
@@ -1641,9 +1639,9 @@ public class SceMpegStream internal constructor(
         valueCtorArg = MutPtr(0L),
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.value
+    public operator fun component1(): MutPtr = this.value
 
-    public fun copy(value: MutPtr<CVoid> = this.value): SceMpegStream = SceMpegStream(valueCtorArg = value)
+    public fun copy(value: MutPtr = this.value): SceMpegStream = SceMpegStream(valueCtorArg = value)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1663,19 +1661,19 @@ public class SceMpegStream internal constructor(
                     SceMpegStream(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                     )
                 override fun writeNative(addr: Long, value: SceMpegStream) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.value)
                 }
             }
 
         public operator fun invoke(
-            value: MutPtr<CVoid> = MutPtr(0L),
+            value: MutPtr = MutPtr(0L),
         ): SceMpegStream =
             SceMpegStream(
                 valueCtorArg = value,
@@ -1834,19 +1832,19 @@ public data class AudioInputParams(
 }
 
 public class Atrac3BufferInfo internal constructor(
-    pucWritePositionFirstBufCtorArg: MutPtr<UByte>,
+    pucWritePositionFirstBufCtorArg: MutPtr,
     public var uiWritableByteFirstBuf: UInt,
     public var uiMinWriteByteFirstBuf: UInt,
     public var uiReadPositionFirstBuf: UInt,
-    pucWritePositionSecondBufCtorArg: MutPtr<UByte>,
+    pucWritePositionSecondBufCtorArg: MutPtr,
     public var uiWritableByteSecondBuf: UInt,
     public var uiMinWriteByteSecondBuf: UInt,
     public var uiReadPositionSecondBuf: UInt,
 ) {
-    public var pucWritePositionFirstBuf: MutPtr<UByte> = pucWritePositionFirstBufCtorArg
+    public var pucWritePositionFirstBuf: MutPtr = pucWritePositionFirstBufCtorArg
         internal set
 
-    public var pucWritePositionSecondBuf: MutPtr<UByte> = pucWritePositionSecondBufCtorArg
+    public var pucWritePositionSecondBuf: MutPtr = pucWritePositionSecondBufCtorArg
         internal set
 
     public constructor() : this(
@@ -1860,7 +1858,7 @@ public class Atrac3BufferInfo internal constructor(
         uiReadPositionSecondBuf = 0u,
     )
 
-    public operator fun component1(): MutPtr<UByte> = this.pucWritePositionFirstBuf
+    public operator fun component1(): MutPtr = this.pucWritePositionFirstBuf
 
     public operator fun component2(): UInt = this.uiWritableByteFirstBuf
 
@@ -1868,7 +1866,7 @@ public class Atrac3BufferInfo internal constructor(
 
     public operator fun component4(): UInt = this.uiReadPositionFirstBuf
 
-    public operator fun component5(): MutPtr<UByte> = this.pucWritePositionSecondBuf
+    public operator fun component5(): MutPtr = this.pucWritePositionSecondBuf
 
     public operator fun component6(): UInt = this.uiWritableByteSecondBuf
 
@@ -1876,7 +1874,7 @@ public class Atrac3BufferInfo internal constructor(
 
     public operator fun component8(): UInt = this.uiReadPositionSecondBuf
 
-    public fun copy(pucWritePositionFirstBuf: MutPtr<UByte> = this.pucWritePositionFirstBuf, uiWritableByteFirstBuf: UInt = this.uiWritableByteFirstBuf, uiMinWriteByteFirstBuf: UInt = this.uiMinWriteByteFirstBuf, uiReadPositionFirstBuf: UInt = this.uiReadPositionFirstBuf, pucWritePositionSecondBuf: MutPtr<UByte> = this.pucWritePositionSecondBuf, uiWritableByteSecondBuf: UInt = this.uiWritableByteSecondBuf, uiMinWriteByteSecondBuf: UInt = this.uiMinWriteByteSecondBuf, uiReadPositionSecondBuf: UInt = this.uiReadPositionSecondBuf): Atrac3BufferInfo = Atrac3BufferInfo(pucWritePositionFirstBufCtorArg = pucWritePositionFirstBuf, uiWritableByteFirstBuf = uiWritableByteFirstBuf, uiMinWriteByteFirstBuf = uiMinWriteByteFirstBuf, uiReadPositionFirstBuf = uiReadPositionFirstBuf, pucWritePositionSecondBufCtorArg = pucWritePositionSecondBuf, uiWritableByteSecondBuf = uiWritableByteSecondBuf, uiMinWriteByteSecondBuf = uiMinWriteByteSecondBuf, uiReadPositionSecondBuf = uiReadPositionSecondBuf)
+    public fun copy(pucWritePositionFirstBuf: MutPtr = this.pucWritePositionFirstBuf, uiWritableByteFirstBuf: UInt = this.uiWritableByteFirstBuf, uiMinWriteByteFirstBuf: UInt = this.uiMinWriteByteFirstBuf, uiReadPositionFirstBuf: UInt = this.uiReadPositionFirstBuf, pucWritePositionSecondBuf: MutPtr = this.pucWritePositionSecondBuf, uiWritableByteSecondBuf: UInt = this.uiWritableByteSecondBuf, uiMinWriteByteSecondBuf: UInt = this.uiMinWriteByteSecondBuf, uiReadPositionSecondBuf: UInt = this.uiReadPositionSecondBuf): Atrac3BufferInfo = Atrac3BufferInfo(pucWritePositionFirstBufCtorArg = pucWritePositionFirstBuf, uiWritableByteFirstBuf = uiWritableByteFirstBuf, uiMinWriteByteFirstBuf = uiMinWriteByteFirstBuf, uiReadPositionFirstBuf = uiReadPositionFirstBuf, pucWritePositionSecondBufCtorArg = pucWritePositionSecondBuf, uiWritableByteSecondBuf = uiWritableByteSecondBuf, uiMinWriteByteSecondBuf = uiMinWriteByteSecondBuf, uiReadPositionSecondBuf = uiReadPositionSecondBuf)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1913,14 +1911,14 @@ public class Atrac3BufferInfo internal constructor(
                     Atrac3BufferInfo(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<UByte>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<UByte>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 32L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 36L),
@@ -1929,14 +1927,14 @@ public class Atrac3BufferInfo internal constructor(
                 override fun writeNative(addr: Long, value: Atrac3BufferInfo) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<UByte>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.pucWritePositionFirstBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.uiWritableByteFirstBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.uiMinWriteByteFirstBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.uiReadPositionFirstBuf)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<UByte>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.pucWritePositionSecondBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 32L, value.uiWritableByteSecondBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 36L, value.uiMinWriteByteSecondBuf)
@@ -1945,11 +1943,11 @@ public class Atrac3BufferInfo internal constructor(
             }
 
         public operator fun invoke(
-            pucWritePositionFirstBuf: MutPtr<UByte> = MutPtr(0L),
+            pucWritePositionFirstBuf: MutPtr = MutPtr(0L),
             uiWritableByteFirstBuf: UInt = 0u,
             uiMinWriteByteFirstBuf: UInt = 0u,
             uiReadPositionFirstBuf: UInt = 0u,
-            pucWritePositionSecondBuf: MutPtr<UByte> = MutPtr(0L),
+            pucWritePositionSecondBuf: MutPtr = MutPtr(0L),
             uiWritableByteSecondBuf: UInt = 0u,
             uiMinWriteByteSecondBuf: UInt = 0u,
             uiReadPositionSecondBuf: UInt = 0u,
@@ -2088,14 +2086,14 @@ public data class GeStack(
 
 public class GeCallbackData internal constructor(
     public var signalFunc: FnCallback7?,
-    signalArgCtorArg: MutPtr<CVoid>,
+    signalArgCtorArg: MutPtr,
     public var finishFunc: FnCallback7?,
-    finishArgCtorArg: MutPtr<CVoid>,
+    finishArgCtorArg: MutPtr,
 ) {
-    public var signalArg: MutPtr<CVoid> = signalArgCtorArg
+    public var signalArg: MutPtr = signalArgCtorArg
         internal set
 
-    public var finishArg: MutPtr<CVoid> = finishArgCtorArg
+    public var finishArg: MutPtr = finishArgCtorArg
         internal set
 
     public constructor() : this(
@@ -2107,13 +2105,13 @@ public class GeCallbackData internal constructor(
 
     public operator fun component1(): FnCallback7? = this.signalFunc
 
-    public operator fun component2(): MutPtr<CVoid> = this.signalArg
+    public operator fun component2(): MutPtr = this.signalArg
 
     public operator fun component3(): FnCallback7? = this.finishFunc
 
-    public operator fun component4(): MutPtr<CVoid> = this.finishArg
+    public operator fun component4(): MutPtr = this.finishArg
 
-    public fun copy(signalFunc: FnCallback7? = this.signalFunc, signalArg: MutPtr<CVoid> = this.signalArg, finishFunc: FnCallback7? = this.finishFunc, finishArg: MutPtr<CVoid> = this.finishArg): GeCallbackData = GeCallbackData(signalFunc = signalFunc, signalArgCtorArg = signalArg, finishFunc = finishFunc, finishArgCtorArg = finishArg)
+    public fun copy(signalFunc: FnCallback7? = this.signalFunc, signalArg: MutPtr = this.signalArg, finishFunc: FnCallback7? = this.finishFunc, finishArg: MutPtr = this.finishArg): GeCallbackData = GeCallbackData(signalFunc = signalFunc, signalArgCtorArg = signalArg, finishFunc = finishFunc, finishArgCtorArg = finishArg)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2136,9 +2134,9 @@ public class GeCallbackData internal constructor(
     public companion object {
         public operator fun invoke(
             signalFunc: FnCallback7? = null,
-            signalArg: MutPtr<CVoid> = MutPtr(0L),
+            signalArg: MutPtr = MutPtr(0L),
             finishFunc: FnCallback7? = null,
-            finishArg: MutPtr<CVoid> = MutPtr(0L),
+            finishArg: MutPtr = MutPtr(0L),
         ): GeCallbackData =
             GeCallbackData(
                 signalFunc = signalFunc,
@@ -2151,14 +2149,14 @@ public class GeCallbackData internal constructor(
 
 public class GeListArgs internal constructor(
     public var size: UInt,
-    contextCtorArg: MutPtr<GeContext>,
+    contextCtorArg: MutPtr,
     public var numStacks: UInt,
-    stacksCtorArg: MutPtr<GeStack>,
+    stacksCtorArg: MutPtr,
 ) {
-    public var context: MutPtr<GeContext> = contextCtorArg
+    public var context: MutPtr = contextCtorArg
         internal set
 
-    public var stacks: MutPtr<GeStack> = stacksCtorArg
+    public var stacks: MutPtr = stacksCtorArg
         internal set
 
     public constructor() : this(
@@ -2170,13 +2168,13 @@ public class GeListArgs internal constructor(
 
     public operator fun component1(): UInt = this.size
 
-    public operator fun component2(): MutPtr<GeContext> = this.context
+    public operator fun component2(): MutPtr = this.context
 
     public operator fun component3(): UInt = this.numStacks
 
-    public operator fun component4(): MutPtr<GeStack> = this.stacks
+    public operator fun component4(): MutPtr = this.stacks
 
-    public fun copy(size: UInt = this.size, context: MutPtr<GeContext> = this.context, numStacks: UInt = this.numStacks, stacks: MutPtr<GeStack> = this.stacks): GeListArgs = GeListArgs(size = size, contextCtorArg = context, numStacks = numStacks, stacksCtorArg = stacks)
+    public fun copy(size: UInt = this.size, context: MutPtr = this.context, numStacks: UInt = this.numStacks, stacks: MutPtr = this.stacks): GeListArgs = GeListArgs(size = size, contextCtorArg = context, numStacks = numStacks, stacksCtorArg = stacks)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2206,33 +2204,33 @@ public class GeListArgs internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<GeContext>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<GeStack>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: GeListArgs) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.size)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<GeContext>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.context)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.numStacks)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<GeStack>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.stacks)
                 }
             }
 
         public operator fun invoke(
             size: UInt = 0u,
-            context: MutPtr<GeContext> = MutPtr(0L),
+            context: MutPtr = MutPtr(0L),
             numStacks: UInt = 0u,
-            stacks: MutPtr<GeStack> = MutPtr(0L),
+            stacks: MutPtr = MutPtr(0L),
         ): GeListArgs =
             GeListArgs(
                 size = size,
@@ -2280,13 +2278,13 @@ public data class GeBreakParam(
 public class SceKernelLoadExecParam internal constructor(
     public var size: Int,
     public var args: Int,
-    argpCtorArg: MutPtr<CVoid>,
-    keyCtorArg: ConstPtr<UByte>,
+    argpCtorArg: MutPtr,
+    keyCtorArg: ConstPtr,
 ) {
-    public var argp: MutPtr<CVoid> = argpCtorArg
+    public var argp: MutPtr = argpCtorArg
         internal set
 
-    public var key: ConstPtr<UByte> = keyCtorArg
+    public var key: ConstPtr = keyCtorArg
         internal set
 
     public constructor() : this(
@@ -2300,11 +2298,11 @@ public class SceKernelLoadExecParam internal constructor(
 
     public operator fun component2(): Int = this.args
 
-    public operator fun component3(): MutPtr<CVoid> = this.argp
+    public operator fun component3(): MutPtr = this.argp
 
-    public operator fun component4(): ConstPtr<UByte> = this.key
+    public operator fun component4(): ConstPtr = this.key
 
-    public fun copy(size: Int = this.size, args: Int = this.args, argp: MutPtr<CVoid> = this.argp, key: ConstPtr<UByte> = this.key): SceKernelLoadExecParam = SceKernelLoadExecParam(size = size, args = args, argpCtorArg = argp, keyCtorArg = key)
+    public fun copy(size: Int = this.size, args: Int = this.args, argp: MutPtr = this.argp, key: ConstPtr = this.key): SceKernelLoadExecParam = SceKernelLoadExecParam(size = size, args = args, argpCtorArg = argp, keyCtorArg = key)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2335,11 +2333,11 @@ public class SceKernelLoadExecParam internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .constPtrLayout<UByte>(64)
+                                .constPtrLayout(64)
                         ).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: SceKernelLoadExecParam) {
@@ -2347,11 +2345,11 @@ public class SceKernelLoadExecParam internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 8L, value.args)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.argp)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .constPtrLayout<UByte>(64)
+                            .constPtrLayout(64)
                     ).writeNative(addr + 24L, value.key)
                 }
             }
@@ -2359,8 +2357,8 @@ public class SceKernelLoadExecParam internal constructor(
         public operator fun invoke(
             size: Int = 0,
             args: Int = 0,
-            argp: MutPtr<CVoid> = MutPtr(0L),
-            key: ConstPtr<UByte> = ConstPtr(0L),
+            argp: MutPtr = MutPtr(0L),
+            key: ConstPtr = ConstPtr(0L),
         ): SceKernelLoadExecParam =
             SceKernelLoadExecParam(
                 size = size,
@@ -2829,9 +2827,9 @@ public class SceKernelThreadInfo internal constructor(
     public var attr: UInt,
     public var status: Int,
     public var entry: SceKernelThreadEntry,
-    stackCtorArg: MutPtr<CVoid>,
+    stackCtorArg: MutPtr,
     public var stackSize: Int,
-    gpRegCtorArg: MutPtr<CVoid>,
+    gpRegCtorArg: MutPtr,
     public var initPriority: Int,
     public var currentPriority: Int,
     public var waitType: Int,
@@ -2843,10 +2841,10 @@ public class SceKernelThreadInfo internal constructor(
     public var threadPreemptCount: UInt,
     public var releaseCount: UInt,
 ) {
-    public var stack: MutPtr<CVoid> = stackCtorArg
+    public var stack: MutPtr = stackCtorArg
         internal set
 
-    public var gpReg: MutPtr<CVoid> = gpRegCtorArg
+    public var gpReg: MutPtr = gpRegCtorArg
         internal set
 
     public constructor() : this(
@@ -2877,9 +2875,9 @@ public class SceKernelThreadInfo internal constructor(
             attr: UInt = 0u,
             status: Int = 0,
             entry: SceKernelThreadEntry = SceKernelThreadEntry { _, _ -> 0 },
-            stack: MutPtr<CVoid> = MutPtr(0L),
+            stack: MutPtr = MutPtr(0L),
             stackSize: Int = 0,
-            gpReg: MutPtr<CVoid> = MutPtr(0L),
+            gpReg: MutPtr = MutPtr(0L),
             initPriority: Int = 0,
             currentPriority: Int = 0,
             waitType: Int = 0,
@@ -3152,9 +3150,9 @@ public class SceKernelMbxInfo internal constructor(
     public var attr: UInt,
     public var numWaitThreads: Int,
     public var numMessages: Int,
-    firstMessageCtorArg: MutPtr<CVoid>,
+    firstMessageCtorArg: MutPtr,
 ) {
-    public var firstMessage: MutPtr<CVoid> = firstMessageCtorArg
+    public var firstMessage: MutPtr = firstMessageCtorArg
         internal set
 
     public constructor() : this(
@@ -3176,9 +3174,9 @@ public class SceKernelMbxInfo internal constructor(
 
     public operator fun component5(): Int = this.numMessages
 
-    public operator fun component6(): MutPtr<CVoid> = this.firstMessage
+    public operator fun component6(): MutPtr = this.firstMessage
 
-    public fun copy(size: Int = this.size, name: UByteArray = this.name, attr: UInt = this.attr, numWaitThreads: Int = this.numWaitThreads, numMessages: Int = this.numMessages, firstMessage: MutPtr<CVoid> = this.firstMessage): SceKernelMbxInfo = SceKernelMbxInfo(size = size, name = name, attr = attr, numWaitThreads = numWaitThreads, numMessages = numMessages, firstMessageCtorArg = firstMessage)
+    public fun copy(size: Int = this.size, name: UByteArray = this.name, attr: UInt = this.attr, numWaitThreads: Int = this.numWaitThreads, numMessages: Int = this.numMessages, firstMessage: MutPtr = this.firstMessage): SceKernelMbxInfo = SceKernelMbxInfo(size = size, name = name, attr = attr, numWaitThreads = numWaitThreads, numMessages = numMessages, firstMessageCtorArg = firstMessage)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3219,7 +3217,7 @@ public class SceKernelMbxInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                     )
                 override fun writeNative(addr: Long, value: SceKernelMbxInfo) {
@@ -3233,7 +3231,7 @@ public class SceKernelMbxInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 48L, value.numMessages)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.firstMessage)
                 }
             }
@@ -3244,7 +3242,7 @@ public class SceKernelMbxInfo internal constructor(
             attr: UInt = 0u,
             numWaitThreads: Int = 0,
             numMessages: Int = 0,
-            firstMessage: MutPtr<CVoid> = MutPtr(0L),
+            firstMessage: MutPtr = MutPtr(0L),
         ): SceKernelMbxInfo =
             SceKernelMbxInfo(
                 size = size,
@@ -3265,9 +3263,9 @@ public class SceKernelVTimerInfo internal constructor(
     public var current: SceKernelSysClock,
     public var schedule: SceKernelSysClock,
     public var handler: SceKernelVTimerHandler,
-    commonCtorArg: MutPtr<CVoid>,
+    commonCtorArg: MutPtr,
 ) {
-    public var common: MutPtr<CVoid> = commonCtorArg
+    public var common: MutPtr = commonCtorArg
         internal set
 
     public constructor() : this(
@@ -3295,9 +3293,9 @@ public class SceKernelVTimerInfo internal constructor(
 
     public operator fun component7(): SceKernelVTimerHandler = this.handler
 
-    public operator fun component8(): MutPtr<CVoid> = this.common
+    public operator fun component8(): MutPtr = this.common
 
-    public fun copy(size: Int = this.size, name: UByteArray = this.name, active: Int = this.active, base: SceKernelSysClock = this.base, current: SceKernelSysClock = this.current, schedule: SceKernelSysClock = this.schedule, handler: SceKernelVTimerHandler = this.handler, common: MutPtr<CVoid> = this.common): SceKernelVTimerInfo = SceKernelVTimerInfo(size = size, name = name, active = active, base = base, current = current, schedule = schedule, handler = handler, commonCtorArg = common)
+    public fun copy(size: Int = this.size, name: UByteArray = this.name, active: Int = this.active, base: SceKernelSysClock = this.base, current: SceKernelSysClock = this.current, schedule: SceKernelSysClock = this.schedule, handler: SceKernelVTimerHandler = this.handler, common: MutPtr = this.common): SceKernelVTimerInfo = SceKernelVTimerInfo(size = size, name = name, active = active, base = base, current = current, schedule = schedule, handler = handler, commonCtorArg = common)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3334,7 +3332,7 @@ public class SceKernelVTimerInfo internal constructor(
             current: SceKernelSysClock = SceKernelSysClock(),
             schedule: SceKernelSysClock = SceKernelSysClock(),
             handler: SceKernelVTimerHandler = SceKernelVTimerHandler { _, _, _, _ -> 0u },
-            common: MutPtr<CVoid> = MutPtr(0L),
+            common: MutPtr = MutPtr(0L),
         ): SceKernelVTimerInfo =
             SceKernelVTimerInfo(
                 size = size,
@@ -3355,9 +3353,9 @@ public class SceKernelThreadEventHandlerInfo internal constructor(
     public var threadId: SceUid,
     public var mask: Int,
     public var handler: SceKernelThreadEventHandler,
-    commonCtorArg: MutPtr<CVoid>,
+    commonCtorArg: MutPtr,
 ) {
-    public var common: MutPtr<CVoid> = commonCtorArg
+    public var common: MutPtr = commonCtorArg
         internal set
 
     public constructor() : this(
@@ -3379,9 +3377,9 @@ public class SceKernelThreadEventHandlerInfo internal constructor(
 
     public operator fun component5(): SceKernelThreadEventHandler = this.handler
 
-    public operator fun component6(): MutPtr<CVoid> = this.common
+    public operator fun component6(): MutPtr = this.common
 
-    public fun copy(size: Int = this.size, name: UByteArray = this.name, threadId: SceUid = this.threadId, mask: Int = this.mask, handler: SceKernelThreadEventHandler = this.handler, common: MutPtr<CVoid> = this.common): SceKernelThreadEventHandlerInfo = SceKernelThreadEventHandlerInfo(size = size, name = name, threadId = threadId, mask = mask, handler = handler, commonCtorArg = common)
+    public fun copy(size: Int = this.size, name: UByteArray = this.name, threadId: SceUid = this.threadId, mask: Int = this.mask, handler: SceKernelThreadEventHandler = this.handler, common: MutPtr = this.common): SceKernelThreadEventHandlerInfo = SceKernelThreadEventHandlerInfo(size = size, name = name, threadId = threadId, mask = mask, handler = handler, commonCtorArg = common)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3412,7 +3410,7 @@ public class SceKernelThreadEventHandlerInfo internal constructor(
             threadId: SceUid = SceUid(),
             mask: Int = 0,
             handler: SceKernelThreadEventHandler = SceKernelThreadEventHandler { _, _, _ -> 0 },
-            common: MutPtr<CVoid> = MutPtr(0L),
+            common: MutPtr = MutPtr(0L),
         ): SceKernelThreadEventHandlerInfo =
             SceKernelThreadEventHandlerInfo(
                 size = size,
@@ -3429,9 +3427,9 @@ public class SceKernelAlarmInfo internal constructor(
     public var size: Int,
     public var schedule: SceKernelSysClock,
     public var handler: SceKernelAlarmHandler,
-    commonCtorArg: MutPtr<CVoid>,
+    commonCtorArg: MutPtr,
 ) {
-    public var common: MutPtr<CVoid> = commonCtorArg
+    public var common: MutPtr = commonCtorArg
         internal set
 
     public constructor() : this(
@@ -3447,9 +3445,9 @@ public class SceKernelAlarmInfo internal constructor(
 
     public operator fun component3(): SceKernelAlarmHandler = this.handler
 
-    public operator fun component4(): MutPtr<CVoid> = this.common
+    public operator fun component4(): MutPtr = this.common
 
-    public fun copy(size: Int = this.size, schedule: SceKernelSysClock = this.schedule, handler: SceKernelAlarmHandler = this.handler, common: MutPtr<CVoid> = this.common): SceKernelAlarmInfo = SceKernelAlarmInfo(size = size, schedule = schedule, handler = handler, commonCtorArg = common)
+    public fun copy(size: Int = this.size, schedule: SceKernelSysClock = this.schedule, handler: SceKernelAlarmHandler = this.handler, common: MutPtr = this.common): SceKernelAlarmInfo = SceKernelAlarmInfo(size = size, schedule = schedule, handler = handler, commonCtorArg = common)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3474,7 +3472,7 @@ public class SceKernelAlarmInfo internal constructor(
             size: Int = 0,
             schedule: SceKernelSysClock = SceKernelSysClock(),
             handler: SceKernelAlarmHandler = SceKernelAlarmHandler { _ -> 0u },
-            common: MutPtr<CVoid> = MutPtr(0L),
+            common: MutPtr = MutPtr(0L),
         ): SceKernelAlarmInfo =
             SceKernelAlarmInfo(
                 size = size,
@@ -3777,11 +3775,11 @@ public class SceKernelCallbackInfo internal constructor(
     public var name: UByteArray,
     public var threadId: SceUid,
     public var callback: SceKernelCallbackFunction,
-    commonCtorArg: MutPtr<CVoid>,
+    commonCtorArg: MutPtr,
     public var notifyCount: Int,
     public var notifyArg: Int,
 ) {
-    public var common: MutPtr<CVoid> = commonCtorArg
+    public var common: MutPtr = commonCtorArg
         internal set
 
     public constructor() : this(
@@ -3802,13 +3800,13 @@ public class SceKernelCallbackInfo internal constructor(
 
     public operator fun component4(): SceKernelCallbackFunction = this.callback
 
-    public operator fun component5(): MutPtr<CVoid> = this.common
+    public operator fun component5(): MutPtr = this.common
 
     public operator fun component6(): Int = this.notifyCount
 
     public operator fun component7(): Int = this.notifyArg
 
-    public fun copy(size: Int = this.size, name: UByteArray = this.name, threadId: SceUid = this.threadId, callback: SceKernelCallbackFunction = this.callback, common: MutPtr<CVoid> = this.common, notifyCount: Int = this.notifyCount, notifyArg: Int = this.notifyArg): SceKernelCallbackInfo = SceKernelCallbackInfo(size = size, name = name, threadId = threadId, callback = callback, commonCtorArg = common, notifyCount = notifyCount, notifyArg = notifyArg)
+    public fun copy(size: Int = this.size, name: UByteArray = this.name, threadId: SceUid = this.threadId, callback: SceKernelCallbackFunction = this.callback, common: MutPtr = this.common, notifyCount: Int = this.notifyCount, notifyArg: Int = this.notifyArg): SceKernelCallbackInfo = SceKernelCallbackInfo(size = size, name = name, threadId = threadId, callback = callback, commonCtorArg = common, notifyCount = notifyCount, notifyArg = notifyArg)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -3840,7 +3838,7 @@ public class SceKernelCallbackInfo internal constructor(
             name: UByteArray = UByteArray(32),
             threadId: SceUid = SceUid(),
             callback: SceKernelCallbackFunction = SceKernelCallbackFunction { _, _, _ -> 0 },
-            common: MutPtr<CVoid> = MutPtr(0L),
+            common: MutPtr = MutPtr(0L),
             notifyCount: Int = 0,
             notifyArg: Int = 0,
         ): SceKernelCallbackInfo =
@@ -4067,20 +4065,20 @@ public class SceMpegRingbuffer internal constructor(
     public var unk1: UInt,
     public var unk2: UInt,
     public var unk3: UInt,
-    dataCtorArg: MutPtr<CVoid>,
+    dataCtorArg: MutPtr,
     public var callback: SceMpegRingbufferCb,
-    cbParamCtorArg: MutPtr<CVoid>,
+    cbParamCtorArg: MutPtr,
     public var unk4: UInt,
     public var unk5: UInt,
-    sceMpegCtorArg: MutPtr<CVoid>,
+    sceMpegCtorArg: MutPtr,
 ) {
-    public var data: MutPtr<CVoid> = dataCtorArg
+    public var data: MutPtr = dataCtorArg
         internal set
 
-    public var cbParam: MutPtr<CVoid> = cbParamCtorArg
+    public var cbParam: MutPtr = cbParamCtorArg
         internal set
 
-    public var sceMpeg: MutPtr<CVoid> = sceMpegCtorArg
+    public var sceMpeg: MutPtr = sceMpegCtorArg
         internal set
 
     public constructor() : this(
@@ -4107,19 +4105,19 @@ public class SceMpegRingbuffer internal constructor(
 
     public operator fun component5(): UInt = this.unk3
 
-    public operator fun component6(): MutPtr<CVoid> = this.data
+    public operator fun component6(): MutPtr = this.data
 
     public operator fun component7(): SceMpegRingbufferCb = this.callback
 
-    public operator fun component8(): MutPtr<CVoid> = this.cbParam
+    public operator fun component8(): MutPtr = this.cbParam
 
     public operator fun component9(): UInt = this.unk4
 
     public operator fun component10(): UInt = this.unk5
 
-    public operator fun component11(): MutPtr<CVoid> = this.sceMpeg
+    public operator fun component11(): MutPtr = this.sceMpeg
 
-    public fun copy(packets: Int = this.packets, unk0: UInt = this.unk0, unk1: UInt = this.unk1, unk2: UInt = this.unk2, unk3: UInt = this.unk3, data: MutPtr<CVoid> = this.data, callback: SceMpegRingbufferCb = this.callback, cbParam: MutPtr<CVoid> = this.cbParam, unk4: UInt = this.unk4, unk5: UInt = this.unk5, sceMpeg: MutPtr<CVoid> = this.sceMpeg): SceMpegRingbuffer = SceMpegRingbuffer(packets = packets, unk0 = unk0, unk1 = unk1, unk2 = unk2, unk3 = unk3, dataCtorArg = data, callback = callback, cbParamCtorArg = cbParam, unk4 = unk4, unk5 = unk5, sceMpegCtorArg = sceMpeg)
+    public fun copy(packets: Int = this.packets, unk0: UInt = this.unk0, unk1: UInt = this.unk1, unk2: UInt = this.unk2, unk3: UInt = this.unk3, data: MutPtr = this.data, callback: SceMpegRingbufferCb = this.callback, cbParam: MutPtr = this.cbParam, unk4: UInt = this.unk4, unk5: UInt = this.unk5, sceMpeg: MutPtr = this.sceMpeg): SceMpegRingbuffer = SceMpegRingbuffer(packets = packets, unk0 = unk0, unk1 = unk1, unk2 = unk2, unk3 = unk3, dataCtorArg = data, callback = callback, cbParamCtorArg = cbParam, unk4 = unk4, unk5 = unk5, sceMpegCtorArg = sceMpeg)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -4160,12 +4158,12 @@ public class SceMpegRingbuffer internal constructor(
             unk1: UInt = 0u,
             unk2: UInt = 0u,
             unk3: UInt = 0u,
-            data: MutPtr<CVoid> = MutPtr(0L),
+            data: MutPtr = MutPtr(0L),
             callback: SceMpegRingbufferCb = null,
-            cbParam: MutPtr<CVoid> = MutPtr(0L),
+            cbParam: MutPtr = MutPtr(0L),
             unk4: UInt = 0u,
             unk5: UInt = 0u,
-            sceMpeg: MutPtr<CVoid> = MutPtr(0L),
+            sceMpeg: MutPtr = MutPtr(0L),
         ): SceMpegRingbuffer =
             SceMpegRingbuffer(
                 packets = packets,
@@ -4223,18 +4221,18 @@ public data class SceMpegAvcMode(
 )
 
 public class SceMpegLLI internal constructor(
-    srcCtorArg: MutPtr<CVoid>,
-    dstCtorArg: MutPtr<CVoid>,
-    nextCtorArg: MutPtr<CVoid>,
+    srcCtorArg: MutPtr,
+    dstCtorArg: MutPtr,
+    nextCtorArg: MutPtr,
     public var size: Int,
 ) {
-    public var src: MutPtr<CVoid> = srcCtorArg
+    public var src: MutPtr = srcCtorArg
         internal set
 
-    public var dst: MutPtr<CVoid> = dstCtorArg
+    public var dst: MutPtr = dstCtorArg
         internal set
 
-    public var next: MutPtr<CVoid> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
     public constructor() : this(
@@ -4244,15 +4242,15 @@ public class SceMpegLLI internal constructor(
         size = 0,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.src
+    public operator fun component1(): MutPtr = this.src
 
-    public operator fun component2(): MutPtr<CVoid> = this.dst
+    public operator fun component2(): MutPtr = this.dst
 
-    public operator fun component3(): MutPtr<CVoid> = this.next
+    public operator fun component3(): MutPtr = this.next
 
     public operator fun component4(): Int = this.size
 
-    public fun copy(src: MutPtr<CVoid> = this.src, dst: MutPtr<CVoid> = this.dst, next: MutPtr<CVoid> = this.next, size: Int = this.size): SceMpegLLI = SceMpegLLI(srcCtorArg = src, dstCtorArg = dst, nextCtorArg = next, size = size)
+    public fun copy(src: MutPtr = this.src, dst: MutPtr = this.dst, next: MutPtr = this.next, size: Int = this.size): SceMpegLLI = SceMpegLLI(srcCtorArg = src, dstCtorArg = dst, nextCtorArg = next, size = size)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -4281,39 +4279,39 @@ public class SceMpegLLI internal constructor(
                     SceMpegLLI(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
                     )
                 override fun writeNative(addr: Long, value: SceMpegLLI) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.src)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.dst)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.next)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.size)
                 }
             }
 
         public operator fun invoke(
-            src: MutPtr<CVoid> = MutPtr(0L),
-            dst: MutPtr<CVoid> = MutPtr(0L),
-            next: MutPtr<CVoid> = MutPtr(0L),
+            src: MutPtr = MutPtr(0L),
+            dst: MutPtr = MutPtr(0L),
+            next: MutPtr = MutPtr(0L),
             size: Int = 0,
         ): SceMpegLLI =
             SceMpegLLI(
@@ -4330,33 +4328,33 @@ public class SceMpegYCrCbBuffer internal constructor(
     public var frameBufferWidth16: Int,
     public var unknown: Int,
     public var unknown2: Int,
-    yBufferCtorArg: MutPtr<CVoid>,
-    yBuffer2CtorArg: MutPtr<CVoid>,
-    crBufferCtorArg: MutPtr<CVoid>,
-    cbBufferCtorArg: MutPtr<CVoid>,
-    crBuffer2CtorArg: MutPtr<CVoid>,
-    cbBuffer2CtorArg: MutPtr<CVoid>,
+    yBufferCtorArg: MutPtr,
+    yBuffer2CtorArg: MutPtr,
+    crBufferCtorArg: MutPtr,
+    cbBufferCtorArg: MutPtr,
+    crBuffer2CtorArg: MutPtr,
+    cbBuffer2CtorArg: MutPtr,
     public var frameHeight: Int,
     public var frameWidth: Int,
     public var frameBufferWidth: Int,
     public var unknown3: IntArray,
 ) {
-    public var yBuffer: MutPtr<CVoid> = yBufferCtorArg
+    public var yBuffer: MutPtr = yBufferCtorArg
         internal set
 
-    public var yBuffer2: MutPtr<CVoid> = yBuffer2CtorArg
+    public var yBuffer2: MutPtr = yBuffer2CtorArg
         internal set
 
-    public var crBuffer: MutPtr<CVoid> = crBufferCtorArg
+    public var crBuffer: MutPtr = crBufferCtorArg
         internal set
 
-    public var cbBuffer: MutPtr<CVoid> = cbBufferCtorArg
+    public var cbBuffer: MutPtr = cbBufferCtorArg
         internal set
 
-    public var crBuffer2: MutPtr<CVoid> = crBuffer2CtorArg
+    public var crBuffer2: MutPtr = crBuffer2CtorArg
         internal set
 
-    public var cbBuffer2: MutPtr<CVoid> = cbBuffer2CtorArg
+    public var cbBuffer2: MutPtr = cbBuffer2CtorArg
         internal set
 
     public constructor() : this(
@@ -4384,17 +4382,17 @@ public class SceMpegYCrCbBuffer internal constructor(
 
     public operator fun component4(): Int = this.unknown2
 
-    public operator fun component5(): MutPtr<CVoid> = this.yBuffer
+    public operator fun component5(): MutPtr = this.yBuffer
 
-    public operator fun component6(): MutPtr<CVoid> = this.yBuffer2
+    public operator fun component6(): MutPtr = this.yBuffer2
 
-    public operator fun component7(): MutPtr<CVoid> = this.crBuffer
+    public operator fun component7(): MutPtr = this.crBuffer
 
-    public operator fun component8(): MutPtr<CVoid> = this.cbBuffer
+    public operator fun component8(): MutPtr = this.cbBuffer
 
-    public operator fun component9(): MutPtr<CVoid> = this.crBuffer2
+    public operator fun component9(): MutPtr = this.crBuffer2
 
-    public operator fun component10(): MutPtr<CVoid> = this.cbBuffer2
+    public operator fun component10(): MutPtr = this.cbBuffer2
 
     public operator fun component11(): Int = this.frameHeight
 
@@ -4404,7 +4402,7 @@ public class SceMpegYCrCbBuffer internal constructor(
 
     public operator fun component14(): IntArray = this.unknown3
 
-    public fun copy(frameBufferHeight16: Int = this.frameBufferHeight16, frameBufferWidth16: Int = this.frameBufferWidth16, unknown: Int = this.unknown, unknown2: Int = this.unknown2, yBuffer: MutPtr<CVoid> = this.yBuffer, yBuffer2: MutPtr<CVoid> = this.yBuffer2, crBuffer: MutPtr<CVoid> = this.crBuffer, cbBuffer: MutPtr<CVoid> = this.cbBuffer, crBuffer2: MutPtr<CVoid> = this.crBuffer2, cbBuffer2: MutPtr<CVoid> = this.cbBuffer2, frameHeight: Int = this.frameHeight, frameWidth: Int = this.frameWidth, frameBufferWidth: Int = this.frameBufferWidth, unknown3: IntArray = this.unknown3): SceMpegYCrCbBuffer = SceMpegYCrCbBuffer(frameBufferHeight16 = frameBufferHeight16, frameBufferWidth16 = frameBufferWidth16, unknown = unknown, unknown2 = unknown2, yBufferCtorArg = yBuffer, yBuffer2CtorArg = yBuffer2, crBufferCtorArg = crBuffer, cbBufferCtorArg = cbBuffer, crBuffer2CtorArg = crBuffer2, cbBuffer2CtorArg = cbBuffer2, frameHeight = frameHeight, frameWidth = frameWidth, frameBufferWidth = frameBufferWidth, unknown3 = unknown3)
+    public fun copy(frameBufferHeight16: Int = this.frameBufferHeight16, frameBufferWidth16: Int = this.frameBufferWidth16, unknown: Int = this.unknown, unknown2: Int = this.unknown2, yBuffer: MutPtr = this.yBuffer, yBuffer2: MutPtr = this.yBuffer2, crBuffer: MutPtr = this.crBuffer, cbBuffer: MutPtr = this.cbBuffer, crBuffer2: MutPtr = this.crBuffer2, cbBuffer2: MutPtr = this.cbBuffer2, frameHeight: Int = this.frameHeight, frameWidth: Int = this.frameWidth, frameBufferWidth: Int = this.frameBufferWidth, unknown3: IntArray = this.unknown3): SceMpegYCrCbBuffer = SceMpegYCrCbBuffer(frameBufferHeight16 = frameBufferHeight16, frameBufferWidth16 = frameBufferWidth16, unknown = unknown, unknown2 = unknown2, yBufferCtorArg = yBuffer, yBuffer2CtorArg = yBuffer2, crBufferCtorArg = crBuffer, cbBufferCtorArg = cbBuffer, crBuffer2CtorArg = crBuffer2, cbBuffer2CtorArg = cbBuffer2, frameHeight = frameHeight, frameWidth = frameWidth, frameBufferWidth = frameBufferWidth, unknown3 = unknown3)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -4457,27 +4455,27 @@ public class SceMpegYCrCbBuffer internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 40L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 48L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 56L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 64L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 68L),
@@ -4494,27 +4492,27 @@ public class SceMpegYCrCbBuffer internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.unknown2)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.yBuffer)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 24L, value.yBuffer2)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.crBuffer)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 40L, value.cbBuffer)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 48L, value.crBuffer2)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 56L, value.cbBuffer2)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 64L, value.frameHeight)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 68L, value.frameWidth)
@@ -4531,12 +4529,12 @@ public class SceMpegYCrCbBuffer internal constructor(
             frameBufferWidth16: Int = 0,
             unknown: Int = 0,
             unknown2: Int = 0,
-            yBuffer: MutPtr<CVoid> = MutPtr(0L),
-            yBuffer2: MutPtr<CVoid> = MutPtr(0L),
-            crBuffer: MutPtr<CVoid> = MutPtr(0L),
-            cbBuffer: MutPtr<CVoid> = MutPtr(0L),
-            crBuffer2: MutPtr<CVoid> = MutPtr(0L),
-            cbBuffer2: MutPtr<CVoid> = MutPtr(0L),
+            yBuffer: MutPtr = MutPtr(0L),
+            yBuffer2: MutPtr = MutPtr(0L),
+            crBuffer: MutPtr = MutPtr(0L),
+            cbBuffer: MutPtr = MutPtr(0L),
+            crBuffer2: MutPtr = MutPtr(0L),
+            cbBuffer2: MutPtr = MutPtr(0L),
             frameHeight: Int = 0,
             frameWidth: Int = 0,
             frameBufferWidth: Int = 0,
@@ -4978,15 +4976,15 @@ public class SceMp3InitArg internal constructor(
     public var unk1: UInt,
     public var mp3StreamEnd: UInt,
     public var unk2: UInt,
-    mp3BufCtorArg: MutPtr<CVoid>,
+    mp3BufCtorArg: MutPtr,
     public var mp3BufSize: Int,
-    pcmBufCtorArg: MutPtr<CVoid>,
+    pcmBufCtorArg: MutPtr,
     public var pcmBufSize: Int,
 ) {
-    public var mp3Buf: MutPtr<CVoid> = mp3BufCtorArg
+    public var mp3Buf: MutPtr = mp3BufCtorArg
         internal set
 
-    public var pcmBuf: MutPtr<CVoid> = pcmBufCtorArg
+    public var pcmBuf: MutPtr = pcmBufCtorArg
         internal set
 
     public constructor() : this(
@@ -5008,15 +5006,15 @@ public class SceMp3InitArg internal constructor(
 
     public operator fun component4(): UInt = this.unk2
 
-    public operator fun component5(): MutPtr<CVoid> = this.mp3Buf
+    public operator fun component5(): MutPtr = this.mp3Buf
 
     public operator fun component6(): Int = this.mp3BufSize
 
-    public operator fun component7(): MutPtr<CVoid> = this.pcmBuf
+    public operator fun component7(): MutPtr = this.pcmBuf
 
     public operator fun component8(): Int = this.pcmBufSize
 
-    public fun copy(mp3StreamStart: UInt = this.mp3StreamStart, unk1: UInt = this.unk1, mp3StreamEnd: UInt = this.mp3StreamEnd, unk2: UInt = this.unk2, mp3Buf: MutPtr<CVoid> = this.mp3Buf, mp3BufSize: Int = this.mp3BufSize, pcmBuf: MutPtr<CVoid> = this.pcmBuf, pcmBufSize: Int = this.pcmBufSize): SceMp3InitArg = SceMp3InitArg(mp3StreamStart = mp3StreamStart, unk1 = unk1, mp3StreamEnd = mp3StreamEnd, unk2 = unk2, mp3BufCtorArg = mp3Buf, mp3BufSize = mp3BufSize, pcmBufCtorArg = pcmBuf, pcmBufSize = pcmBufSize)
+    public fun copy(mp3StreamStart: UInt = this.mp3StreamStart, unk1: UInt = this.unk1, mp3StreamEnd: UInt = this.mp3StreamEnd, unk2: UInt = this.unk2, mp3Buf: MutPtr = this.mp3Buf, mp3BufSize: Int = this.mp3BufSize, pcmBuf: MutPtr = this.pcmBuf, pcmBufSize: Int = this.pcmBufSize): SceMp3InitArg = SceMp3InitArg(mp3StreamStart = mp3StreamStart, unk1 = unk1, mp3StreamEnd = mp3StreamEnd, unk2 = unk2, mp3BufCtorArg = mp3Buf, mp3BufSize = mp3BufSize, pcmBufCtorArg = pcmBuf, pcmBufSize = pcmBufSize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5057,12 +5055,12 @@ public class SceMp3InitArg internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 16L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 40L),
                     )
@@ -5073,12 +5071,12 @@ public class SceMp3InitArg internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.unk2)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 16L, value.mp3Buf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.mp3BufSize)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.pcmBuf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 40L, value.pcmBufSize)
                 }
@@ -5089,9 +5087,9 @@ public class SceMp3InitArg internal constructor(
             unk1: UInt = 0u,
             mp3StreamEnd: UInt = 0u,
             unk2: UInt = 0u,
-            mp3Buf: MutPtr<CVoid> = MutPtr(0L),
+            mp3Buf: MutPtr = MutPtr(0L),
             mp3BufSize: Int = 0,
-            pcmBuf: MutPtr<CVoid> = MutPtr(0L),
+            pcmBuf: MutPtr = MutPtr(0L),
             pcmBufSize: Int = 0,
         ): SceMp3InitArg =
             SceMp3InitArg(
@@ -5226,12 +5224,12 @@ public data class UtilityNetconfAdhoc(
 public class UtilityNetconfData internal constructor(
     public var base: UtilityDialogCommon,
     public var action: UtilityNetconfAction,
-    adhocparamCtorArg: MutPtr<UtilityNetconfAdhoc>,
+    adhocparamCtorArg: MutPtr,
     public var hotspot: Int,
     public var hotspotConnected: Int,
     public var wifisp: Int,
 ) {
-    public var adhocparam: MutPtr<UtilityNetconfAdhoc> = adhocparamCtorArg
+    public var adhocparam: MutPtr = adhocparamCtorArg
         internal set
 
     public constructor() : this(
@@ -5247,7 +5245,7 @@ public class UtilityNetconfData internal constructor(
 
     public operator fun component2(): UtilityNetconfAction = this.action
 
-    public operator fun component3(): MutPtr<UtilityNetconfAdhoc> = this.adhocparam
+    public operator fun component3(): MutPtr = this.adhocparam
 
     public operator fun component4(): Int = this.hotspot
 
@@ -5255,7 +5253,7 @@ public class UtilityNetconfData internal constructor(
 
     public operator fun component6(): Int = this.wifisp
 
-    public fun copy(base: UtilityDialogCommon = this.base, action: UtilityNetconfAction = this.action, adhocparam: MutPtr<UtilityNetconfAdhoc> = this.adhocparam, hotspot: Int = this.hotspot, hotspotConnected: Int = this.hotspotConnected, wifisp: Int = this.wifisp): UtilityNetconfData = UtilityNetconfData(base = base, action = action, adhocparamCtorArg = adhocparam, hotspot = hotspot, hotspotConnected = hotspotConnected, wifisp = wifisp)
+    public fun copy(base: UtilityDialogCommon = this.base, action: UtilityNetconfAction = this.action, adhocparam: MutPtr = this.adhocparam, hotspot: Int = this.hotspot, hotspotConnected: Int = this.hotspotConnected, wifisp: Int = this.wifisp): UtilityNetconfData = UtilityNetconfData(base = base, action = action, adhocparamCtorArg = adhocparam, hotspot = hotspot, hotspotConnected = hotspotConnected, wifisp = wifisp)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5283,7 +5281,7 @@ public class UtilityNetconfData internal constructor(
         public operator fun invoke(
             base: UtilityDialogCommon = UtilityDialogCommon(),
             action: UtilityNetconfAction = UtilityNetconfAction.entries.first(),
-            adhocparam: MutPtr<UtilityNetconfAdhoc> = MutPtr(0L),
+            adhocparam: MutPtr = MutPtr(0L),
             hotspot: Int = 0,
             hotspotConnected: Int = 0,
             wifisp: Int = 0,
@@ -5300,12 +5298,12 @@ public class UtilityNetconfData internal constructor(
 }
 
 public class UtilitySavedataFileData internal constructor(
-    bufCtorArg: MutPtr<CVoid>,
+    bufCtorArg: MutPtr,
     public var bufSize: Int,
     public var size: Int,
     public var unknown: Int,
 ) {
-    public var buf: MutPtr<CVoid> = bufCtorArg
+    public var buf: MutPtr = bufCtorArg
         internal set
 
     public constructor() : this(
@@ -5315,7 +5313,7 @@ public class UtilitySavedataFileData internal constructor(
         unknown = 0,
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.buf
+    public operator fun component1(): MutPtr = this.buf
 
     public operator fun component2(): Int = this.bufSize
 
@@ -5323,7 +5321,7 @@ public class UtilitySavedataFileData internal constructor(
 
     public operator fun component4(): Int = this.unknown
 
-    public fun copy(buf: MutPtr<CVoid> = this.buf, bufSize: Int = this.bufSize, size: Int = this.size, unknown: Int = this.unknown): UtilitySavedataFileData = UtilitySavedataFileData(bufCtorArg = buf, bufSize = bufSize, size = size, unknown = unknown)
+    public fun copy(buf: MutPtr = this.buf, bufSize: Int = this.bufSize, size: Int = this.size, unknown: Int = this.unknown): UtilitySavedataFileData = UtilitySavedataFileData(bufCtorArg = buf, bufSize = bufSize, size = size, unknown = unknown)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5352,7 +5350,7 @@ public class UtilitySavedataFileData internal constructor(
                     UtilitySavedataFileData(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 16L),
@@ -5361,7 +5359,7 @@ public class UtilitySavedataFileData internal constructor(
                 override fun writeNative(addr: Long, value: UtilitySavedataFileData) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.buf)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 8L, value.bufSize)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 16L, value.size)
@@ -5370,7 +5368,7 @@ public class UtilitySavedataFileData internal constructor(
             }
 
         public operator fun invoke(
-            buf: MutPtr<CVoid> = MutPtr(0L),
+            buf: MutPtr = MutPtr(0L),
             bufSize: Int = 0,
             size: Int = 0,
             unknown: Int = 0,
@@ -5386,9 +5384,9 @@ public class UtilitySavedataFileData internal constructor(
 
 public class UtilitySavedataListSaveNewData internal constructor(
     public var icon0: UtilitySavedataFileData,
-    titleCtorArg: MutPtr<UByte>,
+    titleCtorArg: MutPtr,
 ) {
-    public var title: MutPtr<UByte> = titleCtorArg
+    public var title: MutPtr = titleCtorArg
         internal set
 
     public constructor() : this(
@@ -5398,9 +5396,9 @@ public class UtilitySavedataListSaveNewData internal constructor(
 
     public operator fun component1(): UtilitySavedataFileData = this.icon0
 
-    public operator fun component2(): MutPtr<UByte> = this.title
+    public operator fun component2(): MutPtr = this.title
 
-    public fun copy(icon0: UtilitySavedataFileData = this.icon0, title: MutPtr<UByte> = this.title): UtilitySavedataListSaveNewData = UtilitySavedataListSaveNewData(icon0 = icon0, titleCtorArg = title)
+    public fun copy(icon0: UtilitySavedataFileData = this.icon0, title: MutPtr = this.title): UtilitySavedataListSaveNewData = UtilitySavedataListSaveNewData(icon0 = icon0, titleCtorArg = title)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5426,21 +5424,21 @@ public class UtilitySavedataListSaveNewData internal constructor(
                         (UtilitySavedataFileData.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<UByte>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 32L),
                     )
                 override fun writeNative(addr: Long, value: UtilitySavedataListSaveNewData) {
                     (UtilitySavedataFileData.typeLayout()).writeNative(addr, value.icon0)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<UByte>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 32L, value.title)
                 }
             }
 
         public operator fun invoke(
             icon0: UtilitySavedataFileData = UtilitySavedataFileData(),
-            title: MutPtr<UByte> = MutPtr(0L),
+            title: MutPtr = MutPtr(0L),
         ): UtilitySavedataListSaveNewData =
             UtilitySavedataListSaveNewData(
                 icon0 = icon0,
@@ -5458,16 +5456,16 @@ public class UtilityGameSharingParams internal constructor(
     public var unknown4: Int,
     public var unknown5: Int,
     public var result: Int,
-    filepathCtorArg: MutPtr<UByte>,
+    filepathCtorArg: MutPtr,
     public var mode: UtilityGameSharingMode,
     public var datatype: UtilityGameSharingDataType,
-    dataCtorArg: MutPtr<CVoid>,
+    dataCtorArg: MutPtr,
     public var datasize: UInt,
 ) {
-    public var filepath: MutPtr<UByte> = filepathCtorArg
+    public var filepath: MutPtr = filepathCtorArg
         internal set
 
-    public var data: MutPtr<CVoid> = dataCtorArg
+    public var data: MutPtr = dataCtorArg
         internal set
 
     public constructor() : this(
@@ -5502,17 +5500,17 @@ public class UtilityGameSharingParams internal constructor(
 
     public operator fun component8(): Int = this.result
 
-    public operator fun component9(): MutPtr<UByte> = this.filepath
+    public operator fun component9(): MutPtr = this.filepath
 
     public operator fun component10(): UtilityGameSharingMode = this.mode
 
     public operator fun component11(): UtilityGameSharingDataType = this.datatype
 
-    public operator fun component12(): MutPtr<CVoid> = this.data
+    public operator fun component12(): MutPtr = this.data
 
     public operator fun component13(): UInt = this.datasize
 
-    public fun copy(base: UtilityDialogCommon = this.base, unknown1: Int = this.unknown1, unknown2: Int = this.unknown2, name: UByteArray = this.name, unknown3: Int = this.unknown3, unknown4: Int = this.unknown4, unknown5: Int = this.unknown5, result: Int = this.result, filepath: MutPtr<UByte> = this.filepath, mode: UtilityGameSharingMode = this.mode, datatype: UtilityGameSharingDataType = this.datatype, data: MutPtr<CVoid> = this.data, datasize: UInt = this.datasize): UtilityGameSharingParams = UtilityGameSharingParams(base = base, unknown1 = unknown1, unknown2 = unknown2, name = name, unknown3 = unknown3, unknown4 = unknown4, unknown5 = unknown5, result = result, filepathCtorArg = filepath, mode = mode, datatype = datatype, dataCtorArg = data, datasize = datasize)
+    public fun copy(base: UtilityDialogCommon = this.base, unknown1: Int = this.unknown1, unknown2: Int = this.unknown2, name: UByteArray = this.name, unknown3: Int = this.unknown3, unknown4: Int = this.unknown4, unknown5: Int = this.unknown5, result: Int = this.result, filepath: MutPtr = this.filepath, mode: UtilityGameSharingMode = this.mode, datatype: UtilityGameSharingDataType = this.datatype, data: MutPtr = this.data, datasize: UInt = this.datasize): UtilityGameSharingParams = UtilityGameSharingParams(base = base, unknown1 = unknown1, unknown2 = unknown2, name = name, unknown3 = unknown3, unknown4 = unknown4, unknown5 = unknown5, result = result, filepathCtorArg = filepath, mode = mode, datatype = datatype, dataCtorArg = data, datasize = datasize)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5560,10 +5558,10 @@ public class UtilityGameSharingParams internal constructor(
             unknown4: Int = 0,
             unknown5: Int = 0,
             result: Int = 0,
-            filepath: MutPtr<UByte> = MutPtr(0L),
+            filepath: MutPtr = MutPtr(0L),
             mode: UtilityGameSharingMode = UtilityGameSharingMode.entries.first(),
             datatype: UtilityGameSharingDataType = UtilityGameSharingDataType.entries.first(),
-            data: MutPtr<CVoid> = MutPtr(0L),
+            data: MutPtr = MutPtr(0L),
             datasize: UInt = 0u,
         ): UtilityGameSharingParams =
             UtilityGameSharingParams(
@@ -5586,21 +5584,21 @@ public class UtilityGameSharingParams internal constructor(
 
 public class UtilityHtmlViewerParam internal constructor(
     public var base: UtilityDialogCommon,
-    memaddrCtorArg: MutPtr<CVoid>,
+    memaddrCtorArg: MutPtr,
     public var memsize: UInt,
     public var unknown1: Int,
     public var unknown2: Int,
-    initialurlCtorArg: MutPtr<UByte>,
+    initialurlCtorArg: MutPtr,
     public var numtabs: UInt,
     public var interfacemode: UtilityHtmlViewerInterfaceMode,
     public var options: Int,
-    dldirnameCtorArg: MutPtr<UByte>,
-    dlfilenameCtorArg: MutPtr<UByte>,
-    uldirnameCtorArg: MutPtr<UByte>,
-    ulfilenameCtorArg: MutPtr<UByte>,
+    dldirnameCtorArg: MutPtr,
+    dlfilenameCtorArg: MutPtr,
+    uldirnameCtorArg: MutPtr,
+    ulfilenameCtorArg: MutPtr,
     public var cookiemode: UtilityHtmlViewerCookieMode,
     public var unknown3: UInt,
-    homeurlCtorArg: MutPtr<UByte>,
+    homeurlCtorArg: MutPtr,
     public var textsize: UtilityHtmlViewerTextSize,
     public var displaymode: UtilityHtmlViewerDisplayMode,
     public var connectmode: UtilityHtmlViewerConnectMode,
@@ -5608,25 +5606,25 @@ public class UtilityHtmlViewerParam internal constructor(
     public var memused: UInt,
     public var unknown4: IntArray,
 ) {
-    public var memaddr: MutPtr<CVoid> = memaddrCtorArg
+    public var memaddr: MutPtr = memaddrCtorArg
         internal set
 
-    public var initialurl: MutPtr<UByte> = initialurlCtorArg
+    public var initialurl: MutPtr = initialurlCtorArg
         internal set
 
-    public var dldirname: MutPtr<UByte> = dldirnameCtorArg
+    public var dldirname: MutPtr = dldirnameCtorArg
         internal set
 
-    public var dlfilename: MutPtr<UByte> = dlfilenameCtorArg
+    public var dlfilename: MutPtr = dlfilenameCtorArg
         internal set
 
-    public var uldirname: MutPtr<UByte> = uldirnameCtorArg
+    public var uldirname: MutPtr = uldirnameCtorArg
         internal set
 
-    public var ulfilename: MutPtr<UByte> = ulfilenameCtorArg
+    public var ulfilename: MutPtr = ulfilenameCtorArg
         internal set
 
-    public var homeurl: MutPtr<UByte> = homeurlCtorArg
+    public var homeurl: MutPtr = homeurlCtorArg
         internal set
 
     public constructor() : this(
@@ -5657,21 +5655,21 @@ public class UtilityHtmlViewerParam internal constructor(
     public companion object {
         public operator fun invoke(
             base: UtilityDialogCommon = UtilityDialogCommon(),
-            memaddr: MutPtr<CVoid> = MutPtr(0L),
+            memaddr: MutPtr = MutPtr(0L),
             memsize: UInt = 0u,
             unknown1: Int = 0,
             unknown2: Int = 0,
-            initialurl: MutPtr<UByte> = MutPtr(0L),
+            initialurl: MutPtr = MutPtr(0L),
             numtabs: UInt = 0u,
             interfacemode: UtilityHtmlViewerInterfaceMode = UtilityHtmlViewerInterfaceMode.entries.first(),
             options: Int = 0,
-            dldirname: MutPtr<UByte> = MutPtr(0L),
-            dlfilename: MutPtr<UByte> = MutPtr(0L),
-            uldirname: MutPtr<UByte> = MutPtr(0L),
-            ulfilename: MutPtr<UByte> = MutPtr(0L),
+            dldirname: MutPtr = MutPtr(0L),
+            dlfilename: MutPtr = MutPtr(0L),
+            uldirname: MutPtr = MutPtr(0L),
+            ulfilename: MutPtr = MutPtr(0L),
             cookiemode: UtilityHtmlViewerCookieMode = UtilityHtmlViewerCookieMode.entries.first(),
             unknown3: UInt = 0u,
-            homeurl: MutPtr<UByte> = MutPtr(0L),
+            homeurl: MutPtr = MutPtr(0L),
             textsize: UtilityHtmlViewerTextSize = UtilityHtmlViewerTextSize.entries.first(),
             displaymode: UtilityHtmlViewerDisplayMode = UtilityHtmlViewerDisplayMode.entries.first(),
             connectmode: UtilityHtmlViewerConnectMode = UtilityHtmlViewerConnectMode.entries.first(),
@@ -5714,20 +5712,20 @@ public class SceUtilityOskData internal constructor(
     public var inputtype: SceUtilityOskInputType,
     public var lines: Int,
     public var unk24: Int,
-    descCtorArg: MutPtr<UShort>,
-    intextCtorArg: MutPtr<UShort>,
+    descCtorArg: MutPtr,
+    intextCtorArg: MutPtr,
     public var outtextlength: Int,
-    outtextCtorArg: MutPtr<UShort>,
+    outtextCtorArg: MutPtr,
     public var result: SceUtilityOskResult,
     public var outtextlimit: Int,
 ) {
-    public var desc: MutPtr<UShort> = descCtorArg
+    public var desc: MutPtr = descCtorArg
         internal set
 
-    public var intext: MutPtr<UShort> = intextCtorArg
+    public var intext: MutPtr = intextCtorArg
         internal set
 
-    public var outtext: MutPtr<UShort> = outtextCtorArg
+    public var outtext: MutPtr = outtextCtorArg
         internal set
 
     public constructor() : this(
@@ -5760,19 +5758,19 @@ public class SceUtilityOskData internal constructor(
 
     public operator fun component7(): Int = this.unk24
 
-    public operator fun component8(): MutPtr<UShort> = this.desc
+    public operator fun component8(): MutPtr = this.desc
 
-    public operator fun component9(): MutPtr<UShort> = this.intext
+    public operator fun component9(): MutPtr = this.intext
 
     public operator fun component10(): Int = this.outtextlength
 
-    public operator fun component11(): MutPtr<UShort> = this.outtext
+    public operator fun component11(): MutPtr = this.outtext
 
     public operator fun component12(): SceUtilityOskResult = this.result
 
     public operator fun component13(): Int = this.outtextlimit
 
-    public fun copy(unk00: Int = this.unk00, unk04: Int = this.unk04, language: SceUtilityOskInputLanguage = this.language, unk12: Int = this.unk12, inputtype: SceUtilityOskInputType = this.inputtype, lines: Int = this.lines, unk24: Int = this.unk24, desc: MutPtr<UShort> = this.desc, intext: MutPtr<UShort> = this.intext, outtextlength: Int = this.outtextlength, outtext: MutPtr<UShort> = this.outtext, result: SceUtilityOskResult = this.result, outtextlimit: Int = this.outtextlimit): SceUtilityOskData = SceUtilityOskData(unk00 = unk00, unk04 = unk04, language = language, unk12 = unk12, inputtype = inputtype, lines = lines, unk24 = unk24, descCtorArg = desc, intextCtorArg = intext, outtextlength = outtextlength, outtextCtorArg = outtext, result = result, outtextlimit = outtextlimit)
+    public fun copy(unk00: Int = this.unk00, unk04: Int = this.unk04, language: SceUtilityOskInputLanguage = this.language, unk12: Int = this.unk12, inputtype: SceUtilityOskInputType = this.inputtype, lines: Int = this.lines, unk24: Int = this.unk24, desc: MutPtr = this.desc, intext: MutPtr = this.intext, outtextlength: Int = this.outtextlength, outtext: MutPtr = this.outtext, result: SceUtilityOskResult = this.result, outtextlimit: Int = this.outtextlimit): SceUtilityOskData = SceUtilityOskData(unk00 = unk00, unk04 = unk04, language = language, unk12 = unk12, inputtype = inputtype, lines = lines, unk24 = unk24, descCtorArg = desc, intextCtorArg = intext, outtextlength = outtextlength, outtextCtorArg = outtext, result = result, outtextlimit = outtextlimit)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5819,10 +5817,10 @@ public class SceUtilityOskData internal constructor(
             inputtype: SceUtilityOskInputType = SceUtilityOskInputType.entries.first(),
             lines: Int = 0,
             unk24: Int = 0,
-            desc: MutPtr<UShort> = MutPtr(0L),
-            intext: MutPtr<UShort> = MutPtr(0L),
+            desc: MutPtr = MutPtr(0L),
+            intext: MutPtr = MutPtr(0L),
             outtextlength: Int = 0,
-            outtext: MutPtr<UShort> = MutPtr(0L),
+            outtext: MutPtr = MutPtr(0L),
             result: SceUtilityOskResult = SceUtilityOskResult.entries.first(),
             outtextlimit: Int = 0,
         ): SceUtilityOskData =
@@ -5847,11 +5845,11 @@ public class SceUtilityOskData internal constructor(
 public class SceUtilityOskParams internal constructor(
     public var base: UtilityDialogCommon,
     public var datacount: Int,
-    dataCtorArg: MutPtr<SceUtilityOskData>,
+    dataCtorArg: MutPtr,
     public var state: SceUtilityOskState,
     public var unk60: Int,
 ) {
-    public var data: MutPtr<SceUtilityOskData> = dataCtorArg
+    public var data: MutPtr = dataCtorArg
         internal set
 
     public constructor() : this(
@@ -5866,13 +5864,13 @@ public class SceUtilityOskParams internal constructor(
 
     public operator fun component2(): Int = this.datacount
 
-    public operator fun component3(): MutPtr<SceUtilityOskData> = this.data
+    public operator fun component3(): MutPtr = this.data
 
     public operator fun component4(): SceUtilityOskState = this.state
 
     public operator fun component5(): Int = this.unk60
 
-    public fun copy(base: UtilityDialogCommon = this.base, datacount: Int = this.datacount, data: MutPtr<SceUtilityOskData> = this.data, state: SceUtilityOskState = this.state, unk60: Int = this.unk60): SceUtilityOskParams = SceUtilityOskParams(base = base, datacount = datacount, dataCtorArg = data, state = state, unk60 = unk60)
+    public fun copy(base: UtilityDialogCommon = this.base, datacount: Int = this.datacount, data: MutPtr = this.data, state: SceUtilityOskState = this.state, unk60: Int = this.unk60): SceUtilityOskParams = SceUtilityOskParams(base = base, datacount = datacount, dataCtorArg = data, state = state, unk60 = unk60)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -5898,7 +5896,7 @@ public class SceUtilityOskParams internal constructor(
         public operator fun invoke(
             base: UtilityDialogCommon = UtilityDialogCommon(),
             datacount: Int = 0,
-            data: MutPtr<SceUtilityOskData> = MutPtr(0L),
+            data: MutPtr = MutPtr(0L),
             state: SceUtilityOskState = SceUtilityOskState.entries.first(),
             unk60: Int = 0,
         ): SceUtilityOskParams =
@@ -5991,14 +5989,14 @@ public data class SceNetAdhocctlAdhocId(
 }
 
 public class SceNetAdhocctlScanInfo internal constructor(
-    nextCtorArg: MutPtr<SceNetAdhocctlScanInfo>,
+    nextCtorArg: MutPtr,
     public var channel: Int,
     public var name: UByteArray,
     public var bssid: UByteArray,
     public var unknown: UByteArray,
     public var unknown2: Int,
 ) {
-    public var next: MutPtr<SceNetAdhocctlScanInfo> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
     public constructor() : this(
@@ -6010,7 +6008,7 @@ public class SceNetAdhocctlScanInfo internal constructor(
         unknown2 = 0,
     )
 
-    public operator fun component1(): MutPtr<SceNetAdhocctlScanInfo> = this.next
+    public operator fun component1(): MutPtr = this.next
 
     public operator fun component2(): Int = this.channel
 
@@ -6022,7 +6020,7 @@ public class SceNetAdhocctlScanInfo internal constructor(
 
     public operator fun component6(): Int = this.unknown2
 
-    public fun copy(next: MutPtr<SceNetAdhocctlScanInfo> = this.next, channel: Int = this.channel, name: UByteArray = this.name, bssid: UByteArray = this.bssid, unknown: UByteArray = this.unknown, unknown2: Int = this.unknown2): SceNetAdhocctlScanInfo = SceNetAdhocctlScanInfo(nextCtorArg = next, channel = channel, name = name, bssid = bssid, unknown = unknown, unknown2 = unknown2)
+    public fun copy(next: MutPtr = this.next, channel: Int = this.channel, name: UByteArray = this.name, bssid: UByteArray = this.bssid, unknown: UByteArray = this.unknown, unknown2: Int = this.unknown2): SceNetAdhocctlScanInfo = SceNetAdhocctlScanInfo(nextCtorArg = next, channel = channel, name = name, bssid = bssid, unknown = unknown, unknown2 = unknown2)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -6055,7 +6053,7 @@ public class SceNetAdhocctlScanInfo internal constructor(
                     SceNetAdhocctlScanInfo(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<SceNetAdhocctlScanInfo>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (
@@ -6075,7 +6073,7 @@ public class SceNetAdhocctlScanInfo internal constructor(
                 override fun writeNative(addr: Long, value: SceNetAdhocctlScanInfo) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<SceNetAdhocctlScanInfo>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.next)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.channel)
                     (
@@ -6095,7 +6093,7 @@ public class SceNetAdhocctlScanInfo internal constructor(
             }
 
         public operator fun invoke(
-            next: MutPtr<SceNetAdhocctlScanInfo> = MutPtr(0L),
+            next: MutPtr = MutPtr(0L),
             channel: Int = 0,
             name: UByteArray = UByteArray(8),
             bssid: UByteArray = UByteArray(6),
@@ -6150,7 +6148,7 @@ public data class SceNetAdhocctlGameModeInfo(
 }
 
 public class SceNetAdhocPtpStat internal constructor(
-    nextCtorArg: MutPtr<SceNetAdhocPtpStat>,
+    nextCtorArg: MutPtr,
     public var ptpId: Int,
     public var mac: UByteArray,
     public var peermac: UByteArray,
@@ -6160,7 +6158,7 @@ public class SceNetAdhocPtpStat internal constructor(
     public var rcvdData: UInt,
     public var state: ScePspnetAdhocPtpState,
 ) {
-    public var next: MutPtr<SceNetAdhocPtpStat> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
     public constructor() : this(
@@ -6175,7 +6173,7 @@ public class SceNetAdhocPtpStat internal constructor(
         state = ScePspnetAdhocPtpState.entries.first(),
     )
 
-    public operator fun component1(): MutPtr<SceNetAdhocPtpStat> = this.next
+    public operator fun component1(): MutPtr = this.next
 
     public operator fun component2(): Int = this.ptpId
 
@@ -6193,7 +6191,7 @@ public class SceNetAdhocPtpStat internal constructor(
 
     public operator fun component9(): ScePspnetAdhocPtpState = this.state
 
-    public fun copy(next: MutPtr<SceNetAdhocPtpStat> = this.next, ptpId: Int = this.ptpId, mac: UByteArray = this.mac, peermac: UByteArray = this.peermac, port: UShort = this.port, peerport: UShort = this.peerport, sentData: UInt = this.sentData, rcvdData: UInt = this.rcvdData, state: ScePspnetAdhocPtpState = this.state): SceNetAdhocPtpStat = SceNetAdhocPtpStat(nextCtorArg = next, ptpId = ptpId, mac = mac, peermac = peermac, port = port, peerport = peerport, sentData = sentData, rcvdData = rcvdData, state = state)
+    public fun copy(next: MutPtr = this.next, ptpId: Int = this.ptpId, mac: UByteArray = this.mac, peermac: UByteArray = this.peermac, port: UShort = this.port, peerport: UShort = this.peerport, sentData: UInt = this.sentData, rcvdData: UInt = this.rcvdData, state: ScePspnetAdhocPtpState = this.state): SceNetAdhocPtpStat = SceNetAdhocPtpStat(nextCtorArg = next, ptpId = ptpId, mac = mac, peermac = peermac, port = port, peerport = peerport, sentData = sentData, rcvdData = rcvdData, state = state)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -6225,7 +6223,7 @@ public class SceNetAdhocPtpStat internal constructor(
 
     public companion object {
         public operator fun invoke(
-            next: MutPtr<SceNetAdhocPtpStat> = MutPtr(0L),
+            next: MutPtr = MutPtr(0L),
             ptpId: Int = 0,
             mac: UByteArray = UByteArray(6),
             peermac: UByteArray = UByteArray(6),
@@ -6250,13 +6248,13 @@ public class SceNetAdhocPtpStat internal constructor(
 }
 
 public class SceNetAdhocPdpStat internal constructor(
-    nextCtorArg: MutPtr<SceNetAdhocPdpStat>,
+    nextCtorArg: MutPtr,
     public var pdpId: Int,
     public var mac: UByteArray,
     public var port: UShort,
     public var rcvdData: UInt,
 ) {
-    public var next: MutPtr<SceNetAdhocPdpStat> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
     public constructor() : this(
@@ -6267,7 +6265,7 @@ public class SceNetAdhocPdpStat internal constructor(
         rcvdData = 0u,
     )
 
-    public operator fun component1(): MutPtr<SceNetAdhocPdpStat> = this.next
+    public operator fun component1(): MutPtr = this.next
 
     public operator fun component2(): Int = this.pdpId
 
@@ -6277,7 +6275,7 @@ public class SceNetAdhocPdpStat internal constructor(
 
     public operator fun component5(): UInt = this.rcvdData
 
-    public fun copy(next: MutPtr<SceNetAdhocPdpStat> = this.next, pdpId: Int = this.pdpId, mac: UByteArray = this.mac, port: UShort = this.port, rcvdData: UInt = this.rcvdData): SceNetAdhocPdpStat = SceNetAdhocPdpStat(nextCtorArg = next, pdpId = pdpId, mac = mac, port = port, rcvdData = rcvdData)
+    public fun copy(next: MutPtr = this.next, pdpId: Int = this.pdpId, mac: UByteArray = this.mac, port: UShort = this.port, rcvdData: UInt = this.rcvdData): SceNetAdhocPdpStat = SceNetAdhocPdpStat(nextCtorArg = next, pdpId = pdpId, mac = mac, port = port, rcvdData = rcvdData)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -6308,7 +6306,7 @@ public class SceNetAdhocPdpStat internal constructor(
                     SceNetAdhocPdpStat(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<SceNetAdhocPdpStat>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
                         (
@@ -6321,7 +6319,7 @@ public class SceNetAdhocPdpStat internal constructor(
                 override fun writeNative(addr: Long, value: SceNetAdhocPdpStat) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<SceNetAdhocPdpStat>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.next)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.pdpId)
                     (
@@ -6334,7 +6332,7 @@ public class SceNetAdhocPdpStat internal constructor(
             }
 
         public operator fun invoke(
-            next: MutPtr<SceNetAdhocPdpStat> = MutPtr(0L),
+            next: MutPtr = MutPtr(0L),
             pdpId: Int = 0,
             mac: UByteArray = UByteArray(6),
             port: UShort = 0u,
@@ -6585,10 +6583,10 @@ public data class SceKernelUtilsMd5Context(
 public class SceIoDirent internal constructor(
     public var dStat: SceIoStat,
     public var dName: UByteArray,
-    dPrivateCtorArg: MutPtr<CVoid>,
+    dPrivateCtorArg: MutPtr,
     public var dummy: Int,
 ) {
-    public var dPrivate: MutPtr<CVoid> = dPrivateCtorArg
+    public var dPrivate: MutPtr = dPrivateCtorArg
         internal set
 
     public constructor() : this(
@@ -6602,11 +6600,11 @@ public class SceIoDirent internal constructor(
 
     public operator fun component2(): UByteArray = this.dName
 
-    public operator fun component3(): MutPtr<CVoid> = this.dPrivate
+    public operator fun component3(): MutPtr = this.dPrivate
 
     public operator fun component4(): Int = this.dummy
 
-    public fun copy(dStat: SceIoStat = this.dStat, dName: UByteArray = this.dName, dPrivate: MutPtr<CVoid> = this.dPrivate, dummy: Int = this.dummy): SceIoDirent = SceIoDirent(dStat = dStat, dName = dName, dPrivateCtorArg = dPrivate, dummy = dummy)
+    public fun copy(dStat: SceIoStat = this.dStat, dName: UByteArray = this.dName, dPrivate: MutPtr = this.dPrivate, dummy: Int = this.dummy): SceIoDirent = SceIoDirent(dStat = dStat, dName = dName, dPrivateCtorArg = dPrivate, dummy = dummy)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -6640,7 +6638,7 @@ public class SceIoDirent internal constructor(
                         ).readNative(addr + 88L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 344L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 352L),
                     )
@@ -6652,7 +6650,7 @@ public class SceIoDirent internal constructor(
                     ).writeNative(addr + 88L, value.dName.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 344L, value.dPrivate)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 352L, value.dummy)
                 }
@@ -6661,7 +6659,7 @@ public class SceIoDirent internal constructor(
         public operator fun invoke(
             dStat: SceIoStat = SceIoStat(),
             dName: UByteArray = UByteArray(256),
-            dPrivate: MutPtr<CVoid> = MutPtr(0L),
+            dPrivate: MutPtr = MutPtr(0L),
             dummy: Int = 0,
         ): SceIoDirent =
             SceIoDirent(
@@ -7179,10 +7177,10 @@ public class SceUtilitySavedataParam internal constructor(
     public var gameName: UByteArray,
     public var reserved: UByteArray,
     public var saveName: UByteArray,
-    saveNameListCtorArg: MutPtr<UByteArray>,
+    saveNameListCtorArg: MutPtr,
     public var fileName: UByteArray,
     public var reserved1: UByteArray,
-    dataBufCtorArg: MutPtr<CVoid>,
+    dataBufCtorArg: MutPtr,
     public var dataBufSize: Int,
     public var dataSize: Int,
     public var sfoParam: UtilitySavedataSFOParam,
@@ -7190,19 +7188,19 @@ public class SceUtilitySavedataParam internal constructor(
     public var icon1FileData: UtilitySavedataFileData,
     public var pic1FileData: UtilitySavedataFileData,
     public var snd0FileData: UtilitySavedataFileData,
-    newDataCtorArg: MutPtr<UtilitySavedataListSaveNewData>,
+    newDataCtorArg: MutPtr,
     public var focus: UtilitySavedataFocus,
     public var unknown2: IntArray,
     public var key: UByteArray,
     public var unknown3: UByteArray,
 ) {
-    public var saveNameList: MutPtr<UByteArray> = saveNameListCtorArg
+    public var saveNameList: MutPtr = saveNameListCtorArg
         internal set
 
-    public var dataBuf: MutPtr<CVoid> = dataBufCtorArg
+    public var dataBuf: MutPtr = dataBufCtorArg
         internal set
 
-    public var newData: MutPtr<UtilitySavedataListSaveNewData> = newDataCtorArg
+    public var newData: MutPtr = newDataCtorArg
         internal set
 
     public constructor() : this(
@@ -7240,10 +7238,10 @@ public class SceUtilitySavedataParam internal constructor(
             gameName: UByteArray = UByteArray(13),
             reserved: UByteArray = UByteArray(3),
             saveName: UByteArray = UByteArray(20),
-            saveNameList: MutPtr<UByteArray> = MutPtr(0L),
+            saveNameList: MutPtr = MutPtr(0L),
             fileName: UByteArray = UByteArray(13),
             reserved1: UByteArray = UByteArray(3),
-            dataBuf: MutPtr<CVoid> = MutPtr(0L),
+            dataBuf: MutPtr = MutPtr(0L),
             dataBufSize: Int = 0,
             dataSize: Int = 0,
             sfoParam: UtilitySavedataSFOParam = UtilitySavedataSFOParam(),
@@ -7251,7 +7249,7 @@ public class SceUtilitySavedataParam internal constructor(
             icon1FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
             pic1FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
             snd0FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
-            newData: MutPtr<UtilitySavedataListSaveNewData> = MutPtr(0L),
+            newData: MutPtr = MutPtr(0L),
             focus: UtilitySavedataFocus = UtilitySavedataFocus.entries.first(),
             unknown2: IntArray = IntArray(4),
             key: UByteArray = UByteArray(16),
@@ -7286,13 +7284,13 @@ public class SceUtilitySavedataParam internal constructor(
 }
 
 public class SceNetAdhocctlPeerInfo internal constructor(
-    nextCtorArg: MutPtr<SceNetAdhocctlPeerInfo>,
+    nextCtorArg: MutPtr,
     public var nickname: UByteArray,
     public var mac: UByteArray,
     public var unknown: UByteArray,
     public var timestamp: UInt,
 ) {
-    public var next: MutPtr<SceNetAdhocctlPeerInfo> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
     public constructor() : this(
@@ -7303,7 +7301,7 @@ public class SceNetAdhocctlPeerInfo internal constructor(
         timestamp = 0u,
     )
 
-    public operator fun component1(): MutPtr<SceNetAdhocctlPeerInfo> = this.next
+    public operator fun component1(): MutPtr = this.next
 
     public operator fun component2(): UByteArray = this.nickname
 
@@ -7313,7 +7311,7 @@ public class SceNetAdhocctlPeerInfo internal constructor(
 
     public operator fun component5(): UInt = this.timestamp
 
-    public fun copy(next: MutPtr<SceNetAdhocctlPeerInfo> = this.next, nickname: UByteArray = this.nickname, mac: UByteArray = this.mac, unknown: UByteArray = this.unknown, timestamp: UInt = this.timestamp): SceNetAdhocctlPeerInfo = SceNetAdhocctlPeerInfo(nextCtorArg = next, nickname = nickname, mac = mac, unknown = unknown, timestamp = timestamp)
+    public fun copy(next: MutPtr = this.next, nickname: UByteArray = this.nickname, mac: UByteArray = this.mac, unknown: UByteArray = this.unknown, timestamp: UInt = this.timestamp): SceNetAdhocctlPeerInfo = SceNetAdhocctlPeerInfo(nextCtorArg = next, nickname = nickname, mac = mac, unknown = unknown, timestamp = timestamp)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -7344,7 +7342,7 @@ public class SceNetAdhocctlPeerInfo internal constructor(
                     SceNetAdhocctlPeerInfo(
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<SceNetAdhocctlPeerInfo>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
@@ -7363,7 +7361,7 @@ public class SceNetAdhocctlPeerInfo internal constructor(
                 override fun writeNative(addr: Long, value: SceNetAdhocctlPeerInfo) {
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<SceNetAdhocctlPeerInfo>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr, value.next)
                     (
                         io.github.kotlinmania.rustlang.core.mem
@@ -7382,7 +7380,7 @@ public class SceNetAdhocctlPeerInfo internal constructor(
             }
 
         public operator fun invoke(
-            next: MutPtr<SceNetAdhocctlPeerInfo> = MutPtr(0L),
+            next: MutPtr = MutPtr(0L),
             nickname: UByteArray = UByteArray(128),
             mac: UByteArray = UByteArray(6),
             unknown: UByteArray = UByteArray(6),
@@ -7820,13 +7818,13 @@ public expect fun sceAudioChReserve(channel: Int, sampleCount: Int, format: Audi
 
 public expect fun sceAudioChRelease(channel: Int): Int
 
-public expect fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr): Int
 
-public expect fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr): Int
 
-public expect fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int
 
-public expect fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr): Int
 
 public expect fun sceAudioGetChannelRestLen(channel: Int): Int
 
@@ -7844,7 +7842,7 @@ public expect fun sceAudioOutput2Release(): Int
 
 public expect fun sceAudioOutput2ChangeLength(sampleCount: Int): Int
 
-public expect fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr): Int
 
 public expect fun sceAudioOutput2GetRestSample(): Int
 
@@ -7852,15 +7850,15 @@ public expect fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFreque
 
 public expect fun sceAudioSRCChRelease(): Int
 
-public expect fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int
+public expect fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr): Int
 
 public expect fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
 
-public expect fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int
+public expect fun sceAudioInputInitEx(params: MutPtr): Int
 
-public expect fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>)
+public expect fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr)
 
-public expect fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>)
+public expect fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr)
 
 public expect fun sceAudioGetInputLength(): Int
 
@@ -7870,81 +7868,81 @@ public expect fun sceAudioPollInputEnd(): Int
 
 public expect fun sceAtracGetAtracID(uiCodecType: UInt): Int
 
-public expect fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int
+public expect fun sceAtracSetDataAndGetID(buf: MutPtr, bufsize: ULong): Int
 
-public expect fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int
+public expect fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr, outN: MutPtr, outEnd: MutPtr, outRemainFrame: MutPtr): Int
 
-public expect fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int
+public expect fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr): Int
 
-public expect fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int
+public expect fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr, availableBytes: MutPtr, readOffset: MutPtr): Int
 
 public expect fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int
 
-public expect fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int
+public expect fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr): Int
 
 public expect fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int
 
 public expect fun sceAtracReleaseAtracID(atracId: Int): Int
 
-public expect fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int
+public expect fun sceAtracGetNextSample(atracId: Int, outN: MutPtr): Int
 
-public expect fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int
+public expect fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr): Int
 
-public expect fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int
+public expect fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr): Int
 
-public expect fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int
+public expect fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr): Int
 
-public expect fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int
+public expect fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr): Int
 
-public expect fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int
+public expect fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr, puiLoopStatus: MutPtr): Int
 
-public expect fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int
+public expect fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr): Int
 
-public expect fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int
+public expect fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr, puiDataByte: MutPtr): Int
 
-public expect fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int
+public expect fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr, piLoopStartSample: MutPtr, piLoopEndSample: MutPtr): Int
 
 public expect fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int
 
-public expect fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int
+public expect fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr, uiBufferByte: UInt): Int
 
-public expect fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int
+public expect fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int
 
-public expect fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int
+public expect fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr, uiReadByte: UInt, uiBufferByte: UInt): Int
 
-public expect fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int
+public expect fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr, uiSecondBufferByte: UInt): Int
 
 public expect fun sceCtrlSetSamplingCycle(cycle: Int): Int
 
-public expect fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int
+public expect fun sceCtrlGetSamplingCycle(pcycle: MutPtr): Int
 
 public expect fun sceCtrlSetSamplingMode(mode: CtrlMode): Int
 
-public expect fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int
+public expect fun sceCtrlGetSamplingMode(pmode: MutPtr): Int
 
-public expect fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int
+public expect fun sceCtrlPeekBufferPositive(padData: MutPtr, count: Int): Int
 
-public expect fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int
+public expect fun sceCtrlPeekBufferNegative(padData: MutPtr, count: Int): Int
 
-public expect fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int
+public expect fun sceCtrlReadBufferPositive(padData: MutPtr, count: Int): Int
 
-public expect fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int
+public expect fun sceCtrlReadBufferNegative(padData: MutPtr, count: Int): Int
 
-public expect fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int
+public expect fun sceCtrlPeekLatch(latchData: MutPtr): Int
 
-public expect fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int
+public expect fun sceCtrlReadLatch(latchData: MutPtr): Int
 
 public expect fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
 
-public expect fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int
+public expect fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr, idleback: MutPtr): Int
 
 public expect fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt
 
-public expect fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int
+public expect fun sceDisplayGetMode(pmode: MutPtr, pwidth: MutPtr, pheight: MutPtr): Int
 
-public expect fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt
+public expect fun sceDisplaySetFrameBuf(topAddr: ConstPtr, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt
 
-public expect fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int
+public expect fun sceDisplayGetFrameBuf(topAddr: MutPtr, bufferWidth: MutPtr, pixelFormat: MutPtr, sync: DisplaySetBufSync): Int
 
 public expect fun sceDisplayGetVcount(): UInt
 
@@ -7968,37 +7966,37 @@ public expect fun sceDisplayIsVblank(): Int
 
 public expect fun sceGeEdramGetSize(): UInt
 
-public expect fun sceGeEdramGetAddr(): MutPtr<UByte>
+public expect fun sceGeEdramGetAddr(): MutPtr
 
 public expect fun sceGeEdramSetAddrTranslation(width: Int): Int
 
 public expect fun sceGeGetCmd(cmd: Int): UInt
 
-public expect fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int
+public expect fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr): Int
 
-public expect fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int
+public expect fun sceGeGetStack(stackId: Int, stack: MutPtr): Int
 
-public expect fun sceGeSaveContext(context: MutPtr<GeContext>): Int
+public expect fun sceGeSaveContext(context: MutPtr): Int
 
-public expect fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int
+public expect fun sceGeRestoreContext(context: ConstPtr): Int
 
-public expect fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int
+public expect fun sceGeListEnQueue(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int
 
-public expect fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int
+public expect fun sceGeListEnQueueHead(list: ConstPtr, stall: MutPtr, cbid: Int, arg: MutPtr): Int
 
 public expect fun sceGeListDeQueue(qid: Int): Int
 
-public expect fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int
+public expect fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr): Int
 
 public expect fun sceGeListSync(qid: Int, syncType: Int): GeListState
 
 public expect fun sceGeDrawSync(syncType: Int): GeListState
 
-public expect fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int
+public expect fun sceGeBreak(mode: Int, pParam: MutPtr): Int
 
 public expect fun sceGeContinue(): Int
 
-public expect fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int
+public expect fun sceGeSetCallback(cb: MutPtr): Int
 
 public expect fun sceGeUnsetCallback(cbid: Int): Int
 
@@ -8006,11 +8004,11 @@ public expect fun sceKernelExitGame()
 
 public expect fun sceKernelRegisterExitCallback(id: SceUid): Int
 
-public expect fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int
+public expect fun sceKernelLoadExec(file: ConstPtr, param: MutPtr): Int
 
-public expect fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid
+public expect fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr): SceUid
 
-public expect fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid>
+public expect fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr
 
 public expect fun sceKernelFreePartitionMemory(blockid: SceUid): Int
 
@@ -8024,47 +8022,47 @@ public expect fun sceKernelSetCompiledSdkVersion(version: UInt): Int
 
 public expect fun sceKernelGetCompiledSdkVersion(): UInt
 
-public expect fun sceKernelLibcTime(t: MutPtr<Int>): Int
+public expect fun sceKernelLibcTime(t: MutPtr): Int
 
 public expect fun sceKernelLibcClock(): UInt
 
-public expect fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int
+public expect fun sceKernelLibcGettimeofday(tp: MutPtr, tzp: MutPtr): Int
 
 public expect fun sceKernelDcacheWritebackAll()
 
 public expect fun sceKernelDcacheWritebackInvalidateAll()
 
-public expect fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt)
+public expect fun sceKernelDcacheWritebackRange(p: ConstPtr, size: UInt)
 
-public expect fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt)
+public expect fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr, size: UInt)
 
-public expect fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt)
+public expect fun sceKernelDcacheInvalidateRange(p: ConstPtr, size: UInt)
 
 public expect fun sceKernelIcacheInvalidateAll()
 
-public expect fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt)
+public expect fun sceKernelIcacheInvalidateRange(p: ConstPtr, size: UInt)
 
-public expect fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int
+public expect fun sceKernelUtilsMt19937Init(ctx: MutPtr, seed: UInt): Int
 
-public expect fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt
+public expect fun sceKernelUtilsMt19937UInt(ctx: MutPtr): UInt
 
-public expect fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int
+public expect fun sceKernelUtilsMd5Digest(data: MutPtr, size: UInt, digest: MutPtr): Int
 
-public expect fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int
+public expect fun sceKernelUtilsMd5BlockInit(ctx: MutPtr): Int
 
-public expect fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int
+public expect fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int
 
-public expect fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int
+public expect fun sceKernelUtilsMd5BlockResult(ctx: MutPtr, digest: MutPtr): Int
 
-public expect fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int
+public expect fun sceKernelUtilsSha1Digest(data: MutPtr, size: UInt, digest: MutPtr): Int
 
-public expect fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int
+public expect fun sceKernelUtilsSha1BlockInit(ctx: MutPtr): Int
 
-public expect fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int
+public expect fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr, data: MutPtr, size: UInt): Int
 
-public expect fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int
+public expect fun sceKernelUtilsSha1BlockResult(ctx: MutPtr, digest: MutPtr): Int
 
-public expect fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int
+public expect fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr, arg: MutPtr): Int
 
 public expect fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
 
@@ -8072,7 +8070,7 @@ public expect fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int
 
 public expect fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int
 
-public expect fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int
+public expect fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr): Int
 
 public expect fun sceKernelCpuSuspendIntr(): UInt
 
@@ -8084,31 +8082,31 @@ public expect fun sceKernelIsCpuIntrSuspended(flags: UInt): Int
 
 public expect fun sceKernelIsCpuIntrEnable(): Int
 
-public expect fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid
+public expect fun sceKernelLoadModule(path: ConstPtr, flags: Int, option: MutPtr): SceUid
 
-public expect fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid
+public expect fun sceKernelLoadModuleMs(path: ConstPtr, flags: Int, option: MutPtr): SceUid
 
-public expect fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid
+public expect fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr): SceUid
 
-public expect fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid
+public expect fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr, flags: Int, option: MutPtr): SceUid
 
-public expect fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int
+public expect fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int
 
-public expect fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int
+public expect fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int
 
 public expect fun sceKernelUnloadModule(modId: SceUid): Int
 
-public expect fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int
+public expect fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr): Int
 
-public expect fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int
+public expect fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr, status: MutPtr, option: MutPtr): Int
 
-public expect fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int
+public expect fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int
+public expect fun sceKernelGetModuleIdList(readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int
 
-public expect fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int
+public expect fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr, size: MutPtr): Int
 
-public expect fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int
+public expect fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr, size: MutPtr): Int
 
 public expect fun sceKernelVolatileMemUnlock(unk: Int): Int
 
@@ -8120,11 +8118,11 @@ public expect fun sceKernelStderr(): SceUid
 
 public expect fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType
 
-public expect fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid
+public expect fun sceKernelCreateThread(name: ConstPtr, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr): SceUid
 
 public expect fun sceKernelDeleteThread(thid: SceUid): Int
 
-public expect fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int
+public expect fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr): Int
 
 public expect fun sceKernelExitThread(status: Int): Int
 
@@ -8150,17 +8148,17 @@ public expect fun sceKernelSuspendThread(thid: SceUid): Int
 
 public expect fun sceKernelResumeThread(thid: SceUid): Int
 
-public expect fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr): Int
 
-public expect fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr): Int
 
 public expect fun sceKernelDelayThread(delay: UInt): Int
 
 public expect fun sceKernelDelayThreadCB(delay: UInt): Int
 
-public expect fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelDelaySysClockThread(delay: MutPtr): Int
 
-public expect fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelDelaySysClockThreadCB(delay: MutPtr): Int
 
 public expect fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
 
@@ -8180,67 +8178,67 @@ public expect fun sceKernelCheckThreadStack(): Int
 
 public expect fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int
 
-public expect fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int
+public expect fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int
+public expect fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr): Int
 
-public expect fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid
+public expect fun sceKernelCreateSema(name: ConstPtr, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr): SceUid
 
 public expect fun sceKernelDeleteSema(semaId: SceUid): Int
 
 public expect fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int
 
-public expect fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr): Int
 
-public expect fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr): Int
 
 public expect fun sceKernelPollSema(semaId: SceUid, signal: Int): Int
 
-public expect fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int
+public expect fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid
+public expect fun sceKernelCreateEventFlag(name: ConstPtr, attr: Int, bits: Int, opt: MutPtr): SceUid
 
 public expect fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int
 
 public expect fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int
 
-public expect fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int
+public expect fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr): Int
 
-public expect fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr, timeout: MutPtr): Int
 
 public expect fun sceKernelDeleteEventFlag(evId: SceUid): Int
 
-public expect fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int
+public expect fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr): Int
 
-public expect fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid
+public expect fun sceKernelCreateMbx(name: ConstPtr, attr: UInt, option: MutPtr): SceUid
 
 public expect fun sceKernelDeleteMbx(mbxId: SceUid): Int
 
-public expect fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int
+public expect fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr): Int
 
-public expect fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int
+public expect fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr): Int
 
-public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int
+public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr): Int
 
-public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int
+public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid
+public expect fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr): SceUid
 
-public expect fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid
+public expect fun sceKernelSetSysClockAlarm(clock: MutPtr, handler: MutPtr, common: MutPtr): SceUid
 
 public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
 
-public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int
+public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid
+public expect fun sceKernelCreateCallback(name: ConstPtr, func: SceKernelCallbackFunction, arg: MutPtr): SceUid
 
-public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int
+public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr): Int
 
 public expect fun sceKernelDeleteCallback(cb: SceUid): Int
 
@@ -8252,89 +8250,89 @@ public expect fun sceKernelGetCallbackCount(cb: SceUid): Int
 
 public expect fun sceKernelCheckCallback(): Int
 
-public expect fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int
+public expect fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr, readBufSize: Int, idCount: MutPtr): Int
 
-public expect fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int
+public expect fun sceKernelReferSystemStatus(status: MutPtr): Int
 
-public expect fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid
+public expect fun sceKernelCreateMsgPipe(name: ConstPtr, part: Int, attr: Int, unk1: MutPtr, opt: MutPtr): SceUid
 
 public expect fun sceKernelDeleteMsgPipe(uid: SceUid): Int
 
-public expect fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int
+public expect fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int
 
-public expect fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int
+public expect fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr, size: UInt, unk1: Int, unk2: MutPtr): Int
 
-public expect fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int
+public expect fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr, recv: MutPtr): Int
 
-public expect fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int
+public expect fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid
+public expect fun sceKernelCreateVpl(name: ConstPtr, part: Int, attr: Int, size: UInt, opt: MutPtr): SceUid
 
 public expect fun sceKernelDeleteVpl(uid: SceUid): Int
 
-public expect fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int
+public expect fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr): Int
 
-public expect fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int
+public expect fun sceKernelFreeVpl(uid: SceUid, data: MutPtr): Int
 
-public expect fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int
+public expect fun sceKernelCancelVpl(uid: SceUid, num: MutPtr): Int
 
-public expect fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int
+public expect fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int
+public expect fun sceKernelCreateFpl(name: ConstPtr, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr): Int
 
 public expect fun sceKernelDeleteFpl(uid: SceUid): Int
 
-public expect fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int
+public expect fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr, timeout: MutPtr): Int
 
-public expect fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int
+public expect fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr): Int
 
-public expect fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int
+public expect fun sceKernelFreeFpl(uid: SceUid, data: MutPtr): Int
 
-public expect fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int
+public expect fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr): Int
 
-public expect fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int
+public expect fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr): Int
 
 public expect fun sceKernelUSec2SysClockWide(usec: UInt): Long
 
-public expect fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int
+public expect fun sceKernelSysClock2USec(clock: MutPtr, low: MutPtr, high: MutPtr): Int
 
-public expect fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int
+public expect fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr, high: MutPtr): Int
 
-public expect fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelGetSystemTime(time: MutPtr): Int
 
 public expect fun sceKernelGetSystemTimeWide(): Long
 
 public expect fun sceKernelGetSystemTimeLow(): UInt
 
-public expect fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid
+public expect fun sceKernelCreateVTimer(name: ConstPtr, opt: MutPtr): SceUid
 
 public expect fun sceKernelDeleteVTimer(uid: SceUid): Int
 
-public expect fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr): Int
 
 public expect fun sceKernelGetVTimerBaseWide(uid: SceUid): Long
 
-public expect fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr): Int
 
 public expect fun sceKernelGetVTimerTimeWide(uid: SceUid): Long
 
-public expect fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int
+public expect fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr): Int
 
 public expect fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long
 
@@ -8342,27 +8340,27 @@ public expect fun sceKernelStartVTimer(uid: SceUid): Int
 
 public expect fun sceKernelStopVTimer(uid: SceUid): Int
 
-public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int
+public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr, handler: SceKernelVTimerHandler, common: MutPtr): Int
 
-public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int
+public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr): Int
 
 public expect fun sceKernelCancelVTimerHandler(uid: SceUid): Int
 
-public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int
+public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid
+public expect fun sceKernelRegisterThreadEventHandler(name: ConstPtr, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr): SceUid
 
 public expect fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int
 
-public expect fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int
+public expect fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr): Int
 
-public expect fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs>
+public expect fun sceKernelReferThreadProfiler(): MutPtr
 
-public expect fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs>
+public expect fun sceKernelReferGlobalProfiler(): MutPtr
 
-public expect fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int
+public expect fun sceUsbStart(driverName: ConstPtr, size: Int, args: MutPtr): Int
 
-public expect fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int
+public expect fun sceUsbStop(driverName: ConstPtr, size: Int, args: MutPtr): Int
 
 public expect fun sceUsbActivate(pid: UInt): Int
 
@@ -8370,15 +8368,15 @@ public expect fun sceUsbDeactivate(pid: UInt): Int
 
 public expect fun sceUsbGetState(): Int
 
-public expect fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int
+public expect fun sceUsbGetDrvState(driverName: ConstPtr): Int
 
-public expect fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int
+public expect fun sceUsbCamSetupStill(param: MutPtr): Int
 
-public expect fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int
+public expect fun sceUsbCamSetupStillEx(param: MutPtr): Int
 
-public expect fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int
+public expect fun sceUsbCamStillInputBlocking(buf: MutPtr, size: ULong): Int
 
-public expect fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int
+public expect fun sceUsbCamStillInput(buf: MutPtr, size: ULong): Int
 
 public expect fun sceUsbCamStillWaitInputEnd(): Int
 
@@ -8388,17 +8386,17 @@ public expect fun sceUsbCamStillCancelInput(): Int
 
 public expect fun sceUsbCamStillGetInputLength(): Int
 
-public expect fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int
+public expect fun sceUsbCamSetupVideo(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int
 
-public expect fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int
+public expect fun sceUsbCamSetupVideoEx(param: MutPtr, workArea: MutPtr, workAreaSize: Int): Int
 
 public expect fun sceUsbCamStartVideo(): Int
 
 public expect fun sceUsbCamStopVideo(): Int
 
-public expect fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int
+public expect fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr, size: ULong): Int
 
-public expect fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int
+public expect fun sceUsbCamReadVideoFrame(buf: MutPtr, size: ULong): Int
 
 public expect fun sceUsbCamWaitReadVideoFrameEnd(): Int
 
@@ -8422,21 +8420,21 @@ public expect fun sceUsbCamSetReverseMode(reverseFlags: Int): Int
 
 public expect fun sceUsbCamSetZoom(zoom: Int): Int
 
-public expect fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int
+public expect fun sceUsbCamGetSaturation(saturation: MutPtr): Int
 
-public expect fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int
+public expect fun sceUsbCamGetBrightness(brightness: MutPtr): Int
 
-public expect fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int
+public expect fun sceUsbCamGetContrast(contrast: MutPtr): Int
 
-public expect fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int
+public expect fun sceUsbCamGetSharpness(sharpness: MutPtr): Int
 
-public expect fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int
+public expect fun sceUsbCamGetImageEffectMode(effectMode: MutPtr): Int
 
-public expect fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int
+public expect fun sceUsbCamGetEvLevel(exposureLevel: MutPtr): Int
 
-public expect fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int
+public expect fun sceUsbCamGetReverseMode(reverseFlags: MutPtr): Int
 
-public expect fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int
+public expect fun sceUsbCamGetZoom(zoom: MutPtr): Int
 
 public expect fun sceUsbCamAutoImageReverseSW(on: Int): Int
 
@@ -8512,7 +8510,7 @@ public expect fun sceWlanDevIsPowerOn(): Int
 
 public expect fun sceWlanGetSwitchState(): Int
 
-public expect fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int
+public expect fun sceWlanGetEtherAddr(etherAddr: MutPtr): Int
 
 public expect fun sceWlanDevAttach(): Int
 
@@ -8520,15 +8518,15 @@ public expect fun sceWlanDevDetach(): Int
 
 public expect fun sceRtcGetTickResolution(): UInt
 
-public expect fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int
+public expect fun sceRtcGetCurrentTick(tick: MutPtr): Int
 
-public expect fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int
+public expect fun sceRtcGetCurrentClock(tm: MutPtr, tz: Int): Int
 
-public expect fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int
+public expect fun sceRtcGetCurrentClockLocalTime(tm: MutPtr): Int
 
-public expect fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int
+public expect fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr, tickLocal: MutPtr): Int
 
-public expect fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int
+public expect fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr, tickUtc: MutPtr): Int
 
 public expect fun sceRtcIsLeapYear(year: Int): Int
 
@@ -8536,75 +8534,75 @@ public expect fun sceRtcGetDaysInMonth(year: Int, month: Int): Int
 
 public expect fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
 
-public expect fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int
+public expect fun sceRtcCheckValid(date: ConstPtr): Int
 
-public expect fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int
+public expect fun sceRtcSetTick(date: MutPtr, tick: ConstPtr): Int
 
-public expect fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int
+public expect fun sceRtcGetTick(date: ConstPtr, tick: MutPtr): Int
 
-public expect fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int
+public expect fun sceRtcCompareTick(tick1: ConstPtr, tick2: ConstPtr): Int
 
-public expect fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int
+public expect fun sceRtcTickAddTicks(destTick: MutPtr, srcTick: ConstPtr, numTicks: ULong): Int
 
-public expect fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int
+public expect fun sceRtcTickAddMicroseconds(destTick: MutPtr, srcTick: ConstPtr, numMs: ULong): Int
 
-public expect fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int
+public expect fun sceRtcTickAddSeconds(destTick: MutPtr, srcTick: ConstPtr, numSeconds: ULong): Int
 
-public expect fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int
+public expect fun sceRtcTickAddMinutes(destTick: MutPtr, srcTick: ConstPtr, numMinutes: ULong): Int
 
-public expect fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int
+public expect fun sceRtcTickAddHours(destTick: MutPtr, srcTick: ConstPtr, numHours: ULong): Int
 
-public expect fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int
+public expect fun sceRtcTickAddDays(destTick: MutPtr, srcTick: ConstPtr, numDays: ULong): Int
 
-public expect fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int
+public expect fun sceRtcTickAddWeeks(destTick: MutPtr, srcTick: ConstPtr, numWeeks: ULong): Int
 
-public expect fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int
+public expect fun sceRtcTickAddMonths(destTick: MutPtr, srcTick: ConstPtr, numMonths: ULong): Int
 
-public expect fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int
+public expect fun sceRtcTickAddYears(destTick: MutPtr, srcTick: ConstPtr, numYears: ULong): Int
 
-public expect fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int
+public expect fun sceRtcSetTimeT(date: MutPtr, time: UInt): Int
 
-public expect fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int
+public expect fun sceRtcGetTimeT(date: ConstPtr, time: MutPtr): Int
 
-public expect fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int
+public expect fun sceRtcSetTime64T(date: MutPtr, time: ULong): Int
 
-public expect fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int
+public expect fun sceRtcGetTime64T(date: ConstPtr, time: MutPtr): Int
 
-public expect fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int
+public expect fun sceRtcSetDosTime(date: MutPtr, dosTime: UInt): Int
 
-public expect fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int
+public expect fun sceRtcGetDosTime(date: MutPtr, dosTime: UInt): Int
 
-public expect fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int
+public expect fun sceRtcSetWin32FileTime(date: MutPtr, time: MutPtr): Int
 
-public expect fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int
+public expect fun sceRtcGetWin32FileTime(date: MutPtr, time: MutPtr): Int
 
-public expect fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int
+public expect fun sceRtcParseDateTime(destTick: MutPtr, dateString: ConstPtr): Int
 
-public expect fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int
+public expect fun sceRtcFormatRFC3339(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int
 
-public expect fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int
+public expect fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int
 
-public expect fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int
+public expect fun sceRtcParseRFC3339(pUtc: MutPtr, pszDateTime: ConstPtr): Int
 
-public expect fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int
+public expect fun sceRtcFormatRFC2822(pszDateTime: MutPtr, pUtc: ConstPtr, timeZoneMinutes: Int): Int
 
-public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int
+public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr, pUtc: ConstPtr): Int
 
-public expect fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid
+public expect fun sceIoOpen(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid
 
-public expect fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid
+public expect fun sceIoOpenAsync(file: ConstPtr, flags: Int, permissions: IoPermissions): SceUid
 
 public expect fun sceIoClose(fd: SceUid): Int
 
 public expect fun sceIoCloseAsync(fd: SceUid): Int
 
-public expect fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int
+public expect fun sceIoRead(fd: SceUid, data: MutPtr, size: UInt): Int
 
-public expect fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int
+public expect fun sceIoReadAsync(fd: SceUid, data: MutPtr, size: UInt): Int
 
-public expect fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int
+public expect fun sceIoWrite(fd: SceUid, data: ConstPtr, size: ULong): Int
 
-public expect fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int
+public expect fun sceIoWriteAsync(fd: SceUid, data: ConstPtr, size: UInt): Int
 
 public expect fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long
 
@@ -8614,45 +8612,45 @@ public expect fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int
 
 public expect fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int
 
-public expect fun sceIoRemove(file: ConstPtr<UByte>): Int
+public expect fun sceIoRemove(file: ConstPtr): Int
 
-public expect fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int
+public expect fun sceIoMkdir(dir: ConstPtr, mode: IoPermissions): Int
 
-public expect fun sceIoRmdir(path: ConstPtr<UByte>): Int
+public expect fun sceIoRmdir(path: ConstPtr): Int
 
-public expect fun sceIoChdir(path: ConstPtr<UByte>): Int
+public expect fun sceIoChdir(path: ConstPtr): Int
 
-public expect fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int
+public expect fun sceIoRename(oldname: ConstPtr, newname: ConstPtr): Int
 
-public expect fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid
+public expect fun sceIoDopen(dirname: ConstPtr): SceUid
 
-public expect fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int
+public expect fun sceIoDread(fd: SceUid, dir: MutPtr): Int
 
 public expect fun sceIoDclose(fd: SceUid): Int
 
-public expect fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int
+public expect fun sceIoDevctl(dev: ConstPtr, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int
 
-public expect fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int
+public expect fun sceIoAssign(dev1: ConstPtr, dev2: ConstPtr, dev3: ConstPtr, mode: IoAssignPerms, unk1: MutPtr, unk2: Int): Int
 
-public expect fun sceIoUnassign(dev: ConstPtr<UByte>): Int
+public expect fun sceIoUnassign(dev: ConstPtr): Int
 
-public expect fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int
+public expect fun sceIoGetstat(file: ConstPtr, stat: MutPtr): Int
 
-public expect fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int
+public expect fun sceIoChstat(file: ConstPtr, stat: MutPtr, bits: Int): Int
 
-public expect fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int
+public expect fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int
 
-public expect fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int
+public expect fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr, inlen: Int, outdata: MutPtr, outlen: Int): Int
 
-public expect fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int
+public expect fun sceIoSync(device: ConstPtr, unk: UInt): Int
 
-public expect fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int
+public expect fun sceIoWaitAsync(fd: SceUid, res: MutPtr): Int
 
-public expect fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int
+public expect fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr): Int
 
-public expect fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int
+public expect fun sceIoPollAsync(fd: SceUid, res: MutPtr): Int
 
-public expect fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int
+public expect fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr): Int
 
 public expect fun sceIoCancel(fd: SceUid): Int
 
@@ -8660,7 +8658,7 @@ public expect fun sceIoGetDevType(fd: SceUid): Int
 
 public expect fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int
 
-public expect fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int
+public expect fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr): Int
 
 public expect fun sceJpegInitMJpeg(): Int
 
@@ -8670,15 +8668,15 @@ public expect fun sceJpegCreateMJpeg(width: Int, height: Int): Int
 
 public expect fun sceJpegDeleteMJpeg(): Int
 
-public expect fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int
+public expect fun sceJpegDecodeMJpeg(jpegBuf: MutPtr, size: ULong, rgba: MutPtr, unk: UInt): Int
 
 public expect fun sceUmdCheckMedium(): Int
 
-public expect fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int
+public expect fun sceUmdGetDiscInfo(info: MutPtr): Int
 
-public expect fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int
+public expect fun sceUmdActivate(unit: Int, drive: ConstPtr): Int
 
-public expect fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int
+public expect fun sceUmdDeactivate(unit: Int, drive: ConstPtr): Int
 
 public expect fun sceUmdWaitDriveStat(state: Int): Int
 
@@ -8706,23 +8704,23 @@ public expect fun sceMpegFinish()
 
 public expect fun sceMpegRingbufferQueryMemSize(packets: Int): Int
 
-public expect fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int
+public expect fun sceMpegRingbufferConstruct(ringbuffer: MutPtr, packets: Int, data: MutPtr, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr): Int
 
-public expect fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>)
+public expect fun sceMpegRingbufferDestruct(ringbuffer: MutPtr)
 
-public expect fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int
+public expect fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr): Int
 
-public expect fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int
+public expect fun sceMpegRingbufferPut(ringbuffer: MutPtr, numPackets: Int, available: Int): Int
 
 public expect fun sceMpegQueryMemSize(unk: Int): Int
 
-public expect fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int
+public expect fun sceMpegCreate(handle: SceMpeg, data: MutPtr, size: Int, ringbuffer: MutPtr, frameWidth: Int, unk1: Int, unk2: Int): Int
 
 public expect fun sceMpegDelete(handle: SceMpeg)
 
-public expect fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int
+public expect fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr, offset: MutPtr): Int
 
-public expect fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int
+public expect fun sceMpegQueryStreamSize(buffer: MutPtr, size: MutPtr): Int
 
 public expect fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream
 
@@ -8730,39 +8728,39 @@ public expect fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream)
 
 public expect fun sceMpegFlushAllStream(handle: SceMpeg): Int
 
-public expect fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid>
+public expect fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr
 
-public expect fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>)
+public expect fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr)
 
-public expect fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int
+public expect fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr, outSize: MutPtr): Int
 
-public expect fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int
+public expect fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr, au: MutPtr): Int
 
-public expect fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int
+public expect fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int
 
-public expect fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int
+public expect fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr): Int
 
-public expect fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int
+public expect fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr, iframeWidth: Int, buffer: MutPtr, init: MutPtr): Int
 
-public expect fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int
+public expect fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr, status: MutPtr): Int
 
-public expect fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int
+public expect fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr, unk: MutPtr): Int
 
-public expect fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int
+public expect fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr, buffer: MutPtr, init: Int): Int
 
-public expect fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int
+public expect fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr, buffer: MutPtr, type: Int): Int
 
 public expect fun sceMpegBaseCscInit(width: Int): Int
 
-public expect fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int
+public expect fun sceMpegBaseCscVme(rgbBuffer: MutPtr, rgbBuffer2: MutPtr, width: Int, yCrCbBuffer: MutPtr): Int
 
-public expect fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int
+public expect fun sceMpegbaseBea18f91(lli: MutPtr): Int
 
-public expect fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int
+public expect fun sceHprmPeekCurrentKey(key: MutPtr): Int
 
-public expect fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int
+public expect fun sceHprmPeekLatch(latch: MutPtr): Int
 
-public expect fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int
+public expect fun sceHprmReadLatch(latch: MutPtr): Int
 
 public expect fun sceHprmIsHeadphoneExist(): Int
 
@@ -8770,13 +8768,13 @@ public expect fun sceHprmIsRemoteExist(): Int
 
 public expect fun sceHprmIsMicrophoneExist(): Int
 
-public expect fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int)
+public expect fun sceGuDepthBuffer(zbp: MutPtr, zbw: Int)
 
-public expect fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int)
+public expect fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr, dispbw: Int)
 
-public expect fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int)
+public expect fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int)
 
-public expect fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int)
+public expect fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr, fbw: Int)
 
 public expect fun sceGuDisplay(state: Boolean): Boolean
 
@@ -8806,29 +8804,29 @@ public expect fun sceGuSendCommandf(cmd: GeCommand, argument: Float)
 
 public expect fun sceGuSendCommandi(cmd: GeCommand, argument: Int)
 
-public expect fun sceGuGetMemory(size: Int): MutPtr<CVoid>
+public expect fun sceGuGetMemory(size: Int): MutPtr
 
-public expect fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>)
+public expect fun sceGuStart(contextType: GuContextType, list: MutPtr)
 
 public expect fun sceGuFinish(): Int
 
 public expect fun sceGuFinishId(id: UInt): Int
 
-public expect fun sceGuCallList(list: ConstPtr<CVoid>)
+public expect fun sceGuCallList(list: ConstPtr)
 
 public expect fun sceGuCallMode(mode: Int)
 
 public expect fun sceGuCheckList(): Int
 
-public expect fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>)
+public expect fun sceGuSendList(mode: GuQueueMode, list: ConstPtr, context: MutPtr)
 
-public expect fun sceGuSwapBuffers(): MutPtr<CVoid>
+public expect fun sceGuSwapBuffers(): MutPtr
 
 public expect fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState
 
-public expect fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr)
 
-public expect fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr, vertices: ConstPtr)
 
 public expect fun sceGuEndObject()
 
@@ -8896,7 +8894,7 @@ public expect fun sceGuSetDither(matrix: ScePspIMatrix4)
 
 public expect fun sceGuShadeModel(mode: ShadingModel)
 
-public expect fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>)
+public expect fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr, dx: Int, dy: Int, destw: Int, dest: MutPtr)
 
 public expect fun sceGuTexEnvColor(color: UInt)
 
@@ -8906,7 +8904,7 @@ public expect fun sceGuTexFlush()
 
 public expect fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent)
 
-public expect fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>)
+public expect fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr)
 
 public expect fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float)
 
@@ -8926,7 +8924,7 @@ public expect fun sceGuTexSync()
 
 public expect fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode)
 
-public expect fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>)
+public expect fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr)
 
 public expect fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt)
 
@@ -8936,7 +8934,7 @@ public expect fun sceGuScissor(x: Int, y: Int, w: Int, h: Int)
 
 public expect fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int)
 
-public expect fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr)
 
 public expect fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt)
 
@@ -8944,7 +8942,7 @@ public expect fun sceGuPatchFrontFace(a0: UInt)
 
 public expect fun sceGuPatchPrim(prim: PatchPrimitive)
 
-public expect fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr)
 
 public expect fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4)
 
@@ -8952,15 +8950,15 @@ public expect fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4)
 
 public expect fun sceGuMorphWeight(index: Int, weight: Float)
 
-public expect fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr)
 
-public expect fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr, vertices: ConstPtr)
 
-public expect fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr, vertices: ConstPtr)
 
-public expect fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr, vertices: ConstPtr)
 
-public expect fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>)
+public expect fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr, vertices: ConstPtr)
 
 public expect fun sceGumFastInverse()
 
@@ -9002,7 +9000,7 @@ public expect fun sceGumTranslate(v: ScePspFVector3)
 
 public expect fun sceGumUpdateMatrix()
 
-public expect fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int
+public expect fun sceMp3ReserveMp3Handle(args: MutPtr): Int
 
 public expect fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int
 
@@ -9012,9 +9010,9 @@ public expect fun sceMp3TermResource(): Int
 
 public expect fun sceMp3Init(handle: Mp3Handle): Int
 
-public expect fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int
+public expect fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr): Int
 
-public expect fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int
+public expect fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr, toWrite: MutPtr, srcPos: MutPtr): Int
 
 public expect fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int
 
@@ -9036,41 +9034,41 @@ public expect fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int
 
 public expect fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int
 
-public expect fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int
+public expect fun sceRegOpenRegistry(reg: MutPtr, mode: Int, handle: MutPtr): Int
 
 public expect fun sceRegFlushRegistry(handle: RegHandle): Int
 
 public expect fun sceRegCloseRegistry(handle: RegHandle): Int
 
-public expect fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int
+public expect fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr, mode: Int, dirHandle: MutPtr): Int
 
-public expect fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int
+public expect fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr): Int
 
 public expect fun sceRegCloseCategory(dirHandle: RegHandle): Int
 
 public expect fun sceRegFlushCategory(dirHandle: RegHandle): Int
 
-public expect fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int
+public expect fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr, keyHandle: MutPtr, type: MutPtr, size: MutPtr): Int
 
-public expect fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int
+public expect fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr, type: MutPtr, size: MutPtr): Int
 
-public expect fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int
+public expect fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr, size: ULong): Int
 
-public expect fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int
+public expect fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr, buf: MutPtr, size: ULong): Int
 
-public expect fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int
+public expect fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr, buf: ConstPtr, size: ULong): Int
 
-public expect fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int
+public expect fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr): Int
 
-public expect fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int
+public expect fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr, num: Int): Int
 
-public expect fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int
+public expect fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr, type: Int, size: ULong): Int
 
-public expect fun sceRegRemoveRegistry(key: MutPtr<Key>): Int
+public expect fun sceRegRemoveRegistry(key: MutPtr): Int
 
-public expect fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int
+public expect fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr): Int
 
-public expect fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int
+public expect fun sceUtilityMsgDialogInitStart(params: MutPtr): Int
 
 public expect fun sceUtilityMsgDialogShutdownStart()
 
@@ -9080,7 +9078,7 @@ public expect fun sceUtilityMsgDialogUpdate(n: Int)
 
 public expect fun sceUtilityMsgDialogAbort(): Int
 
-public expect fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int
+public expect fun sceUtilityNetconfInitStart(data: MutPtr): Int
 
 public expect fun sceUtilityNetconfShutdownStart(): Int
 
@@ -9090,9 +9088,9 @@ public expect fun sceUtilityNetconfGetStatus(): Int
 
 public expect fun sceUtilityCheckNetParam(id: Int): Int
 
-public expect fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int
+public expect fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr): Int
 
-public expect fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int
+public expect fun sceUtilitySavedataInitStart(params: MutPtr): Int
 
 public expect fun sceUtilitySavedataGetStatus(): Int
 
@@ -9100,7 +9098,7 @@ public expect fun sceUtilitySavedataShutdownStart(): Int
 
 public expect fun sceUtilitySavedataUpdate(unknown: Int)
 
-public expect fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int
+public expect fun sceUtilityGameSharingInitStart(params: MutPtr): Int
 
 public expect fun sceUtilityGameSharingShutdownStart()
 
@@ -9108,7 +9106,7 @@ public expect fun sceUtilityGameSharingGetStatus(): Int
 
 public expect fun sceUtilityGameSharingUpdate(n: Int)
 
-public expect fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int
+public expect fun sceUtilityHtmlViewerInitStart(params: MutPtr): Int
 
 public expect fun sceUtilityHtmlViewerShutdownStart(): Int
 
@@ -9118,13 +9116,13 @@ public expect fun sceUtilityHtmlViewerGetStatus(): Int
 
 public expect fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int
 
-public expect fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int
+public expect fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr): Int
 
-public expect fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int
+public expect fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr): Int
 
-public expect fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int
+public expect fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr, len: Int): Int
 
-public expect fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int
+public expect fun sceUtilityOskInitStart(params: MutPtr): Int
 
 public expect fun sceUtilityOskShutdownStart(): Int
 
@@ -9150,7 +9148,7 @@ public expect fun sceUtilityUnloadModule(module: Module): Int
 
 public expect fun sceUtilityCreateNetParam(conf: Int): Int
 
-public expect fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int
+public expect fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr): Int
 
 public expect fun sceUtilityCopyNetParam(src: Int, dest: Int): Int
 
@@ -9164,73 +9162,73 @@ public expect fun sceNetFreeThreadinfo(thid: Int): Int
 
 public expect fun sceNetThreadAbort(thid: Int): Int
 
-public expect fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>)
+public expect fun sceNetEtherStrton(name: MutPtr, mac: MutPtr)
 
-public expect fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>)
+public expect fun sceNetEtherNtostr(mac: MutPtr, name: MutPtr)
 
-public expect fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int
+public expect fun sceNetGetLocalEtherAddr(mac: MutPtr): Int
 
-public expect fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int
+public expect fun sceNetGetMallocStat(stat: MutPtr): Int
 
-public expect fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int
+public expect fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr): Int
 
 public expect fun sceNetAdhocctlTerm(): Int
 
-public expect fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int
+public expect fun sceNetAdhocctlConnect(name: ConstPtr): Int
 
 public expect fun sceNetAdhocctlDisconnect(): Int
 
-public expect fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int
+public expect fun sceNetAdhocctlGetState(event: MutPtr): Int
 
-public expect fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int
+public expect fun sceNetAdhocctlCreate(name: ConstPtr): Int
 
-public expect fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int
+public expect fun sceNetAdhocctlJoin(scaninfo: MutPtr): Int
 
-public expect fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int
+public expect fun sceNetAdhocctlGetAdhocId(id: MutPtr): Int
 
-public expect fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int
+public expect fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr, unknown: Int, num: Int, macs: MutPtr, timeout: UInt, unknown2: Int): Int
 
-public expect fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int
+public expect fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr, hostmac: MutPtr, timeout: UInt, unknown: Int): Int
 
-public expect fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int
+public expect fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr): Int
 
 public expect fun sceNetAdhocctlExitGameMode(): Int
 
-public expect fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocctlGetPeerList(length: MutPtr, buf: MutPtr): Int
 
-public expect fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int
+public expect fun sceNetAdhocctlGetPeerInfo(mac: MutPtr, size: Int, peerinfo: MutPtr): Int
 
 public expect fun sceNetAdhocctlScan(): Int
 
-public expect fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocctlGetScanInfo(length: MutPtr, buf: MutPtr): Int
 
-public expect fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr): Int
 
 public expect fun sceNetAdhocctlDelHandler(id: Int): Int
 
-public expect fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int
+public expect fun sceNetAdhocctlGetNameByAddr(mac: MutPtr, nickname: MutPtr): Int
 
-public expect fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocctlGetAddrByName(nickname: MutPtr, length: MutPtr, buf: MutPtr): Int
 
-public expect fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int
+public expect fun sceNetAdhocctlGetParameter(params: MutPtr): Int
 
 public expect fun sceNetAdhocInit(): Int
 
 public expect fun sceNetAdhocTerm(): Int
 
-public expect fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int
+public expect fun sceNetAdhocPdpCreate(mac: MutPtr, port: UShort, bufSize: UInt, unk1: Int): Int
 
 public expect fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int
 
-public expect fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int
+public expect fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr, port: UShort, data: MutPtr, len: UInt, timeout: UInt, nonblock: Int): Int
 
-public expect fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int
+public expect fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr, port: MutPtr, data: MutPtr, dataLength: MutPtr, timeout: UInt, nonblock: Int): Int
 
-public expect fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int
+public expect fun sceNetAdhocGetPdpStat(size: MutPtr, stat: MutPtr): Int
 
-public expect fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int
+public expect fun sceNetAdhocGameModeCreateMaster(data: MutPtr, size: Int): Int
 
-public expect fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int
+public expect fun sceNetAdhocGameModeCreateReplica(mac: MutPtr, data: MutPtr, size: Int): Int
 
 public expect fun sceNetAdhocGameModeUpdateMaster(): Int
 
@@ -9240,23 +9238,23 @@ public expect fun sceNetAdhocGameModeDeleteMaster(): Int
 
 public expect fun sceNetAdhocGameModeDeleteReplica(id: Int): Int
 
-public expect fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int
+public expect fun sceNetAdhocPtpOpen(srcmac: MutPtr, srcport: UShort, destmac: MutPtr, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int
 
 public expect fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int
 
-public expect fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int
+public expect fun sceNetAdhocPtpListen(srcmac: MutPtr, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int
 
-public expect fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int
+public expect fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr, port: MutPtr, timeout: UInt, nonblock: Int): Int
 
-public expect fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int
+public expect fun sceNetAdhocPtpSend(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int
 
-public expect fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int
+public expect fun sceNetAdhocPtpRecv(id: Int, data: MutPtr, dataSize: MutPtr, timeout: UInt, nonblock: Int): Int
 
 public expect fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int
 
 public expect fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int
 
-public expect fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int
+public expect fun sceNetAdhocGetPtpStat(size: MutPtr, stat: MutPtr): Int
 
 public expect fun sceNetAdhocMatchingInit(memsize: Int): Int
 
@@ -9266,37 +9264,37 @@ public expect fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: I
 
 public expect fun sceNetAdhocMatchingDelete(matchingId: Int): Int
 
-public expect fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr): Int
 
 public expect fun sceNetAdhocMatchingStop(matchingId: Int): Int
 
-public expect fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int
+public expect fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr, optLen: Int, optData: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr, dataLen: Int, data: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int
+public expect fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr, optData: MutPtr): Int
 
-public expect fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int
+public expect fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr, buf: MutPtr): Int
 
 public expect fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int
 
-public expect fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int
+public expect fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr): Int
 
 public expect fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int
 
 public expect fun sceNetApctlTerm(): Int
 
-public expect fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int
+public expect fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr): Int
 
-public expect fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int
+public expect fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr): Int
 
 public expect fun sceNetApctlDelHandler(handlerId: Int): Int
 
@@ -9304,31 +9302,31 @@ public expect fun sceNetApctlConnect(connIndex: Int): Int
 
 public expect fun sceNetApctlDisconnect(): Int
 
-public expect fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int
+public expect fun sceNetApctlGetState(pstate: MutPtr): Int
 
 public expect fun sceNetInetInit(): Int
 
 public expect fun sceNetInetTerm(): Int
 
-public expect fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int
+public expect fun sceNetInetAccept(s: Int, addr: MutPtr, addrLen: MutPtr): Int
 
-public expect fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int
+public expect fun sceNetInetBind(s: Int, myAddr: ConstPtr, addrLen: SocklenT): Int
 
-public expect fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int
+public expect fun sceNetInetConnect(s: Int, servAddr: ConstPtr, addrLen: SocklenT): Int
 
-public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int
+public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr, optlEn: MutPtr): Int
 
 public expect fun sceNetInetListen(s: Int, backlog: Int): Int
 
-public expect fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong
+public expect fun sceNetInetRecv(s: Int, buf: MutPtr, len: ULong, flags: Int): ULong
 
-public expect fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong
+public expect fun sceNetInetRecvfrom(s: Int, buf: MutPtr, flags: ULong, arg1: Int, from: MutPtr, fromLen: MutPtr): ULong
 
-public expect fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong
+public expect fun sceNetInetSend(s: Int, buf: ConstPtr, len: ULong, flags: Int): ULong
 
-public expect fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong
+public expect fun sceNetInetSendto(s: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, toLen: SocklenT): ULong
 
-public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int
+public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr, optLen: SocklenT): Int
 
 public expect fun sceNetInetShutdown(s: Int, how: Int): Int
 
@@ -9342,39 +9340,39 @@ public expect fun sceSslInit(unknown1: Int): Int
 
 public expect fun sceSslEnd(): Int
 
-public expect fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int
+public expect fun sceSslGetUsedMemoryMax(memory: MutPtr): Int
 
-public expect fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int
+public expect fun sceSslGetUsedMemoryCurrent(memory: MutPtr): Int
 
 public expect fun sceHttpInit(unknown1: UInt): Int
 
 public expect fun sceHttpEnd(): Int
 
-public expect fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int
+public expect fun sceHttpCreateTemplate(agent: MutPtr, unknown1: Int, unknown2: Int): Int
 
 public expect fun sceHttpDeleteTemplate(templateid: Int): Int
 
-public expect fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int
+public expect fun sceHttpCreateConnection(templateid: Int, host: MutPtr, unknown1: MutPtr, port: UShort, unknown2: Int): Int
 
-public expect fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int
+public expect fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr, unknown1: Int): Int
 
 public expect fun sceHttpDeleteConnection(connectionId: Int): Int
 
-public expect fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int
+public expect fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr, contentLength: ULong): Int
 
-public expect fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int
+public expect fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr, contentLength: ULong): Int
 
 public expect fun sceHttpDeleteRequest(requestId: Int): Int
 
-public expect fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int
+public expect fun sceHttpSendRequest(requestId: Int, data: MutPtr, dataSize: UInt): Int
 
 public expect fun sceHttpAbortRequest(requestId: Int): Int
 
-public expect fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int
+public expect fun sceHttpReadData(requestId: Int, data: MutPtr, dataSize: UInt): Int
 
-public expect fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int
+public expect fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr): Int
 
-public expect fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int
+public expect fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr): Int
 
 public expect fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int
 
@@ -9402,9 +9400,9 @@ public expect fun sceHttpSaveSystemCookie(): Int
 
 public expect fun sceHttpLoadSystemCookie(): Int
 
-public expect fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int
+public expect fun sceHttpAddExtraHeader(id: Int, name: MutPtr, value: MutPtr, unknown1: Int): Int
 
-public expect fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int
+public expect fun sceHttpDeleteHeader(id: Int, name: ConstPtr): Int
 
 public expect fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
 
@@ -9422,17 +9420,17 @@ public expect fun sceHttpEnableCache(id: Int): Int
 
 public expect fun sceHttpEndCache(): Int
 
-public expect fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int
+public expect fun sceHttpGetAllHeader(request: Int, header: MutPtr, headerSize: MutPtr): Int
 
-public expect fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int
+public expect fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr): Int
 
-public expect fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int
+public expect fun sceHttpGetProxy(id: Int, activateFlag: MutPtr, mode: MutPtr, proxyHost: MutPtr, len: ULong, proxyPort: MutPtr): Int
 
 public expect fun sceHttpInitCache(maxSize: ULong): Int
 
 public expect fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int
 
-public expect fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int
+public expect fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr, newProxyPort: UShort): Int
 
 public expect fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int
 
@@ -9440,13 +9438,13 @@ public expect fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeF
 
 public expect fun sceNetResolverInit(): Int
 
-public expect fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int
+public expect fun sceNetResolverCreate(rid: MutPtr, buf: MutPtr, bufLength: UInt): Int
 
 public expect fun sceNetResolverDelete(rid: Int): Int
 
-public expect fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int
+public expect fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr, addr: MutPtr, timeout: UInt, retry: Int): Int
 
-public expect fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int
+public expect fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr, hostname: MutPtr, hostnameLen: UInt, timeout: UInt, retry: Int): Int
 
 public expect fun sceNetResolverStop(rid: Int): Int
 

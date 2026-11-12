@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val EXIT_FAILURE: CInt = 1
@@ -344,7 +343,7 @@ public val MAP_NORESERVE: CInt = 0x10
 
 public val MAP_ANON: CInt = MAP_ANONYMOUS
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 0x01
 
@@ -1082,7 +1081,7 @@ public val SC_RE_DUP_MAX: CInt = 142
 
 public val PTHREAD_STACK_MIN: SizeT = 8192uL
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { MutPtr<CVoid>(0L) })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { MutPtr(0L) })
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = 0
 
@@ -1556,8 +1555,8 @@ public val POSIX_SPAWN_SETSIGMASK: CInt = 0x20
 
 public val POSIX_SPAWN_SETSID: CInt = 0x40
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, lock = 0, unused = 0, owner = -1, ownerCount = 0)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = MutPtr<CVoid>(0L), waiterCount = 0, lock = 0)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = MutPtr(0L), waiterCount = 0, lock = 0)

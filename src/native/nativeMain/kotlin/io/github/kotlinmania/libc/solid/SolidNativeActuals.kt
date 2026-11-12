@@ -3,15 +3,12 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.solid.aarch64.WcharT
 import io.github.kotlinmania.libc.solid.cinterop.libcSolidA64l
 import io.github.kotlinmania.libc.solid.cinterop.libcSolidAbort
@@ -311,14 +308,13 @@ import io.github.kotlinmania.libc.solid.cinterop.libcSolidWcstombsL
 import io.github.kotlinmania.libc.solid.cinterop.libcSolidWctomb
 import io.github.kotlinmania.libc.solid.cinterop.libcSolidWctombL
 import io.github.kotlinmania.libc.solid.cinterop.libcSolidWrite
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual var OPTARG: MutPtr<CChar>
+public actual var OPTARG: MutPtr
     get() = MutPtr(libcSolidGetOPTARG()?.toLong() ?: 0L)
     set(value) {
         libcSolidSetOPTARG(value.rawAddress.toCPointer<ByteVar>())
@@ -348,7 +344,7 @@ public actual var OPTRESET: CInt
         libcSolidSetOPTRESET(value)
     }
 
-public actual var SUBOPTARG: MutPtr<CChar>
+public actual var SUBOPTARG: MutPtr
     get() = MutPtr(libcSolidGetSUBOPTARG()?.toLong() ?: 0L)
     set(value) {
         libcSolidSetSUBOPTARG(value.rawAddress.toCPointer<ByteVar>())
@@ -396,265 +392,265 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     libcSolidToupper(c)
 
-public actual fun getStdioFile(fileno: CInt): MutPtr<FILE> =
+public actual fun getStdioFile(fileno: CInt): MutPtr =
     MutPtr(libcSolidGetStdioFile(fileno)?.toLong() ?: 0L)
 
-public actual fun clearerr(arg1: MutPtr<FILE>) {
+public actual fun clearerr(arg1: MutPtr) {
     libcSolidClearerr(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fclose(arg1: MutPtr<FILE>): CInt =
+public actual fun fclose(arg1: MutPtr): CInt =
     libcSolidFclose(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(arg1: MutPtr<FILE>): CInt =
+public actual fun feof(arg1: MutPtr): CInt =
     libcSolidFeof(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(arg1: MutPtr<FILE>): CInt =
+public actual fun ferror(arg1: MutPtr): CInt =
     libcSolidFerror(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fflush(arg1: MutPtr<FILE>): CInt =
+public actual fun fflush(arg1: MutPtr): CInt =
     libcSolidFflush(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetc(arg1: MutPtr<FILE>): CInt =
+public actual fun fgetc(arg1: MutPtr): CInt =
     libcSolidFgetc(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgets(arg1: MutPtr<CChar>, arg2: CInt, arg3: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(arg1: MutPtr, arg2: CInt, arg3: MutPtr): MutPtr =
     MutPtr(libcSolidFgets(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidFopen(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidFprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fputc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun fputc(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidFputc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputs(arg1: ConstPtr<CChar>, arg2: MutPtr<FILE>): CInt =
+public actual fun fputs(arg1: ConstPtr, arg2: MutPtr): CInt =
     libcSolidFputs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+public actual fun fread(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: MutPtr): SizeT =
     libcSolidFread(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(arg1: ConstPtr, arg2: ConstPtr, arg3: MutPtr): MutPtr =
     MutPtr(libcSolidFreopen(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidFscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseek(arg1: MutPtr<FILE>, arg2: CLong, arg3: CInt): CInt =
+public actual fun fseek(arg1: MutPtr, arg2: CLong, arg3: CInt): CInt =
     libcSolidFseek(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)
 
-public actual fun ftell(arg1: MutPtr<FILE>): CLong =
+public actual fun ftell(arg1: MutPtr): CLong =
     libcSolidFtell(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+public actual fun fwrite(arg1: ConstPtr, arg2: SizeT, arg3: SizeT, arg4: MutPtr): SizeT =
     libcSolidFwrite(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getc(arg1: MutPtr<FILE>): CInt =
+public actual fun getc(arg1: MutPtr): CInt =
     libcSolidGetc(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getchar(): CInt =
     libcSolidGetchar()
 
-public actual fun perror(arg1: ConstPtr<CChar>) {
+public actual fun perror(arg1: ConstPtr) {
     libcSolidPerror(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun printf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidPrintf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun putc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putc(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidPutc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun putchar(arg1: CInt): CInt =
     libcSolidPutchar(arg1)
 
-public actual fun puts(arg1: ConstPtr<CChar>): CInt =
+public actual fun puts(arg1: ConstPtr): CInt =
     libcSolidPuts(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(arg1: ConstPtr<CChar>): CInt =
+public actual fun remove(arg1: ConstPtr): CInt =
     libcSolidRemove(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(arg1: MutPtr<FILE>) {
+public actual fun rewind(arg1: MutPtr) {
     libcSolidRewind(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun scanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidScanf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun setbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>) {
+public actual fun setbuf(arg1: MutPtr, arg2: MutPtr) {
     libcSolidSetbuf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun setvbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>, arg3: CInt, arg4: SizeT): CInt =
+public actual fun setvbuf(arg1: MutPtr, arg2: MutPtr, arg3: CInt, arg4: SizeT): CInt =
     libcSolidSetvbuf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)
 
-public actual fun sscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(arg1: ConstPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     MutPtr(libcSolidTmpfile()?.toLong() ?: 0L)
 
-public actual fun ungetc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun ungetc(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidUngetc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVfprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun vprintf(arg1: ConstPtr, arg2: VaList): CInt =
     libcSolidVprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gets(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun gets(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidGets(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun sprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpnam(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidTmpnam(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun vsprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVsprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun rename(arg1: ConstPtr, arg2: ConstPtr): CInt =
     libcSolidRename(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun asiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun asiprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidAsiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fiprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidFiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fiscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidFiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iprintf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun iprintf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidIprintf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iscanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun iscanf(arg1: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidIscanf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun siprintf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siscanf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun siscanf(arg1: MutPtr, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sniprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSniprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vasiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vasiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVasiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVfiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vfiscanf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVfiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun viprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun viprintf(arg1: ConstPtr, arg2: VaList): CInt =
     libcSolidViprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun viscanf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+public actual fun viscanf(arg1: ConstPtr, arg2: VaList): CInt =
     libcSolidViscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsiprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsiprintf(arg1: MutPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVsiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsiscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vsiscanf(arg1: ConstPtr, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVsiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+public actual fun vsniprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: VaList): CInt =
     libcSolidVsniprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr, arg3: VaList): CInt =
     libcSolidVdiprintf(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun diprintf(arg1: CInt, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun diprintf(arg1: CInt, arg2: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidDiprintf(arg1, arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fgetpos(arg1: MutPtr<FILE>, arg2: MutPtr<FposT>): CInt =
+public actual fun fgetpos(arg1: MutPtr, arg2: MutPtr): CInt =
     libcSolidFgetpos(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(arg1: MutPtr<FILE>, arg2: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(arg1: MutPtr, arg2: ConstPtr): CInt =
     libcSolidFsetpos(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(arg1: CInt, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidFdopen(arg1, arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(arg1: MutPtr<FILE>): CInt =
+public actual fun fileno(arg1: MutPtr): CInt =
     libcSolidFileno(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun flockfile(arg1: MutPtr<FILE>) {
+public actual fun flockfile(arg1: MutPtr) {
     libcSolidFlockfile(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun ftrylockfile(arg1: MutPtr<FILE>): CInt =
+public actual fun ftrylockfile(arg1: MutPtr): CInt =
     libcSolidFtrylockfile(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun funlockfile(arg1: MutPtr<FILE>) {
+public actual fun funlockfile(arg1: MutPtr) {
     libcSolidFunlockfile(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getcUnlocked(arg1: MutPtr<FILE>): CInt =
+public actual fun getcUnlocked(arg1: MutPtr): CInt =
     libcSolidGetcUnlocked(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getcharUnlocked(): CInt =
     libcSolidGetcharUnlocked()
 
-public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidPutcUnlocked(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun putcharUnlocked(arg1: CInt): CInt =
     libcSolidPutcharUnlocked(arg1)
 
-public actual fun snprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, vararg variadicArgs: Long): CInt =
     libcSolidSnprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vsnprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+public actual fun vsnprintf(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: VaList): CInt =
     libcSolidVsnprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getw(arg1: MutPtr<FILE>): CInt =
+public actual fun getw(arg1: MutPtr): CInt =
     libcSolidGetw(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun putw(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+public actual fun putw(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidPutw(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tempnam(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun tempnam(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidTempnam(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+public actual fun fseeko(stream: MutPtr, offset: OffT, whence: CInt): CInt =
     libcSolidFseeko(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftello(stream: MutPtr<FILE>): OffT =
+public actual fun ftello(stream: MutPtr): OffT =
     libcSolidFtello(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atof(arg1: ConstPtr<CChar>): Double =
+public actual fun atof(arg1: ConstPtr): Double =
     libcSolidAtof(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+public actual fun strtod(arg1: ConstPtr, arg2: MutPtr): Double =
     libcSolidStrtod(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun drand48(): Double =
     libcSolidDrand48()
 
-public actual fun erand48(arg1: MutPtr<CUshort>): Double =
+public actual fun erand48(arg1: MutPtr): Double =
     libcSolidErand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Float =
+public actual fun strtof(arg1: ConstPtr, arg2: MutPtr): Float =
     libcSolidStrtof(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtold(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+public actual fun strtold(arg1: ConstPtr, arg2: MutPtr): Double =
     libcSolidStrtold(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtodL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+public actual fun strtodL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Double =
     libcSolidStrtodL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strtofL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Float =
+public actual fun strtofL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Float =
     libcSolidStrtofL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoldL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+public actual fun strtoldL(arg1: ConstPtr, arg2: MutPtr, arg3: LocaleT): Double =
     libcSolidStrtoldL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
 public actual fun exit(arg1: CInt): Nothing {
@@ -673,35 +669,35 @@ public actual fun abs(arg1: CInt): CInt =
 public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
     libcSolidAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun atoi(arg1: ConstPtr<CChar>): CInt =
+public actual fun atoi(arg1: ConstPtr): CInt =
     libcSolidAtoi(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(arg1: ConstPtr<CChar>): CLong =
+public actual fun atol(arg1: ConstPtr): CLong =
     libcSolidAtol(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun itoa(arg1: CInt, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun itoa(arg1: CInt, arg2: MutPtr, arg3: CInt): MutPtr =
     MutPtr(libcSolidItoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun ltoa(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun ltoa(arg1: CLong, arg2: MutPtr, arg3: CInt): MutPtr =
     MutPtr(libcSolidLtoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun ultoa(arg1: CUlong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun ultoa(arg1: CUlong, arg2: MutPtr, arg3: CInt): MutPtr =
     MutPtr(libcSolidUltoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun bsearch(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr<CVoid> =
+public actual fun bsearch(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr =
     MutPtr(libcSolidBsearch(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr =
     MutPtr(libcSolidCalloc(arg1, arg2)?.toLong() ?: 0L)
 
 public actual fun div(arg1: CInt, arg2: CInt): DivT =
     DivT()
 
-public actual fun free(arg1: MutPtr<CVoid>) {
+public actual fun free(arg1: MutPtr) {
     libcSolidFree(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getenv(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidGetenv(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun labs(arg1: CLong): CLong =
@@ -710,51 +706,51 @@ public actual fun labs(arg1: CLong): CLong =
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
     LdivT()
 
-public actual fun malloc(arg1: SizeT): MutPtr<CVoid> =
+public actual fun malloc(arg1: SizeT): MutPtr =
     MutPtr(libcSolidMalloc(arg1)?.toLong() ?: 0L)
 
-public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+public actual fun qsort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
     libcSolidQsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 }
 
 public actual fun rand(): CInt =
     libcSolidRand()
 
-public actual fun realloc(arg1: MutPtr<CVoid>, arg2: SizeT): MutPtr<CVoid> =
+public actual fun realloc(arg1: MutPtr, arg2: SizeT): MutPtr =
     MutPtr(libcSolidRealloc(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
 public actual fun srand(arg1: CUint) {
     libcSolidSrand(arg1)
 }
 
-public actual fun strtol(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLong =
+public actual fun strtol(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CLong =
     libcSolidStrtol(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtoul(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlong =
+public actual fun strtoul(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CUlong =
     libcSolidStrtoul(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun mblen(arg1: ConstPtr<CChar>, arg2: SizeT): CInt =
+public actual fun mblen(arg1: ConstPtr, arg2: SizeT): CInt =
     libcSolidMblen(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mbstowcs(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun mbstowcs(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     libcSolidMbstowcs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun wctomb(arg1: MutPtr<CChar>, arg2: WcharT): CInt =
+public actual fun wctomb(arg1: MutPtr, arg2: WcharT): CInt =
     libcSolidWctomb(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mbtowc(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun mbtowc(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidMbtowc(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun wcstombs(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT): SizeT =
+public actual fun wcstombs(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     libcSolidWcstombs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun randR(arg1: MutPtr<CUint>): CInt =
+public actual fun randR(arg1: MutPtr): CInt =
     libcSolidRandR(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun jrand48(arg1: MutPtr<CUshort>): CLong =
+public actual fun jrand48(arg1: MutPtr): CLong =
     libcSolidJrand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lcong48(arg1: MutPtr<CUshort>) {
+public actual fun lcong48(arg1: MutPtr) {
     libcSolidLcong48(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
@@ -764,54 +760,54 @@ public actual fun lrand48(): CLong =
 public actual fun mrand48(): CLong =
     libcSolidMrand48()
 
-public actual fun nrand48(arg1: MutPtr<CUshort>): CLong =
+public actual fun nrand48(arg1: MutPtr): CLong =
     libcSolidNrand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seed48(arg1: MutPtr<CUshort>): MutPtr<CUshort> =
+public actual fun seed48(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidSeed48(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun srand48(arg1: CLong) {
     libcSolidSrand48(arg1)
 }
 
-public actual fun putenv(arg1: MutPtr<CChar>): CInt =
+public actual fun putenv(arg1: MutPtr): CInt =
     libcSolidPutenv(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun a64l(arg1: ConstPtr<CChar>): CLong =
+public actual fun a64l(arg1: ConstPtr): CLong =
     libcSolidA64l(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun l64a(arg1: CLong): MutPtr<CChar> =
+public actual fun l64a(arg1: CLong): MutPtr =
     MutPtr(libcSolidL64a(arg1)?.toLong() ?: 0L)
 
 public actual fun random(): CLong =
     libcSolidRandom()
 
-public actual fun setstate(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun setstate(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidSetstate(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun initstate(arg1: CUint, arg2: MutPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun initstate(arg1: CUint, arg2: MutPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidInitstate(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
 public actual fun srandom(arg1: CUint) {
     libcSolidSrandom(arg1)
 }
 
-public actual fun mkostemp(arg1: MutPtr<CChar>, arg2: CInt): CInt =
+public actual fun mkostemp(arg1: MutPtr, arg2: CInt): CInt =
     libcSolidMkostemp(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mkostemps(arg1: MutPtr<CChar>, arg2: CInt, arg3: CInt): CInt =
+public actual fun mkostemps(arg1: MutPtr, arg2: CInt, arg3: CInt): CInt =
     libcSolidMkostemps(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)
 
-public actual fun mkdtemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mkdtemp(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidMkdtemp(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mkstemp(arg1: MutPtr<CChar>): CInt =
+public actual fun mkstemp(arg1: MutPtr): CInt =
     libcSolidMkstemp(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mktemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mktemp(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidMktemp(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun atoll(arg1: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(arg1: ConstPtr): CLonglong =
     libcSolidAtoll(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun llabs(arg1: CLonglong): CLonglong =
@@ -820,13 +816,13 @@ public actual fun llabs(arg1: CLonglong): CLonglong =
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
     LldivT()
 
-public actual fun strtoll(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLonglong =
+public actual fun strtoll(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CLonglong =
     libcSolidStrtoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtoull(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlonglong =
+public actual fun strtoull(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): CUlonglong =
     libcSolidStrtoull(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr =
     MutPtr(libcSolidAlignedAlloc(arg1, arg2)?.toLong() ?: 0L)
 
 public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
@@ -836,231 +832,231 @@ public actual fun quickExit(arg1: CInt) {
     libcSolidQuickExit(arg1)
 }
 
-public actual fun setenv(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CInt): CInt =
+public actual fun setenv(arg1: ConstPtr, arg2: ConstPtr, arg3: CInt): CInt =
     libcSolidSetenv(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun unsetenv(arg1: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(arg1: ConstPtr): CInt =
     libcSolidUnsetenv(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun humanizeNumber(arg1: MutPtr<CChar>, arg2: SizeT, arg3: Long, arg4: ConstPtr<CChar>, arg5: CInt, arg6: CInt): CInt =
+public actual fun humanizeNumber(arg1: MutPtr, arg2: SizeT, arg3: Long, arg4: ConstPtr, arg5: CInt, arg6: CInt): CInt =
     libcSolidHumanizeNumber(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>(), arg5, arg6)
 
-public actual fun dehumanizeNumber(arg1: ConstPtr<CChar>, arg2: MutPtr<Long>): CInt =
+public actual fun dehumanizeNumber(arg1: ConstPtr, arg2: MutPtr): CInt =
     libcSolidDehumanizeNumber(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getenvR(arg1: ConstPtr<CChar>, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+public actual fun getenvR(arg1: ConstPtr, arg2: MutPtr, arg3: SizeT): CInt =
     libcSolidGetenvR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun heapsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun heapsort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     libcSolidHeapsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
-public actual fun mergesort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun mergesort(arg1: MutPtr, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     libcSolidMergesort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
-public actual fun radixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+public actual fun radixsort(arg1: MutPtr, arg2: CInt, arg3: ConstPtr, arg4: CUint): CInt =
     libcSolidRadixsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)
 
-public actual fun sradixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+public actual fun sradixsort(arg1: MutPtr, arg2: CInt, arg3: ConstPtr, arg4: CUint): CInt =
     libcSolidSradixsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)
 
-public actual fun getprogname(): ConstPtr<CChar> =
+public actual fun getprogname(): ConstPtr =
     ConstPtr(libcSolidGetprogname()?.toLong() ?: 0L)
 
-public actual fun setprogname(arg1: ConstPtr<CChar>) {
+public actual fun setprogname(arg1: ConstPtr) {
     libcSolidSetprogname(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun qabs(arg1: QuadT): QuadT =
     libcSolidQabs(arg1)
 
-public actual fun strtoq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): QuadT =
+public actual fun strtoq(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): QuadT =
     libcSolidStrtoq(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtouq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): UQuadT =
+public actual fun strtouq(arg1: ConstPtr, arg2: MutPtr, arg3: CInt): UQuadT =
     libcSolidStrtouq(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strsuftoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong): CLonglong =
+public actual fun strsuftoll(arg1: ConstPtr, arg2: ConstPtr, arg3: CLonglong, arg4: CLonglong): CLonglong =
     libcSolidStrsuftoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)
 
-public actual fun strsuftollx(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr<CChar>, arg6: SizeT): CLonglong =
+public actual fun strsuftollx(arg1: ConstPtr, arg2: ConstPtr, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr, arg6: SizeT): CLonglong =
     libcSolidStrsuftollx(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4, arg5.rawAddress.toCPointer<ByteVar>(), arg6)
 
-public actual fun l64aR(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): CInt =
+public actual fun l64aR(arg1: CLong, arg2: MutPtr, arg3: CInt): CInt =
     libcSolidL64aR(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
 public actual fun qdiv(arg1: QuadT, arg2: QuadT): QdivT =
     QdivT()
 
-public actual fun strtolL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLong =
+public actual fun strtolL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CLong =
     libcSolidStrtolL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoulL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlong =
+public actual fun strtoulL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CUlong =
     libcSolidStrtoulL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtollL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLonglong =
+public actual fun strtollL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CLonglong =
     libcSolidStrtollL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoullL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlonglong =
+public actual fun strtoullL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): CUlonglong =
     libcSolidStrtoullL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): QuadT =
+public actual fun strtoqL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): QuadT =
     libcSolidStrtoqL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtouqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): UQuadT =
+public actual fun strtouqL(arg1: ConstPtr, arg2: MutPtr, arg3: CInt, arg4: LocaleT): UQuadT =
     libcSolidStrtouqL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
 public actual fun mbCurMaxL(arg1: LocaleT): SizeT =
     libcSolidMbCurMaxL(arg1.toLong().toCPointer<ByteVar>())
 
-public actual fun mblenL(arg1: ConstPtr<CChar>, arg2: SizeT, arg3: LocaleT): CInt =
+public actual fun mblenL(arg1: ConstPtr, arg2: SizeT, arg3: LocaleT): CInt =
     libcSolidMblenL(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun mbstowcsL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun mbstowcsL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     libcSolidMbstowcsL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun wctombL(arg1: MutPtr<CChar>, arg2: WcharT, arg3: LocaleT): CInt =
+public actual fun wctombL(arg1: MutPtr, arg2: WcharT, arg3: LocaleT): CInt =
     libcSolidWctombL(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun mbtowcL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): CInt =
+public actual fun mbtowcL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): CInt =
     libcSolidMbtowcL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun wcstombsL(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun wcstombsL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     libcSolidWcstombsL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun memchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memchr(arg1: ConstPtr, arg2: CInt, arg3: SizeT): MutPtr =
     MutPtr(libcSolidMemchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun memcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun memcmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidMemcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun memcpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidMemcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun memmove(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memmove(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidMemmove(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun memset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memset(arg1: MutPtr, arg2: CInt, arg3: SizeT): MutPtr =
     MutPtr(libcSolidMemset(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun strcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrcat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun strchr(arg1: ConstPtr, arg2: CInt): MutPtr =
     MutPtr(libcSolidStrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strcmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcmp(arg1: ConstPtr, arg2: ConstPtr): CInt =
     libcSolidStrcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcoll(arg1: ConstPtr, arg2: ConstPtr): CInt =
     libcSolidStrcoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(arg1: ConstPtr, arg2: ConstPtr): SizeT =
     libcSolidStrcspn(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerror(arg1: CInt): MutPtr<CChar> =
+public actual fun strerror(arg1: CInt): MutPtr =
     MutPtr(libcSolidStrerror(arg1)?.toLong() ?: 0L)
 
-public actual fun strlen(arg1: ConstPtr<CChar>): SizeT =
+public actual fun strlen(arg1: ConstPtr): SizeT =
     libcSolidStrlen(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun strncat(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidStrncat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strncmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strncmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidStrncmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun strncpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidStrncpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strpbrk(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrpbrk(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strrchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun strrchr(arg1: ConstPtr, arg2: CInt): MutPtr =
     MutPtr(libcSolidStrrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+public actual fun strspn(arg1: ConstPtr, arg2: ConstPtr): SizeT =
     libcSolidStrspn(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strstr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrstr(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strtok(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrtok(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strtokR(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<MutPtr<CChar>>): MutPtr<CChar> =
+public actual fun strtokR(arg1: MutPtr, arg2: ConstPtr, arg3: MutPtr): MutPtr =
     MutPtr(libcSolidStrtokR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strerrorR(arg1: CInt, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strerrorR(arg1: CInt, arg2: MutPtr, arg3: SizeT): CInt =
     libcSolidStrerrorR(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strxfrm(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strxfrm(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     libcSolidStrxfrm(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun memccpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: CInt, arg4: SizeT): MutPtr<CVoid> =
+public actual fun memccpy(arg1: MutPtr, arg2: ConstPtr, arg3: CInt, arg4: SizeT): MutPtr =
     MutPtr(libcSolidMemccpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)?.toLong() ?: 0L)
 
-public actual fun strdup(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidStrdup(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stpcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun stpcpy(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStpcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stpncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+public actual fun stpncpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): MutPtr =
     MutPtr(libcSolidStpncpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strnlen(arg1: ConstPtr<CChar>, arg2: SizeT): SizeT =
+public actual fun strnlen(arg1: ConstPtr, arg2: SizeT): SizeT =
     libcSolidStrnlen(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun memmem(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: ConstPtr<CVoid>, arg4: SizeT): MutPtr<CVoid> =
+public actual fun memmem(arg1: ConstPtr, arg2: SizeT, arg3: ConstPtr, arg4: SizeT): MutPtr =
     MutPtr(libcSolidMemmem(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)?.toLong() ?: 0L)
 
-public actual fun strcasestr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcasestr(arg1: ConstPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrcasestr(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strlcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strlcat(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     libcSolidStrlcat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strlcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+public actual fun strlcpy(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT): SizeT =
     libcSolidStrlcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strsep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strsep(arg1: MutPtr, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidStrsep(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stresep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+public actual fun stresep(arg1: MutPtr, arg2: ConstPtr, arg3: CInt): MutPtr =
     MutPtr(libcSolidStresep(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strndup(arg1: ConstPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+public actual fun strndup(arg1: ConstPtr, arg2: SizeT): MutPtr =
     MutPtr(libcSolidStrndup(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun memrchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun memrchr(arg1: ConstPtr, arg2: CInt, arg3: SizeT): MutPtr =
     MutPtr(libcSolidMemrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun explicitMemset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+public actual fun explicitMemset(arg1: MutPtr, arg2: CInt, arg3: SizeT): MutPtr =
     MutPtr(libcSolidExplicitMemset(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun consttimeMemequal(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun consttimeMemequal(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidConsttimeMemequal(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strcollL(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: LocaleT): CInt =
+public actual fun strcollL(arg1: ConstPtr, arg2: ConstPtr, arg3: LocaleT): CInt =
     libcSolidStrcollL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strxfrmL(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+public actual fun strxfrmL(arg1: MutPtr, arg2: ConstPtr, arg3: SizeT, arg4: LocaleT): SizeT =
     libcSolidStrxfrmL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr<CChar> =
+public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr =
     MutPtr(libcSolidStrerrorL(arg1, arg2.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun bcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+public actual fun bcmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidBcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun bcopy(arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>, arg3: SizeT) {
+public actual fun bcopy(arg1: ConstPtr, arg2: MutPtr, arg3: SizeT) {
     libcSolidBcopy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 }
 
-public actual fun bzero(arg1: MutPtr<CVoid>, arg2: SizeT) {
+public actual fun bzero(arg1: MutPtr, arg2: SizeT) {
     libcSolidBzero(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 }
 
@@ -1082,13 +1078,13 @@ public actual fun popcount32(arg1: UInt): CUint =
 public actual fun popcount64(arg1: ULong): CUint =
     libcSolidPopcount64(arg1)
 
-public actual fun rindex(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+public actual fun rindex(arg1: ConstPtr, arg2: CInt): MutPtr =
     MutPtr(libcSolidRindex(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strcasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(arg1: ConstPtr, arg2: ConstPtr): CInt =
     libcSolidStrcasecmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+public actual fun strncasecmp(arg1: ConstPtr, arg2: ConstPtr, arg3: SizeT): CInt =
     libcSolidStrncasecmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
 public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
@@ -1097,79 +1093,79 @@ public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
 public actual fun raise(arg1: CInt): CInt =
     libcSolidRaise(arg1)
 
-public actual fun asctime(arg1: ConstPtr<Tm>): MutPtr<CChar> =
+public actual fun asctime(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidAsctime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun clock(): ClockT =
     libcSolidClock()
 
-public actual fun ctime(arg1: ConstPtr<TimeT>): MutPtr<CChar> =
+public actual fun ctime(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidCtime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun difftime(arg1: TimeT, arg2: TimeT): Double =
     libcSolidDifftime(arg1, arg2)
 
-public actual fun gmtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun gmtime(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidGmtime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun localtime(arg1: ConstPtr): MutPtr =
     MutPtr(libcSolidLocaltime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun time(arg1: MutPtr<TimeT>): TimeT =
+public actual fun time(arg1: MutPtr): TimeT =
     libcSolidTime(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mktime(arg1: MutPtr<Tm>): TimeT =
+public actual fun mktime(arg1: MutPtr): TimeT =
     libcSolidMktime(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+public actual fun strftime(arg1: MutPtr, arg2: SizeT, arg3: ConstPtr, arg4: ConstPtr): SizeT =
     libcSolidStrftime(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utime(arg1: ConstPtr<CChar>, arg2: MutPtr<TimeT>): CInt =
+public actual fun utime(arg1: ConstPtr, arg2: MutPtr): CInt =
     libcSolidUtime(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun asctimeR(arg1: ConstPtr<Tm>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun asctimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     MutPtr(libcSolidAsctimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun ctimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun ctimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     MutPtr(libcSolidCtimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun gmtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun gmtimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     MutPtr(libcSolidGmtimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun localtimeR(arg1: ConstPtr, arg2: MutPtr): MutPtr =
     MutPtr(libcSolidLocaltimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+public actual fun stat(arg1: ConstPtr, arg2: MutPtr): CInt =
     libcSolidStat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lstat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+public actual fun lstat(arg1: ConstPtr, arg2: MutPtr): CInt =
     libcSolidLstat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat(arg1: CInt, arg2: MutPtr<Stat>): CInt =
+public actual fun fstat(arg1: CInt, arg2: MutPtr): CInt =
     libcSolidFstat(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chmod(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+public actual fun chmod(arg1: ConstPtr, arg2: ModeT): CInt =
     libcSolidChmod(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mkdir(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+public actual fun mkdir(arg1: ConstPtr, arg2: ModeT): CInt =
     libcSolidMkdir(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun open(arg1: ConstPtr<CChar>, arg2: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(arg1: ConstPtr, arg2: CInt, vararg variadicArgs: Long): CInt =
     libcSolidOpen(arg1.rawAddress.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+public actual fun creat(arg1: ConstPtr, arg2: CInt): CInt =
     libcSolidCreat(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
 public actual fun close(arg1: CInt): CInt =
     libcSolidClose(arg1)
 
-public actual fun read(arg1: CInt, arg2: MutPtr<CVoid>, arg3: CInt): CInt =
+public actual fun read(arg1: CInt, arg2: MutPtr, arg3: CInt): CInt =
     libcSolidRead(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun write(arg1: CInt, arg2: ConstPtr<CVoid>, arg3: CInt): CInt =
+public actual fun write(arg1: CInt, arg2: ConstPtr, arg3: CInt): CInt =
     libcSolidWrite(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun unlink(arg1: ConstPtr<CChar>): CInt =
+public actual fun unlink(arg1: ConstPtr): CInt =
     libcSolidUnlink(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tell(arg1: CInt): CLong =
@@ -1181,25 +1177,25 @@ public actual fun dup(arg1: CInt): CInt =
 public actual fun dup2(arg1: CInt, arg2: CInt): CInt =
     libcSolidDup2(arg1, arg2)
 
-public actual fun access(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+public actual fun access(arg1: ConstPtr, arg2: CInt): CInt =
     libcSolidAccess(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun rmdir(arg1: ConstPtr<CChar>): CInt =
+public actual fun rmdir(arg1: ConstPtr): CInt =
     libcSolidRmdir(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chdir(arg1: ConstPtr<CChar>): CInt =
+public actual fun chdir(arg1: ConstPtr): CInt =
     libcSolidChdir(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getwd(arg1: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun getwd(arg1: MutPtr): MutPtr =
     MutPtr(libcSolidGetwd(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getcwd(arg1: MutPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+public actual fun getcwd(arg1: MutPtr, arg2: SizeT): MutPtr =
     MutPtr(libcSolidGetcwd(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun getopt(arg1: CInt, arg2: MutPtr<MutPtr<CChar>>, arg3: ConstPtr<CChar>): CInt =
+public actual fun getopt(arg1: CInt, arg2: MutPtr, arg3: ConstPtr): CInt =
     libcSolidGetopt(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsubopt(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<MutPtr<CChar>>, arg3: MutPtr<MutPtr<CChar>>): CInt =
+public actual fun getsubopt(arg1: MutPtr, arg2: ConstPtr, arg3: MutPtr): CInt =
     libcSolidGetsubopt(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
@@ -1214,10 +1210,10 @@ public actual fun sleep(arg1: CUint): CUint =
 public actual fun usleep(arg1: UsecondsT): CInt =
     libcSolidUsleep(arg1)
 
-public actual fun localeconv(): MutPtr<Lconv> =
+public actual fun localeconv(): MutPtr =
     MutPtr(libcSolidLocaleconv()?.toLong() ?: 0L)
 
-public actual fun setlocale(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(arg1: CInt, arg2: ConstPtr): MutPtr =
     MutPtr(libcSolidSetlocale(arg1, arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
@@ -1227,19 +1223,19 @@ public actual fun freelocale(arg1: LocaleT) {
     libcSolidFreelocale(arg1.toLong().toCPointer<ByteVar>())
 }
 
-public actual fun localeconvL(arg1: LocaleT): MutPtr<Lconv> =
+public actual fun localeconvL(arg1: LocaleT): MutPtr =
     MutPtr(libcSolidLocaleconvL(arg1.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun newlocale(arg1: CInt, arg2: ConstPtr<CChar>, arg3: LocaleT): LocaleT =
+public actual fun newlocale(arg1: CInt, arg2: ConstPtr, arg3: LocaleT): LocaleT =
     (libcSolidNewlocale(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L).toULong()
 
-public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+public actual fun nlLanginfo(item: NlItem): MutPtr =
     MutPtr(libcSolidNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr =
     MutPtr(libcSolidNlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr =
     MutPtr(libcSolidMemalign(align, size)?.toLong() ?: 0L)
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =

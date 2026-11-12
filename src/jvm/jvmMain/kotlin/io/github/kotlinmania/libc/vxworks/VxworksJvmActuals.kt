@@ -3,18 +3,15 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1191,31 +1188,31 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     VxworksJniBridge.libcVxworksToupper(c)
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksFopen(filename.rawAddress, mode.rawAddress))
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, file: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksFreopen(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fflush(file: MutPtr<FILE>): CInt =
+public actual fun fflush(file: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFflush(file.rawAddress)
 
-public actual fun fclose(file: MutPtr<FILE>): CInt =
+public actual fun fclose(file: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFclose(file.rawAddress)
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksRemove(filename.rawAddress)
 
-public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+public actual fun rename(oldname: ConstPtr, newname: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksTmpfile())
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     VxworksJniBridge.libcVxworksSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buf: MutPtr) {
     VxworksJniBridge.libcVxworksSetbuf(stream.rawAddress, buf.rawAddress)
 }
 
@@ -1225,96 +1222,96 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     VxworksJniBridge.libcVxworksPutchar(c)
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFgetc(stream.rawAddress)
 
-public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(buf: MutPtr, n: CInt, stream: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksFgets(buf.rawAddress, n, stream.rawAddress))
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFputc(c, stream.rawAddress)
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFputs(s.rawAddress, stream.rawAddress)
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPuts(s.rawAddress)
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksUngetc(c, stream.rawAddress)
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     VxworksJniBridge.libcVxworksFread(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     VxworksJniBridge.libcVxworksFwrite(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     VxworksJniBridge.libcVxworksFseek(stream.rawAddress, offset, whence)
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     VxworksJniBridge.libcVxworksFtell(stream.rawAddress)
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     VxworksJniBridge.libcVxworksRewind(stream.rawAddress)
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, ptr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFgetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, ptr: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksFsetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFeof(stream.rawAddress)
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFerror(stream.rawAddress)
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     VxworksJniBridge.libcVxworksPerror(s.rawAddress)
 }
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     VxworksJniBridge.libcVxworksAtof(s.rawAddress)
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksAtoi(s.rawAddress)
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     VxworksJniBridge.libcVxworksAtol(s.rawAddress)
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     VxworksJniBridge.libcVxworksAtoll(s.rawAddress)
 
-public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, endp: MutPtr): CDouble =
     VxworksJniBridge.libcVxworksStrtod(s.rawAddress, endp.rawAddress)
 
-public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(s: ConstPtr, endp: MutPtr): CFloat =
     VxworksJniBridge.libcVxworksStrtof(s.rawAddress, endp.rawAddress)
 
-public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, endp: MutPtr, base: CInt): CLong =
     VxworksJniBridge.libcVxworksStrtol(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(s: ConstPtr, endp: MutPtr, base: CInt): CLonglong =
     VxworksJniBridge.libcVxworksStrtoll(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, endp: MutPtr, base: CInt): CUlong =
     VxworksJniBridge.libcVxworksStrtoul(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(s: ConstPtr, endp: MutPtr, base: CInt): CUlonglong =
     VxworksJniBridge.libcVxworksStrtoull(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksCalloc(nobj.toLong(), size.toLong()))
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMalloc(size.toLong()))
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksRealloc(p.rawAddress, size.toLong()))
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     VxworksJniBridge.libcVxworksFree(p.rawAddress)
 }
 
@@ -1331,169 +1328,169 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(cb: AtexitCbCallback): CInt =
     VxworksJniBridge.libcVxworksAtexit(0L)
 
-public actual fun system(s: ConstPtr<CChar>): CInt =
+public actual fun system(s: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksSystem(s.rawAddress)
 
-public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(s: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetenv(s.rawAddress))
 
-public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+public actual fun cfgetospeed(termios: ConstPtr): SpeedT =
     VxworksJniBridge.libcVxworksCfgetospeed(termios.rawAddress).toUInt()
 
-public actual fun cfmakeraw(termios: MutPtr<Termios>): CInt =
+public actual fun cfmakeraw(termios: MutPtr): CInt =
     VxworksJniBridge.libcVxworksCfmakeraw(termios.rawAddress)
 
-public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetispeed(termios: MutPtr, speed: SpeedT): CInt =
     VxworksJniBridge.libcVxworksCfsetispeed(termios.rawAddress, speed.toInt())
 
-public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+public actual fun cfsetospeed(termios: MutPtr, speed: SpeedT): CInt =
     VxworksJniBridge.libcVxworksCfsetospeed(termios.rawAddress, speed.toInt())
 
-public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dst: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrcpy(dst.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dst: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrncpy(dst.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(s: MutPtr, ct: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrcat(s.rawAddress, ct.rawAddress))
 
-public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(s: MutPtr, ct: ConstPtr, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrncat(s.rawAddress, ct.rawAddress, n.toLong()))
 
-public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcmp(cs: ConstPtr, ct: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksStrcmp(cs.rawAddress, ct.rawAddress)
 
-public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(cs: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     VxworksJniBridge.libcVxworksStrncmp(cs.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcoll(cs: ConstPtr, ct: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksStrcoll(cs.rawAddress, ct.rawAddress)
 
-public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrchr(cs.rawAddress, c))
 
-public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrrchr(cs.rawAddress, c))
 
-public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     VxworksJniBridge.libcVxworksStrspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     VxworksJniBridge.libcVxworksStrcspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(cs: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrdup(cs.rawAddress))
 
-public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrpbrk(cs.rawAddress, ct.rawAddress))
 
-public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrstr(cs.rawAddress, ct.rawAddress))
 
-public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+public actual fun strcasecmp(s1: ConstPtr, s2: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksStrcasecmp(s1.rawAddress, s2.rawAddress)
 
-public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncasecmp(s1: ConstPtr, s2: ConstPtr, n: SizeT): CInt =
     VxworksJniBridge.libcVxworksStrncasecmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     VxworksJniBridge.libcVxworksStrlen(cs.rawAddress).toULong()
 
-public actual fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, n: SizeT): SizeT =
     VxworksJniBridge.libcVxworksStrnlen(cs.rawAddress, n.toLong()).toULong()
 
-public actual fun strerror(n: CInt): MutPtr<CChar> =
+public actual fun strerror(n: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrerror(n))
 
-public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, t: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksStrtok(s.rawAddress, t.rawAddress))
 
-public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(s: MutPtr, ct: ConstPtr, n: SizeT): SizeT =
     VxworksJniBridge.libcVxworksStrxfrm(s.rawAddress, ct.rawAddress, n.toLong()).toULong()
 
-public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(buf: ConstPtr): SizeT =
     VxworksJniBridge.libcVxworksWcslen(buf.rawAddress).toULong()
 
-public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+public actual fun wcstombs(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     VxworksJniBridge.libcVxworksWcstombs(dest.rawAddress, src.rawAddress, n.toLong()).toULong()
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+public actual fun wmemchr(cx: ConstPtr, c: WcharT, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksWmemchr(cx.rawAddress, c.toInt(), n.toLong()))
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     VxworksJniBridge.libcVxworksMemcmp(cx.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memccpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memccpy(dest: MutPtr, src: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemccpy(dest.rawAddress, src.rawAddress, c, n.toLong()))
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemset(dest.rawAddress, c, n.toLong()))
 
-public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksAlignedAlloc(alignment.toLong(), size.toLong()))
 
-public actual fun uname(buf: MutPtr<Utsname>): CInt =
+public actual fun uname(buf: MutPtr): CInt =
     VxworksJniBridge.libcVxworksUname(buf.rawAddress)
 
-public actual fun times(buf: MutPtr<Tms>): ClockT =
+public actual fun times(buf: MutPtr): ClockT =
     VxworksJniBridge.libcVxworksTimes(buf.rawAddress)
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
     VxworksJniBridge.libcVxworksTcflush(fd, action)
 
-public actual fun pclose(stream: MutPtr<FILE>): CInt =
+public actual fun pclose(stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPclose(stream.rawAddress)
 
-public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun mkdtemp(template: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMkdtemp(template.rawAddress))
 
-public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr, newdirfd: CInt, newpath: ConstPtr, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksLinkat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags)
 
-public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksUnlinkat(dirfd, pathname.rawAddress, flags)
 
-public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+public actual fun getprotobyname(name: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetprotobyname(name.rawAddress))
 
-public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+public actual fun getprotobynumber(proto: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetprotobynumber(proto))
 
-public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+public actual fun getservbyname(name: ConstPtr, proto: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetservbyname(name.rawAddress, proto.rawAddress))
 
-public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr, owner: UidT, group: GidT, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksFchownat(dirfd, pathname.rawAddress, owner.toShort(), group.toShort(), flags)
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun snprintf(s: MutPtr, n: SizeT, format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksSnprintf(s.rawAddress, n.toLong(), format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sprintf(s: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksSprintf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fscanf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksFscanf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun scanf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksScanf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun sscanf(s: ConstPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksSscanf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
@@ -1502,26 +1499,26 @@ public actual fun getcharUnlocked(): CInt =
 public actual fun putcharUnlocked(c: CInt): CInt =
     VxworksJniBridge.libcVxworksPutcharUnlocked(c)
 
-public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun stat(path: ConstPtr, buf: MutPtr): CInt =
     VxworksJniBridge.libcVxworksStat(path.rawAddress, buf.rawAddress)
 
-public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(fd: CInt, mode: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksFdopen(fd, mode.rawAddress))
 
-public actual fun fileno(stream: MutPtr<FILE>): CInt =
+public actual fun fileno(stream: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFileno(stream.rawAddress)
 
-public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun creat(path: ConstPtr, mode: ModeT): CInt =
     VxworksJniBridge.libcVxworksCreat(path.rawAddress, mode)
 
-public actual fun rewinddir(dirp: MutPtr<DIR>) {
+public actual fun rewinddir(dirp: MutPtr) {
     VxworksJniBridge.libcVxworksRewinddir(dirp.rawAddress)
 }
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
     VxworksJniBridge.libcVxworksFchown(fd, owner.toShort(), group.toShort())
 
-public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun access(path: ConstPtr, amode: CInt): CInt =
     VxworksJniBridge.libcVxworksAccess(path.rawAddress, amode)
 
 public actual fun alarm(seconds: CUint): CUint =
@@ -1530,7 +1527,7 @@ public actual fun alarm(seconds: CUint): CUint =
 public actual fun fchdir(dirfd: CInt): CInt =
     VxworksJniBridge.libcVxworksFchdir(dirfd)
 
-public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+public actual fun chown(path: ConstPtr, uid: UidT, gid: GidT): CInt =
     VxworksJniBridge.libcVxworksChown(path.rawAddress, uid.toShort(), gid.toShort())
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
@@ -1542,16 +1539,16 @@ public actual fun getegid(): GidT =
 public actual fun geteuid(): UidT =
     VxworksJniBridge.libcVxworksGeteuid().toUShort()
 
-public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGetgroups(ngroupsMax, groups.rawAddress)
 
-public actual fun getlogin(): MutPtr<CChar> =
+public actual fun getlogin(): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetlogin())
 
-public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+public actual fun getopt(argc: CInt, argv: ConstPtr, optstr: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksGetopt(argc, argv.rawAddress, optstr.rawAddress)
 
-public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+public actual fun pathconf(path: ConstPtr, name: CInt): CLong =
     VxworksJniBridge.libcVxworksPathconf(path.rawAddress, name)
 
 public actual fun pause(): CInt =
@@ -1566,156 +1563,156 @@ public actual fun setegid(gid: GidT): CInt =
 public actual fun sleep(secs: CUint): CUint =
     VxworksJniBridge.libcVxworksSleep(secs.toInt()).toUInt()
 
-public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+public actual fun ttyname(fd: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksTtyname(fd))
 
-public actual fun wait(status: MutPtr<CInt>): PidT =
+public actual fun wait(status: MutPtr): PidT =
     VxworksJniBridge.libcVxworksWait(status.rawAddress)
 
 public actual fun umask(mask: ModeT): ModeT =
     VxworksJniBridge.libcVxworksUmask(mask)
 
-public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun mlock(addr: ConstPtr, len: SizeT): CInt =
     VxworksJniBridge.libcVxworksMlock(addr.rawAddress, len.toLong())
 
 public actual fun mlockall(flags: CInt): CInt =
     VxworksJniBridge.libcVxworksMlockall(flags)
 
-public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+public actual fun munlock(addr: ConstPtr, len: SizeT): CInt =
     VxworksJniBridge.libcVxworksMunlock(addr.rawAddress, len.toLong())
 
 public actual fun munlockall(): CInt =
     VxworksJniBridge.libcVxworksMunlockall()
 
-public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+public actual fun mmap(addr: MutPtr, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMmap(addr.rawAddress, len.toLong(), prot, flags, fd, offset))
 
-public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+public actual fun munmap(addr: MutPtr, len: SizeT): CInt =
     VxworksJniBridge.libcVxworksMunmap(addr.rawAddress, len.toLong())
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     VxworksJniBridge.libcVxworksMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+public actual fun msync(addr: MutPtr, len: SizeT, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
+public actual fun truncate(path: ConstPtr, length: OffT): CInt =
     VxworksJniBridge.libcVxworksTruncate(path.rawAddress, length)
 
-public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: ConstPtr, oflag: CInt, mode: ModeT): CInt =
     VxworksJniBridge.libcVxworksShmOpen(name.rawAddress, oflag, mode)
 
-public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun shmUnlink(name: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksShmUnlink(name.rawAddress)
 
-public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+public actual fun gettimeofday(tp: MutPtr, tz: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+public actual fun pthreadExit(value: MutPtr): Nothing {
     VxworksJniBridge.libcVxworksPthreadExit(value.rawAddress)
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr, state: CInt): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrSetdetachstate(attr.rawAddress, state)
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     VxworksJniBridge.libcVxworksPthreadEqual(t1.toLong(), t2.toLong())
 
-public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+public actual fun strerrorR(errnum: CInt, buf: MutPtr, buflen: SizeT): CInt =
     VxworksJniBridge.libcVxworksStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigaddset(set: MutPtr, signum: CInt): CInt =
     VxworksJniBridge.libcVxworksSigaddset(set.rawAddress, signum)
 
-public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+public actual fun sigaction(signum: CInt, act: ConstPtr, oldact: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSigaction(signum, act.rawAddress, oldact.rawAddress)
 
-public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+public actual fun utimes(filename: ConstPtr, times: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksUtimes(filename.rawAddress, times.rawAddress)
 
-public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+public actual fun futimens(fd: CInt, times: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksFutimens(fd, times.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+public actual fun utimensat(dirfd: CInt, path: ConstPtr, times: ConstPtr, flag: CInt): CInt =
     VxworksJniBridge.libcVxworksUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+public actual fun dlopen(filename: ConstPtr, flag: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksDlopen(filename.rawAddress, flag))
 
-public actual fun dlerror(): MutPtr<CChar> =
+public actual fun dlerror(): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksDlerror())
 
-public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+public actual fun dlsym(handle: MutPtr, symbol: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksDlsym(handle.rawAddress, symbol.rawAddress))
 
-public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+public actual fun dlclose(handle: MutPtr): CInt =
     VxworksJniBridge.libcVxworksDlclose(handle.rawAddress)
 
-public actual fun dladdr(addr: MutPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+public actual fun dladdr(addr: MutPtr, info: MutPtr): CInt =
     VxworksJniBridge.libcVxworksDladdr(addr.rawAddress, info.rawAddress)
 
-public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun gmtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGmtimeR(timeP.rawAddress, result.rawAddress))
 
-public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+public actual fun localtimeR(timeP: ConstPtr, result: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksLocaltimeR(timeP.rawAddress, result.rawAddress))
 
-public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+public actual fun mktime(tm: MutPtr): TimeT =
     VxworksJniBridge.libcVxworksMktime(tm.rawAddress)
 
-public actual fun time(time: MutPtr<TimeT>): TimeT =
+public actual fun time(time: MutPtr): TimeT =
     VxworksJniBridge.libcVxworksTime(time.rawAddress)
 
-public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun gmtime(timeP: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGmtime(timeP.rawAddress))
 
-public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+public actual fun localtime(timeP: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksLocaltime(timeP.rawAddress))
 
-public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+public actual fun timegm(tm: MutPtr): TimeT =
     VxworksJniBridge.libcVxworksTimegm(tm.rawAddress)
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
     VxworksJniBridge.libcVxworksDifftime(time1, time0)
 
-public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun gethostname(name: MutPtr, len: SizeT): CInt =
     VxworksJniBridge.libcVxworksGethostname(name.rawAddress, len.toLong())
 
 public actual fun usleep(secs: UsecondsT): CInt =
     VxworksJniBridge.libcVxworksUsleep(secs.toLong())
 
-public actual fun putenv(string: MutPtr<CChar>): CInt =
+public actual fun putenv(string: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPutenv(string.rawAddress)
 
-public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksSetlocale(category, locale.rawAddress))
 
-public actual fun localeconv(): MutPtr<Lconv> =
+public actual fun localeconv(): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksLocaleconv())
 
-public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+public actual fun sigprocmask(how: CInt, set: ConstPtr, oldset: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSigprocmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+public actual fun sigpending(set: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSigpending(set.rawAddress)
 
-public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkfifo(path: ConstPtr, mode: ModeT): CInt =
     VxworksJniBridge.libcVxworksMkfifo(path.rawAddress, mode)
 
-public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+public actual fun fseeko(stream: MutPtr, offset: OffT, whence: CInt): CInt =
     VxworksJniBridge.libcVxworksFseeko(stream.rawAddress, offset, whence)
 
-public actual fun ftello(stream: MutPtr<FILE>): OffT =
+public actual fun ftello(stream: MutPtr): OffT =
     VxworksJniBridge.libcVxworksFtello(stream.rawAddress)
 
-public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+public actual fun mkstemp(template: MutPtr): CInt =
     VxworksJniBridge.libcVxworksMkstemp(template.rawAddress)
 
-public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun tmpnam(ptr: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksTmpnam(ptr.rawAddress))
 
-public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+public actual fun openlog(ident: ConstPtr, logopt: CInt, facility: CInt) {
     VxworksJniBridge.libcVxworksOpenlog(ident.rawAddress, logopt, facility)
 }
 
@@ -1726,101 +1723,101 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     VxworksJniBridge.libcVxworksSetlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+public actual fun syslog(priority: CInt, message: ConstPtr, vararg variadicArgs: Long) {
     VxworksJniBridge.libcVxworksSyslog(priority, message.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stream: MutPtr<FILE>): SsizeT =
+public actual fun getline(lineptr: MutPtr, n: MutPtr, stream: MutPtr): SsizeT =
     VxworksJniBridge.libcVxworksGetline(lineptr.rawAddress, n.rawAddress, stream.rawAddress)
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksTcsetattr(fd, optionalActions, termios.rawAddress)
 
-public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+public actual fun tcgetattr(fd: CInt, termios: MutPtr): CInt =
     VxworksJniBridge.libcVxworksTcgetattr(fd, termios.rawAddress)
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
     VxworksJniBridge.libcVxworksTcsendbreak(fd, duration)
 
-public actual fun confstr(name: CInt, buf: MutPtr<CChar>, len: SizeT): SizeT =
+public actual fun confstr(name: CInt, buf: MutPtr, len: SizeT): SizeT =
     VxworksJniBridge.libcVxworksConfstr(name, buf.rawAddress, len.toLong()).toULong()
 
-public actual fun fnmatch(pattern: ConstPtr<CChar>, name: ConstPtr<CChar>, flags: CInt): CInt =
+public actual fun fnmatch(pattern: ConstPtr, name: ConstPtr, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksFnmatch(pattern.rawAddress, name.rawAddress, flags)
 
-public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+public actual fun symlinkat(target: ConstPtr, newdirfd: CInt, linkpath: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksSymlinkat(target.rawAddress, newdirfd, linkpath.rawAddress)
 
-public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr, mode: ModeT, flags: CInt): CInt =
     VxworksJniBridge.libcVxworksFchmodat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+public actual fun utime(file: ConstPtr, buf: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksUtime(file.rawAddress, buf.rawAddress)
 
-public actual fun memalign(blockSize: SizeT, sizeArg: SizeT): MutPtr<CVoid> =
+public actual fun memalign(blockSize: SizeT, sizeArg: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksMemalign(blockSize.toLong(), sizeArg.toLong()))
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: SizeT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGetcwd(buf.rawAddress, size.toLong()))
 
-public actual fun chdir(attr: ConstPtr<CChar>): CInt =
+public actual fun chdir(attr: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksChdir(attr.rawAddress)
 
-public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrInit(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexattrInit(attr.rawAddress)
 
-public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrDestroy(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexattrDestroy(attr.rawAddress)
 
-public actual fun pthreadMutexattrSettype(pAttr: MutPtr<PthreadMutexattrT>, pType: CInt): CInt =
+public actual fun pthreadMutexattrSettype(pAttr: MutPtr, pType: CInt): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexattrSettype(pAttr.rawAddress, pType)
 
-public actual fun pthreadMutexInit(mutex: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexInit(mutex: MutPtr, attr: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexInit(mutex.rawAddress, attr.rawAddress)
 
-public actual fun pthreadMutexDestroy(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexDestroy(mutex: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexDestroy(mutex.rawAddress)
 
-public actual fun pthreadMutexLock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexLock(mutex: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexLock(mutex.rawAddress)
 
-public actual fun pthreadMutexTrylock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexTrylock(mutex: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexTrylock(mutex.rawAddress)
 
-public actual fun pthreadMutexTimedlock(attr: MutPtr<PthreadMutexT>, spec: ConstPtr<Timespec>): CInt =
+public actual fun pthreadMutexTimedlock(attr: MutPtr, spec: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexTimedlock(attr.rawAddress, spec.rawAddress)
 
-public actual fun pthreadMutexUnlock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexUnlock(mutex: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadMutexUnlock(mutex.rawAddress)
 
-public actual fun pthreadAttrSetname(pAttr: MutPtr<PthreadAttrT>, name: MutPtr<CChar>): CInt =
+public actual fun pthreadAttrSetname(pAttr: MutPtr, name: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrSetname(pAttr.rawAddress, name.rawAddress)
 
-public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stacksize: SizeT): CInt =
+public actual fun pthreadAttrSetstacksize(attr: MutPtr, stacksize: SizeT): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrSetstacksize(attr.rawAddress, stacksize.toLong())
 
-public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr, size: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrGetstacksize(attr.rawAddress, size.rawAddress)
 
-public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrInit(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrInit(attr.rawAddress)
 
-public actual fun pthreadCreate(pThread: MutPtr<PthreadT>, pAttr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, value: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(pThread: MutPtr, pAttr: ConstPtr, startRoutine: PthreadCreateStartRoutineCallback, value: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCreate(pThread.rawAddress, pAttr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadSetschedparam(native.toLong(), policy, param.rawAddress)
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr, param: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadGetschedparam(native.toLong(), policy.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrSetinheritsched(attr: MutPtr<PthreadAttrT>, inheritsched: CInt): CInt =
+public actual fun pthreadAttrSetinheritsched(attr: MutPtr, inheritsched: CInt): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrSetinheritsched(attr.rawAddress, inheritsched)
 
-public actual fun pthreadAttrSetschedpolicy(attr: MutPtr<PthreadAttrT>, policy: CInt): CInt =
+public actual fun pthreadAttrSetschedpolicy(attr: MutPtr, policy: CInt): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrSetschedpolicy(attr.rawAddress, policy)
 
-public actual fun pthreadAttrDestroy(thread: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrDestroy(thread: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrDestroy(thread.rawAddress)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
@@ -1829,169 +1826,169 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt =
     VxworksJniBridge.libcVxworksPthreadAtfork(0L, 0L, 0L)
 
-public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+public actual fun fstat(fildes: CInt, buf: MutPtr): CInt =
     VxworksJniBridge.libcVxworksFstat(fildes, buf.rawAddress)
 
-public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun lstat(path: ConstPtr, buf: MutPtr): CInt =
     VxworksJniBridge.libcVxworksLstat(path.rawAddress, buf.rawAddress)
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     VxworksJniBridge.libcVxworksFtruncate(fd, length)
 
-public actual fun readdirR(pDir: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+public actual fun readdirR(pDir: MutPtr, entry: MutPtr, result: MutPtr): CInt =
     VxworksJniBridge.libcVxworksReaddirR(pDir.rawAddress, entry.rawAddress, result.rawAddress)
 
-public actual fun readdir(pDir: MutPtr<DIR>): MutPtr<Dirent> =
+public actual fun readdir(pDir: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksReaddir(pDir.rawAddress))
 
-public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksOpen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: CInt): CInt =
     VxworksJniBridge.libcVxworksPoll(fds.rawAddress, nfds.toInt(), timeout)
 
-public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrInit(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondattrInit(attr.rawAddress)
 
-public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrDestroy(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondattrDestroy(attr.rawAddress)
 
-public actual fun pthreadCondattrGetclock(pAttr: ConstPtr<PthreadCondattrT>, pClockId: MutPtr<ClockidT>): CInt =
+public actual fun pthreadCondattrGetclock(pAttr: ConstPtr, pClockId: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondattrGetclock(pAttr.rawAddress, pClockId.rawAddress)
 
-public actual fun pthreadCondattrSetclock(pAttr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(pAttr: MutPtr, clockId: ClockidT): CInt =
     VxworksJniBridge.libcVxworksPthreadCondattrSetclock(pAttr.rawAddress, clockId)
 
-public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondInit(cond.rawAddress, attr.rawAddress)
 
-public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondDestroy(cond: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondDestroy(cond.rawAddress)
 
-public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondSignal(cond: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondSignal(cond.rawAddress)
 
-public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondBroadcast(cond: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondBroadcast(cond.rawAddress)
 
-public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadCondWait(cond: MutPtr, mutex: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondWait(cond.rawAddress, mutex.rawAddress)
 
-public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrInit(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockattrInit(attr.rawAddress)
 
-public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockattrDestroy(attr.rawAddress)
 
-public actual fun pthreadRwlockattrSetmaxreaders(attr: MutPtr<PthreadRwlockattrT>, attr2: CUint): CInt =
+public actual fun pthreadRwlockattrSetmaxreaders(attr: MutPtr, attr2: CUint): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockattrSetmaxreaders(attr.rawAddress, attr2.toInt())
 
-public actual fun pthreadRwlockInit(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<PthreadRwlockattrT>): CInt =
+public actual fun pthreadRwlockInit(attr: MutPtr, host: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockInit(attr.rawAddress, host.rawAddress)
 
-public actual fun pthreadRwlockDestroy(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockDestroy(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockDestroy(attr.rawAddress)
 
-public actual fun pthreadRwlockRdlock(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockRdlock(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockRdlock(attr.rawAddress)
 
-public actual fun pthreadRwlockTryrdlock(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTryrdlock(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockTryrdlock(attr.rawAddress)
 
-public actual fun pthreadRwlockTimedrdlock(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<Timespec>): CInt =
+public actual fun pthreadRwlockTimedrdlock(attr: MutPtr, host: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockTimedrdlock(attr.rawAddress, host.rawAddress)
 
-public actual fun pthreadRwlockWrlock(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockWrlock(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockWrlock(attr.rawAddress)
 
-public actual fun pthreadRwlockTrywrlock(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockTrywrlock(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockTrywrlock(attr.rawAddress)
 
-public actual fun pthreadRwlockTimedwrlock(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<Timespec>): CInt =
+public actual fun pthreadRwlockTimedwrlock(attr: MutPtr, host: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockTimedwrlock(attr.rawAddress, host.rawAddress)
 
-public actual fun pthreadRwlockUnlock(attr: MutPtr<PthreadRwlockT>): CInt =
+public actual fun pthreadRwlockUnlock(attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadRwlockUnlock(attr.rawAddress)
 
-public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: MutPtr, dtor: PthreadKeyCreateDtorCallback?): CInt =
     VxworksJniBridge.libcVxworksPthreadKeyCreate(key.rawAddress, 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     VxworksJniBridge.libcVxworksPthreadKeyDelete(key.toLong())
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadSetspecific(key.toLong(), value.rawAddress)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksPthreadGetspecific(key.toLong()))
 
-public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwait(cond: MutPtr, mutex: MutPtr, abstime: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadCondTimedwait(cond.rawAddress, mutex.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadAttrGetname(attr: MutPtr<PthreadAttrT>, name: MutPtr<MutPtr<CChar>>): CInt =
+public actual fun pthreadAttrGetname(attr: MutPtr, name: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadAttrGetname(attr.rawAddress, name.rawAddress)
 
-public actual fun pthreadJoin(thread: PthreadT, status: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadJoin(thread: PthreadT, status: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadJoin(thread.toLong(), status.rawAddress)
 
 public actual fun pthreadSelf(): PthreadT =
     VxworksJniBridge.libcVxworksPthreadSelf().toULong()
 
-public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr): CInt =
     VxworksJniBridge.libcVxworksClockGettime(clockId, tp.rawAddress)
 
-public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksClockSettime(clockId, tp.rawAddress)
 
-public actual fun clockGetres(clockId: ClockidT, res: MutPtr<Timespec>): CInt =
+public actual fun clockGetres(clockId: ClockidT, res: MutPtr): CInt =
     VxworksJniBridge.libcVxworksClockGetres(clockId, res.rawAddress)
 
-public actual fun clockNanosleep(clockId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun clockNanosleep(clockId: ClockidT, flags: CInt, rqtp: ConstPtr, rmtp: MutPtr): CInt =
     VxworksJniBridge.libcVxworksClockNanosleep(clockId, flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+public actual fun nanosleep(rqtp: ConstPtr, rmtp: MutPtr): CInt =
     VxworksJniBridge.libcVxworksNanosleep(rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun accept(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
+public actual fun accept(s: CInt, addr: MutPtr, addrlen: MutPtr): CInt =
     VxworksJniBridge.libcVxworksAccept(s, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun bind(fd: CInt, addr: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+public actual fun bind(fd: CInt, addr: ConstPtr, len: SocklenT): CInt =
     VxworksJniBridge.libcVxworksBind(fd, addr.rawAddress, len.toInt())
 
-public actual fun connect(s: CInt, name: ConstPtr<Sockaddr>, namelen: SocklenT): CInt =
+public actual fun connect(s: CInt, name: ConstPtr, namelen: SocklenT): CInt =
     VxworksJniBridge.libcVxworksConnect(s, name.rawAddress, namelen.toInt())
 
-public actual fun getpeername(s: CInt, name: MutPtr<Sockaddr>, namelen: MutPtr<SocklenT>): CInt =
+public actual fun getpeername(s: CInt, name: MutPtr, namelen: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGetpeername(s, name.rawAddress, namelen.rawAddress)
 
-public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+public actual fun getsockname(socket: CInt, address: MutPtr, addressLen: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGetsockname(socket, address.rawAddress, addressLen.rawAddress)
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGetsockopt(sockfd, level, optname, optval.rawAddress, optlen.rawAddress)
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
     VxworksJniBridge.libcVxworksListen(socket, backlog)
 
-public actual fun recv(s: CInt, buf: MutPtr<CVoid>, bufLen: SizeT, flags: CInt): SsizeT =
+public actual fun recv(s: CInt, buf: MutPtr, bufLen: SizeT, flags: CInt): SsizeT =
     VxworksJniBridge.libcVxworksRecv(s, buf.rawAddress, bufLen.toLong(), flags)
 
-public actual fun recvfrom(s: CInt, buf: MutPtr<CVoid>, bufLen: SizeT, flags: CInt, from: MutPtr<Sockaddr>, pFromLen: MutPtr<SocklenT>): SsizeT =
+public actual fun recvfrom(s: CInt, buf: MutPtr, bufLen: SizeT, flags: CInt, from: MutPtr, pFromLen: MutPtr): SsizeT =
     VxworksJniBridge.libcVxworksRecvfrom(s, buf.rawAddress, bufLen.toLong(), flags, from.rawAddress, pFromLen.rawAddress)
 
-public actual fun recvmsg(socket: CInt, mp: MutPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun recvmsg(socket: CInt, mp: MutPtr, flags: CInt): SsizeT =
     VxworksJniBridge.libcVxworksRecvmsg(socket, mp.rawAddress, flags)
 
-public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+public actual fun send(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt): SsizeT =
     VxworksJniBridge.libcVxworksSend(socket, buf.rawAddress, len.toLong(), flags)
 
-public actual fun sendmsg(socket: CInt, mp: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+public actual fun sendmsg(socket: CInt, mp: ConstPtr, flags: CInt): SsizeT =
     VxworksJniBridge.libcVxworksSendmsg(socket, mp.rawAddress, flags)
 
-public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+public actual fun sendto(socket: CInt, buf: ConstPtr, len: SizeT, flags: CInt, addr: ConstPtr, addrlen: SocklenT): SsizeT =
     VxworksJniBridge.libcVxworksSendto(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.toInt())
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr, optionLen: SocklenT): CInt =
     VxworksJniBridge.libcVxworksSetsockopt(socket, level, name, value.rawAddress, optionLen.toInt())
 
 public actual fun shutdown(s: CInt, how: CInt): CInt =
@@ -2006,16 +2003,16 @@ public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CIn
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     VxworksJniBridge.libcVxworksFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun gaiStrerror(errcode: CInt): MutPtr<CChar> =
+public actual fun gaiStrerror(errcode: CInt): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksGaiStrerror(errcode))
 
 public actual fun close(fd: CInt): CInt =
     VxworksJniBridge.libcVxworksClose(fd)
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun read(fd: CInt, buf: MutPtr, count: SizeT): SsizeT =
     VxworksJniBridge.libcVxworksRead(fd, buf.rawAddress, count.toLong())
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+public actual fun write(fd: CInt, buf: ConstPtr, count: SizeT): SsizeT =
     VxworksJniBridge.libcVxworksWrite(fd, buf.rawAddress, count.toLong())
 
 public actual fun isatty(fd: CInt): CInt =
@@ -2027,19 +2024,19 @@ public actual fun dup(src: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     VxworksJniBridge.libcVxworksDup2(src, dst)
 
-public actual fun pipe(fds: MutPtr<CInt>): CInt =
+public actual fun pipe(fds: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPipe(fds.rawAddress)
 
-public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
+public actual fun unlink(pathname: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksUnlink(pathname.rawAddress)
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     VxworksJniBridge.libcVxworksLseek(fd, offset, whence)
 
-public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+public actual fun getaddrinfo(node: ConstPtr, service: ConstPtr, hints: ConstPtr, res: MutPtr): CInt =
     VxworksJniBridge.libcVxworksGetaddrinfo(node.rawAddress, service.rawAddress, hints.rawAddress, res.rawAddress)
 
-public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(res: MutPtr) {
     VxworksJniBridge.libcVxworksFreeaddrinfo(res.rawAddress)
 }
 
@@ -2055,40 +2052,40 @@ public actual fun getppid(): PidT =
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     VxworksJniBridge.libcVxworksSetpgid(pid, pgid)
 
-public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+public actual fun waitpid(pid: PidT, status: MutPtr, options: CInt): PidT =
     VxworksJniBridge.libcVxworksWaitpid(pid, status.rawAddress, options)
 
 public actual fun sysconf(attr: CInt): CLong =
     VxworksJniBridge.libcVxworksSysconf(attr)
 
-public actual fun setenv(envVarName: ConstPtr<CChar>, envVarValue: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(envVarName: ConstPtr, envVarValue: ConstPtr, overwrite: CInt): CInt =
     VxworksJniBridge.libcVxworksSetenv(envVarName.rawAddress, envVarValue.rawAddress, overwrite)
 
-public actual fun unsetenv(envVarName: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(envVarName: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksUnsetenv(envVarName.rawAddress)
 
-public actual fun realpath(fileName: ConstPtr<CChar>, resolvedName: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun realpath(fileName: ConstPtr, resolvedName: MutPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksRealpath(fileName.rawAddress, resolvedName.rawAddress))
 
-public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+public actual fun link(src: ConstPtr, dst: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksLink(src.rawAddress, dst.rawAddress)
 
-public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsize: SizeT): SsizeT =
+public actual fun readlink(path: ConstPtr, buf: MutPtr, bufsize: SizeT): SsizeT =
     VxworksJniBridge.libcVxworksReadlink(path.rawAddress, buf.rawAddress, bufsize.toLong())
 
-public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+public actual fun symlink(path1: ConstPtr, path2: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksSymlink(path1.rawAddress, path2.rawAddress)
 
-public actual fun opendir(name: ConstPtr<CChar>): MutPtr<DIR> =
+public actual fun opendir(name: ConstPtr): MutPtr =
     MutPtr(VxworksJniBridge.libcVxworksOpendir(name.rawAddress))
 
-public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+public actual fun rmdir(path: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksRmdir(path.rawAddress)
 
-public actual fun mkdir(dirName: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun mkdir(dirName: ConstPtr, mode: ModeT): CInt =
     VxworksJniBridge.libcVxworksMkdir(dirName.rawAddress, mode)
 
-public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+public actual fun chmod(path: ConstPtr, mode: ModeT): CInt =
     VxworksJniBridge.libcVxworksChmod(path.rawAddress, mode)
 
 public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =
@@ -2097,7 +2094,7 @@ public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =
 public actual fun fsync(fd: CInt): CInt =
     VxworksJniBridge.libcVxworksFsync(fd)
 
-public actual fun closedir(ptr: MutPtr<DIR>): CInt =
+public actual fun closedir(ptr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksClosedir(ptr.rawAddress)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
@@ -2106,19 +2103,19 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     VxworksJniBridge.libcVxworksSchedGetPriorityMin(policy)
 
-public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetparam(pid: PidT, param: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksSchedSetparam(pid, param.rawAddress)
 
-public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+public actual fun schedGetparam(pid: PidT, param: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSchedGetparam(pid, param.rawAddress)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksSchedSetscheduler(pid, policy, param.rawAddress)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     VxworksJniBridge.libcVxworksSchedGetscheduler(pid)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSchedRrGetInterval(pid, tp.rawAddress)
 
 public actual fun schedYield(): CInt =
@@ -2142,19 +2139,19 @@ public actual fun setuid(uid: UidT): CInt =
 public actual fun getuid(): UidT =
     VxworksJniBridge.libcVxworksGetuid().toUShort()
 
-public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigemptyset(set: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSigemptyset(set.rawAddress)
 
-public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+public actual fun sigfillset(set: MutPtr): CInt =
     VxworksJniBridge.libcVxworksSigfillset(set.rawAddress)
 
-public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigdelset(set: MutPtr, signum: CInt): CInt =
     VxworksJniBridge.libcVxworksSigdelset(set.rawAddress, signum)
 
-public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+public actual fun sigismember(set: ConstPtr, signum: CInt): CInt =
     VxworksJniBridge.libcVxworksSigismember(set.rawAddress, signum)
 
-public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oset: MutPtr<SigsetT>): CInt =
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr, oset: MutPtr): CInt =
     VxworksJniBridge.libcVxworksPthreadSigmask(how, set.rawAddress, oset.rawAddress)
 
 public actual fun kill(pid: PidT, signo: CInt): CInt =
@@ -2175,64 +2172,64 @@ public actual fun taskIdSelf(): TaskId =
 public actual fun taskDelay(ticks: VxTicksT): CInt =
     VxworksJniBridge.libcVxworksTaskDelay(ticks.toInt())
 
-public actual fun taskNameSet(taskId: TaskId, taskName: MutPtr<CChar>): CInt =
+public actual fun taskNameSet(taskId: TaskId, taskName: MutPtr): CInt =
     VxworksJniBridge.libcVxworksTaskNameSet(taskId, taskName.rawAddress)
 
-public actual fun taskNameGet(taskId: TaskId, bufName: MutPtr<CChar>, bufsize: SizeT): CInt =
+public actual fun taskNameGet(taskId: TaskId, bufName: MutPtr, bufsize: SizeT): CInt =
     VxworksJniBridge.libcVxworksTaskNameGet(taskId, bufName.rawAddress, bufsize.toLong())
 
-public actual fun rtpInfoGet(rtpId: RtpId, rtpStruct: MutPtr<RtpDesc>): CInt =
+public actual fun rtpInfoGet(rtpId: RtpId, rtpStruct: MutPtr): CInt =
     VxworksJniBridge.libcVxworksRtpInfoGet(rtpId, rtpStruct.rawAddress)
 
-public actual fun rtpSpawn(pubrtpFileName: ConstPtr<CChar>, argv: MutPtr<ConstPtr<CChar>>, envp: MutPtr<ConstPtr<CChar>>, priority: CInt, uStackSize: SizeT, options: CInt, taskOptions: CInt): RtpId =
+public actual fun rtpSpawn(pubrtpFileName: ConstPtr, argv: MutPtr, envp: MutPtr, priority: CInt, uStackSize: SizeT, options: CInt, taskOptions: CInt): RtpId =
     VxworksJniBridge.libcVxworksRtpSpawn(pubrtpFileName.rawAddress, argv.rawAddress, envp.rawAddress, priority, uStackSize.toLong(), options, taskOptions)
 
-public actual fun pathIsAbsolute(filepath: ConstPtr<CChar>, pNameTail: MutPtr<ConstPtr<CChar>>): Bool =
+public actual fun pathIsAbsolute(filepath: ConstPtr, pNameTail: MutPtr): Bool =
     VxworksJniBridge.libcVxworksPathIsAbsolute(filepath.rawAddress, pNameTail.rawAddress)
 
-public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     VxworksJniBridge.libcVxworksWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: CInt, iov: ConstPtr, iovcnt: CInt): SsizeT =
     VxworksJniBridge.libcVxworksReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun randBytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+public actual fun randBytes(buf: MutPtr, length: CInt): CInt =
     VxworksJniBridge.libcVxworksRandBytes(buf.rawAddress, length)
 
-public actual fun randABytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+public actual fun randABytes(buf: MutPtr, length: CInt): CInt =
     VxworksJniBridge.libcVxworksRandABytes(buf.rawAddress, length)
 
-public actual fun randUBytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+public actual fun randUBytes(buf: MutPtr, length: CInt): CInt =
     VxworksJniBridge.libcVxworksRandUBytes(buf.rawAddress, length)
 
 public actual fun randSecure(): CInt =
     VxworksJniBridge.libcVxworksRandSecure()
 
-public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+public actual fun mqOpen(name: ConstPtr, oflag: CInt, vararg variadicArgs: Long): MqdT =
     VxworksJniBridge.libcVxworksMqOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     VxworksJniBridge.libcVxworksMqClose(mqd.toLong())
 
-public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+public actual fun mqUnlink(name: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksMqUnlink(name.rawAddress)
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr): SsizeT =
     VxworksJniBridge.libcVxworksMqReceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress)
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr, msgLen: SizeT, msgPrio: MutPtr, absTimeout: ConstPtr): SsizeT =
     VxworksJniBridge.libcVxworksMqTimedreceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress, absTimeout.rawAddress)
 
-public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint): CInt =
     VxworksJniBridge.libcVxworksMqSend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt())
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr): CInt =
     VxworksJniBridge.libcVxworksMqTimedsend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt(), absTimeout.rawAddress)
 
-public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksMqGetattr(mqd.toLong(), attr.rawAddress)
 
-public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr, oldattr: MutPtr): CInt =
     VxworksJniBridge.libcVxworksMqSetattr(mqd.toLong(), newattr.rawAddress, oldattr.rawAddress)
 
 public actual fun vxCpuEnabledGet(): CpusetT =

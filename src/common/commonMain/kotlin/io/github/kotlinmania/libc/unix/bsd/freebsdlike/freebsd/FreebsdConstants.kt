@@ -2427,7 +2427,7 @@ public val SHM_STAT: CInt = 13
 
 public val SHM_INFO: CInt = 14
 
-public val SHM_ANON: MutPtr<CChar> = MutPtr<CChar>(1.toLong())
+public val SHM_ANON: MutPtr = MutPtr(1.toLong())
 
 // The *_MAXID constants never should've been used outside of the
 // FreeBSD base system.  And with the exception of CTL_P1003_1B_MAXID,

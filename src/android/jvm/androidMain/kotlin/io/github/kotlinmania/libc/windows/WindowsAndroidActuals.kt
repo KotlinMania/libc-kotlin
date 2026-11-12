@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -12,7 +11,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -556,10 +554,10 @@ private object WindowsJniBridge {
     external fun libcWindowsSocket(af: Int, socketType: Int, protocol: Int): Long
 }
 
-public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun printf(format: ConstPtr, vararg variadicArgs: Long): CInt =
     WindowsJniBridge.libcWindowsPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+public actual fun fprintf(stream: MutPtr, format: ConstPtr, vararg variadicArgs: Long): CInt =
     WindowsJniBridge.libcWindowsFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun isalnum(c: CInt): CInt =
@@ -604,39 +602,39 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     WindowsJniBridge.libcWindowsToupper(c)
 
-public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: MutPtr, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
     WindowsJniBridge.libcWindowsQsort(base.rawAddress, num.toLong(), size.toLong(), 0L)
 }
 
-public actual fun qsortS(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr<CVoid>) {
+public actual fun qsortS(base: MutPtr, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr) {
     WindowsJniBridge.libcWindowsQsortS(base.rawAddress, num.toLong(), size.toLong(), 0L, arg.rawAddress)
 }
 
-public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fopen(filename: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsFopen(filename.rawAddress, mode.rawAddress))
 
-public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+public actual fun freopen(filename: ConstPtr, mode: ConstPtr, file: MutPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsFreopen(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fflush(file: MutPtr<FILE>): CInt =
+public actual fun fflush(file: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFflush(file.rawAddress)
 
-public actual fun fclose(file: MutPtr<FILE>): CInt =
+public actual fun fclose(file: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFclose(file.rawAddress)
 
-public actual fun remove(filename: ConstPtr<CChar>): CInt =
+public actual fun remove(filename: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsRemove(filename.rawAddress)
 
-public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+public actual fun rename(oldname: ConstPtr, newname: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun tmpfile(): MutPtr<FILE> =
+public actual fun tmpfile(): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsTmpfile())
 
-public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+public actual fun setvbuf(stream: MutPtr, buffer: MutPtr, mode: CInt, size: SizeT): CInt =
     WindowsJniBridge.libcWindowsSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+public actual fun setbuf(stream: MutPtr, buf: MutPtr) {
     WindowsJniBridge.libcWindowsSetbuf(stream.rawAddress, buf.rawAddress)
 }
 
@@ -646,99 +644,99 @@ public actual fun getchar(): CInt =
 public actual fun putchar(c: CInt): CInt =
     WindowsJniBridge.libcWindowsPutchar(c)
 
-public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+public actual fun fgetc(stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFgetc(stream.rawAddress)
 
-public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+public actual fun fgets(buf: MutPtr, n: CInt, stream: MutPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsFgets(buf.rawAddress, n, stream.rawAddress))
 
-public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun fputc(c: CInt, stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFputc(c, stream.rawAddress)
 
-public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+public actual fun fputs(s: ConstPtr, stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFputs(s.rawAddress, stream.rawAddress)
 
-public actual fun puts(s: ConstPtr<CChar>): CInt =
+public actual fun puts(s: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsPuts(s.rawAddress)
 
-public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+public actual fun ungetc(c: CInt, stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsUngetc(c, stream.rawAddress)
 
-public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fread(ptr: MutPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     WindowsJniBridge.libcWindowsFread(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+public actual fun fwrite(ptr: ConstPtr, size: SizeT, nobj: SizeT, stream: MutPtr): SizeT =
     WindowsJniBridge.libcWindowsFwrite(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: MutPtr, offset: CLong, whence: CInt): CInt =
     WindowsJniBridge.libcWindowsFseek(stream.rawAddress, offset, whence)
 
-public actual fun ftell(stream: MutPtr<FILE>): CLong =
+public actual fun ftell(stream: MutPtr): CLong =
     WindowsJniBridge.libcWindowsFtell(stream.rawAddress)
 
-public actual fun rewind(stream: MutPtr<FILE>) {
+public actual fun rewind(stream: MutPtr) {
     WindowsJniBridge.libcWindowsRewind(stream.rawAddress)
 }
 
-public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+public actual fun fgetpos(stream: MutPtr, ptr: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFgetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+public actual fun fsetpos(stream: MutPtr, ptr: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsFsetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun feof(stream: MutPtr<FILE>): CInt =
+public actual fun feof(stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFeof(stream.rawAddress)
 
-public actual fun ferror(stream: MutPtr<FILE>): CInt =
+public actual fun ferror(stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFerror(stream.rawAddress)
 
-public actual fun perror(s: ConstPtr<CChar>) {
+public actual fun perror(s: ConstPtr) {
     WindowsJniBridge.libcWindowsPerror(s.rawAddress)
 }
 
-public actual fun atof(s: ConstPtr<CChar>): CDouble =
+public actual fun atof(s: ConstPtr): CDouble =
     WindowsJniBridge.libcWindowsAtof(s.rawAddress)
 
-public actual fun atoi(s: ConstPtr<CChar>): CInt =
+public actual fun atoi(s: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsAtoi(s.rawAddress)
 
-public actual fun atol(s: ConstPtr<CChar>): CLong =
+public actual fun atol(s: ConstPtr): CLong =
     WindowsJniBridge.libcWindowsAtol(s.rawAddress)
 
-public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(s: ConstPtr): CLonglong =
     WindowsJniBridge.libcWindowsAtoll(s.rawAddress)
 
-public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(s: ConstPtr, endp: MutPtr): CDouble =
     WindowsJniBridge.libcWindowsStrtod(s.rawAddress, endp.rawAddress)
 
-public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(s: ConstPtr, endp: MutPtr): CFloat =
     WindowsJniBridge.libcWindowsStrtof(s.rawAddress, endp.rawAddress)
 
-public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(s: ConstPtr, endp: MutPtr, base: CInt): CLong =
     WindowsJniBridge.libcWindowsStrtol(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(s: ConstPtr, endp: MutPtr, base: CInt): CLonglong =
     WindowsJniBridge.libcWindowsStrtoll(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(s: ConstPtr, endp: MutPtr, base: CInt): CUlong =
     WindowsJniBridge.libcWindowsStrtoul(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(s: ConstPtr, endp: MutPtr, base: CInt): CUlonglong =
     WindowsJniBridge.libcWindowsStrtoull(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsCalloc(nobj.toLong(), size.toLong()))
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsMalloc(size.toLong()))
 
-public actual fun msize(p: MutPtr<CVoid>): SizeT =
+public actual fun msize(p: MutPtr): SizeT =
     WindowsJniBridge.libcWindowsMsize(p.rawAddress).toULong()
 
-public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(p: MutPtr, size: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsRealloc(p.rawAddress, size.toLong()))
 
-public actual fun free(p: MutPtr<CVoid>) {
+public actual fun free(p: MutPtr) {
     WindowsJniBridge.libcWindowsFree(p.rawAddress)
 }
 
@@ -755,91 +753,91 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(cb: AtexitCbCallback): CInt =
     WindowsJniBridge.libcWindowsAtexit(0L)
 
-public actual fun system(s: ConstPtr<CChar>): CInt =
+public actual fun system(s: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsSystem(s.rawAddress)
 
-public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(s: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsGetenv(s.rawAddress))
 
-public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcpy(dst: MutPtr, src: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrcpy(dst.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncpy(dst: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrncpy(dst.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strcat(s: MutPtr, ct: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrcat(s.rawAddress, ct.rawAddress))
 
-public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+public actual fun strncat(s: MutPtr, ct: ConstPtr, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrncat(s.rawAddress, ct.rawAddress, n.toLong()))
 
-public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcmp(cs: ConstPtr, ct: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsStrcmp(cs.rawAddress, ct.rawAddress)
 
-public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+public actual fun strncmp(cs: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     WindowsJniBridge.libcWindowsStrncmp(cs.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+public actual fun strcoll(cs: ConstPtr, ct: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsStrcoll(cs.rawAddress, ct.rawAddress)
 
-public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrchr(cs.rawAddress, c))
 
-public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+public actual fun strrchr(cs: ConstPtr, c: CInt): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrrchr(cs.rawAddress, c))
 
-public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     WindowsJniBridge.libcWindowsStrspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+public actual fun strcspn(cs: ConstPtr, ct: ConstPtr): SizeT =
     WindowsJniBridge.libcWindowsStrcspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strdup(cs: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrdup(cs.rawAddress))
 
-public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strpbrk(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrpbrk(cs.rawAddress, ct.rawAddress))
 
-public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strstr(cs: ConstPtr, ct: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrstr(cs.rawAddress, ct.rawAddress))
 
-public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+public actual fun strlen(cs: ConstPtr): SizeT =
     WindowsJniBridge.libcWindowsStrlen(cs.rawAddress).toULong()
 
-public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+public actual fun strnlen(cs: ConstPtr, maxlen: SizeT): SizeT =
     WindowsJniBridge.libcWindowsStrnlen(cs.rawAddress, maxlen.toLong()).toULong()
 
-public actual fun strerror(n: CInt): MutPtr<CChar> =
+public actual fun strerror(n: CInt): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrerror(n))
 
-public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun strtok(s: MutPtr, t: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsStrtok(s.rawAddress, t.rawAddress))
 
-public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+public actual fun strxfrm(s: MutPtr, ct: ConstPtr, n: SizeT): SizeT =
     WindowsJniBridge.libcWindowsStrxfrm(s.rawAddress, ct.rawAddress, n.toLong()).toULong()
 
-public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+public actual fun wcslen(buf: ConstPtr): SizeT =
     WindowsJniBridge.libcWindowsWcslen(buf.rawAddress).toULong()
 
-public actual fun wcsnlen(str: ConstPtr<WcharT>, numberOfElements: SizeT): SizeT =
+public actual fun wcsnlen(str: ConstPtr, numberOfElements: SizeT): SizeT =
     WindowsJniBridge.libcWindowsWcsnlen(str.rawAddress, numberOfElements.toLong()).toULong()
 
-public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+public actual fun wcstombs(dest: MutPtr, src: ConstPtr, n: SizeT): SizeT =
     WindowsJniBridge.libcWindowsWcstombs(dest.rawAddress, src.rawAddress, n.toLong()).toULong()
 
-public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memchr(cx: ConstPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsMemchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+public actual fun memcmp(cx: ConstPtr, ct: ConstPtr, n: SizeT): CInt =
     WindowsJniBridge.libcWindowsMemcmp(cx.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memcpy(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+public actual fun memmove(dest: MutPtr, src: ConstPtr, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+public actual fun memset(dest: MutPtr, c: CInt, n: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsMemset(dest.rawAddress, c, n.toLong()))
 
 public actual fun abs(i: CInt): CInt =
@@ -864,86 +862,86 @@ public actual fun raise(signum: CInt): CInt =
 public actual fun clock(): ClockT =
     WindowsJniBridge.libcWindowsClock()
 
-public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
+public actual fun ctime(sourceTime: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsCtime(sourceTime.rawAddress))
 
 public actual fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble =
     WindowsJniBridge.libcWindowsDifftime(timeEnd, timeStart)
 
-public actual fun gmtimeS(destTime: MutPtr<Tm>, srcTime: ConstPtr<TimeT>): CInt =
+public actual fun gmtimeS(destTime: MutPtr, srcTime: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsGmtimeS(destTime.rawAddress, srcTime.rawAddress)
 
-public actual fun getDaylight(hours: MutPtr<CInt>): ErrnoT =
+public actual fun getDaylight(hours: MutPtr): ErrnoT =
     WindowsJniBridge.libcWindowsGetDaylight(hours.rawAddress)
 
-public actual fun getDstbias(seconds: MutPtr<CLong>): ErrnoT =
+public actual fun getDstbias(seconds: MutPtr): ErrnoT =
     WindowsJniBridge.libcWindowsGetDstbias(seconds.rawAddress)
 
-public actual fun getTimezone(seconds: MutPtr<CLong>): ErrnoT =
+public actual fun getTimezone(seconds: MutPtr): ErrnoT =
     WindowsJniBridge.libcWindowsGetTimezone(seconds.rawAddress)
 
-public actual fun getTzname(pReturnValue: MutPtr<SizeT>, timeZoneName: MutPtr<CChar>, sizeInBytes: SizeT, index: CInt): ErrnoT =
+public actual fun getTzname(pReturnValue: MutPtr, timeZoneName: MutPtr, sizeInBytes: SizeT, index: CInt): ErrnoT =
     WindowsJniBridge.libcWindowsGetTzname(pReturnValue.rawAddress, timeZoneName.rawAddress, sizeInBytes.toLong(), index)
 
-public actual fun localtimeS(tmDest: MutPtr<Tm>, sourceTime: ConstPtr<TimeT>): ErrnoT =
+public actual fun localtimeS(tmDest: MutPtr, sourceTime: ConstPtr): ErrnoT =
     WindowsJniBridge.libcWindowsLocaltimeS(tmDest.rawAddress, sourceTime.rawAddress)
 
-public actual fun time(destTime: MutPtr<TimeT>): TimeT =
+public actual fun time(destTime: MutPtr): TimeT =
     WindowsJniBridge.libcWindowsTime(destTime.rawAddress)
 
 public actual fun tzset() {
     WindowsJniBridge.libcWindowsTzset()
 }
 
-public actual fun chmod(path: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun chmod(path: ConstPtr, mode: CInt): CInt =
     WindowsJniBridge.libcWindowsChmod(path.rawAddress, mode)
 
-public actual fun wchmod(path: ConstPtr<WcharT>, mode: CInt): CInt =
+public actual fun wchmod(path: ConstPtr, mode: CInt): CInt =
     WindowsJniBridge.libcWindowsWchmod(path.rawAddress, mode)
 
-public actual fun mkdir(path: ConstPtr<CChar>): CInt =
+public actual fun mkdir(path: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsMkdir(path.rawAddress)
 
-public actual fun wrmdir(path: ConstPtr<WcharT>): CInt =
+public actual fun wrmdir(path: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsWrmdir(path.rawAddress)
 
-public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+public actual fun fstat(fildes: CInt, buf: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFstat(fildes, buf.rawAddress)
 
-public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+public actual fun stat(path: ConstPtr, buf: MutPtr): CInt =
     WindowsJniBridge.libcWindowsStat(path.rawAddress, buf.rawAddress)
 
-public actual fun wstat(path: ConstPtr<WcharT>, buf: MutPtr<Stat>): CInt =
+public actual fun wstat(path: ConstPtr, buf: MutPtr): CInt =
     WindowsJniBridge.libcWindowsWstat(path.rawAddress, buf.rawAddress)
 
-public actual fun wutime(file: ConstPtr<WcharT>, buf: MutPtr<Utimbuf>): CInt =
+public actual fun wutime(file: ConstPtr, buf: MutPtr): CInt =
     WindowsJniBridge.libcWindowsWutime(file.rawAddress, buf.rawAddress)
 
-public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun popen(command: ConstPtr, mode: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun pclose(stream: MutPtr<FILE>): CInt =
+public actual fun pclose(stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsPclose(stream.rawAddress)
 
-public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+public actual fun fdopen(fd: CInt, mode: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsFdopen(fd, mode.rawAddress))
 
-public actual fun fileno(stream: MutPtr<FILE>): CInt =
+public actual fun fileno(stream: MutPtr): CInt =
     WindowsJniBridge.libcWindowsFileno(stream.rawAddress)
 
-public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun open(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     WindowsJniBridge.libcWindowsOpen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wopen(path: ConstPtr<WcharT>, oflag: CInt, vararg variadicArgs: Long): CInt =
+public actual fun wopen(path: ConstPtr, oflag: CInt, vararg variadicArgs: Long): CInt =
     WindowsJniBridge.libcWindowsWopen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: ConstPtr<CChar>, mode: CInt): CInt =
+public actual fun creat(path: ConstPtr, mode: CInt): CInt =
     WindowsJniBridge.libcWindowsCreat(path.rawAddress, mode)
 
-public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun access(path: ConstPtr, amode: CInt): CInt =
     WindowsJniBridge.libcWindowsAccess(path.rawAddress, amode)
 
-public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+public actual fun chdir(dir: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsChdir(dir.rawAddress)
 
 public actual fun close(fd: CInt): CInt =
@@ -955,55 +953,55 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     WindowsJniBridge.libcWindowsDup2(src, dst)
 
-public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsExecl(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecl(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexecl(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsWexecl(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsExecle(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecle(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexecle(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsWexecle(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlp(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execlp(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsExeclp(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclp(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexeclp(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsWexeclp(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlpe(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+public actual fun execlpe(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsExeclpe(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclpe(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+public actual fun wexeclpe(path: ConstPtr, arg0: ConstPtr, vararg variadicArgs: Long): IntptrT =
     WindowsJniBridge.libcWindowsWexeclpe(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): IntptrT =
+public actual fun execv(prog: ConstPtr, argv: ConstPtr): IntptrT =
     WindowsJniBridge.libcWindowsExecv(prog.rawAddress, argv.rawAddress)
 
-public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsExecve(prog.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvp(c: ConstPtr, argv: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsExecvp(c.rawAddress, argv.rawAddress)
 
-public actual fun execvpe(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun execvpe(c: ConstPtr, argv: ConstPtr, envp: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsExecvpe(c.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun wexecv(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecv(prog: ConstPtr, argv: ConstPtr): IntptrT =
     WindowsJniBridge.libcWindowsWexecv(prog.rawAddress, argv.rawAddress)
 
-public actual fun wexecve(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecve(prog: ConstPtr, argv: ConstPtr, envp: ConstPtr): IntptrT =
     WindowsJniBridge.libcWindowsWexecve(prog.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun wexecvp(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecvp(c: ConstPtr, argv: ConstPtr): IntptrT =
     WindowsJniBridge.libcWindowsWexecvp(c.rawAddress, argv.rawAddress)
 
-public actual fun wexecvpe(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+public actual fun wexecvpe(c: ConstPtr, argv: ConstPtr, envp: ConstPtr): IntptrT =
     WindowsJniBridge.libcWindowsWexecvpe(c.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun getcwd(buf: MutPtr<CChar>, size: CInt): MutPtr<CChar> =
+public actual fun getcwd(buf: MutPtr, size: CInt): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsGetcwd(buf.rawAddress, size))
 
 public actual fun getpid(): CInt =
@@ -1018,19 +1016,19 @@ public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
 public actual fun lseek64(fd: CInt, offset: CLonglong, origin: CInt): CLonglong =
     WindowsJniBridge.libcWindowsLseek64(fd, offset, origin)
 
-public actual fun pipe(fds: MutPtr<CInt>, psize: CUint, textmode: CInt): CInt =
+public actual fun pipe(fds: MutPtr, psize: CUint, textmode: CInt): CInt =
     WindowsJniBridge.libcWindowsPipe(fds.rawAddress, psize.toInt(), textmode)
 
-public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: CUint): CInt =
+public actual fun read(fd: CInt, buf: MutPtr, count: CUint): CInt =
     WindowsJniBridge.libcWindowsRead(fd, buf.rawAddress, count.toInt())
 
-public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+public actual fun rmdir(path: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsRmdir(path.rawAddress)
 
-public actual fun unlink(c: ConstPtr<CChar>): CInt =
+public actual fun unlink(c: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsUnlink(c.rawAddress)
 
-public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: CUint): CInt =
+public actual fun write(fd: CInt, buf: ConstPtr, count: CUint): CInt =
     WindowsJniBridge.libcWindowsWrite(fd, buf.rawAddress, count.toInt())
 
 public actual fun commit(fd: CInt): CInt =
@@ -1042,62 +1040,62 @@ public actual fun getOsfhandle(fd: CInt): IntptrT =
 public actual fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt =
     WindowsJniBridge.libcWindowsOpenOsfhandle(osfhandle, flags)
 
-public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun setlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsSetlocale(category, locale.rawAddress))
 
-public actual fun wsetlocale(category: CInt, locale: ConstPtr<WcharT>): MutPtr<WcharT> =
+public actual fun wsetlocale(category: CInt, locale: ConstPtr): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsWsetlocale(category, locale.rawAddress))
 
-public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsAlignedMalloc(size.toLong(), alignment.toLong()))
 
-public actual fun alignedFree(ptr: MutPtr<CVoid>) {
+public actual fun alignedFree(ptr: MutPtr) {
     WindowsJniBridge.libcWindowsAlignedFree(ptr.rawAddress)
 }
 
-public actual fun alignedRealloc(memblock: MutPtr<CVoid>, size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+public actual fun alignedRealloc(memblock: MutPtr, size: SizeT, alignment: SizeT): MutPtr =
     MutPtr(WindowsJniBridge.libcWindowsAlignedRealloc(memblock.rawAddress, size.toLong(), alignment.toLong()))
 
-public actual fun putenv(envstring: ConstPtr<CChar>): CInt =
+public actual fun putenv(envstring: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsPutenv(envstring.rawAddress)
 
-public actual fun wputenv(envstring: ConstPtr<WcharT>): CInt =
+public actual fun wputenv(envstring: ConstPtr): CInt =
     WindowsJniBridge.libcWindowsWputenv(envstring.rawAddress)
 
-public actual fun putenvS(envstring: ConstPtr<CChar>, valueString: ConstPtr<CChar>): ErrnoT =
+public actual fun putenvS(envstring: ConstPtr, valueString: ConstPtr): ErrnoT =
     WindowsJniBridge.libcWindowsPutenvS(envstring.rawAddress, valueString.rawAddress)
 
-public actual fun wputenvS(envstring: ConstPtr<WcharT>, valueString: ConstPtr<WcharT>): ErrnoT =
+public actual fun wputenvS(envstring: ConstPtr, valueString: ConstPtr): ErrnoT =
     WindowsJniBridge.libcWindowsWputenvS(envstring.rawAddress, valueString.rawAddress)
 
 public actual fun listen(s: Socket, backlog: CInt): CInt =
     WindowsJniBridge.libcWindowsListen(s.toLong(), backlog)
 
-public actual fun accept(s: Socket, addr: MutPtr<Sockaddr>, addrlen: MutPtr<CInt>): Socket =
+public actual fun accept(s: Socket, addr: MutPtr, addrlen: MutPtr): Socket =
     WindowsJniBridge.libcWindowsAccept(s.toLong(), addr.rawAddress, addrlen.rawAddress).toULong()
 
-public actual fun bind(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+public actual fun bind(s: Socket, name: ConstPtr, namelen: CInt): CInt =
     WindowsJniBridge.libcWindowsBind(s.toLong(), name.rawAddress, namelen)
 
-public actual fun connect(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+public actual fun connect(s: Socket, name: ConstPtr, namelen: CInt): CInt =
     WindowsJniBridge.libcWindowsConnect(s.toLong(), name.rawAddress, namelen)
 
-public actual fun getpeername(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+public actual fun getpeername(s: Socket, name: MutPtr, nameln: MutPtr): CInt =
     WindowsJniBridge.libcWindowsGetpeername(s.toLong(), name.rawAddress, nameln.rawAddress)
 
-public actual fun getsockname(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+public actual fun getsockname(s: Socket, name: MutPtr, nameln: MutPtr): CInt =
     WindowsJniBridge.libcWindowsGetsockname(s.toLong(), name.rawAddress, nameln.rawAddress)
 
-public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr<CChar>, optlen: MutPtr<CInt>): CInt =
+public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr, optlen: MutPtr): CInt =
     WindowsJniBridge.libcWindowsGetsockopt(s.toLong(), level, optname, optval.rawAddress, optlen.rawAddress)
 
-public actual fun recvfrom(s: Socket, buf: MutPtr<CChar>, len: CInt, flags: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<CInt>): CInt =
+public actual fun recvfrom(s: Socket, buf: MutPtr, len: CInt, flags: CInt, from: MutPtr, fromlen: MutPtr): CInt =
     WindowsJniBridge.libcWindowsRecvfrom(s.toLong(), buf.rawAddress, len, flags, from.rawAddress, fromlen.rawAddress)
 
-public actual fun sendto(s: Socket, buf: ConstPtr<CChar>, len: CInt, flags: CInt, to: ConstPtr<Sockaddr>, tolen: CInt): CInt =
+public actual fun sendto(s: Socket, buf: ConstPtr, len: CInt, flags: CInt, to: ConstPtr, tolen: CInt): CInt =
     WindowsJniBridge.libcWindowsSendto(s.toLong(), buf.rawAddress, len, flags, to.rawAddress, tolen)
 
-public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr<CChar>, optlen: CInt): CInt =
+public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr, optlen: CInt): CInt =
     WindowsJniBridge.libcWindowsSetsockopt(s.toLong(), level, optname, optval.rawAddress, optlen)
 
 public actual fun socket(af: CInt, socketType: CInt, protocol: CInt): Socket =

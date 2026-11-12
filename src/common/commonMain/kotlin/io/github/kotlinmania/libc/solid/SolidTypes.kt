@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUchar
@@ -39,7 +38,7 @@ public typealias UsecondsT = CUint
 public typealias SighandlerT = SizeT
 
 // sys/ansi.h
-public typealias CaddrT = MutPtr<CChar>
+public typealias CaddrT = MutPtr
 
 public typealias GidT = UInt
 
@@ -70,7 +69,7 @@ public typealias LocaleT = ULong
 public typealias NlItem = CLong
 
 // sys/types.h
-public typealias VaList = MutPtr<CChar>
+public typealias VaList = MutPtr
 
 public typealias UInt8T = UByte
 
@@ -100,7 +99,7 @@ public typealias UQuadT = ULong
 
 public typealias QuadT = Long
 
-public typealias QaddrT = MutPtr<QuadT>
+public typealias QaddrT = MutPtr
 
 public typealias LonglongT = Long
 

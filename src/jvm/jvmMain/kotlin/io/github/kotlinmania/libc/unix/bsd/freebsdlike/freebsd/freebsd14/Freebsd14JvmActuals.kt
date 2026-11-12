@@ -3,17 +3,14 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd14
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpulevelT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpuwhichT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -108,31 +105,31 @@ public actual fun setgrent() {
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Setgrent()
 }
 
-public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+public actual fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Mprotect(addr.rawAddress, len.toLong(), prot)
 
 public actual fun freelocale(loc: LocaleT) {
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Freelocale(loc.rawAddress)
 }
 
-public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Msgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<DomainsetT>, policy: MutPtr<CInt>): CInt =
+public actual fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr, policy: MutPtr): CInt =
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14CpusetGetdomain(level, which, id, setsize.toLong(), mask.rawAddress, policy.rawAddress)
 
-public actual fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr<DomainsetT>, policy: CInt): CInt =
+public actual fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr, policy: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14CpusetSetdomain(level, which, id, setsize.toLong(), mask.rawAddress, policy)
 
-public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun dirname(path: MutPtr): MutPtr =
     MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Dirname(path.rawAddress))
 
-public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+public actual fun basename(path: MutPtr): MutPtr =
     MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14Basename(path.rawAddress))
 
-public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>) {
+public actual fun qsortR(base: MutPtr, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr) {
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14QsortR(base.rawAddress, num.toLong(), size.toLong(), 0L, arg.rawAddress)
 }
 
-public actual fun kvmKerndisp(kd: MutPtr<KvmT>): KssizeT =
+public actual fun kvmKerndisp(kd: MutPtr): KssizeT =
     UnixBsdFreebsdlikeFreebsdFreebsd14JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd14KvmKerndisp(kd.rawAddress)

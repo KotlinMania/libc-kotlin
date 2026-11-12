@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias IntmaxT = Long
@@ -60,9 +59,9 @@ public typealias NlItem = CInt
 
 public typealias WasiRightsT = ULong
 
-public typealias LocaleT = MutPtr<LocaleStruct>
+public typealias LocaleT = MutPtr
 
-public typealias PthreadT = MutPtr<CVoid>
+public typealias PthreadT = MutPtr
 
 public typealias PthreadOnceT = CInt
 

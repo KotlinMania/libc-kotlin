@@ -3,21 +3,11 @@
 package io.github.kotlinmania.libc.new.qurt.pthread
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.ClockidT
-import io.github.kotlinmania.libc.new.qurt.PthreadAttrT
-import io.github.kotlinmania.libc.new.qurt.PthreadCondT
-import io.github.kotlinmania.libc.new.qurt.PthreadCondattrT
 import io.github.kotlinmania.libc.new.qurt.PthreadKeyT
-import io.github.kotlinmania.libc.new.qurt.PthreadMutexT
-import io.github.kotlinmania.libc.new.qurt.PthreadMutexattrT
-import io.github.kotlinmania.libc.new.qurt.PthreadOnceT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.Timespec
-import io.github.kotlinmania.libc.new.qurt.sys.types.CpuSetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -143,16 +133,16 @@ private external fun wasmLibcNewQurtPthreadPthreadAttrGetaffinityNp(p0: String, 
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcNewQurtPthreadPosixMemalign(p0, p1, p2)")
 private external fun wasmLibcNewQurtPthreadPosixMemalign(p0: String, p1: String, p2: String): Int
 
-public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): CInt =
+public actual fun pthreadCreate(thread: MutPtr, attr: ConstPtr, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCreate(thread.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadJoin(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+public actual fun pthreadJoin(thread: PthreadT, retval: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadJoin(thread.toLong().toString(), retval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadDetach(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadExit(retval: MutPtr<CVoid>): Nothing {
+public actual fun pthreadExit(retval: MutPtr): Nothing {
     if (newQurtPthreadNapiAvailable) {
         wasmLibcNewQurtPthreadPthreadExit(retval.rawAddress.toString())
     } else {
@@ -167,101 +157,101 @@ public actual fun pthreadSelf(): PthreadT =
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadEqual(t1.toLong().toString(), t2.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrInit(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadAttrDestroy(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stacksize: SizeT): CInt =
+public actual fun pthreadAttrSetstacksize(attr: MutPtr, stacksize: SizeT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrSetstacksize(attr.rawAddress.toString(), stacksize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr, stacksize: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrGetstacksize(attr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, detachstate: CInt): CInt =
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr, detachstate: CInt): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrSetdetachstate(attr.rawAddress.toString(), detachstate) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt =
+public actual fun pthreadAttrGetdetachstate(attr: ConstPtr, detachstate: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrGetdetachstate(attr.rawAddress.toString(), detachstate.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexInit(mutex: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexInit(mutex: MutPtr, attr: ConstPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexInit(mutex.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexDestroy(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexDestroy(mutex: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexDestroy(mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexLock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexLock(mutex: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexLock(mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTrylock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexTrylock(mutex: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexTrylock(mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexUnlock(mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadMutexUnlock(mutex: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexUnlock(mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrInit(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+public actual fun pthreadMutexattrDestroy(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, kind: CInt): CInt =
+public actual fun pthreadMutexattrSettype(attr: MutPtr, kind: CInt): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexattrSettype(attr.rawAddress.toString(), kind) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrGettype(attr: ConstPtr<PthreadMutexattrT>, kind: MutPtr<CInt>): CInt =
+public actual fun pthreadMutexattrGettype(attr: ConstPtr, kind: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadMutexattrGettype(attr.rawAddress.toString(), kind.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondInit(cond: MutPtr, attr: ConstPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondInit(cond.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondDestroy(cond: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondDestroy(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>): CInt =
+public actual fun pthreadCondWait(cond: MutPtr, mutex: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondWait(cond.rawAddress.toString(), mutex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+public actual fun pthreadCondTimedwait(cond: MutPtr, mutex: MutPtr, abstime: ConstPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondTimedwait(cond.rawAddress.toString(), mutex.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondSignal(cond: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondSignal(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+public actual fun pthreadCondBroadcast(cond: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondBroadcast(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrInit(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+public actual fun pthreadCondattrDestroy(attr: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: MutPtr, clockId: ClockidT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, destructor: PthreadKeyCreateDestructorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: MutPtr, destructor: PthreadKeyCreateDestructorCallback?): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadKeyCreate(key.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadKeyDelete(key) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr =
     if (newQurtPthreadNapiAvailable) MutPtr(wasmLibcNewQurtPthreadPthreadGetspecific(key).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadSetspecific(key, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadOnce(onceControl: MutPtr<PthreadOnceT>, initRoutine: PthreadOnceInitRoutineCallback): CInt =
+public actual fun pthreadOnce(onceControl: MutPtr, initRoutine: PthreadOnceInitRoutineCallback): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadOnce(onceControl.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr, len: SizeT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadGetnameNp(thread.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr, cpusetsize: SizeT, cpuset: ConstPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrSetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+public actual fun pthreadAttrGetaffinityNp(attr: MutPtr, cpusetsize: SizeT, cpuset: MutPtr): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPthreadAttrGetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, alignment: SizeT, size: SizeT): CInt =
+public actual fun posixMemalign(memptr: MutPtr, alignment: SizeT, size: SizeT): CInt =
     if (newQurtPthreadNapiAvailable) wasmLibcNewQurtPthreadPosixMemalign(memptr.rawAddress.toString(), alignment.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

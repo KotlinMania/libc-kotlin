@@ -17,7 +17,7 @@ import kotlin.test.assertNotEquals
 
 internal inline fun <R> withCString(
     text: String,
-    block: (ConstPtr<CChar>) -> R,
+    block: (ConstPtr) -> R,
 ): R {
     val cstr = CString.new(text).unwrap()
     return try {

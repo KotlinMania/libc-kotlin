@@ -4,14 +4,11 @@
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
@@ -22,7 +19,6 @@ import io.github.kotlinmania.libc.unix.solarish.CaddrT
 import io.github.kotlinmania.libc.unix.solarish.ExitStatus
 import io.github.kotlinmania.libc.unix.solarish.IdT
 import io.github.kotlinmania.libc.unix.solarish.IpcPerm
-import io.github.kotlinmania.libc.unix.solarish.Itimerspec
 import io.github.kotlinmania.libc.unix.solarish.NET_MAC_AWARE
 import io.github.kotlinmania.libc.unix.solarish.NET_MAC_AWARE_INHERIT
 import io.github.kotlinmania.libc.unix.solarish.OffT
@@ -30,17 +26,13 @@ import io.github.kotlinmania.libc.unix.solarish.PRIV_AWARE_RESET
 import io.github.kotlinmania.libc.unix.solarish.PRIV_DEBUG
 import io.github.kotlinmania.libc.unix.solarish.PRIV_PFEXEC
 import io.github.kotlinmania.libc.unix.solarish.PRIV_XPOLICY
-import io.github.kotlinmania.libc.unix.solarish.PosixSpawnFileActionsT
 import io.github.kotlinmania.libc.unix.solarish.ProcessoridT
 import io.github.kotlinmania.libc.unix.solarish.PsetidT
-import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
 import io.github.kotlinmania.libc.unix.solarish.ShmattT
 import io.github.kotlinmania.libc.unix.solarish.Sigevent
-import io.github.kotlinmania.libc.unix.solarish.SigsetT
 import io.github.kotlinmania.libc.unix.solarish.SpeedT
 import io.github.kotlinmania.libc.unix.solarish.TimeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
@@ -52,7 +44,7 @@ public typealias LgrpAffinityT = CInt
 
 public class Aiocb internal constructor(
     public var aioFildes: CInt,
-    aioBufCtorArg: MutPtr<CVoid>,
+    aioBufCtorArg: MutPtr,
     public var aioNbytes: SizeT,
     public var aioOffset: OffT,
     public var aioReqprio: CInt,
@@ -62,7 +54,7 @@ public class Aiocb internal constructor(
     public var aioState: CInt,
     public var aioPad: IntArray,
 ) {
-    public var aioBuf: MutPtr<CVoid> = aioBufCtorArg
+    public var aioBuf: MutPtr = aioBufCtorArg
         internal set
 
     public constructor() : this(
@@ -80,7 +72,7 @@ public class Aiocb internal constructor(
 
     public operator fun component1(): CInt = this.aioFildes
 
-    public operator fun component2(): MutPtr<CVoid> = this.aioBuf
+    public operator fun component2(): MutPtr = this.aioBuf
 
     public operator fun component3(): SizeT = this.aioNbytes
 
@@ -98,7 +90,7 @@ public class Aiocb internal constructor(
 
     public operator fun component10(): IntArray = this.aioPad
 
-    public fun copy(aioFildes: CInt = this.aioFildes, aioBuf: MutPtr<CVoid> = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioOffset: OffT = this.aioOffset, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioLioOpcode: CInt = this.aioLioOpcode, aioResultp: AioResultT = this.aioResultp, aioState: CInt = this.aioState, aioPad: IntArray = this.aioPad): Aiocb = Aiocb(aioFildes = aioFildes, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioOffset = aioOffset, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioLioOpcode = aioLioOpcode, aioResultp = aioResultp, aioState = aioState, aioPad = aioPad)
+    public fun copy(aioFildes: CInt = this.aioFildes, aioBuf: MutPtr = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioOffset: OffT = this.aioOffset, aioReqprio: CInt = this.aioReqprio, aioSigevent: Sigevent = this.aioSigevent, aioLioOpcode: CInt = this.aioLioOpcode, aioResultp: AioResultT = this.aioResultp, aioState: CInt = this.aioState, aioPad: IntArray = this.aioPad): Aiocb = Aiocb(aioFildes = aioFildes, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioOffset = aioOffset, aioReqprio = aioReqprio, aioSigevent = aioSigevent, aioLioOpcode = aioLioOpcode, aioResultp = aioResultp, aioState = aioState, aioPad = aioPad)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -133,7 +125,7 @@ public class Aiocb internal constructor(
     public companion object {
         public operator fun invoke(
             aioFildes: CInt = 0,
-            aioBuf: MutPtr<CVoid> = MutPtr(0L),
+            aioBuf: MutPtr = MutPtr(0L),
             aioNbytes: SizeT = 0uL,
             aioOffset: OffT = 0L,
             aioReqprio: CInt = 0,
@@ -161,7 +153,7 @@ public class Aiocb internal constructor(
 public class ShmidDs internal constructor(
     public var shmPerm: IpcPerm,
     public var shmSegsz: SizeT,
-    shmAmpCtorArg: MutPtr<CVoid>,
+    shmAmpCtorArg: MutPtr,
     public var shmLkcnt: CUshort,
     public var shmLpid: PidT,
     public var shmCpid: PidT,
@@ -172,7 +164,7 @@ public class ShmidDs internal constructor(
     public var shmCtime: TimeT,
     public var shmPad4: LongArray,
 ) {
-    public var shmAmp: MutPtr<CVoid> = shmAmpCtorArg
+    public var shmAmp: MutPtr = shmAmpCtorArg
         internal set
 
     public constructor() : this(
@@ -194,7 +186,7 @@ public class ShmidDs internal constructor(
 
     public operator fun component2(): SizeT = this.shmSegsz
 
-    public operator fun component3(): MutPtr<CVoid> = this.shmAmp
+    public operator fun component3(): MutPtr = this.shmAmp
 
     public operator fun component4(): CUshort = this.shmLkcnt
 
@@ -214,7 +206,7 @@ public class ShmidDs internal constructor(
 
     public operator fun component12(): LongArray = this.shmPad4
 
-    public fun copy(shmPerm: IpcPerm = this.shmPerm, shmSegsz: SizeT = this.shmSegsz, shmAmp: MutPtr<CVoid> = this.shmAmp, shmLkcnt: CUshort = this.shmLkcnt, shmLpid: PidT = this.shmLpid, shmCpid: PidT = this.shmCpid, shmNattch: ShmattT = this.shmNattch, shmCnattch: CUlong = this.shmCnattch, shmAtime: TimeT = this.shmAtime, shmDtime: TimeT = this.shmDtime, shmCtime: TimeT = this.shmCtime, shmPad4: LongArray = this.shmPad4): ShmidDs = ShmidDs(shmPerm = shmPerm, shmSegsz = shmSegsz, shmAmpCtorArg = shmAmp, shmLkcnt = shmLkcnt, shmLpid = shmLpid, shmCpid = shmCpid, shmNattch = shmNattch, shmCnattch = shmCnattch, shmAtime = shmAtime, shmDtime = shmDtime, shmCtime = shmCtime, shmPad4 = shmPad4)
+    public fun copy(shmPerm: IpcPerm = this.shmPerm, shmSegsz: SizeT = this.shmSegsz, shmAmp: MutPtr = this.shmAmp, shmLkcnt: CUshort = this.shmLkcnt, shmLpid: PidT = this.shmLpid, shmCpid: PidT = this.shmCpid, shmNattch: ShmattT = this.shmNattch, shmCnattch: CUlong = this.shmCnattch, shmAtime: TimeT = this.shmAtime, shmDtime: TimeT = this.shmDtime, shmCtime: TimeT = this.shmCtime, shmPad4: LongArray = this.shmPad4): ShmidDs = ShmidDs(shmPerm = shmPerm, shmSegsz = shmSegsz, shmAmpCtorArg = shmAmp, shmLkcnt = shmLkcnt, shmLpid = shmLpid, shmCpid = shmCpid, shmNattch = shmNattch, shmCnattch = shmCnattch, shmAtime = shmAtime, shmDtime = shmDtime, shmCtime = shmCtime, shmPad4 = shmPad4)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -254,7 +246,7 @@ public class ShmidDs internal constructor(
         public operator fun invoke(
             shmPerm: IpcPerm = IpcPerm(),
             shmSegsz: SizeT = 0uL,
-            shmAmp: MutPtr<CVoid> = MutPtr(0L),
+            shmAmp: MutPtr = MutPtr(0L),
             shmLkcnt: CUshort = 0u,
             shmLpid: PidT = 0,
             shmCpid: PidT = 0,
@@ -610,50 +602,50 @@ public val TFD_TIMER_CANCEL_ON_SET: Int = 1 shl 1
 
 public expect fun eventfd(initval: CUint, flags: CInt): CInt
 
-public expect fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt
+public expect fun epollPwait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt, sigmask: ConstPtr): CInt
 
 public expect fun epollCreate(size: CInt): CInt
 
 public expect fun epollCreate1(flags: CInt): CInt
 
-public expect fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt
+public expect fun epollWait(epfd: CInt, events: MutPtr, maxevents: CInt, timeout: CInt): CInt
 
-public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt
+public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr): CInt
 
-public expect fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt
+public expect fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr): CInt
 
-public expect fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr<PsetidT>): CInt
+public expect fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr): CInt
 
-public expect fun psetGetloadavg(pset: PsetidT, load: MutPtr<CDouble>, num: CInt): CInt
+public expect fun psetGetloadavg(pset: PsetidT, load: MutPtr, num: CInt): CInt
 
-public expect fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt
+public expect fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr): CInt
 
-public expect fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt
+public expect fun pthreadAttrGetstackaddr(attr: ConstPtr, stackaddr: MutPtr): CInt
 
-public expect fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt
+public expect fun pthreadAttrSetstack(attr: MutPtr, stackaddr: MutPtr, stacksize: SizeT): CInt
 
-public expect fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt
+public expect fun pthreadAttrSetstackaddr(attr: MutPtr, stackaddr: MutPtr): CInt
 
 public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt
 
-public expect fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun preadv(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun pwritev(fd: CInt, iov: ConstPtr, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun getpagesizes2(pagesize: MutPtr<SizeT>, nelem: CInt): CInt
+public expect fun getpagesizes2(pagesize: MutPtr, nelem: CInt): CInt
 
-public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr, fd: CInt): CInt
 
-public expect fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): CInt
+public expect fun ptsnameR(fildes: CInt, name: MutPtr, namelen: SizeT): CInt
 
 public expect fun syncfs(fd: CInt): CInt
 
-public expect fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt
+public expect fun strcasecmpL(s1: ConstPtr, s2: ConstPtr, loc: LocaleT): CInt
 
-public expect fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt
+public expect fun strncasecmpL(s1: ConstPtr, s2: ConstPtr, n: SizeT, loc: LocaleT): CInt
 
 public expect fun timerfdCreate(clockid: CInt, flags: CInt): CInt
 
-public expect fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt
+public expect fun timerfdGettime(fd: CInt, currValue: MutPtr): CInt
 
-public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt
+public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr, oldValue: MutPtr): CInt

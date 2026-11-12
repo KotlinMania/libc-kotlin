@@ -3,7 +3,6 @@
 package io.github.kotlinmania.libc.new.qurt.stdlib
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
@@ -16,7 +15,6 @@ import io.github.kotlinmania.libc.new.qurt.DivT
 import io.github.kotlinmania.libc.new.qurt.LdivT
 import io.github.kotlinmania.libc.new.qurt.LldivT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -104,16 +102,16 @@ private object NewQurtStdlibJniBridge {
     external fun libcNewQurtStdlibLlabs(j: Long): Long
 }
 
-public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+public actual fun malloc(size: SizeT): MutPtr =
     MutPtr(NewQurtStdlibJniBridge.libcNewQurtStdlibMalloc(size.toLong()))
 
-public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+public actual fun calloc(nmemb: SizeT, size: SizeT): MutPtr =
     MutPtr(NewQurtStdlibJniBridge.libcNewQurtStdlibCalloc(nmemb.toLong(), size.toLong()))
 
-public actual fun realloc(ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+public actual fun realloc(ptr: MutPtr, size: SizeT): MutPtr =
     MutPtr(NewQurtStdlibJniBridge.libcNewQurtStdlibRealloc(ptr.rawAddress, size.toLong()))
 
-public actual fun free(ptr: MutPtr<CVoid>) {
+public actual fun free(ptr: MutPtr) {
     NewQurtStdlibJniBridge.libcNewQurtStdlibFree(ptr.rawAddress)
 }
 
@@ -130,40 +128,40 @@ public actual fun exit(status: CInt): Nothing {
 public actual fun atexit(function: AtexitFunctionCallback): CInt =
     NewQurtStdlibJniBridge.libcNewQurtStdlibAtexit(0L)
 
-public actual fun getenv(name: ConstPtr<CChar>): MutPtr<CChar> =
+public actual fun getenv(name: ConstPtr): MutPtr =
     MutPtr(NewQurtStdlibJniBridge.libcNewQurtStdlibGetenv(name.rawAddress))
 
-public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+public actual fun setenv(name: ConstPtr, value: ConstPtr, overwrite: CInt): CInt =
     NewQurtStdlibJniBridge.libcNewQurtStdlibSetenv(name.rawAddress, value.rawAddress, overwrite)
 
-public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+public actual fun unsetenv(name: ConstPtr): CInt =
     NewQurtStdlibJniBridge.libcNewQurtStdlibUnsetenv(name.rawAddress)
 
-public actual fun atoi(nptr: ConstPtr<CChar>): CInt =
+public actual fun atoi(nptr: ConstPtr): CInt =
     NewQurtStdlibJniBridge.libcNewQurtStdlibAtoi(nptr.rawAddress)
 
-public actual fun atol(nptr: ConstPtr<CChar>): CLong =
+public actual fun atol(nptr: ConstPtr): CLong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibAtol(nptr.rawAddress)
 
-public actual fun atoll(nptr: ConstPtr<CChar>): CLonglong =
+public actual fun atoll(nptr: ConstPtr): CLonglong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibAtoll(nptr.rawAddress)
 
-public actual fun strtol(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+public actual fun strtol(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtol(nptr.rawAddress, endptr.rawAddress, base)
 
-public actual fun strtoul(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+public actual fun strtoul(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtoul(nptr.rawAddress, endptr.rawAddress, base).toULong()
 
-public actual fun strtoll(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+public actual fun strtoll(nptr: ConstPtr, endptr: MutPtr, base: CInt): CLonglong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtoll(nptr.rawAddress, endptr.rawAddress, base)
 
-public actual fun strtoull(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+public actual fun strtoull(nptr: ConstPtr, endptr: MutPtr, base: CInt): CUlonglong =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtoull(nptr.rawAddress, endptr.rawAddress, base).toULong()
 
-public actual fun strtod(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CDouble =
+public actual fun strtod(nptr: ConstPtr, endptr: MutPtr): CDouble =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtod(nptr.rawAddress, endptr.rawAddress)
 
-public actual fun strtof(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): CFloat =
+public actual fun strtof(nptr: ConstPtr, endptr: MutPtr): CFloat =
     NewQurtStdlibJniBridge.libcNewQurtStdlibStrtof(nptr.rawAddress, endptr.rawAddress)
 
 public actual fun rand(): CInt =
@@ -173,11 +171,11 @@ public actual fun srand(seed: CUint) {
     NewQurtStdlibJniBridge.libcNewQurtStdlibSrand(seed.toInt())
 }
 
-public actual fun qsort(base: MutPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+public actual fun qsort(base: MutPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
     NewQurtStdlibJniBridge.libcNewQurtStdlibQsort(base.rawAddress, nmemb.toLong(), size.toLong(), 0L)
 }
 
-public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr<CVoid> =
+public actual fun bsearch(key: ConstPtr, base: ConstPtr, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): MutPtr =
     MutPtr(NewQurtStdlibJniBridge.libcNewQurtStdlibBsearch(key.rawAddress, base.rawAddress, nmemb.toLong(), size.toLong(), 0L))
 
 public actual fun abs(j: CInt): CInt =

@@ -4,9 +4,7 @@
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.netbsd.utmp.Utmp
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.Timeval
 import io.github.kotlinmania.libc.new.qurt.UidT
@@ -162,22 +160,22 @@ public expect fun setutxent()
 
 public expect fun endutxent()
 
-public expect fun getutxent(): MutPtr<Utmpx>
+public expect fun getutxent(): MutPtr
 
-public expect fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
+public expect fun getutxid(ut: ConstPtr): MutPtr
 
-public expect fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
+public expect fun getutxline(ut: ConstPtr): MutPtr
 
-public expect fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
+public expect fun pututxline(ut: ConstPtr): MutPtr
 
-public expect fun updwtmpx(file: ConstPtr<CChar>, ut: ConstPtr<Utmpx>): CInt
+public expect fun updwtmpx(file: ConstPtr, ut: ConstPtr): CInt
 
-public expect fun getlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): MutPtr<Lastlogx>
+public expect fun getlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): MutPtr
 
-public expect fun updlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): CInt
+public expect fun updlastlogx(fname: ConstPtr, uid: UidT, ll: MutPtr): CInt
 
-public expect fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>)
+public expect fun getutmp(ux: ConstPtr, u: MutPtr)
 
-public expect fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>)
+public expect fun getutmpx(u: ConstPtr, ux: MutPtr)
 
-public expect fun utmpxname(file: ConstPtr<CChar>): CInt
+public expect fun utmpxname(file: ConstPtr): CInt

@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -151,16 +149,16 @@ private external fun wasmLibcHermitEventfd(p0: String, p1: Int): Int
 @JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitPoll(p0, p1, p2)")
 private external fun wasmLibcHermitPoll(p0: String, p1: String, p2: Int): Int
 
-public actual fun alloc(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun alloc(size: ULong, align: ULong): MutPtr =
     if (hermitNapiAvailable) MutPtr(wasmLibcHermitAlloc(size.toString(), align.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun allocZeroed(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun allocZeroed(size: ULong, align: ULong): MutPtr =
     if (hermitNapiAvailable) MutPtr(wasmLibcHermitAllocZeroed(size.toString(), align.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(ptr: MutPtr<UByte>, size: ULong, align: ULong, newSize: ULong): MutPtr<UByte> =
+public actual fun realloc(ptr: MutPtr, size: ULong, align: ULong, newSize: ULong): MutPtr =
     if (hermitNapiAvailable) MutPtr(wasmLibcHermitRealloc(ptr.rawAddress.toString(), size.toString(), align.toString(), newSize.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dealloc(ptr: MutPtr<UByte>, size: ULong, align: ULong) {
+public actual fun dealloc(ptr: MutPtr, size: ULong, align: ULong) {
     if (hermitNapiAvailable) {
         wasmLibcHermitDealloc(ptr.rawAddress.toString(), size.toString(), align.toString())
     } else {
@@ -189,52 +187,52 @@ public actual fun abort(): Nothing {
 public actual fun errno(): Int =
     if (hermitNapiAvailable) wasmLibcHermitErrno() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitClockGettime(clockid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(req: ConstPtr<Timespec>): Int =
+public actual fun nanosleep(req: ConstPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitNanosleep(req.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun availableParallelism(): ULong =
     if (hermitNapiAvailable) wasmLibcHermitAvailableParallelism().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futexWait(address: MutPtr<UInt>, expected: UInt, timeout: ConstPtr<Timespec>, flags: UInt): Int =
+public actual fun futexWait(address: MutPtr, expected: UInt, timeout: ConstPtr, flags: UInt): Int =
     if (hermitNapiAvailable) wasmLibcHermitFutexWait(address.rawAddress.toString(), expected.toInt(), timeout.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futexWake(address: MutPtr<UInt>, count: Int): Int =
+public actual fun futexWake(address: MutPtr, count: Int): Int =
     if (hermitNapiAvailable) wasmLibcHermitFutexWake(address.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun stat(path: ConstPtr, stat: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitStat(path.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fd: Int, stat: MutPtr<Stat>): Int =
+public actual fun fstat(fd: Int, stat: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitFstat(fd, stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun lstat(path: ConstPtr, stat: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitLstat(path.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: ConstPtr<CChar>, flags: Int, mode: ModeT): Int =
+public actual fun open(path: ConstPtr, flags: Int, mode: ModeT): Int =
     if (hermitNapiAvailable) wasmLibcHermitOpen(path.rawAddress.toString(), flags, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(path: ConstPtr<CChar>): Int =
+public actual fun unlink(path: ConstPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitUnlink(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): Int =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): Int =
     if (hermitNapiAvailable) wasmLibcHermitMkdir(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: ConstPtr<CChar>): Int =
+public actual fun rmdir(path: ConstPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: Int, buf: MutPtr<UByte>, len: ULong): Long =
+public actual fun read(fd: Int, buf: MutPtr, len: ULong): Long =
     if (hermitNapiAvailable) wasmLibcHermitRead(fd, buf.rawAddress.toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: Int, buf: ConstPtr<UByte>, len: ULong): Long =
+public actual fun write(fd: Int, buf: ConstPtr, len: ULong): Long =
     if (hermitNapiAvailable) wasmLibcHermitWrite(fd, buf.rawAddress.toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun readv(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     if (hermitNapiAvailable) wasmLibcHermitReadv(fd, iov.rawAddress.toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun writev(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     if (hermitNapiAvailable) wasmLibcHermitWritev(fd, iov.rawAddress.toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: Int): Int =
@@ -246,13 +244,13 @@ public actual fun dup(fd: Int): Int =
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
     if (hermitNapiAvailable) wasmLibcHermitFcntl(fd, cmd, arg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
+public actual fun getdents64(fd: Int, dirp: MutPtr, count: ULong): Long =
     if (hermitNapiAvailable) wasmLibcHermitGetdents64(fd, dirp.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getaddrinfo(nodename: ConstPtr<CChar>, servname: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): Int =
+public actual fun getaddrinfo(nodename: ConstPtr, servname: ConstPtr, hints: ConstPtr, res: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitGetaddrinfo(nodename.rawAddress.toString(), servname.rawAddress.toString(), hints.rawAddress.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(ai: MutPtr) {
     if (hermitNapiAvailable) {
         wasmLibcHermitFreeaddrinfo(ai.rawAddress.toString())
     } else {
@@ -263,43 +261,43 @@ public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     if (hermitNapiAvailable) wasmLibcHermitSocket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun bind(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     if (hermitNapiAvailable) wasmLibcHermitBind(sockfd, addr.rawAddress.toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
     if (hermitNapiAvailable) wasmLibcHermitListen(sockfd, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun accept(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitAccept(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun connect(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     if (hermitNapiAvailable) wasmLibcHermitConnect(sockfd, addr.rawAddress.toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recv(sockfd: Int, buf: MutPtr<UByte>, len: ULong, flags: Int): Long =
+public actual fun recv(sockfd: Int, buf: MutPtr, len: ULong, flags: Int): Long =
     if (hermitNapiAvailable) wasmLibcHermitRecv(sockfd, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Long =
+public actual fun recvfrom(sockfd: Int, buf: MutPtr, len: ULong, flags: Int, addr: MutPtr, addrlen: MutPtr): Long =
     if (hermitNapiAvailable) wasmLibcHermitRecvfrom(sockfd, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun send(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): Long =
+public actual fun send(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int): Long =
     if (hermitNapiAvailable) wasmLibcHermitSend(sockfd, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, tolen: SocklenT): Long =
+public actual fun sendto(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, tolen: SocklenT): Long =
     if (hermitNapiAvailable) wasmLibcHermitSendto(sockfd, buf.rawAddress.toString(), len.toString(), flags, to.rawAddress.toString(), tolen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getpeername(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitGetpeername(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getsockname(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitGetsockname(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): Int =
+public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr, optlen: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitGetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr<CVoid>, optlen: SocklenT): Int =
+public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr, optlen: SocklenT): Int =
     if (hermitNapiAvailable) wasmLibcHermitSetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
+public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr): Int =
     if (hermitNapiAvailable) wasmLibcHermitIoctl(sockfd, cmd, argp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
@@ -308,5 +306,5 @@ public actual fun shutdown(sockfd: Int, how: Int): Int =
 public actual fun eventfd(initval: ULong, flags: Short): Int =
     if (hermitNapiAvailable) wasmLibcHermitEventfd(initval.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: Int): Int =
     if (hermitNapiAvailable) wasmLibcHermitPoll(fds.rawAddress.toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")

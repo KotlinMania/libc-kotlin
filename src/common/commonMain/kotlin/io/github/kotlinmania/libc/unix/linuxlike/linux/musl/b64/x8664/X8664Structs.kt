@@ -208,16 +208,16 @@ public class User internal constructor(
     public var startStack: CUlong,
     public var signal: CLong,
     public var reserved: CInt,
-    uAr0CtorArg: MutPtr<UserRegsStruct>,
-    uFpstateCtorArg: MutPtr<UserFpregsStruct>,
+    uAr0CtorArg: MutPtr,
+    uFpstateCtorArg: MutPtr,
     public var magic: CUlong,
     public var uComm: UByteArray,
     public var uDebugreg: ULongArray,
 ) {
-    public var uAr0: MutPtr<UserRegsStruct> = uAr0CtorArg
+    public var uAr0: MutPtr = uAr0CtorArg
         internal set
 
-    public var uFpstate: MutPtr<UserFpregsStruct> = uFpstateCtorArg
+    public var uFpstate: MutPtr = uFpstateCtorArg
         internal set
 
     public constructor() : this(
@@ -258,9 +258,9 @@ public class User internal constructor(
 
     public operator fun component10(): CInt = this.reserved
 
-    public operator fun component11(): MutPtr<UserRegsStruct> = this.uAr0
+    public operator fun component11(): MutPtr = this.uAr0
 
-    public operator fun component12(): MutPtr<UserFpregsStruct> = this.uFpstate
+    public operator fun component12(): MutPtr = this.uFpstate
 
     public operator fun component13(): CUlong = this.magic
 
@@ -268,7 +268,7 @@ public class User internal constructor(
 
     public operator fun component15(): ULongArray = this.uDebugreg
 
-    public fun copy(regs: UserRegsStruct = this.regs, uFpvalid: CInt = this.uFpvalid, i387: UserFpregsStruct = this.i387, uTsize: CUlong = this.uTsize, uDsize: CUlong = this.uDsize, uSsize: CUlong = this.uSsize, startCode: CUlong = this.startCode, startStack: CUlong = this.startStack, signal: CLong = this.signal, reserved: CInt = this.reserved, uAr0: MutPtr<UserRegsStruct> = this.uAr0, uFpstate: MutPtr<UserFpregsStruct> = this.uFpstate, magic: CUlong = this.magic, uComm: UByteArray = this.uComm, uDebugreg: ULongArray = this.uDebugreg): User = User(regs = regs, uFpvalid = uFpvalid, i387 = i387, uTsize = uTsize, uDsize = uDsize, uSsize = uSsize, startCode = startCode, startStack = startStack, signal = signal, reserved = reserved, uAr0CtorArg = uAr0, uFpstateCtorArg = uFpstate, magic = magic, uComm = uComm, uDebugreg = uDebugreg)
+    public fun copy(regs: UserRegsStruct = this.regs, uFpvalid: CInt = this.uFpvalid, i387: UserFpregsStruct = this.i387, uTsize: CUlong = this.uTsize, uDsize: CUlong = this.uDsize, uSsize: CUlong = this.uSsize, startCode: CUlong = this.startCode, startStack: CUlong = this.startStack, signal: CLong = this.signal, reserved: CInt = this.reserved, uAr0: MutPtr = this.uAr0, uFpstate: MutPtr = this.uFpstate, magic: CUlong = this.magic, uComm: UByteArray = this.uComm, uDebugreg: ULongArray = this.uDebugreg): User = User(regs = regs, uFpvalid = uFpvalid, i387 = i387, uTsize = uTsize, uDsize = uDsize, uSsize = uSsize, startCode = startCode, startStack = startStack, signal = signal, reserved = reserved, uAr0CtorArg = uAr0, uFpstateCtorArg = uFpstate, magic = magic, uComm = uComm, uDebugreg = uDebugreg)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -329,11 +329,11 @@ public class User internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 784L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<UserRegsStruct>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 792L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<UserFpregsStruct>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 800L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 808L),
                         (
@@ -358,11 +358,11 @@ public class User internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 784L, value.reserved)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<UserRegsStruct>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 792L, value.uAr0)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<UserFpregsStruct>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 800L, value.uFpstate)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 808L, value.magic)
                     (
@@ -387,8 +387,8 @@ public class User internal constructor(
             startStack: CUlong = 0uL,
             signal: CLong = 0L,
             reserved: CInt = 0,
-            uAr0: MutPtr<UserRegsStruct> = MutPtr(0L),
-            uFpstate: MutPtr<UserFpregsStruct> = MutPtr(0L),
+            uAr0: MutPtr = MutPtr(0L),
+            uFpstate: MutPtr = MutPtr(0L),
             magic: CUlong = 0uL,
             uComm: UByteArray = UByteArray(32),
             uDebugreg: ULongArray = ULongArray(8),
@@ -660,13 +660,13 @@ public data class UserFpregsStruct(
 
 public class UcontextT internal constructor(
     public var ucFlags: CUlong,
-    ucLinkCtorArg: MutPtr<UcontextT>,
+    ucLinkCtorArg: MutPtr,
     public var ucStack: StackT,
     ucMcontextCtorArg: McontextT,
     public var ucSigmask: SigsetT,
     public var private: UByteArray,
 ) {
-    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+    public var ucLink: MutPtr = ucLinkCtorArg
         internal set
 
     public var ucMcontext: McontextT = ucMcontextCtorArg
@@ -683,7 +683,7 @@ public class UcontextT internal constructor(
 
     public operator fun component1(): CUlong = this.ucFlags
 
-    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+    public operator fun component2(): MutPtr = this.ucLink
 
     public operator fun component3(): StackT = this.ucStack
 
@@ -693,7 +693,7 @@ public class UcontextT internal constructor(
 
     public operator fun component6(): UByteArray = this.private
 
-    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private)
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -720,7 +720,7 @@ public class UcontextT internal constructor(
     public companion object {
         public operator fun invoke(
             ucFlags: CUlong = 0uL,
-            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucLink: MutPtr = MutPtr(0L),
             ucStack: StackT = StackT(),
             ucMcontext: McontextT = McontextT(),
             ucSigmask: SigsetT = SigsetT(),

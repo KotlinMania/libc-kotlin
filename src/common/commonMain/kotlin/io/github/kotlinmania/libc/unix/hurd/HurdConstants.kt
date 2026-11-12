@@ -12,7 +12,6 @@ import io.github.kotlinmania.libc.unix.hurd.b64.IntFast16T
 import io.github.kotlinmania.libc.unix.hurd.b64.IntFast32T
 import io.github.kotlinmania.libc.unix.hurd.b64.UintFast16T
 import io.github.kotlinmania.libc.unix.hurd.b64.UintFast32T
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // const
@@ -1557,7 +1556,7 @@ public val CTIME: UByte = 0u
 
 public val CBRK: UByte = 0u.toUByte()
 
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1L))
+public val RTLD_NEXT: MutPtr = MutPtr((-1L))
 
 public val RTLD_LAZY: CInt = 1
 
@@ -3015,7 +3014,7 @@ public val MAP_32BIT: CInt = 4096
 
 public val MAP_EXCL: CInt = 16384
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MADV_NORMAL: CInt = 0
 

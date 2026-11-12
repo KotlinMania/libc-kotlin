@@ -9,7 +9,6 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Most `* _SUPER_MAGIC` constants are defined at the `linuxLike` level; the
@@ -99,6 +98,6 @@ public typealias Elf64Xword = ULong
 public typealias EventfdT = ULong
 
 // these structs sit behind a heap allocation on Android
-public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
+public typealias PosixSpawnFileActionsT = MutPtr
 
-public typealias PosixSpawnattrT = MutPtr<CVoid>
+public typealias PosixSpawnattrT = MutPtr

@@ -30,7 +30,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SigsetT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
@@ -98,10 +97,10 @@ public data class SifieldsSigchld(
 }
 
 public class Sifields internal constructor(
-    alignPointerCtorArg: MutPtr<CVoid>,
+    alignPointerCtorArg: MutPtr,
     public var sigchld: SifieldsSigchld,
 ) {
-    public var alignPointer: MutPtr<CVoid> = alignPointerCtorArg
+    public var alignPointer: MutPtr = alignPointerCtorArg
         internal set
 
     public constructor() : this(
@@ -109,11 +108,11 @@ public class Sifields internal constructor(
         sigchld = SifieldsSigchld(),
     )
 
-    public operator fun component1(): MutPtr<CVoid> = this.alignPointer
+    public operator fun component1(): MutPtr = this.alignPointer
 
     public operator fun component2(): SifieldsSigchld = this.sigchld
 
-    public fun copy(alignPointer: MutPtr<CVoid> = this.alignPointer, sigchld: SifieldsSigchld = this.sigchld): Sifields = Sifields(alignPointerCtorArg = alignPointer, sigchld = sigchld)
+    public fun copy(alignPointer: MutPtr = this.alignPointer, sigchld: SifieldsSigchld = this.sigchld): Sifields = Sifields(alignPointerCtorArg = alignPointer, sigchld = sigchld)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -135,7 +134,7 @@ public class Sifields internal constructor(
 
     public companion object {
         public operator fun invoke(
-            alignPointer: MutPtr<CVoid> = MutPtr(0L),
+            alignPointer: MutPtr = MutPtr(0L),
             sigchld: SifieldsSigchld = SifieldsSigchld(),
         ): Sifields =
             Sifields(
@@ -168,28 +167,28 @@ public class Aiocb internal constructor(
     public var aioFildes: CInt,
     public var aioLioOpcode: CInt,
     public var aioReqprio: CInt,
-    aioBufCtorArg: MutPtr<CVoid>,
+    aioBufCtorArg: MutPtr,
     public var aioNbytes: SizeT,
     public var aioSigevent: Sigevent,
-    tdCtorArg: MutPtr<CVoid>,
+    tdCtorArg: MutPtr,
     public var lock: IntArray,
     public var err: CInt,
     public var ret: SsizeT,
     public var aioOffset: OffT,
-    nextCtorArg: MutPtr<CVoid>,
-    prevCtorArg: MutPtr<CVoid>,
+    nextCtorArg: MutPtr,
+    prevCtorArg: MutPtr,
     public var dummy4: UByteArray,
 ) {
-    public var aioBuf: MutPtr<CVoid> = aioBufCtorArg
+    public var aioBuf: MutPtr = aioBufCtorArg
         internal set
 
-    public var td: MutPtr<CVoid> = tdCtorArg
+    public var td: MutPtr = tdCtorArg
         internal set
 
-    public var next: MutPtr<CVoid> = nextCtorArg
+    public var next: MutPtr = nextCtorArg
         internal set
 
-    public var prev: MutPtr<CVoid> = prevCtorArg
+    public var prev: MutPtr = prevCtorArg
         internal set
 
     public constructor() : this(
@@ -206,7 +205,7 @@ public class Aiocb internal constructor(
         aioOffset = 0L,
         nextCtorArg = MutPtr(0L),
         prevCtorArg = MutPtr(0L),
-        dummy4 = UByteArray(32 - 2 * sizeOf<ConstPtr<Unit>>(typeLayoutT = PrimitiveLayouts.constPtrLayout<Unit>(64L))),
+        dummy4 = UByteArray(32 - 2 * sizeOf<ConstPtr>(typeLayoutT = PrimitiveLayouts.constPtrLayout(64L))),
     )
 
     public operator fun component1(): CInt = this.aioFildes
@@ -215,13 +214,13 @@ public class Aiocb internal constructor(
 
     public operator fun component3(): CInt = this.aioReqprio
 
-    public operator fun component4(): MutPtr<CVoid> = this.aioBuf
+    public operator fun component4(): MutPtr = this.aioBuf
 
     public operator fun component5(): SizeT = this.aioNbytes
 
     public operator fun component6(): Sigevent = this.aioSigevent
 
-    public operator fun component7(): MutPtr<CVoid> = this.td
+    public operator fun component7(): MutPtr = this.td
 
     public operator fun component8(): IntArray = this.lock
 
@@ -231,13 +230,13 @@ public class Aiocb internal constructor(
 
     public operator fun component11(): OffT = this.aioOffset
 
-    public operator fun component12(): MutPtr<CVoid> = this.next
+    public operator fun component12(): MutPtr = this.next
 
-    public operator fun component13(): MutPtr<CVoid> = this.prev
+    public operator fun component13(): MutPtr = this.prev
 
     public operator fun component14(): UByteArray = this.dummy4
 
-    public fun copy(aioFildes: CInt = this.aioFildes, aioLioOpcode: CInt = this.aioLioOpcode, aioReqprio: CInt = this.aioReqprio, aioBuf: MutPtr<CVoid> = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioSigevent: Sigevent = this.aioSigevent, td: MutPtr<CVoid> = this.td, lock: IntArray = this.lock, err: CInt = this.err, ret: SsizeT = this.ret, aioOffset: OffT = this.aioOffset, next: MutPtr<CVoid> = this.next, prev: MutPtr<CVoid> = this.prev, dummy4: UByteArray = this.dummy4): Aiocb = Aiocb(aioFildes = aioFildes, aioLioOpcode = aioLioOpcode, aioReqprio = aioReqprio, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioSigevent = aioSigevent, tdCtorArg = td, lock = lock, err = err, ret = ret, aioOffset = aioOffset, nextCtorArg = next, prevCtorArg = prev, dummy4 = dummy4)
+    public fun copy(aioFildes: CInt = this.aioFildes, aioLioOpcode: CInt = this.aioLioOpcode, aioReqprio: CInt = this.aioReqprio, aioBuf: MutPtr = this.aioBuf, aioNbytes: SizeT = this.aioNbytes, aioSigevent: Sigevent = this.aioSigevent, td: MutPtr = this.td, lock: IntArray = this.lock, err: CInt = this.err, ret: SsizeT = this.ret, aioOffset: OffT = this.aioOffset, next: MutPtr = this.next, prev: MutPtr = this.prev, dummy4: UByteArray = this.dummy4): Aiocb = Aiocb(aioFildes = aioFildes, aioLioOpcode = aioLioOpcode, aioReqprio = aioReqprio, aioBufCtorArg = aioBuf, aioNbytes = aioNbytes, aioSigevent = aioSigevent, tdCtorArg = td, lock = lock, err = err, ret = ret, aioOffset = aioOffset, nextCtorArg = next, prevCtorArg = prev, dummy4 = dummy4)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -282,17 +281,17 @@ public class Aiocb internal constructor(
             aioFildes: CInt = 0,
             aioLioOpcode: CInt = 0,
             aioReqprio: CInt = 0,
-            aioBuf: MutPtr<CVoid> = MutPtr(0L),
+            aioBuf: MutPtr = MutPtr(0L),
             aioNbytes: SizeT = 0uL,
             aioSigevent: Sigevent = Sigevent(),
-            td: MutPtr<CVoid> = MutPtr(0L),
+            td: MutPtr = MutPtr(0L),
             lock: IntArray = IntArray(2),
             err: CInt = 0,
             ret: SsizeT = 0L,
             aioOffset: OffT = 0L,
-            next: MutPtr<CVoid> = MutPtr(0L),
-            prev: MutPtr<CVoid> = MutPtr(0L),
-            dummy4: UByteArray = UByteArray(32 - 2 * sizeOf<ConstPtr<Unit>>(typeLayoutT = PrimitiveLayouts.constPtrLayout<Unit>(64L))),
+            next: MutPtr = MutPtr(0L),
+            prev: MutPtr = MutPtr(0L),
+            dummy4: UByteArray = UByteArray(32 - 2 * sizeOf<ConstPtr>(typeLayoutT = PrimitiveLayouts.constPtrLayout(64L))),
         ): Aiocb =
             Aiocb(
                 aioFildes = aioFildes,
@@ -388,7 +387,7 @@ public data class SiginfoT(
         return result
     }
 
-    public fun siAddr(): MutPtr<CVoid> {
+    public fun siAddr(): MutPtr {
         val sz = maxOf(64L, typeLayout().sizeBytes)
         val scratch =
             io.github.kotlinmania.rustlang.core.intrinsics
@@ -396,7 +395,7 @@ public data class SiginfoT(
         typeLayout().writeNative(scratch, this)
         val out =
             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                .mutPtrLayout<CVoid>(64)
+                .mutPtrLayout(64)
                 .readNative(scratch + 16L)
         io.github.kotlinmania.rustlang.core.intrinsics
             .kmDealloc(scratch, sz, 8L)
@@ -425,7 +424,7 @@ public data class SiginfoT(
             Sifields(
                 alignPointerCtorArg =
                     io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                        .mutPtrLayout<CVoid>(64)
+                        .mutPtrLayout(64)
                         .readNative(scratch + 16L),
                 sigchld = SifieldsSigchld.typeLayout().readNative(scratch + 16L),
             )
@@ -808,15 +807,15 @@ public data class Flock64(
 
 public class RegexT internal constructor(
     public var reNsub: SizeT,
-    opaqueCtorArg: MutPtr<CVoid>,
-    paddingCtorArg: List<MutPtr<CVoid>>,
+    opaqueCtorArg: MutPtr,
+    paddingCtorArg: List<MutPtr>,
     public var nsub2: SizeT,
     public var padding2: CChar,
 ) {
-    public var opaque: MutPtr<CVoid> = opaqueCtorArg
+    public var opaque: MutPtr = opaqueCtorArg
         internal set
 
-    public var padding: List<MutPtr<CVoid>> = paddingCtorArg
+    public var padding: List<MutPtr> = paddingCtorArg
         internal set
 
     public constructor() : this(
@@ -829,15 +828,15 @@ public class RegexT internal constructor(
 
     public operator fun component1(): SizeT = this.reNsub
 
-    public operator fun component2(): MutPtr<CVoid> = this.opaque
+    public operator fun component2(): MutPtr = this.opaque
 
-    public operator fun component3(): List<MutPtr<CVoid>> = this.padding
+    public operator fun component3(): List<MutPtr> = this.padding
 
     public operator fun component4(): SizeT = this.nsub2
 
     public operator fun component5(): CChar = this.padding2
 
-    public fun copy(reNsub: SizeT = this.reNsub, opaque: MutPtr<CVoid> = this.opaque, padding: List<MutPtr<CVoid>> = this.padding, nsub2: SizeT = this.nsub2, padding2: CChar = this.padding2): RegexT = RegexT(reNsub = reNsub, opaqueCtorArg = opaque, paddingCtorArg = padding, nsub2 = nsub2, padding2 = padding2)
+    public fun copy(reNsub: SizeT = this.reNsub, opaque: MutPtr = this.opaque, padding: List<MutPtr> = this.padding, nsub2: SizeT = this.nsub2, padding2: CChar = this.padding2): RegexT = RegexT(reNsub = reNsub, opaqueCtorArg = opaque, paddingCtorArg = padding, nsub2 = nsub2, padding2 = padding2)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -869,13 +868,13 @@ public class RegexT internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                .mutPtrLayout<CVoid>(64)
+                                .mutPtrLayout(64)
                         ).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(
                                     io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                        .mutPtrLayout<CVoid>(64),
+                                        .mutPtrLayout(64),
                                     (4).toInt(),
                                 )
                         ).readNative(addr + 16L),
@@ -886,13 +885,13 @@ public class RegexT internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.reNsub)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                            .mutPtrLayout<CVoid>(64)
+                            .mutPtrLayout(64)
                     ).writeNative(addr + 8L, value.opaque)
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(
                                 io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
-                                    .mutPtrLayout<CVoid>(64),
+                                    .mutPtrLayout(64),
                                 (4).toInt(),
                             )
                     ).writeNative(addr + 16L, value.padding)
@@ -903,8 +902,8 @@ public class RegexT internal constructor(
 
         public operator fun invoke(
             reNsub: SizeT = 0uL,
-            opaque: MutPtr<CVoid> = MutPtr(0L),
-            padding: List<MutPtr<CVoid>> = List(4) { MutPtr(0L) },
+            opaque: MutPtr = MutPtr(0L),
+            padding: List<MutPtr> = List(4) { MutPtr(0L) },
             nsub2: SizeT = 0uL,
             padding2: CChar = 0u,
         ): RegexT =
@@ -930,12 +929,12 @@ public class Rtentry internal constructor(
     public var rtClass: CUchar,
     public var rtPad4: ShortArray,
     public var rtMetric: CShort,
-    rtDevCtorArg: MutPtr<CChar>,
+    rtDevCtorArg: MutPtr,
     public var rtMtu: CUlong,
     public var rtWindow: CUlong,
     public var rtIrtt: CUshort,
 ) {
-    public var rtDev: MutPtr<CChar> = rtDevCtorArg
+    public var rtDev: MutPtr = rtDevCtorArg
         internal set
 
     public constructor() : this(
@@ -978,7 +977,7 @@ public class Rtentry internal constructor(
 
     public operator fun component11(): CShort = this.rtMetric
 
-    public operator fun component12(): MutPtr<CChar> = this.rtDev
+    public operator fun component12(): MutPtr = this.rtDev
 
     public operator fun component13(): CUlong = this.rtMtu
 
@@ -986,7 +985,7 @@ public class Rtentry internal constructor(
 
     public operator fun component15(): CUshort = this.rtIrtt
 
-    public fun copy(rtPad1: CUlong = this.rtPad1, rtDst: Sockaddr = this.rtDst, rtGateway: Sockaddr = this.rtGateway, rtGenmask: Sockaddr = this.rtGenmask, rtFlags: CUshort = this.rtFlags, rtPad2: CShort = this.rtPad2, rtPad3: CUlong = this.rtPad3, rtTos: CUchar = this.rtTos, rtClass: CUchar = this.rtClass, rtPad4: ShortArray = this.rtPad4, rtMetric: CShort = this.rtMetric, rtDev: MutPtr<CChar> = this.rtDev, rtMtu: CUlong = this.rtMtu, rtWindow: CUlong = this.rtWindow, rtIrtt: CUshort = this.rtIrtt): Rtentry = Rtentry(rtPad1 = rtPad1, rtDst = rtDst, rtGateway = rtGateway, rtGenmask = rtGenmask, rtFlags = rtFlags, rtPad2 = rtPad2, rtPad3 = rtPad3, rtTos = rtTos, rtClass = rtClass, rtPad4 = rtPad4, rtMetric = rtMetric, rtDevCtorArg = rtDev, rtMtu = rtMtu, rtWindow = rtWindow, rtIrtt = rtIrtt)
+    public fun copy(rtPad1: CUlong = this.rtPad1, rtDst: Sockaddr = this.rtDst, rtGateway: Sockaddr = this.rtGateway, rtGenmask: Sockaddr = this.rtGenmask, rtFlags: CUshort = this.rtFlags, rtPad2: CShort = this.rtPad2, rtPad3: CUlong = this.rtPad3, rtTos: CUchar = this.rtTos, rtClass: CUchar = this.rtClass, rtPad4: ShortArray = this.rtPad4, rtMetric: CShort = this.rtMetric, rtDev: MutPtr = this.rtDev, rtMtu: CUlong = this.rtMtu, rtWindow: CUlong = this.rtWindow, rtIrtt: CUshort = this.rtIrtt): Rtentry = Rtentry(rtPad1 = rtPad1, rtDst = rtDst, rtGateway = rtGateway, rtGenmask = rtGenmask, rtFlags = rtFlags, rtPad2 = rtPad2, rtPad3 = rtPad3, rtTos = rtTos, rtClass = rtClass, rtPad4 = rtPad4, rtMetric = rtMetric, rtDevCtorArg = rtDev, rtMtu = rtMtu, rtWindow = rtWindow, rtIrtt = rtIrtt)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1041,7 +1040,7 @@ public class Rtentry internal constructor(
             rtClass: CUchar = 0u,
             rtPad4: ShortArray = ShortArray(3),
             rtMetric: CShort = 0,
-            rtDev: MutPtr<CChar> = MutPtr(0L),
+            rtDev: MutPtr = MutPtr(0L),
             rtMtu: CUlong = 0uL,
             rtWindow: CUlong = 0uL,
             rtIrtt: CUshort = 0u,

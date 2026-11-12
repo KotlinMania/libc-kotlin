@@ -18,8 +18,6 @@ import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
 import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
 import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -338,7 +336,7 @@ public val MAP_ANON: CInt = 0x1000
 
 public val MAP_ANONYMOUS: CInt = MAP_ANON
 
-public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
+public val MAP_FAILED: MutPtr = MutPtr((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -1877,4 +1875,4 @@ public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(0L)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(0L)
 
-public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
+public val SEM_FAILED: MutPtr = MutPtr(0L)

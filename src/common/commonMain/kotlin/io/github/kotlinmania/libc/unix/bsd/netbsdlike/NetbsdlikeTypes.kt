@@ -30,7 +30,7 @@ public typealias ClockidT = CInt
 
 public typealias IdT = UInt
 
-public typealias SemT = MutPtr<Sem>
+public typealias SemT = MutPtr
 
 public typealias KeyT = CLong
 

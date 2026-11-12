@@ -4,7 +4,6 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x8664
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
@@ -598,10 +597,10 @@ public class McontextT(
 
 public class CAnonymousElf64AuxvUnion internal constructor(
     public var aVal: CLong,
-    aPtrCtorArg: MutPtr<CVoid>,
+    aPtrCtorArg: MutPtr,
     public var aFcn: CAnonymousElf64AuxvUnionAFcnCallback,
 ) {
-    public var aPtr: MutPtr<CVoid> = aPtrCtorArg
+    public var aPtr: MutPtr = aPtrCtorArg
         internal set
 
     public constructor() : this(
@@ -612,11 +611,11 @@ public class CAnonymousElf64AuxvUnion internal constructor(
 
     public operator fun component1(): CLong = this.aVal
 
-    public operator fun component2(): MutPtr<CVoid> = this.aPtr
+    public operator fun component2(): MutPtr = this.aPtr
 
     public operator fun component3(): CAnonymousElf64AuxvUnionAFcnCallback = this.aFcn
 
-    public fun copy(aVal: CLong = this.aVal, aPtr: MutPtr<CVoid> = this.aPtr, aFcn: CAnonymousElf64AuxvUnionAFcnCallback = this.aFcn): CAnonymousElf64AuxvUnion = CAnonymousElf64AuxvUnion(aVal = aVal, aPtrCtorArg = aPtr, aFcn = aFcn)
+    public fun copy(aVal: CLong = this.aVal, aPtr: MutPtr = this.aPtr, aFcn: CAnonymousElf64AuxvUnionAFcnCallback = this.aFcn): CAnonymousElf64AuxvUnion = CAnonymousElf64AuxvUnion(aVal = aVal, aPtrCtorArg = aPtr, aFcn = aFcn)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -644,7 +643,7 @@ public class CAnonymousElf64AuxvUnion internal constructor(
     public companion object {
         public operator fun invoke(
             aVal: CLong = 0L,
-            aPtr: MutPtr<CVoid> = MutPtr(0L),
+            aPtr: MutPtr = MutPtr(0L),
             aFcn: CAnonymousElf64AuxvUnionAFcnCallback = CAnonymousElf64AuxvUnionAFcnCallback {},
         ): CAnonymousElf64AuxvUnion =
             CAnonymousElf64AuxvUnion(

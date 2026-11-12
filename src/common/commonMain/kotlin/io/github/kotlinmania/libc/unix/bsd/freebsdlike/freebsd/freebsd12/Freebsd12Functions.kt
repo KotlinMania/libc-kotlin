@@ -1,19 +1,17 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd12
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: MutPtr<CVoid>, arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>): CInt
+    public operator fun invoke(arg0: MutPtr, arg1: ConstPtr, arg2: ConstPtr): CInt
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
@@ -33,14 +31,14 @@ public fun minor(dev: DevT): CInt = (((dev shr 24) and 0xff00uL) or (dev and 0xf
 
 public expect fun setgrent()
 
-public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr, len: SizeT, prot: CInt): CInt
 
 public expect fun freelocale(loc: LocaleT)
 
-public expect fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT
+public expect fun msgrcv(msqid: CInt, msgp: MutPtr, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT
 
-public expect fun dirname(path: MutPtr<CChar>): MutPtr<CChar>
+public expect fun dirname(path: MutPtr): MutPtr
 
-public expect fun basename(path: MutPtr<CChar>): MutPtr<CChar>
+public expect fun basename(path: MutPtr): MutPtr
 
-public expect fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, arg: MutPtr<CVoid>, compar: QsortRComparCallback?)
+public expect fun qsortR(base: MutPtr, num: SizeT, size: SizeT, arg: MutPtr, compar: QsortRComparCallback?)

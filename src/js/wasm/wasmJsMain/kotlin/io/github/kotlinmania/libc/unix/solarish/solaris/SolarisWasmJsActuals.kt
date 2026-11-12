@@ -3,16 +3,11 @@
 package io.github.kotlinmania.libc.unix.solarish.solaris
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.Winsize
-import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
-import io.github.kotlinmania.libc.unix.solarish.Termios
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -51,32 +46,32 @@ private external fun wasmLibcUnixSolarishSolarisOpenpty(p0: String, p1: String, 
 @JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishSolarisForkpty(p0, p1, p2, p3)")
 private external fun wasmLibcUnixSolarishSolarisForkpty(p0: String, p1: String, p2: String, p3: String): Int
 
-public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+public actual fun fexecve(fd: CInt, argv: ConstPtr, envp: ConstPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisFexecve(fd, argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt =
+public actual fun mincore(addr: MutPtr, len: SizeT, vec: MutPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisMincore(addr.rawAddress.toString(), len.toString(), vec.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun doorCall(d: CInt, params: MutPtr<DoorArgT>): CInt =
+public actual fun doorCall(d: CInt, params: MutPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisDoorCall(d, params.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun doorReturn(dataPtr: MutPtr<CChar>, dataSize: SizeT, descPtr: MutPtr<DoorDescT>, numDesc: CUint): CInt =
+public actual fun doorReturn(dataPtr: MutPtr, dataSize: SizeT, descPtr: MutPtr, numDesc: CUint): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisDoorReturn(dataPtr.rawAddress.toString(), dataSize.toString(), descPtr.rawAddress.toString(), numDesc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr<CVoid>, attributes: DoorAttrT): CInt =
+public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: MutPtr, attributes: DoorAttrT): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisDoorCreate(0L.toString(), cookie.rawAddress.toString(), attributes.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fattach(fildes: CInt, path: ConstPtr<CChar>): CInt =
+public actual fun fattach(fildes: CInt, path: ConstPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisFattach(fildes, path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisPthreadGetattrNp(thread.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun euidaccess(path: ConstPtr<CChar>, amode: CInt): CInt =
+public actual fun euidaccess(path: ConstPtr, amode: CInt): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisEuidaccess(path.rawAddress.toString(), amode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openpty(amain: MutPtr<CInt>, asubord: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+public actual fun openpty(amain: MutPtr, asubord: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): CInt =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisOpenpty(amain.rawAddress.toString(), asubord.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun forkpty(amain: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+public actual fun forkpty(amain: MutPtr, name: MutPtr, termp: MutPtr, winp: MutPtr): PidT =
     if (unixSolarishSolarisNapiAvailable) wasmLibcUnixSolarishSolarisForkpty(amain.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -3,8 +3,6 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -152,16 +150,16 @@ private object HermitJniBridge {
     external fun libcHermitPoll(fds: Long, nfds: Long, timeout: Int): Int
 }
 
-public actual fun alloc(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun alloc(size: ULong, align: ULong): MutPtr =
     MutPtr(HermitJniBridge.libcHermitAlloc(size.toLong(), align.toLong()))
 
-public actual fun allocZeroed(size: ULong, align: ULong): MutPtr<UByte> =
+public actual fun allocZeroed(size: ULong, align: ULong): MutPtr =
     MutPtr(HermitJniBridge.libcHermitAllocZeroed(size.toLong(), align.toLong()))
 
-public actual fun realloc(ptr: MutPtr<UByte>, size: ULong, align: ULong, newSize: ULong): MutPtr<UByte> =
+public actual fun realloc(ptr: MutPtr, size: ULong, align: ULong, newSize: ULong): MutPtr =
     MutPtr(HermitJniBridge.libcHermitRealloc(ptr.rawAddress, size.toLong(), align.toLong(), newSize.toLong()))
 
-public actual fun dealloc(ptr: MutPtr<UByte>, size: ULong, align: ULong) {
+public actual fun dealloc(ptr: MutPtr, size: ULong, align: ULong) {
     HermitJniBridge.libcHermitDealloc(ptr.rawAddress, size.toLong(), align.toLong())
 }
 
@@ -178,52 +176,52 @@ public actual fun abort(): Nothing {
 public actual fun errno(): Int =
     HermitJniBridge.libcHermitErrno()
 
-public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr): Int =
     HermitJniBridge.libcHermitClockGettime(clockid, tp.rawAddress)
 
-public actual fun nanosleep(req: ConstPtr<Timespec>): Int =
+public actual fun nanosleep(req: ConstPtr): Int =
     HermitJniBridge.libcHermitNanosleep(req.rawAddress)
 
 public actual fun availableParallelism(): ULong =
     HermitJniBridge.libcHermitAvailableParallelism().toULong()
 
-public actual fun futexWait(address: MutPtr<UInt>, expected: UInt, timeout: ConstPtr<Timespec>, flags: UInt): Int =
+public actual fun futexWait(address: MutPtr, expected: UInt, timeout: ConstPtr, flags: UInt): Int =
     HermitJniBridge.libcHermitFutexWait(address.rawAddress, expected.toInt(), timeout.rawAddress, flags.toInt())
 
-public actual fun futexWake(address: MutPtr<UInt>, count: Int): Int =
+public actual fun futexWake(address: MutPtr, count: Int): Int =
     HermitJniBridge.libcHermitFutexWake(address.rawAddress, count)
 
-public actual fun stat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun stat(path: ConstPtr, stat: MutPtr): Int =
     HermitJniBridge.libcHermitStat(path.rawAddress, stat.rawAddress)
 
-public actual fun fstat(fd: Int, stat: MutPtr<Stat>): Int =
+public actual fun fstat(fd: Int, stat: MutPtr): Int =
     HermitJniBridge.libcHermitFstat(fd, stat.rawAddress)
 
-public actual fun lstat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+public actual fun lstat(path: ConstPtr, stat: MutPtr): Int =
     HermitJniBridge.libcHermitLstat(path.rawAddress, stat.rawAddress)
 
-public actual fun open(path: ConstPtr<CChar>, flags: Int, mode: ModeT): Int =
+public actual fun open(path: ConstPtr, flags: Int, mode: ModeT): Int =
     HermitJniBridge.libcHermitOpen(path.rawAddress, flags, mode.toInt())
 
-public actual fun unlink(path: ConstPtr<CChar>): Int =
+public actual fun unlink(path: ConstPtr): Int =
     HermitJniBridge.libcHermitUnlink(path.rawAddress)
 
-public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): Int =
+public actual fun mkdir(path: ConstPtr, mode: ModeT): Int =
     HermitJniBridge.libcHermitMkdir(path.rawAddress, mode.toInt())
 
-public actual fun rmdir(path: ConstPtr<CChar>): Int =
+public actual fun rmdir(path: ConstPtr): Int =
     HermitJniBridge.libcHermitRmdir(path.rawAddress)
 
-public actual fun read(fd: Int, buf: MutPtr<UByte>, len: ULong): Long =
+public actual fun read(fd: Int, buf: MutPtr, len: ULong): Long =
     HermitJniBridge.libcHermitRead(fd, buf.rawAddress, len.toLong())
 
-public actual fun write(fd: Int, buf: ConstPtr<UByte>, len: ULong): Long =
+public actual fun write(fd: Int, buf: ConstPtr, len: ULong): Long =
     HermitJniBridge.libcHermitWrite(fd, buf.rawAddress, len.toLong())
 
-public actual fun readv(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun readv(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     HermitJniBridge.libcHermitReadv(fd, iov.rawAddress, iovcnt.toLong())
 
-public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+public actual fun writev(fd: Int, iov: ConstPtr, iovcnt: ULong): Long =
     HermitJniBridge.libcHermitWritev(fd, iov.rawAddress, iovcnt.toLong())
 
 public actual fun close(fd: Int): Int =
@@ -235,56 +233,56 @@ public actual fun dup(fd: Int): Int =
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
     HermitJniBridge.libcHermitFcntl(fd, cmd, arg)
 
-public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
+public actual fun getdents64(fd: Int, dirp: MutPtr, count: ULong): Long =
     HermitJniBridge.libcHermitGetdents64(fd, dirp.rawAddress, count.toLong())
 
-public actual fun getaddrinfo(nodename: ConstPtr<CChar>, servname: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): Int =
+public actual fun getaddrinfo(nodename: ConstPtr, servname: ConstPtr, hints: ConstPtr, res: MutPtr): Int =
     HermitJniBridge.libcHermitGetaddrinfo(nodename.rawAddress, servname.rawAddress, hints.rawAddress, res.rawAddress)
 
-public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
+public actual fun freeaddrinfo(ai: MutPtr) {
     HermitJniBridge.libcHermitFreeaddrinfo(ai.rawAddress)
 }
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     HermitJniBridge.libcHermitSocket(domain, ty, protocol)
 
-public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun bind(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     HermitJniBridge.libcHermitBind(sockfd, addr.rawAddress, addrlen.toInt())
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
     HermitJniBridge.libcHermitListen(sockfd, backlog)
 
-public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun accept(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     HermitJniBridge.libcHermitAccept(sockfd, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun connect(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+public actual fun connect(sockfd: Int, addr: ConstPtr, addrlen: SocklenT): Int =
     HermitJniBridge.libcHermitConnect(sockfd, addr.rawAddress, addrlen.toInt())
 
-public actual fun recv(sockfd: Int, buf: MutPtr<UByte>, len: ULong, flags: Int): Long =
+public actual fun recv(sockfd: Int, buf: MutPtr, len: ULong, flags: Int): Long =
     HermitJniBridge.libcHermitRecv(sockfd, buf.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Long =
+public actual fun recvfrom(sockfd: Int, buf: MutPtr, len: ULong, flags: Int, addr: MutPtr, addrlen: MutPtr): Long =
     HermitJniBridge.libcHermitRecvfrom(sockfd, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun send(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): Long =
+public actual fun send(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int): Long =
     HermitJniBridge.libcHermitSend(sockfd, buf.rawAddress, len.toLong(), flags)
 
-public actual fun sendto(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, tolen: SocklenT): Long =
+public actual fun sendto(sockfd: Int, buf: ConstPtr, len: ULong, flags: Int, to: ConstPtr, tolen: SocklenT): Long =
     HermitJniBridge.libcHermitSendto(sockfd, buf.rawAddress, len.toLong(), flags, to.rawAddress, tolen.toInt())
 
-public actual fun getpeername(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getpeername(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     HermitJniBridge.libcHermitGetpeername(sockfd, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun getsockname(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+public actual fun getsockname(sockfd: Int, addr: MutPtr, addrlen: MutPtr): Int =
     HermitJniBridge.libcHermitGetsockname(sockfd, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): Int =
+public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr, optlen: MutPtr): Int =
     HermitJniBridge.libcHermitGetsockopt(sockfd, level, optname, optval.rawAddress, optlen.rawAddress)
 
-public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr<CVoid>, optlen: SocklenT): Int =
+public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr, optlen: SocklenT): Int =
     HermitJniBridge.libcHermitSetsockopt(sockfd, level, optname, optval.rawAddress, optlen.toInt())
 
-public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
+public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr): Int =
     HermitJniBridge.libcHermitIoctl(sockfd, cmd, argp.rawAddress)
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
@@ -293,5 +291,5 @@ public actual fun shutdown(sockfd: Int, how: Int): Int =
 public actual fun eventfd(initval: ULong, flags: Short): Int =
     HermitJniBridge.libcHermitEventfd(initval.toLong(), flags)
 
-public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
+public actual fun poll(fds: MutPtr, nfds: NfdsT, timeout: Int): Int =
     HermitJniBridge.libcHermitPoll(fds.rawAddress, nfds.toLong(), timeout)

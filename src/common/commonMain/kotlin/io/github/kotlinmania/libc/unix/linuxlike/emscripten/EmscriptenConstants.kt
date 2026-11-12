@@ -15,7 +15,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
 import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val MADV_SOFT_OFFLINE: CInt = 101
@@ -542,7 +541,7 @@ public val ST_NOATIME: CUlong = 1024uL
 
 public val ST_NODIRATIME: CUlong = 2048uL
 
-public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1L))
+public val RTLD_NEXT: MutPtr = MutPtr((-1L))
 
 public val RTLD_NODELETE: CInt = 0x1000
 
@@ -1553,6 +1552,6 @@ public val PRIO_USER: CInt = 2
 
 public val SOMAXCONN: CInt = 128
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
-public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
+public val SEM_FAILED: MutPtr = MutPtr(0L)

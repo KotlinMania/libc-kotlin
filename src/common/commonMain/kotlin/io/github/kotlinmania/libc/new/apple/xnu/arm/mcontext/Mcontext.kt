@@ -16,4 +16,4 @@ public data class DarwinMcontext64(
     public var ns: DarwinArmNeonState64 = DarwinArmNeonState64(),
 )
 
-public typealias McontextT = MutPtr<DarwinMcontext64>
+public typealias McontextT = MutPtr

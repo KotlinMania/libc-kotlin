@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread.spawn
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.qos.QosClassT
-import io.github.kotlinmania.libc.unix.bsd.apple.PosixSpawnattrT
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -17,8 +16,8 @@ private val newAppleLibpthreadPthreadSpawnNapiAvailable: Boolean = initNewAppleL
 @JsFun("(p0, p1) => globalThis.__km_napi_libc.libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(p0, p1)")
 private external fun wasmLibcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(p0: String, p1: String): Int
 
-public actual fun posixSpawnattrSetQosClassNp(attr: MutPtr<PosixSpawnattrT>, qosClass: QosClassT): CInt =
+public actual fun posixSpawnattrSetQosClassNp(attr: MutPtr, qosClass: QosClassT): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetQosClassNp(attr: ConstPtr<PosixSpawnattrT>, qosClass: MutPtr<QosClassT>): CInt =
+public actual fun posixSpawnattrGetQosClassNp(attr: ConstPtr, qosClass: MutPtr): CInt =
     if (newAppleLibpthreadPthreadSpawnNapiAvailable) wasmLibcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(attr.rawAddress.toString(), qosClass.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

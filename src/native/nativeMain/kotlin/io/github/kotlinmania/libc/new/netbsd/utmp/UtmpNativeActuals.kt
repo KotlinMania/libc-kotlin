@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpEndutent
 import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpGetutent
@@ -14,14 +13,14 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+public actual fun utmpname(file: ConstPtr): CInt =
     libcNewNetbsdUtmpUtmpname(file.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setutent() {
     libcNewNetbsdUtmpSetutent()
 }
 
-public actual fun getutent(): MutPtr<Utmp> =
+public actual fun getutent(): MutPtr =
     MutPtr(libcNewNetbsdUtmpGetutent()?.toLong() ?: 0L)
 
 public actual fun endutent() {

@@ -4,7 +4,6 @@
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
@@ -155,10 +154,10 @@ public data class Utmp(
     }
 }
 
-public expect fun utmpname(file: ConstPtr<CChar>): CInt
+public expect fun utmpname(file: ConstPtr): CInt
 
 public expect fun setutent()
 
-public expect fun getutent(): MutPtr<Utmp>
+public expect fun getutent(): MutPtr
 
 public expect fun endutent()

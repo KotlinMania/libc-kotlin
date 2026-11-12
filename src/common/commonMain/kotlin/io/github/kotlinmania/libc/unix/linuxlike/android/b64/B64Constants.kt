@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.android.b64
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // These constants must be of the same type of sigaction.saFlags
@@ -39,7 +38,7 @@ public val UT_NAMESIZE: Int = 32
 
 public val UT_HOSTSIZE: Int = 256
 
-public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
+public val RTLD_DEFAULT: MutPtr = MutPtr(0L)
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0, reserved = UByteArray(0))
 
