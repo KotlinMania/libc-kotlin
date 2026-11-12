@@ -126,10 +126,10 @@ public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
 public actual fun pthreadCancel(thread: PthreadT): CInt =
     if (unixAixNapiAddon != null) (unixAixNapiAddon.libcUnixAixPthreadCancel(thread.toLong().toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCleanupPop(execute: CInt): CVoid =
+public actual fun pthreadCleanupPop(execute: CInt): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): CVoid =
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
@@ -246,7 +246,7 @@ public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
 public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
     if (unixAixNapiAddon != null) (unixAixNapiAddon.libcUnixAixPthreadSpinUnlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadTestcancel(): CVoid =
+public actual fun pthreadTestcancel(): Unit =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =

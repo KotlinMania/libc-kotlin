@@ -27,7 +27,7 @@ public fun interface PthreadCreateStartCallback {
 }
 
 // intentionally not public, only used for fdSet
-public fun cmsgAlign(len: SizeT): SizeT = (len + sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1uL) and (sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1uL).inv()
+public fun cmsgAlign(len: SizeT): SizeT = (len + sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.U64).toULong() - 1uL) and (sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.U64).toULong() - 1uL).inv()
 
 public fun cmsgLen(length: CUint): CUint = (cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong()) + (length.toInt()).toULong()).toUInt()
 

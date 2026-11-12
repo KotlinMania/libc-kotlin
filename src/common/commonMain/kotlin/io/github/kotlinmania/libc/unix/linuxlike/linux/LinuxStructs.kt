@@ -5447,7 +5447,47 @@ public data class PtpPeroutRequest(
     public var index: CUint = 0u,
     public var flags: CUint = 0u,
     public var anonymous2: CAnonymousPtpPeroutRequest2 = CAnonymousPtpPeroutRequest2(),
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PtpPeroutRequest> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PtpPeroutRequest> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 56L
+                override fun readNative(addr: Long): PtpPeroutRequest {
+                    val startOrPhase = PtpClockTime.typeLayout().readNative(addr)
+                    val periodVal = PtpClockTime.typeLayout().readNative(addr + 16L)
+                    val indexVal =
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                            .readNative(addr + 32L)
+                    val flagsVal =
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                            .readNative(addr + 36L)
+                    val onVal = PtpClockTime.typeLayout().readNative(addr + 40L)
+                    val rsvVal =
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, 4)
+                            .readNative(addr + 40L)
+                            .toUIntArray()
+                    return PtpPeroutRequest(
+                        anonymous1 = CAnonymousPtpPeroutRequest1(start = startOrPhase, phase = startOrPhase),
+                        period = periodVal,
+                        index = indexVal,
+                        flags = flagsVal,
+                        anonymous2 = CAnonymousPtpPeroutRequest2(on = onVal, rsv = rsvVal),
+                    )
+                }
+                override fun writeNative(addr: Long, value: PtpPeroutRequest) {
+                    PtpClockTime.typeLayout().writeNative(addr, value.anonymous1.start)
+                    PtpClockTime.typeLayout().writeNative(addr + 16L, value.period)
+                    io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                        .writeNative(addr + 32L, value.index)
+                    io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                        .writeNative(addr + 36L, value.flags)
+                    PtpClockTime.typeLayout().writeNative(addr + 40L, value.anonymous2.on)
+                }
+            }
+    }
+}
 
 // linux/ifXdp.h
 public data class XskTxMetadata(

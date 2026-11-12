@@ -1179,11 +1179,9 @@ public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
 public actual fun pthreadCancel(thread: PthreadT): CInt =
     UnixAixJniBridge.libcUnixAixPthreadCancel(thread.toLong())
 
-public actual fun pthreadCleanupPop(execute: CInt): CVoid =
-    CVoid()
+public actual fun pthreadCleanupPop(execute: CInt) {}
 
-public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): CVoid =
-    CVoid()
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>) {}
 
 public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
     UnixAixJniBridge.libcUnixAixPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
@@ -1299,8 +1297,7 @@ public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
 public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
     UnixAixJniBridge.libcUnixAixPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun pthreadTestcancel(): CVoid =
-    CVoid()
+public actual fun pthreadTestcancel() {}
 
 public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =
     UnixAixJniBridge.libcUnixAixIconv(cd.rawAddress, inbuf.rawAddress, inbytesleft.rawAddress, outbuf.rawAddress, outbytesleft.rawAddress).toULong()

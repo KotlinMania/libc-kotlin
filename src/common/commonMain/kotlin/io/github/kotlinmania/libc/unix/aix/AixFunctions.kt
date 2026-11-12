@@ -226,9 +226,9 @@ public expect fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt
 
 public expect fun pthreadCancel(thread: PthreadT): CInt
 
-public expect fun pthreadCleanupPop(execute: CInt): CVoid
+public expect fun pthreadCleanupPop(execute: CInt)
 
-public expect fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): CVoid
+public expect fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>)
 
 public expect fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt
 
@@ -306,7 +306,7 @@ public expect fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt
 
 public expect fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt
 
-public expect fun pthreadTestcancel(): CVoid
+public expect fun pthreadTestcancel()
 
 public expect fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT
 

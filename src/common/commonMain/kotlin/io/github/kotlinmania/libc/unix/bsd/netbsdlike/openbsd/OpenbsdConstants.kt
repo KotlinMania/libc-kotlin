@@ -1618,4 +1618,4 @@ public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(0L)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(0L)
 
-public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)) - 3uL
+public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32).toULong()) - 3uL

@@ -57,7 +57,7 @@ public typealias ClockidT = CInt
 public typealias SusecondsT = CLong
 
 public fun interface OnceFn {
-    public operator fun invoke(): CVoid
+    public operator fun invoke()
 }
 
 public typealias PthreadOnceT = CInt

@@ -4144,7 +4144,7 @@ public data class SiginfoKill(
                     SiginfoKill(
                         PrimitiveLayouts.I32.readNative(addr),
                         SiginfoKillval(
-                            uid = PrimitiveLayouts.U32.readNative(addr + 8L),
+                            uid = PrimitiveLayouts.U16.readNative(addr + 8L),
                             value = Sigval.typeLayout().readNative(addr + 8L),
                             padCtorArg = PrimitiveLayouts.mutPtrLayout<CVoid>(64).readNative(addr + 8L),
                         ),

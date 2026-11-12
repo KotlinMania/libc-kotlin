@@ -905,7 +905,7 @@ public class SiginfoT internal constructor(
                 .kmAlloc(sz, 8L)
         typeLayout().writeNative(scratch, this)
         val out =
-            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16
                 .readNative(scratch + 20L)
         io.github.kotlinmania.rustlang.core.intrinsics
             .kmDealloc(scratch, sz, 8L)

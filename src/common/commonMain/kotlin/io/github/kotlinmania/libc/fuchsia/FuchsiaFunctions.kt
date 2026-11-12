@@ -121,7 +121,7 @@ public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
         MutPtr<Cmsghdr>(0L)
     }
 
-public fun cmsgAlign(len: SizeT): SizeT = (len + sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1uL) and (sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1uL).inv()
+public fun cmsgAlign(len: SizeT): SizeT = (len + sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.U64).toULong() - 1uL) and (sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.U64).toULong() - 1uL).inv()
 
 public fun cmsgSpace(len: CUint): CUint = (cmsgAlign(len.toULong()) + cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong())).toUInt()
 
@@ -170,7 +170,7 @@ public fun minor(dev: DevT): CUint {
     return minor.toUInt()
 }
 
-public fun cmsgLen(cmsg: ConstPtr<Cmsghdr>): SsizeT = ((((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toULong() + sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) - 1uL) and (sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) - 1uL).inv()).toLong()
+public fun cmsgLen(cmsg: ConstPtr<Cmsghdr>): SsizeT = ((((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toULong() + sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64).toULong() - 1uL) and (sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64).toULong() - 1uL).inv()).toLong()
 
 public fun cmsgNext(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CUchar>((ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress, (ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawMeta)
 

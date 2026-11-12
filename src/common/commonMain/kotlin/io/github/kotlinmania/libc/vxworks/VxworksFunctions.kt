@@ -953,7 +953,7 @@ public fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: Size
     val memptr1 = memptr
     // check to see if align is a power of 2 and if align is a multiple
     // of sizeof(void *)
-    if ((align and align - 1uL != 0uL) || (align.toInt() % sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.USIZE64) != 0)) {
+    if ((align and align - 1uL != 0uL) || (align.toInt() % sizeOf<SizeT>(typeLayoutT = PrimitiveLayouts.U64) != 0)) {
         return EINVAL
     }
     return run {
