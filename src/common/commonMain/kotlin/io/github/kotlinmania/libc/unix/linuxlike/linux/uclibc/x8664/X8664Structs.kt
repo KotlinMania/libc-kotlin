@@ -1110,7 +1110,7 @@ public data class Termios(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                         ).readNative(addr + 17L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Termios) {
@@ -1121,7 +1121,7 @@ public data class Termios(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 16L, value.cLine)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                     ).writeNative(addr + 17L, value.cCc.toList())
                 }
             }

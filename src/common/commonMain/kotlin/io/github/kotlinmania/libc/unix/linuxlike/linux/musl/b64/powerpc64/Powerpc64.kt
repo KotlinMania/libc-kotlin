@@ -98,7 +98,7 @@ public data class Termios(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                         ).readNative(addr + 16L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off5),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off6),
@@ -111,7 +111,7 @@ public data class Termios(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.cLflag)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                     ).writeNative(addr + 16L, value.cCc.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off5, value.cLine)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off6, value.cIspeed)

@@ -172,7 +172,7 @@ public fun minor(dev: DevT): CUint {
 
 public fun cmsgLen(cmsg: ConstPtr<Cmsghdr>): SsizeT = ((((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toULong() + sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64).toULong() - 1uL) and (sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64).toULong() - 1uL).inv()).toLong()
 
-public fun cmsgNext(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CUchar>((ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress, (ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawMeta)
+public fun cmsgNext(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CUchar>((ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)) * (Cmsghdr.typeLayout()).strideBytes))).rawAddress, (ConstPtr<CVoid>((cmsg).rawAddress + ((cmsgLen(cmsg)) * (Cmsghdr.typeLayout()).strideBytes))).rawMeta)
 
 public fun mhdrEnd(mhdr: ConstPtr<Msghdr>): MutPtr<CUchar> = MutPtr<CUchar>((MutPtr<CVoid>(((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress + ((((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()).toLong() * (PrimitiveLayouts.U8).strideBytes))).rawAddress)
 

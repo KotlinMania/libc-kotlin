@@ -90,7 +90,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: ConstPtr<
 private external fun wasiLibcUnixBsdFreebsdlikeDragonflySchedGetcpu(): Int
 
 public actual fun schedGetcpu(): CInt =
-    wasiLibcUnixBsdFreebsdlikeDragonflySchedGetcpu().toInt()
+    wasiLibcUnixBsdFreebsdlikeDragonflySchedGetcpu()
 
 public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeDragonflySetproctitle")
 
@@ -98,7 +98,7 @@ public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long):
 private external fun wasiLibcUnixBsdFreebsdlikeDragonflyShmget(key: Long, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeDragonflyShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixBsdFreebsdlikeDragonflyShmget(key, size.toLong(), shmflg)
 
 public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeDragonflyShmat")
@@ -131,7 +131,7 @@ public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeDragonflySysCheckpoint(tpe: Int, fd: Int, pid: Int, retval: Int): Int
 
 public actual fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeDragonflySysCheckpoint(tpe, fd, pid, retval).toInt()
+    wasiLibcUnixBsdFreebsdlikeDragonflySysCheckpoint(tpe, fd, pid, retval)
 
 public actual fun umtxSleep(ptr: ConstPtr<CInt>, value: CInt, timeout: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeDragonflyUmtxSleep")
@@ -155,7 +155,7 @@ public actual fun getmntvinfo(mntbufp: MutPtr<MutPtr<Statfs>>, mntvbufp: MutPtr<
 private external fun wasiLibcUnixBsdFreebsdlikeDragonflyClosefrom(lowfd: Int): Int
 
 public actual fun closefrom(lowfd: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeDragonflyClosefrom(lowfd).toInt()
+    wasiLibcUnixBsdFreebsdlikeDragonflyClosefrom(lowfd)
 
 public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeDragonflyAioCancel")

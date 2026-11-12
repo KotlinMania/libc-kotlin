@@ -30,13 +30,13 @@ public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcNewQurtSysMmanMlockall(flags: Int): Int
 
 public actual fun mlockall(flags: CInt): CInt =
-    wasiLibcNewQurtSysMmanMlockall(flags).toInt()
+    wasiLibcNewQurtSysMmanMlockall(flags)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtSysMmanMunlockall")
 private external fun wasiLibcNewQurtSysMmanMunlockall(): Int
 
 public actual fun munlockall(): CInt =
-    wasiLibcNewQurtSysMmanMunlockall().toInt()
+    wasiLibcNewQurtSysMmanMunlockall()
 
 public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtSysMmanMsync")

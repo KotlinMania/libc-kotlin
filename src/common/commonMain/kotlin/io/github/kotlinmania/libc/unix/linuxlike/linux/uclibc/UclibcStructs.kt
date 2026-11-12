@@ -505,13 +505,13 @@ public data class PthreadMutexattrT(
                     PthreadMutexattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadMutexattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -541,13 +541,13 @@ public data class PthreadCondattrT(
                     PthreadCondattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadCondattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }

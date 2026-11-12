@@ -38,7 +38,7 @@ public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
 private external fun wasiLibcTrustyClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcTrustyClose(fd).toInt()
+    wasiLibcTrustyClose(fd)
 
 public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTrustyStrlen")

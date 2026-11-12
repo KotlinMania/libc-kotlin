@@ -31,7 +31,7 @@ private external fun wasiLibcSolidGetOPTERR(): Int
 private external fun wasiLibcSolidSetOPTERR(value: Int): Unit
 
 public actual var OPTERR: CInt
-    get() = wasiLibcSolidGetOPTERR().toInt()
+    get() = wasiLibcSolidGetOPTERR()
     set(value) {
         wasiLibcSolidSetOPTERR(value)
     }
@@ -43,7 +43,7 @@ private external fun wasiLibcSolidGetOPTIND(): Int
 private external fun wasiLibcSolidSetOPTIND(value: Int): Unit
 
 public actual var OPTIND: CInt
-    get() = wasiLibcSolidGetOPTIND().toInt()
+    get() = wasiLibcSolidGetOPTIND()
     set(value) {
         wasiLibcSolidSetOPTIND(value)
     }
@@ -55,7 +55,7 @@ private external fun wasiLibcSolidGetOPTOPT(): Int
 private external fun wasiLibcSolidSetOPTOPT(value: Int): Unit
 
 public actual var OPTOPT: CInt
-    get() = wasiLibcSolidGetOPTOPT().toInt()
+    get() = wasiLibcSolidGetOPTOPT()
     set(value) {
         wasiLibcSolidSetOPTOPT(value)
     }
@@ -67,7 +67,7 @@ private external fun wasiLibcSolidGetOPTRESET(): Int
 private external fun wasiLibcSolidSetOPTRESET(value: Int): Unit
 
 public actual var OPTRESET: CInt
-    get() = wasiLibcSolidGetOPTRESET().toInt()
+    get() = wasiLibcSolidGetOPTRESET()
     set(value) {
         wasiLibcSolidSetOPTRESET(value)
     }
@@ -82,85 +82,85 @@ public actual var SUBOPTARG: MutPtr<CChar>
 private external fun wasiLibcSolidIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcSolidIsalnum(c).toInt()
+    wasiLibcSolidIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsalpha")
 private external fun wasiLibcSolidIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcSolidIsalpha(c).toInt()
+    wasiLibcSolidIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIscntrl")
 private external fun wasiLibcSolidIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcSolidIscntrl(c).toInt()
+    wasiLibcSolidIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsdigit")
 private external fun wasiLibcSolidIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcSolidIsdigit(c).toInt()
+    wasiLibcSolidIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsgraph")
 private external fun wasiLibcSolidIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcSolidIsgraph(c).toInt()
+    wasiLibcSolidIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIslower")
 private external fun wasiLibcSolidIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcSolidIslower(c).toInt()
+    wasiLibcSolidIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsprint")
 private external fun wasiLibcSolidIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcSolidIsprint(c).toInt()
+    wasiLibcSolidIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIspunct")
 private external fun wasiLibcSolidIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcSolidIspunct(c).toInt()
+    wasiLibcSolidIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsspace")
 private external fun wasiLibcSolidIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcSolidIsspace(c).toInt()
+    wasiLibcSolidIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsupper")
 private external fun wasiLibcSolidIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcSolidIsupper(c).toInt()
+    wasiLibcSolidIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsxdigit")
 private external fun wasiLibcSolidIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcSolidIsxdigit(c).toInt()
+    wasiLibcSolidIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidIsblank")
 private external fun wasiLibcSolidIsblank(c: Int): Int
 
 public actual fun isblank(c: CInt): CInt =
-    wasiLibcSolidIsblank(c).toInt()
+    wasiLibcSolidIsblank(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidTolower")
 private external fun wasiLibcSolidTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcSolidTolower(c).toInt()
+    wasiLibcSolidTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidToupper")
 private external fun wasiLibcSolidToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcSolidToupper(c).toInt()
+    wasiLibcSolidToupper(c)
 
 public actual fun getStdioFile(fileno: CInt): MutPtr<FILE> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidGetStdioFile")
@@ -222,7 +222,7 @@ public actual fun getc(arg1: MutPtr<FILE>): CInt =
 private external fun wasiLibcSolidGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcSolidGetchar().toInt()
+    wasiLibcSolidGetchar()
 
 public actual fun perror(arg1: ConstPtr<CChar>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidPerror")
 
@@ -236,7 +236,7 @@ public actual fun putc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
 private external fun wasiLibcSolidPutchar(arg1: Int): Int
 
 public actual fun putchar(arg1: CInt): CInt =
-    wasiLibcSolidPutchar(arg1).toInt()
+    wasiLibcSolidPutchar(arg1)
 
 public actual fun puts(arg1: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidPuts")
@@ -364,7 +364,7 @@ public actual fun getcUnlocked(arg1: MutPtr<FILE>): CInt =
 private external fun wasiLibcSolidGetcharUnlocked(): Int
 
 public actual fun getcharUnlocked(): CInt =
-    wasiLibcSolidGetcharUnlocked().toInt()
+    wasiLibcSolidGetcharUnlocked()
 
 public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidPutcUnlocked")
@@ -373,7 +373,7 @@ public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
 private external fun wasiLibcSolidPutcharUnlocked(arg1: Int): Int
 
 public actual fun putcharUnlocked(arg1: CInt): CInt =
-    wasiLibcSolidPutcharUnlocked(arg1).toInt()
+    wasiLibcSolidPutcharUnlocked(arg1)
 
 public actual fun snprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidSnprintf")
@@ -406,7 +406,7 @@ public actual fun strtod(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Do
 private external fun wasiLibcSolidDrand48(): Double
 
 public actual fun drand48(): Double =
-    wasiLibcSolidDrand48().toDouble()
+    wasiLibcSolidDrand48()
 
 public actual fun erand48(arg1: MutPtr<CUshort>): Double =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidErand48")
@@ -446,7 +446,7 @@ public actual fun abort(): Nothing {
 private external fun wasiLibcSolidAbs(arg1: Int): Int
 
 public actual fun abs(arg1: CInt): CInt =
-    wasiLibcSolidAbs(arg1).toInt()
+    wasiLibcSolidAbs(arg1)
 
 public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidAtexit")
@@ -484,7 +484,7 @@ public actual fun getenv(arg1: ConstPtr<CChar>): MutPtr<CChar> =
 private external fun wasiLibcSolidLabs(arg1: Long): Long
 
 public actual fun labs(arg1: CLong): CLong =
-    wasiLibcSolidLabs(arg1).toLong()
+    wasiLibcSolidLabs(arg1)
 
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidLdiv")
@@ -498,7 +498,7 @@ public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: Bse
 private external fun wasiLibcSolidRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcSolidRand().toInt()
+    wasiLibcSolidRand()
 
 public actual fun realloc(arg1: MutPtr<CVoid>, arg2: SizeT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidRealloc")
@@ -542,13 +542,13 @@ public actual fun lcong48(arg1: MutPtr<CUshort>): Unit = throw UnsupportedOperat
 private external fun wasiLibcSolidLrand48(): Long
 
 public actual fun lrand48(): CLong =
-    wasiLibcSolidLrand48().toLong()
+    wasiLibcSolidLrand48()
 
 @kotlin.wasm.WasmImport("libc", "libcSolidMrand48")
 private external fun wasiLibcSolidMrand48(): Long
 
 public actual fun mrand48(): CLong =
-    wasiLibcSolidMrand48().toLong()
+    wasiLibcSolidMrand48()
 
 public actual fun nrand48(arg1: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidNrand48")
@@ -575,7 +575,7 @@ public actual fun l64a(arg1: CLong): MutPtr<CChar> =
 private external fun wasiLibcSolidRandom(): Long
 
 public actual fun random(): CLong =
-    wasiLibcSolidRandom().toLong()
+    wasiLibcSolidRandom()
 
 public actual fun setstate(arg1: MutPtr<CChar>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidSetstate")
@@ -611,7 +611,7 @@ public actual fun atoll(arg1: ConstPtr<CChar>): CLonglong =
 private external fun wasiLibcSolidLlabs(arg1: Long): Long
 
 public actual fun llabs(arg1: CLonglong): CLonglong =
-    wasiLibcSolidLlabs(arg1).toLong()
+    wasiLibcSolidLlabs(arg1)
 
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidLldiv")
@@ -670,7 +670,7 @@ public actual fun setprogname(arg1: ConstPtr<CChar>): Unit = throw UnsupportedOp
 private external fun wasiLibcSolidQabs(arg1: Long): Long
 
 public actual fun qabs(arg1: QuadT): QuadT =
-    wasiLibcSolidQabs(arg1).toLong()
+    wasiLibcSolidQabs(arg1)
 
 public actual fun strtoq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): QuadT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidStrtoq")
@@ -863,7 +863,7 @@ public actual fun bzero(arg1: MutPtr<CVoid>, arg2: SizeT): Unit = throw Unsuppor
 private external fun wasiLibcSolidFfs(arg1: Int): Int
 
 public actual fun ffs(arg1: CInt): CInt =
-    wasiLibcSolidFfs(arg1).toInt()
+    wasiLibcSolidFfs(arg1)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidPopcount")
 private external fun wasiLibcSolidPopcount(arg1: Int): Int
@@ -914,7 +914,7 @@ public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
 private external fun wasiLibcSolidRaise(arg1: Int): Int
 
 public actual fun raise(arg1: CInt): CInt =
-    wasiLibcSolidRaise(arg1).toInt()
+    wasiLibcSolidRaise(arg1)
 
 public actual fun asctime(arg1: ConstPtr<Tm>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidAsctime")
@@ -932,7 +932,7 @@ public actual fun ctime(arg1: ConstPtr<TimeT>): MutPtr<CChar> =
 private external fun wasiLibcSolidDifftime(arg1: Long, arg2: Long): Double
 
 public actual fun difftime(arg1: TimeT, arg2: TimeT): Double =
-    wasiLibcSolidDifftime(arg1, arg2).toDouble()
+    wasiLibcSolidDifftime(arg1, arg2)
 
 public actual fun gmtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidGmtime")
@@ -989,7 +989,7 @@ public actual fun creat(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
 private external fun wasiLibcSolidClose(arg1: Int): Int
 
 public actual fun close(arg1: CInt): CInt =
-    wasiLibcSolidClose(arg1).toInt()
+    wasiLibcSolidClose(arg1)
 
 public actual fun read(arg1: CInt, arg2: MutPtr<CVoid>, arg3: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidRead")
@@ -1004,19 +1004,19 @@ public actual fun unlink(arg1: ConstPtr<CChar>): CInt =
 private external fun wasiLibcSolidTell(arg1: Int): Long
 
 public actual fun tell(arg1: CInt): CLong =
-    wasiLibcSolidTell(arg1).toLong()
+    wasiLibcSolidTell(arg1)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidDup")
 private external fun wasiLibcSolidDup(arg1: Int): Int
 
 public actual fun dup(arg1: CInt): CInt =
-    wasiLibcSolidDup(arg1).toInt()
+    wasiLibcSolidDup(arg1)
 
 @kotlin.wasm.WasmImport("libc", "libcSolidDup2")
 private external fun wasiLibcSolidDup2(arg1: Int, arg2: Int): Int
 
 public actual fun dup2(arg1: CInt, arg2: CInt): CInt =
-    wasiLibcSolidDup2(arg1, arg2).toInt()
+    wasiLibcSolidDup2(arg1, arg2)
 
 public actual fun access(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidAccess")
@@ -1046,7 +1046,7 @@ public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt
 private external fun wasiLibcSolidGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcSolidGetpid().toInt()
+    wasiLibcSolidGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcSolidSleep")
 private external fun wasiLibcSolidSleep(arg1: Int): Int
@@ -1058,7 +1058,7 @@ public actual fun sleep(arg1: CUint): CUint =
 private external fun wasiLibcSolidUsleep(arg1: Int): Int
 
 public actual fun usleep(arg1: UsecondsT): CInt =
-    wasiLibcSolidUsleep(arg1.toInt()).toInt()
+    wasiLibcSolidUsleep(arg1.toInt())
 
 public actual fun localeconv(): MutPtr<Lconv> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcSolidLocaleconv")
@@ -1090,4 +1090,4 @@ public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
 private external fun wasiLibcSolidLseek(arg1: Int, arg2: Long, arg3: Int): Long
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
-    wasiLibcSolidLseek(arg1, arg2, arg3).toLong()
+    wasiLibcSolidLseek(arg1, arg2, arg3)

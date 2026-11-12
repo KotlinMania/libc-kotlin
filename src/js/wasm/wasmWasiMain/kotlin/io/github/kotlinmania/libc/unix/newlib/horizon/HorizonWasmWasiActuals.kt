@@ -48,7 +48,7 @@ public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockI
 private external fun wasiLibcUnixNewlibHorizonPthreadGetprocessoridNp(): Int
 
 public actual fun pthreadGetprocessoridNp(): CInt =
-    wasiLibcUnixNewlibHorizonPthreadGetprocessoridNp().toInt()
+    wasiLibcUnixNewlibHorizonPthreadGetprocessoridNp()
 
 public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNewlibHorizonGetrandom")
@@ -57,4 +57,4 @@ public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): Ss
 private external fun wasiLibcUnixNewlibHorizonGethostid(): Long
 
 public actual fun gethostid(): CLong =
-    wasiLibcUnixNewlibHorizonGethostid().toLong()
+    wasiLibcUnixNewlibHorizonGethostid()

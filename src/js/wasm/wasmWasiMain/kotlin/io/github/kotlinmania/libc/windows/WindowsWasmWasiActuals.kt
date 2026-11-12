@@ -27,85 +27,85 @@ public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg 
 private external fun wasiLibcWindowsIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcWindowsIsalnum(c).toInt()
+    wasiLibcWindowsIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsalpha")
 private external fun wasiLibcWindowsIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcWindowsIsalpha(c).toInt()
+    wasiLibcWindowsIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIscntrl")
 private external fun wasiLibcWindowsIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcWindowsIscntrl(c).toInt()
+    wasiLibcWindowsIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsdigit")
 private external fun wasiLibcWindowsIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcWindowsIsdigit(c).toInt()
+    wasiLibcWindowsIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsgraph")
 private external fun wasiLibcWindowsIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcWindowsIsgraph(c).toInt()
+    wasiLibcWindowsIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIslower")
 private external fun wasiLibcWindowsIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcWindowsIslower(c).toInt()
+    wasiLibcWindowsIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsprint")
 private external fun wasiLibcWindowsIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcWindowsIsprint(c).toInt()
+    wasiLibcWindowsIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIspunct")
 private external fun wasiLibcWindowsIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcWindowsIspunct(c).toInt()
+    wasiLibcWindowsIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsspace")
 private external fun wasiLibcWindowsIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcWindowsIsspace(c).toInt()
+    wasiLibcWindowsIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsupper")
 private external fun wasiLibcWindowsIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcWindowsIsupper(c).toInt()
+    wasiLibcWindowsIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsxdigit")
 private external fun wasiLibcWindowsIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcWindowsIsxdigit(c).toInt()
+    wasiLibcWindowsIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsblank")
 private external fun wasiLibcWindowsIsblank(c: Int): Int
 
 public actual fun isblank(c: CInt): CInt =
-    wasiLibcWindowsIsblank(c).toInt()
+    wasiLibcWindowsIsblank(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsTolower")
 private external fun wasiLibcWindowsTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcWindowsTolower(c).toInt()
+    wasiLibcWindowsTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsToupper")
 private external fun wasiLibcWindowsToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcWindowsToupper(c).toInt()
+    wasiLibcWindowsToupper(c)
 
 public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsQsort")
 
@@ -141,13 +141,13 @@ public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>): Unit = throw
 private external fun wasiLibcWindowsGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcWindowsGetchar().toInt()
+    wasiLibcWindowsGetchar()
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsPutchar")
 private external fun wasiLibcWindowsPutchar(c: Int): Int
 
 public actual fun putchar(c: CInt): CInt =
-    wasiLibcWindowsPutchar(c).toInt()
+    wasiLibcWindowsPutchar(c)
 
 public actual fun fgetc(stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsFgetc")
@@ -349,19 +349,19 @@ public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> 
 private external fun wasiLibcWindowsAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcWindowsAbs(i).toInt()
+    wasiLibcWindowsAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsLabs")
 private external fun wasiLibcWindowsLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcWindowsLabs(i).toLong()
+    wasiLibcWindowsLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsRand")
 private external fun wasiLibcWindowsRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcWindowsRand().toInt()
+    wasiLibcWindowsRand()
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsSrand")
 private external fun wasiLibcWindowsSrand(seed: Int): Unit
@@ -379,13 +379,13 @@ public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
 private external fun wasiLibcWindowsRaise(signum: Int): Int
 
 public actual fun raise(signum: CInt): CInt =
-    wasiLibcWindowsRaise(signum).toInt()
+    wasiLibcWindowsRaise(signum)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsClock")
 private external fun wasiLibcWindowsClock(): Int
 
 public actual fun clock(): ClockT =
-    wasiLibcWindowsClock().toInt()
+    wasiLibcWindowsClock()
 
 public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsCtime")
@@ -394,7 +394,7 @@ public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
 private external fun wasiLibcWindowsDifftime(timeEnd: Long, timeStart: Long): Double
 
 public actual fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble =
-    wasiLibcWindowsDifftime(timeEnd, timeStart).toDouble()
+    wasiLibcWindowsDifftime(timeEnd, timeStart)
 
 public actual fun gmtimeS(destTime: MutPtr<Tm>, srcTime: ConstPtr<TimeT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsGmtimeS")
@@ -478,19 +478,19 @@ public actual fun chdir(dir: ConstPtr<CChar>): CInt =
 private external fun wasiLibcWindowsClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcWindowsClose(fd).toInt()
+    wasiLibcWindowsClose(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsDup")
 private external fun wasiLibcWindowsDup(fd: Int): Int
 
 public actual fun dup(fd: CInt): CInt =
-    wasiLibcWindowsDup(fd).toInt()
+    wasiLibcWindowsDup(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsDup2")
 private external fun wasiLibcWindowsDup2(src: Int, dst: Int): Int
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    wasiLibcWindowsDup2(src, dst).toInt()
+    wasiLibcWindowsDup2(src, dst)
 
 public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsExecl")
@@ -547,25 +547,25 @@ public actual fun getcwd(buf: MutPtr<CChar>, size: CInt): MutPtr<CChar> =
 private external fun wasiLibcWindowsGetpid(): Int
 
 public actual fun getpid(): CInt =
-    wasiLibcWindowsGetpid().toInt()
+    wasiLibcWindowsGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsIsatty")
 private external fun wasiLibcWindowsIsatty(fd: Int): Int
 
 public actual fun isatty(fd: CInt): CInt =
-    wasiLibcWindowsIsatty(fd).toInt()
+    wasiLibcWindowsIsatty(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsLseek")
 private external fun wasiLibcWindowsLseek(fd: Int, offset: Long, origin: Int): Long
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
-    wasiLibcWindowsLseek(fd, offset, origin).toLong()
+    wasiLibcWindowsLseek(fd, offset, origin)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsLseek64")
 private external fun wasiLibcWindowsLseek64(fd: Int, offset: Long, origin: Int): Long
 
 public actual fun lseek64(fd: CInt, offset: CLonglong, origin: CInt): CLonglong =
-    wasiLibcWindowsLseek64(fd, offset, origin).toLong()
+    wasiLibcWindowsLseek64(fd, offset, origin)
 
 public actual fun pipe(fds: MutPtr<CInt>, psize: CUint, textmode: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsPipe")
@@ -586,19 +586,19 @@ public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: CUint): CInt =
 private external fun wasiLibcWindowsCommit(fd: Int): Int
 
 public actual fun commit(fd: CInt): CInt =
-    wasiLibcWindowsCommit(fd).toInt()
+    wasiLibcWindowsCommit(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsGetOsfhandle")
 private external fun wasiLibcWindowsGetOsfhandle(fd: Int): Long
 
 public actual fun getOsfhandle(fd: CInt): IntptrT =
-    wasiLibcWindowsGetOsfhandle(fd).toLong()
+    wasiLibcWindowsGetOsfhandle(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcWindowsOpenOsfhandle")
 private external fun wasiLibcWindowsOpenOsfhandle(osfhandle: Long, flags: Int): Int
 
 public actual fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt =
-    wasiLibcWindowsOpenOsfhandle(osfhandle, flags).toInt()
+    wasiLibcWindowsOpenOsfhandle(osfhandle, flags)
 
 public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsSetlocale")
@@ -630,7 +630,7 @@ public actual fun wputenvS(envstring: ConstPtr<WcharT>, valueString: ConstPtr<Wc
 private external fun wasiLibcWindowsListen(s: Long, backlog: Int): Int
 
 public actual fun listen(s: Socket, backlog: CInt): CInt =
-    wasiLibcWindowsListen(s.toLong(), backlog).toInt()
+    wasiLibcWindowsListen(s.toLong(), backlog)
 
 public actual fun accept(s: Socket, addr: MutPtr<Sockaddr>, addrlen: MutPtr<CInt>): Socket =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWindowsAccept")

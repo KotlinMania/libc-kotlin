@@ -101,7 +101,7 @@ public data class CanFrame(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 7L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CAN_MAX_DLEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CAN_MAX_DLEN))
                         ).readNative(addr + 8L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: CanFrame) {
@@ -112,7 +112,7 @@ public data class CanFrame(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 7L, value.len8Dlc)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CAN_MAX_DLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CAN_MAX_DLEN))
                     ).writeNative(addr + 8L, value.data.toList())
                 }
             }
@@ -171,7 +171,7 @@ public data class CanfdFrame(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 7L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANFD_MAX_DLEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANFD_MAX_DLEN))
                         ).readNative(addr + 8L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: CanfdFrame) {
@@ -182,7 +182,7 @@ public data class CanfdFrame(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 7L, value.res1)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANFD_MAX_DLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANFD_MAX_DLEN))
                     ).writeNative(addr + 8L, value.data.toList())
                 }
             }
@@ -239,7 +239,7 @@ public data class CanxlFrame(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANXL_MAX_DLEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANXL_MAX_DLEN))
                         ).readNative(addr + 12L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: CanxlFrame) {
@@ -250,7 +250,7 @@ public data class CanxlFrame(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.af)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANXL_MAX_DLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (CANXL_MAX_DLEN))
                     ).writeNative(addr + 12L, value.data.toList())
                 }
             }

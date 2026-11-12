@@ -17,7 +17,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent(): Int
 
 public actual fun setgrent(): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent().toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent()
 
 public actual fun mprotect(addr: ConstPtr<CVoid>, len: SizeT, prot: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdFreebsd11Mprotect")

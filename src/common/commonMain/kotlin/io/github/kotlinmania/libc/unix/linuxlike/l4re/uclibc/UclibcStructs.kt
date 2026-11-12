@@ -1180,7 +1180,7 @@ public class PthreadCondT internal constructor(
                         ).readNative(addr + 16L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PTHREAD_COND_PADDING_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PTHREAD_COND_PADDING_SIZE))
                         ).readNative(addr + 24L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off3),
                     )
@@ -1192,7 +1192,7 @@ public class PthreadCondT internal constructor(
                     ).writeNative(addr + 16L, value.cWaiting)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PTHREAD_COND_PADDING_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PTHREAD_COND_PADDING_SIZE))
                     ).writeNative(addr + 24L, value.padding.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off3, value.align)
                 }

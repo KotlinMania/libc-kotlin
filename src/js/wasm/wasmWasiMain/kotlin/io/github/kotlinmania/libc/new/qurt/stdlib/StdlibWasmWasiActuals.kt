@@ -91,7 +91,7 @@ public actual fun strtof(nptr: ConstPtr<CChar>, endptr: MutPtr<MutPtr<CChar>>): 
 private external fun wasiLibcNewQurtStdlibRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcNewQurtStdlibRand().toInt()
+    wasiLibcNewQurtStdlibRand()
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtStdlibSrand")
 private external fun wasiLibcNewQurtStdlibSrand(seed: Int): Unit
@@ -108,19 +108,19 @@ public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nmemb: Si
 private external fun wasiLibcNewQurtStdlibAbs(j: Int): Int
 
 public actual fun abs(j: CInt): CInt =
-    wasiLibcNewQurtStdlibAbs(j).toInt()
+    wasiLibcNewQurtStdlibAbs(j)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtStdlibLabs")
 private external fun wasiLibcNewQurtStdlibLabs(j: Long): Long
 
 public actual fun labs(j: CLong): CLong =
-    wasiLibcNewQurtStdlibLabs(j).toLong()
+    wasiLibcNewQurtStdlibLabs(j)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtStdlibLlabs")
 private external fun wasiLibcNewQurtStdlibLlabs(j: Long): Long
 
 public actual fun llabs(j: CLonglong): CLonglong =
-    wasiLibcNewQurtStdlibLlabs(j).toLong()
+    wasiLibcNewQurtStdlibLlabs(j)
 
 public actual fun div(numer: CInt, denom: CInt): DivT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtStdlibDiv")

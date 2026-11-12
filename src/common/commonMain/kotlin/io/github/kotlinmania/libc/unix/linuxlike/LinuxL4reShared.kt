@@ -1588,7 +1588,7 @@ public data class ArpdRequest(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (MAX_ADDR_LEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (MAX_ADDR_LEN))
                         ).readNative(addr + 32L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: ArpdRequest) {
@@ -1599,7 +1599,7 @@ public data class ArpdRequest(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.updated)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (MAX_ADDR_LEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (MAX_ADDR_LEN))
                     ).writeNative(addr + 32L, value.ha.toList())
                 }
             }

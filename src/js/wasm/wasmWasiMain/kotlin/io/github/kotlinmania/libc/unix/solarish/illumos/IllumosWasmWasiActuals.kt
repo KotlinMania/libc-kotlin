@@ -30,7 +30,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcUnixSolarishIllumosEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcUnixSolarishIllumosEventfd(initval.toInt(), flags).toInt()
+    wasiLibcUnixSolarishIllumosEventfd(initval.toInt(), flags)
 
 public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishIllumosEpollPwait")
@@ -39,13 +39,13 @@ public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: 
 private external fun wasiLibcUnixSolarishIllumosEpollCreate(size: Int): Int
 
 public actual fun epollCreate(size: CInt): CInt =
-    wasiLibcUnixSolarishIllumosEpollCreate(size).toInt()
+    wasiLibcUnixSolarishIllumosEpollCreate(size)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishIllumosEpollCreate1")
 private external fun wasiLibcUnixSolarishIllumosEpollCreate1(flags: Int): Int
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    wasiLibcUnixSolarishIllumosEpollCreate1(flags).toInt()
+    wasiLibcUnixSolarishIllumosEpollCreate1(flags)
 
 public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishIllumosEpollWait")
@@ -78,7 +78,7 @@ public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr:
 private external fun wasiLibcUnixSolarishIllumosPosixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    wasiLibcUnixSolarishIllumosPosixFadvise(fd, offset, len, advice).toInt()
+    wasiLibcUnixSolarishIllumosPosixFadvise(fd, offset, len, advice)
 
 public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishIllumosPreadv")
@@ -99,7 +99,7 @@ public actual fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): C
 private external fun wasiLibcUnixSolarishIllumosSyncfs(fd: Int): Int
 
 public actual fun syncfs(fd: CInt): CInt =
-    wasiLibcUnixSolarishIllumosSyncfs(fd).toInt()
+    wasiLibcUnixSolarishIllumosSyncfs(fd)
 
 public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishIllumosStrcasecmpL")
@@ -111,7 +111,7 @@ public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: Size
 private external fun wasiLibcUnixSolarishIllumosTimerfdCreate(clockid: Int, flags: Int): Int
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    wasiLibcUnixSolarishIllumosTimerfdCreate(clockid, flags).toInt()
+    wasiLibcUnixSolarishIllumosTimerfdCreate(clockid, flags)
 
 public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishIllumosTimerfdGettime")

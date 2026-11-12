@@ -2378,7 +2378,7 @@ public data class Uucred(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + 6L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (NGROUPS_MAX).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (NGROUPS_MAX))
                         ).readNative(addr + 8L).toUShortArray(),
                     )
                 override fun writeNative(addr: Long, value: Uucred) {
@@ -2388,7 +2388,7 @@ public data class Uucred(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + 6L, value.crNgroups)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (NGROUPS_MAX).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (NGROUPS_MAX))
                     ).writeNative(addr + 8L, value.crGroups.toList())
                 }
             }
@@ -3375,7 +3375,7 @@ public class KinfoProc2 {
                         this.pGroups =
                             (
                                 io.github.kotlinmania.rustlang.core.mem
-                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS).toInt())
+                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS))
                             ).readNative(addr + 152L).toUIntArray()
                         this.pNgroups = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + off26)
                         this.pJobc = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + off27)
@@ -3407,18 +3407,18 @@ public class KinfoProc2 {
                         this.pComm =
                             (
                                 io.github.kotlinmania.rustlang.core.mem
-                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXCOMLEN).toInt())
+                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXCOMLEN))
                             ).readNative(addr + off53).toUByteArray()
                         this.pWmesg =
                             (
                                 io.github.kotlinmania.rustlang.core.mem
-                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN).toInt())
+                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN))
                             ).readNative(addr + off54).toUByteArray()
                         this.pWchan = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + off55)
                         this.pLogin =
                             (
                                 io.github.kotlinmania.rustlang.core.mem
-                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXLOGNAME).toInt())
+                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXLOGNAME))
                             ).readNative(addr + off56).toUByteArray()
                         this.pVmRssize = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off57)
                         this.pVmTsize = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off58)
@@ -3457,7 +3457,7 @@ public class KinfoProc2 {
                         this.pEname =
                             (
                                 io.github.kotlinmania.rustlang.core.mem
-                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXEMULLEN).toInt())
+                                    .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXEMULLEN))
                             ).readNative(addr + off91).toUByteArray()
                         this.pVmVsize = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off92)
                         this.pVmMsize = (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off93)
@@ -3490,7 +3490,7 @@ public class KinfoProc2 {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 148L, value.pRgid)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS))
                     ).writeNative(addr + 152L, value.pGroups.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + off26, value.pNgroups)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + off27, value.pJobc)
@@ -3521,16 +3521,16 @@ public class KinfoProc2 {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + off52, value.pAcflag)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXCOMLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXCOMLEN))
                     ).writeNative(addr + off53, value.pComm.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN))
                     ).writeNative(addr + off54, value.pWmesg.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + off55, value.pWchan)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXLOGNAME).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXLOGNAME))
                     ).writeNative(addr + off56, value.pLogin.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off57, value.pVmRssize)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off58, value.pVmTsize)
@@ -3568,7 +3568,7 @@ public class KinfoProc2 {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off90, value.pSvgid)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXEMULLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_MAXEMULLEN))
                     ).writeNative(addr + off91, value.pEname.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off92, value.pVmVsize)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off93, value.pVmMsize)
@@ -3653,7 +3653,7 @@ public class KinfoLwp(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 60L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN))
                         ).readNative(addr + 64L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + off16),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + off17),
@@ -3664,7 +3664,7 @@ public class KinfoLwp(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off22),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_LNAMELEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_LNAMELEN))
                         ).readNative(addr + off23).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: KinfoLwp) {
@@ -3685,7 +3685,7 @@ public class KinfoLwp(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 60L, value.lPad2)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_WMESGLEN))
                     ).writeNative(addr + 64L, value.lWmesg.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + off16, value.lWchan)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + off17, value.lCpuid)
@@ -3696,7 +3696,7 @@ public class KinfoLwp(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off22, value.lPid)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_LNAMELEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (KI_LNAMELEN))
                     ).writeNative(addr + off23, value.lName.toList())
                 }
             }
@@ -3755,7 +3755,7 @@ public class KinfoVmentry(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 100L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PATH_MAX).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PATH_MAX))
                         ).readNative(addr + 104L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: KinfoVmentry) {
@@ -3780,7 +3780,7 @@ public class KinfoVmentry(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 100L, value.kveVnMode)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PATH_MAX).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PATH_MAX))
                     ).writeNative(addr + 104L, value.kvePath.toList())
                 }
             }

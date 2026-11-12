@@ -40,7 +40,7 @@ public actual fun abort(): Nothing {
 private external fun wasiLibcHermitErrno(): Int
 
 public actual fun errno(): Int =
-    wasiLibcHermitErrno().toInt()
+    wasiLibcHermitErrno()
 
 public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcHermitClockGettime")
@@ -97,19 +97,19 @@ public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
 private external fun wasiLibcHermitClose(fd: Int): Int
 
 public actual fun close(fd: Int): Int =
-    wasiLibcHermitClose(fd).toInt()
+    wasiLibcHermitClose(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcHermitDup")
 private external fun wasiLibcHermitDup(fd: Int): Int
 
 public actual fun dup(fd: Int): Int =
-    wasiLibcHermitDup(fd).toInt()
+    wasiLibcHermitDup(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcHermitFcntl")
 private external fun wasiLibcHermitFcntl(fd: Int, cmd: Int, arg: Int): Int
 
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
-    wasiLibcHermitFcntl(fd, cmd, arg).toInt()
+    wasiLibcHermitFcntl(fd, cmd, arg)
 
 public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcHermitGetdents64")
@@ -123,7 +123,7 @@ public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>): Unit = throw UnsupportedOp
 private external fun wasiLibcHermitSocket(domain: Int, ty: Int, protocol: Int): Int
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
-    wasiLibcHermitSocket(domain, ty, protocol).toInt()
+    wasiLibcHermitSocket(domain, ty, protocol)
 
 public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcHermitBind")
@@ -132,7 +132,7 @@ public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT)
 private external fun wasiLibcHermitListen(sockfd: Int, backlog: Int): Int
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
-    wasiLibcHermitListen(sockfd, backlog).toInt()
+    wasiLibcHermitListen(sockfd, backlog)
 
 public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcHermitAccept")
@@ -171,13 +171,13 @@ public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
 private external fun wasiLibcHermitShutdown(sockfd: Int, how: Int): Int
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
-    wasiLibcHermitShutdown(sockfd, how).toInt()
+    wasiLibcHermitShutdown(sockfd, how)
 
 @kotlin.wasm.WasmImport("libc", "libcHermitEventfd")
 private external fun wasiLibcHermitEventfd(initval: Long, flags: Int): Int
 
 public actual fun eventfd(initval: ULong, flags: Short): Int =
-    wasiLibcHermitEventfd(initval.toLong(), flags.toInt()).toInt()
+    wasiLibcHermitEventfd(initval.toLong(), flags.toInt())
 
 public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcHermitPoll")

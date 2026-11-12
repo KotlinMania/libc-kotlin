@@ -112,13 +112,13 @@ public actual fun endutxent(): Unit =
 private external fun wasiLibcUnixLinuxlikeLinuxGnuGetpt(): Int
 
 public actual fun getpt(): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuGetpt().toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuGetpt()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxGnuMallopt")
 private external fun wasiLibcUnixLinuxlikeLinuxGnuMallopt(param: Int, value: Int): Int
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuMallopt(param, value).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuMallopt(param, value)
 
 public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGnuGettimeofday")
@@ -199,13 +199,13 @@ public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsiz
 private external fun wasiLibcUnixLinuxlikeLinuxGnuGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuGetpriority(which.toInt(), who.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuGetpriority(which.toInt(), who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxGnuSetpriority")
 private external fun wasiLibcUnixLinuxlikeLinuxGnuSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuSetpriority(which.toInt(), who.toInt(), prio).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuSetpriority(which.toInt(), who.toInt(), prio)
 
 public actual fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGnuPthreadRwlockattrGetkindNp")
@@ -262,7 +262,7 @@ public actual fun putgrent(grp: ConstPtr<Group>, stream: MutPtr<FILE>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxGnuSethostid(hostid: Long): Int
 
 public actual fun sethostid(hostid: CLong): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuSethostid(hostid).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuSethostid(hostid)
 
 public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGnuMemfdCreate")
@@ -307,7 +307,7 @@ public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version
 private external fun wasiLibcUnixLinuxlikeLinuxGnuMallocTrim(pad: Long): Int
 
 public actual fun mallocTrim(pad: SizeT): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuMallocTrim(pad.toLong()).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuMallocTrim(pad.toLong())
 
 public actual fun gnuGetLibcRelease(): ConstPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGnuGnuGetLibcRelease")
@@ -337,7 +337,7 @@ public actual fun execveat(dirfd: CInt, pathname: ConstPtr<CChar>, argv: ConstPt
 private external fun wasiLibcUnixLinuxlikeLinuxGnuCloseRange(first: Int, last: Int, flags: Int): Int
 
 public actual fun closeRange(first: CUint, last: CUint, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuCloseRange(first.toInt(), last.toInt(), flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuCloseRange(first.toInt(), last.toInt(), flags)
 
 public actual fun mqNotify(mqdes: MqdT, sevp: ConstPtr<Sigevent>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGnuMqNotify")
@@ -352,4 +352,4 @@ public actual fun mempcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): 
 private external fun wasiLibcUnixLinuxlikeLinuxGnuTgkill(tgid: Int, tid: Int, sig: Int): Int
 
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxGnuTgkill(tgid, tid, sig).toInt()
+    wasiLibcUnixLinuxlikeLinuxGnuTgkill(tgid, tid, sig)

@@ -23,13 +23,13 @@ public actual fun access(pathname: ConstPtr<CChar>, mode: CInt): CInt =
 private external fun wasiLibcNewQurtUnistdClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcNewQurtUnistdClose(fd).toInt()
+    wasiLibcNewQurtUnistdClose(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtUnistdLseek")
 private external fun wasiLibcNewQurtUnistdLseek(fd: Int, offset: Long, whence: Int): Long
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    wasiLibcNewQurtUnistdLseek(fd, offset, whence).toLong()
+    wasiLibcNewQurtUnistdLseek(fd, offset, whence)
 
 public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtUnistdRead")
@@ -41,7 +41,7 @@ public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
 private external fun wasiLibcNewQurtUnistdFtruncate(fd: Int, length: Long): Int
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    wasiLibcNewQurtUnistdFtruncate(fd, length).toInt()
+    wasiLibcNewQurtUnistdFtruncate(fd, length)
 
 public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtUnistdUnlink")
@@ -56,7 +56,7 @@ public actual fun rmdir(pathname: ConstPtr<CChar>): CInt =
 private external fun wasiLibcNewQurtUnistdGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcNewQurtUnistdGetpid().toInt()
+    wasiLibcNewQurtUnistdGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtUnistdSleep")
 private external fun wasiLibcNewQurtUnistdSleep(seconds: Int): Int
@@ -68,4 +68,4 @@ public actual fun sleep(seconds: CUint): CUint =
 private external fun wasiLibcNewQurtUnistdSysconf(name: Int): Long
 
 public actual fun sysconf(name: CInt): CLong =
-    wasiLibcNewQurtUnistdSysconf(name).toLong()
+    wasiLibcNewQurtUnistdSysconf(name)

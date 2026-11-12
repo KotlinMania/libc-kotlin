@@ -2159,7 +2159,7 @@ public class Stat(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 104L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (ST_FSTYPSZ).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (ST_FSTYPSZ))
                         ).readNative(addr + 112L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Stat) {
@@ -2181,7 +2181,7 @@ public class Stat(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 104L, value.stBlocks)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (ST_FSTYPSZ).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (ST_FSTYPSZ))
                     ).writeNative(addr + 112L, value.stFstype.toList())
                 }
             }
@@ -2230,7 +2230,7 @@ public data class Termios(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                         ).readNative(addr + 16L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Termios) {
@@ -2240,7 +2240,7 @@ public data class Termios(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.cLflag)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (NCCS))
                     ).writeNative(addr + 16L, value.cCc.toList())
                 }
             }
@@ -3288,11 +3288,11 @@ public data class ProcessorInfoT(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_TYPELEN).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_TYPELEN))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_FPUTYPE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_FPUTYPE))
                         ).readNative(addr + off2).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
                     )
@@ -3300,11 +3300,11 @@ public data class ProcessorInfoT(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.piState)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_TYPELEN).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_TYPELEN))
                     ).writeNative(addr + 4L, value.piProcessorType.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_FPUTYPE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (PI_FPUTYPE))
                     ).writeNative(addr + off2, value.piFputypes.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.piClock)
                 }
@@ -3552,13 +3552,13 @@ public data class FdSet(
                     FdSet(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64))
                         ).readNative(addr).toLongArray(),
                     )
                 override fun writeNative(addr: Long, value: FdSet) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64))
                     ).writeNative(addr, value.fdsBits.toList())
                 }
             }
@@ -3882,7 +3882,7 @@ public data class SiginfoT(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (SIGINFO_DATA_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (SIGINFO_DATA_SIZE))
                         ).readNative(addr + 16L).toIntArray(),
                     )
                 override fun writeNative(addr: Long, value: SiginfoT) {
@@ -3892,7 +3892,7 @@ public data class SiginfoT(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.siPad)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (SIGINFO_DATA_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (SIGINFO_DATA_SIZE))
                     ).writeNative(addr + 16L, value.dataPad.toList())
                 }
             }

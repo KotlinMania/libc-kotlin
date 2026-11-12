@@ -47,13 +47,13 @@ public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CI
 private external fun wasiLibcUnixLinuxlikeLibcCurrentSigrtmax(): Int
 
 public actual fun libcCurrentSigrtmax(): CInt =
-    wasiLibcUnixLinuxlikeLibcCurrentSigrtmax().toInt()
+    wasiLibcUnixLinuxlikeLibcCurrentSigrtmax()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLibcCurrentSigrtmin")
 private external fun wasiLibcUnixLinuxlikeLibcCurrentSigrtmin(): Int
 
 public actual fun libcCurrentSigrtmin(): CInt =
-    wasiLibcUnixLinuxlikeLibcCurrentSigrtmin().toInt()
+    wasiLibcUnixLinuxlikeLibcCurrentSigrtmin()
 
 public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeSemDestroy")
@@ -65,7 +65,7 @@ public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt 
 private external fun wasiLibcUnixLinuxlikeFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    wasiLibcUnixLinuxlikeFdatasync(fd).toInt()
+    wasiLibcUnixLinuxlikeFdatasync(fd)
 
 public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CUchar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeMincore")
@@ -113,7 +113,7 @@ public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid>
 private external fun wasiLibcUnixLinuxlikePosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    wasiLibcUnixLinuxlikePosixFadvise(fd, offset, len, advise).toInt()
+    wasiLibcUnixLinuxlikePosixFadvise(fd, offset, len, advise)
 
 public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeFutimens")
@@ -142,7 +142,7 @@ public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
 private external fun wasiLibcUnixLinuxlikeClearenv(): Int
 
 public actual fun clearenv(): CInt =
-    wasiLibcUnixLinuxlikeClearenv().toInt()
+    wasiLibcUnixLinuxlikeClearenv()
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeWaitid")
@@ -166,19 +166,19 @@ public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
 private external fun wasiLibcUnixLinuxlikeVfork(): Int
 
 public actual fun vfork(): PidT =
-    wasiLibcUnixLinuxlikeVfork().toInt()
+    wasiLibcUnixLinuxlikeVfork()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeSetresgid")
 private external fun wasiLibcUnixLinuxlikeSetresgid(rgid: Int, egid: Int, sgid: Int): Int
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    wasiLibcUnixLinuxlikeSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeSetresuid")
 private external fun wasiLibcUnixLinuxlikeSetresuid(ruid: Int, euid: Int, suid: Int): Int
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    wasiLibcUnixLinuxlikeSetresuid(ruid.toInt(), euid.toInt(), suid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeSetresuid(ruid.toInt(), euid.toInt(), suid.toInt())
 
 public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeWait4")
@@ -187,7 +187,7 @@ public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: 
 private external fun wasiLibcUnixLinuxlikeLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    wasiLibcUnixLinuxlikeLoginTty(fd).toInt()
+    wasiLibcUnixLinuxlikeLoginTty(fd)
 
 public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeExecvpe")
@@ -278,13 +278,13 @@ public actual fun fstatat64(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<
 private external fun wasiLibcUnixLinuxlikeFtruncate64(fd: Int, length: Long): Int
 
 public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
-    wasiLibcUnixLinuxlikeFtruncate64(fd, length).toInt()
+    wasiLibcUnixLinuxlikeFtruncate64(fd, length)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLseek64")
 private external fun wasiLibcUnixLinuxlikeLseek64(fd: Int, offset: Long, whence: Int): Long
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
-    wasiLibcUnixLinuxlikeLseek64(fd, offset, whence).toLong()
+    wasiLibcUnixLinuxlikeLseek64(fd, offset, whence)
 
 public actual fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLstat64")
@@ -302,7 +302,7 @@ public actual fun openat64(fd: CInt, path: ConstPtr<CChar>, oflag: CInt, vararg 
 private external fun wasiLibcUnixLinuxlikePosixFadvise64(fd: Int, offset: Long, len: Long, advise: Int): Int
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =
-    wasiLibcUnixLinuxlikePosixFadvise64(fd, offset, len, advise).toInt()
+    wasiLibcUnixLinuxlikePosixFadvise64(fd, offset, len, advise)
 
 public actual fun pread64(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikePread64")

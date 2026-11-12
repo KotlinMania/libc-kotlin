@@ -39,19 +39,19 @@ public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CI
 private external fun wasiLibcUnixLinuxlikeEmscriptenAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenAbs(i).toInt()
+    wasiLibcUnixLinuxlikeEmscriptenAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeEmscriptenLabs")
 private external fun wasiLibcUnixLinuxlikeEmscriptenLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixLinuxlikeEmscriptenLabs(i).toLong()
+    wasiLibcUnixLinuxlikeEmscriptenLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeEmscriptenRand")
 private external fun wasiLibcUnixLinuxlikeEmscriptenRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenRand().toInt()
+    wasiLibcUnixLinuxlikeEmscriptenRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeEmscriptenSrand")
 private external fun wasiLibcUnixLinuxlikeEmscriptenSrand(seed: Int): Unit
@@ -90,7 +90,7 @@ public actual fun errnoLocation(): MutPtr<CInt> =
 private external fun wasiLibcUnixLinuxlikeEmscriptenPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenPosixFallocate(fd, offset, len).toInt()
+    wasiLibcUnixLinuxlikeEmscriptenPosixFallocate(fd, offset, len)
 
 public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeEmscriptenPwritev")
@@ -102,7 +102,7 @@ public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: O
 private external fun wasiLibcUnixLinuxlikeEmscriptenDup3(oldfd: Int, newfd: Int, flags: Int): Int
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenDup3(oldfd, newfd, flags).toInt()
+    wasiLibcUnixLinuxlikeEmscriptenDup3(oldfd, newfd, flags)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeEmscriptenNlLanginfoL")
@@ -172,13 +172,13 @@ public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CIn
 private external fun wasiLibcUnixLinuxlikeEmscriptenGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixLinuxlikeEmscriptenGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeEmscriptenSetpriority")
 private external fun wasiLibcUnixLinuxlikeEmscriptenSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixLinuxlikeEmscriptenSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixLinuxlikeEmscriptenSetpriority(which, who.toInt(), prio)
 
 public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeEmscriptenGetentropy")

@@ -23,85 +23,85 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcVxworksIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcVxworksIsalnum(c).toInt()
+    wasiLibcVxworksIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsalpha")
 private external fun wasiLibcVxworksIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcVxworksIsalpha(c).toInt()
+    wasiLibcVxworksIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIscntrl")
 private external fun wasiLibcVxworksIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcVxworksIscntrl(c).toInt()
+    wasiLibcVxworksIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsdigit")
 private external fun wasiLibcVxworksIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcVxworksIsdigit(c).toInt()
+    wasiLibcVxworksIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsgraph")
 private external fun wasiLibcVxworksIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcVxworksIsgraph(c).toInt()
+    wasiLibcVxworksIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIslower")
 private external fun wasiLibcVxworksIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcVxworksIslower(c).toInt()
+    wasiLibcVxworksIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsprint")
 private external fun wasiLibcVxworksIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcVxworksIsprint(c).toInt()
+    wasiLibcVxworksIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIspunct")
 private external fun wasiLibcVxworksIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcVxworksIspunct(c).toInt()
+    wasiLibcVxworksIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsspace")
 private external fun wasiLibcVxworksIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcVxworksIsspace(c).toInt()
+    wasiLibcVxworksIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsupper")
 private external fun wasiLibcVxworksIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcVxworksIsupper(c).toInt()
+    wasiLibcVxworksIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsxdigit")
 private external fun wasiLibcVxworksIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcVxworksIsxdigit(c).toInt()
+    wasiLibcVxworksIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksIsblank")
 private external fun wasiLibcVxworksIsblank(c: Int): Int
 
 public actual fun isblank(c: CInt): CInt =
-    wasiLibcVxworksIsblank(c).toInt()
+    wasiLibcVxworksIsblank(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksTolower")
 private external fun wasiLibcVxworksTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcVxworksTolower(c).toInt()
+    wasiLibcVxworksTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksToupper")
 private external fun wasiLibcVxworksToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcVxworksToupper(c).toInt()
+    wasiLibcVxworksToupper(c)
 
 public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksFopen")
@@ -133,13 +133,13 @@ public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>): Unit = throw
 private external fun wasiLibcVxworksGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcVxworksGetchar().toInt()
+    wasiLibcVxworksGetchar()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksPutchar")
 private external fun wasiLibcVxworksPutchar(c: Int): Int
 
 public actual fun putchar(c: CInt): CInt =
-    wasiLibcVxworksPutchar(c).toInt()
+    wasiLibcVxworksPutchar(c)
 
 public actual fun fgetc(stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksFgetc")
@@ -368,7 +368,7 @@ public actual fun times(buf: MutPtr<Tms>): ClockT =
 private external fun wasiLibcVxworksTcflush(fd: Int, action: Int): Int
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    wasiLibcVxworksTcflush(fd, action).toInt()
+    wasiLibcVxworksTcflush(fd, action)
 
 public actual fun pclose(stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksPclose")
@@ -419,13 +419,13 @@ public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg var
 private external fun wasiLibcVxworksGetcharUnlocked(): Int
 
 public actual fun getcharUnlocked(): CInt =
-    wasiLibcVxworksGetcharUnlocked().toInt()
+    wasiLibcVxworksGetcharUnlocked()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksPutcharUnlocked")
 private external fun wasiLibcVxworksPutcharUnlocked(c: Int): Int
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    wasiLibcVxworksPutcharUnlocked(c).toInt()
+    wasiLibcVxworksPutcharUnlocked(c)
 
 public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksStat")
@@ -445,7 +445,7 @@ public actual fun rewinddir(dirp: MutPtr<DIR>): Unit = throw UnsupportedOperatio
 private external fun wasiLibcVxworksFchown(fd: Int, owner: Int, group: Int): Int
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    wasiLibcVxworksFchown(fd, owner.toInt(), group.toInt()).toInt()
+    wasiLibcVxworksFchown(fd, owner.toInt(), group.toInt())
 
 public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksAccess")
@@ -460,7 +460,7 @@ public actual fun alarm(seconds: CUint): CUint =
 private external fun wasiLibcVxworksFchdir(dirfd: Int): Int
 
 public actual fun fchdir(dirfd: CInt): CInt =
-    wasiLibcVxworksFchdir(dirfd).toInt()
+    wasiLibcVxworksFchdir(dirfd)
 
 public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksChown")
@@ -469,7 +469,7 @@ public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
 private external fun wasiLibcVxworksFpathconf(filedes: Int, name: Int): Long
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    wasiLibcVxworksFpathconf(filedes, name).toLong()
+    wasiLibcVxworksFpathconf(filedes, name)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksGetegid")
 private external fun wasiLibcVxworksGetegid(): Int
@@ -499,19 +499,19 @@ public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
 private external fun wasiLibcVxworksPause(): Int
 
 public actual fun pause(): CInt =
-    wasiLibcVxworksPause().toInt()
+    wasiLibcVxworksPause()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSeteuid")
 private external fun wasiLibcVxworksSeteuid(uid: Int): Int
 
 public actual fun seteuid(uid: UidT): CInt =
-    wasiLibcVxworksSeteuid(uid.toInt()).toInt()
+    wasiLibcVxworksSeteuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSetegid")
 private external fun wasiLibcVxworksSetegid(gid: Int): Int
 
 public actual fun setegid(gid: GidT): CInt =
-    wasiLibcVxworksSetegid(gid.toInt()).toInt()
+    wasiLibcVxworksSetegid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSleep")
 private external fun wasiLibcVxworksSleep(secs: Int): Int
@@ -529,7 +529,7 @@ public actual fun wait(status: MutPtr<CInt>): PidT =
 private external fun wasiLibcVxworksUmask(mask: Int): Int
 
 public actual fun umask(mask: ModeT): ModeT =
-    wasiLibcVxworksUmask(mask).toInt()
+    wasiLibcVxworksUmask(mask)
 
 public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksMlock")
@@ -538,7 +538,7 @@ public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcVxworksMlockall(flags: Int): Int
 
 public actual fun mlockall(flags: CInt): CInt =
-    wasiLibcVxworksMlockall(flags).toInt()
+    wasiLibcVxworksMlockall(flags)
 
 public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksMunlock")
@@ -547,7 +547,7 @@ public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcVxworksMunlockall(): Int
 
 public actual fun munlockall(): CInt =
-    wasiLibcVxworksMunlockall().toInt()
+    wasiLibcVxworksMunlockall()
 
 public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksMmap")
@@ -640,7 +640,7 @@ public actual fun timegm(tm: MutPtr<Tm>): TimeT =
 private external fun wasiLibcVxworksDifftime(time1: Long, time0: Long): Double
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
-    wasiLibcVxworksDifftime(time1, time0).toDouble()
+    wasiLibcVxworksDifftime(time1, time0)
 
 public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksGethostname")
@@ -649,7 +649,7 @@ public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
 private external fun wasiLibcVxworksUsleep(secs: Long): Int
 
 public actual fun usleep(secs: UsecondsT): CInt =
-    wasiLibcVxworksUsleep(secs.toLong()).toInt()
+    wasiLibcVxworksUsleep(secs.toLong())
 
 public actual fun putenv(string: MutPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksPutenv")
@@ -693,7 +693,7 @@ public actual fun closelog(): Unit =
 private external fun wasiLibcVxworksSetlogmask(maskpri: Int): Int
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    wasiLibcVxworksSetlogmask(maskpri).toInt()
+    wasiLibcVxworksSetlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksSyslog")
 
@@ -710,7 +710,7 @@ public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
 private external fun wasiLibcVxworksTcsendbreak(fd: Int, duration: Int): Int
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    wasiLibcVxworksTcsendbreak(fd, duration).toInt()
+    wasiLibcVxworksTcsendbreak(fd, duration)
 
 public actual fun confstr(name: CInt, buf: MutPtr<CChar>, len: SizeT): SizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksConfstr")
@@ -809,7 +809,7 @@ public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
 private external fun wasiLibcVxworksFtruncate(fd: Int, length: Long): Int
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    wasiLibcVxworksFtruncate(fd, length).toInt()
+    wasiLibcVxworksFtruncate(fd, length)
 
 public actual fun readdirR(pDir: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksReaddirR")
@@ -893,7 +893,7 @@ public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCre
 private external fun wasiLibcVxworksPthreadKeyDelete(key: Long): Int
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    wasiLibcVxworksPthreadKeyDelete(key.toLong()).toInt()
+    wasiLibcVxworksPthreadKeyDelete(key.toLong())
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksPthreadSetspecific")
@@ -950,7 +950,7 @@ public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: M
 private external fun wasiLibcVxworksListen(socket: Int, backlog: Int): Int
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    wasiLibcVxworksListen(socket, backlog).toInt()
+    wasiLibcVxworksListen(socket, backlog)
 
 public actual fun recv(s: CInt, buf: MutPtr<CVoid>, bufLen: SizeT, flags: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksRecv")
@@ -977,13 +977,13 @@ public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: Const
 private external fun wasiLibcVxworksShutdown(s: Int, how: Int): Int
 
 public actual fun shutdown(s: CInt, how: CInt): CInt =
-    wasiLibcVxworksShutdown(s, how).toInt()
+    wasiLibcVxworksShutdown(s, how)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSocket")
 private external fun wasiLibcVxworksSocket(domain: Int, type: Int, protocol: Int): Int
 
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
-    wasiLibcVxworksSocket(domain, type, protocol).toInt()
+    wasiLibcVxworksSocket(domain, type, protocol)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksIoctl")
@@ -998,7 +998,7 @@ public actual fun gaiStrerror(errcode: CInt): MutPtr<CChar> =
 private external fun wasiLibcVxworksClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcVxworksClose(fd).toInt()
+    wasiLibcVxworksClose(fd)
 
 public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksRead")
@@ -1010,19 +1010,19 @@ public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
 private external fun wasiLibcVxworksIsatty(fd: Int): Int
 
 public actual fun isatty(fd: CInt): CInt =
-    wasiLibcVxworksIsatty(fd).toInt()
+    wasiLibcVxworksIsatty(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksDup")
 private external fun wasiLibcVxworksDup(src: Int): Int
 
 public actual fun dup(src: CInt): CInt =
-    wasiLibcVxworksDup(src).toInt()
+    wasiLibcVxworksDup(src)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksDup2")
 private external fun wasiLibcVxworksDup2(src: Int, dst: Int): Int
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    wasiLibcVxworksDup2(src, dst).toInt()
+    wasiLibcVxworksDup2(src, dst)
 
 public actual fun pipe(fds: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksPipe")
@@ -1034,7 +1034,7 @@ public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
 private external fun wasiLibcVxworksLseek(fd: Int, offset: Long, whence: Int): Long
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    wasiLibcVxworksLseek(fd, offset, whence).toLong()
+    wasiLibcVxworksLseek(fd, offset, whence)
 
 public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksGetaddrinfo")
@@ -1051,19 +1051,19 @@ public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
 private external fun wasiLibcVxworksGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcVxworksGetpid().toInt()
+    wasiLibcVxworksGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksGetppid")
 private external fun wasiLibcVxworksGetppid(): Int
 
 public actual fun getppid(): PidT =
-    wasiLibcVxworksGetppid().toInt()
+    wasiLibcVxworksGetppid()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSetpgid")
 private external fun wasiLibcVxworksSetpgid(pid: Int, pgid: Int): Int
 
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
-    wasiLibcVxworksSetpgid(pid, pgid).toInt()
+    wasiLibcVxworksSetpgid(pid, pgid)
 
 public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksWaitpid")
@@ -1072,7 +1072,7 @@ public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT 
 private external fun wasiLibcVxworksSysconf(attr: Int): Long
 
 public actual fun sysconf(attr: CInt): CLong =
-    wasiLibcVxworksSysconf(attr).toLong()
+    wasiLibcVxworksSysconf(attr)
 
 public actual fun setenv(envVarName: ConstPtr<CChar>, envVarValue: ConstPtr<CChar>, overwrite: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksSetenv")
@@ -1108,13 +1108,13 @@ public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
 private external fun wasiLibcVxworksFchmod(attr1: Int, attr2: Int): Int
 
 public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =
-    wasiLibcVxworksFchmod(attr1, attr2).toInt()
+    wasiLibcVxworksFchmod(attr1, attr2)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksFsync")
 private external fun wasiLibcVxworksFsync(fd: Int): Int
 
 public actual fun fsync(fd: CInt): CInt =
-    wasiLibcVxworksFsync(fd).toInt()
+    wasiLibcVxworksFsync(fd)
 
 public actual fun closedir(ptr: MutPtr<DIR>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksClosedir")
@@ -1123,13 +1123,13 @@ public actual fun closedir(ptr: MutPtr<DIR>): CInt =
 private external fun wasiLibcVxworksSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcVxworksSchedGetPriorityMax(policy).toInt()
+    wasiLibcVxworksSchedGetPriorityMax(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSchedGetPriorityMin")
 private external fun wasiLibcVxworksSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcVxworksSchedGetPriorityMin(policy).toInt()
+    wasiLibcVxworksSchedGetPriorityMin(policy)
 
 public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksSchedSetparam")
@@ -1144,7 +1144,7 @@ public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<Sch
 private external fun wasiLibcVxworksSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    wasiLibcVxworksSchedGetscheduler(pid).toInt()
+    wasiLibcVxworksSchedGetscheduler(pid)
 
 public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksSchedRrGetInterval")
@@ -1153,25 +1153,25 @@ public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
 private external fun wasiLibcVxworksSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcVxworksSchedYield().toInt()
+    wasiLibcVxworksSchedYield()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksErrnoSet")
 private external fun wasiLibcVxworksErrnoSet(err: Int): Int
 
 public actual fun errnoSet(err: CInt): CInt =
-    wasiLibcVxworksErrnoSet(err).toInt()
+    wasiLibcVxworksErrnoSet(err)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksErrnoGet")
 private external fun wasiLibcVxworksErrnoGet(): Int
 
 public actual fun errnoGet(): CInt =
-    wasiLibcVxworksErrnoGet().toInt()
+    wasiLibcVxworksErrnoGet()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksSetgid")
 private external fun wasiLibcVxworksSetgid(gid: Int): Int
 
 public actual fun setgid(gid: GidT): CInt =
-    wasiLibcVxworksSetgid(gid.toInt()).toInt()
+    wasiLibcVxworksSetgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksGetgid")
 private external fun wasiLibcVxworksGetgid(): Int
@@ -1183,7 +1183,7 @@ public actual fun getgid(): GidT =
 private external fun wasiLibcVxworksSetuid(uid: Int): Int
 
 public actual fun setuid(uid: UidT): CInt =
-    wasiLibcVxworksSetuid(uid.toInt()).toInt()
+    wasiLibcVxworksSetuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksGetuid")
 private external fun wasiLibcVxworksGetuid(): Int
@@ -1210,7 +1210,7 @@ public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oset: MutPtr
 private external fun wasiLibcVxworksKill(pid: Int, signo: Int): Int
 
 public actual fun kill(pid: PidT, signo: CInt): CInt =
-    wasiLibcVxworksKill(pid, signo).toInt()
+    wasiLibcVxworksKill(pid, signo)
 
 public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksSigqueue")
@@ -1219,25 +1219,25 @@ public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
 private external fun wasiLibcVxworksTaskKill(taskId: Int, signo: Int): Int
 
 public actual fun taskKill(taskId: TaskId, signo: CInt): CInt =
-    wasiLibcVxworksTaskKill(taskId, signo).toInt()
+    wasiLibcVxworksTaskKill(taskId, signo)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksRaise")
 private external fun wasiLibcVxworksRaise(signo: Int): Int
 
 public actual fun raise(signo: CInt): CInt =
-    wasiLibcVxworksRaise(signo).toInt()
+    wasiLibcVxworksRaise(signo)
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksTaskIdSelf")
 private external fun wasiLibcVxworksTaskIdSelf(): Int
 
 public actual fun taskIdSelf(): TaskId =
-    wasiLibcVxworksTaskIdSelf().toInt()
+    wasiLibcVxworksTaskIdSelf()
 
 @kotlin.wasm.WasmImport("libc", "libcVxworksTaskDelay")
 private external fun wasiLibcVxworksTaskDelay(ticks: Int): Int
 
 public actual fun taskDelay(ticks: VxTicksT): CInt =
-    wasiLibcVxworksTaskDelay(ticks.toInt()).toInt()
+    wasiLibcVxworksTaskDelay(ticks.toInt())
 
 public actual fun taskNameSet(taskId: TaskId, taskName: MutPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksTaskNameSet")
@@ -1273,7 +1273,7 @@ public actual fun randUBytes(buf: MutPtr<CUchar>, length: CInt): CInt =
 private external fun wasiLibcVxworksRandSecure(): Int
 
 public actual fun randSecure(): CInt =
-    wasiLibcVxworksRandSecure().toInt()
+    wasiLibcVxworksRandSecure()
 
 public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcVxworksMqOpen")

@@ -137,13 +137,13 @@ public actual fun jail(jail: MutPtr<Jail>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdJailAttach(jid: Int): Int
 
 public actual fun jailAttach(jid: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdJailAttach(jid).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdJailAttach(jid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdJailRemove")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdJailRemove(jid: Int): Int
 
 public actual fun jailRemove(jid: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdJailRemove(jid).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdJailRemove(jid)
 
 public actual fun jailGet(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdJailGet")
@@ -179,7 +179,7 @@ public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdShmget(key: Long, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdShmget(key, size.toLong(), shmflg)
 
 public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdShmat")
@@ -194,7 +194,7 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdSemget(key: Long, nsems: Int, semflg: Int): Int
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdSemget(key, nsems, semflg).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdSemctl")
@@ -209,7 +209,7 @@ public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdMsgget(key: Long, msgflg: Int): Int
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdMsgget(key, msgflg).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdMsgget(key, msgflg)
 
 public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdMsgsnd")
@@ -226,7 +226,7 @@ public actual fun pdgetpid(fd: CInt, pidp: MutPtr<PidT>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdPdkill(fd: Int, signum: Int): Int
 
 public actual fun pdkill(fd: CInt, signum: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdPdkill(fd, signum).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdPdkill(fd, signum)
 
 public actual fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: MutPtr<Rtprio>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdRtprioThread")
@@ -238,13 +238,13 @@ public actual fun uuidgen(store: MutPtr<Uuid>, count: CInt): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdThrKill(id: Long, sig: Int): Int
 
 public actual fun thrKill(id: CLong, sig: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdThrKill(id, sig).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdThrKill(id, sig)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdThrKill2")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdThrKill2(pid: Int, id: Long, sig: Int): Int
 
 public actual fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdThrKill2(pid, id, sig).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdThrKill2(pid, id, sig)
 
 public actual fun thrSelf(tid: MutPtr<CLong>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdThrSelf")
@@ -253,7 +253,7 @@ public actual fun thrSelf(tid: MutPtr<CLong>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp(): Int
 
 public actual fun pthreadGetthreadidNp(): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp().toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp()
 
 public actual fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: MutPtr<CpusetT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp")
@@ -271,7 +271,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: ConstPtr<
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdSchedGetcpu(): Int
 
 public actual fun schedGetcpu(): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdSchedGetcpu().toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdSchedGetcpu()
 
 public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent")
@@ -310,7 +310,7 @@ public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdDup3(src: Int, dst: Int, flags: Int): Int
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdDup3(src, dst, flags).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdDup3(src, dst, flags)
 
 public actual fun xuname(nmln: CInt, buf: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdXuname")
@@ -357,7 +357,7 @@ public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long):
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdRfork(flags: Int): Int
 
 public actual fun rfork(flags: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdRfork(flags).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdRfork(flags)
 
 public actual fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<CpusetT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity")
@@ -375,13 +375,13 @@ public actual fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdCpusetSetid(which: Int, id: Long, setid: Int): Int
 
 public actual fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdCpusetSetid(which, id, setid).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdCpusetSetid(which, id, setid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdCapEnter")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdCapEnter(): Int
 
 public actual fun capEnter(): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdCapEnter().toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdCapEnter()
 
 public actual fun capGetmode(modep: MutPtr<CUint>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdCapGetmode")
@@ -393,7 +393,7 @@ public actual fun capFcntlsGet(fd: CInt, fcntlrightsp: MutPtr<UInt>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd: Int, fcntlrights: Int): Int
 
 public actual fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd, fcntlrights.toInt()).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd, fcntlrights.toInt())
 
 public actual fun capIoctlsGet(fd: CInt, cmds: MutPtr<ULong>, maxcmds: ULong): Long =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet")
@@ -444,37 +444,37 @@ public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): M
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFfs(value: Int): Int
 
 public actual fun ffs(value: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFfs(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFfs(value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFfsl")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFfsl(value: Long): Int
 
 public actual fun ffsl(value: CLong): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFfsl(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFfsl(value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFfsll")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFfsll(value: Long): Int
 
 public actual fun ffsll(value: CLonglong): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFfsll(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFfsll(value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFls")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFls(value: Int): Int
 
 public actual fun fls(value: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFls(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFls(value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFlsl")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFlsl(value: Long): Int
 
 public actual fun flsl(value: CLong): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFlsl(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFlsl(value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFlsll")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFlsll(value: Long): Int
 
 public actual fun flsll(value: CLonglong): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFlsll(value).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFlsll(value)
 
 public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: MutPtr<CVoid>, opt: ConstPtr<CChar>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint")
 
@@ -516,7 +516,7 @@ public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: MutPtr<CVoi
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdGetpagesize(): Int
 
 public actual fun getpagesize(): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdGetpagesize().toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdGetpagesize()
 
 public actual fun getpagesizes(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdGetpagesizes")
@@ -543,7 +543,7 @@ public actual fun setaudit(auditinfo: ConstPtr<AuditinfoT>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdEventfd(initval.toInt(), flags).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdEventfd(initval.toInt(), flags)
 
 public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdEventfdRead")
@@ -552,13 +552,13 @@ public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd: Int, value: Long): Int
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd, value.toLong()).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd, value.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdFreebsdlikeFreebsdFdatasync")
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdFdatasync(fd).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdFdatasync(fd)
 
 public actual fun elfAuxInfo(aux: CInt, buf: MutPtr<CVoid>, buflen: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdElfAuxInfo")
@@ -578,7 +578,7 @@ public actual fun umtxOp(obj: MutPtr<CVoid>, op: CInt, value: CUlong, uaddr: Mut
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s: Int, id: Int): Int
 
 public actual fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s, id.toInt()).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s, id.toInt())
 
 public actual fun sctpBindx(s: CInt, addrs: MutPtr<Sockaddr>, num: CInt, tpe: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdSctpBindx")
@@ -590,7 +590,7 @@ public actual fun sctpConnectx(s: CInt, addrs: ConstPtr<Sockaddr>, addrcnt: CInt
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family: Int): Int
 
 public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family.toInt()).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family.toInt())
 
 public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: MutPtr<MutPtr<Sockaddr>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs")
@@ -615,7 +615,7 @@ public actual fun sctpRecvv(sd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, from: 
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid: Int, flags: Int): Int
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid, flags).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid, flags)
 
 public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdTimerfdGettime")
@@ -633,7 +633,7 @@ public actual fun closefrom(lowfd: CInt): Unit =
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd: Int, highfd: Int, flags: Int): Int
 
 public actual fun closeRange(lowfd: CUint, highfd: CUint, flags: CInt): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd.toInt(), highfd.toInt(), flags).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd.toInt(), highfd.toInt(), flags)
 
 public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdExecvpe")
@@ -642,7 +642,7 @@ public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>
 private external fun wasiLibcUnixBsdFreebsdlikeFreebsdKcmp(pid1: Int, pid2: Int, type: Int, idx1: Long, idx2: Long): Int
 
 public actual fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CUlong, idx2: CUlong): CInt =
-    wasiLibcUnixBsdFreebsdlikeFreebsdKcmp(pid1, pid2, type, idx1.toLong(), idx2.toLong()).toInt()
+    wasiLibcUnixBsdFreebsdlikeFreebsdKcmp(pid1, pid2, type, idx1.toLong(), idx2.toLong())
 
 public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdFreebsdlikeFreebsdDlvsym")

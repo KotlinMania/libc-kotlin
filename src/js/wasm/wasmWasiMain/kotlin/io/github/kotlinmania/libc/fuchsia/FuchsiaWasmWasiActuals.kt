@@ -23,85 +23,85 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcFuchsiaIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcFuchsiaIsalnum(c).toInt()
+    wasiLibcFuchsiaIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsalpha")
 private external fun wasiLibcFuchsiaIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcFuchsiaIsalpha(c).toInt()
+    wasiLibcFuchsiaIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIscntrl")
 private external fun wasiLibcFuchsiaIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcFuchsiaIscntrl(c).toInt()
+    wasiLibcFuchsiaIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsdigit")
 private external fun wasiLibcFuchsiaIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcFuchsiaIsdigit(c).toInt()
+    wasiLibcFuchsiaIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsgraph")
 private external fun wasiLibcFuchsiaIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcFuchsiaIsgraph(c).toInt()
+    wasiLibcFuchsiaIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIslower")
 private external fun wasiLibcFuchsiaIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcFuchsiaIslower(c).toInt()
+    wasiLibcFuchsiaIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsprint")
 private external fun wasiLibcFuchsiaIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcFuchsiaIsprint(c).toInt()
+    wasiLibcFuchsiaIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIspunct")
 private external fun wasiLibcFuchsiaIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcFuchsiaIspunct(c).toInt()
+    wasiLibcFuchsiaIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsspace")
 private external fun wasiLibcFuchsiaIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcFuchsiaIsspace(c).toInt()
+    wasiLibcFuchsiaIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsupper")
 private external fun wasiLibcFuchsiaIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcFuchsiaIsupper(c).toInt()
+    wasiLibcFuchsiaIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsxdigit")
 private external fun wasiLibcFuchsiaIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcFuchsiaIsxdigit(c).toInt()
+    wasiLibcFuchsiaIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaIsblank")
 private external fun wasiLibcFuchsiaIsblank(c: Int): Int
 
 public actual fun isblank(c: CInt): CInt =
-    wasiLibcFuchsiaIsblank(c).toInt()
+    wasiLibcFuchsiaIsblank(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTolower")
 private external fun wasiLibcFuchsiaTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcFuchsiaTolower(c).toInt()
+    wasiLibcFuchsiaTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaToupper")
 private external fun wasiLibcFuchsiaToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcFuchsiaToupper(c).toInt()
+    wasiLibcFuchsiaToupper(c)
 
 public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaFopen")
@@ -133,13 +133,13 @@ public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>): Unit = throw
 private external fun wasiLibcFuchsiaGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcFuchsiaGetchar().toInt()
+    wasiLibcFuchsiaGetchar()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaPutchar")
 private external fun wasiLibcFuchsiaPutchar(c: Int): Int
 
 public actual fun putchar(c: CInt): CInt =
-    wasiLibcFuchsiaPutchar(c).toInt()
+    wasiLibcFuchsiaPutchar(c)
 
 public actual fun fgetc(stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaFgetc")
@@ -338,19 +338,19 @@ public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> 
 private external fun wasiLibcFuchsiaAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcFuchsiaAbs(i).toInt()
+    wasiLibcFuchsiaAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaLabs")
 private external fun wasiLibcFuchsiaLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcFuchsiaLabs(i).toLong()
+    wasiLibcFuchsiaLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaRand")
 private external fun wasiLibcFuchsiaRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcFuchsiaRand().toInt()
+    wasiLibcFuchsiaRand()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSrand")
 private external fun wasiLibcFuchsiaSrand(seed: Int): Unit
@@ -389,19 +389,19 @@ public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg var
 private external fun wasiLibcFuchsiaGetcharUnlocked(): Int
 
 public actual fun getcharUnlocked(): CInt =
-    wasiLibcFuchsiaGetcharUnlocked().toInt()
+    wasiLibcFuchsiaGetcharUnlocked()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaPutcharUnlocked")
 private external fun wasiLibcFuchsiaPutcharUnlocked(c: Int): Int
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    wasiLibcFuchsiaPutcharUnlocked(c).toInt()
+    wasiLibcFuchsiaPutcharUnlocked(c)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSocket")
 private external fun wasiLibcFuchsiaSocket(domain: Int, ty: Int, protocol: Int): Int
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    wasiLibcFuchsiaSocket(domain, ty, protocol).toInt()
+    wasiLibcFuchsiaSocket(domain, ty, protocol)
 
 public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaConnect")
@@ -410,7 +410,7 @@ public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: Sockle
 private external fun wasiLibcFuchsiaListen(socket: Int, backlog: Int): Int
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    wasiLibcFuchsiaListen(socket, backlog).toInt()
+    wasiLibcFuchsiaListen(socket, backlog)
 
 public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaAccept")
@@ -434,7 +434,7 @@ public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: 
 private external fun wasiLibcFuchsiaShutdown(socket: Int, how: Int): Int
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    wasiLibcFuchsiaShutdown(socket, how).toInt()
+    wasiLibcFuchsiaShutdown(socket, how)
 
 public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaChmod")
@@ -443,7 +443,7 @@ public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
 private external fun wasiLibcFuchsiaFchmod(fd: Int, mode: Int): Int
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    wasiLibcFuchsiaFchmod(fd, mode.toInt()).toInt()
+    wasiLibcFuchsiaFchmod(fd, mode.toInt())
 
 public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaFstat")
@@ -496,7 +496,7 @@ public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, 
 private external fun wasiLibcFuchsiaFchown(fd: Int, owner: Int, group: Int): Int
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    wasiLibcFuchsiaFchown(fd, owner.toInt(), group.toInt()).toInt()
+    wasiLibcFuchsiaFchown(fd, owner.toInt(), group.toInt())
 
 public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaFchownat")
@@ -544,19 +544,19 @@ public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
 private external fun wasiLibcFuchsiaClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcFuchsiaClose(fd).toInt()
+    wasiLibcFuchsiaClose(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaDup")
 private external fun wasiLibcFuchsiaDup(fd: Int): Int
 
 public actual fun dup(fd: CInt): CInt =
-    wasiLibcFuchsiaDup(fd).toInt()
+    wasiLibcFuchsiaDup(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaDup2")
 private external fun wasiLibcFuchsiaDup2(src: Int, dst: Int): Int
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    wasiLibcFuchsiaDup2(src, dst).toInt()
+    wasiLibcFuchsiaDup2(src, dst)
 
 public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaExecl")
@@ -580,13 +580,13 @@ public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): C
 private external fun wasiLibcFuchsiaFork(): Int
 
 public actual fun fork(): PidT =
-    wasiLibcFuchsiaFork().toInt()
+    wasiLibcFuchsiaFork()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaFpathconf")
 private external fun wasiLibcFuchsiaFpathconf(filedes: Int, name: Int): Long
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    wasiLibcFuchsiaFpathconf(filedes, name).toLong()
+    wasiLibcFuchsiaFpathconf(filedes, name)
 
 public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGetcwd")
@@ -622,25 +622,25 @@ public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: Cons
 private external fun wasiLibcFuchsiaGetpgid(pid: Int): Int
 
 public actual fun getpgid(pid: PidT): PidT =
-    wasiLibcFuchsiaGetpgid(pid).toInt()
+    wasiLibcFuchsiaGetpgid(pid)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaGetpgrp")
 private external fun wasiLibcFuchsiaGetpgrp(): Int
 
 public actual fun getpgrp(): PidT =
-    wasiLibcFuchsiaGetpgrp().toInt()
+    wasiLibcFuchsiaGetpgrp()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaGetpid")
 private external fun wasiLibcFuchsiaGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcFuchsiaGetpid().toInt()
+    wasiLibcFuchsiaGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaGetppid")
 private external fun wasiLibcFuchsiaGetppid(): Int
 
 public actual fun getppid(): PidT =
-    wasiLibcFuchsiaGetppid().toInt()
+    wasiLibcFuchsiaGetppid()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaGetuid")
 private external fun wasiLibcFuchsiaGetuid(): Int
@@ -652,7 +652,7 @@ public actual fun getuid(): UidT =
 private external fun wasiLibcFuchsiaIsatty(fd: Int): Int
 
 public actual fun isatty(fd: CInt): CInt =
-    wasiLibcFuchsiaIsatty(fd).toInt()
+    wasiLibcFuchsiaIsatty(fd)
 
 public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaLink")
@@ -661,7 +661,7 @@ public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
 private external fun wasiLibcFuchsiaLseek(fd: Int, offset: Long, whence: Int): Long
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    wasiLibcFuchsiaLseek(fd, offset, whence).toLong()
+    wasiLibcFuchsiaLseek(fd, offset, whence)
 
 public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaPathconf")
@@ -670,7 +670,7 @@ public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
 private external fun wasiLibcFuchsiaPause(): Int
 
 public actual fun pause(): CInt =
-    wasiLibcFuchsiaPause().toInt()
+    wasiLibcFuchsiaPause()
 
 public actual fun pipe(fds: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaPipe")
@@ -688,37 +688,37 @@ public actual fun rmdir(path: ConstPtr<CChar>): CInt =
 private external fun wasiLibcFuchsiaSeteuid(uid: Int): Int
 
 public actual fun seteuid(uid: UidT): CInt =
-    wasiLibcFuchsiaSeteuid(uid.toInt()).toInt()
+    wasiLibcFuchsiaSeteuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetegid")
 private external fun wasiLibcFuchsiaSetegid(gid: Int): Int
 
 public actual fun setegid(gid: GidT): CInt =
-    wasiLibcFuchsiaSetegid(gid.toInt()).toInt()
+    wasiLibcFuchsiaSetegid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetgid")
 private external fun wasiLibcFuchsiaSetgid(gid: Int): Int
 
 public actual fun setgid(gid: GidT): CInt =
-    wasiLibcFuchsiaSetgid(gid.toInt()).toInt()
+    wasiLibcFuchsiaSetgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetpgid")
 private external fun wasiLibcFuchsiaSetpgid(pid: Int, pgid: Int): Int
 
 public actual fun setpgid(pid: PidT, pgid: PidT): CInt =
-    wasiLibcFuchsiaSetpgid(pid, pgid).toInt()
+    wasiLibcFuchsiaSetpgid(pid, pgid)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetsid")
 private external fun wasiLibcFuchsiaSetsid(): Int
 
 public actual fun setsid(): PidT =
-    wasiLibcFuchsiaSetsid().toInt()
+    wasiLibcFuchsiaSetsid()
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetuid")
 private external fun wasiLibcFuchsiaSetuid(uid: Int): Int
 
 public actual fun setuid(uid: UidT): CInt =
-    wasiLibcFuchsiaSetuid(uid.toInt()).toInt()
+    wasiLibcFuchsiaSetuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSleep")
 private external fun wasiLibcFuchsiaSleep(secs: Int): Int
@@ -733,13 +733,13 @@ public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): C
 private external fun wasiLibcFuchsiaTcgetpgrp(fd: Int): Int
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
-    wasiLibcFuchsiaTcgetpgrp(fd).toInt()
+    wasiLibcFuchsiaTcgetpgrp(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTcsetpgrp")
 private external fun wasiLibcFuchsiaTcsetpgrp(fd: Int, pgrp: Int): Int
 
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
-    wasiLibcFuchsiaTcsetpgrp(fd, pgrp).toInt()
+    wasiLibcFuchsiaTcsetpgrp(fd, pgrp)
 
 public actual fun ttyname(fd: CInt): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaTtyname")
@@ -775,7 +775,7 @@ public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
 private external fun wasiLibcFuchsiaKill(pid: Int, sig: Int): Int
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    wasiLibcFuchsiaKill(pid, sig).toInt()
+    wasiLibcFuchsiaKill(pid, sig)
 
 public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMlock")
@@ -787,13 +787,13 @@ public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcFuchsiaMlockall(flags: Int): Int
 
 public actual fun mlockall(flags: CInt): CInt =
-    wasiLibcFuchsiaMlockall(flags).toInt()
+    wasiLibcFuchsiaMlockall(flags)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaMunlockall")
 private external fun wasiLibcFuchsiaMunlockall(): Int
 
 public actual fun munlockall(): CInt =
-    wasiLibcFuchsiaMunlockall().toInt()
+    wasiLibcFuchsiaMunlockall()
 
 public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMmap")
@@ -814,7 +814,7 @@ public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
 private external fun wasiLibcFuchsiaFsync(fd: Int): Int
 
 public actual fun fsync(fd: CInt): CInt =
-    wasiLibcFuchsiaFsync(fd).toInt()
+    wasiLibcFuchsiaFsync(fd)
 
 public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSetenv")
@@ -829,7 +829,7 @@ public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt 
 private external fun wasiLibcFuchsiaFtruncate(fd: Int, length: Long): Int
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    wasiLibcFuchsiaFtruncate(fd, length).toInt()
+    wasiLibcFuchsiaFtruncate(fd, length)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSignal")
 private external fun wasiLibcFuchsiaSignal(signum: Int, handler: Long): Long
@@ -844,7 +844,7 @@ public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): 
 private external fun wasiLibcFuchsiaFlock(fd: Int, operation: Int): Int
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
-    wasiLibcFuchsiaFlock(fd, operation).toInt()
+    wasiLibcFuchsiaFlock(fd, operation)
 
 public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGettimeofday")
@@ -883,7 +883,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 private external fun wasiLibcFuchsiaSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcFuchsiaSchedYield().toInt()
+    wasiLibcFuchsiaSchedYield()
 
 public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaPthreadKeyCreate")
@@ -892,7 +892,7 @@ public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCre
 private external fun wasiLibcFuchsiaPthreadKeyDelete(key: Int): Int
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    wasiLibcFuchsiaPthreadKeyDelete(key.toInt()).toInt()
+    wasiLibcFuchsiaPthreadKeyDelete(key.toInt())
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaPthreadGetspecific")
@@ -991,7 +991,7 @@ public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: M
 private external fun wasiLibcFuchsiaRaise(signum: Int): Int
 
 public actual fun raise(signum: CInt): CInt =
-    wasiLibcFuchsiaRaise(signum).toInt()
+    wasiLibcFuchsiaRaise(signum)
 
 public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSigaction")
@@ -1026,7 +1026,7 @@ public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
 private external fun wasiLibcFuchsiaResInit(): Int
 
 public actual fun resInit(): CInt =
-    wasiLibcFuchsiaResInit().toInt()
+    wasiLibcFuchsiaResInit()
 
 public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGmtimeR")
@@ -1068,7 +1068,7 @@ public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
 private external fun wasiLibcFuchsiaUsleep(secs: Int): Int
 
 public actual fun usleep(secs: CUint): CInt =
-    wasiLibcFuchsiaUsleep(secs.toInt()).toInt()
+    wasiLibcFuchsiaUsleep(secs.toInt())
 
 public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSend")
@@ -1143,13 +1143,13 @@ public actual fun timegm(tm: MutPtr<Tm>): TimeT =
 private external fun wasiLibcFuchsiaGetsid(pid: Int): Int
 
 public actual fun getsid(pid: PidT): PidT =
-    wasiLibcFuchsiaGetsid(pid).toInt()
+    wasiLibcFuchsiaGetsid(pid)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSysconf")
 private external fun wasiLibcFuchsiaSysconf(name: Int): Long
 
 public actual fun sysconf(name: CInt): CLong =
-    wasiLibcFuchsiaSysconf(name).toLong()
+    wasiLibcFuchsiaSysconf(name)
 
 public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMkfifo")
@@ -1167,7 +1167,7 @@ public actual fun ftello(stream: MutPtr<FILE>): OffT =
 private external fun wasiLibcFuchsiaTcdrain(fd: Int): Int
 
 public actual fun tcdrain(fd: CInt): CInt =
-    wasiLibcFuchsiaTcdrain(fd).toInt()
+    wasiLibcFuchsiaTcdrain(fd)
 
 public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaCfgetispeed")
@@ -1196,25 +1196,25 @@ public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<T
 private external fun wasiLibcFuchsiaTcflow(fd: Int, action: Int): Int
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
-    wasiLibcFuchsiaTcflow(fd, action).toInt()
+    wasiLibcFuchsiaTcflow(fd, action)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTcflush")
 private external fun wasiLibcFuchsiaTcflush(fd: Int, action: Int): Int
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    wasiLibcFuchsiaTcflush(fd, action).toInt()
+    wasiLibcFuchsiaTcflush(fd, action)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTcgetsid")
 private external fun wasiLibcFuchsiaTcgetsid(fd: Int): Int
 
 public actual fun tcgetsid(fd: CInt): PidT =
-    wasiLibcFuchsiaTcgetsid(fd).toInt()
+    wasiLibcFuchsiaTcgetsid(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTcsendbreak")
 private external fun wasiLibcFuchsiaTcsendbreak(fd: Int, duration: Int): Int
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    wasiLibcFuchsiaTcsendbreak(fd, duration).toInt()
+    wasiLibcFuchsiaTcsendbreak(fd, duration)
 
 public actual fun mkstemp(template: MutPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMkstemp")
@@ -1237,7 +1237,7 @@ public actual fun closelog(): Unit =
 private external fun wasiLibcFuchsiaSetlogmask(maskpri: Int): Int
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    wasiLibcFuchsiaSetlogmask(maskpri).toInt()
+    wasiLibcFuchsiaSetlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSyslog")
 
@@ -1245,13 +1245,13 @@ public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variad
 private external fun wasiLibcFuchsiaGrantpt(fd: Int): Int
 
 public actual fun grantpt(fd: CInt): CInt =
-    wasiLibcFuchsiaGrantpt(fd).toInt()
+    wasiLibcFuchsiaGrantpt(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaPosixOpenpt")
 private external fun wasiLibcFuchsiaPosixOpenpt(flags: Int): Int
 
 public actual fun posixOpenpt(flags: CInt): CInt =
-    wasiLibcFuchsiaPosixOpenpt(flags).toInt()
+    wasiLibcFuchsiaPosixOpenpt(flags)
 
 public actual fun ptsname(fd: CInt): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaPtsname")
@@ -1260,13 +1260,13 @@ public actual fun ptsname(fd: CInt): MutPtr<CChar> =
 private external fun wasiLibcFuchsiaUnlockpt(fd: Int): Int
 
 public actual fun unlockpt(fd: CInt): CInt =
-    wasiLibcFuchsiaUnlockpt(fd).toInt()
+    wasiLibcFuchsiaUnlockpt(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaFdatasync")
 private external fun wasiLibcFuchsiaFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    wasiLibcFuchsiaFdatasync(fd).toInt()
+    wasiLibcFuchsiaFdatasync(fd)
 
 public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaClockGetres")
@@ -1308,7 +1308,7 @@ public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid>
 private external fun wasiLibcFuchsiaPosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    wasiLibcFuchsiaPosixFadvise(fd, offset, len, advise).toInt()
+    wasiLibcFuchsiaPosixFadvise(fd, offset, len, advise)
 
 public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaFutimens")
@@ -1349,7 +1349,7 @@ public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
 private external fun wasiLibcFuchsiaClearenv(): Int
 
 public actual fun clearenv(): CInt =
-    wasiLibcFuchsiaClearenv().toInt()
+    wasiLibcFuchsiaClearenv()
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaWaitid")
@@ -1358,13 +1358,13 @@ public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, opti
 private external fun wasiLibcFuchsiaSetreuid(ruid: Int, euid: Int): Int
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
-    wasiLibcFuchsiaSetreuid(ruid.toInt(), euid.toInt()).toInt()
+    wasiLibcFuchsiaSetreuid(ruid.toInt(), euid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetregid")
 private external fun wasiLibcFuchsiaSetregid(rgid: Int, egid: Int): Int
 
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
-    wasiLibcFuchsiaSetregid(rgid.toInt(), egid.toInt()).toInt()
+    wasiLibcFuchsiaSetregid(rgid.toInt(), egid.toInt())
 
 public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGetresuid")
@@ -1382,13 +1382,13 @@ public actual fun brk(addr: MutPtr<CVoid>): CInt =
 private external fun wasiLibcFuchsiaSetresgid(rgid: Int, egid: Int, sgid: Int): Int
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    wasiLibcFuchsiaSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt()).toInt()
+    wasiLibcFuchsiaSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetresuid")
 private external fun wasiLibcFuchsiaSetresuid(ruid: Int, euid: Int, suid: Int): Int
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    wasiLibcFuchsiaSetresuid(ruid.toInt(), euid.toInt(), suid.toInt()).toInt()
+    wasiLibcFuchsiaSetresuid(ruid.toInt(), euid.toInt(), suid.toInt())
 
 public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaOpenpty")
@@ -1427,7 +1427,7 @@ public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt
 private external fun wasiLibcFuchsiaShmget(key: Int, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcFuchsiaShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcFuchsiaShmget(key, size.toLong(), shmflg)
 
 public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaShmat")
@@ -1445,7 +1445,7 @@ public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
 private external fun wasiLibcFuchsiaSemget(key: Int, nsems: Int, semflag: Int): Int
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    wasiLibcFuchsiaSemget(key, nsems, semflag).toInt()
+    wasiLibcFuchsiaSemget(key, nsems, semflag)
 
 public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSemop")
@@ -1460,7 +1460,7 @@ public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
 private external fun wasiLibcFuchsiaMsgget(key: Int, msgflg: Int): Int
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    wasiLibcFuchsiaMsgget(key, msgflg).toInt()
+    wasiLibcFuchsiaMsgget(key, msgflg)
 
 public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMsgrcv")
@@ -1478,19 +1478,19 @@ public actual fun errnoLocation(): MutPtr<CInt> =
 private external fun wasiLibcFuchsiaFallocate(fd: Int, mode: Int, offset: Long, len: Long): Int
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcFuchsiaFallocate(fd, mode, offset, len).toInt()
+    wasiLibcFuchsiaFallocate(fd, mode, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaPosixFallocate")
 private external fun wasiLibcFuchsiaPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcFuchsiaPosixFallocate(fd, offset, len).toInt()
+    wasiLibcFuchsiaPosixFallocate(fd, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaReadahead")
 private external fun wasiLibcFuchsiaReadahead(fd: Int, offset: Long, count: Long): Long
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    wasiLibcFuchsiaReadahead(fd, offset, count.toLong()).toLong()
+    wasiLibcFuchsiaReadahead(fd, offset, count.toLong())
 
 public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSignalfd")
@@ -1499,7 +1499,7 @@ public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt
 private external fun wasiLibcFuchsiaTimerfdCreate(clockid: Int, flags: Int): Int
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    wasiLibcFuchsiaTimerfdCreate(clockid, flags).toInt()
+    wasiLibcFuchsiaTimerfdCreate(clockid, flags)
 
 public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaTimerfdGettime")
@@ -1520,7 +1520,7 @@ public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: 
 private external fun wasiLibcFuchsiaDup3(oldfd: Int, newfd: Int, flags: Int): Int
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    wasiLibcFuchsiaDup3(oldfd, newfd, flags).toInt()
+    wasiLibcFuchsiaDup3(oldfd, newfd, flags)
 
 public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMkostemp")
@@ -1544,19 +1544,19 @@ public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: Mut
 private external fun wasiLibcFuchsiaReboot(howTo: Int): Int
 
 public actual fun reboot(howTo: CInt): CInt =
-    wasiLibcFuchsiaReboot(howTo).toInt()
+    wasiLibcFuchsiaReboot(howTo)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetfsgid")
 private external fun wasiLibcFuchsiaSetfsgid(gid: Int): Int
 
 public actual fun setfsgid(gid: GidT): CInt =
-    wasiLibcFuchsiaSetfsgid(gid.toInt()).toInt()
+    wasiLibcFuchsiaSetfsgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaSetfsuid")
 private external fun wasiLibcFuchsiaSetfsuid(uid: Int): Int
 
 public actual fun setfsuid(uid: UidT): CInt =
-    wasiLibcFuchsiaSetfsuid(uid.toInt()).toInt()
+    wasiLibcFuchsiaSetfsuid(uid.toInt())
 
 public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaMkfifoat")
@@ -1570,7 +1570,7 @@ public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>): Unit = throw Unsupp
 private external fun wasiLibcFuchsiaSyncFileRange(fd: Int, offset: Long, nbytes: Long, flags: Int): Int
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    wasiLibcFuchsiaSyncFileRange(fd, offset, nbytes, flags.toInt()).toInt()
+    wasiLibcFuchsiaSyncFileRange(fd, offset, nbytes, flags.toInt())
 
 public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGetifaddrs")
@@ -1636,7 +1636,7 @@ public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
 private external fun wasiLibcFuchsiaVhangup(): Int
 
 public actual fun vhangup(): CInt =
-    wasiLibcFuchsiaVhangup().toInt()
+    wasiLibcFuchsiaVhangup()
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSendmmsg")
@@ -1666,13 +1666,13 @@ public actual fun umount(target: ConstPtr<CChar>): CInt =
 private external fun wasiLibcFuchsiaSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcFuchsiaSchedGetPriorityMax(policy).toInt()
+    wasiLibcFuchsiaSchedGetPriorityMax(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcFuchsiaTee")
 private external fun wasiLibcFuchsiaTee(fdIn: Int, fdOut: Int, len: Long, flags: Int): Long
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    wasiLibcFuchsiaTee(fdIn, fdOut, len.toLong(), flags.toInt()).toLong()
+    wasiLibcFuchsiaTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
 public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSettimeofday")
@@ -1684,7 +1684,7 @@ public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: 
 private external fun wasiLibcFuchsiaEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcFuchsiaEventfd(initval.toInt(), flags).toInt()
+    wasiLibcFuchsiaEventfd(initval.toInt(), flags)
 
 public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSchedRrGetInterval")
@@ -1711,7 +1711,7 @@ public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: C
 private external fun wasiLibcFuchsiaPersonality(persona: Long): Int
 
 public actual fun personality(persona: CUlong): CInt =
-    wasiLibcFuchsiaPersonality(persona.toLong()).toInt()
+    wasiLibcFuchsiaPersonality(persona.toLong())
 
 public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaSchedGetparam")
@@ -1729,7 +1729,7 @@ public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: C
 private external fun wasiLibcFuchsiaSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    wasiLibcFuchsiaSchedGetscheduler(pid).toInt()
+    wasiLibcFuchsiaSchedGetscheduler(pid)
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaClockNanosleep")
@@ -1747,7 +1747,7 @@ public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
 private external fun wasiLibcFuchsiaSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcFuchsiaSchedGetPriorityMin(policy).toInt()
+    wasiLibcFuchsiaSchedGetPriorityMin(policy)
 
 public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaUmount2")
@@ -1774,7 +1774,7 @@ public actual fun semClose(sem: MutPtr<SemT>): CInt =
 private external fun wasiLibcFuchsiaGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcFuchsiaGetdtablesize().toInt()
+    wasiLibcFuchsiaGetdtablesize()
 
 public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGetgrnamR")
@@ -1804,7 +1804,7 @@ public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcFuchsiaDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcFuchsiaDaemon(nochdir, noclose).toInt()
+    wasiLibcFuchsiaDaemon(nochdir, noclose)
 
 public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcFuchsiaGetpwnamR")

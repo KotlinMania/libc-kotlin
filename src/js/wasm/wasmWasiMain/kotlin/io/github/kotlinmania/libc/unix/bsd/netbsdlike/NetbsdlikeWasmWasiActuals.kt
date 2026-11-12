@@ -52,7 +52,7 @@ public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt 
 private external fun wasiLibcUnixBsdNetbsdlikeDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixBsdNetbsdlikeDaemon(nochdir, noclose)
 
 public actual fun accept4(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeAccept4")
@@ -100,25 +100,25 @@ public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<
 private external fun wasiLibcUnixBsdNetbsdlikeFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeFdatasync(fd).toInt()
+    wasiLibcUnixBsdNetbsdlikeFdatasync(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeLoginTty")
 private external fun wasiLibcUnixBsdNetbsdlikeLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeLoginTty(fd).toInt()
+    wasiLibcUnixBsdNetbsdlikeLoginTty(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeGetpriority")
 private external fun wasiLibcUnixBsdNetbsdlikeGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixBsdNetbsdlikeGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixBsdNetbsdlikeGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeSetpriority")
 private external fun wasiLibcUnixBsdNetbsdlikeSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixBsdNetbsdlikeSetpriority(which, who.toInt(), prio)
 
 public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeMknodat")
@@ -187,7 +187,7 @@ public actual fun uname(buf: MutPtr<Utsname>): CInt =
 private external fun wasiLibcUnixBsdNetbsdlikeShmget(key: Long, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixBsdNetbsdlikeShmget(key, size.toLong(), shmflg)
 
 public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeShmat")
@@ -274,13 +274,13 @@ public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): M
 private external fun wasiLibcUnixBsdNetbsdlikeGethostid(): Long
 
 public actual fun gethostid(): CLong =
-    wasiLibcUnixBsdNetbsdlikeGethostid().toLong()
+    wasiLibcUnixBsdNetbsdlikeGethostid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeSethostid")
 private external fun wasiLibcUnixBsdNetbsdlikeSethostid(hostid: Long): Int
 
 public actual fun sethostid(hostid: CLong): CInt =
-    wasiLibcUnixBsdNetbsdlikeSethostid(hostid).toInt()
+    wasiLibcUnixBsdNetbsdlikeSethostid(hostid)
 
 public actual fun ftok(path: ConstPtr<CChar>, id: CInt): KeyT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeFtok")
@@ -304,4 +304,4 @@ public actual fun recvmmsg(sockfd: CInt, mmsg: MutPtr<Mmsghdr>, vlen: CUint, fla
 private external fun wasiLibcUnixBsdNetbsdlikeClosefrom(lowfd: Int): Int
 
 public actual fun closefrom(lowfd: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeClosefrom(lowfd).toInt()
+    wasiLibcUnixBsdNetbsdlikeClosefrom(lowfd)

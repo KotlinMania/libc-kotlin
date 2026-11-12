@@ -10,16 +10,16 @@ import io.github.kotlinmania.libc.CInt
 private external fun wasiLibcNewQurtSysSchedSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcNewQurtSysSchedSchedYield().toInt()
+    wasiLibcNewQurtSysSchedSchedYield()
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtSysSchedSchedGetPriorityMax")
 private external fun wasiLibcNewQurtSysSchedSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcNewQurtSysSchedSchedGetPriorityMax(policy).toInt()
+    wasiLibcNewQurtSysSchedSchedGetPriorityMax(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtSysSchedSchedGetPriorityMin")
 private external fun wasiLibcNewQurtSysSchedSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcNewQurtSysSchedSchedGetPriorityMin(policy).toInt()
+    wasiLibcNewQurtSysSchedSchedGetPriorityMin(policy)

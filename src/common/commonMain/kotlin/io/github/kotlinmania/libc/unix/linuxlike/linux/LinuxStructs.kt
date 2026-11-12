@@ -2087,7 +2087,7 @@ public data class PtpSysOffsetExtended(
                                 .FixedArrayTypeLayout(
                                     io.github.kotlinmania.rustlang.core.mem
                                         .FixedArrayTypeLayout(PtpClockTime.typeLayout(), (3).toInt()),
-                                    (PTP_MAX_SAMPLES.toInt()).toInt(),
+                                    (PTP_MAX_SAMPLES.toInt()),
                                 )
                         ).readNative(addr + 16L),
                     )
@@ -2103,7 +2103,7 @@ public data class PtpSysOffsetExtended(
                             .FixedArrayTypeLayout(
                                 io.github.kotlinmania.rustlang.core.mem
                                     .FixedArrayTypeLayout(PtpClockTime.typeLayout(), (3).toInt()),
-                                (PTP_MAX_SAMPLES.toInt()).toInt(),
+                                (PTP_MAX_SAMPLES.toInt()),
                             )
                     ).writeNative(addr + 16L, value.ts)
                 }
@@ -2501,38 +2501,38 @@ public data class Tls12CryptoInfoAesGcm128(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoAesGcm128) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -2587,38 +2587,38 @@ public data class Tls12CryptoInfoAesGcm256(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoAesGcm256) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -2673,38 +2673,38 @@ public data class Tls12CryptoInfoAesCcm128(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoAesCcm128) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -2759,38 +2759,38 @@ public data class Tls12CryptoInfoChacha20Poly1305(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoChacha20Poly1305) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -2845,38 +2845,38 @@ public data class Tls12CryptoInfoSm4Gcm(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoSm4Gcm) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -2931,38 +2931,38 @@ public data class Tls12CryptoInfoSm4Ccm(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoSm4Ccm) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -3017,38 +3017,38 @@ public data class Tls12CryptoInfoAriaGcm128(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoAriaGcm128) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -3103,38 +3103,38 @@ public data class Tls12CryptoInfoAriaGcm256(
                         (TlsCryptoInfo.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_IV_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_IV_SIZE))
                         ).readNative(addr + 4L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_KEY_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_KEY_SIZE))
                         ).readNative(addr + off2).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_SALT_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_SALT_SIZE))
                         ).readNative(addr + off3).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE))
                         ).readNative(addr + off4).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Tls12CryptoInfoAriaGcm256) {
                     (TlsCryptoInfo.typeLayout()).writeNative(addr, value.info)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_IV_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_IV_SIZE))
                     ).writeNative(addr + 4L, value.iv.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_KEY_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_KEY_SIZE))
                     ).writeNative(addr + off2, value.key.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_SALT_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_SALT_SIZE))
                     ).writeNative(addr + off3, value.salt.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (TLS_CIPHER_ARIA_GCM_256_REC_SEQ_SIZE))
                     ).writeNative(addr + off4, value.recSeq.toList())
                 }
             }
@@ -3644,7 +3644,7 @@ public class IwRange(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 52L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_BITRATES).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_BITRATES))
                         ).readNative(addr + 56L).toIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off12),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off13),
@@ -3659,7 +3659,7 @@ public class IwRange(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + off22),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (IW_MAX_ENCODING_SIZES).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (IW_MAX_ENCODING_SIZES))
                         ).readNative(addr + off23).toUShortArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off24),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off25),
@@ -3668,7 +3668,7 @@ public class IwRange(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off28),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_TXPOWER).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_TXPOWER))
                         ).readNative(addr + off29).toIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off30),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off31),
@@ -3683,7 +3683,7 @@ public class IwRange(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + off40),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(IwFreq.typeLayout(), (IW_MAX_FREQUENCIES).toInt())
+                                .FixedArrayTypeLayout(IwFreq.typeLayout(), (IW_MAX_FREQUENCIES))
                         ).readNative(addr + off41),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off42),
                     )
@@ -3704,7 +3704,7 @@ public class IwRange(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 52L, value.numBitrates)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_BITRATES).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_BITRATES))
                     ).writeNative(addr + 56L, value.bitrate.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off12, value.minRts)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off13, value.maxRts)
@@ -3719,7 +3719,7 @@ public class IwRange(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + off22, value.pmCapa)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (IW_MAX_ENCODING_SIZES).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (IW_MAX_ENCODING_SIZES))
                     ).writeNative(addr + off23, value.encodingSize.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off24, value.numEncodingSizes)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off25, value.maxEncodingTokens)
@@ -3728,7 +3728,7 @@ public class IwRange(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off28, value.numTxpower)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_TXPOWER).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (IW_MAX_TXPOWER))
                     ).writeNative(addr + off29, value.txpower.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off30, value.weVersionCompiled)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off31, value.weVersionSource)
@@ -3743,7 +3743,7 @@ public class IwRange(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + off40, value.numFrequency)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(IwFreq.typeLayout(), (IW_MAX_FREQUENCIES).toInt())
+                            .FixedArrayTypeLayout(IwFreq.typeLayout(), (IW_MAX_FREQUENCIES))
                     ).writeNative(addr + off41, value.freq)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off42, value.encCapa)
                 }
@@ -3857,13 +3857,13 @@ public data class PthreadMutexattrT(
                     PthreadMutexattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadMutexattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -3893,13 +3893,13 @@ public data class PthreadRwlockattrT(
                     PthreadRwlockattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCKATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCKATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadRwlockattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCKATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCKATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -3929,13 +3929,13 @@ public data class PthreadCondattrT(
                     PthreadCondattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadCondattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -3965,13 +3965,13 @@ public data class PthreadBarrierattrT(
                     PthreadBarrierattrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIERATTR_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIERATTR_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadBarrierattrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIERATTR_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIERATTR_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -4815,13 +4815,13 @@ public data class PthreadCondT(
                     PthreadCondT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadCondT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -4851,13 +4851,13 @@ public data class PthreadMutexT(
                     PthreadMutexT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadMutexT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -4887,13 +4887,13 @@ public data class PthreadRwlockT(
                     PthreadRwlockT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCK_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCK_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadRwlockT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCK_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_RWLOCK_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -4923,13 +4923,13 @@ public data class PthreadBarrierT(
                     PthreadBarrierT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIER_T).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIER_T))
                         ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: PthreadBarrierT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIER_T).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_BARRIER_T))
                     ).writeNative(addr, value.size.toList())
                 }
             }
@@ -4972,7 +4972,7 @@ public data class UinputSetup(
                         (InputId.typeLayout()).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE))
                         ).readNative(addr + 8L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off2),
                     )
@@ -4980,7 +4980,7 @@ public data class UinputSetup(
                     (InputId.typeLayout()).writeNative(addr, value.id)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE))
                     ).writeNative(addr + 8L, value.name.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off2, value.ffEffectsMax)
                 }
@@ -5050,49 +5050,49 @@ public data class UinputUserDev(
                     UinputUserDev(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE))
                         ).readNative(addr).toUByteArray(),
                         (InputId.typeLayout()).readNative(addr + off1),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off2),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                         ).readNative(addr + off3).toIntArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                         ).readNative(addr + off4).toIntArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                         ).readNative(addr + off5).toIntArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                         ).readNative(addr + off6).toIntArray(),
                     )
                 override fun writeNative(addr: Long, value: UinputUserDev) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (UINPUT_MAX_NAME_SIZE))
                     ).writeNative(addr, value.name.toList())
                     (InputId.typeLayout()).writeNative(addr + off1, value.id)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off2, value.ffEffectsMax)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                     ).writeNative(addr + off3, value.absmax.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                     ).writeNative(addr + off4, value.absmin.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                     ).writeNative(addr + off5, value.absfuzz.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (ABS_CNT))
                     ).writeNative(addr + off6, value.absflat.toList())
                 }
             }

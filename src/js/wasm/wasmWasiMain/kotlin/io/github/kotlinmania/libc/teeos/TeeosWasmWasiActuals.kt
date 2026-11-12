@@ -82,7 +82,7 @@ public actual fun pthreadAttrSettee(attr: MutPtr<PthreadAttrT>, ca: CInt, taskId
 private external fun wasiLibcTeeosSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcTeeosSchedYield().toInt()
+    wasiLibcTeeosSchedYield()
 
 public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosPthreadKeyCreate")
@@ -91,7 +91,7 @@ public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCre
 private external fun wasiLibcTeeosPthreadKeyDelete(key: Int): Int
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    wasiLibcTeeosPthreadKeyDelete(key.toInt()).toInt()
+    wasiLibcTeeosPthreadKeyDelete(key.toInt())
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosPthreadGetspecific")
@@ -222,7 +222,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPt
 private external fun wasiLibcTeeosSysconf(name: Int): Long
 
 public actual fun sysconf(name: CInt): CLong =
-    wasiLibcTeeosSysconf(name).toLong()
+    wasiLibcTeeosSysconf(name)
 
 public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosMmap")
@@ -243,7 +243,7 @@ public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
 private external fun wasiLibcTeeosGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcTeeosGetpid().toInt()
+    wasiLibcTeeosGetpid()
 
 public actual fun gettimeofday(tv: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosGettimeofday")
@@ -300,7 +300,7 @@ public actual fun wcrtomb(s: MutPtr<CChar>, wc: WcharT, st: MutPtr<MbstateT>): S
 private external fun wasiLibcTeeosWctob(c: Int): Int
 
 public actual fun wctob(c: WintT): CInt =
-    wasiLibcTeeosWctob(c.toInt()).toInt()
+    wasiLibcTeeosWctob(c.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosSrandom")
 private external fun wasiLibcTeeosSrandom(seed: Int): Unit
@@ -318,7 +318,7 @@ public actual fun setstate(state: MutPtr<CChar>): MutPtr<CChar> =
 private external fun wasiLibcTeeosRandom(): Long
 
 public actual fun random(): CLong =
-    wasiLibcTeeosRandom().toLong()
+    wasiLibcTeeosRandom()
 
 public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosStrchr")
@@ -357,67 +357,67 @@ public actual fun wcslen(s: ConstPtr<WcharT>): SizeT =
 private external fun wasiLibcTeeosIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcTeeosIsalpha(c).toInt()
+    wasiLibcTeeosIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIsascii")
 private external fun wasiLibcTeeosIsascii(c: Int): Int
 
 public actual fun isascii(c: CInt): CInt =
-    wasiLibcTeeosIsascii(c).toInt()
+    wasiLibcTeeosIsascii(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIsdigit")
 private external fun wasiLibcTeeosIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcTeeosIsdigit(c).toInt()
+    wasiLibcTeeosIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIslower")
 private external fun wasiLibcTeeosIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcTeeosIslower(c).toInt()
+    wasiLibcTeeosIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIsprint")
 private external fun wasiLibcTeeosIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcTeeosIsprint(c).toInt()
+    wasiLibcTeeosIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIsspace")
 private external fun wasiLibcTeeosIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcTeeosIsspace(c).toInt()
+    wasiLibcTeeosIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIswctype")
 private external fun wasiLibcTeeosIswctype(wc: Int, ttype: Long): Int
 
 public actual fun iswctype(wc: WintT, ttype: WctypeT): CInt =
-    wasiLibcTeeosIswctype(wc.toInt(), ttype.toLong()).toInt()
+    wasiLibcTeeosIswctype(wc.toInt(), ttype.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIswdigit")
 private external fun wasiLibcTeeosIswdigit(wc: Int): Int
 
 public actual fun iswdigit(wc: WintT): CInt =
-    wasiLibcTeeosIswdigit(wc.toInt()).toInt()
+    wasiLibcTeeosIswdigit(wc.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIswlower")
 private external fun wasiLibcTeeosIswlower(wc: Int): Int
 
 public actual fun iswlower(wc: WintT): CInt =
-    wasiLibcTeeosIswlower(wc.toInt()).toInt()
+    wasiLibcTeeosIswlower(wc.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIswspace")
 private external fun wasiLibcTeeosIswspace(wc: Int): Int
 
 public actual fun iswspace(wc: WintT): CInt =
-    wasiLibcTeeosIswspace(wc.toInt()).toInt()
+    wasiLibcTeeosIswspace(wc.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosIswupper")
 private external fun wasiLibcTeeosIswupper(wc: Int): Int
 
 public actual fun iswupper(wc: WintT): CInt =
-    wasiLibcTeeosIswupper(wc.toInt()).toInt()
+    wasiLibcTeeosIswupper(wc.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosTowupper")
 private external fun wasiLibcTeeosTowupper(wc: Int): Int
@@ -435,37 +435,37 @@ public actual fun towlower(wc: WintT): WintT =
 private external fun wasiLibcTeeosAtan(x: Double): Double
 
 public actual fun atan(x: CDouble): CDouble =
-    wasiLibcTeeosAtan(x).toDouble()
+    wasiLibcTeeosAtan(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosCeil")
 private external fun wasiLibcTeeosCeil(x: Double): Double
 
 public actual fun ceil(x: CDouble): CDouble =
-    wasiLibcTeeosCeil(x).toDouble()
+    wasiLibcTeeosCeil(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosCeilf")
 private external fun wasiLibcTeeosCeilf(x: Float): Float
 
 public actual fun ceilf(x: CFloat): CFloat =
-    wasiLibcTeeosCeilf(x).toFloat()
+    wasiLibcTeeosCeilf(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosExp")
 private external fun wasiLibcTeeosExp(x: Double): Double
 
 public actual fun exp(x: CDouble): CDouble =
-    wasiLibcTeeosExp(x).toDouble()
+    wasiLibcTeeosExp(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosFabs")
 private external fun wasiLibcTeeosFabs(x: Double): Double
 
 public actual fun fabs(x: CDouble): CDouble =
-    wasiLibcTeeosFabs(x).toDouble()
+    wasiLibcTeeosFabs(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosFloor")
 private external fun wasiLibcTeeosFloor(x: Double): Double
 
 public actual fun floor(x: CDouble): CDouble =
-    wasiLibcTeeosFloor(x).toDouble()
+    wasiLibcTeeosFloor(x)
 
 public actual fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosFrexp")
@@ -474,43 +474,43 @@ public actual fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble =
 private external fun wasiLibcTeeosLog(x: Double): Double
 
 public actual fun log(x: CDouble): CDouble =
-    wasiLibcTeeosLog(x).toDouble()
+    wasiLibcTeeosLog(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosLog2")
 private external fun wasiLibcTeeosLog2(x: Double): Double
 
 public actual fun log2(x: CDouble): CDouble =
-    wasiLibcTeeosLog2(x).toDouble()
+    wasiLibcTeeosLog2(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosPow")
 private external fun wasiLibcTeeosPow(x: Double, y: Double): Double
 
 public actual fun pow(x: CDouble, y: CDouble): CDouble =
-    wasiLibcTeeosPow(x, y).toDouble()
+    wasiLibcTeeosPow(x, y)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosRoundf")
 private external fun wasiLibcTeeosRoundf(x: Float): Float
 
 public actual fun roundf(x: CFloat): CFloat =
-    wasiLibcTeeosRoundf(x).toFloat()
+    wasiLibcTeeosRoundf(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosScalbn")
 private external fun wasiLibcTeeosScalbn(x: Double, n: Int): Double
 
 public actual fun scalbn(x: CDouble, n: CInt): CDouble =
-    wasiLibcTeeosScalbn(x, n).toDouble()
+    wasiLibcTeeosScalbn(x, n)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosSqrt")
 private external fun wasiLibcTeeosSqrt(x: Double): Double
 
 public actual fun sqrt(x: CDouble): CDouble =
-    wasiLibcTeeosSqrt(x).toDouble()
+    wasiLibcTeeosSqrt(x)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosAbs")
 private external fun wasiLibcTeeosAbs(x: Int): Int
 
 public actual fun abs(x: CInt): CInt =
-    wasiLibcTeeosAbs(x).toInt()
+    wasiLibcTeeosAbs(x)
 
 public actual fun atof(s: ConstPtr<CChar>): CDouble =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosAtof")
@@ -537,13 +537,13 @@ public actual fun ecvt(x: CDouble, n: CInt, dp: MutPtr<CInt>, sign: MutPtr<CInt>
 private external fun wasiLibcTeeosImaxabs(a: Long): Long
 
 public actual fun imaxabs(a: IntmaxT): IntmaxT =
-    wasiLibcTeeosImaxabs(a).toLong()
+    wasiLibcTeeosImaxabs(a)
 
 @kotlin.wasm.WasmImport("libc", "libcTeeosLlabs")
 private external fun wasiLibcTeeosLlabs(a: Long): Long
 
 public actual fun llabs(a: CLonglong): CLonglong =
-    wasiLibcTeeosLlabs(a).toLong()
+    wasiLibcTeeosLlabs(a)
 
 public actual fun qsort(base: MutPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcTeeosQsort")
 

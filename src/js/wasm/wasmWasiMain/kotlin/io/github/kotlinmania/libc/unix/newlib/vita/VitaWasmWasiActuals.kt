@@ -63,7 +63,7 @@ public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockI
 private external fun wasiLibcUnixNewlibVitaPthreadGetprocessoridNp(): Int
 
 public actual fun pthreadGetprocessoridNp(): CInt =
-    wasiLibcUnixNewlibVitaPthreadGetprocessoridNp().toInt()
+    wasiLibcUnixNewlibVitaPthreadGetprocessoridNp()
 
 public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNewlibVitaGetentropy")

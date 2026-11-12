@@ -51,19 +51,19 @@ public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CI
 private external fun wasiLibcUnixBsdAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixBsdAbs(i).toInt()
+    wasiLibcUnixBsdAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdLabs")
 private external fun wasiLibcUnixBsdLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixBsdLabs(i).toLong()
+    wasiLibcUnixBsdLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdRand")
 private external fun wasiLibcUnixBsdRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixBsdRand().toInt()
+    wasiLibcUnixBsdRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdSrand")
 private external fun wasiLibcUnixBsdSrand(seed: Int): Unit
@@ -89,7 +89,7 @@ public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): C
 private external fun wasiLibcUnixBsdKqueue(): Int
 
 public actual fun kqueue(): CInt =
-    wasiLibcUnixBsdKqueue().toInt()
+    wasiLibcUnixBsdKqueue()
 
 public actual fun unmount(target: ConstPtr<CChar>, arg: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdUnmount")
@@ -208,7 +208,7 @@ public actual fun semClose(sem: MutPtr<SemT>): CInt =
 private external fun wasiLibcUnixBsdGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixBsdGetdtablesize().toInt()
+    wasiLibcUnixBsdGetdtablesize()
 
 public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdGetgrnamR")
@@ -232,13 +232,13 @@ public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
 private external fun wasiLibcUnixBsdSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcUnixBsdSchedGetPriorityMin(policy).toInt()
+    wasiLibcUnixBsdSchedGetPriorityMin(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdSchedGetPriorityMax")
 private external fun wasiLibcUnixBsdSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcUnixBsdSchedGetPriorityMax(policy).toInt()
+    wasiLibcUnixBsdSchedGetPriorityMax(policy)
 
 public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdSemUnlink")
@@ -308,7 +308,7 @@ public actual fun arc4randomUniform(l: UInt): UInt =
 private external fun wasiLibcUnixBsdDrand48(): Double
 
 public actual fun drand48(): CDouble =
-    wasiLibcUnixBsdDrand48().toDouble()
+    wasiLibcUnixBsdDrand48()
 
 public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdErand48")
@@ -317,7 +317,7 @@ public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
 private external fun wasiLibcUnixBsdLrand48(): Long
 
 public actual fun lrand48(): CLong =
-    wasiLibcUnixBsdLrand48().toLong()
+    wasiLibcUnixBsdLrand48()
 
 public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNrand48")
@@ -326,7 +326,7 @@ public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
 private external fun wasiLibcUnixBsdMrand48(): Long
 
 public actual fun mrand48(): CLong =
-    wasiLibcUnixBsdMrand48().toLong()
+    wasiLibcUnixBsdMrand48()
 
 public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdJrand48")
@@ -358,4 +358,4 @@ public actual fun devname(dev: DevT, modeT: ModeT): MutPtr<CChar> =
 private external fun wasiLibcUnixBsdIssetugid(): Int
 
 public actual fun issetugid(): CInt =
-    wasiLibcUnixBsdIssetugid().toInt()
+    wasiLibcUnixBsdIssetugid()

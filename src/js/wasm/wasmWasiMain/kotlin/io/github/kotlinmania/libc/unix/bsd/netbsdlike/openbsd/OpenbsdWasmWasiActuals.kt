@@ -48,7 +48,7 @@ public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLo
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdDup3(src: Int, dst: Int, flags: Int): Int
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdDup3(src, dst, flags).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdDup3(src, dst, flags)
 
 public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdChflags")
@@ -57,7 +57,7 @@ public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdFchflags(fd: Int, flags: Int): Int
 
 public actual fun fchflags(fd: CInt, flags: CUint): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdFchflags(fd, flags.toInt()).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdFchflags(fd, flags.toInt())
 
 public actual fun chflagsat(fd: CInt, path: ConstPtr<CChar>, flags: CUint, atflag: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdChflagsat")
@@ -84,7 +84,7 @@ public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdGetthrid(): Int
 
 public actual fun getthrid(): PidT =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdGetthrid().toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdGetthrid()
 
 public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize")
@@ -99,7 +99,7 @@ public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: M
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdPthreadMainNp(): Int
 
 public actual fun pthreadMainNp(): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdPthreadMainNp().toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdPthreadMainNp()
 
 public actual fun pthreadGetNameNp(tid: PthreadT, name: MutPtr<CChar>, len: SizeT): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp")
 
@@ -121,13 +121,13 @@ public actual fun sysctl(name: ConstPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoi
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid: Int, egid: Int, sgid: Int): Int
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt()).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeOpenbsdSetresuid")
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid: Int, euid: Int, suid: Int): Int
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid.toInt(), euid.toInt(), suid.toInt()).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid.toInt(), euid.toInt(), suid.toInt())
 
 public actual fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdPtrace")
@@ -185,7 +185,7 @@ public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPt
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdHcreate(nelt: Long): Int
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdHcreate(nelt.toLong()).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdHcreate(nelt.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdNetbsdlikeOpenbsdHdestroy")
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdHdestroy(): Unit
@@ -206,7 +206,7 @@ public actual fun mimmutable(addr: MutPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcUnixBsdNetbsdlikeOpenbsdReboot(mode: Int): Int
 
 public actual fun reboot(mode: CInt): CInt =
-    wasiLibcUnixBsdNetbsdlikeOpenbsdReboot(mode).toInt()
+    wasiLibcUnixBsdNetbsdlikeOpenbsdReboot(mode)
 
 public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdNetbsdlikeOpenbsdStatfs")

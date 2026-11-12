@@ -80,7 +80,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint = cmsgHdrAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toInt() + length.toInt()).toUInt()
+public fun cmsgSpace(length: CUint): CUint = cmsgHdrAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()) + length.toInt()).toUInt()
 
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8

@@ -536,7 +536,7 @@ public class AreaInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + 4L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + off2),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off3),
@@ -555,7 +555,7 @@ public class AreaInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.area)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + 4L, value.name.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + off2, value.size)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off3, value.lock)
@@ -653,7 +653,7 @@ public data class PortInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + 8L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
@@ -664,7 +664,7 @@ public data class PortInfo(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + 8L, value.name.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.capacity)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.queueCount)
@@ -830,7 +830,7 @@ public data class SemInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + 8L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
@@ -840,7 +840,7 @@ public data class SemInfo(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + 8L, value.name.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.count)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.latestHolder)
@@ -988,7 +988,7 @@ public class ThreadInfo internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + 8L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
@@ -1009,7 +1009,7 @@ public class ThreadInfo internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + 8L, value.name.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.state)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.priority)
@@ -1149,15 +1149,15 @@ public class SystemInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 120L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH))
                         ).readNative(addr + 124L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + off21).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + off22).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off23),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off24),
@@ -1185,15 +1185,15 @@ public class SystemInfo(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 120L, value.usedTeams)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH))
                     ).writeNative(addr + 124L, value.kernelName.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + off21, value.kernelBuildDate.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + off22, value.kernelBuildTime.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off23, value.kernelVersion)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off24, value.abi)
@@ -1424,11 +1424,11 @@ public data class FsInfo(
                         ).readNative(addr + 72L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH))
                         ).readNative(addr + 200L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                         ).readNative(addr + off11).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: FsInfo) {
@@ -1447,11 +1447,11 @@ public data class FsInfo(
                     ).writeNative(addr + 72L, value.deviceName.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH))
                     ).writeNative(addr + 200L, value.volumeName.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH))
                     ).writeNative(addr + off11, value.fshName.toList())
                 }
             }
@@ -2823,9 +2823,9 @@ public expect fun getCpuid(info: MutPtr<CpuidInfo>, eaxRegister: UInt, cpuNum: U
 // The following functions are defined as macros in C/C++
 public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: MutPtr<CpuInfo>): StatusT = getCpuInfoEtc(firstCPU, cpuCount, info, sizeOf<CpuInfo>(typeLayoutT = CpuInfo.typeLayout()).toULong())
 
-public fun getAreaInfo(id: AreaId, info: MutPtr<AreaInfo>): StatusT = getAreaInfo(id, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout()).toInt()).toULong())
+public fun getAreaInfo(id: AreaId, info: MutPtr<AreaInfo>): StatusT = getAreaInfo(id, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
 
-public fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, info: MutPtr<AreaInfo>): StatusT = getNextAreaInfo(team, cookie, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout()).toInt()).toULong())
+public fun getNextAreaInfo(team: TeamId, cookie: MutPtr<Long>, info: MutPtr<AreaInfo>): StatusT = getNextAreaInfo(team, cookie, info, (sizeOf<AreaInfo>(typeLayoutT = AreaInfo.typeLayout())).toULong())
 
 public fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>): StatusT = getPortInfo(port, buf, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
 

@@ -65,7 +65,7 @@ public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: O
 private external fun wasiLibcUnixLinuxlikeLinuxUclibcSethostid(hostid: Long): Int
 
 public actual fun sethostid(hostid: CLong): CInt =
-    wasiLibcUnixLinuxlikeLinuxUclibcSethostid(hostid).toInt()
+    wasiLibcUnixLinuxlikeLinuxUclibcSethostid(hostid)
 
 public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxUclibcFanotifyMark")
@@ -86,13 +86,13 @@ public actual fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): 
 private external fun wasiLibcUnixLinuxlikeLinuxUclibcGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    wasiLibcUnixLinuxlikeLinuxUclibcGetpriority(which.toInt(), who.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxUclibcGetpriority(which.toInt(), who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxUclibcSetpriority")
 private external fun wasiLibcUnixLinuxlikeLinuxUclibcSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxUclibcSetpriority(which.toInt(), who.toInt(), prio).toInt()
+    wasiLibcUnixLinuxlikeLinuxUclibcSetpriority(which.toInt(), who.toInt(), prio)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxUclibcGetauxval")
 private external fun wasiLibcUnixLinuxlikeLinuxUclibcGetauxval(type: Long): Long

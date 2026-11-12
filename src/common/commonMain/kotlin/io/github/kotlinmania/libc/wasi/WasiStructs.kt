@@ -907,14 +907,14 @@ public data class FdSet(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (FD_SETSIZE.toInt()).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (FD_SETSIZE.toInt()))
                         ).readNative(addr + 8L).toIntArray(),
                     )
                 override fun writeNative(addr: Long, value: FdSet) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr, value.nfds)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (FD_SETSIZE.toInt()).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (FD_SETSIZE.toInt()))
                     ).writeNative(addr + 8L, value.fds.toList())
                 }
             }

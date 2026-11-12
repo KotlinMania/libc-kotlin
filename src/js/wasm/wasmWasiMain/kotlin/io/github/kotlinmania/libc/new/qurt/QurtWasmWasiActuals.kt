@@ -113,7 +113,7 @@ public actual fun memset(s: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
 private external fun wasiLibcNewQurtFork(): Int
 
 public actual fun fork(): PidT =
-    wasiLibcNewQurtFork().toInt()
+    wasiLibcNewQurtFork()
 
 public actual fun execve(filename: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtExecve")
@@ -122,76 +122,76 @@ public actual fun execve(filename: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CCha
 private external fun wasiLibcNewQurtIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcNewQurtIsalnum(c).toInt()
+    wasiLibcNewQurtIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsalpha")
 private external fun wasiLibcNewQurtIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcNewQurtIsalpha(c).toInt()
+    wasiLibcNewQurtIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIscntrl")
 private external fun wasiLibcNewQurtIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcNewQurtIscntrl(c).toInt()
+    wasiLibcNewQurtIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsdigit")
 private external fun wasiLibcNewQurtIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcNewQurtIsdigit(c).toInt()
+    wasiLibcNewQurtIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsgraph")
 private external fun wasiLibcNewQurtIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcNewQurtIsgraph(c).toInt()
+    wasiLibcNewQurtIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIslower")
 private external fun wasiLibcNewQurtIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcNewQurtIslower(c).toInt()
+    wasiLibcNewQurtIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsprint")
 private external fun wasiLibcNewQurtIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcNewQurtIsprint(c).toInt()
+    wasiLibcNewQurtIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIspunct")
 private external fun wasiLibcNewQurtIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcNewQurtIspunct(c).toInt()
+    wasiLibcNewQurtIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsspace")
 private external fun wasiLibcNewQurtIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcNewQurtIsspace(c).toInt()
+    wasiLibcNewQurtIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsupper")
 private external fun wasiLibcNewQurtIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcNewQurtIsupper(c).toInt()
+    wasiLibcNewQurtIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtIsxdigit")
 private external fun wasiLibcNewQurtIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcNewQurtIsxdigit(c).toInt()
+    wasiLibcNewQurtIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtTolower")
 private external fun wasiLibcNewQurtTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcNewQurtTolower(c).toInt()
+    wasiLibcNewQurtTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtToupper")
 private external fun wasiLibcNewQurtToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcNewQurtToupper(c).toInt()
+    wasiLibcNewQurtToupper(c)

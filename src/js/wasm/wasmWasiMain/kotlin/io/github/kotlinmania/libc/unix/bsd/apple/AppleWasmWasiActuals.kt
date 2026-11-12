@@ -63,7 +63,7 @@ public actual fun setgrent(): Unit =
 private external fun wasiLibcUnixBsdAppleDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixBsdAppleDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixBsdAppleDaemon(nochdir, noclose)
 
 public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleSemDestroy")
@@ -99,7 +99,7 @@ public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
 private external fun wasiLibcUnixBsdAppleFchflags(fd: Int, flags: Int): Int
 
 public actual fun fchflags(fd: CInt, flags: CUint): CInt =
-    wasiLibcUnixBsdAppleFchflags(fd, flags.toInt()).toInt()
+    wasiLibcUnixBsdAppleFchflags(fd, flags.toInt())
 
 public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleClockGetres")
@@ -180,7 +180,7 @@ public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
 private external fun wasiLibcUnixBsdAppleSemget(key: Int, nsems: Int, semflg: Int): Int
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    wasiLibcUnixBsdAppleSemget(key, nsems, semflg).toInt()
+    wasiLibcUnixBsdAppleSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleSemctl")
@@ -207,7 +207,7 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
 private external fun wasiLibcUnixBsdAppleShmget(key: Int, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixBsdAppleShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixBsdAppleShmget(key, size.toLong(), shmflg)
 
 public actual fun sysctl(name: MutPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleSysctl")
@@ -276,7 +276,7 @@ public actual fun pthreadGetStacksizeNp(thread: PthreadT): SizeT =
 private external fun wasiLibcUnixBsdApplePthreadMainNp(): Int
 
 public actual fun pthreadMainNp(): CInt =
-    wasiLibcUnixBsdApplePthreadMainNp().toInt()
+    wasiLibcUnixBsdApplePthreadMainNp()
 
 public actual fun pthreadThreadidNp(thread: PthreadT, threadId: MutPtr<ULong>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdApplePthreadThreadidNp")
@@ -291,7 +291,7 @@ public actual fun pthreadJitWriteProtectNp(enabled: CInt): Unit =
 private external fun wasiLibcUnixBsdApplePthreadJitWriteProtectSupportedNp(): Int
 
 public actual fun pthreadJitWriteProtectSupportedNp(): CInt =
-    wasiLibcUnixBsdApplePthreadJitWriteProtectSupportedNp().toInt()
+    wasiLibcUnixBsdApplePthreadJitWriteProtectSupportedNp()
 
 public actual fun pthreadJitWriteWithCallbackNp(callback: PthreadJitWriteCallbackT, ctx: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdApplePthreadJitWriteWithCallbackNp")
@@ -420,7 +420,7 @@ public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: Mut
 private external fun wasiLibcUnixBsdAppleLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    wasiLibcUnixBsdAppleLoginTty(fd).toInt()
+    wasiLibcUnixBsdAppleLoginTty(fd)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleDuplocale")
@@ -444,13 +444,13 @@ public actual fun querylocale(mask: CInt, loc: LocaleT): ConstPtr<CChar> =
 private external fun wasiLibcUnixBsdAppleGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixBsdAppleGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixBsdAppleGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdAppleSetpriority")
 private external fun wasiLibcUnixBsdAppleSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixBsdAppleSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixBsdAppleSetpriority(which, who.toInt(), prio)
 
 public actual fun getdomainname(name: MutPtr<CChar>, len: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleGetdomainname")
@@ -525,7 +525,7 @@ public actual fun dyldGetImageHeader(imageIndex: UInt): ConstPtr<MachHeader> =
 private external fun wasiLibcUnixBsdAppleDyldGetImageVmaddrSlide(imageIndex: Int): Long
 
 public actual fun dyldGetImageVmaddrSlide(imageIndex: UInt): IntptrT =
-    wasiLibcUnixBsdAppleDyldGetImageVmaddrSlide(imageIndex.toInt()).toLong()
+    wasiLibcUnixBsdAppleDyldGetImageVmaddrSlide(imageIndex.toInt())
 
 public actual fun dyldGetImageName(imageIndex: UInt): ConstPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleDyldGetImageName")
@@ -603,7 +603,7 @@ public actual fun connectx(socket: CInt, endpoints: ConstPtr<SaEndpointsT>, asso
 private external fun wasiLibcUnixBsdAppleDisconnectx(socket: Int, associd: Int, connid: Int): Int
 
 public actual fun disconnectx(socket: CInt, associd: SaeAssocidT, connid: SaeConnidT): CInt =
-    wasiLibcUnixBsdAppleDisconnectx(socket, associd.toInt(), connid.toInt()).toInt()
+    wasiLibcUnixBsdAppleDisconnectx(socket, associd.toInt(), connid.toInt())
 
 public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleNtpAdjtime")
@@ -738,25 +738,25 @@ public actual fun procPidRusage(pid: CInt, flavor: CInt, buffer: MutPtr<RusageIn
 private external fun wasiLibcUnixBsdAppleProcSetNoSmt(): Int
 
 public actual fun procSetNoSmt(): CInt =
-    wasiLibcUnixBsdAppleProcSetNoSmt().toInt()
+    wasiLibcUnixBsdAppleProcSetNoSmt()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdAppleProcSetthreadNoSmt")
 private external fun wasiLibcUnixBsdAppleProcSetthreadNoSmt(): Int
 
 public actual fun procSetthreadNoSmt(): CInt =
-    wasiLibcUnixBsdAppleProcSetthreadNoSmt().toInt()
+    wasiLibcUnixBsdAppleProcSetthreadNoSmt()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdAppleProcSetCsm")
 private external fun wasiLibcUnixBsdAppleProcSetCsm(flags: Int): Int
 
 public actual fun procSetCsm(flags: UInt): CInt =
-    wasiLibcUnixBsdAppleProcSetCsm(flags.toInt()).toInt()
+    wasiLibcUnixBsdAppleProcSetCsm(flags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdAppleProcSetthreadCsm")
 private external fun wasiLibcUnixBsdAppleProcSetthreadCsm(flags: Int): Int
 
 public actual fun procSetthreadCsm(flags: UInt): CInt =
-    wasiLibcUnixBsdAppleProcSetthreadCsm(flags.toInt()).toInt()
+    wasiLibcUnixBsdAppleProcSetthreadCsm(flags.toInt())
 
 public actual fun gethostuuid(id: MutPtr<UByte>, timeout: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleGethostuuid")
@@ -765,7 +765,7 @@ public actual fun gethostuuid(id: MutPtr<UByte>, timeout: ConstPtr<Timespec>): C
 private external fun wasiLibcUnixBsdAppleGethostid(): Long
 
 public actual fun gethostid(): CLong =
-    wasiLibcUnixBsdAppleGethostid().toLong()
+    wasiLibcUnixBsdAppleGethostid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixBsdAppleSethostid")
 private external fun wasiLibcUnixBsdAppleSethostid(hostid: Long): Unit
@@ -822,7 +822,7 @@ public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCn
 private external fun wasiLibcUnixBsdAppleTaskTerminate(targetTask: Int): Int
 
 public actual fun taskTerminate(targetTask: TaskT): KernReturnT =
-    wasiLibcUnixBsdAppleTaskTerminate(targetTask.toInt()).toInt()
+    wasiLibcUnixBsdAppleTaskTerminate(targetTask.toInt())
 
 public actual fun taskThreads(targetTask: TaskInspectT, actList: MutPtr<ThreadActArrayT>, actListCnt: MutPtr<MachMsgTypeNumberT>): KernReturnT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleTaskThreads")

@@ -44,13 +44,13 @@ public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
 private external fun wasiLibcUnixLinuxlikeLinuxMuslGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixLinuxlikeLinuxMuslGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxMuslGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxMuslSetpriority")
 private external fun wasiLibcUnixLinuxlikeLinuxMuslSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxMuslSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixLinuxlikeLinuxMuslSetpriority(which, who.toInt(), prio)
 
 public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: CUlonglong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxMuslFanotifyMark")

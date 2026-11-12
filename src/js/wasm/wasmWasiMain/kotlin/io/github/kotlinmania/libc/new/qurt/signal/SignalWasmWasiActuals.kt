@@ -22,13 +22,13 @@ public actual fun signal(sig: CInt, handler: SighandlerT): SighandlerT =
 private external fun wasiLibcNewQurtSignalKill(pid: Int, sig: Int): Int
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    wasiLibcNewQurtSignalKill(pid, sig).toInt()
+    wasiLibcNewQurtSignalKill(pid, sig)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtSignalRaise")
 private external fun wasiLibcNewQurtSignalRaise(sig: Int): Int
 
 public actual fun raise(sig: CInt): CInt =
-    wasiLibcNewQurtSignalRaise(sig).toInt()
+    wasiLibcNewQurtSignalRaise(sig)
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtSignalAlarm")
 private external fun wasiLibcNewQurtSignalAlarm(seconds: Int): Int
@@ -40,7 +40,7 @@ public actual fun alarm(seconds: CUint): CUint =
 private external fun wasiLibcNewQurtSignalPause(): Int
 
 public actual fun pause(): CInt =
-    wasiLibcNewQurtSignalPause().toInt()
+    wasiLibcNewQurtSignalPause()
 
 public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtSignalSigemptyset")

@@ -23,7 +23,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcUnixHaikuBsdDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixHaikuBsdDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixHaikuBsdDaemon(nochdir, noclose)
 
 public actual fun getprogname(): ConstPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdGetprogname")
@@ -57,7 +57,7 @@ public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: Mut
 private external fun wasiLibcUnixHaikuBsdLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    wasiLibcUnixHaikuBsdLoginTty(fd).toInt()
+    wasiLibcUnixHaikuBsdLoginTty(fd)
 
 public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdForkpty")
@@ -82,7 +82,7 @@ public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar
 private external fun wasiLibcUnixHaikuBsdKqueue(): Int
 
 public actual fun kqueue(): CInt =
-    wasiLibcUnixHaikuBsdKqueue().toInt()
+    wasiLibcUnixHaikuBsdKqueue()
 
 public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdKevent")

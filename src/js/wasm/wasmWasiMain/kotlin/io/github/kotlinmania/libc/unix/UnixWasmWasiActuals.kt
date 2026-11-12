@@ -60,85 +60,85 @@ public actual val IN6ADDR_ANY: In6Addr
 private external fun wasiLibcUnixIsalnum(c: Int): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    wasiLibcUnixIsalnum(c).toInt()
+    wasiLibcUnixIsalnum(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsalpha")
 private external fun wasiLibcUnixIsalpha(c: Int): Int
 
 public actual fun isalpha(c: CInt): CInt =
-    wasiLibcUnixIsalpha(c).toInt()
+    wasiLibcUnixIsalpha(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIscntrl")
 private external fun wasiLibcUnixIscntrl(c: Int): Int
 
 public actual fun iscntrl(c: CInt): CInt =
-    wasiLibcUnixIscntrl(c).toInt()
+    wasiLibcUnixIscntrl(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsdigit")
 private external fun wasiLibcUnixIsdigit(c: Int): Int
 
 public actual fun isdigit(c: CInt): CInt =
-    wasiLibcUnixIsdigit(c).toInt()
+    wasiLibcUnixIsdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsgraph")
 private external fun wasiLibcUnixIsgraph(c: Int): Int
 
 public actual fun isgraph(c: CInt): CInt =
-    wasiLibcUnixIsgraph(c).toInt()
+    wasiLibcUnixIsgraph(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIslower")
 private external fun wasiLibcUnixIslower(c: Int): Int
 
 public actual fun islower(c: CInt): CInt =
-    wasiLibcUnixIslower(c).toInt()
+    wasiLibcUnixIslower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsprint")
 private external fun wasiLibcUnixIsprint(c: Int): Int
 
 public actual fun isprint(c: CInt): CInt =
-    wasiLibcUnixIsprint(c).toInt()
+    wasiLibcUnixIsprint(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIspunct")
 private external fun wasiLibcUnixIspunct(c: Int): Int
 
 public actual fun ispunct(c: CInt): CInt =
-    wasiLibcUnixIspunct(c).toInt()
+    wasiLibcUnixIspunct(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsspace")
 private external fun wasiLibcUnixIsspace(c: Int): Int
 
 public actual fun isspace(c: CInt): CInt =
-    wasiLibcUnixIsspace(c).toInt()
+    wasiLibcUnixIsspace(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsupper")
 private external fun wasiLibcUnixIsupper(c: Int): Int
 
 public actual fun isupper(c: CInt): CInt =
-    wasiLibcUnixIsupper(c).toInt()
+    wasiLibcUnixIsupper(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsxdigit")
 private external fun wasiLibcUnixIsxdigit(c: Int): Int
 
 public actual fun isxdigit(c: CInt): CInt =
-    wasiLibcUnixIsxdigit(c).toInt()
+    wasiLibcUnixIsxdigit(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixIsblank")
 private external fun wasiLibcUnixIsblank(c: Int): Int
 
 public actual fun isblank(c: CInt): CInt =
-    wasiLibcUnixIsblank(c).toInt()
+    wasiLibcUnixIsblank(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixTolower")
 private external fun wasiLibcUnixTolower(c: Int): Int
 
 public actual fun tolower(c: CInt): CInt =
-    wasiLibcUnixTolower(c).toInt()
+    wasiLibcUnixTolower(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixToupper")
 private external fun wasiLibcUnixToupper(c: Int): Int
 
 public actual fun toupper(c: CInt): CInt =
-    wasiLibcUnixToupper(c).toInt()
+    wasiLibcUnixToupper(c)
 
 public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixQsort")
 
@@ -175,13 +175,13 @@ public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>): Unit = throw
 private external fun wasiLibcUnixGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcUnixGetchar().toInt()
+    wasiLibcUnixGetchar()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixPutchar")
 private external fun wasiLibcUnixPutchar(c: Int): Int
 
 public actual fun putchar(c: CInt): CInt =
-    wasiLibcUnixPutchar(c).toInt()
+    wasiLibcUnixPutchar(c)
 
 public actual fun fgetc(stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixFgetc")
@@ -427,19 +427,19 @@ public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg var
 private external fun wasiLibcUnixGetcharUnlocked(): Int
 
 public actual fun getcharUnlocked(): CInt =
-    wasiLibcUnixGetcharUnlocked().toInt()
+    wasiLibcUnixGetcharUnlocked()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixPutcharUnlocked")
 private external fun wasiLibcUnixPutcharUnlocked(c: Int): Int
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    wasiLibcUnixPutcharUnlocked(c).toInt()
+    wasiLibcUnixPutcharUnlocked(c)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSocket")
 private external fun wasiLibcUnixSocket(domain: Int, ty: Int, protocol: Int): Int
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    wasiLibcUnixSocket(domain, ty, protocol).toInt()
+    wasiLibcUnixSocket(domain, ty, protocol)
 
 public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixConnect")
@@ -448,7 +448,7 @@ public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: Sockle
 private external fun wasiLibcUnixListen(socket: Int, backlog: Int): Int
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    wasiLibcUnixListen(socket, backlog).toInt()
+    wasiLibcUnixListen(socket, backlog)
 
 public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixAccept")
@@ -472,7 +472,7 @@ public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: 
 private external fun wasiLibcUnixShutdown(socket: Int, how: Int): Int
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    wasiLibcUnixShutdown(socket, how).toInt()
+    wasiLibcUnixShutdown(socket, how)
 
 public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixChmod")
@@ -481,7 +481,7 @@ public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
 private external fun wasiLibcUnixFchmod(fd: Int, mode: Int): Int
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    wasiLibcUnixFchmod(fd, mode.toInt()).toInt()
+    wasiLibcUnixFchmod(fd, mode.toInt())
 
 public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixFstat")
@@ -528,7 +528,7 @@ public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, 
 private external fun wasiLibcUnixFchown(fd: Int, owner: Int, group: Int): Int
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    wasiLibcUnixFchown(fd, owner.toInt(), group.toInt()).toInt()
+    wasiLibcUnixFchown(fd, owner.toInt(), group.toInt())
 
 public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixFchownat")
@@ -564,7 +564,7 @@ public actual fun chdir(dir: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixFchdir(dirfd: Int): Int
 
 public actual fun fchdir(dirfd: CInt): CInt =
-    wasiLibcUnixFchdir(dirfd).toInt()
+    wasiLibcUnixFchdir(dirfd)
 
 public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixChown")
@@ -576,19 +576,19 @@ public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
 private external fun wasiLibcUnixClose(fd: Int): Int
 
 public actual fun close(fd: CInt): CInt =
-    wasiLibcUnixClose(fd).toInt()
+    wasiLibcUnixClose(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixDup")
 private external fun wasiLibcUnixDup(fd: Int): Int
 
 public actual fun dup(fd: CInt): CInt =
-    wasiLibcUnixDup(fd).toInt()
+    wasiLibcUnixDup(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixDup2")
 private external fun wasiLibcUnixDup2(src: Int, dst: Int): Int
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    wasiLibcUnixDup2(src, dst).toInt()
+    wasiLibcUnixDup2(src, dst)
 
 public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixExecl")
@@ -612,13 +612,13 @@ public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): C
 private external fun wasiLibcUnixFork(): Int
 
 public actual fun fork(): PidT =
-    wasiLibcUnixFork().toInt()
+    wasiLibcUnixFork()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixFpathconf")
 private external fun wasiLibcUnixFpathconf(filedes: Int, name: Int): Long
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    wasiLibcUnixFpathconf(filedes, name).toLong()
+    wasiLibcUnixFpathconf(filedes, name)
 
 public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixGetcwd")
@@ -654,25 +654,25 @@ public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: Cons
 private external fun wasiLibcUnixGetpgid(pid: Int): Int
 
 public actual fun getpgid(pid: PidT): PidT =
-    wasiLibcUnixGetpgid(pid).toInt()
+    wasiLibcUnixGetpgid(pid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixGetpgrp")
 private external fun wasiLibcUnixGetpgrp(): Int
 
 public actual fun getpgrp(): PidT =
-    wasiLibcUnixGetpgrp().toInt()
+    wasiLibcUnixGetpgrp()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixGetpid")
 private external fun wasiLibcUnixGetpid(): Int
 
 public actual fun getpid(): PidT =
-    wasiLibcUnixGetpid().toInt()
+    wasiLibcUnixGetpid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixGetppid")
 private external fun wasiLibcUnixGetppid(): Int
 
 public actual fun getppid(): PidT =
-    wasiLibcUnixGetppid().toInt()
+    wasiLibcUnixGetppid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixGetuid")
 private external fun wasiLibcUnixGetuid(): Int
@@ -684,7 +684,7 @@ public actual fun getuid(): UidT =
 private external fun wasiLibcUnixIsatty(fd: Int): Int
 
 public actual fun isatty(fd: CInt): CInt =
-    wasiLibcUnixIsatty(fd).toInt()
+    wasiLibcUnixIsatty(fd)
 
 public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLink")
@@ -693,7 +693,7 @@ public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixLseek(fd: Int, offset: Long, whence: Int): Long
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    wasiLibcUnixLseek(fd, offset, whence).toLong()
+    wasiLibcUnixLseek(fd, offset, whence)
 
 public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixPathconf")
@@ -717,49 +717,49 @@ public actual fun rmdir(path: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixSeteuid(uid: Int): Int
 
 public actual fun seteuid(uid: UidT): CInt =
-    wasiLibcUnixSeteuid(uid.toInt()).toInt()
+    wasiLibcUnixSeteuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetegid")
 private external fun wasiLibcUnixSetegid(gid: Int): Int
 
 public actual fun setegid(gid: GidT): CInt =
-    wasiLibcUnixSetegid(gid.toInt()).toInt()
+    wasiLibcUnixSetegid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetgid")
 private external fun wasiLibcUnixSetgid(gid: Int): Int
 
 public actual fun setgid(gid: GidT): CInt =
-    wasiLibcUnixSetgid(gid.toInt()).toInt()
+    wasiLibcUnixSetgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetpgid")
 private external fun wasiLibcUnixSetpgid(pid: Int, pgid: Int): Int
 
 public actual fun setpgid(pid: PidT, pgid: PidT): CInt =
-    wasiLibcUnixSetpgid(pid, pgid).toInt()
+    wasiLibcUnixSetpgid(pid, pgid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetsid")
 private external fun wasiLibcUnixSetsid(): Int
 
 public actual fun setsid(): PidT =
-    wasiLibcUnixSetsid().toInt()
+    wasiLibcUnixSetsid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetuid")
 private external fun wasiLibcUnixSetuid(uid: Int): Int
 
 public actual fun setuid(uid: UidT): CInt =
-    wasiLibcUnixSetuid(uid.toInt()).toInt()
+    wasiLibcUnixSetuid(uid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetreuid")
 private external fun wasiLibcUnixSetreuid(ruid: Int, euid: Int): Int
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
-    wasiLibcUnixSetreuid(ruid.toInt(), euid.toInt()).toInt()
+    wasiLibcUnixSetreuid(ruid.toInt(), euid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSetregid")
 private external fun wasiLibcUnixSetregid(rgid: Int, egid: Int): Int
 
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
-    wasiLibcUnixSetregid(rgid.toInt(), egid.toInt()).toInt()
+    wasiLibcUnixSetregid(rgid.toInt(), egid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSleep")
 private external fun wasiLibcUnixSleep(secs: Int): Int
@@ -774,13 +774,13 @@ public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): C
 private external fun wasiLibcUnixTcgetpgrp(fd: Int): Int
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
-    wasiLibcUnixTcgetpgrp(fd).toInt()
+    wasiLibcUnixTcgetpgrp(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixTcsetpgrp")
 private external fun wasiLibcUnixTcsetpgrp(fd: Int, pgrp: Int): Int
 
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
-    wasiLibcUnixTcsetpgrp(fd, pgrp).toInt()
+    wasiLibcUnixTcsetpgrp(fd, pgrp)
 
 public actual fun ttyname(fd: CInt): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixTtyname")
@@ -819,13 +819,13 @@ public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
 private external fun wasiLibcUnixKill(pid: Int, sig: Int): Int
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    wasiLibcUnixKill(pid, sig).toInt()
+    wasiLibcUnixKill(pid, sig)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixKillpg")
 private external fun wasiLibcUnixKillpg(pgrp: Int, sig: Int): Int
 
 public actual fun killpg(pgrp: PidT, sig: CInt): CInt =
-    wasiLibcUnixKillpg(pgrp, sig).toInt()
+    wasiLibcUnixKillpg(pgrp, sig)
 
 public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixMlock")
@@ -837,13 +837,13 @@ public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
 private external fun wasiLibcUnixMlockall(flags: Int): Int
 
 public actual fun mlockall(flags: CInt): CInt =
-    wasiLibcUnixMlockall(flags).toInt()
+    wasiLibcUnixMlockall(flags)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixMunlockall")
 private external fun wasiLibcUnixMunlockall(): Int
 
 public actual fun munlockall(): CInt =
-    wasiLibcUnixMunlockall().toInt()
+    wasiLibcUnixMunlockall()
 
 public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixMmap")
@@ -864,7 +864,7 @@ public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
 private external fun wasiLibcUnixFsync(fd: Int): Int
 
 public actual fun fsync(fd: CInt): CInt =
-    wasiLibcUnixFsync(fd).toInt()
+    wasiLibcUnixFsync(fd)
 
 public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSetenv")
@@ -882,7 +882,7 @@ public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
 private external fun wasiLibcUnixFtruncate(fd: Int, length: Long): Int
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    wasiLibcUnixFtruncate(fd, length).toInt()
+    wasiLibcUnixFtruncate(fd, length)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSignal")
 private external fun wasiLibcUnixSignal(signum: Int, handler: Long): Long
@@ -933,7 +933,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 private external fun wasiLibcUnixSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcUnixSchedYield().toInt()
+    wasiLibcUnixSchedYield()
 
 public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixPthreadKeyCreate")
@@ -942,7 +942,7 @@ public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCre
 private external fun wasiLibcUnixPthreadKeyDelete(key: Int): Int
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    wasiLibcUnixPthreadKeyDelete(key).toInt()
+    wasiLibcUnixPthreadKeyDelete(key)
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixPthreadGetspecific")
@@ -1032,7 +1032,7 @@ public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: M
 private external fun wasiLibcUnixRaise(signum: Int): Int
 
 public actual fun raise(signum: CInt): CInt =
-    wasiLibcUnixRaise(signum).toInt()
+    wasiLibcUnixRaise(signum)
 
 public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixUtimes")
@@ -1064,7 +1064,7 @@ public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
 private external fun wasiLibcUnixResInit(): Int
 
 public actual fun resInit(): CInt =
-    wasiLibcUnixResInit().toInt()
+    wasiLibcUnixResInit()
 
 public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixGmtimeR")
@@ -1088,7 +1088,7 @@ public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
 private external fun wasiLibcUnixDifftime(time1: Long, time0: Long): Double
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
-    wasiLibcUnixDifftime(time1, time0).toDouble()
+    wasiLibcUnixDifftime(time1, time0)
 
 public actual fun timegm(tm: MutPtr<Tm>): TimeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixTimegm")
@@ -1133,7 +1133,7 @@ public actual fun chroot(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixUsleep(secs: Int): Int
 
 public actual fun usleep(secs: UsecondsT): CInt =
-    wasiLibcUnixUsleep(secs.toInt()).toInt()
+    wasiLibcUnixUsleep(secs.toInt())
 
 public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSend")
@@ -1196,7 +1196,7 @@ public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
 private external fun wasiLibcUnixSysconf(name: Int): Long
 
 public actual fun sysconf(name: CInt): CLong =
-    wasiLibcUnixSysconf(name).toLong()
+    wasiLibcUnixSysconf(name)
 
 public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixMkfifo")
@@ -1211,7 +1211,7 @@ public actual fun ftello(stream: MutPtr<FILE>): OffT =
 private external fun wasiLibcUnixTcdrain(fd: Int): Int
 
 public actual fun tcdrain(fd: CInt): CInt =
-    wasiLibcUnixTcdrain(fd).toInt()
+    wasiLibcUnixTcdrain(fd)
 
 public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixCfgetispeed")
@@ -1235,25 +1235,25 @@ public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<T
 private external fun wasiLibcUnixTcflow(fd: Int, action: Int): Int
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
-    wasiLibcUnixTcflow(fd, action).toInt()
+    wasiLibcUnixTcflow(fd, action)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixTcflush")
 private external fun wasiLibcUnixTcflush(fd: Int, action: Int): Int
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    wasiLibcUnixTcflush(fd, action).toInt()
+    wasiLibcUnixTcflush(fd, action)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixTcgetsid")
 private external fun wasiLibcUnixTcgetsid(fd: Int): Int
 
 public actual fun tcgetsid(fd: CInt): PidT =
-    wasiLibcUnixTcgetsid(fd).toInt()
+    wasiLibcUnixTcgetsid(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixTcsendbreak")
 private external fun wasiLibcUnixTcsendbreak(fd: Int, duration: Int): Int
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    wasiLibcUnixTcsendbreak(fd, duration).toInt()
+    wasiLibcUnixTcsendbreak(fd, duration)
 
 public actual fun mkstemp(template: MutPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixMkstemp")
@@ -1276,7 +1276,7 @@ public actual fun closelog(): Unit =
 private external fun wasiLibcUnixSetlogmask(maskpri: Int): Int
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    wasiLibcUnixSetlogmask(maskpri).toInt()
+    wasiLibcUnixSetlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSyslog")
 
@@ -1284,19 +1284,19 @@ public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variad
 private external fun wasiLibcUnixNice(incr: Int): Int
 
 public actual fun nice(incr: CInt): CInt =
-    wasiLibcUnixNice(incr).toInt()
+    wasiLibcUnixNice(incr)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixGrantpt")
 private external fun wasiLibcUnixGrantpt(fd: Int): Int
 
 public actual fun grantpt(fd: CInt): CInt =
-    wasiLibcUnixGrantpt(fd).toInt()
+    wasiLibcUnixGrantpt(fd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixPosixOpenpt")
 private external fun wasiLibcUnixPosixOpenpt(flags: Int): Int
 
 public actual fun posixOpenpt(flags: CInt): CInt =
-    wasiLibcUnixPosixOpenpt(flags).toInt()
+    wasiLibcUnixPosixOpenpt(flags)
 
 public actual fun ptsname(fd: CInt): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixPtsname")
@@ -1305,7 +1305,7 @@ public actual fun ptsname(fd: CInt): MutPtr<CChar> =
 private external fun wasiLibcUnixUnlockpt(fd: Int): Int
 
 public actual fun unlockpt(fd: CInt): CInt =
-    wasiLibcUnixUnlockpt(fd).toInt()
+    wasiLibcUnixUnlockpt(fd)
 
 public actual fun strcasestr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixStrcasestr")
@@ -1317,7 +1317,7 @@ public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stre
 private external fun wasiLibcUnixLockf(fd: Int, cmd: Int, len: Long): Int
 
 public actual fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt =
-    wasiLibcUnixLockf(fd, cmd, len).toInt()
+    wasiLibcUnixLockf(fd, cmd, len)
 
 public actual fun adjtime(delta: ConstPtr<Timeval>, olddelta: MutPtr<Timeval>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixAdjtime")
@@ -1338,7 +1338,7 @@ public actual fun dladdr(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
 private external fun wasiLibcUnixFlock(fd: Int, operation: Int): Int
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
-    wasiLibcUnixFlock(fd, operation).toInt()
+    wasiLibcUnixFlock(fd, operation)
 
 public actual fun openWmemstream(ptr: MutPtr<MutPtr<WcharT>>, sizeloc: MutPtr<SizeT>): MutPtr<FILE> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixOpenWmemstream")
@@ -1347,13 +1347,13 @@ public actual fun openWmemstream(ptr: MutPtr<MutPtr<WcharT>>, sizeloc: MutPtr<Si
 private external fun wasiLibcUnixGetsid(pid: Int): Int
 
 public actual fun getsid(pid: PidT): PidT =
-    wasiLibcUnixGetsid(pid).toInt()
+    wasiLibcUnixGetsid(pid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixPause")
 private external fun wasiLibcUnixPause(): Int
 
 public actual fun pause(): CInt =
-    wasiLibcUnixPause().toInt()
+    wasiLibcUnixPause()
 
 public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixMkdirat")

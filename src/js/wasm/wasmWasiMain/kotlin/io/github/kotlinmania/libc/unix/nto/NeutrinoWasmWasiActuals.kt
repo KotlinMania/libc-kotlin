@@ -18,13 +18,13 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcUnixNtoNeutrinoChannelCreate(flags: Int): Int
 
 public actual fun channelCreate(flags: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoChannelCreate(flags.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoChannelCreate(flags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoChannelCreateR")
 private external fun wasiLibcUnixNtoNeutrinoChannelCreateR(flags: Int): Int
 
 public actual fun channelCreateR(flags: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoChannelCreateR(flags.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoChannelCreateR(flags.toInt())
 
 public actual fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoChannelCreatePulsePool")
@@ -36,37 +36,37 @@ public actual fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, ma
 private external fun wasiLibcUnixNtoNeutrinoChannelDestroy(chid: Int): Int
 
 public actual fun channelDestroy(chid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoChannelDestroy(chid).toInt()
+    wasiLibcUnixNtoNeutrinoChannelDestroy(chid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoChannelDestroyR")
 private external fun wasiLibcUnixNtoNeutrinoChannelDestroyR(chid: Int): Int
 
 public actual fun channelDestroyR(chid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoChannelDestroyR(chid).toInt()
+    wasiLibcUnixNtoNeutrinoChannelDestroyR(chid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoConnectAttach")
 private external fun wasiLibcUnixNtoNeutrinoConnectAttach(nd: Int, pid: Int, chid: Int, index: Int, flags: Int): Int
 
 public actual fun connectAttach(nd: UInt, pid: PidT, chid: CInt, index: CUint, flags: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoConnectAttach(nd.toInt(), pid, chid, index.toInt(), flags).toInt()
+    wasiLibcUnixNtoNeutrinoConnectAttach(nd.toInt(), pid, chid, index.toInt(), flags)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoConnectAttachR")
 private external fun wasiLibcUnixNtoNeutrinoConnectAttachR(nd: Int, pid: Int, chid: Int, index: Int, flags: Int): Int
 
 public actual fun connectAttachR(nd: UInt, pid: PidT, chid: CInt, index: CUint, flags: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoConnectAttachR(nd.toInt(), pid, chid, index.toInt(), flags).toInt()
+    wasiLibcUnixNtoNeutrinoConnectAttachR(nd.toInt(), pid, chid, index.toInt(), flags)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoConnectDetach")
 private external fun wasiLibcUnixNtoNeutrinoConnectDetach(coid: Int): Int
 
 public actual fun connectDetach(coid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoConnectDetach(coid).toInt()
+    wasiLibcUnixNtoNeutrinoConnectDetach(coid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoConnectDetachR")
 private external fun wasiLibcUnixNtoNeutrinoConnectDetachR(coid: Int): Int
 
 public actual fun connectDetachR(coid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoConnectDetachR(coid).toInt()
+    wasiLibcUnixNtoNeutrinoConnectDetachR(coid)
 
 public actual fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoConnectServerInfo")
@@ -99,13 +99,13 @@ public actual fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<Clien
 private external fun wasiLibcUnixNtoNeutrinoConnectFlags(pid: Int, coid: Int, mask: Int, bits: Int): Int
 
 public actual fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoConnectFlags(pid, coid, mask.toInt(), bits.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoConnectFlags(pid, coid, mask.toInt(), bits.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoConnectFlagsR")
 private external fun wasiLibcUnixNtoNeutrinoConnectFlagsR(pid: Int, coid: Int, mask: Int, bits: Int): Int
 
 public actual fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoConnectFlagsR(pid, coid, mask.toInt(), bits.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoConnectFlagsR(pid, coid, mask.toInt(), bits.toInt())
 
 public actual fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoChannelConnectAttr")
@@ -228,13 +228,13 @@ public actual fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, of
 private external fun wasiLibcUnixNtoNeutrinoMsgSendPulse(coid: Int, priority: Int, code: Int, value: Int): Int
 
 public actual fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgSendPulse(coid, priority, code, value).toInt()
+    wasiLibcUnixNtoNeutrinoMsgSendPulse(coid, priority, code, value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoMsgSendPulseR")
 private external fun wasiLibcUnixNtoNeutrinoMsgSendPulseR(coid: Int, priority: Int, code: Int, value: Int): Int
 
 public actual fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgSendPulseR(coid, priority, code, value).toInt()
+    wasiLibcUnixNtoNeutrinoMsgSendPulseR(coid, priority, code, value)
 
 public actual fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoMsgSendPulsePtr")
@@ -282,25 +282,25 @@ public actual fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr
 private external fun wasiLibcUnixNtoNeutrinoMsgError(rcvid: Int, err: Int): Int
 
 public actual fun msgError(rcvid: CInt, err: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgError(rcvid, err).toInt()
+    wasiLibcUnixNtoNeutrinoMsgError(rcvid, err)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoMsgErrorR")
 private external fun wasiLibcUnixNtoNeutrinoMsgErrorR(rcvid: Int, err: Int): Int
 
 public actual fun msgErrorR(rcvid: CInt, err: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgErrorR(rcvid, err).toInt()
+    wasiLibcUnixNtoNeutrinoMsgErrorR(rcvid, err)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoMsgCurrent")
 private external fun wasiLibcUnixNtoNeutrinoMsgCurrent(rcvid: Int): Int
 
 public actual fun msgCurrent(rcvid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgCurrent(rcvid).toInt()
+    wasiLibcUnixNtoNeutrinoMsgCurrent(rcvid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoMsgCurrentR")
 private external fun wasiLibcUnixNtoNeutrinoMsgCurrentR(rcvid: Int): Int
 
 public actual fun msgCurrentR(rcvid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgCurrentR(rcvid).toInt()
+    wasiLibcUnixNtoNeutrinoMsgCurrentR(rcvid)
 
 public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoMsgSendAsyncGbl")
@@ -309,7 +309,7 @@ public actual fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULo
 private external fun wasiLibcUnixNtoNeutrinoMsgSendAsync(coid: Int): Int
 
 public actual fun msgSendAsync(coid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoMsgSendAsync(coid).toInt()
+    wasiLibcUnixNtoNeutrinoMsgSendAsync(coid)
 
 public actual fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoMsgReceiveAsyncGbl")
@@ -321,25 +321,25 @@ public actual fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint
 private external fun wasiLibcUnixNtoNeutrinoMsgPause(rcvid: Int, cookie: Int): Int
 
 public actual fun msgPause(rcvid: CInt, cookie: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoMsgPause(rcvid, cookie.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoMsgPause(rcvid, cookie.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoMsgPauseR")
 private external fun wasiLibcUnixNtoNeutrinoMsgPauseR(rcvid: Int, cookie: Int): Int
 
 public actual fun msgPauseR(rcvid: CInt, cookie: CUint): CInt =
-    wasiLibcUnixNtoNeutrinoMsgPauseR(rcvid, cookie.toInt()).toInt()
+    wasiLibcUnixNtoNeutrinoMsgPauseR(rcvid, cookie.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoSignalKill")
 private external fun wasiLibcUnixNtoNeutrinoSignalKill(nd: Int, pid: Int, tid: Int, signo: Int, code: Int, value: Int): Int
 
 public actual fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoSignalKill(nd.toInt(), pid, tid, signo, code, value).toInt()
+    wasiLibcUnixNtoNeutrinoSignalKill(nd.toInt(), pid, tid, signo, code, value)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoSignalKillR")
 private external fun wasiLibcUnixNtoNeutrinoSignalKillR(nd: Int, pid: Int, tid: Int, signo: Int, code: Int, value: Int): Int
 
 public actual fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoSignalKillR(nd.toInt(), pid, tid, signo, code, value).toInt()
+    wasiLibcUnixNtoNeutrinoSignalKillR(nd.toInt(), pid, tid, signo, code, value)
 
 public actual fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoSignalKillSigval")
@@ -399,13 +399,13 @@ public actual fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid
 private external fun wasiLibcUnixNtoNeutrinoThreadDetach(tid: Int): Int
 
 public actual fun threadDetach(tid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoThreadDetach(tid).toInt()
+    wasiLibcUnixNtoNeutrinoThreadDetach(tid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoThreadDetachR")
 private external fun wasiLibcUnixNtoNeutrinoThreadDetachR(tid: Int): Int
 
 public actual fun threadDetachR(tid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoThreadDetachR(tid).toInt()
+    wasiLibcUnixNtoNeutrinoThreadDetachR(tid)
 
 public actual fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoThreadJoin")
@@ -465,13 +465,13 @@ public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArra
 private external fun wasiLibcUnixNtoNeutrinoInterruptDetach(id: Int): Int
 
 public actual fun interruptDetach(id: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoInterruptDetach(id).toInt()
+    wasiLibcUnixNtoNeutrinoInterruptDetach(id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoInterruptDetachR")
 private external fun wasiLibcUnixNtoNeutrinoInterruptDetachR(id: Int): Int
 
 public actual fun interruptDetachR(id: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoInterruptDetachR(id).toInt()
+    wasiLibcUnixNtoNeutrinoInterruptDetachR(id)
 
 public actual fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoInterruptWait")
@@ -513,13 +513,13 @@ public actual fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>
 private external fun wasiLibcUnixNtoNeutrinoSchedYield(): Int
 
 public actual fun schedYield(): CInt =
-    wasiLibcUnixNtoNeutrinoSchedYield().toInt()
+    wasiLibcUnixNtoNeutrinoSchedYield()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoSchedYieldR")
 private external fun wasiLibcUnixNtoNeutrinoSchedYieldR(): Int
 
 public actual fun schedYieldR(): CInt =
-    wasiLibcUnixNtoNeutrinoSchedYieldR().toInt()
+    wasiLibcUnixNtoNeutrinoSchedYieldR()
 
 public actual fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNeutrinoSchedCtl")
@@ -669,22 +669,22 @@ public actual fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: Mu
 private external fun wasiLibcUnixNtoNeutrinoClockId(pid: Int, tid: Int): Int
 
 public actual fun clockId(pid: PidT, tid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoClockId(pid, tid).toInt()
+    wasiLibcUnixNtoNeutrinoClockId(pid, tid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoClockIdR")
 private external fun wasiLibcUnixNtoNeutrinoClockIdR(pid: Int, tid: Int): Int
 
 public actual fun clockIdR(pid: PidT, tid: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoClockIdR(pid, tid).toInt()
+    wasiLibcUnixNtoNeutrinoClockIdR(pid, tid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoInterruptMask")
 private external fun wasiLibcUnixNtoNeutrinoInterruptMask(intr: Int, id: Int): Int
 
 public actual fun interruptMask(intr: CInt, id: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoInterruptMask(intr, id).toInt()
+    wasiLibcUnixNtoNeutrinoInterruptMask(intr, id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNtoNeutrinoInterruptUnmask")
 private external fun wasiLibcUnixNtoNeutrinoInterruptUnmask(intr: Int, id: Int): Int
 
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
-    wasiLibcUnixNtoNeutrinoInterruptUnmask(intr, id).toInt()
+    wasiLibcUnixNtoNeutrinoInterruptUnmask(intr, id)

@@ -23,13 +23,13 @@ public actual fun time(tloc: MutPtr<TimeT>): TimeT =
 private external fun wasiLibcNewQurtTimeClock(): Long
 
 public actual fun clock(): ClockT =
-    wasiLibcNewQurtTimeClock().toLong()
+    wasiLibcNewQurtTimeClock()
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtTimeDifftime")
 private external fun wasiLibcNewQurtTimeDifftime(time1: Long, time0: Long): Double
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
-    wasiLibcNewQurtTimeDifftime(time1, time0).toDouble()
+    wasiLibcNewQurtTimeDifftime(time1, time0)
 
 public actual fun mktime(tm: MutPtr<Tm>): TimeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtTimeMktime")

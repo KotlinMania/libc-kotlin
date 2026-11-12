@@ -16,7 +16,7 @@ public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: Audi
 private external fun wasiLibcPspSceAudioChRelease(channel: Int): Int
 
 public actual fun sceAudioChRelease(channel: Int): Int =
-    wasiLibcPspSceAudioChRelease(channel).toInt()
+    wasiLibcPspSceAudioChRelease(channel)
 
 public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutput")
@@ -34,19 +34,19 @@ public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, right
 private external fun wasiLibcPspSceAudioGetChannelRestLen(channel: Int): Int
 
 public actual fun sceAudioGetChannelRestLen(channel: Int): Int =
-    wasiLibcPspSceAudioGetChannelRestLen(channel).toInt()
+    wasiLibcPspSceAudioGetChannelRestLen(channel)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioGetChannelRestLength")
 private external fun wasiLibcPspSceAudioGetChannelRestLength(channel: Int): Int
 
 public actual fun sceAudioGetChannelRestLength(channel: Int): Int =
-    wasiLibcPspSceAudioGetChannelRestLength(channel).toInt()
+    wasiLibcPspSceAudioGetChannelRestLength(channel)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioSetChannelDataLen")
 private external fun wasiLibcPspSceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int
 
 public actual fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int =
-    wasiLibcPspSceAudioSetChannelDataLen(channel, sampleCount).toInt()
+    wasiLibcPspSceAudioSetChannelDataLen(channel, sampleCount)
 
 public actual fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioChangeChannelConfig")
@@ -55,25 +55,25 @@ public actual fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat)
 private external fun wasiLibcPspSceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int
 
 public actual fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int =
-    wasiLibcPspSceAudioChangeChannelVolume(channel, leftVol, rightVol).toInt()
+    wasiLibcPspSceAudioChangeChannelVolume(channel, leftVol, rightVol)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioOutput2Reserve")
 private external fun wasiLibcPspSceAudioOutput2Reserve(sampleCount: Int): Int
 
 public actual fun sceAudioOutput2Reserve(sampleCount: Int): Int =
-    wasiLibcPspSceAudioOutput2Reserve(sampleCount).toInt()
+    wasiLibcPspSceAudioOutput2Reserve(sampleCount)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioOutput2Release")
 private external fun wasiLibcPspSceAudioOutput2Release(): Int
 
 public actual fun sceAudioOutput2Release(): Int =
-    wasiLibcPspSceAudioOutput2Release().toInt()
+    wasiLibcPspSceAudioOutput2Release()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioOutput2ChangeLength")
 private external fun wasiLibcPspSceAudioOutput2ChangeLength(sampleCount: Int): Int
 
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
-    wasiLibcPspSceAudioOutput2ChangeLength(sampleCount).toInt()
+    wasiLibcPspSceAudioOutput2ChangeLength(sampleCount)
 
 public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioOutput2OutputBlocking")
@@ -82,7 +82,7 @@ public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): I
 private external fun wasiLibcPspSceAudioOutput2GetRestSample(): Int
 
 public actual fun sceAudioOutput2GetRestSample(): Int =
-    wasiLibcPspSceAudioOutput2GetRestSample().toInt()
+    wasiLibcPspSceAudioOutput2GetRestSample()
 
 public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioSRCChReserve")
@@ -91,7 +91,7 @@ public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFreque
 private external fun wasiLibcPspSceAudioSRCChRelease(): Int
 
 public actual fun sceAudioSRCChRelease(): Int =
-    wasiLibcPspSceAudioSRCChRelease().toInt()
+    wasiLibcPspSceAudioSRCChRelease()
 
 public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioSRCOutputBlocking")
@@ -100,7 +100,7 @@ public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
 private external fun wasiLibcPspSceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
 
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
-    wasiLibcPspSceAudioInputInit(unknown1, gain, unknown2).toInt()
+    wasiLibcPspSceAudioInputInit(unknown1, gain, unknown2)
 
 public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioInputInitEx")
@@ -113,25 +113,25 @@ public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf
 private external fun wasiLibcPspSceAudioGetInputLength(): Int
 
 public actual fun sceAudioGetInputLength(): Int =
-    wasiLibcPspSceAudioGetInputLength().toInt()
+    wasiLibcPspSceAudioGetInputLength()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioWaitInputEnd")
 private external fun wasiLibcPspSceAudioWaitInputEnd(): Int
 
 public actual fun sceAudioWaitInputEnd(): Int =
-    wasiLibcPspSceAudioWaitInputEnd().toInt()
+    wasiLibcPspSceAudioWaitInputEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAudioPollInputEnd")
 private external fun wasiLibcPspSceAudioPollInputEnd(): Int
 
 public actual fun sceAudioPollInputEnd(): Int =
-    wasiLibcPspSceAudioPollInputEnd().toInt()
+    wasiLibcPspSceAudioPollInputEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAtracGetAtracID")
 private external fun wasiLibcPspSceAtracGetAtracID(uiCodecType: Int): Int
 
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
-    wasiLibcPspSceAtracGetAtracID(uiCodecType.toInt()).toInt()
+    wasiLibcPspSceAtracGetAtracID(uiCodecType.toInt())
 
 public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetDataAndGetID")
@@ -149,7 +149,7 @@ public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<M
 private external fun wasiLibcPspSceAtracAddStreamData(atracId: Int, bytesToAdd: Int): Int
 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
-    wasiLibcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt()).toInt()
+    wasiLibcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt())
 
 public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetBitrate")
@@ -158,13 +158,13 @@ public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int
 private external fun wasiLibcPspSceAtracSetLoopNum(atracId: Int, nloops: Int): Int
 
 public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
-    wasiLibcPspSceAtracSetLoopNum(atracId, nloops).toInt()
+    wasiLibcPspSceAtracSetLoopNum(atracId, nloops)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceAtracReleaseAtracID")
 private external fun wasiLibcPspSceAtracReleaseAtracID(atracId: Int): Int
 
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
-    wasiLibcPspSceAtracReleaseAtracID(atracId).toInt()
+    wasiLibcPspSceAtracReleaseAtracID(atracId)
 
 public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracGetNextSample")
@@ -197,7 +197,7 @@ public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>,
 private external fun wasiLibcPspSceAtracResetPlayPosition(atracId: Int, uiSample: Int, uiWriteByteFirstBuf: Int, uiWriteByteSecondBuf: Int): Int
 
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
-    wasiLibcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt()).toInt()
+    wasiLibcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt())
 
 public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAtracSetData")
@@ -215,7 +215,7 @@ public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: Mut
 private external fun wasiLibcPspSceCtrlSetSamplingCycle(cycle: Int): Int
 
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
-    wasiLibcPspSceCtrlSetSamplingCycle(cycle).toInt()
+    wasiLibcPspSceCtrlSetSamplingCycle(cycle)
 
 public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlGetSamplingCycle")
@@ -248,7 +248,7 @@ public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
 private external fun wasiLibcPspSceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
 
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
-    wasiLibcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback).toInt()
+    wasiLibcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback)
 
 public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceCtrlGetIdleCancelThreshold")
@@ -275,55 +275,55 @@ public actual fun sceDisplayGetVcount(): UInt =
 private external fun wasiLibcPspSceDisplayWaitVblank(): Int
 
 public actual fun sceDisplayWaitVblank(): Int =
-    wasiLibcPspSceDisplayWaitVblank().toInt()
+    wasiLibcPspSceDisplayWaitVblank()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayWaitVblankCB")
 private external fun wasiLibcPspSceDisplayWaitVblankCB(): Int
 
 public actual fun sceDisplayWaitVblankCB(): Int =
-    wasiLibcPspSceDisplayWaitVblankCB().toInt()
+    wasiLibcPspSceDisplayWaitVblankCB()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayWaitVblankStart")
 private external fun wasiLibcPspSceDisplayWaitVblankStart(): Int
 
 public actual fun sceDisplayWaitVblankStart(): Int =
-    wasiLibcPspSceDisplayWaitVblankStart().toInt()
+    wasiLibcPspSceDisplayWaitVblankStart()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayWaitVblankStartCB")
 private external fun wasiLibcPspSceDisplayWaitVblankStartCB(): Int
 
 public actual fun sceDisplayWaitVblankStartCB(): Int =
-    wasiLibcPspSceDisplayWaitVblankStartCB().toInt()
+    wasiLibcPspSceDisplayWaitVblankStartCB()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayGetAccumulatedHcount")
 private external fun wasiLibcPspSceDisplayGetAccumulatedHcount(): Int
 
 public actual fun sceDisplayGetAccumulatedHcount(): Int =
-    wasiLibcPspSceDisplayGetAccumulatedHcount().toInt()
+    wasiLibcPspSceDisplayGetAccumulatedHcount()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayGetCurrentHcount")
 private external fun wasiLibcPspSceDisplayGetCurrentHcount(): Int
 
 public actual fun sceDisplayGetCurrentHcount(): Int =
-    wasiLibcPspSceDisplayGetCurrentHcount().toInt()
+    wasiLibcPspSceDisplayGetCurrentHcount()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayGetFramePerSec")
 private external fun wasiLibcPspSceDisplayGetFramePerSec(): Float
 
 public actual fun sceDisplayGetFramePerSec(): Float =
-    wasiLibcPspSceDisplayGetFramePerSec().toFloat()
+    wasiLibcPspSceDisplayGetFramePerSec()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayIsForeground")
 private external fun wasiLibcPspSceDisplayIsForeground(): Int
 
 public actual fun sceDisplayIsForeground(): Int =
-    wasiLibcPspSceDisplayIsForeground().toInt()
+    wasiLibcPspSceDisplayIsForeground()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceDisplayIsVblank")
 private external fun wasiLibcPspSceDisplayIsVblank(): Int
 
 public actual fun sceDisplayIsVblank(): Int =
-    wasiLibcPspSceDisplayIsVblank().toInt()
+    wasiLibcPspSceDisplayIsVblank()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeEdramGetSize")
 private external fun wasiLibcPspSceGeEdramGetSize(): Int
@@ -338,7 +338,7 @@ public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
 private external fun wasiLibcPspSceGeEdramSetAddrTranslation(width: Int): Int
 
 public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
-    wasiLibcPspSceGeEdramSetAddrTranslation(width).toInt()
+    wasiLibcPspSceGeEdramSetAddrTranslation(width)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGeGetCmd")
 private external fun wasiLibcPspSceGeGetCmd(cmd: Int): Int
@@ -368,7 +368,7 @@ public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoi
 private external fun wasiLibcPspSceGeListDeQueue(qid: Int): Int
 
 public actual fun sceGeListDeQueue(qid: Int): Int =
-    wasiLibcPspSceGeListDeQueue(qid).toInt()
+    wasiLibcPspSceGeListDeQueue(qid)
 
 public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeListUpdateStallAddr")
@@ -386,7 +386,7 @@ public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
 private external fun wasiLibcPspSceGeContinue(): Int
 
 public actual fun sceGeContinue(): Int =
-    wasiLibcPspSceGeContinue().toInt()
+    wasiLibcPspSceGeContinue()
 
 public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGeSetCallback")
@@ -395,7 +395,7 @@ public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
 private external fun wasiLibcPspSceGeUnsetCallback(cbid: Int): Int
 
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
-    wasiLibcPspSceGeUnsetCallback(cbid).toInt()
+    wasiLibcPspSceGeUnsetCallback(cbid)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelExitGame")
 private external fun wasiLibcPspSceKernelExitGame(): Unit
@@ -440,7 +440,7 @@ public actual fun sceKernelDevkitVersion(): UInt =
 private external fun wasiLibcPspSceKernelSetCompiledSdkVersion(version: Int): Int
 
 public actual fun sceKernelSetCompiledSdkVersion(version: UInt): Int =
-    wasiLibcPspSceKernelSetCompiledSdkVersion(version.toInt()).toInt()
+    wasiLibcPspSceKernelSetCompiledSdkVersion(version.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelGetCompiledSdkVersion")
 private external fun wasiLibcPspSceKernelGetCompiledSdkVersion(): Int
@@ -523,19 +523,19 @@ public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: 
 private external fun wasiLibcPspSceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
 
 public actual fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int =
-    wasiLibcPspSceKernelReleaseSubIntrHandler(intNo, no).toInt()
+    wasiLibcPspSceKernelReleaseSubIntrHandler(intNo, no)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelEnableSubIntr")
 private external fun wasiLibcPspSceKernelEnableSubIntr(intNo: Int, no: Int): Int
 
 public actual fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int =
-    wasiLibcPspSceKernelEnableSubIntr(intNo, no).toInt()
+    wasiLibcPspSceKernelEnableSubIntr(intNo, no)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelDisableSubIntr")
 private external fun wasiLibcPspSceKernelDisableSubIntr(intNo: Int, no: Int): Int
 
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
-    wasiLibcPspSceKernelDisableSubIntr(intNo, no).toInt()
+    wasiLibcPspSceKernelDisableSubIntr(intNo, no)
 
 public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspQueryIntrHandlerInfo")
@@ -562,13 +562,13 @@ public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt): Unit =
 private external fun wasiLibcPspSceKernelIsCpuIntrSuspended(flags: Int): Int
 
 public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
-    wasiLibcPspSceKernelIsCpuIntrSuspended(flags.toInt()).toInt()
+    wasiLibcPspSceKernelIsCpuIntrSuspended(flags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelIsCpuIntrEnable")
 private external fun wasiLibcPspSceKernelIsCpuIntrEnable(): Int
 
 public actual fun sceKernelIsCpuIntrEnable(): Int =
-    wasiLibcPspSceKernelIsCpuIntrEnable().toInt()
+    wasiLibcPspSceKernelIsCpuIntrEnable()
 
 public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelLoadModule")
@@ -613,7 +613,7 @@ public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid
 private external fun wasiLibcPspSceKernelVolatileMemUnlock(unk: Int): Int
 
 public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
-    wasiLibcPspSceKernelVolatileMemUnlock(unk).toInt()
+    wasiLibcPspSceKernelVolatileMemUnlock(unk)
 
 public actual fun sceKernelStdin(): SceUid =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelStdin")
@@ -640,13 +640,13 @@ public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<C
 private external fun wasiLibcPspSceKernelExitThread(status: Int): Int
 
 public actual fun sceKernelExitThread(status: Int): Int =
-    wasiLibcPspSceKernelExitThread(status).toInt()
+    wasiLibcPspSceKernelExitThread(status)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelExitDeleteThread")
 private external fun wasiLibcPspSceKernelExitDeleteThread(status: Int): Int
 
 public actual fun sceKernelExitDeleteThread(status: Int): Int =
-    wasiLibcPspSceKernelExitDeleteThread(status).toInt()
+    wasiLibcPspSceKernelExitDeleteThread(status)
 
 public actual fun sceKernelTerminateThread(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelTerminateThread")
@@ -658,25 +658,25 @@ public actual fun sceKernelTerminateDeleteThread(thid: SceUid): Int =
 private external fun wasiLibcPspSceKernelSuspendDispatchThread(): Int
 
 public actual fun sceKernelSuspendDispatchThread(): Int =
-    wasiLibcPspSceKernelSuspendDispatchThread().toInt()
+    wasiLibcPspSceKernelSuspendDispatchThread()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelResumeDispatchThread")
 private external fun wasiLibcPspSceKernelResumeDispatchThread(state: Int): Int
 
 public actual fun sceKernelResumeDispatchThread(state: Int): Int =
-    wasiLibcPspSceKernelResumeDispatchThread(state).toInt()
+    wasiLibcPspSceKernelResumeDispatchThread(state)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelSleepThread")
 private external fun wasiLibcPspSceKernelSleepThread(): Int
 
 public actual fun sceKernelSleepThread(): Int =
-    wasiLibcPspSceKernelSleepThread().toInt()
+    wasiLibcPspSceKernelSleepThread()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelSleepThreadCB")
 private external fun wasiLibcPspSceKernelSleepThreadCB(): Int
 
 public actual fun sceKernelSleepThreadCB(): Int =
-    wasiLibcPspSceKernelSleepThreadCB().toInt()
+    wasiLibcPspSceKernelSleepThreadCB()
 
 public actual fun sceKernelWakeupThread(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelWakeupThread")
@@ -700,13 +700,13 @@ public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>):
 private external fun wasiLibcPspSceKernelDelayThread(delay: Int): Int
 
 public actual fun sceKernelDelayThread(delay: UInt): Int =
-    wasiLibcPspSceKernelDelayThread(delay.toInt()).toInt()
+    wasiLibcPspSceKernelDelayThread(delay.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelDelayThreadCB")
 private external fun wasiLibcPspSceKernelDelayThreadCB(delay: Int): Int
 
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
-    wasiLibcPspSceKernelDelayThreadCB(delay.toInt()).toInt()
+    wasiLibcPspSceKernelDelayThreadCB(delay.toInt())
 
 public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelDelaySysClockThread")
@@ -718,7 +718,7 @@ public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock
 private external fun wasiLibcPspSceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
 
 public actual fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int =
-    wasiLibcPspSceKernelChangeCurrentThreadAttr(unknown, attr).toInt()
+    wasiLibcPspSceKernelChangeCurrentThreadAttr(unknown, attr)
 
 public actual fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelChangeThreadPriority")
@@ -727,7 +727,7 @@ public actual fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): In
 private external fun wasiLibcPspSceKernelRotateThreadReadyQueue(priority: Int): Int
 
 public actual fun sceKernelRotateThreadReadyQueue(priority: Int): Int =
-    wasiLibcPspSceKernelRotateThreadReadyQueue(priority).toInt()
+    wasiLibcPspSceKernelRotateThreadReadyQueue(priority)
 
 public actual fun sceKernelReleaseWaitThread(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelReleaseWaitThread")
@@ -736,13 +736,13 @@ public actual fun sceKernelReleaseWaitThread(thid: SceUid): Int =
 private external fun wasiLibcPspSceKernelGetThreadId(): Int
 
 public actual fun sceKernelGetThreadId(): Int =
-    wasiLibcPspSceKernelGetThreadId().toInt()
+    wasiLibcPspSceKernelGetThreadId()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelGetThreadCurrentPriority")
 private external fun wasiLibcPspSceKernelGetThreadCurrentPriority(): Int
 
 public actual fun sceKernelGetThreadCurrentPriority(): Int =
-    wasiLibcPspSceKernelGetThreadCurrentPriority().toInt()
+    wasiLibcPspSceKernelGetThreadCurrentPriority()
 
 public actual fun sceKernelGetThreadExitStatus(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadExitStatus")
@@ -751,7 +751,7 @@ public actual fun sceKernelGetThreadExitStatus(thid: SceUid): Int =
 private external fun wasiLibcPspSceKernelCheckThreadStack(): Int
 
 public actual fun sceKernelCheckThreadStack(): Int =
-    wasiLibcPspSceKernelCheckThreadStack().toInt()
+    wasiLibcPspSceKernelCheckThreadStack()
 
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadStackFreeSize")
@@ -865,7 +865,7 @@ public actual fun sceKernelGetCallbackCount(cb: SceUid): Int =
 private external fun wasiLibcPspSceKernelCheckCallback(): Int
 
 public actual fun sceKernelCheckCallback(): Int =
-    wasiLibcPspSceKernelCheckCallback().toInt()
+    wasiLibcPspSceKernelCheckCallback()
 
 public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelGetThreadmanIdList")
@@ -958,7 +958,7 @@ public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysC
 private external fun wasiLibcPspSceKernelUSec2SysClockWide(usec: Int): Long
 
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
-    wasiLibcPspSceKernelUSec2SysClockWide(usec.toInt()).toLong()
+    wasiLibcPspSceKernelUSec2SysClockWide(usec.toInt())
 
 public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceKernelSysClock2USec")
@@ -973,7 +973,7 @@ public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
 private external fun wasiLibcPspSceKernelGetSystemTimeWide(): Long
 
 public actual fun sceKernelGetSystemTimeWide(): Long =
-    wasiLibcPspSceKernelGetSystemTimeWide().toLong()
+    wasiLibcPspSceKernelGetSystemTimeWide()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceKernelGetSystemTimeLow")
 private external fun wasiLibcPspSceKernelGetSystemTimeLow(): Int
@@ -1048,19 +1048,19 @@ public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPt
 private external fun wasiLibcPspSceUsbActivate(pid: Int): Int
 
 public actual fun sceUsbActivate(pid: UInt): Int =
-    wasiLibcPspSceUsbActivate(pid.toInt()).toInt()
+    wasiLibcPspSceUsbActivate(pid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbDeactivate")
 private external fun wasiLibcPspSceUsbDeactivate(pid: Int): Int
 
 public actual fun sceUsbDeactivate(pid: UInt): Int =
-    wasiLibcPspSceUsbDeactivate(pid.toInt()).toInt()
+    wasiLibcPspSceUsbDeactivate(pid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbGetState")
 private external fun wasiLibcPspSceUsbGetState(): Int
 
 public actual fun sceUsbGetState(): Int =
-    wasiLibcPspSceUsbGetState().toInt()
+    wasiLibcPspSceUsbGetState()
 
 public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbGetDrvState")
@@ -1081,25 +1081,25 @@ public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
 private external fun wasiLibcPspSceUsbCamStillWaitInputEnd(): Int
 
 public actual fun sceUsbCamStillWaitInputEnd(): Int =
-    wasiLibcPspSceUsbCamStillWaitInputEnd().toInt()
+    wasiLibcPspSceUsbCamStillWaitInputEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStillPollInputEnd")
 private external fun wasiLibcPspSceUsbCamStillPollInputEnd(): Int
 
 public actual fun sceUsbCamStillPollInputEnd(): Int =
-    wasiLibcPspSceUsbCamStillPollInputEnd().toInt()
+    wasiLibcPspSceUsbCamStillPollInputEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStillCancelInput")
 private external fun wasiLibcPspSceUsbCamStillCancelInput(): Int
 
 public actual fun sceUsbCamStillCancelInput(): Int =
-    wasiLibcPspSceUsbCamStillCancelInput().toInt()
+    wasiLibcPspSceUsbCamStillCancelInput()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStillGetInputLength")
 private external fun wasiLibcPspSceUsbCamStillGetInputLength(): Int
 
 public actual fun sceUsbCamStillGetInputLength(): Int =
-    wasiLibcPspSceUsbCamStillGetInputLength().toInt()
+    wasiLibcPspSceUsbCamStillGetInputLength()
 
 public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetupVideo")
@@ -1111,13 +1111,13 @@ public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, 
 private external fun wasiLibcPspSceUsbCamStartVideo(): Int
 
 public actual fun sceUsbCamStartVideo(): Int =
-    wasiLibcPspSceUsbCamStartVideo().toInt()
+    wasiLibcPspSceUsbCamStartVideo()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamStopVideo")
 private external fun wasiLibcPspSceUsbCamStopVideo(): Int
 
 public actual fun sceUsbCamStopVideo(): Int =
-    wasiLibcPspSceUsbCamStopVideo().toInt()
+    wasiLibcPspSceUsbCamStopVideo()
 
 public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamReadVideoFrameBlocking")
@@ -1129,43 +1129,43 @@ public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int 
 private external fun wasiLibcPspSceUsbCamWaitReadVideoFrameEnd(): Int
 
 public actual fun sceUsbCamWaitReadVideoFrameEnd(): Int =
-    wasiLibcPspSceUsbCamWaitReadVideoFrameEnd().toInt()
+    wasiLibcPspSceUsbCamWaitReadVideoFrameEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamPollReadVideoFrameEnd")
 private external fun wasiLibcPspSceUsbCamPollReadVideoFrameEnd(): Int
 
 public actual fun sceUsbCamPollReadVideoFrameEnd(): Int =
-    wasiLibcPspSceUsbCamPollReadVideoFrameEnd().toInt()
+    wasiLibcPspSceUsbCamPollReadVideoFrameEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamGetReadVideoFrameSize")
 private external fun wasiLibcPspSceUsbCamGetReadVideoFrameSize(): Int
 
 public actual fun sceUsbCamGetReadVideoFrameSize(): Int =
-    wasiLibcPspSceUsbCamGetReadVideoFrameSize().toInt()
+    wasiLibcPspSceUsbCamGetReadVideoFrameSize()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamSetSaturation")
 private external fun wasiLibcPspSceUsbCamSetSaturation(saturation: Int): Int
 
 public actual fun sceUsbCamSetSaturation(saturation: Int): Int =
-    wasiLibcPspSceUsbCamSetSaturation(saturation).toInt()
+    wasiLibcPspSceUsbCamSetSaturation(saturation)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamSetBrightness")
 private external fun wasiLibcPspSceUsbCamSetBrightness(brightness: Int): Int
 
 public actual fun sceUsbCamSetBrightness(brightness: Int): Int =
-    wasiLibcPspSceUsbCamSetBrightness(brightness).toInt()
+    wasiLibcPspSceUsbCamSetBrightness(brightness)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamSetContrast")
 private external fun wasiLibcPspSceUsbCamSetContrast(contrast: Int): Int
 
 public actual fun sceUsbCamSetContrast(contrast: Int): Int =
-    wasiLibcPspSceUsbCamSetContrast(contrast).toInt()
+    wasiLibcPspSceUsbCamSetContrast(contrast)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamSetSharpness")
 private external fun wasiLibcPspSceUsbCamSetSharpness(sharpness: Int): Int
 
 public actual fun sceUsbCamSetSharpness(sharpness: Int): Int =
-    wasiLibcPspSceUsbCamSetSharpness(sharpness).toInt()
+    wasiLibcPspSceUsbCamSetSharpness(sharpness)
 
 public actual fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamSetImageEffectMode")
@@ -1177,13 +1177,13 @@ public actual fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int =
 private external fun wasiLibcPspSceUsbCamSetReverseMode(reverseFlags: Int): Int
 
 public actual fun sceUsbCamSetReverseMode(reverseFlags: Int): Int =
-    wasiLibcPspSceUsbCamSetReverseMode(reverseFlags).toInt()
+    wasiLibcPspSceUsbCamSetReverseMode(reverseFlags)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamSetZoom")
 private external fun wasiLibcPspSceUsbCamSetZoom(zoom: Int): Int
 
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
-    wasiLibcPspSceUsbCamSetZoom(zoom).toInt()
+    wasiLibcPspSceUsbCamSetZoom(zoom)
 
 public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbCamGetSaturation")
@@ -1213,19 +1213,19 @@ public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
 private external fun wasiLibcPspSceUsbCamAutoImageReverseSW(on: Int): Int
 
 public actual fun sceUsbCamAutoImageReverseSW(on: Int): Int =
-    wasiLibcPspSceUsbCamAutoImageReverseSW(on).toInt()
+    wasiLibcPspSceUsbCamAutoImageReverseSW(on)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamGetAutoImageReverseState")
 private external fun wasiLibcPspSceUsbCamGetAutoImageReverseState(): Int
 
 public actual fun sceUsbCamGetAutoImageReverseState(): Int =
-    wasiLibcPspSceUsbCamGetAutoImageReverseState().toInt()
+    wasiLibcPspSceUsbCamGetAutoImageReverseState()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbCamGetLensDirection")
 private external fun wasiLibcPspSceUsbCamGetLensDirection(): Int
 
 public actual fun sceUsbCamGetLensDirection(): Int =
-    wasiLibcPspSceUsbCamGetLensDirection().toInt()
+    wasiLibcPspSceUsbCamGetLensDirection()
 
 public actual fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUsbstorBootRegisterNotify")
@@ -1234,13 +1234,13 @@ public actual fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int =
 private external fun wasiLibcPspSceUsbstorBootUnregisterNotify(eventFlag: Int): Int
 
 public actual fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int =
-    wasiLibcPspSceUsbstorBootUnregisterNotify(eventFlag.toInt()).toInt()
+    wasiLibcPspSceUsbstorBootUnregisterNotify(eventFlag.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUsbstorBootSetCapacity")
 private external fun wasiLibcPspSceUsbstorBootSetCapacity(size: Int): Int
 
 public actual fun sceUsbstorBootSetCapacity(size: UInt): Int =
-    wasiLibcPspSceUsbstorBootSetCapacity(size.toInt()).toInt()
+    wasiLibcPspSceUsbstorBootSetCapacity(size.toInt())
 
 public actual fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspScePowerRegisterCallback")
@@ -1249,133 +1249,133 @@ public actual fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int =
 private external fun wasiLibcPspScePowerUnregisterCallback(slot: Int): Int
 
 public actual fun scePowerUnregisterCallback(slot: Int): Int =
-    wasiLibcPspScePowerUnregisterCallback(slot).toInt()
+    wasiLibcPspScePowerUnregisterCallback(slot)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIsPowerOnline")
 private external fun wasiLibcPspScePowerIsPowerOnline(): Int
 
 public actual fun scePowerIsPowerOnline(): Int =
-    wasiLibcPspScePowerIsPowerOnline().toInt()
+    wasiLibcPspScePowerIsPowerOnline()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIsBatteryExist")
 private external fun wasiLibcPspScePowerIsBatteryExist(): Int
 
 public actual fun scePowerIsBatteryExist(): Int =
-    wasiLibcPspScePowerIsBatteryExist().toInt()
+    wasiLibcPspScePowerIsBatteryExist()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIsBatteryCharging")
 private external fun wasiLibcPspScePowerIsBatteryCharging(): Int
 
 public actual fun scePowerIsBatteryCharging(): Int =
-    wasiLibcPspScePowerIsBatteryCharging().toInt()
+    wasiLibcPspScePowerIsBatteryCharging()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryChargingStatus")
 private external fun wasiLibcPspScePowerGetBatteryChargingStatus(): Int
 
 public actual fun scePowerGetBatteryChargingStatus(): Int =
-    wasiLibcPspScePowerGetBatteryChargingStatus().toInt()
+    wasiLibcPspScePowerGetBatteryChargingStatus()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIsLowBattery")
 private external fun wasiLibcPspScePowerIsLowBattery(): Int
 
 public actual fun scePowerIsLowBattery(): Int =
-    wasiLibcPspScePowerIsLowBattery().toInt()
+    wasiLibcPspScePowerIsLowBattery()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryLifePercent")
 private external fun wasiLibcPspScePowerGetBatteryLifePercent(): Int
 
 public actual fun scePowerGetBatteryLifePercent(): Int =
-    wasiLibcPspScePowerGetBatteryLifePercent().toInt()
+    wasiLibcPspScePowerGetBatteryLifePercent()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryLifeTime")
 private external fun wasiLibcPspScePowerGetBatteryLifeTime(): Int
 
 public actual fun scePowerGetBatteryLifeTime(): Int =
-    wasiLibcPspScePowerGetBatteryLifeTime().toInt()
+    wasiLibcPspScePowerGetBatteryLifeTime()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryTemp")
 private external fun wasiLibcPspScePowerGetBatteryTemp(): Int
 
 public actual fun scePowerGetBatteryTemp(): Int =
-    wasiLibcPspScePowerGetBatteryTemp().toInt()
+    wasiLibcPspScePowerGetBatteryTemp()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryElec")
 private external fun wasiLibcPspScePowerGetBatteryElec(): Int
 
 public actual fun scePowerGetBatteryElec(): Int =
-    wasiLibcPspScePowerGetBatteryElec().toInt()
+    wasiLibcPspScePowerGetBatteryElec()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBatteryVolt")
 private external fun wasiLibcPspScePowerGetBatteryVolt(): Int
 
 public actual fun scePowerGetBatteryVolt(): Int =
-    wasiLibcPspScePowerGetBatteryVolt().toInt()
+    wasiLibcPspScePowerGetBatteryVolt()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerSetCpuClockFrequency")
 private external fun wasiLibcPspScePowerSetCpuClockFrequency(cpufreq: Int): Int
 
 public actual fun scePowerSetCpuClockFrequency(cpufreq: Int): Int =
-    wasiLibcPspScePowerSetCpuClockFrequency(cpufreq).toInt()
+    wasiLibcPspScePowerSetCpuClockFrequency(cpufreq)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerSetBusClockFrequency")
 private external fun wasiLibcPspScePowerSetBusClockFrequency(busfreq: Int): Int
 
 public actual fun scePowerSetBusClockFrequency(busfreq: Int): Int =
-    wasiLibcPspScePowerSetBusClockFrequency(busfreq).toInt()
+    wasiLibcPspScePowerSetBusClockFrequency(busfreq)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetCpuClockFrequency")
 private external fun wasiLibcPspScePowerGetCpuClockFrequency(): Int
 
 public actual fun scePowerGetCpuClockFrequency(): Int =
-    wasiLibcPspScePowerGetCpuClockFrequency().toInt()
+    wasiLibcPspScePowerGetCpuClockFrequency()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetCpuClockFrequencyInt")
 private external fun wasiLibcPspScePowerGetCpuClockFrequencyInt(): Int
 
 public actual fun scePowerGetCpuClockFrequencyInt(): Int =
-    wasiLibcPspScePowerGetCpuClockFrequencyInt().toInt()
+    wasiLibcPspScePowerGetCpuClockFrequencyInt()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetCpuClockFrequencyFloat")
 private external fun wasiLibcPspScePowerGetCpuClockFrequencyFloat(): Float
 
 public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
-    wasiLibcPspScePowerGetCpuClockFrequencyFloat().toFloat()
+    wasiLibcPspScePowerGetCpuClockFrequencyFloat()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBusClockFrequency")
 private external fun wasiLibcPspScePowerGetBusClockFrequency(): Int
 
 public actual fun scePowerGetBusClockFrequency(): Int =
-    wasiLibcPspScePowerGetBusClockFrequency().toInt()
+    wasiLibcPspScePowerGetBusClockFrequency()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBusClockFrequencyInt")
 private external fun wasiLibcPspScePowerGetBusClockFrequencyInt(): Int
 
 public actual fun scePowerGetBusClockFrequencyInt(): Int =
-    wasiLibcPspScePowerGetBusClockFrequencyInt().toInt()
+    wasiLibcPspScePowerGetBusClockFrequencyInt()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerGetBusClockFrequencyFloat")
 private external fun wasiLibcPspScePowerGetBusClockFrequencyFloat(): Float
 
 public actual fun scePowerGetBusClockFrequencyFloat(): Float =
-    wasiLibcPspScePowerGetBusClockFrequencyFloat().toFloat()
+    wasiLibcPspScePowerGetBusClockFrequencyFloat()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerSetClockFrequency")
 private external fun wasiLibcPspScePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
 
 public actual fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int =
-    wasiLibcPspScePowerSetClockFrequency(pllfreq, cpufreq, busfreq).toInt()
+    wasiLibcPspScePowerSetClockFrequency(pllfreq, cpufreq, busfreq)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerLock")
 private external fun wasiLibcPspScePowerLock(unknown: Int): Int
 
 public actual fun scePowerLock(unknown: Int): Int =
-    wasiLibcPspScePowerLock(unknown).toInt()
+    wasiLibcPspScePowerLock(unknown)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerUnlock")
 private external fun wasiLibcPspScePowerUnlock(unknown: Int): Int
 
 public actual fun scePowerUnlock(unknown: Int): Int =
-    wasiLibcPspScePowerUnlock(unknown).toInt()
+    wasiLibcPspScePowerUnlock(unknown)
 
 public actual fun scePowerTick(t: PowerTick): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspScePowerTick")
@@ -1384,43 +1384,43 @@ public actual fun scePowerTick(t: PowerTick): Int =
 private external fun wasiLibcPspScePowerGetIdleTimer(): Int
 
 public actual fun scePowerGetIdleTimer(): Int =
-    wasiLibcPspScePowerGetIdleTimer().toInt()
+    wasiLibcPspScePowerGetIdleTimer()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIdleTimerEnable")
 private external fun wasiLibcPspScePowerIdleTimerEnable(unknown: Int): Int
 
 public actual fun scePowerIdleTimerEnable(unknown: Int): Int =
-    wasiLibcPspScePowerIdleTimerEnable(unknown).toInt()
+    wasiLibcPspScePowerIdleTimerEnable(unknown)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerIdleTimerDisable")
 private external fun wasiLibcPspScePowerIdleTimerDisable(unknown: Int): Int
 
 public actual fun scePowerIdleTimerDisable(unknown: Int): Int =
-    wasiLibcPspScePowerIdleTimerDisable(unknown).toInt()
+    wasiLibcPspScePowerIdleTimerDisable(unknown)
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerRequestStandby")
 private external fun wasiLibcPspScePowerRequestStandby(): Int
 
 public actual fun scePowerRequestStandby(): Int =
-    wasiLibcPspScePowerRequestStandby().toInt()
+    wasiLibcPspScePowerRequestStandby()
 
 @kotlin.wasm.WasmImport("libc", "libcPspScePowerRequestSuspend")
 private external fun wasiLibcPspScePowerRequestSuspend(): Int
 
 public actual fun scePowerRequestSuspend(): Int =
-    wasiLibcPspScePowerRequestSuspend().toInt()
+    wasiLibcPspScePowerRequestSuspend()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceWlanDevIsPowerOn")
 private external fun wasiLibcPspSceWlanDevIsPowerOn(): Int
 
 public actual fun sceWlanDevIsPowerOn(): Int =
-    wasiLibcPspSceWlanDevIsPowerOn().toInt()
+    wasiLibcPspSceWlanDevIsPowerOn()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceWlanGetSwitchState")
 private external fun wasiLibcPspSceWlanGetSwitchState(): Int
 
 public actual fun sceWlanGetSwitchState(): Int =
-    wasiLibcPspSceWlanGetSwitchState().toInt()
+    wasiLibcPspSceWlanGetSwitchState()
 
 public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceWlanGetEtherAddr")
@@ -1429,13 +1429,13 @@ public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
 private external fun wasiLibcPspSceWlanDevAttach(): Int
 
 public actual fun sceWlanDevAttach(): Int =
-    wasiLibcPspSceWlanDevAttach().toInt()
+    wasiLibcPspSceWlanDevAttach()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceWlanDevDetach")
 private external fun wasiLibcPspSceWlanDevDetach(): Int
 
 public actual fun sceWlanDevDetach(): Int =
-    wasiLibcPspSceWlanDevDetach().toInt()
+    wasiLibcPspSceWlanDevDetach()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceRtcGetTickResolution")
 private external fun wasiLibcPspSceRtcGetTickResolution(): Int
@@ -1462,19 +1462,19 @@ public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUt
 private external fun wasiLibcPspSceRtcIsLeapYear(year: Int): Int
 
 public actual fun sceRtcIsLeapYear(year: Int): Int =
-    wasiLibcPspSceRtcIsLeapYear(year).toInt()
+    wasiLibcPspSceRtcIsLeapYear(year)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceRtcGetDaysInMonth")
 private external fun wasiLibcPspSceRtcGetDaysInMonth(year: Int, month: Int): Int
 
 public actual fun sceRtcGetDaysInMonth(year: Int, month: Int): Int =
-    wasiLibcPspSceRtcGetDaysInMonth(year, month).toInt()
+    wasiLibcPspSceRtcGetDaysInMonth(year, month)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceRtcGetDayOfWeek")
 private external fun wasiLibcPspSceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
 
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
-    wasiLibcPspSceRtcGetDayOfWeek(year, month, day).toInt()
+    wasiLibcPspSceRtcGetDayOfWeek(year, month, day)
 
 public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceRtcCheckValid")
@@ -1669,25 +1669,25 @@ public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVo
 private external fun wasiLibcPspSceJpegInitMJpeg(): Int
 
 public actual fun sceJpegInitMJpeg(): Int =
-    wasiLibcPspSceJpegInitMJpeg().toInt()
+    wasiLibcPspSceJpegInitMJpeg()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceJpegFinishMJpeg")
 private external fun wasiLibcPspSceJpegFinishMJpeg(): Int
 
 public actual fun sceJpegFinishMJpeg(): Int =
-    wasiLibcPspSceJpegFinishMJpeg().toInt()
+    wasiLibcPspSceJpegFinishMJpeg()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceJpegCreateMJpeg")
 private external fun wasiLibcPspSceJpegCreateMJpeg(width: Int, height: Int): Int
 
 public actual fun sceJpegCreateMJpeg(width: Int, height: Int): Int =
-    wasiLibcPspSceJpegCreateMJpeg(width, height).toInt()
+    wasiLibcPspSceJpegCreateMJpeg(width, height)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceJpegDeleteMJpeg")
 private external fun wasiLibcPspSceJpegDeleteMJpeg(): Int
 
 public actual fun sceJpegDeleteMJpeg(): Int =
-    wasiLibcPspSceJpegDeleteMJpeg().toInt()
+    wasiLibcPspSceJpegDeleteMJpeg()
 
 public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceJpegDecodeMJpeg")
@@ -1696,7 +1696,7 @@ public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: 
 private external fun wasiLibcPspSceUmdCheckMedium(): Int
 
 public actual fun sceUmdCheckMedium(): Int =
-    wasiLibcPspSceUmdCheckMedium().toInt()
+    wasiLibcPspSceUmdCheckMedium()
 
 public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUmdGetDiscInfo")
@@ -1711,67 +1711,67 @@ public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
 private external fun wasiLibcPspSceUmdWaitDriveStat(state: Int): Int
 
 public actual fun sceUmdWaitDriveStat(state: Int): Int =
-    wasiLibcPspSceUmdWaitDriveStat(state).toInt()
+    wasiLibcPspSceUmdWaitDriveStat(state)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdWaitDriveStatWithTimer")
 private external fun wasiLibcPspSceUmdWaitDriveStatWithTimer(state: Int, timeout: Int): Int
 
 public actual fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int =
-    wasiLibcPspSceUmdWaitDriveStatWithTimer(state, timeout.toInt()).toInt()
+    wasiLibcPspSceUmdWaitDriveStatWithTimer(state, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdWaitDriveStatCB")
 private external fun wasiLibcPspSceUmdWaitDriveStatCB(state: Int, timeout: Int): Int
 
 public actual fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int =
-    wasiLibcPspSceUmdWaitDriveStatCB(state, timeout.toInt()).toInt()
+    wasiLibcPspSceUmdWaitDriveStatCB(state, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdCancelWaitDriveStat")
 private external fun wasiLibcPspSceUmdCancelWaitDriveStat(): Int
 
 public actual fun sceUmdCancelWaitDriveStat(): Int =
-    wasiLibcPspSceUmdCancelWaitDriveStat().toInt()
+    wasiLibcPspSceUmdCancelWaitDriveStat()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdGetDriveStat")
 private external fun wasiLibcPspSceUmdGetDriveStat(): Int
 
 public actual fun sceUmdGetDriveStat(): Int =
-    wasiLibcPspSceUmdGetDriveStat().toInt()
+    wasiLibcPspSceUmdGetDriveStat()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdGetErrorStat")
 private external fun wasiLibcPspSceUmdGetErrorStat(): Int
 
 public actual fun sceUmdGetErrorStat(): Int =
-    wasiLibcPspSceUmdGetErrorStat().toInt()
+    wasiLibcPspSceUmdGetErrorStat()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdRegisterUMDCallBack")
 private external fun wasiLibcPspSceUmdRegisterUMDCallBack(cbid: Int): Int
 
 public actual fun sceUmdRegisterUMDCallBack(cbid: Int): Int =
-    wasiLibcPspSceUmdRegisterUMDCallBack(cbid).toInt()
+    wasiLibcPspSceUmdRegisterUMDCallBack(cbid)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdUnRegisterUMDCallBack")
 private external fun wasiLibcPspSceUmdUnRegisterUMDCallBack(cbid: Int): Int
 
 public actual fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int =
-    wasiLibcPspSceUmdUnRegisterUMDCallBack(cbid).toInt()
+    wasiLibcPspSceUmdUnRegisterUMDCallBack(cbid)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdReplacePermit")
 private external fun wasiLibcPspSceUmdReplacePermit(): Int
 
 public actual fun sceUmdReplacePermit(): Int =
-    wasiLibcPspSceUmdReplacePermit().toInt()
+    wasiLibcPspSceUmdReplacePermit()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUmdReplaceProhibit")
 private external fun wasiLibcPspSceUmdReplaceProhibit(): Int
 
 public actual fun sceUmdReplaceProhibit(): Int =
-    wasiLibcPspSceUmdReplaceProhibit().toInt()
+    wasiLibcPspSceUmdReplaceProhibit()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceMpegInit")
 private external fun wasiLibcPspSceMpegInit(): Int
 
 public actual fun sceMpegInit(): Int =
-    wasiLibcPspSceMpegInit().toInt()
+    wasiLibcPspSceMpegInit()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceMpegFinish")
 private external fun wasiLibcPspSceMpegFinish(): Unit
@@ -1783,7 +1783,7 @@ public actual fun sceMpegFinish(): Unit =
 private external fun wasiLibcPspSceMpegRingbufferQueryMemSize(packets: Int): Int
 
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
-    wasiLibcPspSceMpegRingbufferQueryMemSize(packets).toInt()
+    wasiLibcPspSceMpegRingbufferQueryMemSize(packets)
 
 public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegRingbufferConstruct")
@@ -1800,7 +1800,7 @@ public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, nu
 private external fun wasiLibcPspSceMpegQueryMemSize(unk: Int): Int
 
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
-    wasiLibcPspSceMpegQueryMemSize(unk).toInt()
+    wasiLibcPspSceMpegQueryMemSize(unk)
 
 public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegCreate")
@@ -1857,7 +1857,7 @@ public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutP
 private external fun wasiLibcPspSceMpegBaseCscInit(width: Int): Int
 
 public actual fun sceMpegBaseCscInit(width: Int): Int =
-    wasiLibcPspSceMpegBaseCscInit(width).toInt()
+    wasiLibcPspSceMpegBaseCscInit(width)
 
 public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMpegBaseCscVme")
@@ -1878,19 +1878,19 @@ public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
 private external fun wasiLibcPspSceHprmIsHeadphoneExist(): Int
 
 public actual fun sceHprmIsHeadphoneExist(): Int =
-    wasiLibcPspSceHprmIsHeadphoneExist().toInt()
+    wasiLibcPspSceHprmIsHeadphoneExist()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHprmIsRemoteExist")
 private external fun wasiLibcPspSceHprmIsRemoteExist(): Int
 
 public actual fun sceHprmIsRemoteExist(): Int =
-    wasiLibcPspSceHprmIsRemoteExist().toInt()
+    wasiLibcPspSceHprmIsRemoteExist()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHprmIsMicrophoneExist")
 private external fun wasiLibcPspSceHprmIsMicrophoneExist(): Int
 
 public actual fun sceHprmIsMicrophoneExist(): Int =
-    wasiLibcPspSceHprmIsMicrophoneExist().toInt()
+    wasiLibcPspSceHprmIsMicrophoneExist()
 
 public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuDepthBuffer")
 
@@ -1974,13 +1974,13 @@ public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>): U
 private external fun wasiLibcPspSceGuFinish(): Int
 
 public actual fun sceGuFinish(): Int =
-    wasiLibcPspSceGuFinish().toInt()
+    wasiLibcPspSceGuFinish()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceGuFinishId")
 private external fun wasiLibcPspSceGuFinishId(id: Int): Int
 
 public actual fun sceGuFinishId(id: UInt): Int =
-    wasiLibcPspSceGuFinishId(id.toInt()).toInt()
+    wasiLibcPspSceGuFinishId(id.toInt())
 
 public actual fun sceGuCallList(list: ConstPtr<CVoid>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuCallList")
 
@@ -1994,7 +1994,7 @@ public actual fun sceGuCallMode(mode: Int): Unit =
 private external fun wasiLibcPspSceGuCheckList(): Int
 
 public actual fun sceGuCheckList(): Int =
-    wasiLibcPspSceGuCheckList().toInt()
+    wasiLibcPspSceGuCheckList()
 
 public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuSendList")
 
@@ -2029,7 +2029,7 @@ public actual fun sceGuSetAllStatus(status: Int): Unit =
 private external fun wasiLibcPspSceGuGetAllStatus(): Int
 
 public actual fun sceGuGetAllStatus(): Int =
-    wasiLibcPspSceGuGetAllStatus().toInt()
+    wasiLibcPspSceGuGetAllStatus()
 
 public actual fun sceGuEnable(state: GuState): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceGuEnable")
 
@@ -2351,13 +2351,13 @@ public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
 private external fun wasiLibcPspSceMp3InitResource(): Int
 
 public actual fun sceMp3InitResource(): Int =
-    wasiLibcPspSceMp3InitResource().toInt()
+    wasiLibcPspSceMp3InitResource()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceMp3TermResource")
 private external fun wasiLibcPspSceMp3TermResource(): Int
 
 public actual fun sceMp3TermResource(): Int =
-    wasiLibcPspSceMp3TermResource().toInt()
+    wasiLibcPspSceMp3TermResource()
 
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceMp3Init")
@@ -2462,7 +2462,7 @@ public actual fun sceUtilityMsgDialogShutdownStart(): Unit =
 private external fun wasiLibcPspSceUtilityMsgDialogGetStatus(): Int
 
 public actual fun sceUtilityMsgDialogGetStatus(): Int =
-    wasiLibcPspSceUtilityMsgDialogGetStatus().toInt()
+    wasiLibcPspSceUtilityMsgDialogGetStatus()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityMsgDialogUpdate")
 private external fun wasiLibcPspSceUtilityMsgDialogUpdate(n: Int): Unit
@@ -2474,7 +2474,7 @@ public actual fun sceUtilityMsgDialogUpdate(n: Int): Unit =
 private external fun wasiLibcPspSceUtilityMsgDialogAbort(): Int
 
 public actual fun sceUtilityMsgDialogAbort(): Int =
-    wasiLibcPspSceUtilityMsgDialogAbort().toInt()
+    wasiLibcPspSceUtilityMsgDialogAbort()
 
 public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityNetconfInitStart")
@@ -2483,25 +2483,25 @@ public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): 
 private external fun wasiLibcPspSceUtilityNetconfShutdownStart(): Int
 
 public actual fun sceUtilityNetconfShutdownStart(): Int =
-    wasiLibcPspSceUtilityNetconfShutdownStart().toInt()
+    wasiLibcPspSceUtilityNetconfShutdownStart()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityNetconfUpdate")
 private external fun wasiLibcPspSceUtilityNetconfUpdate(unknown: Int): Int
 
 public actual fun sceUtilityNetconfUpdate(unknown: Int): Int =
-    wasiLibcPspSceUtilityNetconfUpdate(unknown).toInt()
+    wasiLibcPspSceUtilityNetconfUpdate(unknown)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityNetconfGetStatus")
 private external fun wasiLibcPspSceUtilityNetconfGetStatus(): Int
 
 public actual fun sceUtilityNetconfGetStatus(): Int =
-    wasiLibcPspSceUtilityNetconfGetStatus().toInt()
+    wasiLibcPspSceUtilityNetconfGetStatus()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityCheckNetParam")
 private external fun wasiLibcPspSceUtilityCheckNetParam(id: Int): Int
 
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
-    wasiLibcPspSceUtilityCheckNetParam(id).toInt()
+    wasiLibcPspSceUtilityCheckNetParam(id)
 
 public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityGetNetParam")
@@ -2513,13 +2513,13 @@ public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataP
 private external fun wasiLibcPspSceUtilitySavedataGetStatus(): Int
 
 public actual fun sceUtilitySavedataGetStatus(): Int =
-    wasiLibcPspSceUtilitySavedataGetStatus().toInt()
+    wasiLibcPspSceUtilitySavedataGetStatus()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilitySavedataShutdownStart")
 private external fun wasiLibcPspSceUtilitySavedataShutdownStart(): Int
 
 public actual fun sceUtilitySavedataShutdownStart(): Int =
-    wasiLibcPspSceUtilitySavedataShutdownStart().toInt()
+    wasiLibcPspSceUtilitySavedataShutdownStart()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilitySavedataUpdate")
 private external fun wasiLibcPspSceUtilitySavedataUpdate(unknown: Int): Unit
@@ -2540,7 +2540,7 @@ public actual fun sceUtilityGameSharingShutdownStart(): Unit =
 private external fun wasiLibcPspSceUtilityGameSharingGetStatus(): Int
 
 public actual fun sceUtilityGameSharingGetStatus(): Int =
-    wasiLibcPspSceUtilityGameSharingGetStatus().toInt()
+    wasiLibcPspSceUtilityGameSharingGetStatus()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityGameSharingUpdate")
 private external fun wasiLibcPspSceUtilityGameSharingUpdate(n: Int): Unit
@@ -2555,19 +2555,19 @@ public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewer
 private external fun wasiLibcPspSceUtilityHtmlViewerShutdownStart(): Int
 
 public actual fun sceUtilityHtmlViewerShutdownStart(): Int =
-    wasiLibcPspSceUtilityHtmlViewerShutdownStart().toInt()
+    wasiLibcPspSceUtilityHtmlViewerShutdownStart()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityHtmlViewerUpdate")
 private external fun wasiLibcPspSceUtilityHtmlViewerUpdate(n: Int): Int
 
 public actual fun sceUtilityHtmlViewerUpdate(n: Int): Int =
-    wasiLibcPspSceUtilityHtmlViewerUpdate(n).toInt()
+    wasiLibcPspSceUtilityHtmlViewerUpdate(n)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityHtmlViewerGetStatus")
 private external fun wasiLibcPspSceUtilityHtmlViewerGetStatus(): Int
 
 public actual fun sceUtilityHtmlViewerGetStatus(): Int =
-    wasiLibcPspSceUtilityHtmlViewerGetStatus().toInt()
+    wasiLibcPspSceUtilityHtmlViewerGetStatus()
 
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySetSystemParamInt")
@@ -2588,19 +2588,19 @@ public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): I
 private external fun wasiLibcPspSceUtilityOskShutdownStart(): Int
 
 public actual fun sceUtilityOskShutdownStart(): Int =
-    wasiLibcPspSceUtilityOskShutdownStart().toInt()
+    wasiLibcPspSceUtilityOskShutdownStart()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityOskUpdate")
 private external fun wasiLibcPspSceUtilityOskUpdate(n: Int): Int
 
 public actual fun sceUtilityOskUpdate(n: Int): Int =
-    wasiLibcPspSceUtilityOskUpdate(n).toInt()
+    wasiLibcPspSceUtilityOskUpdate(n)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityOskGetStatus")
 private external fun wasiLibcPspSceUtilityOskGetStatus(): Int
 
 public actual fun sceUtilityOskGetStatus(): Int =
-    wasiLibcPspSceUtilityOskGetStatus().toInt()
+    wasiLibcPspSceUtilityOskGetStatus()
 
 public actual fun sceUtilityLoadNetModule(module: NetModule): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilityLoadNetModule")
@@ -2630,7 +2630,7 @@ public actual fun sceUtilityUnloadModule(module: Module): Int =
 private external fun wasiLibcPspSceUtilityCreateNetParam(conf: Int): Int
 
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
-    wasiLibcPspSceUtilityCreateNetParam(conf).toInt()
+    wasiLibcPspSceUtilityCreateNetParam(conf)
 
 public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceUtilitySetNetParam")
@@ -2639,37 +2639,37 @@ public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>)
 private external fun wasiLibcPspSceUtilityCopyNetParam(src: Int, dest: Int): Int
 
 public actual fun sceUtilityCopyNetParam(src: Int, dest: Int): Int =
-    wasiLibcPspSceUtilityCopyNetParam(src, dest).toInt()
+    wasiLibcPspSceUtilityCopyNetParam(src, dest)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceUtilityDeleteNetParam")
 private external fun wasiLibcPspSceUtilityDeleteNetParam(conf: Int): Int
 
 public actual fun sceUtilityDeleteNetParam(conf: Int): Int =
-    wasiLibcPspSceUtilityDeleteNetParam(conf).toInt()
+    wasiLibcPspSceUtilityDeleteNetParam(conf)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInit")
 private external fun wasiLibcPspSceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int
 
 public actual fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int =
-    wasiLibcPspSceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack).toInt()
+    wasiLibcPspSceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetTerm")
 private external fun wasiLibcPspSceNetTerm(): Int
 
 public actual fun sceNetTerm(): Int =
-    wasiLibcPspSceNetTerm().toInt()
+    wasiLibcPspSceNetTerm()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetFreeThreadinfo")
 private external fun wasiLibcPspSceNetFreeThreadinfo(thid: Int): Int
 
 public actual fun sceNetFreeThreadinfo(thid: Int): Int =
-    wasiLibcPspSceNetFreeThreadinfo(thid).toInt()
+    wasiLibcPspSceNetFreeThreadinfo(thid)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetThreadAbort")
 private external fun wasiLibcPspSceNetThreadAbort(thid: Int): Int
 
 public actual fun sceNetThreadAbort(thid: Int): Int =
-    wasiLibcPspSceNetThreadAbort(thid).toInt()
+    wasiLibcPspSceNetThreadAbort(thid)
 
 public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetEtherStrton")
 
@@ -2688,7 +2688,7 @@ public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: Mut
 private external fun wasiLibcPspSceNetAdhocctlTerm(): Int
 
 public actual fun sceNetAdhocctlTerm(): Int =
-    wasiLibcPspSceNetAdhocctlTerm().toInt()
+    wasiLibcPspSceNetAdhocctlTerm()
 
 public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlConnect")
@@ -2697,7 +2697,7 @@ public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
 private external fun wasiLibcPspSceNetAdhocctlDisconnect(): Int
 
 public actual fun sceNetAdhocctlDisconnect(): Int =
-    wasiLibcPspSceNetAdhocctlDisconnect().toInt()
+    wasiLibcPspSceNetAdhocctlDisconnect()
 
 public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetState")
@@ -2724,7 +2724,7 @@ public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhoc
 private external fun wasiLibcPspSceNetAdhocctlExitGameMode(): Int
 
 public actual fun sceNetAdhocctlExitGameMode(): Int =
-    wasiLibcPspSceNetAdhocctlExitGameMode().toInt()
+    wasiLibcPspSceNetAdhocctlExitGameMode()
 
 public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetPeerList")
@@ -2736,7 +2736,7 @@ public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peeri
 private external fun wasiLibcPspSceNetAdhocctlScan(): Int
 
 public actual fun sceNetAdhocctlScan(): Int =
-    wasiLibcPspSceNetAdhocctlScan().toInt()
+    wasiLibcPspSceNetAdhocctlScan()
 
 public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetScanInfo")
@@ -2748,7 +2748,7 @@ public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unkno
 private external fun wasiLibcPspSceNetAdhocctlDelHandler(id: Int): Int
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
-    wasiLibcPspSceNetAdhocctlDelHandler(id).toInt()
+    wasiLibcPspSceNetAdhocctlDelHandler(id)
 
 public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocctlGetNameByAddr")
@@ -2763,13 +2763,13 @@ public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams
 private external fun wasiLibcPspSceNetAdhocInit(): Int
 
 public actual fun sceNetAdhocInit(): Int =
-    wasiLibcPspSceNetAdhocInit().toInt()
+    wasiLibcPspSceNetAdhocInit()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocTerm")
 private external fun wasiLibcPspSceNetAdhocTerm(): Int
 
 public actual fun sceNetAdhocTerm(): Int =
-    wasiLibcPspSceNetAdhocTerm().toInt()
+    wasiLibcPspSceNetAdhocTerm()
 
 public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPdpCreate")
@@ -2778,7 +2778,7 @@ public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize
 private external fun wasiLibcPspSceNetAdhocPdpDelete(id: Int, unk1: Int): Int
 
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
-    wasiLibcPspSceNetAdhocPdpDelete(id, unk1).toInt()
+    wasiLibcPspSceNetAdhocPdpDelete(id, unk1)
 
 public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPdpSend")
@@ -2799,25 +2799,25 @@ public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: Mut
 private external fun wasiLibcPspSceNetAdhocGameModeUpdateMaster(): Int
 
 public actual fun sceNetAdhocGameModeUpdateMaster(): Int =
-    wasiLibcPspSceNetAdhocGameModeUpdateMaster().toInt()
+    wasiLibcPspSceNetAdhocGameModeUpdateMaster()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocGameModeUpdateReplica")
 private external fun wasiLibcPspSceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int
 
 public actual fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int =
-    wasiLibcPspSceNetAdhocGameModeUpdateReplica(id, unk1).toInt()
+    wasiLibcPspSceNetAdhocGameModeUpdateReplica(id, unk1)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocGameModeDeleteMaster")
 private external fun wasiLibcPspSceNetAdhocGameModeDeleteMaster(): Int
 
 public actual fun sceNetAdhocGameModeDeleteMaster(): Int =
-    wasiLibcPspSceNetAdhocGameModeDeleteMaster().toInt()
+    wasiLibcPspSceNetAdhocGameModeDeleteMaster()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocGameModeDeleteReplica")
 private external fun wasiLibcPspSceNetAdhocGameModeDeleteReplica(id: Int): Int
 
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
-    wasiLibcPspSceNetAdhocGameModeDeleteReplica(id).toInt()
+    wasiLibcPspSceNetAdhocGameModeDeleteReplica(id)
 
 public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpOpen")
@@ -2826,7 +2826,7 @@ public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, des
 private external fun wasiLibcPspSceNetAdhocPtpConnect(id: Int, timeout: Int, nonblock: Int): Int
 
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
-    wasiLibcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock).toInt()
+    wasiLibcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock)
 
 public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocPtpListen")
@@ -2844,13 +2844,13 @@ public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: Mut
 private external fun wasiLibcPspSceNetAdhocPtpFlush(id: Int, timeout: Int, nonblock: Int): Int
 
 public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int =
-    wasiLibcPspSceNetAdhocPtpFlush(id, timeout.toInt(), nonblock).toInt()
+    wasiLibcPspSceNetAdhocPtpFlush(id, timeout.toInt(), nonblock)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocPtpClose")
 private external fun wasiLibcPspSceNetAdhocPtpClose(id: Int, unk1: Int): Int
 
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
-    wasiLibcPspSceNetAdhocPtpClose(id, unk1).toInt()
+    wasiLibcPspSceNetAdhocPtpClose(id, unk1)
 
 public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocGetPtpStat")
@@ -2859,13 +2859,13 @@ public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAd
 private external fun wasiLibcPspSceNetAdhocMatchingInit(memsize: Int): Int
 
 public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
-    wasiLibcPspSceNetAdhocMatchingInit(memsize).toInt()
+    wasiLibcPspSceNetAdhocMatchingInit(memsize)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetAdhocMatchingTerm")
 private external fun wasiLibcPspSceNetAdhocMatchingTerm(): Int
 
 public actual fun sceNetAdhocMatchingTerm(): Int =
-    wasiLibcPspSceNetAdhocMatchingTerm().toInt()
+    wasiLibcPspSceNetAdhocMatchingTerm()
 
 public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingCreate")
@@ -2874,7 +2874,7 @@ public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: I
 private external fun wasiLibcPspSceNetAdhocMatchingDelete(matchingId: Int): Int
 
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
-    wasiLibcPspSceNetAdhocMatchingDelete(matchingId).toInt()
+    wasiLibcPspSceNetAdhocMatchingDelete(matchingId)
 
 public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingStart")
@@ -2883,7 +2883,7 @@ public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthSt
 private external fun wasiLibcPspSceNetAdhocMatchingStop(matchingId: Int): Int
 
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
-    wasiLibcPspSceNetAdhocMatchingStop(matchingId).toInt()
+    wasiLibcPspSceNetAdhocMatchingStop(matchingId)
 
 public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingSelectTarget")
@@ -2913,7 +2913,7 @@ public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<
 private external fun wasiLibcPspSceNetAdhocMatchingGetPoolMaxAlloc(): Int
 
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
-    wasiLibcPspSceNetAdhocMatchingGetPoolMaxAlloc().toInt()
+    wasiLibcPspSceNetAdhocMatchingGetPoolMaxAlloc()
 
 public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetAdhocMatchingGetPoolStat")
@@ -2922,13 +2922,13 @@ public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>
 private external fun wasiLibcPspSceNetApctlInit(stackSize: Int, initPriority: Int): Int
 
 public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
-    wasiLibcPspSceNetApctlInit(stackSize, initPriority).toInt()
+    wasiLibcPspSceNetApctlInit(stackSize, initPriority)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetApctlTerm")
 private external fun wasiLibcPspSceNetApctlTerm(): Int
 
 public actual fun sceNetApctlTerm(): Int =
-    wasiLibcPspSceNetApctlTerm().toInt()
+    wasiLibcPspSceNetApctlTerm()
 
 public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetApctlGetInfo")
@@ -2940,19 +2940,19 @@ public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPt
 private external fun wasiLibcPspSceNetApctlDelHandler(handlerId: Int): Int
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
-    wasiLibcPspSceNetApctlDelHandler(handlerId).toInt()
+    wasiLibcPspSceNetApctlDelHandler(handlerId)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetApctlConnect")
 private external fun wasiLibcPspSceNetApctlConnect(connIndex: Int): Int
 
 public actual fun sceNetApctlConnect(connIndex: Int): Int =
-    wasiLibcPspSceNetApctlConnect(connIndex).toInt()
+    wasiLibcPspSceNetApctlConnect(connIndex)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetApctlDisconnect")
 private external fun wasiLibcPspSceNetApctlDisconnect(): Int
 
 public actual fun sceNetApctlDisconnect(): Int =
-    wasiLibcPspSceNetApctlDisconnect().toInt()
+    wasiLibcPspSceNetApctlDisconnect()
 
 public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetApctlGetState")
@@ -2961,13 +2961,13 @@ public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
 private external fun wasiLibcPspSceNetInetInit(): Int
 
 public actual fun sceNetInetInit(): Int =
-    wasiLibcPspSceNetInetInit().toInt()
+    wasiLibcPspSceNetInetInit()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetTerm")
 private external fun wasiLibcPspSceNetInetTerm(): Int
 
 public actual fun sceNetInetTerm(): Int =
-    wasiLibcPspSceNetInetTerm().toInt()
+    wasiLibcPspSceNetInetTerm()
 
 public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetAccept")
@@ -2985,7 +2985,7 @@ public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal:
 private external fun wasiLibcPspSceNetInetListen(s: Int, backlog: Int): Int
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
-    wasiLibcPspSceNetInetListen(s, backlog).toInt()
+    wasiLibcPspSceNetInetListen(s, backlog)
 
 public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetInetRecv")
@@ -3006,37 +3006,37 @@ public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal:
 private external fun wasiLibcPspSceNetInetShutdown(s: Int, how: Int): Int
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
-    wasiLibcPspSceNetInetShutdown(s, how).toInt()
+    wasiLibcPspSceNetInetShutdown(s, how)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetSocket")
 private external fun wasiLibcPspSceNetInetSocket(domain: Int, type: Int, protocol: Int): Int
 
 public actual fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int =
-    wasiLibcPspSceNetInetSocket(domain, type, protocol).toInt()
+    wasiLibcPspSceNetInetSocket(domain, type, protocol)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetClose")
 private external fun wasiLibcPspSceNetInetClose(s: Int): Int
 
 public actual fun sceNetInetClose(s: Int): Int =
-    wasiLibcPspSceNetInetClose(s).toInt()
+    wasiLibcPspSceNetInetClose(s)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetInetGetErrno")
 private external fun wasiLibcPspSceNetInetGetErrno(): Int
 
 public actual fun sceNetInetGetErrno(): Int =
-    wasiLibcPspSceNetInetGetErrno().toInt()
+    wasiLibcPspSceNetInetGetErrno()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceSslInit")
 private external fun wasiLibcPspSceSslInit(unknown1: Int): Int
 
 public actual fun sceSslInit(unknown1: Int): Int =
-    wasiLibcPspSceSslInit(unknown1).toInt()
+    wasiLibcPspSceSslInit(unknown1)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceSslEnd")
 private external fun wasiLibcPspSceSslEnd(): Int
 
 public actual fun sceSslEnd(): Int =
-    wasiLibcPspSceSslEnd().toInt()
+    wasiLibcPspSceSslEnd()
 
 public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceSslGetUsedMemoryMax")
@@ -3048,13 +3048,13 @@ public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
 private external fun wasiLibcPspSceHttpInit(unknown1: Int): Int
 
 public actual fun sceHttpInit(unknown1: UInt): Int =
-    wasiLibcPspSceHttpInit(unknown1.toInt()).toInt()
+    wasiLibcPspSceHttpInit(unknown1.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnd")
 private external fun wasiLibcPspSceHttpEnd(): Int
 
 public actual fun sceHttpEnd(): Int =
-    wasiLibcPspSceHttpEnd().toInt()
+    wasiLibcPspSceHttpEnd()
 
 public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateTemplate")
@@ -3063,7 +3063,7 @@ public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unk
 private external fun wasiLibcPspSceHttpDeleteTemplate(templateid: Int): Int
 
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
-    wasiLibcPspSceHttpDeleteTemplate(templateid).toInt()
+    wasiLibcPspSceHttpDeleteTemplate(templateid)
 
 public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateConnection")
@@ -3075,7 +3075,7 @@ public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<
 private external fun wasiLibcPspSceHttpDeleteConnection(connectionId: Int): Int
 
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
-    wasiLibcPspSceHttpDeleteConnection(connectionId).toInt()
+    wasiLibcPspSceHttpDeleteConnection(connectionId)
 
 public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpCreateRequest")
@@ -3087,7 +3087,7 @@ public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMet
 private external fun wasiLibcPspSceHttpDeleteRequest(requestId: Int): Int
 
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
-    wasiLibcPspSceHttpDeleteRequest(requestId).toInt()
+    wasiLibcPspSceHttpDeleteRequest(requestId)
 
 public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSendRequest")
@@ -3096,7 +3096,7 @@ public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSi
 private external fun wasiLibcPspSceHttpAbortRequest(requestId: Int): Int
 
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
-    wasiLibcPspSceHttpAbortRequest(requestId).toInt()
+    wasiLibcPspSceHttpAbortRequest(requestId)
 
 public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpReadData")
@@ -3111,79 +3111,79 @@ public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>):
 private external fun wasiLibcPspSceHttpSetResolveTimeOut(id: Int, timeout: Int): Int
 
 public actual fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int =
-    wasiLibcPspSceHttpSetResolveTimeOut(id, timeout.toInt()).toInt()
+    wasiLibcPspSceHttpSetResolveTimeOut(id, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetResolveRetry")
 private external fun wasiLibcPspSceHttpSetResolveRetry(id: Int, count: Int): Int
 
 public actual fun sceHttpSetResolveRetry(id: Int, count: Int): Int =
-    wasiLibcPspSceHttpSetResolveRetry(id, count).toInt()
+    wasiLibcPspSceHttpSetResolveRetry(id, count)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetConnectTimeOut")
 private external fun wasiLibcPspSceHttpSetConnectTimeOut(id: Int, timeout: Int): Int
 
 public actual fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int =
-    wasiLibcPspSceHttpSetConnectTimeOut(id, timeout.toInt()).toInt()
+    wasiLibcPspSceHttpSetConnectTimeOut(id, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetSendTimeOut")
 private external fun wasiLibcPspSceHttpSetSendTimeOut(id: Int, timeout: Int): Int
 
 public actual fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int =
-    wasiLibcPspSceHttpSetSendTimeOut(id, timeout.toInt()).toInt()
+    wasiLibcPspSceHttpSetSendTimeOut(id, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSetRecvTimeOut")
 private external fun wasiLibcPspSceHttpSetRecvTimeOut(id: Int, timeout: Int): Int
 
 public actual fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int =
-    wasiLibcPspSceHttpSetRecvTimeOut(id, timeout.toInt()).toInt()
+    wasiLibcPspSceHttpSetRecvTimeOut(id, timeout.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnableKeepAlive")
 private external fun wasiLibcPspSceHttpEnableKeepAlive(id: Int): Int
 
 public actual fun sceHttpEnableKeepAlive(id: Int): Int =
-    wasiLibcPspSceHttpEnableKeepAlive(id).toInt()
+    wasiLibcPspSceHttpEnableKeepAlive(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDisableKeepAlive")
 private external fun wasiLibcPspSceHttpDisableKeepAlive(id: Int): Int
 
 public actual fun sceHttpDisableKeepAlive(id: Int): Int =
-    wasiLibcPspSceHttpDisableKeepAlive(id).toInt()
+    wasiLibcPspSceHttpDisableKeepAlive(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnableRedirect")
 private external fun wasiLibcPspSceHttpEnableRedirect(id: Int): Int
 
 public actual fun sceHttpEnableRedirect(id: Int): Int =
-    wasiLibcPspSceHttpEnableRedirect(id).toInt()
+    wasiLibcPspSceHttpEnableRedirect(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDisableRedirect")
 private external fun wasiLibcPspSceHttpDisableRedirect(id: Int): Int
 
 public actual fun sceHttpDisableRedirect(id: Int): Int =
-    wasiLibcPspSceHttpDisableRedirect(id).toInt()
+    wasiLibcPspSceHttpDisableRedirect(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnableCookie")
 private external fun wasiLibcPspSceHttpEnableCookie(id: Int): Int
 
 public actual fun sceHttpEnableCookie(id: Int): Int =
-    wasiLibcPspSceHttpEnableCookie(id).toInt()
+    wasiLibcPspSceHttpEnableCookie(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDisableCookie")
 private external fun wasiLibcPspSceHttpDisableCookie(id: Int): Int
 
 public actual fun sceHttpDisableCookie(id: Int): Int =
-    wasiLibcPspSceHttpDisableCookie(id).toInt()
+    wasiLibcPspSceHttpDisableCookie(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpSaveSystemCookie")
 private external fun wasiLibcPspSceHttpSaveSystemCookie(): Int
 
 public actual fun sceHttpSaveSystemCookie(): Int =
-    wasiLibcPspSceHttpSaveSystemCookie().toInt()
+    wasiLibcPspSceHttpSaveSystemCookie()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpLoadSystemCookie")
 private external fun wasiLibcPspSceHttpLoadSystemCookie(): Int
 
 public actual fun sceHttpLoadSystemCookie(): Int =
-    wasiLibcPspSceHttpLoadSystemCookie().toInt()
+    wasiLibcPspSceHttpLoadSystemCookie()
 
 public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpAddExtraHeader")
@@ -3195,49 +3195,49 @@ public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
 private external fun wasiLibcPspSceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
 
 public actual fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int =
-    wasiLibcPspSceHttpsInit(unknown1, unknown2, unknown3, unknown4).toInt()
+    wasiLibcPspSceHttpsInit(unknown1, unknown2, unknown3, unknown4)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpsEnd")
 private external fun wasiLibcPspSceHttpsEnd(): Int
 
 public actual fun sceHttpsEnd(): Int =
-    wasiLibcPspSceHttpsEnd().toInt()
+    wasiLibcPspSceHttpsEnd()
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpsLoadDefaultCert")
 private external fun wasiLibcPspSceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int
 
 public actual fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int =
-    wasiLibcPspSceHttpsLoadDefaultCert(unknown1, unknown2).toInt()
+    wasiLibcPspSceHttpsLoadDefaultCert(unknown1, unknown2)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDisableAuth")
 private external fun wasiLibcPspSceHttpDisableAuth(id: Int): Int
 
 public actual fun sceHttpDisableAuth(id: Int): Int =
-    wasiLibcPspSceHttpDisableAuth(id).toInt()
+    wasiLibcPspSceHttpDisableAuth(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpDisableCache")
 private external fun wasiLibcPspSceHttpDisableCache(id: Int): Int
 
 public actual fun sceHttpDisableCache(id: Int): Int =
-    wasiLibcPspSceHttpDisableCache(id).toInt()
+    wasiLibcPspSceHttpDisableCache(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnableAuth")
 private external fun wasiLibcPspSceHttpEnableAuth(id: Int): Int
 
 public actual fun sceHttpEnableAuth(id: Int): Int =
-    wasiLibcPspSceHttpEnableAuth(id).toInt()
+    wasiLibcPspSceHttpEnableAuth(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEnableCache")
 private external fun wasiLibcPspSceHttpEnableCache(id: Int): Int
 
 public actual fun sceHttpEnableCache(id: Int): Int =
-    wasiLibcPspSceHttpEnableCache(id).toInt()
+    wasiLibcPspSceHttpEnableCache(id)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceHttpEndCache")
 private external fun wasiLibcPspSceHttpEndCache(): Int
 
 public actual fun sceHttpEndCache(): Int =
-    wasiLibcPspSceHttpEndCache().toInt()
+    wasiLibcPspSceHttpEndCache()
 
 public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpGetAllHeader")
@@ -3252,7 +3252,7 @@ public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutP
 private external fun wasiLibcPspSceHttpInitCache(maxSize: Long): Int
 
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
-    wasiLibcPspSceHttpInitCache(maxSize.toLong()).toInt()
+    wasiLibcPspSceHttpInitCache(maxSize.toLong())
 
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSetAuthInfoCB")
@@ -3264,7 +3264,7 @@ public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProx
 private external fun wasiLibcPspSceHttpSetResHeaderMaxSize(id: Int, headerSize: Int): Int
 
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
-    wasiLibcPspSceHttpSetResHeaderMaxSize(id, headerSize.toInt()).toInt()
+    wasiLibcPspSceHttpSetResHeaderMaxSize(id, headerSize.toInt())
 
 public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceHttpSetMallocFunction")
@@ -3273,7 +3273,7 @@ public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeF
 private external fun wasiLibcPspSceNetResolverInit(): Int
 
 public actual fun sceNetResolverInit(): Int =
-    wasiLibcPspSceNetResolverInit().toInt()
+    wasiLibcPspSceNetResolverInit()
 
 public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetResolverCreate")
@@ -3282,7 +3282,7 @@ public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, buf
 private external fun wasiLibcPspSceNetResolverDelete(rid: Int): Int
 
 public actual fun sceNetResolverDelete(rid: Int): Int =
-    wasiLibcPspSceNetResolverDelete(rid).toInt()
+    wasiLibcPspSceNetResolverDelete(rid)
 
 public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceNetResolverStartNtoA")
@@ -3294,10 +3294,10 @@ public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, host
 private external fun wasiLibcPspSceNetResolverStop(rid: Int): Int
 
 public actual fun sceNetResolverStop(rid: Int): Int =
-    wasiLibcPspSceNetResolverStop(rid).toInt()
+    wasiLibcPspSceNetResolverStop(rid)
 
 @kotlin.wasm.WasmImport("libc", "libcPspSceNetResolverTerm")
 private external fun wasiLibcPspSceNetResolverTerm(): Int
 
 public actual fun sceNetResolverTerm(): Int =
-    wasiLibcPspSceNetResolverTerm().toInt()
+    wasiLibcPspSceNetResolverTerm()

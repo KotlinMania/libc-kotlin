@@ -1001,7 +1001,7 @@ public class Vnstat internal constructor(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 44L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SPECNAMELEN + 1).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SPECNAMELEN + 1))
                         ).readNative(addr + 46L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: Vnstat) {
@@ -1017,7 +1017,7 @@ public class Vnstat internal constructor(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 44L, value.vnMode)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SPECNAMELEN + 1).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SPECNAMELEN + 1))
                     ).writeNative(addr + 46L, value.vnDevname.toList())
                 }
             }

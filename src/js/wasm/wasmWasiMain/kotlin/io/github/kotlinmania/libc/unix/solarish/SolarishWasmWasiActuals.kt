@@ -52,7 +52,7 @@ public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt 
 private external fun wasiLibcUnixSolarishAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixSolarishAbs(i).toInt()
+    wasiLibcUnixSolarishAbs(i)
 
 public actual fun acct(filename: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishAcct")
@@ -64,13 +64,13 @@ public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
 private external fun wasiLibcUnixSolarishLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixSolarishLabs(i).toLong()
+    wasiLibcUnixSolarishLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishRand")
 private external fun wasiLibcUnixSolarishRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixSolarishRand().toInt()
+    wasiLibcUnixSolarishRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishSrand")
 private external fun wasiLibcUnixSolarishSrand(seed: Int): Unit
@@ -150,7 +150,7 @@ public actual fun getpwent(): MutPtr<Passwd> =
 private external fun wasiLibcUnixSolarishFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    wasiLibcUnixSolarishFdatasync(fd).toInt()
+    wasiLibcUnixSolarishFdatasync(fd)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishNlLanginfoL")
@@ -178,13 +178,13 @@ public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
 private external fun wasiLibcUnixSolarishGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: CInt): CInt =
-    wasiLibcUnixSolarishGetpriority(which, who).toInt()
+    wasiLibcUnixSolarishGetpriority(which, who)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishSetpriority")
 private external fun wasiLibcUnixSolarishSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: CInt, prio: CInt): CInt =
-    wasiLibcUnixSolarishSetpriority(which, who, prio).toInt()
+    wasiLibcUnixSolarishSetpriority(which, who, prio)
 
 public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishMknodat")
@@ -239,7 +239,7 @@ public actual fun globfree(pglob: MutPtr<GlobT>): Unit = throw UnsupportedOperat
 private external fun wasiLibcUnixSolarishPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixSolarishPosixFallocate(fd, offset, len).toInt()
+    wasiLibcUnixSolarishPosixFallocate(fd, offset, len)
 
 public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishPosixMadvise")
@@ -338,7 +338,7 @@ public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
 private external fun wasiLibcUnixSolarishShmget(key: Int, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixSolarishShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixSolarishShmget(key, size.toLong(), shmflg)
 
 public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishShmOpen")
@@ -427,7 +427,7 @@ public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPt
 private external fun wasiLibcUnixSolarishPortCreate(): Int
 
 public actual fun portCreate(): CInt =
-    wasiLibcUnixSolarishPortCreate().toInt()
+    wasiLibcUnixSolarishPortCreate()
 
 public actual fun portAssociate(port: CInt, source: CInt, obj: UintptrT, events: CInt, user: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishPortAssociate")
@@ -436,7 +436,7 @@ public actual fun portAssociate(port: CInt, source: CInt, obj: UintptrT, events:
 private external fun wasiLibcUnixSolarishPortDissociate(port: Int, source: Int, obj: Long): Int
 
 public actual fun portDissociate(port: CInt, source: CInt, obj: UintptrT): CInt =
-    wasiLibcUnixSolarishPortDissociate(port, source, obj.toLong()).toInt()
+    wasiLibcUnixSolarishPortDissociate(port, source, obj.toLong())
 
 public actual fun portGet(port: CInt, pe: MutPtr<PortEvent>, timeout: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishPortGet")
@@ -466,7 +466,7 @@ public actual fun semClose(sem: MutPtr<SemT>): CInt =
 private external fun wasiLibcUnixSolarishGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixSolarishGetdtablesize().toInt()
+    wasiLibcUnixSolarishGetdtablesize()
 
 public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishGetgrnamR")
@@ -490,13 +490,13 @@ public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
 private external fun wasiLibcUnixSolarishSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcUnixSolarishSchedGetPriorityMin(policy).toInt()
+    wasiLibcUnixSolarishSchedGetPriorityMin(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishSchedGetPriorityMax")
 private external fun wasiLibcUnixSolarishSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcUnixSolarishSchedGetPriorityMax(policy).toInt()
+    wasiLibcUnixSolarishSchedGetPriorityMax(policy)
 
 public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishSchedGetparam")
@@ -508,7 +508,7 @@ public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
 private external fun wasiLibcUnixSolarishSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    wasiLibcUnixSolarishSchedGetscheduler(pid).toInt()
+    wasiLibcUnixSolarishSchedGetscheduler(pid)
 
 public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishSchedSetscheduler")
@@ -520,7 +520,7 @@ public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixSolarishDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixSolarishDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixSolarishDaemon(nochdir, noclose)
 
 public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishGetpwnamR")
@@ -565,7 +565,7 @@ public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr
 private external fun wasiLibcUnixSolarishDup3(src: Int, dst: Int, flags: Int): Int
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    wasiLibcUnixSolarishDup3(src, dst, flags).toInt()
+    wasiLibcUnixSolarishDup3(src, dst, flags)
 
 public actual fun uname(buf: MutPtr<Utsname>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishUname")
@@ -716,7 +716,7 @@ public actual fun psetCreate(newpset: MutPtr<PsetidT>): CInt =
 private external fun wasiLibcUnixSolarishPsetDestroy(pset: Int): Int
 
 public actual fun psetDestroy(pset: PsetidT): CInt =
-    wasiLibcUnixSolarishPsetDestroy(pset).toInt()
+    wasiLibcUnixSolarishPsetDestroy(pset)
 
 public actual fun psetAssign(pset: PsetidT, cpu: ProcessoridT, opset: MutPtr<PsetidT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishPsetAssign")
@@ -734,7 +734,7 @@ public actual fun psetList(pset: MutPtr<PsetidT>, numpsets: MutPtr<CUint>): CInt
 private external fun wasiLibcUnixSolarishPsetSetattr(pset: Int, attr: Int): Int
 
 public actual fun psetSetattr(pset: PsetidT, attr: CUint): CInt =
-    wasiLibcUnixSolarishPsetSetattr(pset, attr.toInt()).toInt()
+    wasiLibcUnixSolarishPsetSetattr(pset, attr.toInt())
 
 public actual fun psetGetattr(pset: PsetidT, attr: MutPtr<CUint>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishPsetGetattr")
@@ -746,7 +746,7 @@ public actual fun processorBind(idtype: IdtypeT, id: IdT, newBinding: Processori
 private external fun wasiLibcUnixSolarishPOnline(processorid: Int, flag: Int): Int
 
 public actual fun pOnline(processorid: ProcessoridT, flag: CInt): CInt =
-    wasiLibcUnixSolarishPOnline(processorid, flag).toInt()
+    wasiLibcUnixSolarishPOnline(processorid, flag)
 
 public actual fun processorInfo(processorid: ProcessoridT, infop: MutPtr<ProcessorInfoT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishProcessorInfo")
@@ -758,7 +758,7 @@ public actual fun getexecname(): ConstPtr<CChar> =
 private external fun wasiLibcUnixSolarishGethostid(): Long
 
 public actual fun gethostid(): CLong =
-    wasiLibcUnixSolarishGethostid().toLong()
+    wasiLibcUnixSolarishGethostid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishGetpflags")
 private external fun wasiLibcUnixSolarishGetpflags(flags: Int): Int
@@ -770,7 +770,7 @@ public actual fun getpflags(flags: CUint): CUint =
 private external fun wasiLibcUnixSolarishSetpflags(flags: Int, value: Int): Int
 
 public actual fun setpflags(flags: CUint, value: CUint): CInt =
-    wasiLibcUnixSolarishSetpflags(flags.toInt(), value.toInt()).toInt()
+    wasiLibcUnixSolarishSetpflags(flags.toInt(), value.toInt())
 
 public actual fun sysinfo(command: CInt, buf: MutPtr<CChar>, count: CLong): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishSysinfo")
@@ -785,7 +785,7 @@ public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: 
 private external fun wasiLibcUnixSolarishGetpagesize(): Int
 
 public actual fun getpagesize(): CInt =
-    wasiLibcUnixSolarishGetpagesize().toInt()
+    wasiLibcUnixSolarishGetpagesize()
 
 public actual fun getpagesizes(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishGetpagesizes")
@@ -903,19 +903,19 @@ public actual fun lgrpInit(view: LgrpViewT): LgrpCookieT =
 private external fun wasiLibcUnixSolarishLgrpFini(cookie: Long): Int
 
 public actual fun lgrpFini(cookie: LgrpCookieT): CInt =
-    wasiLibcUnixSolarishLgrpFini(cookie.toLong()).toInt()
+    wasiLibcUnixSolarishLgrpFini(cookie.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishLgrpAffinityGet")
 private external fun wasiLibcUnixSolarishLgrpAffinityGet(idtype: Int, id: Int, lgrp: Int): Int
 
 public actual fun lgrpAffinityGet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT): LgrpAffinityT =
-    wasiLibcUnixSolarishLgrpAffinityGet(idtype.toInt(), id, lgrp).toInt()
+    wasiLibcUnixSolarishLgrpAffinityGet(idtype.toInt(), id, lgrp)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishLgrpAffinitySet")
 private external fun wasiLibcUnixSolarishLgrpAffinitySet(idtype: Int, id: Int, lgrp: Int, aff: Int): Int
 
 public actual fun lgrpAffinitySet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT, aff: LgrpAffinityT): CInt =
-    wasiLibcUnixSolarishLgrpAffinitySet(idtype.toInt(), id, lgrp, aff).toInt()
+    wasiLibcUnixSolarishLgrpAffinitySet(idtype.toInt(), id, lgrp, aff)
 
 public actual fun lgrpCpus(cookie: LgrpCookieT, lgrp: LgrpIdT, cpuids: MutPtr<ProcessoridT>, count: CUint, content: LgrpContentT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishLgrpCpus")
@@ -924,13 +924,13 @@ public actual fun lgrpCpus(cookie: LgrpCookieT, lgrp: LgrpIdT, cpuids: MutPtr<Pr
 private external fun wasiLibcUnixSolarishLgrpMemSize(cookie: Long, lgrp: Int, tpe: Int, content: Int): Long
 
 public actual fun lgrpMemSize(cookie: LgrpCookieT, lgrp: LgrpIdT, tpe: LgrpMemSizeFlagT, content: LgrpContentT): LgrpMemSizeT =
-    wasiLibcUnixSolarishLgrpMemSize(cookie.toLong(), lgrp, tpe.toInt(), content.toInt()).toLong()
+    wasiLibcUnixSolarishLgrpMemSize(cookie.toLong(), lgrp, tpe.toInt(), content.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishLgrpNlgrps")
 private external fun wasiLibcUnixSolarishLgrpNlgrps(cookie: Long): Int
 
 public actual fun lgrpNlgrps(cookie: LgrpCookieT): CInt =
-    wasiLibcUnixSolarishLgrpNlgrps(cookie.toLong()).toInt()
+    wasiLibcUnixSolarishLgrpNlgrps(cookie.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishLgrpView")
 private external fun wasiLibcUnixSolarishLgrpView(cookie: Long): Int
@@ -942,13 +942,13 @@ public actual fun lgrpView(cookie: LgrpCookieT): LgrpViewT =
 private external fun wasiLibcUnixSolarishLgrpHome(idtype: Int, id: Int): Int
 
 public actual fun lgrpHome(idtype: IdtypeT, id: IdT): LgrpIdT =
-    wasiLibcUnixSolarishLgrpHome(idtype.toInt(), id).toInt()
+    wasiLibcUnixSolarishLgrpHome(idtype.toInt(), id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixSolarishLgrpVersion")
 private external fun wasiLibcUnixSolarishLgrpVersion(version: Int): Int
 
 public actual fun lgrpVersion(version: CInt): CInt =
-    wasiLibcUnixSolarishLgrpVersion(version).toInt()
+    wasiLibcUnixSolarishLgrpVersion(version)
 
 public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: MutPtr<LgrpIdT>, count: CUint, tpe: LgrpRsrcT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixSolarishLgrpResources")
@@ -957,4 +957,4 @@ public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: MutPt
 private external fun wasiLibcUnixSolarishLgrpRoot(cookie: Long): Int
 
 public actual fun lgrpRoot(cookie: LgrpCookieT): LgrpIdT =
-    wasiLibcUnixSolarishLgrpRoot(cookie.toLong()).toInt()
+    wasiLibcUnixSolarishLgrpRoot(cookie.toLong())

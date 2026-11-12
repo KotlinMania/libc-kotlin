@@ -469,13 +469,13 @@ public data class FdSet(
                     FdSet(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64))
                         ).readNative(addr).toLongArray(),
                     )
                 override fun writeNative(addr: Long, value: FdSet) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (FD_SETSIZE / 64))
                     ).writeNative(addr, value.fdsBits.toList())
                 }
             }

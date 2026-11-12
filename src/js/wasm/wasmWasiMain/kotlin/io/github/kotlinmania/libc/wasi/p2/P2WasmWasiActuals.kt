@@ -16,7 +16,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcWasiP2Socket(domain: Int, type: Int, protocol: Int): Int
 
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
-    wasiLibcWasiP2Socket(domain, type, protocol).toInt()
+    wasiLibcWasiP2Socket(domain, type, protocol)
 
 public actual fun connect(fd: CInt, name: ConstPtr<Sockaddr>, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWasiP2Connect")
@@ -28,7 +28,7 @@ public actual fun bind(socket: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT
 private external fun wasiLibcWasiP2Listen(socket: Int, backlog: Int): Int
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    wasiLibcWasiP2Listen(socket, backlog).toInt()
+    wasiLibcWasiP2Listen(socket, backlog)
 
 public actual fun accept(socket: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcWasiP2Accept")

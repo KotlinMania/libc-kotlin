@@ -38,7 +38,7 @@ public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
 private external fun wasiLibcUnixRedoxGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixRedoxGetdtablesize().toInt()
+    wasiLibcUnixRedoxGetdtablesize()
 
 public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixRedoxGetresgid")
@@ -50,13 +50,13 @@ public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr
 private external fun wasiLibcUnixRedoxSetresgid(rgid: Int, egid: Int, sgid: Int): Int
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    wasiLibcUnixRedoxSetresgid(rgid, egid, sgid).toInt()
+    wasiLibcUnixRedoxSetresgid(rgid, egid, sgid)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixRedoxSetresuid")
 private external fun wasiLibcUnixRedoxSetresuid(ruid: Int, euid: Int, suid: Int): Int
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    wasiLibcUnixRedoxSetresuid(ruid, euid, suid).toInt()
+    wasiLibcUnixRedoxSetresuid(ruid, euid, suid)
 
 public actual fun getgrent(): MutPtr<Group> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixRedoxGetgrent")
@@ -169,13 +169,13 @@ public actual fun strlcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, siz: SizeT):
 private external fun wasiLibcUnixRedoxEpollCreate(size: Int): Int
 
 public actual fun epollCreate(size: CInt): CInt =
-    wasiLibcUnixRedoxEpollCreate(size).toInt()
+    wasiLibcUnixRedoxEpollCreate(size)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixRedoxEpollCreate1")
 private external fun wasiLibcUnixRedoxEpollCreate1(flags: Int): Int
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    wasiLibcUnixRedoxEpollCreate1(flags).toInt()
+    wasiLibcUnixRedoxEpollCreate1(flags)
 
 public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixRedoxEpollWait")
@@ -205,13 +205,13 @@ public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixRedoxGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixRedoxGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixRedoxGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixRedoxSetpriority")
 private external fun wasiLibcUnixRedoxSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixRedoxSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixRedoxSetpriority(which, who.toInt(), prio)
 
 public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixRedoxGetrlimit")
@@ -271,4 +271,4 @@ public actual fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>
 private external fun wasiLibcUnixRedoxLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    wasiLibcUnixRedoxLoginTty(fd).toInt()
+    wasiLibcUnixRedoxLoginTty(fd)

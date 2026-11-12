@@ -73,7 +73,7 @@ public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPt
 private external fun wasiLibcUnixLinuxlikeLinuxMrand48(): Long
 
 public actual fun mrand48(): CLong =
-    wasiLibcUnixLinuxlikeLinuxMrand48().toLong()
+    wasiLibcUnixLinuxlikeLinuxMrand48()
 
 public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSeed48")
@@ -96,7 +96,7 @@ public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
 private external fun wasiLibcUnixLinuxlikeLinuxSemget(key: Int, nsems: Int, semflag: Int): Int
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxSemget(key, nsems, semflag).toInt()
+    wasiLibcUnixLinuxlikeLinuxSemget(key, nsems, semflag)
 
 public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSemop")
@@ -111,7 +111,7 @@ public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxMsgget(key: Int, msgflg: Int): Int
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxMsgget(key, msgflg).toInt()
+    wasiLibcUnixLinuxlikeLinuxMsgget(key, msgflg)
 
 public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxMsgrcv")
@@ -123,19 +123,19 @@ public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgfl
 private external fun wasiLibcUnixLinuxlikeLinuxFallocate(fd: Int, mode: Int, offset: Long, len: Long): Int
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixLinuxlikeLinuxFallocate(fd, mode, offset, len).toInt()
+    wasiLibcUnixLinuxlikeLinuxFallocate(fd, mode, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxPosixFallocate")
 private external fun wasiLibcUnixLinuxlikeLinuxPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixLinuxlikeLinuxPosixFallocate(fd, offset, len).toInt()
+    wasiLibcUnixLinuxlikeLinuxPosixFallocate(fd, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxReadahead")
 private external fun wasiLibcUnixLinuxlikeLinuxReadahead(fd: Int, offset: Long, count: Long): Long
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    wasiLibcUnixLinuxlikeLinuxReadahead(fd, offset, count.toLong()).toLong()
+    wasiLibcUnixLinuxlikeLinuxReadahead(fd, offset, count.toLong())
 
 public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGetxattr")
@@ -180,7 +180,7 @@ public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt
 private external fun wasiLibcUnixLinuxlikeLinuxTimerfdCreate(clockid: Int, flags: Int): Int
 
 public actual fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxTimerfdCreate(clockid, flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxTimerfdCreate(clockid, flags)
 
 public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxTimerfdGettime")
@@ -198,7 +198,7 @@ public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: 
 private external fun wasiLibcUnixLinuxlikeLinuxDup3(oldfd: Int, newfd: Int, flags: Int): Int
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxDup3(oldfd, newfd, flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxDup3(oldfd, newfd, flags)
 
 public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSigtimedwait")
@@ -213,19 +213,19 @@ public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT
 private external fun wasiLibcUnixLinuxlikeLinuxReboot(howTo: Int): Int
 
 public actual fun reboot(howTo: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxReboot(howTo).toInt()
+    wasiLibcUnixLinuxlikeLinuxReboot(howTo)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxSetfsgid")
 private external fun wasiLibcUnixLinuxlikeLinuxSetfsgid(gid: Int): Int
 
 public actual fun setfsgid(gid: GidT): CInt =
-    wasiLibcUnixLinuxlikeLinuxSetfsgid(gid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxSetfsgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxSetfsuid")
 private external fun wasiLibcUnixLinuxlikeLinuxSetfsuid(uid: Int): Int
 
 public actual fun setfsuid(uid: UidT): CInt =
-    wasiLibcUnixLinuxlikeLinuxSetfsuid(uid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxSetfsuid(uid.toInt())
 
 public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxMkfifoat")
@@ -234,7 +234,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT):
 private external fun wasiLibcUnixLinuxlikeLinuxSyncFileRange(fd: Int, offset: Long, nbytes: Long, flags: Int): Int
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    wasiLibcUnixLinuxlikeLinuxSyncFileRange(fd, offset, nbytes, flags.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxSyncFileRange(fd, offset, nbytes, flags.toInt())
 
 public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxPosixMadvise")
@@ -249,7 +249,7 @@ public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxVhangup(): Int
 
 public actual fun vhangup(): CInt =
-    wasiLibcUnixLinuxlikeLinuxVhangup().toInt()
+    wasiLibcUnixLinuxlikeLinuxVhangup()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxSync")
 private external fun wasiLibcUnixLinuxlikeLinuxSync(): Unit
@@ -261,7 +261,7 @@ public actual fun sync(): Unit =
 private external fun wasiLibcUnixLinuxlikeLinuxSyncfs(fd: Int): Int
 
 public actual fun syncfs(fd: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxSyncfs(fd).toInt()
+    wasiLibcUnixLinuxlikeLinuxSyncfs(fd)
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSyscall")
@@ -273,13 +273,13 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPt
 private external fun wasiLibcUnixLinuxlikeLinuxEpollCreate(size: Int): Int
 
 public actual fun epollCreate(size: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxEpollCreate(size).toInt()
+    wasiLibcUnixLinuxlikeLinuxEpollCreate(size)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxEpollCreate1")
 private external fun wasiLibcUnixLinuxlikeLinuxEpollCreate1(flags: Int): Int
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxEpollCreate1(flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxEpollCreate1(flags)
 
 public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxEpollWait")
@@ -291,7 +291,7 @@ public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEv
 private external fun wasiLibcUnixLinuxlikeLinuxUnshare(flags: Int): Int
 
 public actual fun unshare(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxUnshare(flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxUnshare(flags)
 
 public actual fun umount(target: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxUmount")
@@ -300,7 +300,7 @@ public actual fun umount(target: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxTee(fdIn: Int, fdOut: Int, len: Long, flags: Int): Long
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    wasiLibcUnixLinuxlikeLinuxTee(fdIn, fdOut, len.toLong(), flags.toInt()).toLong()
+    wasiLibcUnixLinuxlikeLinuxTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
 public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSplice")
@@ -309,7 +309,7 @@ public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: 
 private external fun wasiLibcUnixLinuxlikeLinuxEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxEventfd(initval.toInt(), flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxEventfd(initval.toInt(), flags)
 
 public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxEventfdRead")
@@ -318,7 +318,7 @@ public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxEventfdWrite(fd: Int, value: Long): Int
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    wasiLibcUnixLinuxlikeLinuxEventfdWrite(fd, value.toLong()).toInt()
+    wasiLibcUnixLinuxlikeLinuxEventfdWrite(fd, value.toLong())
 
 public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSchedRrGetInterval")
@@ -330,7 +330,7 @@ public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxSetns(fd: Int, nstype: Int): Int
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxSetns(fd, nstype).toInt()
+    wasiLibcUnixLinuxlikeLinuxSetns(fd, nstype)
 
 public actual fun swapoff(path: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSwapoff")
@@ -342,7 +342,7 @@ public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags:
 private external fun wasiLibcUnixLinuxlikeLinuxPersonality(persona: Long): Int
 
 public actual fun personality(persona: CUlong): CInt =
-    wasiLibcUnixLinuxlikeLinuxPersonality(persona.toLong()).toInt()
+    wasiLibcUnixLinuxlikeLinuxPersonality(persona.toLong())
 
 public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSchedGetparam")
@@ -354,7 +354,7 @@ public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: C
 private external fun wasiLibcUnixLinuxlikeLinuxSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    wasiLibcUnixLinuxlikeLinuxSchedGetscheduler(pid).toInt()
+    wasiLibcUnixLinuxlikeLinuxSchedGetscheduler(pid)
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxClockNanosleep")
@@ -378,7 +378,7 @@ public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixLinuxlikeLinuxGetdtablesize().toInt()
+    wasiLibcUnixLinuxlikeLinuxGetdtablesize()
 
 public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxGetgrouplist")
@@ -453,19 +453,19 @@ public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, st
 private external fun wasiLibcUnixLinuxlikeLinuxInotifyRmWatch(fd: Int, wd: Int): Int
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxInotifyRmWatch(fd, wd).toInt()
+    wasiLibcUnixLinuxlikeLinuxInotifyRmWatch(fd, wd)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxInotifyInit")
 private external fun wasiLibcUnixLinuxlikeLinuxInotifyInit(): Int
 
 public actual fun inotifyInit(): CInt =
-    wasiLibcUnixLinuxlikeLinuxInotifyInit().toInt()
+    wasiLibcUnixLinuxlikeLinuxInotifyInit()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxInotifyInit1")
 private external fun wasiLibcUnixLinuxlikeLinuxInotifyInit1(flags: Int): Int
 
 public actual fun inotifyInit1(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxInotifyInit1(flags).toInt()
+    wasiLibcUnixLinuxlikeLinuxInotifyInit1(flags)
 
 public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxInotifyAddWatch")
@@ -474,13 +474,13 @@ public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): 
 private external fun wasiLibcUnixLinuxlikeLinuxFanotifyInit(flags: Int, eventFFlags: Int): Int
 
 public actual fun fanotifyInit(flags: CUint, eventFFlags: CUint): CInt =
-    wasiLibcUnixLinuxlikeLinuxFanotifyInit(flags.toInt(), eventFFlags.toInt()).toInt()
+    wasiLibcUnixLinuxlikeLinuxFanotifyInit(flags.toInt(), eventFFlags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxGethostid")
 private external fun wasiLibcUnixLinuxlikeLinuxGethostid(): Long
 
 public actual fun gethostid(): CLong =
-    wasiLibcUnixLinuxlikeLinuxGethostid().toLong()
+    wasiLibcUnixLinuxlikeLinuxGethostid()
 
 public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxKlogctl")
@@ -489,7 +489,7 @@ public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CIn
 private external fun wasiLibcUnixLinuxlikeLinuxFallocate64(fd: Int, mode: Int, offset: Long, len: Long): Int
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
-    wasiLibcUnixLinuxlikeLinuxFallocate64(fd, mode, offset, len).toInt()
+    wasiLibcUnixLinuxlikeLinuxFallocate64(fd, mode, offset, len)
 
 public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxFgetpos64")
@@ -501,7 +501,7 @@ public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): Mut
 private external fun wasiLibcUnixLinuxlikeLinuxPosixFallocate64(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    wasiLibcUnixLinuxlikeLinuxPosixFallocate64(fd, offset, len).toInt()
+    wasiLibcUnixLinuxlikeLinuxPosixFallocate64(fd, offset, len)
 
 public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxSendfile64")

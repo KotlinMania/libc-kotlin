@@ -33,4 +33,4 @@ public actual fun recvmsg(s: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
 private external fun wasiLibcUnixNewlibEspidfEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcUnixNewlibEspidfEventfd(initval.toInt(), flags).toInt()
+    wasiLibcUnixNewlibEspidfEventfd(initval.toInt(), flags)

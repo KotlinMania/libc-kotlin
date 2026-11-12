@@ -43,13 +43,13 @@ public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
 private external fun wasiLibcNewQurtStdioGetchar(): Int
 
 public actual fun getchar(): CInt =
-    wasiLibcNewQurtStdioGetchar().toInt()
+    wasiLibcNewQurtStdioGetchar()
 
 @kotlin.wasm.WasmImport("libc", "libcNewQurtStdioPutchar")
 private external fun wasiLibcNewQurtStdioPutchar(c: Int): Int
 
 public actual fun putchar(c: CInt): CInt =
-    wasiLibcNewQurtStdioPutchar(c).toInt()
+    wasiLibcNewQurtStdioPutchar(c)
 
 public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtStdioUngetc")

@@ -43,13 +43,13 @@ public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
 private external fun wasiLibcUnixHaikuGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixHaikuGetpriority(which, who).toInt()
+    wasiLibcUnixHaikuGetpriority(which, who)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuSetpriority")
 private external fun wasiLibcUnixHaikuSetpriority(which: Int, who: Int, priority: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
-    wasiLibcUnixHaikuSetpriority(which, who, priority).toInt()
+    wasiLibcUnixHaikuSetpriority(which, who, priority)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuEndusershell")
 private external fun wasiLibcUnixHaikuEndusershell(): Unit
@@ -67,7 +67,7 @@ public actual fun getusershell(): MutPtr<CChar> =
 private external fun wasiLibcUnixHaikuIssetugid(): Int
 
 public actual fun issetugid(): CInt =
-    wasiLibcUnixHaikuIssetugid().toInt()
+    wasiLibcUnixHaikuIssetugid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuSetusershell")
 private external fun wasiLibcUnixHaikuSetusershell(): Unit
@@ -91,19 +91,19 @@ public actual fun errnop(): MutPtr<CInt> =
 private external fun wasiLibcUnixHaikuAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixHaikuAbs(i).toInt()
+    wasiLibcUnixHaikuAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuLabs")
 private external fun wasiLibcUnixHaikuLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixHaikuLabs(i).toLong()
+    wasiLibcUnixHaikuLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuRand")
 private external fun wasiLibcUnixHaikuRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixHaikuRand().toInt()
+    wasiLibcUnixHaikuRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuSrand")
 private external fun wasiLibcUnixHaikuSrand(seed: Int): Unit
@@ -263,13 +263,13 @@ public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): C
 private external fun wasiLibcUnixHaikuPosixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    wasiLibcUnixHaikuPosixFadvise(fd, offset, len, advice).toInt()
+    wasiLibcUnixHaikuPosixFadvise(fd, offset, len, advice)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuPosixFallocate")
 private external fun wasiLibcUnixHaikuPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixHaikuPosixFallocate(fd, offset, len).toInt()
+    wasiLibcUnixHaikuPosixFallocate(fd, offset, len)
 
 public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuShmOpen")
@@ -334,7 +334,7 @@ public actual fun semClose(sem: MutPtr<SemT>): CInt =
 private external fun wasiLibcUnixHaikuGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixHaikuGetdtablesize().toInt()
+    wasiLibcUnixHaikuGetdtablesize()
 
 public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuGetgrnamR")
@@ -465,7 +465,7 @@ public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
 private external fun wasiLibcUnixHaikuMsgget(key: Int, msgflg: Int): Int
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    wasiLibcUnixHaikuMsgget(key, msgflg).toInt()
+    wasiLibcUnixHaikuMsgget(key, msgflg)
 
 public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuMsgrcv")
@@ -477,7 +477,7 @@ public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgfl
 private external fun wasiLibcUnixHaikuSemget(key: Int, nsems: Int, semflg: Int): Int
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    wasiLibcUnixHaikuSemget(key, nsems, semflg).toInt()
+    wasiLibcUnixHaikuSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuSemctl")
@@ -501,7 +501,7 @@ public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPt
 private external fun wasiLibcUnixHaikuHcreate(nelt: Long): Int
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    wasiLibcUnixHaikuHcreate(nelt.toLong()).toInt()
+    wasiLibcUnixHaikuHcreate(nelt.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuHdestroy")
 private external fun wasiLibcUnixHaikuHdestroy(): Unit
@@ -516,7 +516,7 @@ public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
 private external fun wasiLibcUnixHaikuDrand48(): Double
 
 public actual fun drand48(): CDouble =
-    wasiLibcUnixHaikuDrand48().toDouble()
+    wasiLibcUnixHaikuDrand48()
 
 public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuErand48")
@@ -525,7 +525,7 @@ public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
 private external fun wasiLibcUnixHaikuLrand48(): Long
 
 public actual fun lrand48(): CLong =
-    wasiLibcUnixHaikuLrand48().toLong()
+    wasiLibcUnixHaikuLrand48()
 
 public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNrand48")
@@ -534,7 +534,7 @@ public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
 private external fun wasiLibcUnixHaikuMrand48(): Long
 
 public actual fun mrand48(): CLong =
-    wasiLibcUnixHaikuMrand48().toLong()
+    wasiLibcUnixHaikuMrand48()
 
 public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuJrand48")
@@ -554,7 +554,7 @@ public actual fun lcong48(p: MutPtr<CUshort>): Unit = throw UnsupportedOperation
 private external fun wasiLibcUnixHaikuClearenv(): Int
 
 public actual fun clearenv(): CInt =
-    wasiLibcUnixHaikuClearenv().toInt()
+    wasiLibcUnixHaikuClearenv()
 
 public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuCtermid")
@@ -569,7 +569,7 @@ public actual fun sync(): Unit =
 private external fun wasiLibcUnixHaikuGetpagesize(): Int
 
 public actual fun getpagesize(): CInt =
-    wasiLibcUnixHaikuGetpagesize().toInt()
+    wasiLibcUnixHaikuGetpagesize()
 
 public actual fun brk(addr: MutPtr<CVoid>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBrk")

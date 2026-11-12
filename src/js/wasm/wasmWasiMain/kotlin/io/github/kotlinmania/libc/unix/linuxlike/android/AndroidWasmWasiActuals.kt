@@ -110,13 +110,13 @@ public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
 private external fun wasiLibcUnixLinuxlikeAndroidGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    wasiLibcUnixLinuxlikeAndroidGetpriority(which, who.toInt()).toInt()
+    wasiLibcUnixLinuxlikeAndroidGetpriority(which, who.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidSetpriority")
 private external fun wasiLibcUnixLinuxlikeAndroidSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidSetpriority(which, who.toInt(), prio).toInt()
+    wasiLibcUnixLinuxlikeAndroidSetpriority(which, who.toInt(), prio)
 
 public actual fun schedCpualloc(count: SizeT): MutPtr<CpuSetT> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSchedCpualloc")
@@ -130,7 +130,7 @@ public actual fun schedCpucount(setsize: SizeT, set: ConstPtr<CpuSetT>): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidSchedGetcpu(): Int
 
 public actual fun schedGetcpu(): CInt =
-    wasiLibcUnixLinuxlikeAndroidSchedGetcpu().toInt()
+    wasiLibcUnixLinuxlikeAndroidSchedGetcpu()
 
 public actual fun mallinfo(): Mallinfo =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidMallinfo")
@@ -162,25 +162,25 @@ public actual fun telldir(dirp: MutPtr<DIR>): CLong =
 private external fun wasiLibcUnixLinuxlikeAndroidFallocate(fd: Int, mode: Int, offset: Long, len: Long): Int
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixLinuxlikeAndroidFallocate(fd, mode, offset, len).toInt()
+    wasiLibcUnixLinuxlikeAndroidFallocate(fd, mode, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidFallocate64")
 private external fun wasiLibcUnixLinuxlikeAndroidFallocate64(fd: Int, mode: Int, offset: Long, len: Long): Int
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
-    wasiLibcUnixLinuxlikeAndroidFallocate64(fd, mode, offset, len).toInt()
+    wasiLibcUnixLinuxlikeAndroidFallocate64(fd, mode, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidPosixFallocate")
 private external fun wasiLibcUnixLinuxlikeAndroidPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    wasiLibcUnixLinuxlikeAndroidPosixFallocate(fd, offset, len).toInt()
+    wasiLibcUnixLinuxlikeAndroidPosixFallocate(fd, offset, len)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidPosixFallocate64")
 private external fun wasiLibcUnixLinuxlikeAndroidPosixFallocate64(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    wasiLibcUnixLinuxlikeAndroidPosixFallocate64(fd, offset, len).toInt()
+    wasiLibcUnixLinuxlikeAndroidPosixFallocate64(fd, offset, len)
 
 public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidGetxattr")
@@ -225,7 +225,7 @@ public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt
 private external fun wasiLibcUnixLinuxlikeAndroidTimerfdCreate(clock: Int, flags: Int): Int
 
 public actual fun timerfdCreate(clock: ClockidT, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidTimerfdCreate(clock, flags).toInt()
+    wasiLibcUnixLinuxlikeAndroidTimerfdCreate(clock, flags)
 
 public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr<Itimerspec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidTimerfdGettime")
@@ -246,13 +246,13 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPt
 private external fun wasiLibcUnixLinuxlikeAndroidEpollCreate(size: Int): Int
 
 public actual fun epollCreate(size: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidEpollCreate(size).toInt()
+    wasiLibcUnixLinuxlikeAndroidEpollCreate(size)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidEpollCreate1")
 private external fun wasiLibcUnixLinuxlikeAndroidEpollCreate1(flags: Int): Int
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidEpollCreate1(flags).toInt()
+    wasiLibcUnixLinuxlikeAndroidEpollCreate1(flags)
 
 public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidEpollWait")
@@ -264,7 +264,7 @@ public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEv
 private external fun wasiLibcUnixLinuxlikeAndroidUnshare(flags: Int): Int
 
 public actual fun unshare(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidUnshare(flags).toInt()
+    wasiLibcUnixLinuxlikeAndroidUnshare(flags)
 
 public actual fun umount(target: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidUmount")
@@ -273,13 +273,13 @@ public actual fun umount(target: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMax(policy).toInt()
+    wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMax(policy)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidTee")
 private external fun wasiLibcUnixLinuxlikeAndroidTee(fdIn: Int, fdOut: Int, len: Long, flags: Int): Long
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    wasiLibcUnixLinuxlikeAndroidTee(fdIn, fdOut, len.toLong(), flags.toInt()).toLong()
+    wasiLibcUnixLinuxlikeAndroidTee(fdIn, fdOut, len.toLong(), flags.toInt())
 
 public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSettimeofday")
@@ -291,7 +291,7 @@ public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: 
 private external fun wasiLibcUnixLinuxlikeAndroidEventfd(initval: Int, flags: Int): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidEventfd(initval.toInt(), flags).toInt()
+    wasiLibcUnixLinuxlikeAndroidEventfd(initval.toInt(), flags)
 
 public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidEventfdRead")
@@ -300,7 +300,7 @@ public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidEventfdWrite(fd: Int, value: Long): Int
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    wasiLibcUnixLinuxlikeAndroidEventfdWrite(fd, value.toLong()).toInt()
+    wasiLibcUnixLinuxlikeAndroidEventfdWrite(fd, value.toLong())
 
 public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSchedRrGetInterval")
@@ -318,7 +318,7 @@ public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidSetns(fd: Int, nstype: Int): Int
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidSetns(fd, nstype).toInt()
+    wasiLibcUnixLinuxlikeAndroidSetns(fd, nstype)
 
 public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSwapoff")
@@ -333,7 +333,7 @@ public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: C
 private external fun wasiLibcUnixLinuxlikeAndroidPersonality(persona: Int): Int
 
 public actual fun personality(persona: CUint): CInt =
-    wasiLibcUnixLinuxlikeAndroidPersonality(persona.toInt()).toInt()
+    wasiLibcUnixLinuxlikeAndroidPersonality(persona.toInt())
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidPrctl")
@@ -351,7 +351,7 @@ public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: C
 private external fun wasiLibcUnixLinuxlikeAndroidSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    wasiLibcUnixLinuxlikeAndroidSchedGetscheduler(pid).toInt()
+    wasiLibcUnixLinuxlikeAndroidSchedGetscheduler(pid)
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidClockNanosleep")
@@ -363,7 +363,7 @@ public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMin(policy).toInt()
+    wasiLibcUnixLinuxlikeAndroidSchedGetPriorityMin(policy)
 
 public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSysinfo")
@@ -387,13 +387,13 @@ public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, co
 private external fun wasiLibcUnixLinuxlikeAndroidSetfsgid(gid: Int): Int
 
 public actual fun setfsgid(gid: GidT): CInt =
-    wasiLibcUnixLinuxlikeAndroidSetfsgid(gid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeAndroidSetfsgid(gid.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidSetfsuid")
 private external fun wasiLibcUnixLinuxlikeAndroidSetfsuid(uid: Int): Int
 
 public actual fun setfsuid(uid: UidT): CInt =
-    wasiLibcUnixLinuxlikeAndroidSetfsuid(uid.toInt()).toInt()
+    wasiLibcUnixLinuxlikeAndroidSetfsuid(uid.toInt())
 
 public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSigsuspend")
@@ -423,7 +423,7 @@ public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixLinuxlikeAndroidDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixLinuxlikeAndroidDaemon(nochdir, noclose)
 
 public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidSigtimedwait")
@@ -453,19 +453,19 @@ public actual fun errno(): MutPtr<CInt> =
 private external fun wasiLibcUnixLinuxlikeAndroidInotifyRmWatch(fd: Int, wd: Int): Int
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidInotifyRmWatch(fd, wd.toInt()).toInt()
+    wasiLibcUnixLinuxlikeAndroidInotifyRmWatch(fd, wd.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidInotifyInit")
 private external fun wasiLibcUnixLinuxlikeAndroidInotifyInit(): Int
 
 public actual fun inotifyInit(): CInt =
-    wasiLibcUnixLinuxlikeAndroidInotifyInit().toInt()
+    wasiLibcUnixLinuxlikeAndroidInotifyInit()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidInotifyInit1")
 private external fun wasiLibcUnixLinuxlikeAndroidInotifyInit1(flags: Int): Int
 
 public actual fun inotifyInit1(flags: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidInotifyInit1(flags).toInt()
+    wasiLibcUnixLinuxlikeAndroidInotifyInit1(flags)
 
 public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidInotifyAddWatch")
@@ -487,13 +487,13 @@ public actual fun androidSetAbortMessage(msg: ConstPtr<CChar>): Unit = throw Uns
 private external fun wasiLibcUnixLinuxlikeAndroidGettid(): Int
 
 public actual fun gettid(): PidT =
-    wasiLibcUnixLinuxlikeAndroidGettid().toInt()
+    wasiLibcUnixLinuxlikeAndroidGettid()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidTgkill")
 private external fun wasiLibcUnixLinuxlikeAndroidTgkill(tgid: Int, tid: Int, sig: Int): Int
 
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidTgkill(tgid, tid, sig).toInt()
+    wasiLibcUnixLinuxlikeAndroidTgkill(tgid, tid, sig)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeAndroidGetauxval")
 private external fun wasiLibcUnixLinuxlikeAndroidGetauxval(type: Long): Long
@@ -561,7 +561,7 @@ public actual fun sync(): Unit =
 private external fun wasiLibcUnixLinuxlikeAndroidSyncfs(fd: Int): Int
 
 public actual fun syncfs(fd: CInt): CInt =
-    wasiLibcUnixLinuxlikeAndroidSyncfs(fd).toInt()
+    wasiLibcUnixLinuxlikeAndroidSyncfs(fd)
 
 public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeAndroidMemmem")

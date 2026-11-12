@@ -42,19 +42,19 @@ public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt 
 private external fun wasiLibcUnixNewlibAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixNewlibAbs(i).toInt()
+    wasiLibcUnixNewlibAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNewlibLabs")
 private external fun wasiLibcUnixNewlibLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixNewlibLabs(i).toLong()
+    wasiLibcUnixNewlibLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNewlibRand")
 private external fun wasiLibcUnixNewlibRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixNewlibRand().toInt()
+    wasiLibcUnixNewlibRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixNewlibSrand")
 private external fun wasiLibcUnixNewlibSrand(seed: Int): Unit
@@ -78,7 +78,7 @@ public actual fun clockGetres(clockId: ClockidT, res: MutPtr<Timespec>): CInt =
 private external fun wasiLibcUnixNewlibClosesocket(sockfd: Int): Int
 
 public actual fun closesocket(sockfd: CInt): CInt =
-    wasiLibcUnixNewlibClosesocket(sockfd).toInt()
+    wasiLibcUnixNewlibClosesocket(sockfd)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNewlibIoctl")
@@ -111,7 +111,7 @@ public actual fun semClose(sem: MutPtr<SemT>): CInt =
 private external fun wasiLibcUnixNewlibGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    wasiLibcUnixNewlibGetdtablesize().toInt()
+    wasiLibcUnixNewlibGetdtablesize()
 
 public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNewlibGetgrnamR")
@@ -135,7 +135,7 @@ public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixNewlibDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixNewlibDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixNewlibDaemon(nochdir, noclose)
 
 public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNewlibGetpwnamR")

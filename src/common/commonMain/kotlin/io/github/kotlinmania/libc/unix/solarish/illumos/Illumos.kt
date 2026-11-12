@@ -316,7 +316,7 @@ public data class FilInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (FILNAME_MAX).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (FILNAME_MAX))
                         ).readNative(addr + 8L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: FilInfo) {
@@ -324,7 +324,7 @@ public data class FilInfo(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.fiPos)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (FILNAME_MAX).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (FILNAME_MAX))
                     ).writeNative(addr + 8L, value.fiName.toList())
                 }
             }

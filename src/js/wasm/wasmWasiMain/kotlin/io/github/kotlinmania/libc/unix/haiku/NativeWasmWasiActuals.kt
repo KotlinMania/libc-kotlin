@@ -32,19 +32,19 @@ public actual fun areaFor(address: MutPtr<CVoid>): AreaId =
 private external fun wasiLibcUnixHaikuNativeDeleteArea(id: Int): Int
 
 public actual fun deleteArea(id: AreaId): StatusT =
-    wasiLibcUnixHaikuNativeDeleteArea(id).toInt()
+    wasiLibcUnixHaikuNativeDeleteArea(id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeResizeArea")
 private external fun wasiLibcUnixHaikuNativeResizeArea(id: Int, newSize: Long): Int
 
 public actual fun resizeArea(id: AreaId, newSize: ULong): StatusT =
-    wasiLibcUnixHaikuNativeResizeArea(id, newSize.toLong()).toInt()
+    wasiLibcUnixHaikuNativeResizeArea(id, newSize.toLong())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSetAreaProtection")
 private external fun wasiLibcUnixHaikuNativeSetAreaProtection(id: Int, newProtection: Int): Int
 
 public actual fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT =
-    wasiLibcUnixHaikuNativeSetAreaProtection(id, newProtection.toInt()).toInt()
+    wasiLibcUnixHaikuNativeSetAreaProtection(id, newProtection.toInt())
 
 public actual fun getAreaInfo(id: AreaId, areaInfo: MutPtr<AreaInfo>, size: ULong): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetAreaInfo")
@@ -74,37 +74,37 @@ public actual fun writePortEtc(port: PortId, code: Int, buffer: ConstPtr<CVoid>,
 private external fun wasiLibcUnixHaikuNativeClosePort(port: Int): Int
 
 public actual fun closePort(port: PortId): StatusT =
-    wasiLibcUnixHaikuNativeClosePort(port).toInt()
+    wasiLibcUnixHaikuNativeClosePort(port)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeDeletePort")
 private external fun wasiLibcUnixHaikuNativeDeletePort(port: Int): Int
 
 public actual fun deletePort(port: PortId): StatusT =
-    wasiLibcUnixHaikuNativeDeletePort(port).toInt()
+    wasiLibcUnixHaikuNativeDeletePort(port)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativePortBufferSize")
 private external fun wasiLibcUnixHaikuNativePortBufferSize(port: Int): Long
 
 public actual fun portBufferSize(port: PortId): SsizeT =
-    wasiLibcUnixHaikuNativePortBufferSize(port).toLong()
+    wasiLibcUnixHaikuNativePortBufferSize(port)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativePortBufferSizeEtc")
 private external fun wasiLibcUnixHaikuNativePortBufferSizeEtc(port: Int, flags: Int, timeout: Long): Long
 
 public actual fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT =
-    wasiLibcUnixHaikuNativePortBufferSizeEtc(port, flags.toInt(), timeout).toLong()
+    wasiLibcUnixHaikuNativePortBufferSizeEtc(port, flags.toInt(), timeout)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativePortCount")
 private external fun wasiLibcUnixHaikuNativePortCount(port: Int): Long
 
 public actual fun portCount(port: PortId): SsizeT =
-    wasiLibcUnixHaikuNativePortCount(port).toLong()
+    wasiLibcUnixHaikuNativePortCount(port)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSetPortOwner")
 private external fun wasiLibcUnixHaikuNativeSetPortOwner(port: Int, team: Int): Int
 
 public actual fun setPortOwner(port: PortId, team: TeamId): StatusT =
-    wasiLibcUnixHaikuNativeSetPortOwner(port, team).toInt()
+    wasiLibcUnixHaikuNativeSetPortOwner(port, team)
 
 public actual fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>, portInfoSize: SizeT): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetPortInfo")
@@ -122,43 +122,43 @@ public actual fun createSem(count: Int, name: ConstPtr<CChar>): SemId =
 private external fun wasiLibcUnixHaikuNativeDeleteSem(id: Int): Int
 
 public actual fun deleteSem(id: SemId): StatusT =
-    wasiLibcUnixHaikuNativeDeleteSem(id).toInt()
+    wasiLibcUnixHaikuNativeDeleteSem(id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeAcquireSem")
 private external fun wasiLibcUnixHaikuNativeAcquireSem(id: Int): Int
 
 public actual fun acquireSem(id: SemId): StatusT =
-    wasiLibcUnixHaikuNativeAcquireSem(id).toInt()
+    wasiLibcUnixHaikuNativeAcquireSem(id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeAcquireSemEtc")
 private external fun wasiLibcUnixHaikuNativeAcquireSemEtc(id: Int, count: Int, flags: Int, timeout: Long): Int
 
 public actual fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
-    wasiLibcUnixHaikuNativeAcquireSemEtc(id, count, flags.toInt(), timeout).toInt()
+    wasiLibcUnixHaikuNativeAcquireSemEtc(id, count, flags.toInt(), timeout)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeReleaseSem")
 private external fun wasiLibcUnixHaikuNativeReleaseSem(id: Int): Int
 
 public actual fun releaseSem(id: SemId): StatusT =
-    wasiLibcUnixHaikuNativeReleaseSem(id).toInt()
+    wasiLibcUnixHaikuNativeReleaseSem(id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeReleaseSemEtc")
 private external fun wasiLibcUnixHaikuNativeReleaseSemEtc(id: Int, count: Int, flags: Int): Int
 
 public actual fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT =
-    wasiLibcUnixHaikuNativeReleaseSemEtc(id, count, flags.toInt()).toInt()
+    wasiLibcUnixHaikuNativeReleaseSemEtc(id, count, flags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSwitchSem")
 private external fun wasiLibcUnixHaikuNativeSwitchSem(semToBeReleased: Int, id: Int): Int
 
 public actual fun switchSem(semToBeReleased: SemId, id: SemId): StatusT =
-    wasiLibcUnixHaikuNativeSwitchSem(semToBeReleased, id).toInt()
+    wasiLibcUnixHaikuNativeSwitchSem(semToBeReleased, id)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSwitchSemEtc")
 private external fun wasiLibcUnixHaikuNativeSwitchSemEtc(semToBeReleased: Int, id: Int, count: Int, flags: Int, timeout: Long): Int
 
 public actual fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT =
-    wasiLibcUnixHaikuNativeSwitchSemEtc(semToBeReleased, id, count, flags.toInt(), timeout).toInt()
+    wasiLibcUnixHaikuNativeSwitchSemEtc(semToBeReleased, id, count, flags.toInt(), timeout)
 
 public actual fun getSemCount(id: SemId, threadCount: MutPtr<Int>): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetSemCount")
@@ -167,7 +167,7 @@ public actual fun getSemCount(id: SemId, threadCount: MutPtr<Int>): StatusT =
 private external fun wasiLibcUnixHaikuNativeSetSemOwner(id: Int, team: Int): Int
 
 public actual fun setSemOwner(id: SemId, team: TeamId): StatusT =
-    wasiLibcUnixHaikuNativeSetSemOwner(id, team).toInt()
+    wasiLibcUnixHaikuNativeSetSemOwner(id, team)
 
 public actual fun getSemInfo(id: SemId, info: MutPtr<SemInfo>, infoSize: SizeT): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetSemInfo")
@@ -179,7 +179,7 @@ public actual fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr
 private external fun wasiLibcUnixHaikuNativeKillTeam(team: Int): Int
 
 public actual fun killTeam(team: TeamId): StatusT =
-    wasiLibcUnixHaikuNativeKillTeam(team).toInt()
+    wasiLibcUnixHaikuNativeKillTeam(team)
 
 public actual fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>, size: SizeT): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetTeamInfo")
@@ -194,19 +194,19 @@ public actual fun spawnThread(func: ThreadFunc, name: ConstPtr<CChar>, priority:
 private external fun wasiLibcUnixHaikuNativeKillThread(thread: Int): Int
 
 public actual fun killThread(thread: ThreadId): StatusT =
-    wasiLibcUnixHaikuNativeKillThread(thread).toInt()
+    wasiLibcUnixHaikuNativeKillThread(thread)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeResumeThread")
 private external fun wasiLibcUnixHaikuNativeResumeThread(thread: Int): Int
 
 public actual fun resumeThread(thread: ThreadId): StatusT =
-    wasiLibcUnixHaikuNativeResumeThread(thread).toInt()
+    wasiLibcUnixHaikuNativeResumeThread(thread)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSuspendThread")
 private external fun wasiLibcUnixHaikuNativeSuspendThread(thread: Int): Int
 
 public actual fun suspendThread(thread: ThreadId): StatusT =
-    wasiLibcUnixHaikuNativeSuspendThread(thread).toInt()
+    wasiLibcUnixHaikuNativeSuspendThread(thread)
 
 public actual fun renameThread(thread: ThreadId, newName: ConstPtr<CChar>): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeRenameThread")
@@ -215,19 +215,19 @@ public actual fun renameThread(thread: ThreadId, newName: ConstPtr<CChar>): Stat
 private external fun wasiLibcUnixHaikuNativeSetThreadPriority(thread: Int, newPriority: Int): Int
 
 public actual fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT =
-    wasiLibcUnixHaikuNativeSetThreadPriority(thread, newPriority).toInt()
+    wasiLibcUnixHaikuNativeSetThreadPriority(thread, newPriority)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSuggestThreadPriority")
 private external fun wasiLibcUnixHaikuNativeSuggestThreadPriority(what: Int, period: Int, jitter: Long, length: Long): Int
 
 public actual fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int =
-    wasiLibcUnixHaikuNativeSuggestThreadPriority(what.toInt(), period, jitter, length).toInt()
+    wasiLibcUnixHaikuNativeSuggestThreadPriority(what.toInt(), period, jitter, length)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeEstimateMaxSchedulingLatency")
 private external fun wasiLibcUnixHaikuNativeEstimateMaxSchedulingLatency(th: Int): Long
 
 public actual fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT =
-    wasiLibcUnixHaikuNativeEstimateMaxSchedulingLatency(th).toLong()
+    wasiLibcUnixHaikuNativeEstimateMaxSchedulingLatency(th)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeExitThread")
 private external fun wasiLibcUnixHaikuNativeExitThread(status: Int): Unit
@@ -248,13 +248,13 @@ public actual fun findThread(name: ConstPtr<CChar>): ThreadId =
 private external fun wasiLibcUnixHaikuNativeGetSchedulerMode(): Int
 
 public actual fun getSchedulerMode(): Int =
-    wasiLibcUnixHaikuNativeGetSchedulerMode().toInt()
+    wasiLibcUnixHaikuNativeGetSchedulerMode()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSetSchedulerMode")
 private external fun wasiLibcUnixHaikuNativeSetSchedulerMode(mode: Int): Int
 
 public actual fun setSchedulerMode(mode: Int): StatusT =
-    wasiLibcUnixHaikuNativeSetSchedulerMode(mode).toInt()
+    wasiLibcUnixHaikuNativeSetSchedulerMode(mode)
 
 public actual fun sendData(thread: ThreadId, code: Int, buffer: ConstPtr<CVoid>, bufferSize: SizeT): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeSendData")
@@ -272,19 +272,19 @@ public actual fun hasData(thread: ThreadId): Boolean =
 private external fun wasiLibcUnixHaikuNativeSnooze(amount: Long): Int
 
 public actual fun snooze(amount: BigtimeT): StatusT =
-    wasiLibcUnixHaikuNativeSnooze(amount).toInt()
+    wasiLibcUnixHaikuNativeSnooze(amount)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSnoozeEtc")
 private external fun wasiLibcUnixHaikuNativeSnoozeEtc(amount: Long, timeBase: Int, flags: Int): Int
 
 public actual fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT =
-    wasiLibcUnixHaikuNativeSnoozeEtc(amount, timeBase, flags.toInt()).toInt()
+    wasiLibcUnixHaikuNativeSnoozeEtc(amount, timeBase, flags.toInt())
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSnoozeUntil")
 private external fun wasiLibcUnixHaikuNativeSnoozeUntil(time: Long, timeBase: Int): Int
 
 public actual fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT =
-    wasiLibcUnixHaikuNativeSnoozeUntil(time, timeBase).toInt()
+    wasiLibcUnixHaikuNativeSnoozeUntil(time, timeBase)
 
 public actual fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>, size: SizeT): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetThreadInfo")
@@ -314,25 +314,25 @@ public actual fun setRealTimeClock(secsSinceJan1st1970: CUlong): Unit =
 private external fun wasiLibcUnixHaikuNativeRealTimeClockUsecs(): Long
 
 public actual fun realTimeClockUsecs(): BigtimeT =
-    wasiLibcUnixHaikuNativeRealTimeClockUsecs().toLong()
+    wasiLibcUnixHaikuNativeRealTimeClockUsecs()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSystemTime")
 private external fun wasiLibcUnixHaikuNativeSystemTime(): Long
 
 public actual fun systemTime(): BigtimeT =
-    wasiLibcUnixHaikuNativeSystemTime().toLong()
+    wasiLibcUnixHaikuNativeSystemTime()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSystemTimeNsecs")
 private external fun wasiLibcUnixHaikuNativeSystemTimeNsecs(): Long
 
 public actual fun systemTimeNsecs(): NanotimeT =
-    wasiLibcUnixHaikuNativeSystemTimeNsecs().toLong()
+    wasiLibcUnixHaikuNativeSystemTimeNsecs()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSetAlarm")
 private external fun wasiLibcUnixHaikuNativeSetAlarm(whenBranch: Long, flags: Int): Long
 
 public actual fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT =
-    wasiLibcUnixHaikuNativeSetAlarm(whenBranch, flags.toInt()).toLong()
+    wasiLibcUnixHaikuNativeSetAlarm(whenBranch, flags.toInt())
 
 public actual fun debugger(message: ConstPtr<CChar>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeDebugger")
 
@@ -340,7 +340,7 @@ public actual fun debugger(message: ConstPtr<CChar>): Unit = throw UnsupportedOp
 private external fun wasiLibcUnixHaikuNativeDisableDebugger(state: Int): Int
 
 public actual fun disableDebugger(state: CInt): CInt =
-    wasiLibcUnixHaikuNativeDisableDebugger(state).toInt()
+    wasiLibcUnixHaikuNativeDisableDebugger(state)
 
 public actual fun getSystemInfo(info: MutPtr<SystemInfo>): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetSystemInfo")
@@ -355,19 +355,19 @@ public actual fun getCpuTopologyInfo(topologyInfos: MutPtr<CpuTopologyNodeInfo>,
 private external fun wasiLibcUnixHaikuNativeIsComputerOn(): Int
 
 public actual fun isComputerOn(): Int =
-    wasiLibcUnixHaikuNativeIsComputerOn().toInt()
+    wasiLibcUnixHaikuNativeIsComputerOn()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeIsComputerOnFire")
 private external fun wasiLibcUnixHaikuNativeIsComputerOnFire(): Double
 
 public actual fun isComputerOnFire(): CDouble =
-    wasiLibcUnixHaikuNativeIsComputerOnFire().toDouble()
+    wasiLibcUnixHaikuNativeIsComputerOnFire()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixHaikuNativeSendSignal")
 private external fun wasiLibcUnixHaikuNativeSendSignal(threadID: Int, signal: Int): Int
 
 public actual fun sendSignal(threadID: ThreadId, signal: CUint): CInt =
-    wasiLibcUnixHaikuNativeSendSignal(threadID, signal.toInt()).toInt()
+    wasiLibcUnixHaikuNativeSendSignal(threadID, signal.toInt())
 
 public actual fun setSignalStack(base: MutPtr<CVoid>, size: SizeT): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeSetSignalStack")
 
@@ -399,7 +399,7 @@ public actual fun fsFopenAttr(fd: CInt, attribute: ConstPtr<CChar>, type: UInt, 
 private external fun wasiLibcUnixHaikuNativeFsCloseAttr(fd: Int): Int
 
 public actual fun fsCloseAttr(fd: CInt): CInt =
-    wasiLibcUnixHaikuNativeFsCloseAttr(fd).toInt()
+    wasiLibcUnixHaikuNativeFsCloseAttr(fd)
 
 public actual fun fsOpenAttrDir(path: ConstPtr<CChar>): MutPtr<DIR> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeFsOpenAttrDir")
@@ -478,7 +478,7 @@ public actual fun loadAddOn(path: ConstPtr<CChar>): ImageId =
 private external fun wasiLibcUnixHaikuNativeUnloadAddOn(image: Int): Int
 
 public actual fun unloadAddOn(image: ImageId): StatusT =
-    wasiLibcUnixHaikuNativeUnloadAddOn(image).toInt()
+    wasiLibcUnixHaikuNativeUnloadAddOn(image)
 
 public actual fun getImageSymbol(image: ImageId, name: ConstPtr<CChar>, symbolType: Int, symbolLocation: MutPtr<MutPtr<CVoid>>): StatusT =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuNativeGetImageSymbol")

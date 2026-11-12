@@ -119,7 +119,7 @@ public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, destructor: Pthread
 private external fun wasiLibcNewQurtPthreadPthreadKeyDelete(key: Int): Int
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    wasiLibcNewQurtPthreadPthreadKeyDelete(key).toInt()
+    wasiLibcNewQurtPthreadPthreadKeyDelete(key)
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewQurtPthreadPthreadGetspecific")

@@ -42,13 +42,13 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedIopl(level: Int): Int
 
 public actual fun iopl(level: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedIopl(level).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedIopl(level)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxL4reSharedIoperm")
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedIoperm(from: Long, num: Long, turnOn: Int): Int
 
 public actual fun ioperm(from: CUlong, num: CUlong, turnOn: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedIoperm(from.toLong(), num.toLong(), turnOn).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedIoperm(from.toLong(), num.toLong(), turnOn)
 
 public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedAioRead")
@@ -102,19 +102,19 @@ public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CI
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedAbs(i).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedAbs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxL4reSharedLabs")
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedLabs(i).toLong()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedLabs(i)
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxL4reSharedRand")
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedRand(): Int
 
 public actual fun rand(): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedRand().toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedRand()
 
 @kotlin.wasm.WasmImport("libc", "libcUnixLinuxlikeLinuxL4reSharedSrand")
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedSrand(seed: Int): Unit
@@ -126,7 +126,7 @@ public actual fun srand(seed: CUint): Unit =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedDrand48(): Double
 
 public actual fun drand48(): CDouble =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedDrand48().toDouble()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedDrand48()
 
 public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedErand48")
@@ -135,7 +135,7 @@ public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedLrand48(): Long
 
 public actual fun lrand48(): CLong =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedLrand48().toLong()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedLrand48()
 
 public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedNrand48")
@@ -201,7 +201,7 @@ public actual fun getspnam(name: ConstPtr<CChar>): MutPtr<Spwd> =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedShmget(key: Int, size: Long, shmflg: Int): Int
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedShmget(key, size.toLong(), shmflg).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedShmget(key, size.toLong(), shmflg)
 
 public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedShmat")
@@ -253,7 +253,7 @@ public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(policy).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(policy)
 
 public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedSettimeofday")
@@ -280,7 +280,7 @@ public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(policy).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(policy)
 
 public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedSysinfo")
@@ -313,7 +313,7 @@ public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedDaemon(nochdir, noclose).toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedDaemon(nochdir, noclose)
 
 public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedSigwait")
@@ -369,7 +369,7 @@ public actual fun iconvClose(cd: IconvT): CInt =
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedGettid(): Int
 
 public actual fun gettid(): PidT =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedGettid().toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedGettid()
 
 public actual fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedTimerCreate")
@@ -393,7 +393,7 @@ public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: 
 private external fun wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetcpu(): Int
 
 public actual fun schedGetcpu(): CInt =
-    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetcpu().toInt()
+    wasiLibcUnixLinuxlikeLinuxL4reSharedSchedGetcpu()
 
 public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixLinuxlikeLinuxL4reSharedGetoptLong")

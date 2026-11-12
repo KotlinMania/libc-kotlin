@@ -1082,7 +1082,7 @@ public val DOT3COMPLIANCE_COLLS: CInt = 2
 // kernControl.h
 public val MAX_KCTL_NAME: Int = 96
 
-public val PROC_PIDLISTFD_SIZE: CInt = sizeOf<ProcFdinfo>(typeLayoutT = ProcFdinfo.typeLayout()).toInt()
+public val PROC_PIDLISTFD_SIZE: CInt = sizeOf<ProcFdinfo>(typeLayoutT = ProcFdinfo.typeLayout())
 
 public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedPolicyDataT>(typeLayoutT = ThreadExtendedPolicy.typeLayout()) / sizeOf<IntegerT>(typeLayoutT = PrimitiveLayouts.I32)).toUInt()
 
