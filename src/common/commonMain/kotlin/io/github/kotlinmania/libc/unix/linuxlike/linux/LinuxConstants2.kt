@@ -1123,7 +1123,7 @@ public val PIDFD_GET_UTS_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 10u)
 
 public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u)
 
-public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>(typeLayoutT = ObjectSlotLayout<TpacketHdr>()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
+public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>(typeLayoutT = TpacketHdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
 
 public val TPACKET2_HDRLEN: Int = ((sizeOf<Tpacket2Hdr>(typeLayoutT = Tpacket2Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
 

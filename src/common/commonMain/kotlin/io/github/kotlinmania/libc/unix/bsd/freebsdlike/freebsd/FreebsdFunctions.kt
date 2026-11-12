@@ -91,7 +91,7 @@ public fun sockcredsize(ngrps: Int): Int {
         } else {
             0
         }
-    return sizeOf<Sockcred>(typeLayoutT = ObjectSlotLayout<Sockcred>()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
+    return sizeOf<Sockcred>(typeLayoutT = Sockcred.typeLayout()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
 }
 
 public fun uname(buf: MutPtr<Utsname>): CInt = xuname(256, MutPtr<CVoid>(buf.rawAddress, buf.rawMeta))
@@ -128,7 +128,7 @@ public fun cpuIsset(cpu: Int, cpuset: CpusetT): Boolean {
 
 public fun cpuCount(cpuset: CpusetT): CInt {
     var s: UInt = 0u
-    val cpusetSize = sizeOf<CpusetT>(typeLayoutT = ObjectSlotLayout<CpusetT>())
+    val cpusetSize = sizeOf<CpusetT>(typeLayoutT = CpusetT.typeLayout())
     val bitsetSize = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>())
     for (i in ((cpuset.bits).slice(0 until (cpusetSize / bitsetSize)))) {
         s += i.countOneBits().toUInt()
@@ -143,7 +143,7 @@ public fun sockcred2size(ngrps: Int): Int {
         } else {
             0
         }
-    return sizeOf<Sockcred2>(typeLayoutT = ObjectSlotLayout<Sockcred2>()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
+    return sizeOf<Sockcred2>(typeLayoutT = Sockcred2.typeLayout()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
 }
 
 public fun protMax(x: CInt): CInt = x shl 16

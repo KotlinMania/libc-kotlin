@@ -56,8 +56,8 @@ public class SchedParam internal constructor(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SchedParam> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SchedParam> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): SchedParam =
                     SchedParam(
                         (

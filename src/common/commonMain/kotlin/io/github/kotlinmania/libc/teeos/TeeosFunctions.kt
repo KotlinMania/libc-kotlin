@@ -345,4 +345,4 @@ public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(sizeOf<CpuSetT>(typeLayoutT = ObjectSlotLayout<CpuSetT>()), cpuset)
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(sizeOf<CpuSetT>(typeLayoutT = CpuSetT.typeLayout()), cpuset)

@@ -4,6 +4,8 @@ package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.newlib.SaFamilyT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public data class SockaddrUn(
     public var sunFamily: SaFamilyT = 0u,
@@ -21,5 +23,28 @@ public data class SockaddrUn(
         var result = this.sunFamily.hashCode()
         result = 31 * result + this.sunPath.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SockaddrUn> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SockaddrUn> {
+                override val alignBytes: Long = 2L
+                override val sizeBytes: Long = 110L
+                override fun readNative(addr: Long): SockaddrUn =
+                    SockaddrUn(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (108).toInt())
+                        ).readNative(addr + 2L).toUByteArray(),
+                    )
+                override fun writeNative(addr: Long, value: SockaddrUn) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.sunFamily)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (108).toInt())
+                    ).writeNative(addr + 2L, value.sunPath.toList())
+                }
+            }
     }
 }

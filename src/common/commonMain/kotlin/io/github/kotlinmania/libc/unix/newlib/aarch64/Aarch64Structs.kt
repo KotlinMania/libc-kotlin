@@ -7,6 +7,8 @@ import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.InPortT
 import io.github.kotlinmania.libc.unix.newlib.InAddr
 import io.github.kotlinmania.libc.unix.newlib.SaFamilyT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public data class Sockaddr(
     public var saLen: UByte = 0u,
@@ -27,6 +29,31 @@ public data class Sockaddr(
         result = 31 * result + this.saFamily.hashCode()
         result = 31 * result + this.saData.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Sockaddr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Sockaddr> {
+                override val alignBytes: Long = 2L
+                override val sizeBytes: Long = 18L
+                override fun readNative(addr: Long): Sockaddr =
+                    Sockaddr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (14).toInt())
+                        ).readNative(addr + 4L).toUByteArray(),
+                    )
+                override fun writeNative(addr: Long, value: Sockaddr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr, value.saLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.saFamily)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (14).toInt())
+                    ).writeNative(addr + 4L, value.saData.toList())
+                }
+            }
     }
 }
 

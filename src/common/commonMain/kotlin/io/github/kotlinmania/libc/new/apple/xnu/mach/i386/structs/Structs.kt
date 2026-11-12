@@ -34,28 +34,28 @@ public data class DarwinMmstReg(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinMmstReg> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinMmstReg> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 1L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): DarwinMmstReg =
                     DarwinMmstReg(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (10).toInt())
-                        ).readNative(addr),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (10).toInt())
+                        ).readNative(addr).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (6).toInt())
-                        ).readNative(addr + 10L),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (6).toInt())
+                        ).readNative(addr + 10L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: DarwinMmstReg) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (10).toInt())
-                    ).writeNative(addr, value.mmstReg)
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (10).toInt())
+                    ).writeNative(addr, value.mmstReg.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (6).toInt())
-                    ).writeNative(addr + 10L, value.mmstRsrv)
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (6).toInt())
+                    ).writeNative(addr + 10L, value.mmstRsrv.toList())
                 }
             }
     }
@@ -76,20 +76,20 @@ public data class DarwinXmmReg(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinXmmReg> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinXmmReg> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 1L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): DarwinXmmReg =
                     DarwinXmmReg(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (16).toInt())
-                        ).readNative(addr),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (16).toInt())
+                        ).readNative(addr).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: DarwinXmmReg) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (16).toInt())
-                    ).writeNative(addr, value.xmmReg)
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (16).toInt())
+                    ).writeNative(addr, value.xmmReg.toList())
                 }
             }
     }
@@ -121,8 +121,8 @@ public class DarwinX86ThreadState64(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86ThreadState64> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86ThreadState64> {
-                override val sizeBytes: Long = 168L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 168L
                 override fun readNative(addr: Long): DarwinX86ThreadState64 =
                     DarwinX86ThreadState64(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
@@ -183,8 +183,8 @@ public data class DarwinX86ExceptionState64(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86ExceptionState64> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86ExceptionState64> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): DarwinX86ExceptionState64 =
                     DarwinX86ExceptionState64(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
@@ -249,14 +249,14 @@ public class DarwinX86FloatState64(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86FloatState64> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DarwinX86FloatState64> {
-                override val sizeBytes: Long = 524L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 524L
                 override fun readNative(addr: Long): DarwinX86FloatState64 =
                     DarwinX86FloatState64(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (2).toInt())
-                        ).readNative(addr),
+                        ).readNative(addr).toIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + 8L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + 10L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 12L),
@@ -297,14 +297,14 @@ public class DarwinX86FloatState64(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (24).toInt())
-                        ).readNative(addr + 424L),
+                        ).readNative(addr + 424L).toUIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 520L),
                     )
                 override fun writeNative(addr: Long, value: DarwinX86FloatState64) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (2).toInt())
-                    ).writeNative(addr, value.fpuReserved)
+                    ).writeNative(addr, value.fpuReserved.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + 8L, value.fpuFcw)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + 10L, value.fpuFsw)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 12L, value.fpuFtw)
@@ -345,7 +345,7 @@ public class DarwinX86FloatState64(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (24).toInt())
-                    ).writeNative(addr + 424L, value.fpuRsrv4)
+                    ).writeNative(addr + 424L, value.fpuRsrv4.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 520L, value.fpuReserved1)
                 }
             }

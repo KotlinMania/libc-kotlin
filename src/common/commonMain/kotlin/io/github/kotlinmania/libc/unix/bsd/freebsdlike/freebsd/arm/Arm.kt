@@ -75,8 +75,8 @@ public class McontextT internal constructor(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
-                override val sizeBytes: Long = 224L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 224L
                 override fun readNative(addr: Long): McontextT =
                     McontextT(
                         (
@@ -91,7 +91,7 @@ public class McontextT internal constructor(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (33).toInt())
-                        ).readNative(addr + 88L),
+                        ).readNative(addr + 88L).toUIntArray(),
                     )
                 override fun writeNative(addr: Long, value: McontextT) {
                     (
@@ -106,7 +106,7 @@ public class McontextT internal constructor(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (33).toInt())
-                    ).writeNative(addr + 88L, value.mcSpare)
+                    ).writeNative(addr + 88L, value.mcSpare.toList())
                 }
             }
 

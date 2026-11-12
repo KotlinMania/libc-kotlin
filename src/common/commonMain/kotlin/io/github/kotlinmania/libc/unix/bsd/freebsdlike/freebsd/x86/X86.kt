@@ -55,8 +55,8 @@ public class McontextT(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
-                override val sizeBytes: Long = 640L
                 override val alignBytes: Long = 16L
+                override val sizeBytes: Long = 640L
                 override fun readNative(addr: Long): McontextT =
                     McontextT(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
@@ -86,7 +86,7 @@ public class McontextT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (128).toInt())
-                        ).readNative(addr + 96L),
+                        ).readNative(addr + 96L).toIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 608L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 612L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 616L),
@@ -94,7 +94,7 @@ public class McontextT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4).toInt())
-                        ).readNative(addr + 624L),
+                        ).readNative(addr + 624L).toIntArray(),
                     )
                 override fun writeNative(addr: Long, value: McontextT) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.mcOnstack)
@@ -124,7 +124,7 @@ public class McontextT(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (128).toInt())
-                    ).writeNative(addr + 96L, value.mcFpstate)
+                    ).writeNative(addr + 96L, value.mcFpstate.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 608L, value.mcFsbase)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 612L, value.mcGsbase)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 616L, value.mcXfpustate)
@@ -132,7 +132,7 @@ public class McontextT(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4).toInt())
-                    ).writeNative(addr + 624L, value.mcSpare2)
+                    ).writeNative(addr + 624L, value.mcSpare2.toList())
                 }
             }
     }

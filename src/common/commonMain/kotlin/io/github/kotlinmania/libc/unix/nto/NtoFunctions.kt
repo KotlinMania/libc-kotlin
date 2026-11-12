@@ -113,16 +113,16 @@ public fun dextraFirst(d: ConstPtr<Dirent>): MutPtr<DirentExtra> {
 }
 
 public fun dextraValid(x: ConstPtr<DirentExtra>, d: ConstPtr<Dirent>): Boolean {
-    val sz = x.rawAddress.toInt() - d.rawAddress.toInt() + sizeOf<DirentExtra>(typeLayoutT = ObjectSlotLayout<DirentExtra>())
+    val sz = x.rawAddress.toInt() - d.rawAddress.toInt() + sizeOf<DirentExtra>(typeLayoutT = DirentExtra.typeLayout())
     val rsz = ((Dirent.typeLayout()).readNative((d).rawAddress).dReclen).toInt()
-    return if (sz > rsz || sz + ((ObjectSlotLayout<DirentExtra>()).readNative((x).rawAddress).dDatalen).toInt() > rsz) {
+    return if (sz > rsz || sz + ((DirentExtra.typeLayout()).readNative((x).rawAddress).dDatalen).toInt() > rsz) {
         false
     } else {
         true
     }
 }
 
-public fun dextraNext(x: ConstPtr<DirentExtra>): MutPtr<DirentExtra> = MutPtr<DirentExtra>(align(x.rawAddress.toInt() + sizeOf<DirentExtra>(typeLayoutT = ObjectSlotLayout<DirentExtra>()) + ((ObjectSlotLayout<DirentExtra>()).readNative((x).rawAddress).dDatalen).toInt(), 8).toLong())
+public fun dextraNext(x: ConstPtr<DirentExtra>): MutPtr<DirentExtra> = MutPtr<DirentExtra>(align(x.rawAddress.toInt() + sizeOf<DirentExtra>(typeLayoutT = DirentExtra.typeLayout()) + ((DirentExtra.typeLayout()).readNative((x).rawAddress).dDatalen).toInt(), 8).toLong())
 
 public fun sockcredsize(ngrps: Int): Int {
     val ngrps1 =
@@ -131,7 +131,7 @@ public fun sockcredsize(ngrps: Int): Int {
         } else {
             0
         }
-    return sizeOf<Sockcred>(typeLayoutT = ObjectSlotLayout<Sockcred>()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
+    return sizeOf<Sockcred>(typeLayoutT = Sockcred.typeLayout()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
 }
 
 public fun wifstopped(status: CInt): Boolean = (status and 0xff) == 0x7f

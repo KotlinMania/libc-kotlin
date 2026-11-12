@@ -94,8 +94,8 @@ public data class J1939Filter(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<J1939Filter> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<J1939Filter> {
-                override val sizeBytes: Long = 32L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 32L
                 override fun readNative(addr: Long): J1939Filter =
                     J1939Filter(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),

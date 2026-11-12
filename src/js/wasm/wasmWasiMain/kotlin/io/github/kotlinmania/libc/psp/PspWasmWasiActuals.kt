@@ -9,7 +9,6 @@ import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // The host must provide the C companion wrapper exports in import module libc.
-
 public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int =
     throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcPspSceAudioChReserve")
 

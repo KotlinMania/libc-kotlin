@@ -13,8 +13,8 @@ public data class Timeval32(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Timeval32> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Timeval32> {
-                override val sizeBytes: Long = 8L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 8L
                 override fun readNative(addr: Long): Timeval32 =
                     Timeval32(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
@@ -62,8 +62,8 @@ public class IfData(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<IfData> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<IfData> {
-                override val sizeBytes: Long = 96L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 96L
                 override fun readNative(addr: Long): IfData =
                     IfData(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr),
@@ -140,8 +140,8 @@ public data class BpfHdr(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<BpfHdr> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<BpfHdr> {
-                override val sizeBytes: Long = 20L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 20L
                 override fun readNative(addr: Long): BpfHdr =
                     BpfHdr(
                         (Timeval32.typeLayout()).readNative(addr),

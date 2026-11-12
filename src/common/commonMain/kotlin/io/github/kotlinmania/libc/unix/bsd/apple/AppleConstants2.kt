@@ -1084,9 +1084,9 @@ public val MAX_KCTL_NAME: Int = 96
 
 public val PROC_PIDLISTFD_SIZE: CInt = sizeOf<ProcFdinfo>(typeLayoutT = ProcFdinfo.typeLayout()).toInt()
 
-public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedPolicyDataT>(typeLayoutT = ObjectSlotLayout<ThreadExtendedPolicy>()) / sizeOf<IntegerT>(typeLayoutT = ObjectSlotLayout<CInt>())).toUInt()
+public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedPolicyDataT>(typeLayoutT = ThreadExtendedPolicy.typeLayout()) / sizeOf<IntegerT>(typeLayoutT = ObjectSlotLayout<CInt>())).toUInt()
 
-public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadTimeConstraintPolicyDataT>(typeLayoutT = ObjectSlotLayout<ThreadTimeConstraintPolicy>()) / sizeOf<IntegerT>(typeLayoutT = ObjectSlotLayout<CInt>())).toUInt()
+public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadTimeConstraintPolicyDataT>(typeLayoutT = ThreadTimeConstraintPolicy.typeLayout()) / sizeOf<IntegerT>(typeLayoutT = ObjectSlotLayout<CInt>())).toUInt()
 
 public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadPrecedencePolicyDataT>(typeLayoutT = ThreadPrecedencePolicy.typeLayout()) / sizeOf<IntegerT>(typeLayoutT = ObjectSlotLayout<CInt>())).toUInt()
 

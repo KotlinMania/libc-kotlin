@@ -99,7 +99,7 @@ public fun sockcredsize(ngrps: Int): Int {
         } else {
             0
         }
-    return sizeOf<Sockcred>(typeLayoutT = ObjectSlotLayout<Sockcred>()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
+    return sizeOf<Sockcred>(typeLayoutT = Sockcred.typeLayout()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
 }
 
 public fun protMprotect(x: CInt): CInt = x shl 3

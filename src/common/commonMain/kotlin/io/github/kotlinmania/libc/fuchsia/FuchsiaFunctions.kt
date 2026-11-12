@@ -44,27 +44,27 @@ public fun interface DlIteratePhdrCallbackCallback {
 // END_PUB_CONST
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
     val fd1 = fd
-    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
-    return ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    return ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    for (idx in ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits).indices) {
-        ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits)[idx] = 0uL
+    for (idx in ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits).indices) {
+        ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits)[idx] = 0uL
     }
 }
 
@@ -108,8 +108,8 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
     }
 
 public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
-    if (((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toULong() >= sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong()) {
-        MutPtr<Cmsghdr>(((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress)
+    if (((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toULong() >= sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong()) {
+        MutPtr<Cmsghdr>(((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress)
     } else {
         MutPtr<Cmsghdr>(0L)
     }
@@ -167,7 +167,7 @@ public fun cmsgLen(cmsg: ConstPtr<Cmsghdr>): SsizeT = ((((Cmsghdr.typeLayout()).
 
 public fun cmsgNext(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CUchar>((ConstPtr((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress, (ConstPtr((cmsg).rawAddress + ((cmsgLen(cmsg)).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawMeta)
 
-public fun mhdrEnd(mhdr: ConstPtr<Msghdr>): MutPtr<CUchar> = MutPtr<CUchar>((MutPtr(((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress + ((((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt()).toLong() * (ObjectSlotLayout<CVoid>()).strideBytes))).rawAddress)
+public fun mhdrEnd(mhdr: ConstPtr<Msghdr>): MutPtr<CUchar> = MutPtr<CUchar>((MutPtr(((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress + ((((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()).toLong() * (ObjectSlotLayout<CVoid>()).strideBytes))).rawAddress)
 
 public expect fun isalnum(c: CInt): CInt
 

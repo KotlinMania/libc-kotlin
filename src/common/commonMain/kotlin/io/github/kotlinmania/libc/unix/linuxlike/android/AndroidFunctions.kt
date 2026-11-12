@@ -104,7 +104,7 @@ public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(sizeOf<CpuSetT>(typeLayoutT = ObjectSlotLayout<CpuSetT>()), cpuset)
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(sizeOf<CpuSetT>(typeLayoutT = CpuSetT.typeLayout()), cpuset)
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEquals(set2.bits)
 

@@ -65,8 +65,8 @@ public data class Gpregs(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Gpregs> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Gpregs> {
-                override val sizeBytes: Long = 264L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 264L
                 override fun readNative(addr: Long): Gpregs =
                     Gpregs(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr),
@@ -76,15 +76,15 @@ public data class Gpregs(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (7).toInt())
-                        ).readNative(addr + 32L),
+                        ).readNative(addr + 32L).toLongArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (12).toInt())
-                        ).readNative(addr + 88L),
+                        ).readNative(addr + 88L).toLongArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (8).toInt())
-                        ).readNative(addr + 184L),
+                        ).readNative(addr + 184L).toLongArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 248L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 256L),
                     )
@@ -96,15 +96,15 @@ public data class Gpregs(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (7).toInt())
-                    ).writeNative(addr + 32L, value.gpT)
+                    ).writeNative(addr + 32L, value.gpT.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (12).toInt())
-                    ).writeNative(addr + 88L, value.gpS)
+                    ).writeNative(addr + 88L, value.gpS.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (8).toInt())
-                    ).writeNative(addr + 184L, value.gpA)
+                    ).writeNative(addr + 184L, value.gpA.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 248L, value.gpSepc)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 256L, value.gpSstatus)
                 }
@@ -121,8 +121,8 @@ public data class Fpregs(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Fpregs> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Fpregs> {
-                override val sizeBytes: Long = 528L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 528L
                 override fun readNative(addr: Long): Fpregs =
                     Fpregs(
                         (
@@ -132,7 +132,7 @@ public data class Fpregs(
                                         .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (2).toInt()),
                                     (32).toInt(),
                                 )
-                        ).readNative(addr),
+                        ).readNative(addr).map { it.toULongArray() },
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 512L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 520L),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 524L),
@@ -145,7 +145,7 @@ public data class Fpregs(
                                     .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (2).toInt()),
                                 (32).toInt(),
                             )
-                    ).writeNative(addr, value.fpX)
+                    ).writeNative(addr, value.fpX.map { it.toList() })
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 512L, value.fpFcsr)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 520L, value.fpFlags)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 524L, value.pad)
@@ -184,8 +184,8 @@ public data class McontextT(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
-                override val sizeBytes: Long = 864L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 864L
                 override fun readNative(addr: Long): McontextT =
                     McontextT(
                         (Gpregs.typeLayout()).readNative(addr),
@@ -195,7 +195,7 @@ public data class McontextT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (8).toInt())
-                        ).readNative(addr + 800L),
+                        ).readNative(addr + 800L).toULongArray(),
                     )
                 override fun writeNative(addr: Long, value: McontextT) {
                     (Gpregs.typeLayout()).writeNative(addr, value.mcGpregs)
@@ -205,7 +205,7 @@ public data class McontextT(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (8).toInt())
-                    ).writeNative(addr + 800L, value.mcSpare)
+                    ).writeNative(addr + 800L, value.mcSpare.toList())
                 }
             }
     }

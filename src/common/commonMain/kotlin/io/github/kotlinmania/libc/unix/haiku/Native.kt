@@ -500,738 +500,75 @@ public class AreaInfo internal constructor(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<AreaInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<AreaInfo> {
+                override val alignBytes: Long = 8L
+                private val off2: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((4L + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 8L)
+                private val off3: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off2 + 8L), 4L)
+                private val off4: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off3 + 4L), 4L)
+                private val off5: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off4 + 4L), 4L)
+                private val off6: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off5 + 4L), 4L)
+                private val off7: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off6 + 4L), 4L)
+                private val off8: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off7 + 4L), 4L)
+                private val off9: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off8 + 4L), 4L)
+                private val off10: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off9 + 4L), 8L)
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(
-                            (
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(
-                                                                                                    (
-                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                            .alignUpBytes(
-                                                                                                                (
-                                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                                        .alignUpBytes(
-                                                                                                                            (
-                                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                    .alignUpBytes(
-                                                                                                                                        (
-                                                                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                                        ),
-                                                                                                                                        8L,
-                                                                                                                                    ) + 8L
-                                                                                                                            ),
-                                                                                                                            4L,
-                                                                                                                        ) + 4L
-                                                                                                                ),
-                                                                                                                4L,
-                                                                                                            ) + 4L
-                                                                                                    ),
-                                                                                                    4L,
-                                                                                                ) + 4L
-                                                                                        ),
-                                                                                        4L,
-                                                                                    ) + 4L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        8L,
-                                    ) + 8L
-                            ),
-                            maxOf(maxOf(4L, 1L), 8L),
-                        )
-                override val alignBytes: Long = maxOf(maxOf(4L, 1L), 8L)
+                        .alignUpBytes((off10 + 8L), 8L)
                 override fun readNative(addr: Long): AreaInfo =
                     AreaInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(4L, 1L),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        8L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    8L,
-                                                ) + 8L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                8L,
-                                                            ) + 8L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                            ),
-                                                                            8L,
-                                                                        ) + 8L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                        ),
-                                                                                        8L,
-                                                                                    ) + 8L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(
-                                                                                                    (
-                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                            .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                    ),
-                                                                                                    8L,
-                                                                                                ) + 8L
-                                                                                        ),
-                                                                                        4L,
-                                                                                    ) + 4L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(
-                                                                                                    (
-                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                            .alignUpBytes(
-                                                                                                                (
-                                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                                        .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                ),
-                                                                                                                8L,
-                                                                                                            ) + 8L
-                                                                                                    ),
-                                                                                                    4L,
-                                                                                                ) + 4L
-                                                                                        ),
-                                                                                        4L,
-                                                                                    ) + 4L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(
-                                                                                                    (
-                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                            .alignUpBytes(
-                                                                                                                (
-                                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                                        .alignUpBytes(
-                                                                                                                            (
-                                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                    .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                            ),
-                                                                                                                            8L,
-                                                                                                                        ) + 8L
-                                                                                                                ),
-                                                                                                                4L,
-                                                                                                            ) + 4L
-                                                                                                    ),
-                                                                                                    4L,
-                                                                                                ) + 4L
-                                                                                        ),
-                                                                                        4L,
-                                                                                    ) + 4L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + 4L).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + off2),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off3),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off4),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off5),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off6),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off7),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off8),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off9),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
                                 .mutPtrLayout<CVoid>(64)
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(
-                                                                                        (
-                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                .alignUpBytes(
-                                                                                                    (
-                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                            .alignUpBytes(
-                                                                                                                (
-                                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                                        .alignUpBytes(
-                                                                                                                            (
-                                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                    .alignUpBytes(
-                                                                                                                                        (
-                                                                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                                        ),
-                                                                                                                                        8L,
-                                                                                                                                    ) + 8L
-                                                                                                                            ),
-                                                                                                                            4L,
-                                                                                                                        ) + 4L
-                                                                                                                ),
-                                                                                                                4L,
-                                                                                                            ) + 4L
-                                                                                                    ),
-                                                                                                    4L,
-                                                                                                ) + 4L
-                                                                                        ),
-                                                                                        4L,
-                                                                                    ) + 4L
-                                                                            ),
-                                                                            4L,
-                                                                        ) + 4L
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        8L,
-                                    ),
-                        ),
+                        ).readNative(addr + off10),
                     )
                 override fun writeNative(addr: Long, value: AreaInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.area)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(4L, 1L),
-                        value.name,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    8L,
-                                ),
-                        value.size,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                8L,
-                                            ) + 8L
-                                    ),
-                                    4L,
-                                ),
-                        value.lock,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                            ),
-                                                            8L,
-                                                        ) + 8L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.protection,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                        ),
-                                                                        8L,
-                                                                    ) + 8L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.team,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(
-                                                                                    (
-                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                            .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                    ),
-                                                                                    8L,
-                                                                                ) + 8L
-                                                                        ),
-                                                                        4L,
-                                                                    ) + 4L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.ramSize,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(
-                                                                                    (
-                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                            .alignUpBytes(
-                                                                                                (
-                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                        .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                ),
-                                                                                                8L,
-                                                                                            ) + 8L
-                                                                                    ),
-                                                                                    4L,
-                                                                                ) + 4L
-                                                                        ),
-                                                                        4L,
-                                                                    ) + 4L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.copyCount,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(
-                                                                                    (
-                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                            .alignUpBytes(
-                                                                                                (
-                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                        .alignUpBytes(
-                                                                                                            (
-                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                    .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                            ),
-                                                                                                            8L,
-                                                                                                        ) + 8L
-                                                                                                ),
-                                                                                                4L,
-                                                                                            ) + 4L
-                                                                                    ),
-                                                                                    4L,
-                                                                                ) + 4L
-                                                                        ),
-                                                                        4L,
-                                                                    ) + 4L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.inCount,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(
-                                                                                    (
-                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                            .alignUpBytes(
-                                                                                                (
-                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                        .alignUpBytes(
-                                                                                                            (
-                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                    .alignUpBytes(
-                                                                                                                        (
-                                                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                        ),
-                                                                                                                        8L,
-                                                                                                                    ) + 8L
-                                                                                                            ),
-                                                                                                            4L,
-                                                                                                        ) + 4L
-                                                                                                ),
-                                                                                                4L,
-                                                                                            ) + 4L
-                                                                                    ),
-                                                                                    4L,
-                                                                                ) + 4L
-                                                                        ),
-                                                                        4L,
-                                                                    ) + 4L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.outCount,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 4L, value.name.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + off2, value.size)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off3, value.lock)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off4, value.protection)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off5, value.team)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off6, value.ramSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off7, value.copyCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off8, value.inCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off9, value.outCount)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
                             .mutPtrLayout<CVoid>(64)
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(
-                                                                                    (
-                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                            .alignUpBytes(
-                                                                                                (
-                                                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                                                        .alignUpBytes(
-                                                                                                            (
-                                                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                                                    .alignUpBytes(
-                                                                                                                        (
-                                                                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                .alignUpBytes(
-                                                                                                                                    (
-                                                                                                                                        io.github.kotlinmania.rustlang.core.mem
-                                                                                                                                            .alignUpBytes(4L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                                                                                    ),
-                                                                                                                                    8L,
-                                                                                                                                ) + 8L
-                                                                                                                        ),
-                                                                                                                        4L,
-                                                                                                                    ) + 4L
-                                                                                                            ),
-                                                                                                            4L,
-                                                                                                        ) + 4L
-                                                                                                ),
-                                                                                                4L,
-                                                                                            ) + 4L
-                                                                                    ),
-                                                                                    4L,
-                                                                                ) + 4L
-                                                                        ),
-                                                                        4L,
-                                                                    ) + 4L
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    8L,
-                                ),
-                        value.address,
-                    )
+                    ).writeNative(addr + off10, value.address)
                 }
             }
 
@@ -1297,164 +634,41 @@ public data class PortInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PortInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PortInfo> {
+                override val alignBytes: Long = 4L
+                private val off3: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((8L + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 4L)
+                private val off4: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off3 + 4L), 4L)
+                private val off5: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off4 + 4L), 4L)
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(
-                            (
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ) + 4L
-                            ),
-                            maxOf(4L, 1L),
-                        )
-                override val alignBytes: Long = maxOf(4L, 1L)
+                        .alignUpBytes((off5 + 4L), 4L)
                 override fun readNative(addr: Long): PortInfo =
                     PortInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(8L, 1L),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                4L,
-                                                            ) + 4L
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + 8L).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off5),
                     )
                 override fun writeNative(addr: Long, value: PortInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.port)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(8L, 1L),
-                        value.name,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    4L,
-                                ),
-                        value.capacity,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.queueCount,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                            ),
-                                                            4L,
-                                                        ) + 4L
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.totalCount,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 8L, value.name.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.capacity)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.queueCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off5, value.totalCount)
                 }
             }
     }
@@ -1465,7 +679,28 @@ public data class PortMessageInfo(
     public var sender: UidT = 0u,
     public var senderGroup: GidT = 0u,
     public var senderTeam: TeamId = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PortMessageInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PortMessageInfo> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
+                override fun readNative(addr: Long): PortMessageInfo =
+                    PortMessageInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 10L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                    )
+                override fun writeNative(addr: Long, value: PortMessageInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.size)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 8L, value.sender)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 10L, value.senderGroup)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.senderTeam)
+                }
+            }
+    }
+}
 
 public data class TeamInfo(
     public var team: TeamId = 0,
@@ -1508,6 +743,45 @@ public data class TeamInfo(
         result = 31 * result + this.gid.hashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<TeamInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<TeamInfo> {
+                override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 96L
+                override fun readNative(addr: Long): TeamInfo =
+                    TeamInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (64).toInt())
+                        ).readNative(addr + 28L).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 92L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 94L),
+                    )
+                override fun writeNative(addr: Long, value: TeamInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.team)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.threadCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.imageCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.areaCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.debuggerNubThread)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 20L, value.debuggerNubPort)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.argc)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (64).toInt())
+                    ).writeNative(addr + 28L, value.args.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 92L, value.uid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 94L, value.gid)
+                }
+            }
+    }
 }
 
 public data class SemInfo(
@@ -1540,111 +814,36 @@ public data class SemInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SemInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SemInfo> {
+                override val alignBytes: Long = 4L
+                private val off3: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((8L + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 4L)
+                private val off4: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off3 + 4L), 4L)
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(
-                            (
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ) + 4L
-                            ),
-                            maxOf(4L, 1L),
-                        )
-                override val alignBytes: Long = maxOf(4L, 1L)
+                        .alignUpBytes((off4 + 4L), 4L)
                 override fun readNative(addr: Long): SemInfo =
                     SemInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(8L, 1L),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        4L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    4L,
-                                                ) + 4L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + 8L).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
                     )
                 override fun writeNative(addr: Long, value: SemInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.sem)
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(8L, 1L),
-                        value.name,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    4L,
-                                ),
-                        value.count,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(8L, 1L) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                4L,
-                                            ) + 4L
-                                    ),
-                                    4L,
-                                ),
-                        value.latestHolder,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 8L, value.name.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.count)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.latestHolder)
                 }
             }
     }
@@ -1657,8 +856,8 @@ public data class TeamUsageInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<TeamUsageInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<TeamUsageInfo> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): TeamUsageInfo =
                     TeamUsageInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr),
@@ -1756,6 +955,78 @@ public class ThreadInfo internal constructor(
     }
 
     public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<ThreadInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<ThreadInfo> {
+                override val alignBytes: Long = 8L
+                private val off3: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((8L + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 4L)
+                private val off4: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off3 + 4L), 4L)
+                private val off5: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off4 + 4L), 4L)
+                private val off6: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off5 + 4L), 8L)
+                private val off7: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off6 + 8L), 8L)
+                private val off8: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off7 + 8L), 8L)
+                private val off9: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off8 + 8L), 8L)
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off9 + 8L), 8L)
+                override fun readNative(addr: Long): ThreadInfo =
+                    ThreadInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + 8L).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off3),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off4),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + off5),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off6),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off7),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr + off8),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr + off9),
+                    )
+                override fun writeNative(addr: Long, value: ThreadInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.thread)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.team)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 8L, value.name.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off3, value.state)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off4, value.priority)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + off5, value.sem)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off6, value.userTime)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off7, value.kernelTime)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr + off8, value.stackBase)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr + off9, value.stackEnd)
+                }
+            }
+
         public operator fun invoke(
             thread: ThreadId = 0,
             team: TeamId = 0,
@@ -1791,8 +1062,8 @@ public data class CpuInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuInfo> {
-                override val sizeBytes: Long = 24L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 24L
                 override fun readNative(addr: Long): CpuInfo =
                     CpuInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr),
@@ -1838,40 +1109,22 @@ public class SystemInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SystemInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SystemInfo> {
+                override val alignBytes: Long = 8L
+                private val off21: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((124L + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 1L)
+                private val off22: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off21 + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 1L)
+                private val off23: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off22 + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 8L)
+                private val off24: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off23 + 8L), 4L)
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(
-                            (
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                            ),
-                                                                            1L,
-                                                                        ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                1L,
-                                                            ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    8L,
-                                                ) + 8L
-                                        ),
-                                        4L,
-                                    ) + 4L
-                            ),
-                            maxOf(maxOf(8L, 4L), 1L),
-                        )
-                override val alignBytes: Long = maxOf(maxOf(8L, 4L), 1L)
+                        .alignUpBytes((off24 + 4L), 8L)
                 override fun readNative(addr: Long): SystemInfo =
                     SystemInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr),
@@ -1896,98 +1149,18 @@ public class SystemInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 120L),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_FILE_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(124L, 1L),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                        ).readNative(addr + 124L).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        1L,
-                                    ),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + off21).toUByteArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                        ).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    1L,
-                                                ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        1L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                1L,
-                                                            ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    1L,
-                                                ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                        ),
-                                        8L,
-                                    ),
-                        ),
-                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(
-                            addr +
-                                io.github.kotlinmania.rustlang.core.mem
-                                    .alignUpBytes(
-                                        (
-                                            io.github.kotlinmania.rustlang.core.mem
-                                                .alignUpBytes(
-                                                    (
-                                                        io.github.kotlinmania.rustlang.core.mem
-                                                            .alignUpBytes(
-                                                                (
-                                                                    io.github.kotlinmania.rustlang.core.mem
-                                                                        .alignUpBytes(
-                                                                            (
-                                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                                    .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                            ),
-                                                                            1L,
-                                                                        ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                ),
-                                                                1L,
-                                                            ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                    ),
-                                                    8L,
-                                                ) + 8L
-                                        ),
-                                        4L,
-                                    ),
-                        ),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + off22).toUByteArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + off23),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + off24),
                     )
                 override fun writeNative(addr: Long, value: SystemInfo) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr, value.bootTime)
@@ -2012,103 +1185,18 @@ public class SystemInfo(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 120L, value.usedTeams)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_FILE_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(124L, 1L),
-                        value.kernelName,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 124L, value.kernelName.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    1L,
-                                ),
-                        value.kernelBuildDate,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + off21, value.kernelBuildDate.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (B_OS_NAME_LENGTH).toInt())
-                    ).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                1L,
-                                            ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    1L,
-                                ),
-                        value.kernelBuildTime,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                            ),
-                                                            1L,
-                                                        ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                1L,
-                                            ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                    ),
-                                    8L,
-                                ),
-                        value.kernelVersion,
-                    )
-                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(
-                        addr +
-                            io.github.kotlinmania.rustlang.core.mem
-                                .alignUpBytes(
-                                    (
-                                        io.github.kotlinmania.rustlang.core.mem
-                                            .alignUpBytes(
-                                                (
-                                                    io.github.kotlinmania.rustlang.core.mem
-                                                        .alignUpBytes(
-                                                            (
-                                                                io.github.kotlinmania.rustlang.core.mem
-                                                                    .alignUpBytes(
-                                                                        (
-                                                                            io.github.kotlinmania.rustlang.core.mem
-                                                                                .alignUpBytes(124L, 1L) + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                                        ),
-                                                                        1L,
-                                                                    ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                            ),
-                                                            1L,
-                                                        ) + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
-                                                ),
-                                                8L,
-                                            ) + 8L
-                                    ),
-                                    4L,
-                                ),
-                        value.abi,
-                    )
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + off22, value.kernelBuildTime.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + off23, value.kernelVersion)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + off24, value.abi)
                 }
             }
     }
@@ -2122,8 +1210,8 @@ public data class ObjectWaitInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<ObjectWaitInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<ObjectWaitInfo> {
-                override val sizeBytes: Long = 8L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 8L
                 override fun readNative(addr: Long): ObjectWaitInfo =
                     ObjectWaitInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
@@ -2141,12 +1229,44 @@ public data class ObjectWaitInfo(
 
 public data class CpuTopologyRootInfo(
     public var platform: CpuPlatform = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyRootInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyRootInfo> {
+                override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 4L
+                override fun readNative(addr: Long): CpuTopologyRootInfo =
+                    CpuTopologyRootInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: CpuTopologyRootInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.platform)
+                }
+            }
+    }
+}
 
 public data class CpuTopologyPackageInfo(
     public var vendor: CpuVendor = 0,
     public var cacheLineSize: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyPackageInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyPackageInfo> {
+                override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 8L
+                override fun readNative(addr: Long): CpuTopologyPackageInfo =
+                    CpuTopologyPackageInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: CpuTopologyPackageInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.vendor)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.cacheLineSize)
+                }
+            }
+    }
+}
 
 public data class CpuTopologyCoreInfo(
     public var model: UInt = 0u,
@@ -2155,8 +1275,8 @@ public data class CpuTopologyCoreInfo(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyCoreInfo> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuTopologyCoreInfo> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): CpuTopologyCoreInfo =
                     CpuTopologyCoreInfo(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
@@ -2174,7 +1294,24 @@ public data class CpuTopologyCoreInfo(
 public data class AttrInfo(
     public var type: UInt = 0u,
     public var size: OffT = 0L,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<AttrInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<AttrInfo> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
+                override fun readNative(addr: Long): AttrInfo =
+                    AttrInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: AttrInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.type)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 8L, value.size)
+                }
+            }
+    }
+}
 
 // kernel/fsIndex.h
 public data class IndexInfo(
@@ -2184,7 +1321,32 @@ public data class IndexInfo(
     public var creationTime: TimeT = 0L,
     public var uid: UidT = 0u,
     public var gid: GidT = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<IndexInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<IndexInfo> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 40L
+                override fun readNative(addr: Long): IndexInfo =
+                    IndexInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 34L),
+                    )
+                override fun writeNative(addr: Long, value: IndexInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.type)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 8L, value.size)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 16L, value.modificationTime)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 24L, value.creationTime)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 32L, value.uid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 34L, value.gid)
+                }
+            }
+    }
+}
 
 // kernel/fsInfo.h
 public data class FsInfo(
@@ -2233,6 +1395,66 @@ public data class FsInfo(
         result = 31 * result + this.volumeName.contentHashCode()
         result = 31 * result + this.fshName.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<FsInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<FsInfo> {
+                override val alignBytes: Long = 8L
+                private val off11: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((200L + ((B_FILE_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 1L)
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes((off11 + ((B_OS_NAME_LENGTH).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 8L)
+                override fun readNative(addr: Long): FsInfo =
+                    FsInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 64L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128).toInt())
+                        ).readNative(addr + 72L).toUByteArray(),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                        ).readNative(addr + 200L).toUByteArray(),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                        ).readNative(addr + off11).toUByteArray(),
+                    )
+                override fun writeNative(addr: Long, value: FsInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.dev)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 8L, value.root)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 24L, value.blockSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 32L, value.ioSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 40L, value.totalBlocks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 48L, value.freeBlocks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 56L, value.totalNodes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 64L, value.freeNodes)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128).toInt())
+                    ).writeNative(addr + 72L, value.deviceName.toList())
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_FILE_NAME_LENGTH).toInt())
+                    ).writeNative(addr + 200L, value.volumeName.toList())
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (B_OS_NAME_LENGTH).toInt())
+                    ).writeNative(addr + off11, value.fshName.toList())
+                }
+            }
     }
 }
 
@@ -2409,22 +1631,22 @@ public data class CAnonymousEax0(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax0> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax0> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): CAnonymousEax0 =
                     CAnonymousEax0(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (12).toInt())
-                        ).readNative(addr + 4L),
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (12).toInt())
+                        ).readNative(addr + 4L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: CAnonymousEax0) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.maxEax)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (12).toInt())
-                    ).writeNative(addr + 4L, value.vendorId)
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (12).toInt())
+                    ).writeNative(addr + 4L, value.vendorId.toList())
                 }
             }
     }
@@ -2445,7 +1667,48 @@ public data class CAnonymousEax1(
     public var apicId: UInt = 0u,
     public var features: UInt = 0u,
     public var extendedFeatures: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax1> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax1> {
+                override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 56L
+                override fun readNative(addr: Long): CAnonymousEax1 =
+                    CAnonymousEax1(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 36L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 44L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 52L),
+                    )
+                override fun writeNative(addr: Long, value: CAnonymousEax1) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.stepping)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.model)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.family)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.tpe)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.reserved0)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.extendedModel)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.extendedFamily)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.reserved1)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 32L, value.brandIndex)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 36L, value.clflush)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 40L, value.logicalCpus)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 44L, value.apicId)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 48L, value.features)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 52L, value.extendedFeatures)
+                }
+            }
+    }
+}
 
 public data class CAnonymousEax2(
     public var callNum: UByte = 0u,
@@ -2468,22 +1731,22 @@ public data class CAnonymousEax2(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax2> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax2> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 1L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): CAnonymousEax2 =
                     CAnonymousEax2(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (15).toInt())
-                        ).readNative(addr + 1L),
+                        ).readNative(addr + 1L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: CAnonymousEax2) {
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr, value.callNum)
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (15).toInt())
-                    ).writeNative(addr + 1L, value.cacheDescriptors)
+                    ).writeNative(addr + 1L, value.cacheDescriptors.toList())
                 }
             }
     }
@@ -2509,6 +1772,31 @@ public data class CAnonymousEax3(
         result = 31 * result + this.serialNumberLow.hashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax3> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousEax3> {
+                override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 16L
+                override fun readNative(addr: Long): CAnonymousEax3 =
+                    CAnonymousEax3(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (2).toInt())
+                        ).readNative(addr).toUIntArray(),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                    )
+                override fun writeNative(addr: Long, value: CAnonymousEax3) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (2).toInt())
+                    ).writeNative(addr, value.reserved.toList())
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.serialNumberHigh)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.serialNumberLow)
+                }
+            }
+    }
 }
 
 public data class CAnonymousRegs(
@@ -2520,8 +1808,8 @@ public data class CAnonymousRegs(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousRegs> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousRegs> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 4L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): CAnonymousRegs =
                     CAnonymousRegs(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
@@ -3543,21 +2831,21 @@ public fun getPortInfo(port: PortId, buf: MutPtr<PortInfo>): StatusT = getPortIn
 
 public fun getNextPortInfo(port: PortId, cookie: MutPtr<Int>, portInfo: MutPtr<PortInfo>): StatusT = getNextPortInfo(port, cookie, portInfo, sizeOf<PortInfo>(typeLayoutT = PortInfo.typeLayout()).toULong())
 
-public fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, flags: UInt, timeout: BigtimeT): StatusT = getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>(typeLayoutT = ObjectSlotLayout<PortMessageInfo>()).toULong(), flags, timeout)
+public fun getPortMessageInfoEtc(port: PortId, info: MutPtr<PortMessageInfo>, flags: UInt, timeout: BigtimeT): StatusT = getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>(typeLayoutT = PortMessageInfo.typeLayout()).toULong(), flags, timeout)
 
 public fun getSemInfo(id: SemId, info: MutPtr<SemInfo>): StatusT = getSemInfo(id, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
 
 public fun getNextSemInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<SemInfo>): StatusT = getNextSemInfo(team, cookie, info, sizeOf<SemInfo>(typeLayoutT = SemInfo.typeLayout()).toULong())
 
-public fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>): StatusT = getTeamInfo(team, info, sizeOf<TeamInfo>(typeLayoutT = ObjectSlotLayout<TeamInfo>()).toULong())
+public fun getTeamInfo(team: TeamId, info: MutPtr<TeamInfo>): StatusT = getTeamInfo(team, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
 
-public fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>): StatusT = getNextTeamInfo(cookie, info, sizeOf<TeamInfo>(typeLayoutT = ObjectSlotLayout<TeamInfo>()).toULong())
+public fun getNextTeamInfo(cookie: MutPtr<Int>, info: MutPtr<TeamInfo>): StatusT = getNextTeamInfo(cookie, info, sizeOf<TeamInfo>(typeLayoutT = TeamInfo.typeLayout()).toULong())
 
 public fun getTeamUsageInfo(team: TeamId, who: Int, info: MutPtr<TeamUsageInfo>): StatusT = getTeamUsageInfo(team, who, info, sizeOf<TeamUsageInfo>(typeLayoutT = TeamUsageInfo.typeLayout()).toULong())
 
-public fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>): StatusT = getThreadInfo(id, info, sizeOf<ThreadInfo>(typeLayoutT = ObjectSlotLayout<ThreadInfo>()).toULong())
+public fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>): StatusT = getThreadInfo(id, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
 
-public fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>): StatusT = getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>(typeLayoutT = ObjectSlotLayout<ThreadInfo>()).toULong())
+public fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>): StatusT = getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
 
 // kernel/image.h
 public fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>): StatusT = getImageInfo(image, info, sizeOf<ImageInfo>(typeLayoutT = ObjectSlotLayout<ImageInfo>()).toULong())

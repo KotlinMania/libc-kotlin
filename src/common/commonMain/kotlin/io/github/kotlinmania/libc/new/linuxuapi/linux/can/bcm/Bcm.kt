@@ -4,13 +4,32 @@ package io.github.kotlinmania.libc.new.linuxuapi.linux.can.bcm
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.new.linuxuapi.linux.can.CanFrame
 import io.github.kotlinmania.libc.new.linuxuapi.linux.can.CanidT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 // Header: `linux / can / bcm.h`
 
 public data class BcmTimeval(
     public var tvSec: CLong = 0L,
     public var tvUsec: CLong = 0L,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<BcmTimeval> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<BcmTimeval> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
+                override fun readNative(addr: Long): BcmTimeval =
+                    BcmTimeval(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: BcmTimeval) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr, value.tvSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 8L, value.tvUsec)
+                }
+            }
+    }
+}
 
 public data class BcmMsgHead(
     public var opcode: UInt = 0u,

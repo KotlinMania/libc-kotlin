@@ -2103,4 +2103,4 @@ public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u, typeLay
 
 public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u, typeLayoutT = ObjectSlotLayout<FileCloneRange>())
+public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u, typeLayoutT = FileCloneRange.typeLayout())

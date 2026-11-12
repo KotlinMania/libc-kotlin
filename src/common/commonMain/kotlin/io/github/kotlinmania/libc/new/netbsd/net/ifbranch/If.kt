@@ -287,8 +287,8 @@ public class CAnonymousIfrIfruIfruB internal constructor(
     public companion object {
         public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousIfrIfruIfruB> =
             object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousIfrIfruIfruB> {
-                override val sizeBytes: Long = 16L
                 override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 16L
                 override fun readNative(addr: Long): CAnonymousIfrIfruIfruB =
                     CAnonymousIfrIfruIfruB(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
