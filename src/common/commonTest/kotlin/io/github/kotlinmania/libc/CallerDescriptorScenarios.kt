@@ -21,6 +21,7 @@ import io.github.kotlinmania.libc.unix.sysconf
 import io.github.kotlinmania.libc.unix.unlink
 import io.github.kotlinmania.libc.unix.write
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
