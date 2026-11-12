@@ -13,7 +13,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.iowr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 
 public val NFT_REJECT_TCP_RST: CInt = 1
 
@@ -1085,21 +1086,21 @@ public val NS_GET_NSTYPE: Ioctl = io(NSIO, 0x3u)
 
 public val NS_GET_OWNER_UID: Ioctl = io(NSIO, 0x4u)
 
-public val NS_GET_MNTNS_ID: Ioctl = ior<U64>(NSIO, 0x5u)
+public val NS_GET_MNTNS_ID: Ioctl = ior<U64>(NSIO, 0x5u, PrimitiveLayouts.U64)
 
-public val NS_GET_PID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x6u)
+public val NS_GET_PID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x6u, PrimitiveLayouts.I32)
 
-public val NS_GET_TGID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x7u)
+public val NS_GET_TGID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x7u, PrimitiveLayouts.I32)
 
-public val NS_GET_PID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x8u)
+public val NS_GET_PID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x8u, PrimitiveLayouts.I32)
 
-public val NS_GET_TGID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x9u)
+public val NS_GET_TGID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x9u, PrimitiveLayouts.I32)
 
-public val NS_MNT_GET_INFO: Ioctl = ior<MntNsInfo>(NSIO, 10u)
+public val NS_MNT_GET_INFO: Ioctl = ior<MntNsInfo>(NSIO, 10u, MntNsInfo.typeLayout())
 
-public val NS_MNT_GET_NEXT: Ioctl = ior<MntNsInfo>(NSIO, 11u)
+public val NS_MNT_GET_NEXT: Ioctl = ior<MntNsInfo>(NSIO, 11u, MntNsInfo.typeLayout())
 
-public val NS_MNT_GET_PREV: Ioctl = ior<MntNsInfo>(NSIO, 12u)
+public val NS_MNT_GET_PREV: Ioctl = ior<MntNsInfo>(NSIO, 12u, MntNsInfo.typeLayout())
 
 public val PIDFD_GET_CGROUP_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 1u)
 
@@ -1121,49 +1122,49 @@ public val PIDFD_GET_USER_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 9u)
 
 public val PIDFD_GET_UTS_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 10u)
 
-public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u)
+public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u, PidfdInfo.typeLayout())
 
-public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>(typeLayoutT = TpacketHdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
+public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>(typeLayoutT = TpacketHdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = SockaddrLl.typeLayout())
 
-public val TPACKET2_HDRLEN: Int = ((sizeOf<Tpacket2Hdr>(typeLayoutT = Tpacket2Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
+public val TPACKET2_HDRLEN: Int = ((sizeOf<Tpacket2Hdr>(typeLayoutT = Tpacket2Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = SockaddrLl.typeLayout())
 
-public val TPACKET3_HDRLEN: Int = ((sizeOf<Tpacket3Hdr>(typeLayoutT = Tpacket3Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
+public val TPACKET3_HDRLEN: Int = ((sizeOf<Tpacket3Hdr>(typeLayoutT = Tpacket3Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = SockaddrLl.typeLayout())
 
-public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u)
+public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u, PtpClockCaps.typeLayout())
 
-public val PTP_EXTTS_REQUEST: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 2u)
+public val PTP_EXTTS_REQUEST: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 2u, PtpExttsRequest.typeLayout())
 
-public val PTP_PEROUT_REQUEST: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 3u)
+public val PTP_PEROUT_REQUEST: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 3u, PtpPeroutRequest.typeLayout())
 
-public val PTP_ENABLE_PPS: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 4u)
+public val PTP_ENABLE_PPS: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 4u, PrimitiveLayouts.I32)
 
-public val PTP_SYS_OFFSET: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 5u)
+public val PTP_SYS_OFFSET: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 5u, PtpSysOffset.typeLayout())
 
-public val PTP_PIN_GETFUNC: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 6u)
+public val PTP_PIN_GETFUNC: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 6u, PtpPinDesc.typeLayout())
 
-public val PTP_PIN_SETFUNC: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 7u)
+public val PTP_PIN_SETFUNC: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 7u, PtpPinDesc.typeLayout())
 
-public val PTP_SYS_OFFSET_PRECISE: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8u)
+public val PTP_SYS_OFFSET_PRECISE: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8u, PtpSysOffsetPrecise.typeLayout())
 
-public val PTP_SYS_OFFSET_EXTENDED: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9u)
+public val PTP_SYS_OFFSET_EXTENDED: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9u, PtpSysOffsetExtended.typeLayout())
 
-public val PTP_CLOCK_GETCAPS2: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 10u)
+public val PTP_CLOCK_GETCAPS2: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 10u, PtpClockCaps.typeLayout())
 
-public val PTP_EXTTS_REQUEST2: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 11u)
+public val PTP_EXTTS_REQUEST2: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 11u, PtpExttsRequest.typeLayout())
 
-public val PTP_PEROUT_REQUEST2: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 12u)
+public val PTP_PEROUT_REQUEST2: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 12u, PtpPeroutRequest.typeLayout())
 
-public val PTP_ENABLE_PPS2: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 13u)
+public val PTP_ENABLE_PPS2: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 13u, PrimitiveLayouts.I32)
 
-public val PTP_SYS_OFFSET2: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 14u)
+public val PTP_SYS_OFFSET2: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 14u, PtpSysOffset.typeLayout())
 
-public val PTP_PIN_GETFUNC2: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 15u)
+public val PTP_PIN_GETFUNC2: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 15u, PtpPinDesc.typeLayout())
 
-public val PTP_PIN_SETFUNC2: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 16u)
+public val PTP_PIN_SETFUNC2: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 16u, PtpPinDesc.typeLayout())
 
-public val PTP_SYS_OFFSET_PRECISE2: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17u)
+public val PTP_SYS_OFFSET_PRECISE2: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17u, PtpSysOffsetPrecise.typeLayout())
 
-public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18u)
+public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18u, PtpSysOffsetExtended.typeLayout())
 
 public val SECBIT_NOROOT_LOCKED: CInt = issecureMask(SECURE_NOROOT_LOCKED)
 

@@ -1964,7 +1964,7 @@ public val SCHED_FIFO: CInt = 1
 
 public val SCHED_RR: CInt = 2
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr<UByte>(21.toLong())
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(21.toLong())
 
 public val PTHREAD_CREATE_DETACHED: CInt = 1
 
@@ -1978,17 +1978,17 @@ public val PTHREAD_MUTEX_NORMAL: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr<UByte>(18.toLong())
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr(18.toLong())
 
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr<UByte>(20.toLong())
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr(20.toLong())
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = MutPtr<UByte>(19.toLong())
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = MutPtr(19.toLong())
 
 public val PTHREAD_PROCESS_SHARED: CInt = 1
 
 public val PTHREAD_PROCESS_PRIVATE: CInt = 0
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr<UByte>(22.toLong())
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(22.toLong())
 
 public val LITTLE_ENDIAN: CInt = 1234
 

@@ -24,10 +24,9 @@ import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1619,7 +1618,7 @@ public data class Linger(
 }
 
 public data class FdSet(
-    public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>()) / 8),
+    public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64) / 8),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1636,18 +1635,18 @@ public data class FdSet(
                 override val alignBytes: Long = 8L
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(((FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>()) / 8).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).strideBytes), 8L)
+                        .alignUpBytes(((FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64) / 8).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).strideBytes), 8L)
                 override fun readNative(addr: Long): FdSet =
                     FdSet(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>()) / 8).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64) / 8).toInt())
                         ).readNative(addr).toULongArray(),
                     )
                 override fun writeNative(addr: Long, value: FdSet) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>()) / 8).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (FD_SETSIZE / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64) / 8).toInt())
                     ).writeNative(addr, value.fdsBits.toList())
                 }
             }
@@ -2753,39 +2752,44 @@ public data class SiginfoT(
     }
 
     public fun siAddr(): MutPtr<CVoid> {
-        data class SiginfoSiAddr(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siPid: PidT = 0,
-            public var siUid: UidT = 0u,
-            public var siErrno: CInt = 0,
-            public var siAddr: MutPtr<CVoid> = MutPtr(0L),
-        )
-        return (SiginfoSiAddr.typeLayout()).readNative(((ConstPtr<SiginfoSiAddr>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siAddr
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                .mutPtrLayout<CVoid>(64)
+                .readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siStatus(): CInt {
-        data class SiginfoSigchld(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siPid: PidT = 0,
-            public var siUid: UidT = 0u,
-            public var siErrno: CInt = 0,
-            public var siStatus: CInt = 0,
-        )
-        return (SiginfoSigchld.typeLayout()).readNative(((ConstPtr<SiginfoSigchld>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siStatus
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 20L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoSiValue(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siPid: PidT = 0,
-            public var siUid: UidT = 0u,
-            public var siErrno: CInt = 0,
-            public var siValue: Sigval = Sigval(),
-        )
-        return (ObjectSlotLayout<SiginfoSiValue>()).readNative(((ConstPtr<SiginfoSiValue>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siValue
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out = Sigval.typeLayout().readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public companion object {

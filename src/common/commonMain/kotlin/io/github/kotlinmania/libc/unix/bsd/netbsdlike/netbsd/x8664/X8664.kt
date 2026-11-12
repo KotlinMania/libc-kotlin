@@ -11,9 +11,9 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias CGregT = ULong
@@ -59,7 +59,7 @@ public data class McontextT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (512).toInt())
-                        ).readNative(addr + 216L),
+                        ).readNative(addr + 216L).toUByteArray(),
                     )
                 override fun writeNative(addr: Long, value: McontextT) {
                     (
@@ -70,7 +70,7 @@ public data class McontextT(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (512).toInt())
-                    ).writeNative(addr + 216L, value.fpregs)
+                    ).writeNative(addr + 216L, value.fpregs.toList())
                 }
             }
     }
@@ -209,4 +209,4 @@ public val REG_RSP: CInt = 24
 
 public val REG_SS: CInt = 25
 
-internal val ALIGNBYTES: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) - 1
+internal val ALIGNBYTES: Int = sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) - 1

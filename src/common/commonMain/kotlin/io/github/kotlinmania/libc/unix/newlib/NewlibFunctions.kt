@@ -17,6 +17,8 @@ import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
 import io.github.kotlinmania.libc.unix.newlib.generic.SigsetT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -26,29 +28,35 @@ public fun interface PthreadAtforkPrepareCallback {
 
 // supports multicast
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U64) * 8
     val fd1 = fd
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] and (1uL shl (fd1 % bits)).inv()
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / bits] = cur.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits)).inv()
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U64) * 8
     val fd1 = fd
     return ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] and (1uL shl (fd1 % bits))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U64) * 8
     val fd1 = fd
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] or (1uL shl (fd1 % bits))
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / bits] = cur.fdsBits[fd1 / bits] or (1uL shl (fd1 % bits))
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    for (idx in ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits).indices) {
-        ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits)[idx] = 0uL
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    for (idx in cur.fdsBits.indices) {
+        cur.fdsBits[idx] = 0uL
     }
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
 }
 
 public expect fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt

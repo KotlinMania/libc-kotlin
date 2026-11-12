@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val EXIT_SUCCESS: CInt = 0
@@ -1233,9 +1233,9 @@ public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
 
 public val SS_ALIGNSIZE: Int = sizeOf<UInt>(typeLayoutT = PrimitiveLayouts.U32)
 
-public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - sizeOf<CUchar>(typeLayoutT = ObjectSlotLayout<CUchar>()) - sizeOf<SaFamilyT>(typeLayoutT = ObjectSlotLayout<CUchar>())
+public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - sizeOf<CUchar>(typeLayoutT = PrimitiveLayouts.U8) - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U8)
 
-public val SS_PAD2SIZE: Int = SS_MAXSIZE - sizeOf<CUchar>(typeLayoutT = ObjectSlotLayout<CUchar>()) - sizeOf<SaFamilyT>(typeLayoutT = ObjectSlotLayout<CUchar>()) - SS_PAD1SIZE - SS_ALIGNSIZE
+public val SS_PAD2SIZE: Int = SS_MAXSIZE - sizeOf<CUchar>(typeLayoutT = PrimitiveLayouts.U8) - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U8) - SS_PAD1SIZE - SS_ALIGNSIZE
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = MutPtr(0L), mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 

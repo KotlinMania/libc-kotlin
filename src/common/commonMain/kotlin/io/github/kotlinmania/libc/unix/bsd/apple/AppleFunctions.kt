@@ -33,8 +33,8 @@ import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.BooleanT
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.MallocZoneT
 import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -51,21 +51,21 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
     if (((cmsg).rawAddress == 0L)) {
         return cmsgFirsthdr(mhdr)
     }
-    val cmsgLen = ((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt()
+    val cmsgLen = ((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt()
     val next = cmsg.rawAddress.toInt() + darwinAlign32(cmsgLen)
-    val max = ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt()
-    return if (next + darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) > max) {
+    val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
+    return if (next + darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) > max) {
         MutPtr(0L)
     } else {
         MutPtr<Cmsghdr>(next.toLong())
     }
 }
 
-public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>()))).toLong() * (ObjectSlotLayout<CUchar>()).strideBytes))
+public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
 
-public fun cmsgSpace(length: CUint): CUint = (darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) + darwinAlign32(length.toInt())).toUInt()
+public fun cmsgSpace(length: CUint): CUint = (darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) + darwinAlign32(length.toInt())).toUInt()
 
-public fun cmsgLen(length: CUint): CUint = (darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) + length.toInt()).toUInt()
+public fun cmsgLen(length: CUint): CUint = (darwinAlign32(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) + length.toInt()).toUInt()
 
 public fun vmMakeTag(id: UByte): UInt = (id.toUInt()) shl 24u.toInt()
 

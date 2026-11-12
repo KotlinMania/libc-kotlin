@@ -36,10 +36,8 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlinkT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TimeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -887,52 +885,57 @@ public class SiginfoT internal constructor(
     }
 
     public fun siPid(): PidT {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var pad1: CInt = 0,
-            public var pid: PidT = 0,
-        )
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative(((ConstPtr<SiginfoTimer>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).pid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 16L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siUid(): UidT {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var pad1: CInt = 0,
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-        )
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative(((ConstPtr<SiginfoTimer>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).uid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                .readNative(scratch + 20L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var pad1: CInt = 0,
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-            public var value: Sigval = Sigval(),
-        )
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative(((ConstPtr<SiginfoTimer>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).value
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out = Sigval.typeLayout().readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siStatus(): CInt {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var pad1: CInt = 0,
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-            public var status: CInt = 0,
-        )
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative(((ConstPtr<SiginfoTimer>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).status
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public companion object {

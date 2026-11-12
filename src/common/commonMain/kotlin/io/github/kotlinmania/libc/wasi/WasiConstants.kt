@@ -354,9 +354,17 @@ public val SC_IOV_MAX: CInt = 60
 public val SC_SYMLOOP_MAX: CInt = 173
 
 // Note(msrv): `addrOf(EXTERN_STATIC)` is now safe; remove `unchecked` when MSRV >= 1.82
-public var CLOCK_MONOTONIC: ClockidT = ClockidT(addrOf(CLOCK_MONOTONIC1))
+public var CLOCK_MONOTONIC: ClockidT =
+    ClockidT(
+        io.github.kotlinmania.rustlang.core.ptr
+            .ConstPtr(1L),
+    )
 
-public var CLOCK_REALTIME: ClockidT = ClockidT(addrOf(CLOCK_REALTIME1))
+public var CLOCK_REALTIME: ClockidT =
+    ClockidT(
+        io.github.kotlinmania.rustlang.core.ptr
+            .ConstPtr(2L),
+    )
 
 public val ABDAY_1: NlItem = 0x20000
 

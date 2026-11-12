@@ -43,7 +43,8 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.ALIGNBYTES
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -71,26 +72,26 @@ public fun mapAligned(alignment: CInt): CInt = alignment shl MAP_ALIGNMENT_SHIFT
 
 public fun align(p: Int): Int = (p + ALIGNBYTES) and ALIGNBYTES.inv()
 
-public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((align(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>()))).toLong() * (ObjectSlotLayout<CUchar>()).strideBytes))
+public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
 
-public fun cmsgLen(length: CUint): CUint = align(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())).toUInt() + length
+public fun cmsgLen(length: CUint): CUint = align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())).toUInt() + length
 
 public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> {
     if (((cmsg).rawAddress == 0L)) {
         return cmsgFirsthdr(mhdr)
     }
-    val next = cmsg.rawAddress.toInt() + align(((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt()) + align(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>()))
-    val max = ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt()
+    val next = cmsg.rawAddress.toInt() + align(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt()) + align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))
+    val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
     return if (next > max) {
         MutPtr<Cmsghdr>(0L)
     } else {
-        MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + align(((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
+        MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + align(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
     }
 }
 
-public fun cmsgSpace(length: CUint): CUint = (align(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) + align(length.toInt())).toUInt()
+public fun cmsgSpace(length: CUint): CUint = (align(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) + align(length.toInt())).toUInt()
 
-public fun dirfd(dirp: MutPtr<DIR>): CInt = (ObjectSlotLayout<CInt>()).readNative(((ConstPtr<CInt>(dirp.rawAddress, dirp.rawMeta))).rawAddress)
+public fun dirfd(dirp: MutPtr<DIR>): CInt = (PrimitiveLayouts.I32).readNative(((ConstPtr<CInt>(dirp.rawAddress, dirp.rawMeta))).rawAddress)
 
 public fun sockcredsize(ngrps: Int): Int {
     val ngrps1 =
@@ -99,7 +100,7 @@ public fun sockcredsize(ngrps: Int): Int {
         } else {
             0
         }
-    return sizeOf<Sockcred>(typeLayoutT = Sockcred.typeLayout()) + sizeOf<GidT>(typeLayoutT = ObjectSlotLayout<GidT>()) * ngrps1
+    return sizeOf<Sockcred>(typeLayoutT = Sockcred.typeLayout()) + sizeOf<GidT>(typeLayoutT = PrimitiveLayouts.U16) * ngrps1
 }
 
 public fun protMprotect(x: CInt): CInt = x shl 3

@@ -8,6 +8,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.SaFamilyT
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 
 // Header: `uapi / linux / can.h`
 

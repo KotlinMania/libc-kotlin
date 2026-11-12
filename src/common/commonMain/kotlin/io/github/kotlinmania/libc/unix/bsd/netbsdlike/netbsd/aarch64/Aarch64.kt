@@ -11,7 +11,8 @@ import io.github.kotlinmania.libc.U128
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias GregT = ULong
@@ -269,4 +270,4 @@ public val REG_SP: CInt = REG_X31
 
 public val REG_PC: CInt = REG_ELR
 
-internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>()) - 1
+internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32) - 1

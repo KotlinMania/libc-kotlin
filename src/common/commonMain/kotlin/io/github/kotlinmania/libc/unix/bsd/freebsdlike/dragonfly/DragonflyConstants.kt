@@ -9,6 +9,7 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RlimT
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 
 public val RAND_MAX: CInt = 0x7fffffff
 

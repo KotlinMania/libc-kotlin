@@ -30,10 +30,8 @@ import io.github.kotlinmania.libc.unix.nto.aarch64.McontextT
 import io.github.kotlinmania.libc.unix.nto.aarch64.StackT
 import io.github.kotlinmania.libc.unix.nto.aarch64.TimeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -1436,113 +1434,72 @@ public data class SiginfoT(
     }
 
     public fun siAddr(): MutPtr<CVoid> {
-        data class SiginfoSiAddr(
-            public var pad: UByteArray = UByteArray(32),
-            public var siAddr: MutPtr<CVoid> = MutPtr(0L),
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoSiAddr) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.siAddr != other.siAddr) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.pad.contentHashCode()
-                result = 31 * result + this.siAddr.hashCode()
-                return result
-            }
-        }
-        return (SiginfoSiAddr.typeLayout()).readNative(((ConstPtr<SiginfoSiAddr>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siAddr
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                .mutPtrLayout<CVoid>(64)
+                .readNative(scratch + 32L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoSiValue(
-            public var pad: UByteArray = UByteArray(32),
-            public var siValue: Sigval = Sigval(),
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoSiValue) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.siValue != other.siValue) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.pad.contentHashCode()
-                result = 31 * result + this.siValue.hashCode()
-                return result
-            }
-        }
-        return (ObjectSlotLayout<SiginfoSiValue>()).readNative(((ConstPtr<SiginfoSiValue>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siValue
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out = Sigval.typeLayout().readNative(scratch + 32L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siPid(): PidT {
-        data class SiginfoSiPid(
-            public var pad: UByteArray = UByteArray(16),
-            public var siPid: PidT = 0,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoSiPid) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.siPid != other.siPid) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.pad.contentHashCode()
-                result = 31 * result + this.siPid.hashCode()
-                return result
-            }
-        }
-        return (SiginfoSiPid.typeLayout()).readNative(((ConstPtr<SiginfoSiPid>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siPid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 16L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siUid(): UidT {
-        data class SiginfoSiUid(
-            public var pad: UByteArray = UByteArray(24),
-            public var siUid: UidT = 0u,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoSiUid) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.siUid != other.siUid) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.pad.contentHashCode()
-                result = 31 * result + this.siUid.hashCode()
-                return result
-            }
-        }
-        return (SiginfoSiUid.typeLayout()).readNative(((ConstPtr<SiginfoSiUid>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siUid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siStatus(): CInt {
-        data class SiginfoSiStatus(
-            public var pad: UByteArray = UByteArray(28),
-            public var siStatus: CInt = 0,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoSiStatus) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.siStatus != other.siStatus) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.pad.contentHashCode()
-                result = 31 * result + this.siStatus.hashCode()
-                return result
-            }
-        }
-        return (SiginfoSiStatus.typeLayout()).readNative(((ConstPtr<SiginfoSiStatus>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siStatus
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + 28L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public companion object {

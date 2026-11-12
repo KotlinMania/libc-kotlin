@@ -3,7 +3,7 @@ package io.github.kotlinmania.libc.new.qurt.errno
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `errno.h`
@@ -280,8 +280,8 @@ public val EHWPOISON: CInt = 133
 // Error number access
 public expect fun errnoLocation(): MutPtr<CInt>
 
-public fun errno(): CInt = (ObjectSlotLayout<CInt>()).readNative((errnoLocation()).rawAddress)
+public fun errno(): CInt = (PrimitiveLayouts.I32).readNative((errnoLocation()).rawAddress)
 
 public fun setErrno(value: CInt) {
-    (ObjectSlotLayout<CInt>()).writeNative((errnoLocation()).rawAddress, value)
+    (PrimitiveLayouts.I32).writeNative((errnoLocation()).rawAddress, value)
 }

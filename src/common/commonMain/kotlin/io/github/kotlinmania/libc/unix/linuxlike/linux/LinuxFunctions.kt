@@ -62,7 +62,7 @@ public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
     flags1 = flags1 or policy
 }
 
-public fun soEeOffender(ee: ConstPtr<SockExtendedErr>): MutPtr<Sockaddr> = MutPtr<Sockaddr>(ConstPtr((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawAddress, ConstPtr((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawMeta)
+public fun soEeOffender(ee: ConstPtr<SockExtendedErr>): MutPtr<Sockaddr> = MutPtr<Sockaddr>(ConstPtr<CVoid>((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawAddress, ConstPtr<CVoid>((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawMeta)
 
 public fun tpacketAlign(x: Int): Int = (x + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()
 
@@ -84,7 +84,15 @@ public fun bpfStmt(code: U16, k: U32): SockFilter = SockFilter(code = code, jt =
 
 public fun bpfJump(code: U16, k: U32, jt: U8, jf: U8): SockFilter = SockFilter(code = code, jt = jt, jf = jf, k = k)
 
-public fun sunLen(s: SockaddrUn): Int = 0 + strlen(s.sunPath.asPtr()).toInt()
+public fun sunLen(s: SockaddrUn): Int {
+    val buf =
+        io.github.kotlinmania.rustlang.core.mem
+            .AddressableArrayLocal(s.sunPath.toList(), io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8)
+    val len = strlen(ConstPtr(buf.rawAddress)).toInt()
+    io.github.kotlinmania.rustlang.core.intrinsics
+        .kmDealloc(buf.rawAddress, maxOf(1L, buf.layout.sizeBytes), 1L)
+    return 2 + len
+}
 
 public fun sctpPrTtlEnabled(policy: CInt): Boolean = policy == SCTP_PR_SCTP_TTL
 

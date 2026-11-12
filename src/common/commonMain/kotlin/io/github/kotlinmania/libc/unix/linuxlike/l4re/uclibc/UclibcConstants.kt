@@ -19,8 +19,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64.B38400
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64.EOPNOTSUPP
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64.O_DIRECTORY
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val MCL_CURRENT: CInt = 0x0001
@@ -169,7 +169,7 @@ public val LOCK_INITIALIZER: PthreadFastlock = PthreadFastlock(status = 0L, spin
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = MutPtr(0L), mKind = PTHREAD_MUTEX_TIMED_NP, mLock = LOCK_INITIALIZER)
 
-public val PTHREAD_COND_PADDING_SIZE: Int = 48 - sizeOf<PthreadFastlock>(typeLayoutT = PthreadFastlock.typeLayout()) - sizeOf<PthreadDescr>(typeLayoutT = PrimitiveLayouts.mutPtrLayout<CVoid>(64L)) - sizeOf<PthreadCondAlignT>(typeLayoutT = ObjectSlotLayout<CLong>())
+public val PTHREAD_COND_PADDING_SIZE: Int = 48 - sizeOf<PthreadFastlock>(typeLayoutT = PthreadFastlock.typeLayout()) - sizeOf<PthreadDescr>(typeLayoutT = PrimitiveLayouts.mutPtrLayout<CVoid>(64L)) - sizeOf<PthreadCondAlignT>(typeLayoutT = PrimitiveLayouts.I64)
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cLock = LOCK_INITIALIZER, cWaiting = MutPtr(0L), padding = UByteArray(PTHREAD_COND_PADDING_SIZE) { 0u.toUByte() }, align = 0L)
 

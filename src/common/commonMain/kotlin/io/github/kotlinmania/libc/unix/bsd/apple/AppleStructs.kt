@@ -39,10 +39,8 @@ import io.github.kotlinmania.libc.unix.bsd.apple.b64.IfData
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.Timeval32
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.BooleanT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -915,17 +913,15 @@ public class SiginfoT internal constructor(
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siPid: PidT = 0,
-            public var siUid: UidT = 0u,
-            public var siStatus: CInt = 0,
-            public var siAddr: MutPtr<CVoid> = MutPtr(0L),
-            public var siValue: Sigval = Sigval(),
-        )
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).siValue
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out = Sigval.typeLayout().readNative(scratch + 32L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public companion object {
@@ -4429,14 +4425,14 @@ public data class ImageOffset(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (16).toInt())
-                        ).readNative(addr),
+                        ).readNative(addr).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
                     )
                 override fun writeNative(addr: Long, value: ImageOffset) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (16).toInt())
-                    ).writeNative(addr, value.uuid)
+                    ).writeNative(addr, value.uuid.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.offset)
                 }
             }
@@ -4530,21 +4526,21 @@ public data class VolCapabilitiesAttrT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
-                        ).readNative(addr),
+                        ).readNative(addr).toUIntArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
-                        ).readNative(addr + 16L),
+                        ).readNative(addr + 16L).toUIntArray(),
                     )
                 override fun writeNative(addr: Long, value: VolCapabilitiesAttrT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
-                    ).writeNative(addr, value.capabilities)
+                    ).writeNative(addr, value.capabilities.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
-                    ).writeNative(addr + 16L, value.valid)
+                    ).writeNative(addr + 16L, value.valid.toList())
                 }
             }
     }
@@ -6520,18 +6516,7 @@ public data class Ifconf(
     public var ifcLen: CInt = 0,
     public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
 ) {
-    public fun eq(other: Ifconf): Boolean {
-        val lenPtr1 = addrOf(this.ifcLen)
-        val lenPtr2 = addrOf(other.ifcLen)
-        val ifcuPtr1 = addrOf(this.ifcIfcu)
-        val ifcuPtr2 = addrOf(other.ifcIfcu)
-        // SAFETY: `ifconf` implements `Copy` so the reads are valid
-        val len1 = lenPtr1.readUnaligned()
-        val len2 = lenPtr2.readUnaligned()
-        val ifcu1 = ifcuPtr1.readUnaligned()
-        val ifcu2 = ifcuPtr2.readUnaligned()
-        return len1 == len2 && ifcu1 == ifcu2
-    }
+    public fun eq(other: Ifconf): Boolean = this.ifcLen == other.ifcLen && this.ifcIfcu == other.ifcIfcu
 }
 
 public class CAnonymousIfkData internal constructor(

@@ -9,9 +9,9 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ClockT = UInt
@@ -82,7 +82,7 @@ public class McontextT internal constructor(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (17).toInt())
-                        ).readNative(addr),
+                        ).readNative(addr).toUIntArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 72L),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
@@ -97,7 +97,7 @@ public class McontextT internal constructor(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (17).toInt())
-                    ).writeNative(addr, value.gregs)
+                    ).writeNative(addr, value.gregs.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 72L, value.mcVfpSize)
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
@@ -136,4 +136,4 @@ public val MINSIGSTKSZ: SizeT = 4096uL
 // 1024 * 4
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
 
-internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>()) - 1
+internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32) - 1

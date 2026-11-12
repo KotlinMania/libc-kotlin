@@ -5280,7 +5280,7 @@ public data class AfAlgIv(
         return result
     }
 
-    public fun asSlice(): List<UByte> = fromRawParts(this.iv.asPtr(), this.ivlen.toInt())
+    public fun asSlice(): List<UByte> = this.iv.take(this.ivlen.toInt())
 
     public fun eq(other: AfAlgIv): Boolean = this.asSlice() == other.asSlice()
 

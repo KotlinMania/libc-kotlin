@@ -21,6 +21,9 @@ import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -34,7 +37,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
     }
     val next = MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
     val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
-    return if ((MutPtr((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() >= max) {
+    return if ((MutPtr<CVoid>((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() >= max) {
         MutPtr<Cmsghdr>(0L)
     } else {
         next
@@ -48,21 +51,21 @@ public fun cpuZero(cpuset: CpuSetT) {
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U32)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] or (1u shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U32)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] and (1u shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U32)
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     return 0u != (cpuset.bits[idx] and (1u shl offset))
 }

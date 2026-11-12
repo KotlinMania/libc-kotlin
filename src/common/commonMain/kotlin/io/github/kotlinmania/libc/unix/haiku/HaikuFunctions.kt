@@ -28,8 +28,9 @@ import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -58,7 +59,7 @@ public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
         MutPtr<Cmsghdr>(0L)
     }
 
-public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (ObjectSlotLayout<CUchar>()).strideBytes))
+public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
 
 public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toUInt()
 
@@ -79,28 +80,34 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
 
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U32) * 8
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / size] = cur.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U32) * 8
     return ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1u shl (fd1 % size))) != 0u
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1u shl (fd1 % size))
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.U32) * 8
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / size] = cur.fdsBits[fd1 / size] or (1u shl (fd1 % size))
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    for (idx in ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits).indices) {
-        ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits)[idx] = 0u
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    for (idx in cur.fdsBits.indices) {
+        cur.fdsBits[idx] = 0u
     }
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
 }
 
 public fun wifexited(status: CInt): Boolean = (status and 0xff.inv()) == 0

@@ -33,10 +33,8 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ModeT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlinkT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TimeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -4035,148 +4033,65 @@ public class SiginfoT internal constructor(
     }
 
     public fun siPid(): PidT {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var pad: IntArray = IntArray(SI_PAD.toInt()),
-            public var pid: PidT = 0,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoTimer) return false
-                if (this.siSigno != other.siSigno) return false
-                if (this.siCode != other.siCode) return false
-                if (this.siErrno != other.siErrno) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.pid != other.pid) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.siSigno.hashCode()
-                result = 31 * result + this.siCode.hashCode()
-                result = 31 * result + this.siErrno.hashCode()
-                result = 31 * result + this.pad.contentHashCode()
-                result = 31 * result + this.pid.hashCode()
-                return result
-            }
-        }
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).pid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val off = 12L + SI_PAD.toLong() * 4L
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + off)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siUid(): UidT {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var pad: IntArray = IntArray(SI_PAD.toInt()),
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoTimer) return false
-                if (this.siSigno != other.siSigno) return false
-                if (this.siCode != other.siCode) return false
-                if (this.siErrno != other.siErrno) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.pid != other.pid) return false
-                if (this.uid != other.uid) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.siSigno.hashCode()
-                result = 31 * result + this.siCode.hashCode()
-                result = 31 * result + this.siErrno.hashCode()
-                result = 31 * result + this.pad.contentHashCode()
-                result = 31 * result + this.pid.hashCode()
-                result = 31 * result + this.uid.hashCode()
-                return result
-            }
-        }
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).uid
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val off = 16L + SI_PAD.toLong() * 4L
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32
+                .readNative(scratch + off)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoTimer(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var pad: IntArray = IntArray(SI_PAD.toInt()),
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-            public var value: Sigval = Sigval(),
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoTimer) return false
-                if (this.siSigno != other.siSigno) return false
-                if (this.siCode != other.siCode) return false
-                if (this.siErrno != other.siErrno) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.pid != other.pid) return false
-                if (this.uid != other.uid) return false
-                if (this.value != other.value) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.siSigno.hashCode()
-                result = 31 * result + this.siCode.hashCode()
-                result = 31 * result + this.siErrno.hashCode()
-                result = 31 * result + this.pad.contentHashCode()
-                result = 31 * result + this.pid.hashCode()
-                result = 31 * result + this.uid.hashCode()
-                result = 31 * result + this.value.hashCode()
-                return result
-            }
-        }
-        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).value
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val off =
+            io.github.kotlinmania.rustlang.core.mem
+                .alignUpBytes(20L + SI_PAD.toLong() * 4L, 8L)
+        val out = Sigval.typeLayout().readNative(scratch + off)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siStatus(): CInt {
-        data class SiginfoProc(
-            public var siSigno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var pad: IntArray = IntArray(SI_PAD.toInt()),
-            public var pid: PidT = 0,
-            public var uid: UidT = 0u,
-            public var utime: ClockT = 0L,
-            public var stime: ClockT = 0L,
-            public var status: CInt = 0,
-        ) {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is SiginfoProc) return false
-                if (this.siSigno != other.siSigno) return false
-                if (this.siCode != other.siCode) return false
-                if (this.siErrno != other.siErrno) return false
-                if (!this.pad.contentEquals(other.pad)) return false
-                if (this.pid != other.pid) return false
-                if (this.uid != other.uid) return false
-                if (this.utime != other.utime) return false
-                if (this.stime != other.stime) return false
-                if (this.status != other.status) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                var result = this.siSigno.hashCode()
-                result = 31 * result + this.siCode.hashCode()
-                result = 31 * result + this.siErrno.hashCode()
-                result = 31 * result + this.pad.contentHashCode()
-                result = 31 * result + this.pid.hashCode()
-                result = 31 * result + this.uid.hashCode()
-                result = 31 * result + this.utime.hashCode()
-                result = 31 * result + this.stime.hashCode()
-                result = 31 * result + this.status.hashCode()
-                return result
-            }
-        }
-        return (SiginfoProc.typeLayout()).readNative(((ConstPtr<SiginfoProc>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).status
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val off =
+            io.github.kotlinmania.rustlang.core.mem
+                .alignUpBytes(20L + SI_PAD.toLong() * 4L, 8L) + 16L
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32
+                .readNative(scratch + off)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public companion object {

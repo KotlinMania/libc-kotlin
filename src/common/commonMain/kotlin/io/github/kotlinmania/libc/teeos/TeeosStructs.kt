@@ -9,9 +9,9 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.U128
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
 public data class ClongDouble(
@@ -224,7 +224,7 @@ public data class PthreadAttrT(
 }
 
 public data class CpuSetT(
-    public var bits: ULongArray = ULongArray(128 / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())),
+    public var bits: ULongArray = ULongArray(128 / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -241,18 +241,18 @@ public data class CpuSetT(
                 override val alignBytes: Long = 8L
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(((128 / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).strideBytes), 8L)
+                        .alignUpBytes(((128 / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).strideBytes), 8L)
                 override fun readNative(addr: Long): CpuSetT =
                     CpuSetT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (128 / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (128 / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toInt())
                         ).readNative(addr).toULongArray(),
                     )
                 override fun writeNative(addr: Long, value: CpuSetT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (128 / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (128 / sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toInt())
                     ).writeNative(addr, value.bits.toList())
                 }
             }
@@ -481,7 +481,7 @@ public data class MbstateT(
 }
 
 public data class SemT(
-    public var value: IntArray = IntArray(4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())),
+    public var value: IntArray = IntArray(4 * sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -498,18 +498,18 @@ public data class SemT(
                 override val alignBytes: Long = 4L
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes(((4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).strideBytes), 4L)
+                        .alignUpBytes(((4 * sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).strideBytes), 4L)
                 override fun readNative(addr: Long): SemT =
                     SemT(
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)).toInt())
                         ).readNative(addr).toIntArray(),
                     )
                 override fun writeNative(addr: Long, value: SemT) {
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)).toInt())
                     ).writeNative(addr, value.value.toList())
                 }
             }

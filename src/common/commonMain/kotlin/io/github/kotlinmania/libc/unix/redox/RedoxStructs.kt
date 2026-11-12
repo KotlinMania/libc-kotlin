@@ -18,9 +18,9 @@ import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SighandlerT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -239,7 +239,7 @@ public data class SockaddrUn(
 
 public data class SockaddrStorage(
     public var ssFamily: SaFamilyT = 0u,
-    public var ssPadding: UByteArray = UByteArray(128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())),
+    public var ssPadding: UByteArray = UByteArray(128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)),
     public var ssAlign: CUlong = 0uL,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -264,7 +264,7 @@ public data class SockaddrStorage(
                 override val alignBytes: Long = 8L
                 private val off2: Long =
                     io.github.kotlinmania.rustlang.core.mem
-                        .alignUpBytes((2L + ((128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 8L)
+                        .alignUpBytes((2L + ((128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes)), 8L)
                 override val sizeBytes: Long =
                     io.github.kotlinmania.rustlang.core.mem
                         .alignUpBytes((off2 + 8L), 8L)
@@ -273,7 +273,7 @@ public data class SockaddrStorage(
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
                         (
                             io.github.kotlinmania.rustlang.core.mem
-                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toInt())
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toInt())
                         ).readNative(addr + 2L).toUByteArray(),
                         (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + off2),
                     )
@@ -281,7 +281,7 @@ public data class SockaddrStorage(
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.ssFamily)
                     (
                         io.github.kotlinmania.rustlang.core.mem
-                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())).toInt())
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (128 - sizeOf<SaFamilyT>(typeLayoutT = PrimitiveLayouts.U16) - sizeOf<CUlong>(typeLayoutT = PrimitiveLayouts.U64)).toInt())
                     ).writeNative(addr + 2L, value.ssPadding.toList())
                     (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + off2, value.ssAlign)
                 }

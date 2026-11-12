@@ -27,7 +27,8 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.MAX_PAGE_SHIFT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val UT_NAMESIZE: Int = 32
@@ -1293,9 +1294,9 @@ public val IFF_LINK2: CInt = 0x4000
 public val IFF_MULTICAST: CInt = 0x8000
 
 // supports multicast
-public val PTHREAD_STACK_MIN: SizeT = 1 shl MAX_PAGE_SHIFT.toInt()
+public val PTHREAD_STACK_MIN: SizeT = 1uL shl MAX_PAGE_SHIFT.toInt()
 
-public val MINSIGSTKSZ: SizeT = 3 shl MAX_PAGE_SHIFT.toInt()
+public val MINSIGSTKSZ: SizeT = 3uL shl MAX_PAGE_SHIFT.toInt()
 
 public val SIGSTKSZ: SizeT = MINSIGSTKSZ + ((1 shl MAX_PAGE_SHIFT.toInt()) * 4).toULong()
 
@@ -1617,4 +1618,4 @@ public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(0L)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(0L)
 
-public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())) - 3uL
+public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)) - 3uL

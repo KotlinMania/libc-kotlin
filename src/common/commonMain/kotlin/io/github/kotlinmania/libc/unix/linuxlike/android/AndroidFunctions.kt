@@ -34,7 +34,9 @@ import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -54,9 +56,9 @@ public fun interface DlIteratePhdrCallbackCallback {
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
 public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> {
-    val next = MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + cmsgAlign(((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
-    val max = ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt()
-    return if ((MutPtr((next).rawAddress + ((1).toLong() * (ObjectSlotLayout<Cmsghdr>()).strideBytes))).rawAddress.toInt() > max) {
+    val next = MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
+    val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
+    return if ((MutPtr<CVoid>((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() > max) {
         MutPtr<Cmsghdr>(0L)
     } else {
         next
@@ -65,7 +67,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
 
 public fun cpuAllocSize(count: CInt): SizeT {
     val dummy: CpuSetT? = null
-    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0])
+    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0], PrimitiveLayouts.U64)
     return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }
 
@@ -76,28 +78,28 @@ public fun cpuZero(cpuset: CpuSetT) {
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
-    val sizeOfMask = sizeOfVal(cpuset.bits[0])
+    val sizeOfMask = sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
@@ -110,7 +112,7 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean = set1.bits.contentEq
 
 public fun nlaAlign(len: CInt): CInt = ((len) + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()
 
-public fun soEeOffender(ee: ConstPtr<SockExtendedErr>): MutPtr<Sockaddr> = MutPtr<Sockaddr>(ConstPtr((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawAddress, ConstPtr((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawMeta)
+public fun soEeOffender(ee: ConstPtr<SockExtendedErr>): MutPtr<Sockaddr> = MutPtr<Sockaddr>(ConstPtr<CVoid>((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawAddress, ConstPtr<CVoid>((ee).rawAddress + ((1).toLong() * (SockExtendedErr.typeLayout()).strideBytes)).rawMeta)
 
 public fun makedev(ma: CUint, mi: CUint): DevT {
     val ma1 = ma.toULong()

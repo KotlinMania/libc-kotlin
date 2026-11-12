@@ -11,5 +11,11 @@ public fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg:
     // Arguments are passed as array of `long int`
     // (which is big enough on x86 for a pointer).
     val args = listOf(fd.toLong(), addr.rawAddress, len.rawAddress, flg.toLong())
-    return syscall(SYS_SOCKETCALL, SYS_ACCEPT41.toLong(), args.asMutPtr().toLong()).toInt()
+    val argsBuf =
+        io.github.kotlinmania.rustlang.core.mem
+            .AddressableArrayLocal(args, io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64)
+    val rc = syscall(SYS_SOCKETCALL, SYS_ACCEPT41.toLong(), argsBuf.rawAddress).toInt()
+    io.github.kotlinmania.rustlang.core.intrinsics
+        .kmDealloc(argsBuf.rawAddress, maxOf(1L, argsBuf.layout.sizeBytes), 8L)
+    return rc
 }

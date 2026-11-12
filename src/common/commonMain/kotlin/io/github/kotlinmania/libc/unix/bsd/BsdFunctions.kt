@@ -32,6 +32,9 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Tm
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.StackT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -55,29 +58,35 @@ public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
     }
 
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
     val fd1 = fd
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / bits] = cur.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
     val fd1 = fd
     return ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
-    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val bits = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
     val fd1 = fd
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / bits] = cur.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    for (idx in ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits).indices) {
-        ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits)[idx] = 0L
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    for (idx in cur.fdsBits.indices) {
+        cur.fdsBits[idx] = 0L
     }
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
 }
 
 public fun wtermsig(status: CInt): CInt = status and 127

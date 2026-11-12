@@ -20,7 +20,8 @@ import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val AIO_LISTIO_MAX: CInt = 16
@@ -1646,7 +1647,7 @@ public val CMGROUP_MAX: Int = 16
 public val EUI64_LEN: Int = 8
 
 // Non-public helper constant
-public val SIZEOF_LONG: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>())
+public val SIZEOF_LONG: Int = sizeOf<CLong>(typeLayoutT = PrimitiveLayouts.I64)
 
 // https://github.com/freebsd/freebsd/blob/HEAD/sys/net/bpf.h
 public val BPF_ALIGNMENT: Int = SIZEOF_LONG

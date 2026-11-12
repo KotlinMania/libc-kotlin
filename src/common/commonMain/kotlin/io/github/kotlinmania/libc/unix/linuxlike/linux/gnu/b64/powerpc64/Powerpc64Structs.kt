@@ -1171,11 +1171,11 @@ public class McontextT internal constructor(
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (NGREG).toInt())
-                        ).readNative(addr + 64L),
+                        ).readNative(addr + 64L).toULongArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem
                                 .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (NFPREG).toInt())
-                        ).readNative(addr + off7),
+                        ).readNative(addr + off7).toULongArray(),
                         (
                             io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
                                 .mutPtrLayout<VrregsetT>(64)
@@ -1201,11 +1201,11 @@ public class McontextT internal constructor(
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (NGREG).toInt())
-                    ).writeNative(addr + 64L, value.gpRegs)
+                    ).writeNative(addr + 64L, value.gpRegs.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem
                             .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (NFPREG).toInt())
-                    ).writeNative(addr + off7, value.fpRegs)
+                    ).writeNative(addr + off7, value.fpRegs.toList())
                     (
                         io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
                             .mutPtrLayout<VrregsetT>(64)

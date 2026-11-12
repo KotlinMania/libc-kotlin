@@ -31,10 +31,9 @@ import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SigsetT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -390,28 +389,50 @@ public data class SiginfoT(
     }
 
     public fun siAddr(): MutPtr<CVoid> {
-        data class SiginfoSigfault(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siAddr: MutPtr<CVoid> = MutPtr(0L),
-        )
-        return (SiginfoSigfault.typeLayout()).readNative(((ConstPtr<SiginfoSigfault>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siAddr
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                .mutPtrLayout<CVoid>(64)
+                .readNative(scratch + 16L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
     public fun siValue(): Sigval {
-        data class SiginfoSiValue(
-            public var siSigno: CInt = 0,
-            public var siErrno: CInt = 0,
-            public var siCode: CInt = 0,
-            public var siTimerid: CInt = 0,
-            public var siOverrun: CInt = 0,
-            public var siValue: Sigval = Sigval(),
-        )
-        return (ObjectSlotLayout<SiginfoSiValue>()).readNative(((ConstPtr<SiginfoSiValue>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).siValue
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out = Sigval.typeLayout().readNative(scratch + 24L)
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
     }
 
-    public fun sifields(): Sifields = (ObjectSlotLayout<SiginfoF>()).readNative(((ConstPtr<SiginfoF>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).sifields
+    public fun sifields(): Sifields {
+        val sz = maxOf(64L, typeLayout().sizeBytes)
+        val scratch =
+            io.github.kotlinmania.rustlang.core.intrinsics
+                .kmAlloc(sz, 8L)
+        typeLayout().writeNative(scratch, this)
+        val out =
+            Sifields(
+                alignPointerCtorArg =
+                    io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                        .mutPtrLayout<CVoid>(64)
+                        .readNative(scratch + 16L),
+                sigchld = SifieldsSigchld.typeLayout().readNative(scratch + 16L),
+            )
+        io.github.kotlinmania.rustlang.core.intrinsics
+            .kmDealloc(scratch, sz, 8L)
+        return out
+    }
 
     public fun siPid(): PidT = this.sifields().sigchld.siPid
 

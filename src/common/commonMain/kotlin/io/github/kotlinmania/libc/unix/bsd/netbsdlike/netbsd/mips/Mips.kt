@@ -5,7 +5,8 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 
 public typealias CpuSimpleLockNvT = CInt
 
@@ -17,4 +18,4 @@ public val PT_GETFPREGS: CInt = PT_FIRSTMACH + 3
 
 public val PT_SETFPREGS: CInt = PT_FIRSTMACH + 4
 
-internal val ALIGNBYTES: Int = sizeOf<CLonglong>(typeLayoutT = ObjectSlotLayout<CLonglong>()) - 1
+internal val ALIGNBYTES: Int = sizeOf<CLonglong>(typeLayoutT = PrimitiveLayouts.I64) - 1

@@ -17,9 +17,9 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.haiku.b64.TimeT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -2848,6 +2848,6 @@ public fun getThreadInfo(id: ThreadId, info: MutPtr<ThreadInfo>): StatusT = getT
 public fun getNextThreadInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ThreadInfo>): StatusT = getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>(typeLayoutT = ThreadInfo.typeLayout()).toULong())
 
 // kernel/image.h
-public fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>): StatusT = getImageInfo(image, info, sizeOf<ImageInfo>(typeLayoutT = ObjectSlotLayout<ImageInfo>()).toULong())
+public fun getImageInfo(image: ImageId, info: MutPtr<ImageInfo>): StatusT = getImageInfo(image, info, 1104uL)
 
-public fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>): StatusT = getNextImageInfo(team, cookie, info, sizeOf<ImageInfo>(typeLayoutT = ObjectSlotLayout<ImageInfo>()).toULong())
+public fun getNextImageInfo(team: TeamId, cookie: MutPtr<Int>, info: MutPtr<ImageInfo>): StatusT = getNextImageInfo(team, cookie, info, 1104uL)

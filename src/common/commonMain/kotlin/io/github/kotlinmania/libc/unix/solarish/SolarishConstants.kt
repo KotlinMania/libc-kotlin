@@ -14,7 +14,8 @@ import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val SIGINFO_DATA_SIZE: Int = 60
@@ -2672,4 +2673,4 @@ public val NEWDEV: CInt = 1
 // sys/sendfile.h
 public val SFV_FD_SELF: CInt = -2
 
-public val CMSG_DATA_ALIGNMENT: Int = sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())
+public val CMSG_DATA_ALIGNMENT: Int = sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)

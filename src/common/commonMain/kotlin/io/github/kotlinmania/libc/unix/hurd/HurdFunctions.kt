@@ -19,8 +19,9 @@ import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -55,7 +56,7 @@ public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
         MutPtr<Cmsghdr>(0L)
     }
 
-public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (ObjectSlotLayout<CUchar>()).strideBytes))
+public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CVoid>(((MutPtr<CUchar>(cmsg.rawAddress, cmsg.rawMeta))).rawAddress + ((cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toLong() * (PrimitiveLayouts.U8).strideBytes))
 
 public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()))).toUInt()
 
@@ -67,7 +68,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
     }
     val next = MutPtr<Cmsghdr>((cmsg.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong())
     val max = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
-    return if ((MutPtr((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() > max || next.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((next).rawAddress).cmsgLen).toInt()) > max) {
+    return if ((MutPtr<CVoid>((next).rawAddress + ((1).toLong() * (Cmsghdr.typeLayout()).strideBytes))).rawAddress.toInt() > max || next.rawAddress.toInt() + cmsgAlign(((Cmsghdr.typeLayout()).readNative((next).rawAddress).cmsgLen).toInt()) > max) {
         MutPtr<Cmsghdr>(0L)
     } else {
         next
@@ -76,7 +77,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
 
 public fun cpuAllocSize(count: CInt): SizeT {
     val dummy: CpuSetT? = null
-    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0])
+    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0], PrimitiveLayouts.U64)
     return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }
 
@@ -87,28 +88,28 @@ public fun cpuZero(cpuset: CpuSetT) {
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
-    val sizeOfMask = sizeOfVal(cpuset.bits[0])
+    val sizeOfMask = sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
@@ -125,28 +126,34 @@ public fun iptosPrec(tos: UByte): UByte = tos and IPTOS_PREC_MASK
 
 public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1L shl (fd1 % size)).inv()
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / size] = cur.fdsBits[fd1 / size] and (1L shl (fd1 % size)).inv()
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
     return ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1L shl (fd1 % size))) != 0L
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0]) * 8
-    (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] = (FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1L shl (fd1 % size))
+    val size = sizeOfVal((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits[0], PrimitiveLayouts.I64) * 8
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    cur.fdsBits[fd1 / size] = cur.fdsBits[fd1 / size] or (1L shl (fd1 % size))
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
     return
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    for (idx in ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits).indices) {
-        ((FdSet.typeLayout()).readNative((set).rawAddress).fdsBits)[idx] = 0L
+    val cur = (FdSet.typeLayout()).readNative((set).rawAddress)
+    for (idx in cur.fdsBits.indices) {
+        cur.fdsBits[idx] = 0L
     }
+    (FdSet.typeLayout()).writeNative((set).rawAddress, cur)
 }
 
 public expect fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt

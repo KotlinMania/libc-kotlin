@@ -10,7 +10,9 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -334,11 +336,11 @@ public expect fun strtol(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CIn
 
 public expect fun wcstod(s: ConstPtr<WcharT>, p: MutPtr<MutPtr<WcharT>>): CDouble
 
-public fun errno(): CInt = (ObjectSlotLayout<CInt>()).readNative((errnoLocation()).rawAddress)
+public fun errno(): CInt = (PrimitiveLayouts.I32).readNative((errnoLocation()).rawAddress)
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
-    val sizeOfMask = sizeOfVal(cpuset.bits[0])
+    val sizeOfMask = sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }

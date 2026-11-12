@@ -53,9 +53,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.ShmidDs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.RegoffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
+import io.github.kotlinmania.rustlang.core.mem.sizeOfVal
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -4017,24 +4018,24 @@ public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
 public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
 
 public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> {
-    if ((((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt()) < sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) {
+    if ((((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt()) < sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout())) {
         return MutPtr<Cmsghdr>(0L)
     }
     // Note(msrv): `.wrappingByteAdd()` stabilized in 1.75
-    val nextCmsg = ConstPtr<Cmsghdr>((ConstPtr((ConstPtr<UByte>((cmsg).rawAddress)).rawAddress + ((cmsgAlign(((ObjectSlotLayout<Cmsghdr>()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong() * (PrimitiveLayouts.U8).strideBytes))).rawAddress)
+    val nextCmsg = ConstPtr<Cmsghdr>((ConstPtr<CVoid>((ConstPtr<UByte>((cmsg).rawAddress)).rawAddress + ((cmsgAlign(((Cmsghdr.typeLayout()).readNative((cmsg).rawAddress).cmsgLen).toInt())).toLong() * (PrimitiveLayouts.U8).strideBytes))).rawAddress)
     // In case the addition wrapped. `nextAddr> maxAddr`
     // would otherwise not work as intended.
     if ((nextCmsg.rawAddress.toInt()) < (cmsg.rawAddress.toInt())) {
         return MutPtr(0L)
     }
-    var maxAddr = ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt()
+    var maxAddr = ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControl).rawAddress.toInt() + ((Msghdr.typeLayout()).readNative((mhdr).rawAddress).msgControllen).toInt()
     if (false) {
         // musl and some of its descendants do `>= maxAddr`
         // comparisons in the if statement below.
         // https://www.openwall.com/lists/musl/2025/12/27/1
         maxAddr -= 1
     }
-    return if (nextCmsg.rawAddress.toInt() + sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>()) > maxAddr) {
+    return if (nextCmsg.rawAddress.toInt() + sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()) > maxAddr) {
         MutPtr<Cmsghdr>(0L)
     } else {
         MutPtr<Cmsghdr>(nextCmsg.rawAddress, nextCmsg.rawMeta)
@@ -4043,7 +4044,7 @@ public fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<C
 
 public fun cpuAllocSize(count: CInt): SizeT {
     val dummy: CpuSetT? = null
-    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0])
+    val sizeInBits = 8 * sizeOfVal(dummy!!.bits[0], PrimitiveLayouts.U64)
     return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }
 
@@ -4054,28 +4055,28 @@ public fun cpuZero(cpuset: CpuSetT) {
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
-    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0])
+    val sizeInBits = 8 * sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
     return 0uL != (cpuset.bits[idx] and (1uL shl offset))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
-    val sizeOfMask = sizeOfVal(cpuset.bits[0])
+    val sizeOfMask = sizeOfVal(cpuset.bits[0], PrimitiveLayouts.U64)
     for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }

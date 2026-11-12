@@ -41,7 +41,7 @@ import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 // In-sync with ../linux/musl/lfs64.rs except for fallocate64, prlimit64 and sendfile64
 public fun creat64(path: ConstPtr<CChar>, mode: ModeT): CInt = creat(path, mode)
 
-public fun fgetpos64(stream: MutPtr<FILE>, pos: MutPtr<Fpos64T>): CInt = fgetpos(stream, pos)
+public fun fgetpos64(stream: MutPtr<FILE>, pos: MutPtr<Fpos64T>): CInt = fgetpos(stream, MutPtr(pos.rawAddress, pos.rawMeta))
 
 public fun fopen64(pathname: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> = fopen(pathname, mode)
 
@@ -49,25 +49,25 @@ public fun freopen64(pathname: ConstPtr<CChar>, mode: ConstPtr<CChar>, stream: M
 
 public fun fseeko64(stream: MutPtr<FILE>, offset: Off64T, whence: CInt): CInt = fseeko(stream, offset, whence)
 
-public fun fsetpos64(stream: MutPtr<FILE>, pos: ConstPtr<Fpos64T>): CInt = fsetpos(stream, MutPtr<Fpos64T>(pos.rawAddress, pos.rawMeta))
+public fun fsetpos64(stream: MutPtr<FILE>, pos: ConstPtr<Fpos64T>): CInt = fsetpos(stream, ConstPtr(pos.rawAddress, pos.rawMeta))
 
-public fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt = fstat(fildes, buf)
+public fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt = fstat(fildes, MutPtr(buf.rawAddress, buf.rawMeta))
 
-public fun fstatat64(fd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat64>, flag: CInt): CInt = fstatat(fd, path, buf, flag)
+public fun fstatat64(fd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat64>, flag: CInt): CInt = fstatat(fd, path, MutPtr(buf.rawAddress, buf.rawMeta), flag)
 
-public fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt = fstatfs(fd, buf)
+public fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt = fstatfs(fd, MutPtr(buf.rawAddress, buf.rawMeta))
 
-public fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt = fstatvfs(fd, buf)
+public fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt = fstatvfs(fd, MutPtr(buf.rawAddress, buf.rawMeta))
 
 public fun ftello64(stream: MutPtr<FILE>): Off64T = ftello(stream)
 
 public fun ftruncate64(fd: CInt, length: Off64T): CInt = ftruncate(fd, length)
 
-public fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt = getrlimit(resource, rlim)
+public fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt = getrlimit(resource, MutPtr(rlim.rawAddress, rlim.rawMeta))
 
 public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T = lseek(fd, offset, whence)
 
-public fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt = lstat(path, buf)
+public fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt = lstat(path, MutPtr(buf.rawAddress, buf.rawMeta))
 
 public fun mmap64(addr: MutPtr<CVoid>, length: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): MutPtr<CVoid> = mmap(addr, length, prot, flags, fd, offset)
 
@@ -83,17 +83,21 @@ public fun pwrite64(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: Off64T
 
 public fun pwritev64(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT = pwritev(fd, iov, iovcnt, offset)
 
-public fun readdir64(dirp: MutPtr<DIR>): MutPtr<Dirent64> = readdir(dirp)
+public fun readdir64(dirp: MutPtr<DIR>): MutPtr<Dirent64> {
+    val res = readdir(dirp)
+    return MutPtr(res.rawAddress, res.rawMeta)
+}
 
-public fun readdir64R(dirp: MutPtr<DIR>, entry: MutPtr<Dirent64>, result: MutPtr<MutPtr<Dirent64>>): CInt = readdirR(dirp, entry, result)
+public fun readdir64R(dirp: MutPtr<DIR>, entry: MutPtr<Dirent64>, result: MutPtr<MutPtr<Dirent64>>): CInt =
+    readdirR(dirp, MutPtr(entry.rawAddress, entry.rawMeta), MutPtr(result.rawAddress, result.rawMeta))
 
-public fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt = setrlimit(resource, MutPtr<Rlimit64>(rlim.rawAddress, rlim.rawMeta))
+public fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt = setrlimit(resource, ConstPtr(rlim.rawAddress, rlim.rawMeta))
 
-public fun stat64(pathname: ConstPtr<CChar>, statbuf: MutPtr<Stat64>): CInt = stat(pathname, statbuf)
+public fun stat64(pathname: ConstPtr<CChar>, statbuf: MutPtr<Stat64>): CInt = stat(pathname, MutPtr(statbuf.rawAddress, statbuf.rawMeta))
 
-public fun statfs64(pathname: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt = statfs(pathname, buf)
+public fun statfs64(pathname: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt = statfs(pathname, MutPtr(buf.rawAddress, buf.rawMeta))
 
-public fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt = statvfs(path, buf)
+public fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt = statvfs(path, MutPtr(buf.rawAddress, buf.rawMeta))
 
 public fun tmpfile64(): MutPtr<FILE> = tmpfile()
 

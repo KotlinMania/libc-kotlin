@@ -7,9 +7,9 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 
 public typealias ClockT = UInt
 
@@ -133,4 +133,4 @@ public val MINSIGSTKSZ: SizeT = 2048uL
 // 512 * 4
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
 
-internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>()) - 1
+internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32) - 1

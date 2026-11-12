@@ -33,6 +33,7 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.ioc
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 

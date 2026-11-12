@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.RustMutableReference
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -34,16 +33,19 @@ public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
 }
 
 public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
-    val set1 = RustMutableReference(MutPtr((set).rawAddress), FdSet.typeLayout())
+    val set1 = (FdSet.typeLayout()).readNative((set).rawAddress)
     val n = set1.nfds
-    if (!((set1.fds).slice(0 until n)).any({ p -> p == fd })) {
+    if (!((set1.fds).slice(0 until n)).any { p -> p == fd }) {
         set1.nfds = n + 1
         set1.fds[n] = fd
+        (FdSet.typeLayout()).writeNative((set).rawAddress, set1)
     }
 }
 
 public fun fdZero(set: MutPtr<FdSet>) {
-    (FdSet.typeLayout()).readNative((set).rawAddress).nfds = 0
+    val set1 = (FdSet.typeLayout()).readNative((set).rawAddress)
+    set1.nfds = 0
+    (FdSet.typeLayout()).writeNative((set).rawAddress, set1)
     return
 }
 

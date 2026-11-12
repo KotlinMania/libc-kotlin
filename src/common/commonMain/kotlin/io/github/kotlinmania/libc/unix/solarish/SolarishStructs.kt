@@ -27,10 +27,9 @@ import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.rustlang.core.ffi.CVoid
-import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
 import io.github.kotlinmania.rustlang.core.mem.TypeLayout
-import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
+import io.github.kotlinmania.rustlang.core.mem.sizeOf
 import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
@@ -3808,10 +3807,10 @@ public data class SiginfoT(
     public fun dataFieldCount(): Int =
         when (this.siSigno) {
             SIGSEGV, SIGBUS, SIGILL, SIGTRAP, SIGFPE -> {
-                sizeOf<SiginfoFault>(typeLayoutT = SiginfoFault.typeLayout()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())
+                sizeOf<SiginfoFault>(typeLayoutT = SiginfoFault.typeLayout()) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)
             }
-            SIGCLD -> sizeOf<SiginfoSigcld>(typeLayoutT = SiginfoSigcld.typeLayout()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())
-            SIGHUP, SIGINT, SIGQUIT, SIGABRT, SIGSYS, SIGPIPE, SIGALRM, SIGTERM, SIGUSR1, SIGUSR2, SIGPWR, SIGWINCH, SIGURG -> sizeOf<SiginfoKill>(typeLayoutT = ObjectSlotLayout<SiginfoKill>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())
+            SIGCLD -> sizeOf<SiginfoSigcld>(typeLayoutT = SiginfoSigcld.typeLayout()) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)
+            SIGHUP, SIGINT, SIGQUIT, SIGABRT, SIGSYS, SIGPIPE, SIGALRM, SIGTERM, SIGUSR1, SIGUSR2, SIGPWR, SIGWINCH, SIGURG -> sizeOf<SiginfoKill>(typeLayoutT = SiginfoKill.typeLayout()) / sizeOf<CInt>(typeLayoutT = PrimitiveLayouts.I32)
             else -> SIGINFO_DATA_SIZE
         }
 
@@ -3825,40 +3824,46 @@ public data class SiginfoT(
             false
         }
 
-    public fun <T> sidata(typeLayoutT: TypeLayout<T>): T = (typeLayoutT).readNative(((ConstPtr<T>((constPtrFromRustCast<CInt>((this.dataPad))).rawAddress, (constPtrFromRustCast<CInt>((this.dataPad))).rawMeta))).rawAddress)
+    public fun <T> sidata(typeLayoutT: TypeLayout<T>): T =
+        io.github.kotlinmania.rustlang.core.mem.transmuteWithLayouts(
+            this.dataPad.toList(),
+            io.github.kotlinmania.rustlang.core.mem
+                .FixedArrayTypeLayout(PrimitiveLayouts.I32, this.dataPad.size),
+            typeLayoutT,
+        )
 
     public fun siAddr(): MutPtr<CVoid> {
-        val sifault: SiginfoFault = this.sidata()
+        val sifault: SiginfoFault = this.sidata(SiginfoFault.typeLayout())
         return sifault.addr
     }
 
     public fun siUid(): UidT {
-        val kill: SiginfoKill = this.sidata()
+        val kill: SiginfoKill = this.sidata(SiginfoKill.typeLayout())
         return kill.value.uid
     }
 
     public fun siValue(): Sigval {
-        val kill: SiginfoKill = this.sidata()
+        val kill: SiginfoKill = this.sidata(SiginfoKill.typeLayout())
         return kill.value.value
     }
 
     public fun siPid(): PidT {
-        val sigcld: SiginfoSigcld = this.sidata()
+        val sigcld: SiginfoSigcld = this.sidata(SiginfoSigcld.typeLayout())
         return sigcld.pid
     }
 
     public fun siStatus(): CInt {
-        val sigcld: SiginfoSigcld = this.sidata()
+        val sigcld: SiginfoSigcld = this.sidata(SiginfoSigcld.typeLayout())
         return sigcld.value.status
     }
 
     public fun siUtime(): CLong {
-        val sigcld: SiginfoSigcld = this.sidata()
+        val sigcld: SiginfoSigcld = this.sidata(SiginfoSigcld.typeLayout())
         return sigcld.value.utime
     }
 
     public fun siStime(): CLong {
-        val sigcld: SiginfoSigcld = this.sidata()
+        val sigcld: SiginfoSigcld = this.sidata(SiginfoSigcld.typeLayout())
         return sigcld.value.stime
     }
 
@@ -4129,4 +4134,29 @@ public data class SiginfoKill(
     public var value: SiginfoKillval = SiginfoKillval(),
     public var ctid: CtidT = 0,
     public var zoneid: ZoneidT = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoKill> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoKill> {
+                override val alignBytes: Long = 8L
+                override val sizeBytes: Long = 24L
+                override fun readNative(addr: Long): SiginfoKill =
+                    SiginfoKill(
+                        PrimitiveLayouts.I32.readNative(addr),
+                        SiginfoKillval(
+                            uid = PrimitiveLayouts.U32.readNative(addr + 8L),
+                            value = Sigval.typeLayout().readNative(addr + 8L),
+                            padCtorArg = PrimitiveLayouts.mutPtrLayout<CVoid>(64).readNative(addr + 8L),
+                        ),
+                        PrimitiveLayouts.I32.readNative(addr + 16L),
+                        PrimitiveLayouts.I32.readNative(addr + 20L),
+                    )
+                override fun writeNative(addr: Long, value: SiginfoKill) {
+                    PrimitiveLayouts.I32.writeNative(addr, value.pid)
+                    Sigval.typeLayout().writeNative(addr + 8L, value.value.value)
+                    PrimitiveLayouts.I32.writeNative(addr + 16L, value.ctid)
+                    PrimitiveLayouts.I32.writeNative(addr + 20L, value.zoneid)
+                }
+            }
+    }
+}
