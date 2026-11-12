@@ -17,7 +17,7 @@ class CallerApiTest {
     }
 
     @Test fun callerProcessGetpidAndKillWork() {
-        if (testIsBrowser()) assertFailsWith<UnsupportedOperationException> { verifyCallerProcess() } else verifyCallerProcess()
+        verifyCallerProcess()
     }
 
     @Test fun callerErrnoStrerrorReturnsMessage() {
@@ -25,7 +25,7 @@ class CallerApiTest {
     }
 
     @Test fun callerSysconfReportsPageSize() {
-        if (testIsBrowser()) assertFailsWith<UnsupportedOperationException> { verifyCallerSysconf() } else verifyCallerSysconf()
+        verifyCallerSysconf()
     }
 
     @Test fun callerSocketpairCreatesPair() {
